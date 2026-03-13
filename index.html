@@ -35,7 +35,7 @@
   --font-code: 'JetBrains Mono', monospace;
 }
 
-html, body { width: 100%; height: 100%; background: var(--bg); color: var(--text); font-family: var(--font-body); font-size: 16px; overflow: hidden; -webkit-font-smoothing: antialiased; }
+html, body { width: 100%; height: 100%; background: var(--bg); color: var(--text); font-family: var(--font-body); font-size: 18px; overflow: hidden; -webkit-font-smoothing: antialiased; }
 
 /* === EFFECT LAYERS === */
 body::before {
@@ -84,6 +84,7 @@ body::before {
 .slide-inner {
   width: 100%; max-width: 1100px;
   flex: 1; display: flex; flex-direction: column; justify-content: center;
+  position: relative;
 }
 
 /* Corner brackets */
@@ -104,11 +105,18 @@ body::before {
   color: var(--text-dim); opacity: 0.5; z-index: 12;
 }
 
+/* === LOGO === */
+.slide-logo {
+  position: absolute; bottom: 24px; left: 32px;
+  width: 36px; height: 36px; opacity: 0.4;
+  z-index: 12; pointer-events: none;
+}
+
 /* === TYPOGRAPHY === */
-h1 { font-family: var(--font-heading); font-size: 48px; font-weight: 700; margin-bottom: 16px; line-height: 1.15; color: #fff; }
-h2 { font-family: var(--font-heading); font-size: 32px; font-weight: 600; margin-bottom: 20px; line-height: 1.25; color: #fff; }
-h3 { font-family: var(--font-body); font-size: 20px; font-weight: 500; color: var(--text-dim); margin-bottom: 12px; }
-p, li { font-size: 16px; line-height: 1.7; color: rgba(255,255,255,0.8); }
+h1 { font-family: var(--font-heading); font-size: 50px; font-weight: 700; margin-bottom: 16px; line-height: 1.15; color: #fff; }
+h2 { font-family: var(--font-heading); font-size: 36px; font-weight: 600; margin-bottom: 20px; line-height: 1.25; color: #fff; }
+h3 { font-family: var(--font-body); font-size: 22px; font-weight: 500; color: var(--text-dim); margin-bottom: 12px; }
+p, li { font-size: 18px; line-height: 1.7; color: rgba(255,255,255,0.8); }
 
 .label {
   font-family: var(--font-body); font-size: 13px; font-weight: 500;
@@ -122,7 +130,7 @@ p, li { font-size: 16px; line-height: 1.7; color: rgba(255,255,255,0.8); }
 /* === COVER === */
 .cover { align-items: center; text-align: center; }
 .cover h1 { font-size: 56px; margin-bottom: 12px; }
-.subtitle { font-size: 18px; color: var(--text-dim); margin-bottom: 24px; }
+.subtitle { font-size: 20px; color: var(--text-dim); margin-bottom: 24px; }
 .meta { display: flex; gap: 12px; align-items: center; justify-content: center; margin-top: 8px; }
 .meta .dot { color: var(--text-dim); opacity: 0.3; }
 .meta .date { font-size: 13px; color: var(--text-dim); }
@@ -150,7 +158,7 @@ p, li { font-size: 16px; line-height: 1.7; color: rgba(255,255,255,0.8); }
 .card:hover { border-color: var(--border-hover); box-shadow: 0 0 24px var(--teal-dim); }
 .card-icon { font-family: var(--font-heading); font-size: 24px; font-weight: 700; color: var(--teal); margin-bottom: 12px; }
 .card h3 { font-family: var(--font-heading); font-size: 18px; font-weight: 600; color: #fff; margin-bottom: 8px; }
-.card p { font-size: 14px; color: var(--text-dim); line-height: 1.5; }
+.card p { font-size: 15px; color: var(--text-dim); line-height: 1.5; }
 .card .tag { margin-top: 12px; }
 
 /* === STAT GRID === */
@@ -162,7 +170,7 @@ p, li { font-size: 16px; line-height: 1.7; color: rgba(255,255,255,0.8); }
 }
 .stat-box:hover { border-color: var(--border-hover); }
 .stat-box .num { font-family: var(--font-heading); font-size: 48px; font-weight: 700; font-variant-numeric: tabular-nums; }
-.stat-box .stat-label { font-size: 12px; color: var(--text-label); margin-top: 8px; text-transform: lowercase; line-height: 1.4; }
+.stat-box .stat-label { font-size: 13px; color: var(--text-label); margin-top: 8px; text-transform: lowercase; line-height: 1.4; }
 
 /* === LAYERS === */
 .layers { display: flex; flex-direction: column; gap: 8px; margin-top: 20px; }
@@ -176,7 +184,7 @@ p, li { font-size: 16px; line-height: 1.7; color: rgba(255,255,255,0.8); }
 .layer:hover { transform: translateX(6px); border-color: var(--border-hover); }
 .layer-num { font-family: var(--font-heading); font-size: 16px; font-weight: 700; min-width: 32px; }
 .layer-name { font-family: var(--font-heading); font-size: 16px; font-weight: 600; min-width: 180px; color: #fff; }
-.layer-desc { font-size: 13px; color: var(--text-dim); flex: 1; }
+.layer-desc { font-size: 14px; color: var(--text-dim); flex: 1; }
 
 /* === TIMELINE === */
 .timeline { display: flex; flex-direction: column; gap: 6px; margin-top: 20px; }
@@ -193,7 +201,7 @@ p, li { font-size: 16px; line-height: 1.7; color: rgba(255,255,255,0.8); }
 .timeline-row.red-row { border-left-color: var(--red); background: rgba(255,107,107,0.05); }
 .timeline-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
 .timeline-time { font-size: 13px; color: var(--text-dim); min-width: 80px; font-variant-numeric: tabular-nums; }
-.timeline-title { font-size: 15px; flex: 1; color: rgba(255,255,255,0.85); }
+.timeline-title { font-size: 16px; flex: 1; color: rgba(255,255,255,0.85); }
 .timeline-dur { font-size: 12px; padding: 2px 10px; border-radius: 4px; background: var(--bg-card); color: var(--text-dim); }
 
 /* === SPEAKER GRID === */
@@ -221,7 +229,7 @@ p, li { font-size: 16px; line-height: 1.7; color: rgba(255,255,255,0.8); }
   background: rgba(77,201,212,0.04);
   border-radius: 0 8px 8px 0;
 }
-.quote p { font-size: 17px; font-style: italic; color: rgba(255,255,255,0.85); }
+.quote p { font-size: 18px; font-style: italic; color: rgba(255,255,255,0.85); }
 .quote .author { font-size: 13px; color: var(--text-dim); margin-top: 8px; font-style: normal; }
 
 /* === SPLIT === */
@@ -242,6 +250,18 @@ p, li { font-size: 16px; line-height: 1.7; color: rgba(255,255,255,0.8); }
   border-radius: 12px; border: 1px solid var(--border);
   margin: 16px 0;
 }
+
+/* === IMAGE PLACEHOLDER === */
+.img-placeholder {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  min-height: 200px; border: 2px dashed var(--border);
+  border-radius: 12px; background: rgba(77,201,212,0.03);
+  cursor: pointer; transition: all 0.3s; gap: 8px;
+  padding: 24px;
+}
+.img-placeholder:hover { border-color: var(--teal); background: rgba(77,201,212,0.06); }
+.img-placeholder svg { width: 40px; height: 40px; opacity: 0.4; }
+.img-placeholder span { font-size: 12px; color: var(--text-dim); letter-spacing: 1px; }
 
 /* === PROGRESS === */
 .progress-bar { position: fixed; bottom: 0; left: 0; height: 2px; background: var(--teal); transition: width 0.3s; z-index: 10001; }
@@ -299,6 +319,52 @@ body.edit-mode .layout-bar { display: flex; }
 .slide.layout-center .slide-inner { justify-content: center; align-items: center; text-align: center; }
 .slide.layout-left .slide-inner { justify-content: center; align-items: flex-start; text-align: left; }
 .slide.layout-split .slide-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: start; }
+.slide.layout-img-left .slide-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: center; }
+.slide.layout-img-right .slide-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: center; }
+
+/* === BLOCK SYSTEM === */
+body.edit-mode .slide-inner > * {
+  position: relative;
+  transition: outline 0.15s, background 0.15s;
+  border-radius: 6px;
+}
+body.edit-mode .slide-inner > *:hover {
+  outline: 1px dashed rgba(77,201,212,0.2);
+}
+body.edit-mode .slide-inner > *.block-selected {
+  outline: 2px solid var(--teal) !important;
+  background: rgba(77,201,212,0.04);
+}
+body.edit-mode .slide-inner > *[draggable="true"] {
+  cursor: grab;
+}
+body.edit-mode .slide-inner > *.block-dragging {
+  opacity: 0.4; cursor: grabbing;
+}
+body.edit-mode .slide-inner > *.drag-over-top {
+  border-top: 2px solid var(--teal);
+}
+body.edit-mode .slide-inner > *.drag-over-bottom {
+  border-bottom: 2px solid var(--teal);
+}
+
+/* Block action buttons */
+#block-actions {
+  display: none; position: fixed;
+  gap: 2px; padding: 3px 5px;
+  background: rgba(22,22,32,0.97); border: 1px solid var(--border);
+  border-radius: 8px; backdrop-filter: blur(12px);
+  z-index: 10003; font-family: var(--font-body);
+}
+#block-actions.visible { display: flex; }
+#block-actions button {
+  border: 1px solid transparent; border-radius: 4px;
+  background: transparent; cursor: pointer; padding: 4px 8px;
+  font-family: var(--font-body); font-size: 11px; color: var(--text-dim);
+  transition: all 0.15s; white-space: nowrap;
+}
+#block-actions button:hover { border-color: var(--teal); color: var(--teal); background: var(--teal-dim); }
+#block-actions button.danger:hover { border-color: var(--red); color: var(--red); background: rgba(255,107,107,0.1); }
 
 /* === BUILDER TOOLBAR === */
 #builder-toolbar {
@@ -321,6 +387,7 @@ body.edit-mode #builder-toolbar { display: flex; }
 }
 #builder-toolbar button:hover { border-color: var(--teal); color: var(--teal); background: var(--teal-dim); }
 #builder-toolbar button.danger:hover { border-color: var(--red); color: var(--red); background: rgba(255,107,107,0.1); }
+#builder-toolbar button.active { border-color: var(--teal); color: var(--teal); background: var(--teal-dim); }
 #builder-toolbar .tb-label {
   font-size: 10px; color: var(--text-label); letter-spacing: 1px; padding: 0 6px;
 }
@@ -331,12 +398,120 @@ body.edit-mode #builder-toolbar { display: flex; }
 #builder-toolbar .save-status.saving { color: var(--amber); }
 #builder-toolbar .save-status.error { color: var(--red); }
 
+/* === PREVIEW PANEL === */
+#preview-panel {
+  display: none; position: fixed; bottom: 90px; right: 24px;
+  width: 240px; background: rgba(22,22,32,0.95);
+  border: 1px solid var(--border); border-radius: 10px;
+  overflow: hidden; z-index: 10001;
+  backdrop-filter: blur(12px);
+}
+#preview-panel.visible { display: block; }
+#preview-panel .preview-label {
+  font-size: 10px; color: var(--text-label); letter-spacing: 2px;
+  padding: 8px 12px; border-bottom: 1px solid var(--border);
+}
+#preview-panel .preview-content {
+  width: 240px; height: 135px;
+  overflow: hidden; position: relative;
+  background: var(--bg);
+}
+#preview-panel .preview-content .preview-scale {
+  transform: scale(0.125); transform-origin: top left;
+  width: 1920px; height: 1080px;
+  pointer-events: none;
+}
+
 /* === GLOW DOTS === */
 .glow-dot {
   position: absolute; width: 6px; height: 6px; border-radius: 50%;
   background: var(--teal);
   box-shadow: 0 0 12px var(--teal-glow), 0 0 24px var(--teal-dim);
   opacity: 0.5; z-index: 5;
+}
+
+/* === LAYOUT PICKER MODAL === */
+#layout-picker {
+  display: none; position: fixed; inset: 0;
+  background: rgba(0,0,0,0.7); backdrop-filter: blur(8px);
+  z-index: 20000; align-items: center; justify-content: center;
+}
+#layout-picker.visible { display: flex; }
+#layout-picker-inner {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 12px; padding: 28px; max-width: 640px; width: 90%;
+}
+#layout-picker-inner h3 {
+  font-family: var(--font-heading); font-size: 18px; color: #fff; margin-bottom: 16px;
+}
+.layout-options {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;
+}
+.layout-option {
+  border: 1px solid var(--border); border-radius: 8px;
+  background: var(--bg-terminal); cursor: pointer; padding: 12px 8px;
+  text-align: center; transition: all 0.2s;
+}
+.layout-option:hover { border-color: var(--teal); background: var(--teal-dim); }
+.layout-option svg { width: 48px; height: 36px; margin-bottom: 6px; }
+.layout-option svg rect, .layout-option svg circle, .layout-option svg line { fill: var(--text-dim); stroke: none; }
+.layout-option:hover svg rect, .layout-option:hover svg circle { fill: var(--teal); }
+.layout-option span { display: block; font-size: 10px; color: var(--text-dim); letter-spacing: 0.5px; }
+.layout-option:hover span { color: var(--teal); }
+
+/* === AI MODAL === */
+#ai-modal {
+  display: none; position: fixed; inset: 0;
+  background: rgba(0,0,0,0.7); backdrop-filter: blur(8px);
+  z-index: 20000; align-items: center; justify-content: center;
+}
+#ai-modal.visible { display: flex; }
+#ai-modal-inner {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 12px; padding: 28px; max-width: 500px; width: 90%;
+}
+#ai-modal-inner h3 {
+  font-family: var(--font-heading); font-size: 18px; color: #fff; margin-bottom: 12px;
+}
+#ai-modal-inner textarea {
+  width: 100%; height: 80px; padding: 12px; border-radius: 8px;
+  background: var(--bg-terminal); border: 1px solid var(--border);
+  color: var(--text); font-family: var(--font-body); font-size: 14px;
+  resize: vertical; outline: none; margin-bottom: 12px;
+}
+#ai-modal-inner textarea:focus { border-color: var(--teal); }
+#ai-modal-inner .ai-mode-tabs {
+  display: flex; gap: 4px; margin-bottom: 12px;
+}
+#ai-modal-inner .ai-mode-tabs button {
+  flex: 1; padding: 8px; border-radius: 6px;
+  border: 1px solid var(--border); background: var(--bg-terminal);
+  color: var(--text-dim); cursor: pointer; font-family: var(--font-body);
+  font-size: 12px; transition: all 0.15s;
+}
+#ai-modal-inner .ai-mode-tabs button.active { border-color: var(--teal); color: var(--teal); background: var(--teal-dim); }
+#ai-modal-inner .modal-actions { display: flex; gap: 8px; justify-content: flex-end; }
+#ai-modal-inner .modal-actions button {
+  padding: 8px 20px; border-radius: 6px; border: 1px solid var(--border);
+  background: var(--bg-card); color: var(--text-dim); cursor: pointer;
+  font-family: var(--font-body); font-size: 12px; transition: all 0.15s;
+}
+#ai-modal-inner .modal-actions button:hover { border-color: var(--teal); color: var(--teal); }
+#ai-modal-inner .modal-actions button.primary {
+  background: var(--teal); color: var(--bg-deep); border-color: var(--teal);
+}
+#ai-modal-inner .modal-actions button.primary:hover { opacity: 0.9; }
+#ai-modal-inner .ai-status {
+  font-size: 11px; color: var(--text-dim); margin-bottom: 10px; min-height: 16px;
+}
+#ai-modal-inner .ai-preview {
+  max-height: 200px; overflow: auto; margin-bottom: 12px;
+  border: 1px solid var(--border); border-radius: 8px;
+  padding: 8px; display: none;
+}
+#ai-modal-inner .ai-preview.visible { display: block; }
+#ai-modal-inner .ai-preview img, #ai-modal-inner .ai-preview svg {
+  max-width: 100%; max-height: 180px; display: block; margin: 0 auto;
 }
 
 /* === GITHUB MODAL === */
@@ -373,11 +548,28 @@ body.edit-mode #builder-toolbar { display: flex; }
 }
 #gh-modal-inner .modal-actions button.primary:hover { opacity: 0.9; }
 
+/* === IMAGE ACTION MENU === */
+#img-action-menu {
+  display: none; position: fixed;
+  background: rgba(22,22,32,0.97); border: 1px solid var(--border);
+  border-radius: 8px; padding: 6px; backdrop-filter: blur(12px);
+  z-index: 20001;
+}
+#img-action-menu.visible { display: block; }
+#img-action-menu button {
+  display: block; width: 100%; padding: 8px 16px;
+  border: none; border-radius: 4px; background: transparent;
+  color: var(--text-dim); cursor: pointer;
+  font-family: var(--font-body); font-size: 12px;
+  text-align: left; transition: all 0.15s;
+}
+#img-action-menu button:hover { background: var(--teal-dim); color: var(--teal); }
+
 /* === RESPONSIVE === */
 @media (max-width: 768px) {
   .slide { padding: 40px 24px 60px; }
   h1 { font-size: 32px; }
-  h2 { font-size: 24px; }
+  h2 { font-size: 26px; }
   .cover h1 { font-size: 36px; }
   .cards { grid-template-columns: 1fr; }
   .split { grid-template-columns: 1fr; gap: 20px; }
@@ -385,6 +577,8 @@ body.edit-mode #builder-toolbar { display: flex; }
   .speaker-grid { grid-template-columns: repeat(2, 1fr); }
   .nav-hint { display: none; }
   #builder-toolbar { flex-wrap: wrap; max-width: 90vw; }
+  #preview-panel { display: none !important; }
+  .layout-options { grid-template-columns: repeat(2, 1fr); }
 }
 </style>
 </head>
@@ -399,6 +593,7 @@ body.edit-mode #builder-toolbar { display: flex; }
 <!-- ==================== SLIDE 1: COVER ==================== -->
 <div class="slide active" id="s1">
   <div class="slide-counter"><span class="current">1</span>/<span class="total"></span></div>
+  <img class="slide-logo" src="logo.png" alt="">
   <div class="glow-dot" style="top:15%;left:10%"></div>
   <div class="glow-dot" style="top:70%;right:15%"></div>
   <div class="glow-dot" style="bottom:20%;left:30%"></div>
@@ -418,6 +613,7 @@ body.edit-mode #builder-toolbar { display: flex; }
 <!-- ==================== SLIDE 2: PROBLEM ==================== -->
 <div class="slide" id="s2">
   <div class="slide-counter"><span class="current">2</span>/<span class="total"></span></div>
+  <img class="slide-logo" src="logo.png" alt="">
   <div class="slide-inner">
     <div class="label">// THE PROBLEM</div>
     <h2>organizations bolt AI onto<br>existing structures</h2>
@@ -449,6 +645,7 @@ body.edit-mode #builder-toolbar { display: flex; }
 <!-- ==================== SLIDE 3: WHAT IS AI-NATIVE ==================== -->
 <div class="slide" id="s3">
   <div class="slide-counter"><span class="current">3</span>/<span class="total"></span></div>
+  <img class="slide-logo" src="logo.png" alt="">
   <div class="slide-inner">
     <div class="label">// DEFINITION</div>
     <h2>what is an AI-native organization?</h2>
@@ -479,6 +676,7 @@ body.edit-mode #builder-toolbar { display: flex; }
 <!-- ==================== SLIDE 4: FRAMEWORK ==================== -->
 <div class="slide" id="s4">
   <div class="slide-counter"><span class="current">4</span>/<span class="total"></span></div>
+  <img class="slide-logo" src="logo.png" alt="">
   <div class="slide-inner">
     <div class="label">// FRAMEWORK</div>
     <h2>6 layers of AI-native architecture</h2>
@@ -520,6 +718,7 @@ body.edit-mode #builder-toolbar { display: flex; }
 <!-- ==================== SLIDE 5: PROGRAM ==================== -->
 <div class="slide" id="s5">
   <div class="slide-counter"><span class="current">5</span>/<span class="total"></span></div>
+  <img class="slide-logo" src="logo.png" alt="">
   <div class="slide-inner">
     <div class="label">// SPRINT PROGRAM</div>
     <h2>3 weeks. 3 dimensions.</h2>
@@ -568,6 +767,7 @@ body.edit-mode #builder-toolbar { display: flex; }
 <!-- ==================== SLIDE 6: SPEAKERS - LEADS ==================== -->
 <div class="slide" id="s6">
   <div class="slide-counter"><span class="current">6</span>/<span class="total"></span></div>
+  <img class="slide-logo" src="logo.png" alt="">
   <div class="slide-inner">
     <div class="label">// SPEAKERS</div>
     <h2>lead speakers</h2>
@@ -591,6 +791,7 @@ body.edit-mode #builder-toolbar { display: flex; }
 <!-- ==================== SLIDE 7: SPEAKERS - GUESTS ==================== -->
 <div class="slide" id="s7">
   <div class="slide-counter"><span class="current">7</span>/<span class="total"></span></div>
+  <img class="slide-logo" src="logo.png" alt="">
   <div class="slide-inner">
     <div class="label">// GUEST EXPERTS</div>
     <h2>industry practitioners</h2>
@@ -650,6 +851,7 @@ body.edit-mode #builder-toolbar { display: flex; }
 <!-- ==================== SLIDE 8: SCHEDULE ==================== -->
 <div class="slide" id="s8">
   <div class="slide-counter"><span class="current">8</span>/<span class="total"></span></div>
+  <img class="slide-logo" src="logo.png" alt="">
   <div class="slide-inner">
     <div class="label">// FULL SCHEDULE</div>
     <h2>3 weeks. 15+ sessions.</h2>
@@ -662,6 +864,18 @@ body.edit-mode #builder-toolbar { display: flex; }
       </div>
       <div class="timeline-row teal-row">
         <div class="timeline-dot" style="background:var(--teal)"></div>
+        <div class="timeline-time">24.03 Tue</div>
+        <div class="timeline-title">Povaliaev — coworking + personal OS setup</div>
+        <div class="timeline-dur">10:00</div>
+      </div>
+      <div class="timeline-row teal-row">
+        <div class="timeline-dot" style="background:var(--teal)"></div>
+        <div class="timeline-time">25.03 Wed</div>
+        <div class="timeline-title">Povaliaev — personal to team: audit, AI Champion</div>
+        <div class="timeline-dur">18:00</div>
+      </div>
+      <div class="timeline-row teal-row">
+        <div class="timeline-dot" style="background:var(--teal)"></div>
         <div class="timeline-time">27.03 Fri</div>
         <div class="timeline-title">Khanarin — AI transformation for organizations</div>
         <div class="timeline-dur">18:00</div>
@@ -669,31 +883,61 @@ body.edit-mode #builder-toolbar { display: flex; }
       <div class="timeline-row green-row">
         <div class="timeline-dot" style="background:var(--green)"></div>
         <div class="timeline-time">30.03 Mon</div>
-        <div class="timeline-title">Gershuni — system above the model</div>
+        <div class="timeline-title">Gershuni — system above the model — architecture</div>
         <div class="timeline-dur">18:00</div>
       </div>
       <div class="timeline-row green-row">
         <div class="timeline-dot" style="background:var(--green)"></div>
         <div class="timeline-time">01.04 Wed</div>
-        <div class="timeline-title">Amyotov + Kleban — content & agents</div>
-        <div class="timeline-dur">12:00 / 18:00</div>
+        <div class="timeline-title">Amyotov — AI content for business</div>
+        <div class="timeline-dur">12:00</div>
       </div>
       <div class="timeline-row green-row">
         <div class="timeline-dot" style="background:var(--green)"></div>
-        <div class="timeline-time">02-03.04</div>
-        <div class="timeline-title">Kovalskii + Kravtsov — dev & data</div>
+        <div class="timeline-time">01.04 Wed</div>
+        <div class="timeline-title">Kleban — self-improving agents</div>
+        <div class="timeline-dur">18:00</div>
+      </div>
+      <div class="timeline-row green-row">
+        <div class="timeline-dot" style="background:var(--green)"></div>
+        <div class="timeline-time">02.04 Thu</div>
+        <div class="timeline-title">Kovalskii — AI-driven development: live build</div>
+        <div class="timeline-dur">18:00</div>
+      </div>
+      <div class="timeline-row green-row">
+        <div class="timeline-dot" style="background:var(--green)"></div>
+        <div class="timeline-time">03.04 Fri</div>
+        <div class="timeline-title">Kravtsov — AI-native companies + knowledge graph</div>
         <div class="timeline-dur">18:00</div>
       </div>
       <div class="timeline-row red-row">
         <div class="timeline-dot" style="background:var(--red)"></div>
         <div class="timeline-time">06.04 Mon</div>
-        <div class="timeline-title">Gershuni — from strategy to 90-day plan</div>
+        <div class="timeline-title">Gershuni — strategy to 90-day plan</div>
         <div class="timeline-dur">18:00</div>
       </div>
       <div class="timeline-row red-row">
         <div class="timeline-dot" style="background:var(--red)"></div>
-        <div class="timeline-time">08-10.04</div>
-        <div class="timeline-title">Annakov + Buzko + Ustinov — sales, law, marketing</div>
+        <div class="timeline-time">07.04 Tue</div>
+        <div class="timeline-title">Tarnavskii — AI in corporations (300+ team)</div>
+        <div class="timeline-dur">18:00</div>
+      </div>
+      <div class="timeline-row red-row">
+        <div class="timeline-dot" style="background:var(--red)"></div>
+        <div class="timeline-time">08.04 Wed</div>
+        <div class="timeline-title">Annakov — AI sales automation</div>
+        <div class="timeline-dur">18:00</div>
+      </div>
+      <div class="timeline-row red-row">
+        <div class="timeline-dot" style="background:var(--red)"></div>
+        <div class="timeline-time">09.04 Thu</div>
+        <div class="timeline-title">Buzko — AI in legal processes</div>
+        <div class="timeline-dur">18:00</div>
+      </div>
+      <div class="timeline-row red-row">
+        <div class="timeline-dot" style="background:var(--red)"></div>
+        <div class="timeline-time">10.04 Fri</div>
+        <div class="timeline-title">Ustinov — shared workspace to product agent</div>
         <div class="timeline-dur">18:00</div>
       </div>
       <div class="timeline-row" style="border-left-color:var(--amber);background:rgba(200,146,0,0.05)">
@@ -709,6 +953,7 @@ body.edit-mode #builder-toolbar { display: flex; }
 <!-- ==================== SLIDE 9: STATS ==================== -->
 <div class="slide" id="s9">
   <div class="slide-counter"><span class="current">9</span>/<span class="total"></span></div>
+  <img class="slide-logo" src="logo.png" alt="">
   <div class="glow-dot" style="top:20%;right:20%"></div>
   <div class="slide-inner">
     <div class="label">// BY THE NUMBERS</div>
@@ -747,6 +992,7 @@ body.edit-mode #builder-toolbar { display: flex; }
 <!-- ==================== SLIDE 10: CTA ==================== -->
 <div class="slide" id="s10">
   <div class="slide-counter"><span class="current">10</span>/<span class="total"></span></div>
+  <img class="slide-logo" src="logo.png" alt="">
   <div class="glow-dot" style="top:30%;left:15%"></div>
   <div class="glow-dot" style="bottom:25%;right:10%"></div>
   <div class="slide-inner cover">
@@ -768,10 +1014,20 @@ body.edit-mode #builder-toolbar { display: flex; }
 <!-- UI Elements -->
 <div class="progress-bar"></div>
 <div class="nav-hint">&larr; &rarr; navigate &middot; E edit &middot; F fullscreen</div>
-<div id="edit-badge">// EDIT MODE — changes auto-save</div>
+<div id="edit-badge">// EDIT MODE — changes auto-save &middot; Ctrl+Z undo</div>
+
+<!-- Block action buttons (positioned dynamically) -->
+<div id="block-actions">
+  <button onclick="moveBlockUp()" title="move up">&uarr;</button>
+  <button onclick="moveBlockDown()" title="move down">&darr;</button>
+  <button class="danger" onclick="deleteBlock()" title="delete block">&times;</button>
+</div>
 
 <!-- Builder toolbar -->
 <div id="builder-toolbar">
+  <button onclick="undo()" title="undo (Ctrl+Z)">&#8617;</button>
+  <button onclick="redo()" title="redo (Ctrl+Shift+Z)">&#8618;</button>
+  <div class="tb-sep"></div>
   <span class="tb-label">TEXT</span>
   <button onclick="changeTextSize(1)" title="increase text size">A+</button>
   <button onclick="changeTextSize(-1)" title="decrease text size">A-</button>
@@ -782,12 +1038,80 @@ body.edit-mode #builder-toolbar { display: flex; }
   <button onclick="insertCodeBlock()" title="insert code block">{}</button>
   <div class="tb-sep"></div>
   <span class="tb-label">SLIDES</span>
-  <button onclick="addSlide()" title="add new slide after current">+ slide</button>
+  <button onclick="showLayoutPicker()" title="add new slide (pick layout)">+ slide</button>
   <button onclick="duplicateSlide()" title="duplicate current slide">dup</button>
   <button class="danger" onclick="deleteSlide()" title="delete current slide">del</button>
   <div class="tb-sep"></div>
   <button onclick="saveToGitHub()" title="save to GitHub" style="font-weight:600">push</button>
+  <button id="auto-push-btn" onclick="toggleAutoPush()" title="toggle auto-push">auto</button>
+  <button id="preview-btn" onclick="togglePreview()" title="toggle next-slide preview">&#128065;</button>
   <span class="save-status" id="save-status"></span>
+</div>
+
+<!-- Preview panel -->
+<div id="preview-panel">
+  <div class="preview-label">// NEXT SLIDE</div>
+  <div class="preview-content"><div class="preview-scale" id="preview-scale"></div></div>
+</div>
+
+<!-- Layout picker modal -->
+<div id="layout-picker">
+  <div id="layout-picker-inner">
+    <h3>choose layout for new slide</h3>
+    <div class="layout-options">
+      <div class="layout-option" onclick="addSlideWithLayout('center')">
+        <svg viewBox="0 0 48 36"><rect x="12" y="4" width="24" height="4" rx="2"/><rect x="8" y="14" width="32" height="3" rx="1.5"/><rect x="14" y="22" width="20" height="3" rx="1.5"/><rect x="18" y="30" width="12" height="3" rx="1.5"/></svg>
+        <span>center</span>
+      </div>
+      <div class="layout-option" onclick="addSlideWithLayout('left')">
+        <svg viewBox="0 0 48 36"><rect x="4" y="4" width="28" height="4" rx="2"/><rect x="4" y="14" width="36" height="3" rx="1.5"/><rect x="4" y="22" width="24" height="3" rx="1.5"/><rect x="4" y="30" width="16" height="3" rx="1.5"/></svg>
+        <span>left text</span>
+      </div>
+      <div class="layout-option" onclick="addSlideWithLayout('split')">
+        <svg viewBox="0 0 48 36"><rect x="2" y="2" width="20" height="32" rx="2" opacity="0.6"/><rect x="26" y="2" width="20" height="32" rx="2" opacity="0.6"/></svg>
+        <span>two columns</span>
+      </div>
+      <div class="layout-option" onclick="addSlideWithLayout('img-left')">
+        <svg viewBox="0 0 48 36"><rect x="2" y="2" width="20" height="32" rx="2" opacity="0.3"/><circle cx="12" cy="18" r="6" opacity="0.5"/><rect x="26" y="6" width="18" height="3" rx="1.5"/><rect x="26" y="14" width="16" height="2" rx="1"/><rect x="26" y="20" width="14" height="2" rx="1"/></svg>
+        <span>img + text</span>
+      </div>
+      <div class="layout-option" onclick="addSlideWithLayout('img-right')">
+        <svg viewBox="0 0 48 36"><rect x="4" y="6" width="18" height="3" rx="1.5"/><rect x="4" y="14" width="16" height="2" rx="1"/><rect x="4" y="20" width="14" height="2" rx="1"/><rect x="26" y="2" width="20" height="32" rx="2" opacity="0.3"/><circle cx="36" cy="18" r="6" opacity="0.5"/></svg>
+        <span>text + img</span>
+      </div>
+      <div class="layout-option" onclick="addSlideWithLayout('big-image')">
+        <svg viewBox="0 0 48 36"><rect x="2" y="2" width="44" height="24" rx="2" opacity="0.3"/><circle cx="24" cy="14" r="7" opacity="0.5"/><rect x="10" y="30" width="28" height="3" rx="1.5"/></svg>
+        <span>big image</span>
+      </div>
+      <div class="layout-option" onclick="addSlideWithLayout('cards')">
+        <svg viewBox="0 0 48 36"><rect x="2" y="2" width="12" height="32" rx="2" opacity="0.5"/><rect x="18" y="2" width="12" height="32" rx="2" opacity="0.5"/><rect x="34" y="2" width="12" height="32" rx="2" opacity="0.5"/></svg>
+        <span>cards</span>
+      </div>
+      <div class="layout-option" onclick="addSlideWithLayout('quote')">
+        <svg viewBox="0 0 48 36"><rect x="6" y="8" width="2" height="20" rx="1"/><rect x="12" y="10" width="28" height="3" rx="1.5" opacity="0.7"/><rect x="12" y="18" width="22" height="3" rx="1.5" opacity="0.7"/><rect x="12" y="28" width="14" height="2" rx="1" opacity="0.4"/></svg>
+        <span>quote</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- AI generation modal -->
+<div id="ai-modal">
+  <div id="ai-modal-inner">
+    <h3>AI generate</h3>
+    <div class="ai-mode-tabs">
+      <button class="active" onclick="setAiMode('svg')" data-mode="svg">SVG illustration</button>
+      <button onclick="setAiMode('image')" data-mode="image">raster image</button>
+    </div>
+    <textarea id="ai-prompt" placeholder="describe what you want to generate..."></textarea>
+    <div class="ai-status" id="ai-status"></div>
+    <div class="ai-preview" id="ai-preview"></div>
+    <div class="modal-actions">
+      <button onclick="closeAiModal()">cancel</button>
+      <button class="primary" onclick="runAiGeneration()" id="ai-generate-btn">generate</button>
+      <button onclick="insertAiResult()" id="ai-insert-btn" style="display:none">insert</button>
+    </div>
+  </div>
 </div>
 
 <!-- GitHub token modal -->
@@ -804,6 +1128,13 @@ body.edit-mode #builder-toolbar { display: flex; }
   </div>
 </div>
 
+<!-- Image action menu (positioned dynamically near placeholder) -->
+<div id="img-action-menu">
+  <button onclick="imgActionUpload()">upload image</button>
+  <button onclick="imgActionSvg()">generate SVG</button>
+  <button onclick="imgActionImage()">generate image</button>
+</div>
+
 <script>
 // ===== CONFIG =====
 const GH_REPO = 'ai-mindset-org/ainative-deck';
@@ -811,10 +1142,27 @@ const GH_FILE = 'index.html';
 const GH_BRANCH = 'main';
 const STORAGE_KEY = 'ainative-deck-state';
 const TOKEN_KEY = 'ainative-deck-gh-token';
+const OR_KEY = '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';
+const OR_BASE = 'https://openrouter.ai/api/v1';
+
+// ===== STATE =====
+let slides, total, current = 0;
+let editMode = false;
+let autoSaveTimer = null;
+let autoPushTimer = null;
+let autoPushEnabled = false;
+let isDirty = false;
+let selectedBlock = null;
+let aiMode = 'svg';
+let aiResult = null;
+let activeImgPlaceholder = null;
+
+// Undo/Redo
+const undoStack = [];
+const redoStack = [];
+const MAX_UNDO = 50;
 
 // ===== NAVIGATION =====
-let slides, total, current = 0;
-
 function initSlides() {
   slides = document.querySelectorAll('.slide');
   total = slides.length;
@@ -830,12 +1178,18 @@ function showSlide(n) {
   document.querySelector('.progress-bar').style.width = ((current + 1) / total * 100) + '%';
   document.querySelectorAll('.current').forEach(el => el.textContent = current + 1);
   history.replaceState(null, '', '#' + (current + 1));
+  deselectBlock();
+  updatePreview();
 }
 
 // ===== KEYBOARD =====
 document.addEventListener('keydown', (e) => {
-  // Ignore navigation keys when editing
-  if (e.target.contentEditable === 'true' || e.target.tagName === 'INPUT') return;
+  if (e.target.contentEditable === 'true' || e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+    // Undo/redo in text editing
+    if ((e.ctrlKey || e.metaKey) && e.key === 'z' && !e.shiftKey) { e.preventDefault(); undo(); return; }
+    if ((e.ctrlKey || e.metaKey) && (e.key === 'Z' || e.key === 'y')) { e.preventDefault(); redo(); return; }
+    return;
+  }
 
   if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'Enter') { e.preventDefault(); showSlide(current + 1); }
   else if (e.key === 'ArrowLeft' || e.key === 'Backspace') { e.preventDefault(); showSlide(current - 1); }
@@ -846,12 +1200,15 @@ document.addEventListener('keydown', (e) => {
     else document.exitFullscreen();
   }
   else if (e.key === 'e' || e.key === 'E') toggleEdit();
+  else if ((e.ctrlKey || e.metaKey) && e.key === 'z' && !e.shiftKey) { e.preventDefault(); undo(); }
+  else if ((e.ctrlKey || e.metaKey) && (e.key === 'Z' || e.key === 'y')) { e.preventDefault(); redo(); }
+  else if (e.key === 'Delete' && editMode && selectedBlock) { deleteBlock(); }
 }, false);
 
 // Capture phase: prevent navigation when editing
 document.addEventListener('keydown', (e) => {
-  if (e.target.contentEditable === 'true' || e.target.tagName === 'INPUT') {
-    if (['ArrowRight','ArrowLeft',' ','Enter','Backspace'].includes(e.key)) e.stopPropagation();
+  if (e.target.contentEditable === 'true' || e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+    if (['ArrowRight','ArrowLeft',' ','Enter','Backspace'].includes(e.key) && !(e.ctrlKey || e.metaKey)) e.stopPropagation();
   }
 }, true);
 
@@ -869,52 +1226,235 @@ if (location.hash) {
   if (n >= 0 && n < total) showSlide(n);
 }
 
+// ===== UNDO / REDO =====
+function captureState() {
+  const data = [];
+  document.querySelectorAll('.slide').forEach(s => {
+    const clone = s.cloneNode(true);
+    clone.querySelectorAll('.layout-bar').forEach(b => b.remove());
+    clone.querySelectorAll('[contenteditable]').forEach(el => el.removeAttribute('contenteditable'));
+    clone.querySelectorAll('[draggable]').forEach(el => el.removeAttribute('draggable'));
+    clone.querySelectorAll('.block-selected,.drag-over-top,.drag-over-bottom,.block-dragging').forEach(el => {
+      el.classList.remove('block-selected','drag-over-top','drag-over-bottom','block-dragging');
+    });
+    clone.classList.remove('active');
+    data.push(clone.outerHTML);
+  });
+  return { slides: data, current };
+}
+
+function pushUndo() {
+  undoStack.push(captureState());
+  if (undoStack.length > MAX_UNDO) undoStack.shift();
+  redoStack.length = 0;
+  isDirty = true;
+}
+
+function restoreState(state) {
+  document.querySelectorAll('.slide').forEach(s => s.remove());
+  const topLine = document.querySelector('.top-line');
+  const frag = document.createDocumentFragment();
+  state.slides.forEach(html => {
+    const wrapper = document.createElement('div');
+    wrapper.innerHTML = html;
+    frag.appendChild(wrapper.firstElementChild);
+  });
+  topLine.after(frag);
+  initSlides();
+  showSlide(Math.min(state.current, total - 1));
+  if (editMode) activateEditOnSlides();
+}
+
+function undo() {
+  if (!undoStack.length) return;
+  redoStack.push(captureState());
+  restoreState(undoStack.pop());
+}
+
+function redo() {
+  if (!redoStack.length) return;
+  undoStack.push(captureState());
+  restoreState(redoStack.pop());
+}
+
 // ===== EDIT MODE =====
 const EDITABLE = 'h1,h2,h3,p,li,.layer-desc,.layer-name,.timeline-title,.timeline-dur,.card h3,.card p,.tag,.stat-box .num,.stat-box .stat-label,.quote p,.quote .author,.code-block span,.subtitle,.label,.date,.speaker-name,.speaker-role,.speaker-topic';
-
-let editMode = false;
-let autoSaveTimer = null;
 
 function toggleEdit() {
   editMode = !editMode;
   document.body.classList.toggle('edit-mode', editMode);
 
+  if (editMode) {
+    pushUndo();
+    activateEditOnSlides();
+    autoSaveTimer = setInterval(() => saveToLocal(), 10000);
+    document.addEventListener('paste', handlePaste);
+    if (autoPushEnabled) startAutoPush();
+  } else {
+    document.querySelectorAll('[contenteditable]').forEach(el => el.removeAttribute('contenteditable'));
+    document.querySelectorAll('[draggable]').forEach(el => el.removeAttribute('draggable'));
+    document.querySelectorAll('.layout-bar').forEach(b => b.remove());
+    deselectBlock();
+    clearInterval(autoSaveTimer);
+    stopAutoPush();
+    document.removeEventListener('paste', handlePaste);
+    saveToLocal();
+  }
+}
+
+function activateEditOnSlides() {
   document.querySelectorAll('.slide').forEach(slide => {
     slide.querySelectorAll(EDITABLE).forEach(el => {
-      if (el.closest('.slide-counter') || el.closest('#edit-badge') || el.closest('.nav-hint') || el.closest('#builder-toolbar') || el.closest('#gh-modal')) return;
-      el.contentEditable = editMode;
+      if (el.closest('.slide-counter') || el.closest('#edit-badge') || el.closest('.nav-hint') || el.closest('#builder-toolbar') || el.closest('#gh-modal') || el.closest('#block-actions')) return;
+      el.contentEditable = 'true';
     });
+    // Make blocks draggable
+    const inner = slide.querySelector('.slide-inner');
+    if (inner) {
+      Array.from(inner.children).forEach(block => {
+        block.draggable = true;
+        block.addEventListener('dragstart', onDragStart);
+        block.addEventListener('dragend', onDragEnd);
+        block.addEventListener('dragover', onDragOver);
+        block.addEventListener('dragleave', onDragLeave);
+        block.addEventListener('drop', onDrop);
+        block.addEventListener('click', onBlockClick);
+      });
+    }
     // Add layout bar if not present
-    if (editMode && !slide.querySelector('.layout-bar')) {
+    if (!slide.querySelector('.layout-bar')) {
       const bar = document.createElement('div');
       bar.className = 'layout-bar';
       bar.innerHTML = `
         <button title="center" data-layout="center" onclick="setLayout(this)"><svg viewBox="0 0 16 12"><rect x="4" y="1" width="8" height="2" rx="1"/><rect x="2" y="5" width="12" height="2" rx="1"/><rect x="4" y="9" width="8" height="2" rx="1"/></svg></button>
         <button title="left" data-layout="left" onclick="setLayout(this)"><svg viewBox="0 0 16 12"><rect x="1" y="1" width="10" height="2" rx="1"/><rect x="1" y="5" width="14" height="2" rx="1"/><rect x="1" y="9" width="8" height="2" rx="1"/></svg></button>
         <button title="split" data-layout="split" onclick="setLayout(this)"><svg viewBox="0 0 16 12"><rect x="1" y="1" width="6" height="10" rx="1"/><rect x="9" y="1" width="6" height="10" rx="1"/></svg></button>
+        <button title="img-left" data-layout="img-left" onclick="setLayout(this)"><svg viewBox="0 0 16 12"><rect x="1" y="1" width="6" height="10" rx="1" opacity="0.4"/><rect x="9" y="2" width="6" height="2" rx="1"/><rect x="9" y="6" width="5" height="1.5" rx="0.75"/></svg></button>
+        <button title="img-right" data-layout="img-right" onclick="setLayout(this)"><svg viewBox="0 0 16 12"><rect x="1" y="2" width="6" height="2" rx="1"/><rect x="1" y="6" width="5" height="1.5" rx="0.75"/><rect x="9" y="1" width="6" height="10" rx="1" opacity="0.4"/></svg></button>
       `;
       slide.appendChild(bar);
     }
   });
-
-  if (editMode) {
-    // Start auto-save every 10 seconds
-    autoSaveTimer = setInterval(() => saveToLocal(), 10000);
-    // Listen for paste events (images)
-    document.addEventListener('paste', handlePaste);
-  } else {
-    clearInterval(autoSaveTimer);
-    document.removeEventListener('paste', handlePaste);
-    saveToLocal();
-  }
 }
 
 function setLayout(btn) {
   const slide = btn.closest('.slide');
-  slide.classList.remove('layout-center','layout-left','layout-split');
+  pushUndo();
+  slide.className = slide.className.replace(/layout-\S+/g, '').trim();
   slide.classList.add('layout-' + btn.dataset.layout);
   slide.querySelectorAll('.layout-bar button').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
+}
+
+// ===== BLOCK SYSTEM =====
+function onBlockClick(e) {
+  if (!editMode) return;
+  e.stopPropagation();
+  const block = e.currentTarget;
+  if (block === selectedBlock) return;
+  deselectBlock();
+  selectedBlock = block;
+  block.classList.add('block-selected');
+  positionBlockActions();
+}
+
+function deselectBlock() {
+  if (selectedBlock) selectedBlock.classList.remove('block-selected');
+  selectedBlock = null;
+  document.getElementById('block-actions').classList.remove('visible');
+  document.getElementById('img-action-menu').classList.remove('visible');
+}
+
+function positionBlockActions() {
+  if (!selectedBlock) return;
+  const rect = selectedBlock.getBoundingClientRect();
+  const actions = document.getElementById('block-actions');
+  actions.style.top = (rect.top - 30) + 'px';
+  actions.style.left = (rect.right - 80) + 'px';
+  actions.classList.add('visible');
+}
+
+function deleteBlock() {
+  if (!selectedBlock || !editMode) return;
+  // Check if block is essential (first label or first h1/h2 on slide)
+  const inner = selectedBlock.closest('.slide-inner');
+  if (!inner) return;
+  const children = Array.from(inner.children);
+  if (children.length <= 1) return; // Don't delete last block
+  pushUndo();
+  selectedBlock.remove();
+  deselectBlock();
+}
+
+function moveBlockUp() {
+  if (!selectedBlock || !editMode) return;
+  const prev = selectedBlock.previousElementSibling;
+  if (!prev) return;
+  pushUndo();
+  selectedBlock.parentNode.insertBefore(selectedBlock, prev);
+  positionBlockActions();
+}
+
+function moveBlockDown() {
+  if (!selectedBlock || !editMode) return;
+  const next = selectedBlock.nextElementSibling;
+  if (!next) return;
+  pushUndo();
+  next.after(selectedBlock);
+  positionBlockActions();
+}
+
+// Click outside blocks to deselect
+document.addEventListener('click', (e) => {
+  if (!editMode) return;
+  if (e.target.closest('#block-actions') || e.target.closest('#builder-toolbar') || e.target.closest('#img-action-menu')) return;
+  if (!e.target.closest('.slide-inner')) deselectBlock();
+});
+
+// ===== DRAG AND DROP =====
+let draggedBlock = null;
+
+function onDragStart(e) {
+  if (!editMode) return;
+  draggedBlock = e.currentTarget;
+  draggedBlock.classList.add('block-dragging');
+  e.dataTransfer.effectAllowed = 'move';
+  e.dataTransfer.setData('text/plain', '');
+}
+
+function onDragEnd(e) {
+  if (draggedBlock) draggedBlock.classList.remove('block-dragging');
+  draggedBlock = null;
+  document.querySelectorAll('.drag-over-top,.drag-over-bottom').forEach(el => {
+    el.classList.remove('drag-over-top', 'drag-over-bottom');
+  });
+}
+
+function onDragOver(e) {
+  if (!draggedBlock || e.currentTarget === draggedBlock) return;
+  e.preventDefault();
+  e.dataTransfer.dropEffect = 'move';
+  const rect = e.currentTarget.getBoundingClientRect();
+  const midY = rect.top + rect.height / 2;
+  e.currentTarget.classList.remove('drag-over-top', 'drag-over-bottom');
+  if (e.clientY < midY) e.currentTarget.classList.add('drag-over-top');
+  else e.currentTarget.classList.add('drag-over-bottom');
+}
+
+function onDragLeave(e) {
+  e.currentTarget.classList.remove('drag-over-top', 'drag-over-bottom');
+}
+
+function onDrop(e) {
+  e.preventDefault();
+  if (!draggedBlock || e.currentTarget === draggedBlock) return;
+  const target = e.currentTarget;
+  const rect = target.getBoundingClientRect();
+  const midY = rect.top + rect.height / 2;
+  pushUndo();
+  if (e.clientY < midY) target.parentNode.insertBefore(draggedBlock, target);
+  else target.after(draggedBlock);
+  target.classList.remove('drag-over-top', 'drag-over-bottom');
 }
 
 // ===== TEXT SIZE =====
@@ -924,8 +1464,9 @@ function changeTextSize(delta) {
   const el = sel.anchorNode?.parentElement || sel.anchorNode;
   if (!el || !el.closest || !el.closest('.slide')) return;
   const target = el.closest('[contenteditable="true"]') || el;
-  const current = parseFloat(getComputedStyle(target).fontSize);
-  target.style.fontSize = (current + delta * 2) + 'px';
+  const cur = parseFloat(getComputedStyle(target).fontSize);
+  pushUndo();
+  target.style.fontSize = (cur + delta * 2) + 'px';
 }
 
 // ===== INSERT IMAGE =====
@@ -936,14 +1477,15 @@ function insertImage() {
   input.onchange = (e) => {
     const file = e.target.files[0];
     if (!file) return;
+    pushUndo();
     const reader = new FileReader();
     reader.onload = (ev) => {
       const img = document.createElement('img');
       img.src = ev.target.result;
       img.className = 'slide-image';
       img.style.maxWidth = '80%';
-      const slideInner = slides[current].querySelector('.slide-inner');
-      slideInner.appendChild(img);
+      slides[current].querySelector('.slide-inner').appendChild(img);
+      activateEditOnSlides();
     };
     reader.readAsDataURL(file);
   };
@@ -957,6 +1499,7 @@ function handlePaste(e) {
   for (const item of items) {
     if (item.type.startsWith('image/')) {
       e.preventDefault();
+      pushUndo();
       const blob = item.getAsFile();
       const reader = new FileReader();
       reader.onload = (ev) => {
@@ -964,8 +1507,8 @@ function handlePaste(e) {
         img.src = ev.target.result;
         img.className = 'slide-image';
         img.style.maxWidth = '80%';
-        const slideInner = slides[current].querySelector('.slide-inner');
-        slideInner.appendChild(img);
+        slides[current].querySelector('.slide-inner').appendChild(img);
+        activateEditOnSlides();
       };
       reader.readAsDataURL(blob);
       break;
@@ -975,54 +1518,139 @@ function handlePaste(e) {
 
 // ===== INSERT TEXT BLOCK =====
 function insertTextBlock() {
+  pushUndo();
   const p = document.createElement('p');
   p.contentEditable = 'true';
   p.textContent = 'new text block — click to edit';
   p.style.color = 'rgba(255,255,255,0.8)';
   slides[current].querySelector('.slide-inner').appendChild(p);
+  activateEditOnSlides();
   p.focus();
 }
 
 // ===== INSERT CODE BLOCK =====
 function insertCodeBlock() {
+  pushUndo();
   const div = document.createElement('div');
   div.className = 'code-block';
   div.innerHTML = '<span class="comment" contenteditable="true"># your code here</span>';
   slides[current].querySelector('.slide-inner').appendChild(div);
+  activateEditOnSlides();
 }
 
-// ===== ADD SLIDE =====
-function addSlide() {
+// ===== LAYOUT PICKER =====
+function showLayoutPicker() {
+  document.getElementById('layout-picker').classList.add('visible');
+}
+
+function closeLayoutPicker() {
+  document.getElementById('layout-picker').classList.remove('visible');
+}
+
+function addSlideWithLayout(layout) {
+  closeLayoutPicker();
+  pushUndo();
+
   const newSlide = document.createElement('div');
   newSlide.className = 'slide';
   newSlide.id = 's' + (total + 1);
-  newSlide.innerHTML = `
-    <div class="slide-counter"><span class="current">${current + 2}</span>/<span class="total">${total + 1}</span></div>
-    <div class="slide-inner">
-      <div class="label" contenteditable="true">// NEW SECTION</div>
-      <h2 contenteditable="true">new slide</h2>
-      <p contenteditable="true">click to edit this content</p>
-    </div>
-  `;
+
+  let innerHTML = '';
+  const counter = `<div class="slide-counter"><span class="current">${current + 2}</span>/<span class="total">${total + 1}</span></div>`;
+  const logo = '<img class="slide-logo" src="logo.png" alt="">';
+
+  const layouts = {
+    center: `<div class="slide-inner cover">
+      <div class="label">// NEW SECTION</div>
+      <h2>slide title</h2>
+      <p>click to edit this content</p>
+    </div>`,
+    left: `<div class="slide-inner">
+      <div class="label">// NEW SECTION</div>
+      <h2>slide title</h2>
+      <p>click to edit this content</p>
+    </div>`,
+    split: `<div class="slide-inner" style="display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start;">
+      <div>
+        <div class="label">// LEFT</div>
+        <h2>left column</h2>
+        <p>edit this text</p>
+      </div>
+      <div>
+        <div class="label">// RIGHT</div>
+        <h2>right column</h2>
+        <p>edit this text</p>
+      </div>
+    </div>`,
+    'img-left': `<div class="slide-inner" style="display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:center;">
+      <div class="img-placeholder" onclick="showImgActions(this, event)">
+        <svg viewBox="0 0 40 40" fill="none" stroke="rgba(77,201,212,0.5)" stroke-width="1.5"><rect x="4" y="8" width="32" height="24" rx="3"/><circle cx="14" cy="18" r="3"/><polyline points="8,28 16,20 22,26 28,20 32,24"/></svg>
+        <span>click to add image</span>
+      </div>
+      <div>
+        <div class="label">// SECTION</div>
+        <h2>title</h2>
+        <p>description text here</p>
+      </div>
+    </div>`,
+    'img-right': `<div class="slide-inner" style="display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:center;">
+      <div>
+        <div class="label">// SECTION</div>
+        <h2>title</h2>
+        <p>description text here</p>
+      </div>
+      <div class="img-placeholder" onclick="showImgActions(this, event)">
+        <svg viewBox="0 0 40 40" fill="none" stroke="rgba(77,201,212,0.5)" stroke-width="1.5"><rect x="4" y="8" width="32" height="24" rx="3"/><circle cx="14" cy="18" r="3"/><polyline points="8,28 16,20 22,26 28,20 32,24"/></svg>
+        <span>click to add image</span>
+      </div>
+    </div>`,
+    'big-image': `<div class="slide-inner cover">
+      <div class="img-placeholder" style="width:80%;min-height:300px" onclick="showImgActions(this, event)">
+        <svg viewBox="0 0 40 40" fill="none" stroke="rgba(77,201,212,0.5)" stroke-width="1.5"><rect x="4" y="8" width="32" height="24" rx="3"/><circle cx="14" cy="18" r="3"/><polyline points="8,28 16,20 22,26 28,20 32,24"/></svg>
+        <span>click to add image</span>
+      </div>
+      <p style="margin-top:16px">caption text here</p>
+    </div>`,
+    cards: `<div class="slide-inner">
+      <div class="label">// SECTION</div>
+      <h2>title</h2>
+      <div class="cards">
+        <div class="card"><div class="card-icon">01</div><h3>card title</h3><p>card description</p></div>
+        <div class="card"><div class="card-icon">02</div><h3>card title</h3><p>card description</p></div>
+        <div class="card"><div class="card-icon">03</div><h3>card title</h3><p>card description</p></div>
+      </div>
+    </div>`,
+    quote: `<div class="slide-inner cover">
+      <div class="quote" style="max-width:700px">
+        <p>enter your quote here</p>
+        <div class="author">— Author Name</div>
+      </div>
+    </div>`
+  };
+
+  newSlide.innerHTML = counter + logo + (layouts[layout] || layouts.left);
   slides[current].after(newSlide);
   initSlides();
   showSlide(current + 1);
+  if (editMode) activateEditOnSlides();
 }
 
-// ===== DUPLICATE SLIDE =====
+// ===== DUPLICATE / DELETE SLIDE =====
 function duplicateSlide() {
+  pushUndo();
   const clone = slides[current].cloneNode(true);
   clone.classList.remove('active');
   clone.id = 's' + (total + 1);
   slides[current].after(clone);
   initSlides();
   showSlide(current + 1);
+  if (editMode) activateEditOnSlides();
 }
 
-// ===== DELETE SLIDE =====
 function deleteSlide() {
   if (total <= 1) return;
   if (!confirm('delete this slide?')) return;
+  pushUndo();
   const toRemove = slides[current];
   if (current > 0) showSlide(current - 1);
   else showSlide(0);
@@ -1031,18 +1659,239 @@ function deleteSlide() {
   showSlide(Math.min(current, total - 1));
 }
 
+// ===== IMAGE PLACEHOLDER ACTIONS =====
+function showImgActions(placeholder, e) {
+  if (!editMode) return;
+  e.stopPropagation();
+  activeImgPlaceholder = placeholder;
+  const menu = document.getElementById('img-action-menu');
+  const rect = placeholder.getBoundingClientRect();
+  menu.style.top = (rect.top + rect.height / 2 - 50) + 'px';
+  menu.style.left = (rect.left + rect.width / 2 - 70) + 'px';
+  menu.classList.add('visible');
+}
+
+function imgActionUpload() {
+  document.getElementById('img-action-menu').classList.remove('visible');
+  if (!activeImgPlaceholder) return;
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.accept = 'image/*';
+  input.onchange = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    pushUndo();
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      const img = document.createElement('img');
+      img.src = ev.target.result;
+      img.className = 'slide-image';
+      img.style.maxWidth = '100%';
+      activeImgPlaceholder.replaceWith(img);
+      activateEditOnSlides();
+    };
+    reader.readAsDataURL(file);
+  };
+  input.click();
+}
+
+function imgActionSvg() {
+  document.getElementById('img-action-menu').classList.remove('visible');
+  aiMode = 'svg';
+  openAiModal();
+}
+
+function imgActionImage() {
+  document.getElementById('img-action-menu').classList.remove('visible');
+  aiMode = 'image';
+  openAiModal();
+}
+
+// ===== AI GENERATION =====
+function openAiModal() {
+  document.getElementById('ai-modal').classList.add('visible');
+  document.getElementById('ai-prompt').focus();
+  document.querySelectorAll('#ai-modal-inner .ai-mode-tabs button').forEach(b => {
+    b.classList.toggle('active', b.dataset.mode === aiMode);
+  });
+  document.getElementById('ai-preview').classList.remove('visible');
+  document.getElementById('ai-insert-btn').style.display = 'none';
+  document.getElementById('ai-generate-btn').style.display = '';
+  document.getElementById('ai-status').textContent = '';
+  aiResult = null;
+}
+
+function closeAiModal() {
+  document.getElementById('ai-modal').classList.remove('visible');
+}
+
+function setAiMode(mode) {
+  aiMode = mode;
+  document.querySelectorAll('#ai-modal-inner .ai-mode-tabs button').forEach(b => {
+    b.classList.toggle('active', b.dataset.mode === mode);
+  });
+}
+
+async function runAiGeneration() {
+  const prompt = document.getElementById('ai-prompt').value.trim();
+  if (!prompt) return;
+  const statusEl = document.getElementById('ai-status');
+  const previewEl = document.getElementById('ai-preview');
+  const generateBtn = document.getElementById('ai-generate-btn');
+  const insertBtn = document.getElementById('ai-insert-btn');
+
+  statusEl.textContent = 'generating...';
+  generateBtn.style.display = 'none';
+
+  try {
+    if (aiMode === 'svg') {
+      const resp = await fetch(OR_BASE + '/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Authorization': 'Bearer ' + OR_KEY,
+          'Content-Type': 'application/json',
+          'HTTP-Referer': location.href
+        },
+        body: JSON.stringify({
+          model: 'anthropic/claude-sonnet-4-20250514',
+          messages: [{
+            role: 'user',
+            content: `Generate a clean, minimal SVG illustration for a presentation slide. Theme: dark background (#161620), accent color #4dc9d4 (teal). The SVG should be self-contained, 400x300 viewBox, no external dependencies. Subject: ${prompt}. Return ONLY the SVG code, nothing else.`
+          }],
+          max_tokens: 4000
+        })
+      });
+      const data = await resp.json();
+      const content = data.choices?.[0]?.message?.content || '';
+      const svgMatch = content.match(/<svg[\s\S]*?<\/svg>/i);
+      if (svgMatch) {
+        aiResult = { type: 'svg', content: svgMatch[0] };
+        previewEl.innerHTML = svgMatch[0];
+        previewEl.classList.add('visible');
+        statusEl.textContent = 'SVG generated';
+        insertBtn.style.display = '';
+      } else {
+        statusEl.textContent = 'no SVG found in response';
+        generateBtn.style.display = '';
+      }
+    } else {
+      // Image generation
+      const resp = await fetch(OR_BASE + '/images/generations', {
+        method: 'POST',
+        headers: {
+          'Authorization': 'Bearer ' + OR_KEY,
+          'Content-Type': 'application/json',
+          'HTTP-Referer': location.href
+        },
+        body: JSON.stringify({
+          model: 'openai/dall-e-3',
+          prompt: `Minimal, modern illustration for a tech presentation slide. Dark theme, teal accent color (#4dc9d4). ${prompt}`,
+          n: 1,
+          size: '1024x1024'
+        })
+      });
+      const data = await resp.json();
+      const url = data.data?.[0]?.url;
+      if (url) {
+        aiResult = { type: 'image', content: url };
+        previewEl.innerHTML = `<img src="${url}" alt="">`;
+        previewEl.classList.add('visible');
+        statusEl.textContent = 'image generated';
+        insertBtn.style.display = '';
+      } else {
+        statusEl.textContent = 'generation failed: ' + (data.error?.message || 'unknown error');
+        generateBtn.style.display = '';
+      }
+    }
+  } catch (e) {
+    statusEl.textContent = 'error: ' + e.message;
+    generateBtn.style.display = '';
+  }
+}
+
+function insertAiResult() {
+  if (!aiResult) return;
+  pushUndo();
+
+  if (aiResult.type === 'svg') {
+    const div = document.createElement('div');
+    div.innerHTML = aiResult.content;
+    div.style.maxWidth = '100%';
+    div.style.textAlign = 'center';
+    if (activeImgPlaceholder) {
+      activeImgPlaceholder.replaceWith(div);
+    } else {
+      slides[current].querySelector('.slide-inner').appendChild(div);
+    }
+  } else {
+    const img = document.createElement('img');
+    img.src = aiResult.content;
+    img.className = 'slide-image';
+    img.style.maxWidth = '80%';
+    if (activeImgPlaceholder) {
+      activeImgPlaceholder.replaceWith(img);
+    } else {
+      slides[current].querySelector('.slide-inner').appendChild(img);
+    }
+  }
+
+  closeAiModal();
+  activeImgPlaceholder = null;
+  activateEditOnSlides();
+}
+
+// ===== PREVIEW PANEL =====
+let previewVisible = false;
+
+function togglePreview() {
+  previewVisible = !previewVisible;
+  document.getElementById('preview-panel').classList.toggle('visible', previewVisible);
+  document.getElementById('preview-btn').classList.toggle('active', previewVisible);
+  if (previewVisible) updatePreview();
+}
+
+function updatePreview() {
+  if (!previewVisible) return;
+  const nextIdx = current + 1;
+  const previewScale = document.getElementById('preview-scale');
+  if (nextIdx >= total) {
+    previewScale.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:var(--text-dim);font-size:120px;font-family:var(--font-body)">// END</div>';
+    return;
+  }
+  const nextSlide = slides[nextIdx];
+  const clone = nextSlide.cloneNode(true);
+  clone.classList.add('active');
+  clone.style.display = 'flex';
+  clone.querySelectorAll('.layout-bar').forEach(b => b.remove());
+  previewScale.innerHTML = '';
+  previewScale.appendChild(clone);
+}
+
+// ===== AUTO-PUSH =====
+function toggleAutoPush() {
+  autoPushEnabled = !autoPushEnabled;
+  document.getElementById('auto-push-btn').classList.toggle('active', autoPushEnabled);
+  if (autoPushEnabled && editMode) startAutoPush();
+  else stopAutoPush();
+}
+
+function startAutoPush() {
+  stopAutoPush();
+  autoPushTimer = setInterval(() => {
+    if (isDirty && getGhToken()) {
+      saveToGitHub();
+      isDirty = false;
+    }
+  }, 60000);
+}
+
+function stopAutoPush() {
+  clearInterval(autoPushTimer);
+}
+
 // ===== LOCAL PERSISTENCE =====
 function saveToLocal() {
-  const data = { slides: [], current };
-  document.querySelectorAll('.slide').forEach((s) => {
-    // Remove layout bars before saving
-    const clone = s.cloneNode(true);
-    clone.querySelectorAll('.layout-bar').forEach(b => b.remove());
-    // Remove contenteditable attributes
-    clone.querySelectorAll('[contenteditable]').forEach(el => el.removeAttribute('contenteditable'));
-    clone.classList.remove('active');
-    data.slides.push(clone.outerHTML);
-  });
+  const data = captureState();
   try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch(e) {}
   setStatus('saved', 'auto-saved');
 }
@@ -1053,42 +1902,31 @@ function loadFromLocal() {
     if (!raw) return false;
     const data = JSON.parse(raw);
     if (!data.slides || !data.slides.length) return false;
-
-    // Remove existing slides
     document.querySelectorAll('.slide').forEach(s => s.remove());
-
-    // Insert saved slides
     const topLine = document.querySelector('.top-line');
     data.slides.forEach(html => {
       const wrapper = document.createElement('div');
       wrapper.innerHTML = html;
-      const slide = wrapper.firstElementChild;
-      topLine.after(slide);
+      topLine.after(wrapper.firstElementChild);
     });
-
     initSlides();
     showSlide(data.current || 0);
     return true;
   } catch(e) { return false; }
 }
 
-// Save on page unload
 window.addEventListener('beforeunload', () => {
   if (editMode) saveToLocal();
 });
 
 // ===== GITHUB PERSISTENCE =====
-function getGhToken() {
-  return localStorage.getItem(TOKEN_KEY);
-}
+function getGhToken() { return localStorage.getItem(TOKEN_KEY); }
 
 function showGhModal() {
   document.getElementById('gh-modal').classList.add('visible');
   document.getElementById('gh-token-input').focus();
 }
-function closeGhModal() {
-  document.getElementById('gh-modal').classList.remove('visible');
-}
+function closeGhModal() { document.getElementById('gh-modal').classList.remove('visible'); }
 function confirmGhToken() {
   const token = document.getElementById('gh-token-input').value.trim();
   if (token) {
@@ -1112,7 +1950,6 @@ async function saveToGitHub() {
   setStatus('saving', 'pushing...');
 
   try {
-    // Get current file SHA
     const getResp = await fetch(`https://api.github.com/repos/${GH_REPO}/contents/${GH_FILE}?ref=${GH_BRANCH}`, {
       headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json' }
     });
@@ -1123,11 +1960,9 @@ async function saveToGitHub() {
       sha = data.sha;
     }
 
-    // Build clean HTML from current state
     const content = buildCleanHTML();
     const encoded = btoa(unescape(encodeURIComponent(content)));
 
-    // Commit
     const body = {
       message: `update presentation — ${new Date().toISOString().slice(0,16)}`,
       content: encoded,
@@ -1147,6 +1982,7 @@ async function saveToGitHub() {
 
     if (putResp.ok) {
       setStatus('saved', 'pushed to GitHub');
+      isDirty = false;
     } else {
       const err = await putResp.json();
       throw new Error(err.message || 'GitHub API error');
@@ -1158,32 +1994,48 @@ async function saveToGitHub() {
 }
 
 function buildCleanHTML() {
-  // Get current document HTML, clean edit artifacts
   const clone = document.documentElement.cloneNode(true);
-
-  // Remove edit mode class
   clone.querySelector('body').classList.remove('edit-mode');
-
-  // Remove layout bars
   clone.querySelectorAll('.layout-bar').forEach(b => b.remove());
-
-  // Remove contenteditable
   clone.querySelectorAll('[contenteditable]').forEach(el => el.removeAttribute('contenteditable'));
-
-  // Set first slide active, remove active from others
+  clone.querySelectorAll('[draggable]').forEach(el => el.removeAttribute('draggable'));
+  clone.querySelectorAll('.block-selected,.drag-over-top,.drag-over-bottom,.block-dragging').forEach(el => {
+    el.classList.remove('block-selected','drag-over-top','drag-over-bottom','block-dragging');
+  });
+  clone.querySelectorAll('#block-actions,#img-action-menu').forEach(el => { el.classList.remove('visible'); });
+  clone.querySelectorAll('#layout-picker,#ai-modal,#gh-modal').forEach(el => { el.classList.remove('visible'); });
+  clone.querySelectorAll('#preview-panel').forEach(el => { el.classList.remove('visible'); });
   clone.querySelectorAll('.slide').forEach((s, i) => {
     s.classList.toggle('active', i === 0);
   });
-
-  // Reset progress bar
   const pb = clone.querySelector('.progress-bar');
   if (pb) pb.style.width = '';
-
   return '<!DOCTYPE html>\n' + clone.outerHTML;
 }
 
+// ===== CLOSE MODALS ON ESC =====
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    closeLayoutPicker();
+    closeAiModal();
+    closeGhModal();
+    document.getElementById('img-action-menu').classList.remove('visible');
+    deselectBlock();
+  }
+});
+
+// Close layout picker on click outside
+document.getElementById('layout-picker').addEventListener('click', (e) => {
+  if (e.target === e.currentTarget) closeLayoutPicker();
+});
+document.getElementById('ai-modal').addEventListener('click', (e) => {
+  if (e.target === e.currentTarget) closeAiModal();
+});
+document.getElementById('gh-modal').addEventListener('click', (e) => {
+  if (e.target === e.currentTarget) closeGhModal();
+});
+
 // ===== INIT =====
-// Try loading from localStorage
 const loaded = loadFromLocal();
 if (!loaded) showSlide(current);
 </script>

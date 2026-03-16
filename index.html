@@ -300,17 +300,18 @@ body.edit-mode #edit-badge { display: block; }
 
 /* Layout bar */
 .layout-bar {
-  display: none; position: absolute; top: 50px; left: 50%; transform: translateX(-50%);
-  gap: 4px; padding: 4px 8px;
-  background: rgba(22,22,32,0.95); border: 1px solid var(--border);
-  border-radius: 6px; backdrop-filter: blur(8px); z-index: 50;
+  display: none; position: fixed; top: 50px; left: 50%; transform: translateX(-50%);
+  gap: 4px; padding: 6px 10px;
+  background: rgba(22,22,32,0.97); border: 1px solid var(--teal-glow);
+  border-radius: 8px; backdrop-filter: blur(12px); z-index: 10001;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.4);
 }
 body.edit-mode .layout-bar { display: flex; }
 .layout-bar button {
-  width: 32px; height: 24px; border: 1px solid var(--border);
-  border-radius: 3px; background: var(--bg-card); cursor: pointer;
+  width: 36px; height: 28px; border: 1px solid var(--border);
+  border-radius: 5px; background: var(--bg-card); cursor: pointer;
   display: flex; align-items: center; justify-content: center;
-  transition: all 0.15s; padding: 0; color: var(--text-dim);
+  transition: all 0.15s; padding: 0; color: var(--text);
 }
 .layout-bar button:hover { border-color: var(--teal); color: var(--teal); }
 .layout-bar button.active { border-color: var(--teal); background: var(--teal-dim); color: var(--teal); }
@@ -373,7 +374,10 @@ body.edit-mode .slide-inner > *.drag-over-bottom {
   background: rgba(22,22,32,0.97); border: 1px solid var(--border);
   border-radius: 10px; backdrop-filter: blur(12px); z-index: 10002;
   font-family: var(--font-body); align-items: center;
+  max-width: 95vw; overflow-x: auto; overflow-y: hidden;
+  scrollbar-width: none; -ms-overflow-style: none;
 }
+#builder-toolbar::-webkit-scrollbar { display: none; }
 body.edit-mode #builder-toolbar { display: flex; }
 
 #builder-toolbar .tb-sep {
@@ -918,12 +922,6 @@ body.edit-mode #builder-toolbar { display: flex; }
       </div>
       <div class="timeline-row red-row">
         <div class="timeline-dot" style="background:var(--red)"></div>
-        <div class="timeline-time">07.04 Tue</div>
-        <div class="timeline-title">Tarnavskii — AI in corporations (300+ team)</div>
-        <div class="timeline-dur">18:00</div>
-      </div>
-      <div class="timeline-row red-row">
-        <div class="timeline-dot" style="background:var(--red)"></div>
         <div class="timeline-time">08.04 Wed</div>
         <div class="timeline-title">Annakov — AI sales automation</div>
         <div class="timeline-dur">18:00</div>
@@ -1028,23 +1026,21 @@ body.edit-mode #builder-toolbar { display: flex; }
   <button onclick="undo()" title="undo (Ctrl+Z)">&#8617;</button>
   <button onclick="redo()" title="redo (Ctrl+Shift+Z)">&#8618;</button>
   <div class="tb-sep"></div>
-  <span class="tb-label">TEXT</span>
   <button onclick="changeTextSize(1)" title="increase text size">A+</button>
   <button onclick="changeTextSize(-1)" title="decrease text size">A-</button>
   <div class="tb-sep"></div>
-  <span class="tb-label">INSERT</span>
   <button onclick="insertImage()" title="insert image">img</button>
   <button onclick="insertTextBlock()" title="insert text block">txt</button>
   <button onclick="insertCodeBlock()" title="insert code block">{}</button>
+  <button onclick="openAiModal()" title="AI generate">AI</button>
   <div class="tb-sep"></div>
-  <span class="tb-label">SLIDES</span>
-  <button onclick="showLayoutPicker()" title="add new slide (pick layout)">+ slide</button>
-  <button onclick="duplicateSlide()" title="duplicate current slide">dup</button>
-  <button class="danger" onclick="deleteSlide()" title="delete current slide">del</button>
+  <button onclick="showLayoutPicker()" title="add new slide" style="color:var(--teal)">+ slide</button>
+  <button onclick="duplicateSlide()" title="duplicate">dup</button>
+  <button class="danger" onclick="deleteSlide()" title="delete slide">del</button>
   <div class="tb-sep"></div>
-  <button onclick="saveToGitHub()" title="save to GitHub" style="font-weight:600">push</button>
-  <button id="auto-push-btn" onclick="toggleAutoPush()" title="toggle auto-push">auto</button>
-  <button id="preview-btn" onclick="togglePreview()" title="toggle next-slide preview">&#128065;</button>
+  <button onclick="saveToGitHub()" title="push to GitHub" style="font-weight:600">push</button>
+  <button id="auto-push-btn" onclick="toggleAutoPush()" title="auto-push every 60s">auto</button>
+  <button id="preview-btn" onclick="togglePreview()" title="next slide preview">&#9673;</button>
   <span class="save-status" id="save-status"></span>
 </div>
 
@@ -1100,8 +1096,8 @@ body.edit-mode #builder-toolbar { display: flex; }
   <div id="ai-modal-inner">
     <h3>AI generate</h3>
     <div class="ai-mode-tabs">
-      <button class="active" onclick="setAiMode('svg')" data-mode="svg">SVG illustration</button>
-      <button onclick="setAiMode('image')" data-mode="image">raster image</button>
+      <button class="active" onclick="setAiMode('svg')" data-mode="svg">diagram</button>
+      <button onclick="setAiMode('image')" data-mode="image">illustration</button>
     </div>
     <textarea id="ai-prompt" placeholder="describe what you want to generate..."></textarea>
     <div class="ai-status" id="ai-status"></div>
@@ -1775,8 +1771,8 @@ async function runAiGeneration() {
         generateBtn.style.display = '';
       }
     } else {
-      // Image generation
-      const resp = await fetch(OR_BASE + '/images/generations', {
+      // Illustration mode — rich SVG via chat/completions
+      const resp = await fetch(OR_BASE + '/chat/completions', {
         method: 'POST',
         headers: {
           'Authorization': 'Bearer ' + OR_KEY,
@@ -1784,22 +1780,25 @@ async function runAiGeneration() {
           'HTTP-Referer': location.href
         },
         body: JSON.stringify({
-          model: 'openai/dall-e-3',
-          prompt: `Minimal, modern illustration for a tech presentation slide. Dark theme, teal accent color (#4dc9d4). ${prompt}`,
-          n: 1,
-          size: '1024x1024'
+          model: 'anthropic/claude-sonnet-4-20250514',
+          messages: [{
+            role: 'user',
+            content: `Create a visually rich, detailed SVG illustration for a presentation slide. Style: dark background (#161620), primary accent #4dc9d4 (teal), secondary #3b82f6 (blue). Use gradients, subtle glow effects, rounded shapes, and layered composition. Make it look like a polished infographic or data visualization — not a simple icon. viewBox="0 0 600 400", self-contained, no external deps. Subject: ${prompt}. Return ONLY the <svg>...</svg> code.`
+          }],
+          max_tokens: 6000
         })
       });
       const data = await resp.json();
-      const url = data.data?.[0]?.url;
-      if (url) {
-        aiResult = { type: 'image', content: url };
-        previewEl.innerHTML = `<img src="${url}" alt="">`;
+      const content = data.choices?.[0]?.message?.content || '';
+      const svgMatch = content.match(/<svg[\s\S]*?<\/svg>/i);
+      if (svgMatch) {
+        aiResult = { type: 'svg', content: svgMatch[0] };
+        previewEl.innerHTML = svgMatch[0];
         previewEl.classList.add('visible');
-        statusEl.textContent = 'image generated';
+        statusEl.textContent = 'illustration generated';
         insertBtn.style.display = '';
       } else {
-        statusEl.textContent = 'generation failed: ' + (data.error?.message || 'unknown error');
+        statusEl.textContent = 'no illustration found in response';
         generateBtn.style.display = '';
       }
     }

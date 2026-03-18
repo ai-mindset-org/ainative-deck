@@ -617,6 +617,64 @@ body.edit-mode #builder-toolbar { display: flex; }
 }
 #gh-modal-inner .modal-actions button.primary:hover { opacity: 0.9; }
 
+/* === TOC OVERLAY === */
+#toc-overlay {
+  display:none; position:fixed; inset:0; z-index:25000;
+  background:rgba(10,10,15,0.96); overflow-y:auto; padding:40px 40px 80px;
+  backdrop-filter:blur(12px);
+}
+#toc-overlay.visible { display:block; }
+#toc-overlay h2 {
+  font-family:var(--font-heading); font-size:20px; color:var(--teal);
+  margin-bottom:24px; letter-spacing:2px;
+}
+.toc-grid {
+  display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:12px;
+}
+.toc-item {
+  cursor:pointer; border:1px solid var(--border); border-radius:8px;
+  padding:12px 14px; transition:all 0.2s; background:var(--bg-card);
+}
+.toc-item:hover { border-color:var(--teal); background:var(--teal-dim); }
+.toc-item.toc-current { border-color:var(--teal); background:var(--teal-dim); }
+.toc-item.toc-section {
+  grid-column:1/-1; border-left:3px solid var(--teal);
+  background:rgba(77,201,212,0.05); margin-top:8px;
+}
+.toc-num { color:var(--teal); font-size:11px; font-family:var(--font-code); margin-bottom:4px; }
+.toc-title { color:var(--text); font-size:13px; line-height:1.3; }
+.toc-section .toc-title { font-size:15px; font-weight:600; }
+
+/* === IMAGE RESIZE (edit mode) === */
+body.edit-mode .slide-image,
+body.edit-mode .slide-inner img:not(.slide-logo) {
+  position:relative; cursor:pointer;
+}
+body.edit-mode .slide-image:hover,
+body.edit-mode .slide-inner img:not(.slide-logo):hover {
+  outline:2px solid var(--teal); outline-offset:2px;
+}
+body.edit-mode .slide-image.img-selected,
+body.edit-mode .slide-inner img.img-selected {
+  outline:2px solid var(--teal); outline-offset:2px;
+}
+#img-resize-bar {
+  display:none; position:fixed; bottom:90px; left:50%; transform:translateX(-50%);
+  gap:4px; padding:6px 12px;
+  background:rgba(22,22,32,0.97); border:1px solid var(--teal-glow);
+  border-radius:8px; backdrop-filter:blur(12px); z-index:10003;
+  font-family:var(--font-body); align-items:center;
+}
+#img-resize-bar.visible { display:flex; }
+#img-resize-bar button {
+  border:1px solid var(--border); border-radius:5px;
+  background:transparent; cursor:pointer; padding:5px 10px;
+  font-family:var(--font-body); font-size:11px; color:var(--text-dim);
+  transition:all 0.15s; white-space:nowrap;
+}
+#img-resize-bar button:hover { border-color:var(--teal); color:var(--teal); }
+#img-resize-bar span { font-size:10px; color:var(--text-dim); padding:0 6px; }
+
 /* === IMAGE ACTION MENU === */
 #img-action-menu {
   display: none; position: fixed;
@@ -633,6 +691,17 @@ body.edit-mode #builder-toolbar { display: flex; }
   text-align: left; transition: all 0.15s;
 }
 #img-action-menu button:hover { background: var(--teal-dim); color: var(--teal); }
+
+/* === OVERFLOW PROTECTION === */
+.slide-inner {
+  max-height: calc(100vh - 100px);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--teal-dim) transparent;
+}
+.slide-inner::-webkit-scrollbar { width: 4px; }
+.slide-inner::-webkit-scrollbar-track { background: transparent; }
+.slide-inner::-webkit-scrollbar-thumb { background: var(--teal-dim); border-radius: 2px; }
 
 /* === RESPONSIVE === */
 @media (max-width: 768px) {
@@ -1279,6 +1348,8 @@ body.edit-mode #builder-toolbar { display: flex; }
         </div>
       </div>
     </div>
+  
+    <img src="img/slide17_6.png" class="slide-image" style="max-width:70%;margin-top:1rem;border-radius:8px">
   </div>
 </div>
 
@@ -1331,6 +1402,8 @@ body.edit-mode #builder-toolbar { display: flex; }
         <p style="margin-top:16px;font-size:14px;color:var(--text-dim)">Стоимость inference падает быстрее, чем стоимость cloud compute в 2010-х. То, что стоило $100 в 2023, стоит $0.10-$10 сегодня.</p>
       </div>
     </div>
+  
+    <img src="img/slide18_7.png" class="slide-image" style="max-width:60%;margin-top:1rem;border-radius:8px">
   </div>
 </div>
 
@@ -1375,6 +1448,8 @@ body.edit-mode #builder-toolbar { display: flex; }
         <p style="margin-top:16px;font-size:14px;color:var(--text-dim)">Вычислительные мощности для обучения frontier-моделей растут на 5x каждый год с 2020. Это быстрее закона Мура.</p>
       </div>
     </div>
+  
+    <img src="img/slide19_8.png" class="slide-image" style="max-width:60%;margin-top:1rem;border-radius:8px">
   </div>
 </div>
 
@@ -1423,6 +1498,8 @@ body.edit-mode #builder-toolbar { display: flex; }
         <p style="margin-top:8px;font-size:14px;color:var(--teal)">Окно для AI-трансформации &mdash; сейчас. Через 2-3 года отставание станет критическим.</p>
       </div>
     </div>
+  
+    <img src="img/slide22_11.png" class="slide-image" style="max-width:60%;margin-top:1rem;border-radius:8px">
   </div>
 </div>
 
@@ -1536,6 +1613,8 @@ body.edit-mode #builder-toolbar { display: flex; }
       <li class="blue-bullet">стоимость агента для информационной работы в <span class="green">10&ndash;100 раз</span> ниже, чем у человека</li>
       <li class="dim" style="list-style:none;padding-left:1.2rem;font-size:0.9rem;margin-top:0.5rem">зарплата + налоги + офис + управление + онбординг</li>
     </ul>
+  
+    <img src="img/slide32_16.png" class="slide-image" style="max-width:55%;margin-top:1rem;border-radius:8px">
   </div>
 </div>
 
@@ -1681,6 +1760,8 @@ body.edit-mode #builder-toolbar { display: flex; }
         </div>
       </div>
     </div>
+  
+    <img src="img/slide26_14.png" class="slide-image" style="max-width:65%;margin-top:1rem;border-radius:8px">
   </div>
 </div>
 
@@ -1778,40 +1859,36 @@ body.edit-mode #builder-toolbar { display: flex; }
     <div class="label">// ML VS LLM</div>
     <h2>фундаментальное различие</h2>
 
-    <div class="split" style="gap:1.5rem;margin-top:1.25rem;align-items:stretch">
-      <div style="background:var(--surface-2);border:1px solid var(--border);border-top:3px solid var(--blue);border-radius:8px;padding:1.5rem;flex:1;display:flex;flex-direction:column;gap:1rem">
-        <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:0.25rem">
-          <div style="font-family:var(--font-mono);font-size:1.1rem;font-weight:700;color:var(--blue)">Machine Learning</div>
-          <span class="tag blue-tag" style="font-size:0.7rem">классический ML</span>
+    <div class="split" style="gap:1rem;margin-top:1rem;align-items:stretch">
+      <div style="background:var(--surface-2);border:1px solid var(--border);border-top:3px solid var(--blue);border-radius:8px;padding:1rem;flex:1;display:flex;flex-direction:column;gap:0.5rem">
+        <div style="display:flex;align-items:center;gap:0.5rem">
+          <div style="font-family:var(--font-mono);font-size:1rem;font-weight:700;color:var(--blue)">Machine Learning</div>
+          <span class="tag blue-tag" style="font-size:0.65rem">классический</span>
         </div>
-        <div style="color:var(--text-dim);font-size:0.92rem;line-height:1.6">Обучается на <span class="blue">структурированных данных</span>, предсказывает значения. Логика детерминирована: одинаковый вход всегда даёт одинаковый выход.</div>
-        <ul class="bullet-list" style="margin:0">
-          <li>Скоринг кредитных заявок</li>
-          <li>Рекомендательные системы</li>
-          <li>Fraud detection</li>
-          <li>Прогноз оттока</li>
+        <div style="color:var(--text-dim);font-size:0.8rem;line-height:1.4"><span class="blue">Структурированные данные</span> &rarr; предсказание. Детерминированный вход/выход.</div>
+        <ul class="bullet-list" style="margin:0;font-size:0.8rem">
+          <li>Скоринг, рекомендации</li>
+          <li>Fraud detection, прогноз оттока</li>
         </ul>
-        <div style="margin-top:auto;padding:0.85rem;background:rgba(100,160,255,0.08);border-radius:6px;font-size:0.88rem;color:var(--text-dim)">
-          <span class="blue" style="font-weight:600">Автоматизирует повторяемое</span> &mdash; задачи с чёткой формулой и известными паттернами
+        <div style="padding:0.6rem;background:rgba(100,160,255,0.08);border-radius:6px;font-size:0.78rem;color:var(--text-dim);margin-top:auto">
+          <span class="blue" style="font-weight:600">Автоматизирует повторяемое</span>
         </div>
       </div>
 
-      <div style="display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--text-dim);font-size:1.5rem;font-family:var(--font-mono)">vs</div>
+      <div style="display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--text-dim);font-size:1.2rem;font-family:var(--font-mono)">vs</div>
 
-      <div style="background:var(--surface-2);border:1px solid var(--border);border-top:3px solid var(--teal);border-radius:8px;padding:1.5rem;flex:1;display:flex;flex-direction:column;gap:1rem">
-        <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:0.25rem">
-          <div style="font-family:var(--font-mono);font-size:1.1rem;font-weight:700;color:var(--teal)">LLM</div>
-          <span class="tag" style="font-size:0.7rem;background:rgba(0,230,180,0.12);color:var(--teal);border-color:var(--teal)">генеративный ИИ</span>
+      <div style="background:var(--surface-2);border:1px solid var(--border);border-top:3px solid var(--teal);border-radius:8px;padding:1rem;flex:1;display:flex;flex-direction:column;gap:0.5rem">
+        <div style="display:flex;align-items:center;gap:0.5rem">
+          <div style="font-family:var(--font-mono);font-size:1rem;font-weight:700;color:var(--teal)">LLM</div>
+          <span class="tag" style="font-size:0.65rem;background:rgba(0,230,180,0.12);color:var(--teal);border-color:var(--teal)">генеративный ИИ</span>
         </div>
-        <div style="color:var(--text-dim);font-size:0.92rem;line-height:1.6">Обучается на <span class="teal">тексте всего интернета</span>, генерирует. Недетерминированное рассуждение: понимает контекст, работает с новыми задачами.</div>
-        <ul class="bullet-list" style="margin:0">
-          <li>Понимание неструктурированного текста</li>
-          <li>Принятие решений в новых ситуациях</li>
-          <li>Многошаговые рассуждения</li>
+        <div style="color:var(--text-dim);font-size:0.8rem;line-height:1.4"><span class="teal">Весь интернет</span> &rarr; генерация. Понимает контекст, работает с новым.</div>
+        <ul class="bullet-list" style="margin:0;font-size:0.8rem">
+          <li>Неструктурированный текст, рассуждения</li>
           <li>Генерация кода, анализ, синтез</li>
         </ul>
-        <div style="margin-top:auto;padding:0.85rem;background:rgba(0,230,180,0.08);border-radius:6px;font-size:0.88rem;color:var(--text-dim)">
-          <span class="teal" style="font-weight:600">Автоматизирует то, что требовало суждения</span> &mdash; задачи, где раньше нужен был человеческий эксперт
+        <div style="padding:0.6rem;background:rgba(0,230,180,0.08);border-radius:6px;font-size:0.78rem;color:var(--text-dim);margin-top:auto">
+          <span class="teal" style="font-weight:600">Автоматизирует суждение</span>
         </div>
       </div>
     </div>
@@ -1910,7 +1987,7 @@ body.edit-mode #builder-toolbar { display: flex; }
               <div class="stat-label">место до смены обвязки</div>
             </div>
             <div class="stat-box" style="padding:0.85rem;text-align:center">
-              <div class="num green" style="font-size:1.6rem">Топ&#8209;5</div>
+              <div class="num green" style="font-size:1.6rem">Топ‑5</div>
               <div class="stat-label">после смены обвязки</div>
             </div>
           </div>
@@ -2009,8 +2086,8 @@ body.edit-mode #builder-toolbar { display: flex; }
   <div class="glow-dot" style="bottom:30%;right:20%"></div>
   <div class="slide-inner" style="align-items:center;text-align:center">
     <div class="section-num">07</div>
-    <h1>&#1095;&#1090;&#1086; &#1085;&#1077; &#1079;&#1072;&#1084;&#1077;&#1085;&#1103;&#1077;&#1090;&#1089;&#1103;</h1>
-    <p class="subtitle">&#1090;&#1088;&#1080; &#1074;&#1077;&#1097;&#1080;, &#1082;&#1086;&#1090;&#1086;&#1088;&#1099;&#1077; &#1076;&#1077;&#1083;&#1072;&#1102;&#1090; &#1090;&#1086;&#1083;&#1100;&#1082;&#1086; &#1083;&#1102;&#1076;&#1080;</p>
+    <h1>что не заменяется</h1>
+    <p class="subtitle">три вещи, которые делают только люди</p>
   </div>
 </div>
 
@@ -2019,26 +2096,26 @@ body.edit-mode #builder-toolbar { display: flex; }
   <div class="slide-counter"><span class="current">39</span>/<span class="total"></span></div>
   <img class="slide-logo" src="../../logo.png" alt="">
   <div class="slide-inner">
-    <div class="label">// &#1063;&#1045;&#1051;&#1054;&#1042;&#1045;&#1063;&#1045;&#1057;&#1050;&#1054;&#1045; &#1055;&#1056;&#1045;&#1048;&#1052;&#1059;&#1065;&#1045;&#1057;&#1058;&#1042;&#1054;</div>
-    <h2>&#1095;&#1090;&#1086; &#1086;&#1089;&#1090;&#1072;&#1105;&#1090;&#1089;&#1103; &#1079;&#1072; &#1083;&#1102;&#1076;&#1100;&#1084;&#1080;</h2>
+    <div class="label">// ЧЕЛОВЕЧЕСКОЕ ПРЕИМУЩЕСТВО</div>
+    <h2>что остаётся за людьми</h2>
     <div class="cards">
       <div class="card">
-        <div class="card-icon teal">&#9654;</div>
-        <h3>&#1042;&#1099;&#1073;&#1086;&#1088; &#1094;&#1077;&#1083;&#1077;&#1081;</h3>
-        <p>&#1050;&#1086;&#1075;&#1076;&#1072; Shopify &#1088;&#1077;&#1096;&#1080;&#1083; &#1079;&#1072;&#1084;&#1086;&#1088;&#1086;&#1079;&#1080;&#1090;&#1100; &#1085;&#1072;&#1081;&#1084; &mdash; &#1101;&#1090;&#1086; &#1090;&#1088;&#1077;&#1073;&#1086;&#1074;&#1072;&#1083;&#1086; &#1095;&#1090;&#1077;&#1085;&#1080;&#1103; &#1076;&#1080;&#1085;&#1072;&#1084;&#1080;&#1082;&#1080; &#1089;&#1086;&#1074;&#1077;&#1090;&#1072;, &#1091;&#1073;&#1077;&#1078;&#1076;&#1105;&#1085;&#1085;&#1086;&#1089;&#1090;&#1080; &#1092;&#1072;&#1091;&#1085;&#1076;&#1077;&#1088;&#1072;, &#1088;&#1099;&#1085;&#1086;&#1095;&#1085;&#1086;&#1075;&#1086; &#1090;&#1072;&#1081;&#1084;&#1080;&#1085;&#1075;&#1072;. &#1040;&#1075;&#1077;&#1085;&#1090; &#1076;&#1072;&#1105;&#1090; &#1086;&#1087;&#1094;&#1080;&#1080; &mdash; &#1095;&#1077;&#1083;&#1086;&#1074;&#1077;&#1082; &#1074;&#1099;&#1073;&#1080;&#1088;&#1072;&#1077;&#1090; &#1085;&#1072;&#1087;&#1088;&#1072;&#1074;&#1083;&#1077;&#1085;&#1080;&#1077;.</p>
-        <span class="tag">&#1094;&#1077;&#1083;&#1077;&#1087;&#1086;&#1083;&#1072;&#1075;&#1072;&#1085;&#1080;&#1077;</span>
+        <div class="card-icon teal">▶</div>
+        <h3>Выбор целей</h3>
+        <p>Когда Shopify решил заморозить найм &mdash; это требовало чтения динамики совета, убеждённости фаундера, рыночного тайминга. Агент даёт опции &mdash; человек выбирает направление.</p>
+        <span class="tag">целеполагание</span>
       </div>
       <div class="card">
-        <div class="card-icon amber">&#9632;</div>
-        <h3>&#1054;&#1090;&#1074;&#1077;&#1090;&#1089;&#1090;&#1074;&#1077;&#1085;&#1085;&#1086;&#1089;&#1090;&#1100;</h3>
-        <p>&#1040;&#1075;&#1077;&#1085;&#1090; &#1076;&#1072;&#1077;&#1090; &#1088;&#1077;&#1082;&#1086;&#1084;&#1077;&#1085;&#1076;&#1072;&#1094;&#1080;&#1102;. &#1053;&#1080; &#1086;&#1076;&#1085;&#1072; &#1087;&#1088;&#1072;&#1074;&#1086;&#1074;&#1072;&#1103; &#1089;&#1080;&#1089;&#1090;&#1077;&#1084;&#1072; &#1085;&#1077; &#1087;&#1086;&#1076;&#1076;&#1077;&#1088;&#1078;&#1080;&#1074;&#1072;&#1077;&#1090; &#1085;&#1077;&#1089;&#1077;&#1085;&#1080;&#1077; &#1087;&#1086;&#1089;&#1083;&#1077;&#1076;&#1089;&#1090;&#1074;&#1080;&#1081; &#1072;&#1075;&#1077;&#1085;&#1090;&#1086;&#1084;. &#1054;&#1090;&#1074;&#1077;&#1090;&#1089;&#1090;&#1074;&#1077;&#1085;&#1085;&#1086;&#1089;&#1090;&#1100; &#1074;&#1089;&#1077;&#1075;&#1076;&#1072; &#1074;&#1086;&#1079;&#1074;&#1088;&#1072;&#1097;&#1072;&#1077;&#1090;&#1089;&#1103; &#1082; &#1095;&#1077;&#1083;&#1086;&#1074;&#1077;&#1082;&#1091;.</p>
-        <span class="tag amber-tag">&#1087;&#1088;&#1072;&#1074;&#1086; + &#1101;&#1090;&#1080;&#1082;&#1072;</span>
+        <div class="card-icon amber">■</div>
+        <h3>Ответственность</h3>
+        <p>Агент дает рекомендацию. Ни одна правовая система не поддерживает несение последствий агентом. Ответственность всегда возвращается к человеку.</p>
+        <span class="tag amber-tag">право + этика</span>
       </div>
       <div class="card">
-        <div class="card-icon green">&#9670;</div>
-        <h3>&#1057;&#1091;&#1078;&#1076;&#1077;&#1085;&#1080;&#1077; &#1074; &#1085;&#1086;&#1074;&#1099;&#1093; &#1089;&#1080;&#1090;&#1091;&#1072;&#1094;&#1080;&#1103;&#1093;</h3>
-        <p>&#1047;&#1072;&#1076;&#1072;&#1095;&#1080; &#1073;&#1077;&#1079; &#1087;&#1088;&#1077;&#1094;&#1077;&#1076;&#1077;&#1085;&#1090;&#1086;&#1074; &#1080; &#1089; &#1086;&#1089;&#1087;&#1072;&#1088;&#1080;&#1074;&#1072;&#1077;&#1084;&#1099;&#1084;&#1080; &#1082;&#1088;&#1080;&#1090;&#1077;&#1088;&#1080;&#1103;&#1084;&#1080; &#1091;&#1089;&#1087;&#1077;&#1093;&#1072;. &#1058;&#1072;&#1084;, &#1075;&#1076;&#1077; &#1085;&#1077;&#1090; &#1087;&#1072;&#1090;&#1090;&#1077;&#1088;&#1085;&#1072; &#1076;&#1083;&#1103; &#1080;&#1085;&#1090;&#1077;&#1088;&#1087;&#1086;&#1083;&#1103;&#1094;&#1080;&#1080; &mdash; &#1085;&#1091;&#1078;&#1077;&#1085; &#1095;&#1077;&#1083;&#1086;&#1074;&#1077;&#1095;&#1077;&#1089;&#1082;&#1080;&#1081; &#1085;&#1072;&#1074;&#1099;&#1082; &#1089;&#1090;&#1088;&#1091;&#1082;&#1090;&#1091;&#1088;&#1080;&#1088;&#1086;&#1074;&#1072;&#1085;&#1080;&#1103; &#1085;&#1077;&#1086;&#1087;&#1088;&#1077;&#1076;&#1077;&#1083;&#1105;&#1085;&#1085;&#1086;&#1089;&#1090;&#1080;.</p>
-        <span class="tag green-tag">&#1085;&#1086;&#1074;&#1099;&#1077; &#1087;&#1088;&#1086;&#1073;&#1083;&#1077;&#1084;&#1099;</span>
+        <div class="card-icon green">◆</div>
+        <h3>Суждение в новых ситуациях</h3>
+        <p>Задачи без прецедентов и с оспариваемыми критериями успеха. Там, где нет паттерна для интерполяции &mdash; нужен человеческий навык структурирования неопределённости.</p>
+        <span class="tag green-tag">новые проблемы</span>
       </div>
     </div>
   </div>
@@ -2049,16 +2126,16 @@ body.edit-mode #builder-toolbar { display: flex; }
   <div class="slide-counter"><span class="current">40</span>/<span class="total"></span></div>
   <img class="slide-logo" src="../../logo.png" alt="">
   <div class="slide-inner">
-    <div class="label">// &#1053;&#1054;&#1042;&#1054;&#1045; &#1055;&#1056;&#1040;&#1042;&#1048;&#1051;&#1054;</div>
-    <h2>&#1085;&#1086;&#1074;&#1086;&#1077; &#1087;&#1088;&#1072;&#1074;&#1080;&#1083;&#1086; &#1085;&#1072;&#1081;&#1084;&#1072;</h2>
+    <div class="label">// НОВОЕ ПРАВИЛО</div>
+    <h2>новое правило найма</h2>
     <div class="quote" style="margin-top:28px;border-left-color:var(--teal);padding:28px 32px;">
       <p style="font-size:20px;line-height:1.6;font-style:normal;font-family:var(--font-heading);font-weight:600;color:#fff;">
-        &#1053;&#1072;&#1085;&#1080;&#1084;&#1072;&#1081;&#1090;&#1077; &#1083;&#1102;&#1076;&#1077;&#1081; &#1090;&#1086;&#1083;&#1100;&#1082;&#1086; &#1076;&#1083;&#1103;: <span class="teal">&#1074;&#1099;&#1073;&#1086;&#1088;&#1072; &#1094;&#1077;&#1083;&#1077;&#1081;</span>, <span class="amber">&#1086;&#1090;&#1074;&#1077;&#1090;&#1089;&#1090;&#1074;&#1077;&#1085;&#1085;&#1086;&#1089;&#1090;&#1080;</span>, <span class="green">&#1089;&#1091;&#1078;&#1076;&#1077;&#1085;&#1080;&#1103; &#1074; &#1085;&#1086;&#1074;&#1099;&#1093; &#1089;&#1080;&#1090;&#1091;&#1072;&#1094;&#1080;&#1103;&#1093;</span>. &#1042;&#1089;&#1105; &#1086;&#1089;&#1090;&#1072;&#1083;&#1100;&#1085;&#1086;&#1077; &mdash; &#1072;&#1075;&#1077;&#1085;&#1090;&#1099; &#1089; &#1087;&#1077;&#1088;&#1074;&#1086;&#1075;&#1086; &#1076;&#1085;&#1103;.
+        Нанимайте людей только для: <span class="teal">выбора целей</span>, <span class="amber">ответственности</span>, <span class="green">суждения в новых ситуациях</span>. Всё остальное &mdash; агенты с первого дня.
       </p>
     </div>
     <div style="margin-top:32px;padding:20px 24px;border-radius:10px;border:1px solid rgba(77,201,212,0.08);background:rgba(28,28,46,0.5);">
       <p style="font-size:15px;color:var(--text-dim);line-height:1.7;">
-        &#1069;&#1090;&#1086; &#1085;&#1077; &laquo;&#1079;&#1072;&#1084;&#1077;&#1085;&#1080;&#1090;&#1100; &#1083;&#1102;&#1076;&#1077;&#1081;&raquo;. &#1069;&#1090;&#1086; <span style="color:rgba(255,255,255,0.85);font-weight:500;">&#1087;&#1077;&#1088;&#1077;&#1088;&#1072;&#1089;&#1087;&#1088;&#1077;&#1076;&#1077;&#1083;&#1080;&#1090;&#1100; &#1083;&#1102;&#1076;&#1077;&#1081;</span> &#1085;&#1072; &#1088;&#1072;&#1073;&#1086;&#1090;&#1091;, &#1075;&#1076;&#1077; &#1086;&#1085;&#1080; &#1085;&#1077;&#1079;&#1072;&#1084;&#1077;&#1085;&#1080;&#1084;&#1099;.
+        Это не &laquo;заменить людей&raquo;. Это <span style="color:rgba(255,255,255,0.85);font-weight:500;">перераспределить людей</span> на работу, где они незаменимы.
       </p>
     </div>
   </div>
@@ -2076,8 +2153,8 @@ body.edit-mode #builder-toolbar { display: flex; }
   <div class="glow-dot" style="bottom:25%;left:22%"></div>
   <div class="slide-inner" style="align-items:center;text-align:center">
     <div class="section-num">08</div>
-    <h1>&#1082;&#1086;&#1084;&#1087;&#1072;&#1085;&#1080;&#1103; &#1082;&#1072;&#1082; &#1087;&#1086;&#1090;&#1086;&#1082; &#1090;&#1086;&#1082;&#1077;&#1085;&#1086;&#1074;</h1>
-    <p class="subtitle">&#1086;&#1073;&#1098;&#1077;&#1076;&#1080;&#1085;&#1103;&#1102;&#1097;&#1072;&#1103; &#1084;&#1077;&#1090;&#1072;&#1092;&#1086;&#1088;&#1072;</p>
+    <h1>компания как поток токенов</h1>
+    <p class="subtitle">объединяющая метафора</p>
   </div>
 </div>
 
@@ -2086,49 +2163,51 @@ body.edit-mode #builder-toolbar { display: flex; }
   <div class="slide-counter"><span class="current">42</span>/<span class="total"></span></div>
   <img class="slide-logo" src="../../logo.png" alt="">
   <div class="slide-inner">
-    <div class="label">// &#1055;&#1054;&#1058;&#1054;&#1050; &#1058;&#1054;&#1050;&#1045;&#1053;&#1054;&#1042;</div>
-    <h2>&#1082;&#1072;&#1078;&#1076;&#1072;&#1103; &#1086;&#1088;&#1075;&#1072;&#1085;&#1080;&#1079;&#1072;&#1094;&#1080;&#1103; &mdash; &#1087;&#1088;&#1086;&#1094;&#1077;&#1089;&#1089;&#1086;&#1088; &#1080;&#1085;&#1092;&#1086;&#1088;&#1084;&#1072;&#1094;&#1080;&#1080;</h2>
+    <div class="label">// ПОТОК ТОКЕНОВ</div>
+    <h2>каждая организация &mdash; процессор информации</h2>
     <table class="data-table" style="margin-top:24px;">
       <thead>
         <tr>
-          <th>&#1060;&#1091;&#1085;&#1082;&#1094;&#1080;&#1103;</th>
-          <th>&#1042;&#1093;&#1086;&#1076;&#1103;&#1097;&#1080;&#1077; &#1090;&#1086;&#1082;&#1077;&#1085;&#1099;</th>
+          <th>Функция</th>
+          <th>Входящие токены</th>
           <th></th>
-          <th>&#1048;&#1089;&#1093;&#1086;&#1076;&#1103;&#1097;&#1080;&#1077; &#1090;&#1086;&#1082;&#1077;&#1085;&#1099;</th>
+          <th>Исходящие токены</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td><span class="teal" style="font-family:var(--font-heading);font-weight:600;">&#1055;&#1088;&#1086;&#1076;&#1072;&#1078;&#1080;</span></td>
-          <td>&#1090;&#1086;&#1082;&#1077;&#1085;&#1099; &#1079;&#1072;&#1087;&#1088;&#1086;&#1089;&#1086;&#1074;</td>
+          <td><span class="teal" style="font-family:var(--font-heading);font-weight:600;">Продажи</span></td>
+          <td>токены запросов</td>
           <td class="num-cell" style="color:var(--teal);font-size:18px;">&rarr;</td>
-          <td>&#1090;&#1086;&#1082;&#1077;&#1085;&#1099; &#1082;&#1086;&#1085;&#1090;&#1088;&#1072;&#1082;&#1090;&#1086;&#1074;</td>
+          <td>токены контрактов</td>
         </tr>
         <tr>
-          <td><span class="green" style="font-family:var(--font-heading);font-weight:600;">&#1048;&#1085;&#1078;&#1077;&#1085;&#1077;&#1088;&#1080;&#1103;</span></td>
-          <td>&#1090;&#1086;&#1082;&#1077;&#1085;&#1099; &#1090;&#1088;&#1077;&#1073;&#1086;&#1074;&#1072;&#1085;&#1080;&#1081;</td>
+          <td><span class="green" style="font-family:var(--font-heading);font-weight:600;">Инженерия</span></td>
+          <td>токены требований</td>
           <td class="num-cell" style="color:var(--teal);font-size:18px;">&rarr;</td>
-          <td>&#1090;&#1086;&#1082;&#1077;&#1085;&#1099; &#1082;&#1086;&#1076;&#1072;</td>
+          <td>токены кода</td>
         </tr>
         <tr>
-          <td><span class="amber" style="font-family:var(--font-heading);font-weight:600;">&#1060;&#1080;&#1085;&#1072;&#1085;&#1089;&#1099;</span></td>
-          <td>&#1090;&#1086;&#1082;&#1077;&#1085;&#1099; &#1090;&#1088;&#1072;&#1085;&#1079;&#1072;&#1082;&#1094;&#1080;&#1081;</td>
+          <td><span class="amber" style="font-family:var(--font-heading);font-weight:600;">Финансы</span></td>
+          <td>токены транзакций</td>
           <td class="num-cell" style="color:var(--teal);font-size:18px;">&rarr;</td>
-          <td>&#1090;&#1086;&#1082;&#1077;&#1085;&#1099; &#1089;&#1074;&#1077;&#1088;&#1082;&#1080;</td>
+          <td>токены сверки</td>
         </tr>
         <tr>
-          <td><span class="blue" style="font-family:var(--font-heading);font-weight:600;">&#1055;&#1086;&#1076;&#1076;&#1077;&#1088;&#1078;&#1082;&#1072;</span></td>
-          <td>&#1090;&#1086;&#1082;&#1077;&#1085;&#1099; &#1090;&#1080;&#1082;&#1077;&#1090;&#1086;&#1074;</td>
+          <td><span class="blue" style="font-family:var(--font-heading);font-weight:600;">Поддержка</span></td>
+          <td>токены тикетов</td>
           <td class="num-cell" style="color:var(--teal);font-size:18px;">&rarr;</td>
-          <td>&#1090;&#1086;&#1082;&#1077;&#1085;&#1099; &#1088;&#1077;&#1096;&#1077;&#1085;&#1080;&#1081;</td>
+          <td>токены решений</td>
         </tr>
       </tbody>
     </table>
     <div style="margin-top:24px;padding:16px 20px;border-radius:8px;background:rgba(77,201,212,0.04);border:1px solid rgba(77,201,212,0.1);">
       <p style="font-size:14px;color:var(--text-dim);line-height:1.6;">
-        &#1054;&#1087;&#1090;&#1080;&#1084;&#1080;&#1079;&#1072;&#1094;&#1080;&#1103; &#1086;&#1088;&#1075;&#1072;&#1085;&#1080;&#1079;&#1072;&#1094;&#1080;&#1080; = &#1086;&#1087;&#1090;&#1080;&#1084;&#1080;&#1079;&#1072;&#1094;&#1080;&#1103; &#1087;&#1086;&#1090;&#1086;&#1082;&#1072; &#1090;&#1086;&#1082;&#1077;&#1085;&#1086;&#1074;. &#1050;&#1072;&#1078;&#1076;&#1086;&#1077; &#1079;&#1074;&#1077;&#1085;&#1086; &mdash; &#1090;&#1088;&#1072;&#1085;&#1089;&#1092;&#1086;&#1088;&#1084;&#1072;&#1094;&#1080;&#1103; &#1086;&#1076;&#1085;&#1086;&#1075;&#1086; &#1090;&#1080;&#1087;&#1072; &#1080;&#1085;&#1092;&#1086;&#1088;&#1084;&#1072;&#1094;&#1080;&#1080; &#1074; &#1076;&#1088;&#1091;&#1075;&#1086;&#1081;.
+        Оптимизация организации = оптимизация потока токенов. Каждое звено &mdash; трансформация одного типа информации в другой.
       </p>
     </div>
+  
+    <img src="img/slide48_22.png" class="slide-image" style="max-width:60%;margin-top:1rem;border-radius:8px">
   </div>
 </div>
 
@@ -2137,23 +2216,23 @@ body.edit-mode #builder-toolbar { display: flex; }
   <div class="slide-counter"><span class="current">43</span>/<span class="total"></span></div>
   <img class="slide-logo" src="../../logo.png" alt="">
   <div class="slide-inner">
-    <div class="label">// &#1040;&#1056;&#1061;&#1048;&#1058;&#1045;&#1050;&#1058;&#1059;&#1056;&#1053;&#1067;&#1049; &#1055;&#1056;&#1048;&#1053;&#1062;&#1048;&#1055;</div>
-    <h2>&#1090;&#1086;&#1082;&#1077;&#1085;&#1080;&#1079;&#1072;&#1094;&#1080;&#1103; &#1086;&#1087;&#1088;&#1077;&#1076;&#1077;&#1083;&#1103;&#1077;&#1090; &#1072;&#1088;&#1093;&#1080;&#1090;&#1077;&#1082;&#1090;&#1091;&#1088;&#1091;</h2>
+    <div class="label">// АРХИТЕКТУРНЫЙ ПРИНЦИП</div>
+    <h2>токенизация определяет архитектуру</h2>
     <div class="quote" style="margin-top:20px;">
-      <p>&#1069;&#1090;&#1086; &#1085;&#1077; &#1084;&#1077;&#1090;&#1072;&#1092;&#1086;&#1088;&#1072; &mdash; &#1101;&#1090;&#1086; &#1072;&#1088;&#1093;&#1080;&#1090;&#1077;&#1082;&#1090;&#1091;&#1088;&#1085;&#1099;&#1081; &#1087;&#1088;&#1080;&#1085;&#1094;&#1080;&#1087;. &#1058;&#1086;, &#1082;&#1072;&#1082; &#1076;&#1074;&#1080;&#1078;&#1091;&#1090;&#1089;&#1103; &#1090;&#1086;&#1082;&#1077;&#1085;&#1099; &#1095;&#1077;&#1088;&#1077;&#1079; &#1074;&#1072;&#1096;&#1091; &#1086;&#1088;&#1075;&#1072;&#1085;&#1080;&#1079;&#1072;&#1094;&#1080;&#1102;, &#1086;&#1087;&#1088;&#1077;&#1076;&#1077;&#1083;&#1103;&#1077;&#1090; &#1075;&#1076;&#1077; &#1089;&#1090;&#1072;&#1074;&#1080;&#1090;&#1100; &#1072;&#1075;&#1077;&#1085;&#1090;&#1086;&#1074;, &#1082;&#1072;&#1082; &#1089;&#1090;&#1088;&#1091;&#1082;&#1090;&#1091;&#1088;&#1080;&#1088;&#1086;&#1074;&#1072;&#1090;&#1100; &#1087;&#1072;&#1084;&#1103;&#1090;&#1100; &#1080; &#1085;&#1072; &#1095;&#1077;&#1084; &#1086;&#1087;&#1090;&#1080;&#1084;&#1080;&#1079;&#1080;&#1088;&#1086;&#1074;&#1072;&#1090;&#1100;.</p>
+      <p>Это не метафора &mdash; это архитектурный принцип. То, как движутся токены через вашу организацию, определяет где ставить агентов, как структурировать память и на чем оптимизировать.</p>
     </div>
     <div class="cards" style="margin-top:24px;">
       <div class="card" style="border-color:rgba(56,217,169,0.2);">
         <div class="card-icon green">02</div>
-        <h3 style="color:var(--green);">&#1051;&#1077;&#1082;&#1094;&#1080;&#1103; 2</h3>
-        <p>&#1064;&#1077;&#1089;&#1090;&#1100; &#1089;&#1083;&#1086;&#1105;&#1074; &#1072;&#1088;&#1093;&#1080;&#1090;&#1077;&#1082;&#1090;&#1091;&#1088;&#1099;, &#1095;&#1077;&#1088;&#1077;&#1079; &#1082;&#1086;&#1090;&#1086;&#1088;&#1099;&#1077; &#1087;&#1088;&#1086;&#1093;&#1086;&#1076;&#1080;&#1090; &#1082;&#1072;&#1078;&#1076;&#1099;&#1081; &#1090;&#1086;&#1082;&#1077;&#1085;. &#1063;&#1077;&#1090;&#1099;&#1088;&#1077; &#1090;&#1086;&#1087;&#1086;&#1083;&#1086;&#1075;&#1080;&#1080; &#1086;&#1088;&#1082;&#1077;&#1089;&#1090;&#1088;&#1072;&#1094;&#1080;&#1080;. &#1050;&#1086;&#1085;&#1090;&#1077;&#1082;&#1089;&#1090;&#1085;&#1072;&#1103; &#1080;&#1085;&#1078;&#1077;&#1085;&#1077;&#1088;&#1080;&#1103;.</p>
-        <span class="tag green-tag">&#1089;&#1080;&#1089;&#1090;&#1077;&#1084;&#1072;</span>
+        <h3 style="color:var(--green);">Лекция 2</h3>
+        <p>Шесть слоёв архитектуры, через которые проходит каждый токен. Четыре топологии оркестрации. Контекстная инженерия.</p>
+        <span class="tag green-tag">система</span>
       </div>
       <div class="card" style="border-color:rgba(200,146,0,0.2);">
         <div class="card-icon amber">03</div>
-        <h3 style="color:var(--amber);">&#1051;&#1077;&#1082;&#1094;&#1080;&#1103; 3</h3>
-        <p>&#1050;&#1086;&#1085;&#1082;&#1088;&#1077;&#1090;&#1085;&#1099;&#1081; &#1087;&#1083;&#1072;&#1085; &#1090;&#1088;&#1072;&#1085;&#1089;&#1092;&#1086;&#1088;&#1084;&#1072;&#1094;&#1080;&#1080;. &#1041;&#1080;&#1079;&#1085;&#1077;&#1089;-&#1084;&#1086;&#1076;&#1077;&#1083;&#1080; &#1074; &#1101;&#1087;&#1086;&#1093;&#1091; &#1048;&#1048;. &#1069;&#1082;&#1086;&#1085;&#1086;&#1084;&#1080;&#1082;&#1072; &#1085;&#1072;&#1084;&#1077;&#1088;&#1077;&#1085;&#1080;&#1081;. 90-&#1076;&#1085;&#1077;&#1074;&#1085;&#1099;&#1081; &#1087;&#1083;&#1072;&#1085; &#1076;&#1083;&#1103; &#1074;&#1072;&#1096;&#1077;&#1075;&#1086; &#1073;&#1080;&#1079;&#1085;&#1077;&#1089;&#1072;.</p>
-        <span class="tag amber-tag">&#1089;&#1090;&#1088;&#1072;&#1090;&#1077;&#1075;&#1080;&#1103;</span>
+        <h3 style="color:var(--amber);">Лекция 3</h3>
+        <p>Конкретный план трансформации. Бизнес-модели в эпоху ИИ. Экономика намерений. 90-дневный план для вашего бизнеса.</p>
+        <span class="tag amber-tag">стратегия</span>
       </div>
     </div>
   </div>
@@ -2171,8 +2250,8 @@ body.edit-mode #builder-toolbar { display: flex; }
   <div class="glow-dot" style="bottom:20%;left:18%"></div>
   <div class="slide-inner" style="align-items:center;text-align:center">
     <div class="section-num">09</div>
-    <h1>&#1087;&#1077;&#1088;&#1089;&#1086;&#1085;&#1072;&#1083;&#1100;&#1085;&#1072;&#1103; &#1086;&#1087;&#1077;&#1088;&#1072;&#1094;&#1080;&#1086;&#1085;&#1085;&#1072;&#1103; &#1089;&#1080;&#1089;&#1090;&#1077;&#1084;&#1072;</h1>
-    <p class="subtitle">&#1090;&#1088;&#1072;&#1085;&#1089;&#1092;&#1086;&#1088;&#1084;&#1072;&#1094;&#1080;&#1103; &#1085;&#1072;&#1095;&#1080;&#1085;&#1072;&#1077;&#1090;&#1089;&#1103; &#1089; &#1086;&#1076;&#1085;&#1086;&#1075;&#1086; &#1095;&#1077;&#1083;&#1086;&#1074;&#1077;&#1082;&#1072;</p>
+    <h1>персональная операционная система</h1>
+    <p class="subtitle">трансформация начинается с одного человека</p>
   </div>
 </div>
 
@@ -2181,71 +2260,71 @@ body.edit-mode #builder-toolbar { display: flex; }
   <div class="slide-counter"><span class="current">45</span>/<span class="total"></span></div>
   <img class="slide-logo" src="../../logo.png" alt="">
   <div class="slide-inner" style="justify-content:flex-start;padding-top:8px;">
-    <div class="label">// &#1055;&#1045;&#1056;&#1057;&#1054;&#1053;&#1040;&#1051;&#1068;&#1053;&#1040;&#1071; &#1054;&#1057;</div>
-    <h2 style="margin-bottom:12px;">&#1082;&#1072;&#1088;&#1090;&#1072; &#1080;&#1085;&#1089;&#1090;&#1088;&#1091;&#1084;&#1077;&#1085;&#1090;&#1086;&#1074; &#1080; &#1085;&#1072;&#1074;&#1099;&#1082;&#1086;&#1074;</h2>
+    <div class="label">// ПЕРСОНАЛЬНАЯ ОС</div>
+    <h2 style="margin-bottom:12px;">карта инструментов и навыков</h2>
     <table class="data-table" style="font-size:12px;">
       <thead>
         <tr>
-          <th style="min-width:100px;">&#1050;&#1072;&#1090;&#1077;&#1075;&#1086;&#1088;&#1080;&#1103;</th>
-          <th>&#1048;&#1085;&#1089;&#1090;&#1088;&#1091;&#1084;&#1077;&#1085;&#1090;&#1099;</th>
-          <th>&#1053;&#1072;&#1074;&#1099;&#1082;&#1080;</th>
-          <th>&#1056;&#1072;&#1073;&#1086;&#1095;&#1080;&#1077; &#1087;&#1088;&#1086;&#1094;&#1077;&#1089;&#1089;&#1099;</th>
+          <th style="min-width:100px;">Категория</th>
+          <th>Инструменты</th>
+          <th>Навыки</th>
+          <th>Рабочие процессы</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td><span class="teal" style="font-weight:600;font-family:var(--font-heading);">&#1050;&#1086;&#1084;&#1084;&#1091;&#1085;&#1080;&#1082;&#1072;&#1094;&#1080;&#1103;</span></td>
+          <td><span class="teal" style="font-weight:600;font-family:var(--font-heading);">Коммуникация</span></td>
           <td class="dim">Gmail, Slack, Telegram MCP</td>
-          <td>Email-&#1090;&#1088;&#1080;&#1072;&#1078;, &#1090;&#1086;&#1085;-&#1082;&#1086;&#1085;&#1090;&#1088;&#1086;&#1083;&#1100;</td>
-          <td class="dim">&#1059;&#1090;&#1088;&#1077;&#1085;&#1085;&#1080;&#1081; &#1073;&#1088;&#1080;&#1092;&#1080;&#1085;&#1075;</td>
+          <td>Email-триаж, тон-контроль</td>
+          <td class="dim">Утренний брифинг</td>
         </tr>
         <tr>
-          <td><span class="green" style="font-weight:600;font-family:var(--font-heading);">&#1041;&#1072;&#1079;&#1072; &#1079;&#1085;&#1072;&#1085;&#1080;&#1081;</span></td>
+          <td><span class="green" style="font-weight:600;font-family:var(--font-heading);">База знаний</span></td>
           <td class="dim">Obsidian, Notion, Google Drive</td>
-          <td>&#1048;&#1089;&#1089;&#1083;&#1077;&#1076;&#1086;&#1074;&#1072;&#1090;&#1077;&#1083;&#1100;&#1089;&#1082;&#1080;&#1081; &#1089;&#1080;&#1085;&#1090;&#1077;&#1079;</td>
-          <td class="dim">/research &rarr; &#1087;&#1072;&#1088;&#1072;&#1083;&#1083;&#1077;&#1083;&#1100;&#1085;&#1099;&#1077; &#1072;&#1075;&#1077;&#1085;&#1090;&#1099;</td>
+          <td>Исследовательский синтез</td>
+          <td class="dim">/research &rarr; параллельные агенты</td>
         </tr>
         <tr>
-          <td><span class="cyan" style="font-weight:600;font-family:var(--font-heading);">&#1048;&#1048;-&#1084;&#1086;&#1076;&#1077;&#1083;&#1080;</span></td>
+          <td><span class="cyan" style="font-weight:600;font-family:var(--font-heading);">ИИ-модели</span></td>
           <td class="dim">Claude Code, Cursor</td>
-          <td>&#1052;&#1072;&#1088;&#1096;&#1088;&#1091;&#1090;&#1080;&#1079;&#1072;&#1094;&#1080;&#1103; &#1084;&#1086;&#1076;&#1077;&#1083;&#1077;&#1081;</td>
-          <td class="dim">&#1040;&#1074;&#1090;&#1086;-&#1074;&#1099;&#1073;&#1086;&#1088; &#1087;&#1086; &#1090;&#1080;&#1087;&#1091; &#1079;&#1072;&#1076;&#1072;&#1095;&#1080;</td>
+          <td>Маршрутизация моделей</td>
+          <td class="dim">Авто-выбор по типу задачи</td>
         </tr>
         <tr>
-          <td><span class="blue" style="font-weight:600;font-family:var(--font-heading);">&#1042;&#1089;&#1090;&#1088;&#1077;&#1095;&#1080;</span></td>
+          <td><span class="blue" style="font-weight:600;font-family:var(--font-heading);">Встречи</span></td>
           <td class="dim">Granola, Otter, ElevenLabs</td>
-          <td>&#1055;&#1086;&#1076;&#1075;&#1086;&#1090;&#1086;&#1074;&#1082;&#1072;, action items</td>
-          <td class="dim">&#1058;&#1088;&#1072;&#1085;&#1089;&#1082;&#1088;&#1080;&#1087;&#1094;&#1080;&#1103; &rarr; &#1079;&#1072;&#1076;&#1072;&#1095;&#1080;</td>
+          <td>Подготовка, action items</td>
+          <td class="dim">Транскрипция &rarr; задачи</td>
         </tr>
         <tr>
-          <td><span class="teal" style="font-weight:600;font-family:var(--font-heading);">&#1055;&#1088;&#1086;&#1077;&#1082;&#1090;&#1099;</span></td>
+          <td><span class="teal" style="font-weight:600;font-family:var(--font-heading);">Проекты</span></td>
           <td class="dim">GitHub, Linear, Jira</td>
-          <td>&#1055;&#1088;&#1080;&#1086;&#1088;&#1080;&#1090;&#1080;&#1079;&#1072;&#1094;&#1080;&#1103;</td>
-          <td class="dim">&#1057;&#1082;&#1086;&#1088;&#1080;&#1085;&#1075; &#1087;&#1086; &#1094;&#1077;&#1083;&#1103;&#1084;</td>
+          <td>Приоритизация</td>
+          <td class="dim">Скоринг по целям</td>
         </tr>
         <tr>
           <td><span class="amber" style="font-weight:600;font-family:var(--font-heading);">CRM</span></td>
           <td class="dim">Pipedrive, HubSpot</td>
-          <td>&#1054;&#1073;&#1086;&#1075;&#1072;&#1097;&#1077;&#1085;&#1080;&#1077; &#1082;&#1086;&#1085;&#1090;&#1072;&#1082;&#1090;&#1086;&#1074;</td>
-          <td class="dim">&#1055;&#1086;&#1089;&#1090;-&#1079;&#1074;&#1086;&#1085;&#1086;&#1082; &rarr; CRM &rarr; follow-up</td>
+          <td>Обогащение контактов</td>
+          <td class="dim">Пост-звонок &rarr; CRM &rarr; follow-up</td>
         </tr>
         <tr>
-          <td><span class="green" style="font-weight:600;font-family:var(--font-heading);">&#1060;&#1080;&#1085;&#1072;&#1085;&#1089;&#1099;</span></td>
-          <td class="dim">Stripe, &#1073;&#1072;&#1085;&#1082;&#1086;&#1074;&#1089;&#1082;&#1080;&#1077; API</td>
-          <td>&#1050;&#1072;&#1090;&#1077;&#1075;&#1086;&#1088;&#1080;&#1079;&#1072;&#1094;&#1080;&#1103;</td>
-          <td class="dim">Receipts &rarr; &#1089;&#1074;&#1077;&#1088;&#1082;&#1072;</td>
+          <td><span class="green" style="font-weight:600;font-family:var(--font-heading);">Финансы</span></td>
+          <td class="dim">Stripe, банковские API</td>
+          <td>Категоризация</td>
+          <td class="dim">Receipts &rarr; сверка</td>
         </tr>
         <tr>
-          <td><span class="red" style="font-weight:600;font-family:var(--font-heading);">&#1050;&#1086;&#1085;&#1090;&#1077;&#1085;&#1090;</span></td>
-          <td class="dim">Markdown, &#1089;&#1086;&#1094;&#1089;&#1077;&#1090;&#1080;</td>
+          <td><span class="red" style="font-weight:600;font-family:var(--font-heading);">Контент</span></td>
+          <td class="dim">Markdown, соцсети</td>
           <td>Research &rarr; draft</td>
           <td class="dim">Content pipeline</td>
         </tr>
         <tr>
-          <td><span class="cyan" style="font-weight:600;font-family:var(--font-heading);">&#1052;&#1086;&#1085;&#1080;&#1090;&#1086;&#1088;&#1080;&#1085;&#1075;</span></td>
+          <td><span class="cyan" style="font-weight:600;font-family:var(--font-heading);">Мониторинг</span></td>
           <td class="dim">Web scraping, RSS</td>
-          <td>&#1050;&#1086;&#1085;&#1082;&#1091;&#1088;&#1077;&#1085;&#1090;&#1085;&#1099;&#1081; &#1084;&#1086;&#1085;&#1080;&#1090;&#1086;&#1088;&#1080;&#1085;&#1075;</td>
-          <td class="dim">&#1045;&#1078;&#1077;&#1085;&#1077;&#1076;&#1077;&#1083;&#1100;&#1085;&#1099;&#1081; &#1089;&#1082;&#1072;&#1085;</td>
+          <td>Конкурентный мониторинг</td>
+          <td class="dim">Еженедельный скан</td>
         </tr>
       </tbody>
     </table>
@@ -2257,36 +2336,36 @@ body.edit-mode #builder-toolbar { display: flex; }
   <div class="slide-counter"><span class="current">46</span>/<span class="total"></span></div>
   <img class="slide-logo" src="../../logo.png" alt="">
   <div class="slide-inner">
-    <div class="label">// &#1056;&#1045;&#1060;&#1045;&#1056;&#1045;&#1053;&#1057;&#1067;</div>
-    <h2>&#1088;&#1077;&#1072;&#1083;&#1080;&#1079;&#1072;&#1094;&#1080;&#1080;, &#1082;&#1086;&#1090;&#1086;&#1088;&#1099;&#1077; &#1091;&#1078;&#1077; &#1088;&#1072;&#1073;&#1086;&#1090;&#1072;&#1102;&#1090;</h2>
+    <div class="label">// РЕФЕРЕНСЫ</div>
+    <h2>реализации, которые уже работают</h2>
     <div class="cards" style="grid-template-columns:repeat(2,1fr);margin-top:20px;">
       <div class="card">
         <div class="card-icon teal">CybOS</div>
         <h3>CybOS</h3>
-        <p>20 &#1082;&#1086;&#1084;&#1072;&#1085;&#1076;, 14 &#1072;&#1075;&#1077;&#1085;&#1090;&#1086;&#1074;, 11 MCP-&#1089;&#1077;&#1088;&#1074;&#1077;&#1088;&#1086;&#1074;, 7 &#1076;&#1086;&#1084;&#1077;&#1085;&#1086;&#1074; &#1085;&#1072;&#1074;&#1099;&#1082;&#1086;&#1074;. &#1055;&#1086;&#1083;&#1085;&#1072;&#1103; &#1087;&#1077;&#1088;&#1089;&#1086;&#1085;&#1072;&#1083;&#1100;&#1085;&#1072;&#1103; &#1054;&#1057; &#1085;&#1072; Claude Code.</p>
-        <span class="tag">14 &#1072;&#1075;&#1077;&#1085;&#1090;&#1086;&#1074;</span>
+        <p>20 команд, 14 агентов, 11 MCP-серверов, 7 доменов навыков. Полная персональная ОС на Claude Code.</p>
+        <span class="tag">14 агентов</span>
       </div>
       <div class="card">
         <div class="card-icon green">PAI</div>
         <h3>PAI (Daniel Miessler)</h3>
-        <p>9&thinsp;700+ &#1079;&#1074;&#1105;&#1079;&#1076;, 571 &#1082;&#1086;&#1084;&#1084;&#1080;&#1090;, &#1089;&#1080;&#1089;&#1090;&#1077;&#1084;&#1072; &#1080;&#1076;&#1077;&#1085;&#1090;&#1080;&#1095;&#1085;&#1086;&#1089;&#1090;&#1080; TELOS. Open-source &#1092;&#1088;&#1077;&#1081;&#1084;&#1074;&#1086;&#1088;&#1082; &#1087;&#1077;&#1088;&#1089;&#1086;&#1085;&#1072;&#1083;&#1100;&#1085;&#1086;&#1075;&#1086; &#1048;&#1048;-&#1072;&#1089;&#1089;&#1080;&#1089;&#1090;&#1077;&#1085;&#1090;&#1072;.</p>
+        <p>9&thinsp;700+ звёзд, 571 коммит, система идентичности TELOS. Open-source фреймворк персонального ИИ-ассистента.</p>
         <span class="tag green-tag">open source</span>
       </div>
       <div class="card">
         <div class="card-icon amber">Dex</div>
         <h3>Dex</h3>
-        <p>70+ &#1085;&#1072;&#1074;&#1099;&#1082;&#1086;&#1074;, 7 &#1082;&#1072;&#1089;&#1090;&#1086;&#1084;&#1085;&#1099;&#1093; MCP-&#1089;&#1077;&#1088;&#1074;&#1077;&#1088;&#1086;&#1074;, 31 &#1096;&#1072;&#1073;&#1083;&#1086;&#1085; &#1088;&#1086;&#1083;&#1077;&#1081;. &#1054;&#1076;&#1085;&#1072; &#1080;&#1079; &#1085;&#1072;&#1080;&#1073;&#1086;&#1083;&#1077;&#1077; &#1089;&#1083;&#1086;&#1078;&#1085;&#1099;&#1093; &#1087;&#1091;&#1073;&#1083;&#1080;&#1095;&#1085;&#1099;&#1093; &#1088;&#1077;&#1072;&#1083;&#1080;&#1079;&#1072;&#1094;&#1080;&#1081;.</p>
-        <span class="tag amber-tag">70+ &#1085;&#1072;&#1074;&#1099;&#1082;&#1086;&#1074;</span>
+        <p>70+ навыков, 7 кастомных MCP-серверов, 31 шаблон ролей. Одна из наиболее сложных публичных реализаций.</p>
+        <span class="tag amber-tag">70+ навыков</span>
       </div>
       <div class="card">
         <div class="card-icon blue">EOS</div>
         <h3>Brad Feld CEOS</h3>
-        <p>EOS-&#1092;&#1088;&#1077;&#1081;&#1084;&#1074;&#1086;&#1088;&#1082; &#1082;&#1072;&#1082; &#1085;&#1072;&#1074;&#1099;&#1082;&#1080; Claude Code. v0.1 &#1079;&#1072; 90 &#1084;&#1080;&#1085;&#1091;&#1090;. &#1057;&#1090;&#1072;&#1088;&#1090;&#1072;&#1087; &#1085;&#1072; &#1073;&#1072;&#1079;&#1077; &#1086;&#1087;&#1077;&#1088;&#1072;&#1094;&#1080;&#1086;&#1085;&#1085;&#1086;&#1081; &#1089;&#1080;&#1089;&#1090;&#1077;&#1084;&#1099; &#1073;&#1077;&#1079; &#1082;&#1086;&#1084;&#1072;&#1085;&#1076;&#1099;.</p>
-        <span class="tag blue-tag">90 &#1084;&#1080;&#1085;&#1091;&#1090;</span>
+        <p>EOS-фреймворк как навыки Claude Code. v0.1 за 90 минут. Стартап на базе операционной системы без команды.</p>
+        <span class="tag blue-tag">90 минут</span>
       </div>
     </div>
     <div style="margin-top:20px;">
-      <span class="tag green-tag">&#1057;&#1090;&#1086;&#1080;&#1084;&#1086;&#1089;&#1090;&#1100;: $120&ndash;290/&#1084;&#1077;&#1089; &#1087;&#1088;&#1080; &#1087;&#1088;&#1072;&#1074;&#1080;&#1083;&#1100;&#1085;&#1086;&#1081; &#1084;&#1072;&#1088;&#1096;&#1088;&#1091;&#1090;&#1080;&#1079;&#1072;&#1094;&#1080;&#1080;</span>
+      <span class="tag green-tag">Стоимость: $120&ndash;290/мес при правильной маршрутизации</span>
     </div>
   </div>
 </div>
@@ -2303,8 +2382,8 @@ body.edit-mode #builder-toolbar { display: flex; }
   <div class="glow-dot" style="bottom:28%;right:15%"></div>
   <div class="slide-inner" style="align-items:center;text-align:center">
     <div class="section-num">10</div>
-    <h1>&#1095;&#1090;&#1086; &#1076;&#1072;&#1083;&#1100;&#1096;&#1077;</h1>
-    <p class="subtitle">&#1076;&#1086;&#1088;&#1086;&#1078;&#1085;&#1072;&#1103; &#1082;&#1072;&#1088;&#1090;&#1072; &#1087;&#1088;&#1086;&#1075;&#1088;&#1072;&#1084;&#1084;&#1099;</p>
+    <h1>что дальше</h1>
+    <p class="subtitle">дорожная карта программы</p>
   </div>
 </div>
 
@@ -2313,30 +2392,30 @@ body.edit-mode #builder-toolbar { display: flex; }
   <div class="slide-counter"><span class="current">48</span>/<span class="total"></span></div>
   <img class="slide-logo" src="../../logo.png" alt="">
   <div class="slide-inner">
-    <div class="label">// &#1057;&#1051;&#1045;&#1044;&#1059;&#1070;&#1065;&#1048;&#1045; &#1051;&#1045;&#1050;&#1062;&#1048;&#1048;</div>
-    <h2>&#1089;&#1080;&#1089;&#1090;&#1077;&#1084;&#1072; &#1080; &#1089;&#1090;&#1088;&#1072;&#1090;&#1077;&#1075;&#1080;&#1103;</h2>
+    <div class="label">// СЛЕДУЮЩИЕ ЛЕКЦИИ</div>
+    <h2>система и стратегия</h2>
     <div class="split" style="margin-top:24px;gap:32px;">
       <div style="padding:28px;border-radius:12px;background:rgba(56,217,169,0.05);border:1px solid rgba(56,217,169,0.2);">
-        <div style="font-family:var(--font-body);font-size:11px;text-transform:uppercase;letter-spacing:3px;color:var(--green);margin-bottom:12px;">&#1051;&#1077;&#1082;&#1094;&#1080;&#1103; 2</div>
-        <h3 style="font-family:var(--font-heading);font-size:22px;font-weight:700;color:#fff;margin-bottom:16px;line-height:1.3;">&#1057;&#1080;&#1089;&#1090;&#1077;&#1084;&#1072; &#1087;&#1086;&#1074;&#1077;&#1088;&#1093; &#1084;&#1086;&#1076;&#1077;&#1083;&#1080;</h3>
+        <div style="font-family:var(--font-body);font-size:11px;text-transform:uppercase;letter-spacing:3px;color:var(--green);margin-bottom:12px;">Лекция 2</div>
+        <h3 style="font-family:var(--font-heading);font-size:22px;font-weight:700;color:#fff;margin-bottom:16px;line-height:1.3;">Система поверх модели</h3>
         <ul class="bullet-list" style="margin-top:0;">
-          <li class="green-bullet">6 &#1089;&#1083;&#1086;&#1105;&#1074; &#1072;&#1088;&#1093;&#1080;&#1090;&#1077;&#1082;&#1090;&#1091;&#1088;&#1099;</li>
-          <li class="green-bullet">4 &#1090;&#1086;&#1087;&#1086;&#1083;&#1086;&#1075;&#1080;&#1080; &#1086;&#1088;&#1082;&#1077;&#1089;&#1090;&#1088;&#1072;&#1094;&#1080;&#1080;</li>
-          <li class="green-bullet">&#1053;&#1072;&#1074;&#1099;&#1082;&#1080; + evals</li>
-          <li class="green-bullet">&#1050;&#1086;&#1085;&#1090;&#1077;&#1082;&#1089;&#1090;&#1085;&#1072;&#1103; &#1080;&#1085;&#1078;&#1077;&#1085;&#1077;&#1088;&#1080;&#1103;</li>
+          <li class="green-bullet">6 слоёв архитектуры</li>
+          <li class="green-bullet">4 топологии оркестрации</li>
+          <li class="green-bullet">Навыки + evals</li>
+          <li class="green-bullet">Контекстная инженерия</li>
         </ul>
-        <span class="tag green-tag" style="margin-top:16px;display:inline-block;">&#1089;&#1080;&#1089;&#1090;&#1077;&#1084;&#1072;</span>
+        <span class="tag green-tag" style="margin-top:16px;display:inline-block;">система</span>
       </div>
       <div style="padding:28px;border-radius:12px;background:rgba(255,107,107,0.05);border:1px solid rgba(255,107,107,0.2);">
-        <div style="font-family:var(--font-body);font-size:11px;text-transform:uppercase;letter-spacing:3px;color:var(--red);margin-bottom:12px;">&#1051;&#1077;&#1082;&#1094;&#1080;&#1103; 3</div>
-        <h3 style="font-family:var(--font-heading);font-size:22px;font-weight:700;color:#fff;margin-bottom:16px;line-height:1.3;">&#1054;&#1090; &#1089;&#1090;&#1088;&#1072;&#1090;&#1077;&#1075;&#1080;&#1080; &#1082; &#1087;&#1083;&#1072;&#1085;&#1091;</h3>
+        <div style="font-family:var(--font-body);font-size:11px;text-transform:uppercase;letter-spacing:3px;color:var(--red);margin-bottom:12px;">Лекция 3</div>
+        <h3 style="font-family:var(--font-heading);font-size:22px;font-weight:700;color:#fff;margin-bottom:16px;line-height:1.3;">От стратегии к плану</h3>
         <ul class="bullet-list" style="margin-top:0;">
-          <li style="color:rgba(255,107,107,0.8);">&#1041;&#1080;&#1079;&#1085;&#1077;&#1089;-&#1084;&#1086;&#1076;&#1077;&#1083;&#1080; &#1074; &#1101;&#1087;&#1086;&#1093;&#1091; &#1048;&#1048;</li>
-          <li style="color:rgba(255,107,107,0.8);">&#1069;&#1082;&#1086;&#1085;&#1086;&#1084;&#1080;&#1082;&#1072; &#1085;&#1072;&#1084;&#1077;&#1088;&#1077;&#1085;&#1080;&#1081;</li>
-          <li style="color:rgba(255,107,107,0.8);">&#1040;&#1091;&#1076;&#1080;&#1090; &#1087;&#1088;&#1086;&#1094;&#1077;&#1089;&#1089;&#1086;&#1074;</li>
-          <li style="color:rgba(255,107,107,0.8);">90-&#1076;&#1085;&#1077;&#1074;&#1085;&#1099;&#1081; &#1087;&#1083;&#1072;&#1085;</li>
+          <li style="color:rgba(255,107,107,0.8);">Бизнес-модели в эпоху ИИ</li>
+          <li style="color:rgba(255,107,107,0.8);">Экономика намерений</li>
+          <li style="color:rgba(255,107,107,0.8);">Аудит процессов</li>
+          <li style="color:rgba(255,107,107,0.8);">90-дневный план</li>
         </ul>
-        <span class="tag red-tag" style="margin-top:16px;display:inline-block;">&#1089;&#1090;&#1088;&#1072;&#1090;&#1077;&#1075;&#1080;&#1103;</span>
+        <span class="tag red-tag" style="margin-top:16px;display:inline-block;">стратегия</span>
       </div>
     </div>
   </div>
@@ -2347,20 +2426,20 @@ body.edit-mode #builder-toolbar { display: flex; }
   <div class="slide-counter"><span class="current">49</span>/<span class="total"></span></div>
   <img class="slide-logo" src="../../logo.png" alt="">
   <div class="slide-inner">
-    <div class="label">// &#1058;&#1048;&#1055;&#1048;&#1063;&#1053;&#1067;&#1045; &#1054;&#1064;&#1048;&#1041;&#1050;&#1048;</div>
-    <h2>&#1095;&#1090;&#1086; &#1084;&#1099; &#1088;&#1072;&#1079;&#1073;&#1077;&#1088;&#1105;&#1084;</h2>
+    <div class="label">// ТИПИЧНЫЕ ОШИБКИ</div>
+    <h2>что мы разберём</h2>
     <div style="margin-top:24px;display:flex;flex-direction:column;gap:16px;">
       <div style="padding:20px 24px;border-radius:10px;border:1px solid rgba(255,107,107,0.2);background:rgba(255,107,107,0.04);border-left:4px solid var(--red);">
-        <p style="font-size:15px;color:var(--red);font-family:var(--font-heading);font-weight:600;margin-bottom:6px;">&#171;&#1052;&#1099; &#1087;&#1086;&#1087;&#1088;&#1086;&#1073;&#1086;&#1074;&#1072;&#1083;&#1080; &#1075;&#1086;&#1076; &#1085;&#1072;&#1079;&#1072;&#1076;, &#1085;&#1077; &#1088;&#1072;&#1073;&#1086;&#1090;&#1072;&#1083;&#1086;&#187;</p>
-        <p style="font-size:14px;color:var(--text-dim);line-height:1.6;">&#1058;&#1077;&#1093;&#1085;&#1086;&#1083;&#1086;&#1075;&#1080;&#1103; &#1079;&#1072; &#1075;&#1086;&#1076; &#1080;&#1079;&#1084;&#1077;&#1085;&#1080;&#1083;&#1072;&#1089;&#1100; &#1088;&#1072;&#1076;&#1080;&#1082;&#1072;&#1083;&#1100;&#1085;&#1086;. Scaling laws &#1089;&#1076;&#1077;&#1083;&#1072;&#1083;&#1080; &#1085;&#1077;&#1074;&#1086;&#1079;&#1084;&#1086;&#1078;&#1085;&#1086;&#1077; &#1074;&#1095;&#1077;&#1088;&#1072; &#1073;&#1072;&#1079;&#1086;&#1074;&#1099;&#1084; &#1089;&#1077;&#1075;&#1086;&#1076;&#1085;&#1103;.</p>
+        <p style="font-size:15px;color:var(--red);font-family:var(--font-heading);font-weight:600;margin-bottom:6px;">«Мы попробовали год назад, не работало»</p>
+        <p style="font-size:14px;color:var(--text-dim);line-height:1.6;">Технология за год изменилась радикально. Scaling laws сделали невозможное вчера базовым сегодня.</p>
       </div>
       <div style="padding:20px 24px;border-radius:10px;border:1px solid rgba(255,107,107,0.2);background:rgba(255,107,107,0.04);border-left:4px solid var(--red);">
-        <p style="font-size:15px;color:var(--red);font-family:var(--font-heading);font-weight:600;margin-bottom:6px;">&#171;&#1055;&#1086;&#1076;&#1082;&#1083;&#1102;&#1095;&#1080;&#1083;&#1080; ChatGPT &#1082; Slack &#1080; &#1086;&#1073;&#1098;&#1103;&#1074;&#1080;&#1083;&#1080; &#1090;&#1088;&#1072;&#1085;&#1089;&#1092;&#1086;&#1088;&#1084;&#1072;&#1094;&#1080;&#1102;&#187;</p>
-        <p style="font-size:14px;color:var(--text-dim);line-height:1.6;">&#1052;&#1086;&#1076;&#1077;&#1083;&#1100; &#1073;&#1077;&#1079; &#1086;&#1073;&#1074;&#1103;&#1079;&#1082;&#1080; &#1085;&#1077; &#1089;&#1080;&#1089;&#1090;&#1077;&#1084;&#1072;. &#1063;&#1072;&#1090;&#1073;&#1086;&#1090; &#1074; &#1089;&#1083;&#1072;&#1082;&#1077; &mdash; &#1101;&#1090;&#1086; &#1085;&#1077; AI-native. &#1069;&#1090;&#1086; &#1072;&#1074;&#1090;&#1086;&#1076;&#1086;&#1087;&#1086;&#1083;&#1085;&#1077;&#1085;&#1080;&#1077; &#1089; &#1082;&#1085;&#1086;&#1087;&#1082;&#1086;&#1081;.</p>
+        <p style="font-size:15px;color:var(--red);font-family:var(--font-heading);font-weight:600;margin-bottom:6px;">«Подключили ChatGPT к Slack и объявили трансформацию»</p>
+        <p style="font-size:14px;color:var(--text-dim);line-height:1.6;">Модель без обвязки не система. Чатбот в слаке &mdash; это не AI-native. Это автодополнение с кнопкой.</p>
       </div>
       <div style="padding:20px 24px;border-radius:10px;border:1px solid rgba(255,107,107,0.2);background:rgba(255,107,107,0.04);border-left:4px solid var(--red);">
-        <p style="font-size:15px;color:var(--red);font-family:var(--font-heading);font-weight:600;margin-bottom:6px;">&#171;&#1048;&#1048; &#1085;&#1077; &#1084;&#1086;&#1078;&#1077;&#1090; &#1076;&#1077;&#1083;&#1072;&#1090;&#1100; X&#187;</p>
-        <p style="font-size:14px;color:var(--text-dim);line-height:1.6;">&#1063;&#1072;&#1089;&#1090;&#1086; &#1087;&#1088;&#1086;&#1073;&#1083;&#1077;&#1084;&#1072; &#1085;&#1077; &#1074; &#1084;&#1086;&#1076;&#1077;&#1083;&#1080;, &#1072; &#1074; &#1082;&#1086;&#1085;&#1090;&#1077;&#1082;&#1089;&#1090;&#1077;, &#1082;&#1086;&#1090;&#1086;&#1088;&#1099;&#1081; &#1077;&#1081; &#1076;&#1072;&#1083;&#1080;. &#1069;&#1090;&#1086; &#1087;&#1088;&#1086;&#1073;&#1083;&#1077;&#1084;&#1072; &#1089;&#1080;&#1089;&#1090;&#1077;&#1084;&#1099; &mdash; &#1085;&#1077; &#1084;&#1086;&#1076;&#1077;&#1083;&#1080;.</p>
+        <p style="font-size:15px;color:var(--red);font-family:var(--font-heading);font-weight:600;margin-bottom:6px;">«ИИ не может делать X»</p>
+        <p style="font-size:14px;color:var(--text-dim);line-height:1.6;">Часто проблема не в модели, а в контексте, который ей дали. Это проблема системы &mdash; не модели.</p>
       </div>
     </div>
   </div>
@@ -2371,70 +2450,70 @@ body.edit-mode #builder-toolbar { display: flex; }
   <div class="slide-counter"><span class="current">50</span>/<span class="total"></span></div>
   <img class="slide-logo" src="../../logo.png" alt="">
   <div class="slide-inner" style="justify-content:flex-start;padding-top:8px;">
-    <div class="label">// &#1042;&#1054;&#1056;&#1050;&#1064;&#1054;&#1055;&#1067;</div>
-    <h2 style="margin-bottom:12px;">&#1087;&#1088;&#1086;&#1075;&#1088;&#1072;&#1084;&#1084;&#1072; &#1074;&#1086;&#1088;&#1082;&#1096;&#1086;&#1087;&#1086;&#1074;</h2>
+    <div class="label">// ВОРКШОПЫ</div>
+    <h2 style="margin-bottom:12px;">программа воркшопов</h2>
     <table class="data-table" style="font-size:13px;">
       <thead>
         <tr>
           <th style="width:40px;">#</th>
-          <th>&#1042;&#1086;&#1088;&#1082;&#1096;&#1086;&#1087;</th>
-          <th>&#1057;&#1087;&#1080;&#1082;&#1077;&#1088;</th>
-          <th>&#1056;&#1077;&#1079;&#1091;&#1083;&#1100;&#1090;&#1072;&#1090;</th>
+          <th>Воркшоп</th>
+          <th>Спикер</th>
+          <th>Результат</th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <td class="num-cell teal">1</td>
-          <td>&#1051;&#1080;&#1095;&#1085;&#1072;&#1103; &#1054;&#1057;: &#1085;&#1072;&#1089;&#1090;&#1088;&#1086;&#1081;&#1082;&#1072; &#1089; &#1085;&#1091;&#1083;&#1103;</td>
+          <td>Личная ОС: настройка с нуля</td>
           <td class="dim">TBD</td>
-          <td class="dim">&#1088;&#1072;&#1073;&#1086;&#1095;&#1072;&#1103; &#1087;&#1077;&#1088;&#1089;&#1086;&#1085;&#1072;&#1083;&#1100;&#1085;&#1072;&#1103; &#1054;&#1057;</td>
+          <td class="dim">рабочая персональная ОС</td>
         </tr>
         <tr>
           <td class="num-cell teal">2</td>
-          <td>&#1040;&#1075;&#1077;&#1085;&#1090;&#1085;&#1099;&#1077; &#1087;&#1080;&#1087;&#1083;&#1072;&#1081;&#1085;&#1099;</td>
+          <td>Агентные пиплайны</td>
           <td class="dim">TBD</td>
-          <td class="dim">&#1088;&#1072;&#1073;&#1086;&#1090;&#1072;&#1102;&#1097;&#1080;&#1081; &#1088;&#1072;&#1073;&#1086;&#1095;&#1080;&#1081; &#1087;&#1088;&#1086;&#1094;&#1077;&#1089;&#1089;</td>
+          <td class="dim">работающий рабочий процесс</td>
         </tr>
         <tr>
           <td class="num-cell teal">3</td>
-          <td>&#1050;&#1086;&#1085;&#1090;&#1077;&#1082;&#1089;&#1090;&#1085;&#1072;&#1103; &#1080;&#1085;&#1078;&#1077;&#1085;&#1077;&#1088;&#1080;&#1103;</td>
+          <td>Контекстная инженерия</td>
           <td class="dim">TBD</td>
-          <td class="dim">&#1089;&#1087;&#1077;&#1094;&#1080;&#1072;&#1083;&#1080;&#1079;&#1080;&#1088;&#1086;&#1074;&#1072;&#1085;&#1085;&#1099;&#1077; &#1087;&#1088;&#1086;&#1084;&#1087;&#1090;&#1099;</td>
+          <td class="dim">специализированные промпты</td>
         </tr>
         <tr>
           <td class="num-cell teal">4</td>
-          <td>MCP: &#1087;&#1086;&#1076;&#1082;&#1083;&#1102;&#1095;&#1077;&#1085;&#1080;&#1077; &#1080;&#1085;&#1089;&#1090;&#1088;&#1091;&#1084;&#1077;&#1085;&#1090;&#1086;&#1074;</td>
+          <td>MCP: подключение инструментов</td>
           <td class="dim">TBD</td>
-          <td class="dim">3+ &#1080;&#1085;&#1090;&#1077;&#1075;&#1088;&#1072;&#1094;&#1080;&#1080; &#1079;&#1072; &#1089;&#1077;&#1089;&#1089;&#1080;&#1102;</td>
+          <td class="dim">3+ интеграции за сессию</td>
         </tr>
         <tr>
           <td class="num-cell teal">5</td>
-          <td>AI-&#1072;&#1091;&#1076;&#1080;&#1090; &#1073;&#1080;&#1079;&#1085;&#1077;&#1089;-&#1087;&#1088;&#1086;&#1094;&#1077;&#1089;&#1089;&#1086;&#1074;</td>
+          <td>AI-аудит бизнес-процессов</td>
           <td class="dim">TBD</td>
-          <td class="dim">&#1082;&#1072;&#1088;&#1090;&#1072; &#1072;&#1074;&#1090;&#1086;&#1084;&#1072;&#1090;&#1080;&#1079;&#1072;&#1094;&#1080;&#1080;</td>
+          <td class="dim">карта автоматизации</td>
         </tr>
         <tr>
           <td class="num-cell teal">6</td>
-          <td>&#1040;&#1075;&#1077;&#1085;&#1090;&#1085;&#1099;&#1077; &#1090;&#1086;&#1087;&#1086;&#1083;&#1086;&#1075;&#1080;&#1080;</td>
+          <td>Агентные топологии</td>
           <td class="dim">TBD</td>
-          <td class="dim">&#1072;&#1088;&#1093;&#1080;&#1090;&#1077;&#1082;&#1090;&#1091;&#1088;&#1072; &#1087;&#1086;&#1076; &#1074;&#1072;&#1096; &#1073;&#1080;&#1079;&#1085;&#1077;&#1089;</td>
+          <td class="dim">архитектура под ваш бизнес</td>
         </tr>
         <tr>
           <td class="num-cell teal">7</td>
-          <td>Evals: &#1086;&#1094;&#1077;&#1085;&#1082;&#1072; &#1082;&#1072;&#1095;&#1077;&#1089;&#1090;&#1074;&#1072; &#1074;&#1099;&#1093;&#1086;&#1076;&#1072;</td>
+          <td>Evals: оценка качества выхода</td>
           <td class="dim">TBD</td>
-          <td class="dim">&#1089;&#1080;&#1089;&#1090;&#1077;&#1084;&#1072; &#1085;&#1072;&#1076;&#1105;&#1078;&#1085;&#1086;&#1089;&#1090;&#1080;</td>
+          <td class="dim">система надёжности</td>
         </tr>
         <tr>
           <td class="num-cell teal">8</td>
-          <td>90-&#1076;&#1085;&#1077;&#1074;&#1085;&#1099;&#1081; &#1087;&#1083;&#1072;&#1085; &#1090;&#1088;&#1072;&#1085;&#1089;&#1092;&#1086;&#1088;&#1084;&#1072;&#1094;&#1080;&#1080;</td>
+          <td>90-дневный план трансформации</td>
           <td class="dim">TBD</td>
-          <td class="dim">&#1088;&#1072;&#1073;&#1086;&#1095;&#1080;&#1081; plan &#1076;&#1083;&#1103; &#1074;&#1072;&#1096;&#1077;&#1081; &#1082;&#1086;&#1084;&#1087;&#1072;&#1085;&#1080;&#1080;</td>
+          <td class="dim">рабочий plan для вашей компании</td>
         </tr>
       </tbody>
     </table>
     <div style="margin-top:16px;padding:12px 16px;border-radius:8px;background:rgba(28,28,46,0.5);border:1px solid rgba(77,201,212,0.08);">
-      <p style="font-size:13px;color:var(--text-dim);">&#1044;&#1083;&#1103; &#1082;&#1072;&#1078;&#1076;&#1086;&#1075;&#1086; &#1074;&#1086;&#1088;&#1082;&#1096;&#1086;&#1087;&#1072;: <span style="color:rgba(255,255,255,0.7);">&#1087;&#1088;&#1072;&#1082;&#1090;&#1080;&#1095;&#1077;&#1089;&#1082;&#1080;&#1081; &#1085;&#1072;&#1074;&#1099;&#1082; &#1089; &#1082;&#1086;&#1085;&#1082;&#1088;&#1077;&#1090;&#1085;&#1099;&#1084; &#1088;&#1077;&#1079;&#1091;&#1083;&#1100;&#1090;&#1072;&#1090;&#1086;&#1084;</span></p>
+      <p style="font-size:13px;color:var(--text-dim);">Для каждого воркшопа: <span style="color:rgba(255,255,255,0.7);">практический навык с конкретным результатом</span></p>
     </div>
   </div>
 </div>
@@ -2472,7 +2551,7 @@ body.edit-mode #builder-toolbar { display: flex; }
 
 <!-- UI Elements -->
 <div class="progress-bar"></div>
-<div class="nav-hint">&larr; &rarr; navigate &middot; E edit &middot; F fullscreen</div>
+<div class="nav-hint">&larr; &rarr; navigate &middot; T contents &middot; E edit &middot; Z undo &middot; F fullscreen</div>
 <div id="edit-badge">// EDIT MODE — changes auto-save &middot; Ctrl+Z undo</div>
 
 <!-- Block action buttons (positioned dynamically) -->
@@ -2484,8 +2563,8 @@ body.edit-mode #builder-toolbar { display: flex; }
 
 <!-- Builder toolbar -->
 <div id="builder-toolbar">
-  <button onclick="undo()" title="undo (Ctrl+Z)">&#8617;</button>
-  <button onclick="redo()" title="redo (Ctrl+Shift+Z)">&#8618;</button>
+  <button onclick="undo()" title="undo (Ctrl+Z)">↩</button>
+  <button onclick="redo()" title="redo (Ctrl+Shift+Z)">↪</button>
   <div class="tb-sep"></div>
   <button onclick="changeTextSize(1)" title="increase text size">A+</button>
   <button onclick="changeTextSize(-1)" title="decrease text size">A-</button>
@@ -2501,7 +2580,7 @@ body.edit-mode #builder-toolbar { display: flex; }
   <div class="tb-sep"></div>
   <button onclick="saveToGitHub()" title="push to GitHub" style="font-weight:600">push</button>
   <button id="auto-push-btn" onclick="toggleAutoPush()" title="auto-push every 60s">auto</button>
-  <button id="preview-btn" onclick="togglePreview()" title="next slide preview">&#9673;</button>
+  <button id="preview-btn" onclick="togglePreview()" title="next slide preview">◉</button>
   <span class="save-status" id="save-status"></span>
 </div>
 
@@ -2585,6 +2664,22 @@ body.edit-mode #builder-toolbar { display: flex; }
   </div>
 </div>
 
+<!-- TOC overlay -->
+<div id="toc-overlay"></div>
+
+<!-- Image resize bar -->
+<div id="img-resize-bar">
+  <button onclick="resizeImg(-20)" title="smaller">-</button>
+  <button onclick="resizeImg(-10)">S</button>
+  <span id="img-size-label">100%</span>
+  <button onclick="resizeImg(10)">L</button>
+  <button onclick="resizeImg(20)" title="larger">+</button>
+  <button onclick="resizeImg(0, '50%')">50%</button>
+  <button onclick="resizeImg(0, '80%')">80%</button>
+  <button onclick="resizeImg(0, '100%')">100%</button>
+  <button onclick="deselectImg()" style="color:var(--red)">&times;</button>
+</div>
+
 <!-- Image action menu (positioned dynamically near placeholder) -->
 <div id="img-action-menu">
   <button onclick="imgActionUpload()">upload image</button>
@@ -2656,7 +2751,8 @@ document.addEventListener('keydown', (e) => {
     else document.exitFullscreen();
   }
   else if (e.key === 'e' || e.key === 'E') toggleEdit();
-  else if ((e.ctrlKey || e.metaKey) && e.key === 'z' && !e.shiftKey) { e.preventDefault(); undo(); }
+  else if (e.key === 't' || e.key === 'T') toggleTOC();
+  else if ((e.key === 'z' && !e.ctrlKey && !e.metaKey) || ((e.ctrlKey || e.metaKey) && e.key === 'z' && !e.shiftKey)) { e.preventDefault(); undo(); }
   else if ((e.ctrlKey || e.metaKey) && (e.key === 'Z' || e.key === 'y')) { e.preventDefault(); redo(); }
   else if (e.key === 'Delete' && editMode && selectedBlock) { deleteBlock(); }
 }, false);
@@ -3232,7 +3328,8 @@ async function runAiGeneration() {
         generateBtn.style.display = '';
       }
     } else {
-      const resp = await fetch(OR_BASE + '/chat/completions', {
+      // Image generation via OpenRouter image models
+      const resp = await fetch(OR_BASE + '/images/generations', {
         method: 'POST',
         headers: {
           'Authorization': 'Bearer ' + OR_KEY,
@@ -3240,26 +3337,33 @@ async function runAiGeneration() {
           'HTTP-Referer': location.href
         },
         body: JSON.stringify({
-          model: 'anthropic/claude-sonnet-4-20250514',
-          messages: [{
-            role: 'user',
-            content: `Create a visually rich, detailed SVG illustration for a presentation slide. Style: dark background (#161620), primary accent #4dc9d4 (teal), secondary #3b82f6 (blue). Use gradients, subtle glow effects, rounded shapes, and layered composition. Make it look like a polished infographic or data visualization — not a simple icon. viewBox="0 0 600 400", self-contained, no external deps. Subject: ${prompt}. Return ONLY the <svg>...</svg> code.`
-          }],
-          max_tokens: 6000
+          model: 'google/imagen-4',
+          prompt: `Clean, minimal illustration for a dark-themed presentation slide. Style: dark background #161620, teal accent #4dc9d4, blue accent #3b82f6. Modern, geometric, professional. Subject: ${prompt}`,
+          n: 1,
+          size: '1024x1024',
+          response_format: 'b64_json'
         })
       });
       const data = await resp.json();
-      const content = data.choices?.[0]?.message?.content || '';
-      const svgMatch = content.match(/<svg[\s\S]*?<\/svg>/i);
-      if (svgMatch) {
-        aiResult = { type: 'svg', content: svgMatch[0] };
-        previewEl.innerHTML = svgMatch[0];
+      if (data.data?.[0]?.b64_json) {
+        const b64 = data.data[0].b64_json;
+        const dataUrl = 'data:image/png;base64,' + b64;
+        aiResult = { type: 'image', content: dataUrl };
+        previewEl.innerHTML = `<img src="${dataUrl}" style="max-width:100%;border-radius:8px">`;
         previewEl.classList.add('visible');
-        statusEl.textContent = 'illustration generated';
+        statusEl.textContent = 'image generated';
+        insertBtn.style.display = '';
+      } else if (data.data?.[0]?.url) {
+        aiResult = { type: 'image', content: data.data[0].url };
+        previewEl.innerHTML = `<img src="${data.data[0].url}" style="max-width:100%;border-radius:8px">`;
+        previewEl.classList.add('visible');
+        statusEl.textContent = 'image generated';
         insertBtn.style.display = '';
       } else {
-        statusEl.textContent = 'no illustration found in response';
-        generateBtn.style.display = '';
+        // Fallback to SVG via Claude
+        statusEl.textContent = 'image API unavailable, trying SVG fallback...';
+        aiMode = 'svg';
+        return runAiGeneration();
       }
     }
   } catch (e) {
@@ -3472,13 +3576,108 @@ function buildCleanHTML() {
   return '<!DOCTYPE html>\n' + clone.outerHTML;
 }
 
+// ===== TABLE OF CONTENTS =====
+let tocVisible = false;
+
+function toggleTOC() {
+  tocVisible = !tocVisible;
+  const overlay = document.getElementById('toc-overlay');
+  if (tocVisible) {
+    buildTOC();
+    overlay.classList.add('visible');
+  } else {
+    overlay.classList.remove('visible');
+  }
+}
+
+function buildTOC() {
+  const overlay = document.getElementById('toc-overlay');
+  let html = '<h2>// СОДЕРЖАНИЕ</h2><div class="toc-grid">';
+  document.querySelectorAll('.slide').forEach((slide, i) => {
+    const isSection = slide.classList.contains('section-divider');
+    const isCurrent = i === current;
+    const h = slide.querySelector('h1, h2');
+    const title = h ? h.textContent.trim() : '(без заголовка)';
+    const label = slide.querySelector('.label, .section-num');
+    const labelText = label ? label.textContent.trim() : '';
+    const cls = (isSection ? ' toc-section' : '') + (isCurrent ? ' toc-current' : '');
+    html += `<div class="toc-item${cls}" onclick="goToSlide(${i})">
+      <div class="toc-num">${labelText ? labelText + ' · ' : ''}${i + 1}/${total}</div>
+      <div class="toc-title">${title}</div>
+    </div>`;
+  });
+  html += '</div>';
+  overlay.innerHTML = html;
+}
+
+function goToSlide(n) {
+  tocVisible = false;
+  document.getElementById('toc-overlay').classList.remove('visible');
+  showSlide(n);
+}
+
+// ===== IMAGE RESIZE =====
+let selectedImg = null;
+
+function onImgClick(e) {
+  if (!editMode) return;
+  const img = e.target;
+  if (!img.matches('img') || img.classList.contains('slide-logo')) return;
+  e.stopPropagation();
+  deselectImg();
+  selectedImg = img;
+  img.classList.add('img-selected');
+  const bar = document.getElementById('img-resize-bar');
+  bar.classList.add('visible');
+  updateImgSizeLabel();
+}
+
+function deselectImg() {
+  if (selectedImg) selectedImg.classList.remove('img-selected');
+  selectedImg = null;
+  document.getElementById('img-resize-bar').classList.remove('visible');
+}
+
+function resizeImg(delta, absolute) {
+  if (!selectedImg) return;
+  pushUndo();
+  if (absolute) {
+    selectedImg.style.maxWidth = absolute;
+    selectedImg.style.width = absolute;
+  } else {
+    const cur = selectedImg.offsetWidth;
+    const newW = Math.max(50, cur + delta);
+    selectedImg.style.maxWidth = newW + 'px';
+    selectedImg.style.width = newW + 'px';
+  }
+  updateImgSizeLabel();
+}
+
+function updateImgSizeLabel() {
+  if (!selectedImg) return;
+  const w = selectedImg.style.maxWidth || selectedImg.style.width || 'auto';
+  document.getElementById('img-size-label').textContent = w;
+}
+
+document.addEventListener('click', (e) => {
+  if (!editMode) return;
+  if (e.target.matches('img') && !e.target.classList.contains('slide-logo')) {
+    onImgClick(e);
+    return;
+  }
+  if (e.target.closest('#img-resize-bar')) return;
+  deselectImg();
+});
+
 // ===== CLOSE MODALS ON ESC =====
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') {
+    if (tocVisible) { tocVisible = false; document.getElementById('toc-overlay').classList.remove('visible'); return; }
     closeLayoutPicker();
     closeAiModal();
     closeGhModal();
     document.getElementById('img-action-menu').classList.remove('visible');
+    deselectImg();
     deselectBlock();
   }
 });

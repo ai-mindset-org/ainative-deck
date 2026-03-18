@@ -1,0 +1,1183 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Лекция 1 — AI-native организации | Степан Гершуни</title>
+<meta property="og:title" content="AI-native организации — Лекция 1">
+<meta property="og:description" content="Причины, процесс и эффект агентоцентричной трансформации бизнеса">
+<meta property="og:type" content="website">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #161620;
+  --bg-deep: #0a0a0f;
+  --bg-card: #1c1c2e;
+  --bg-terminal: #141419;
+  --text: #e6edf3;
+  --text-dim: rgba(255,255,255,0.5);
+  --text-label: rgba(255,255,255,0.45);
+  --teal: #4dc9d4;
+  --teal-dim: rgba(77,201,212,0.15);
+  --teal-glow: rgba(77,201,212,0.3);
+  --green: #38d9a9;
+  --blue: #3b82f6;
+  --amber: #c89200;
+  --red: #ff6b6b;
+  --pink: #ff3b8b;
+  --cyan: #38bdf8;
+  --border: rgba(77,201,212,0.12);
+  --border-hover: rgba(77,201,212,0.3);
+  --grid-size: 60px;
+  --font-heading: 'Space Grotesk', sans-serif;
+  --font-body: 'IBM Plex Mono', monospace;
+  --font-code: 'JetBrains Mono', monospace;
+}
+
+html, body { width: 100%; height: 100%; background: var(--bg); color: var(--text); font-family: var(--font-body); font-size: 18px; overflow: hidden; -webkit-font-smoothing: antialiased; }
+
+/* === EFFECT LAYERS === */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image:
+    linear-gradient(rgba(77,201,212,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(77,201,212,0.03) 1px, transparent 1px);
+  background-size: var(--grid-size) var(--grid-size);
+  pointer-events: none; z-index: 1;
+}
+.mesh {
+  position: fixed; inset: 0;
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(77,201,212,0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(59,130,246,0.06) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 80%, rgba(56,217,169,0.04) 0%, transparent 50%);
+  pointer-events: none; z-index: 2;
+}
+.grain {
+  position: fixed; inset: 0;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='5' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+  opacity: 0.14;
+  pointer-events: none; z-index: 9998;
+}
+.vignette {
+  position: fixed; inset: 0;
+  background: radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.4) 100%);
+  pointer-events: none; z-index: 9997;
+}
+.top-line {
+  position: fixed; top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--teal), transparent);
+  z-index: 10000;
+}
+
+/* === SLIDES === */
+.slide {
+  display: none; flex-direction: column; justify-content: center; align-items: center;
+  width: 100vw; height: 100vh;
+  padding: 60px 80px 80px;
+  position: relative; z-index: 10;
+}
+.slide.active { display: flex; }
+.slide-inner {
+  width: 100%; max-width: 1100px;
+  flex: 1; display: flex; flex-direction: column; justify-content: center;
+  position: relative;
+}
+
+/* Corner brackets */
+.slide::before, .slide::after {
+  content: '';
+  position: absolute;
+  width: 30px; height: 30px;
+  border: 2px solid var(--teal);
+  opacity: 0.15;
+  z-index: 11;
+}
+.slide::before { top: 24px; left: 24px; border-right: none; border-bottom: none; }
+.slide::after { bottom: 24px; right: 24px; border-left: none; border-top: none; }
+
+.slide-counter {
+  position: absolute; top: 24px; right: 32px;
+  font-family: var(--font-body); font-size: 12px;
+  color: var(--text-dim); opacity: 0.5; z-index: 12;
+}
+
+/* === LOGO === */
+.slide-logo {
+  position: absolute; bottom: 24px; left: 32px;
+  width: 36px; height: 36px; opacity: 0.4;
+  z-index: 12; pointer-events: none;
+}
+
+/* === TYPOGRAPHY === */
+h1 { font-family: var(--font-heading); font-size: 48px; font-weight: 700; margin-bottom: 16px; line-height: 1.15; color: #fff; }
+h2 { font-family: var(--font-heading); font-size: 34px; font-weight: 600; margin-bottom: 20px; line-height: 1.25; color: #fff; }
+h3 { font-family: var(--font-body); font-size: 20px; font-weight: 500; color: var(--text-dim); margin-bottom: 12px; }
+p, li { font-size: 17px; line-height: 1.7; color: rgba(255,255,255,0.8); }
+
+.label {
+  font-family: var(--font-body); font-size: 13px; font-weight: 500;
+  text-transform: uppercase; letter-spacing: 3px;
+  color: var(--text-label); margin-bottom: 16px;
+}
+.teal { color: var(--teal); } .green { color: var(--green); } .blue { color: var(--blue); }
+.amber { color: var(--amber); } .red { color: var(--red); } .cyan { color: var(--cyan); }
+.dim { color: var(--text-dim); }
+
+/* === COVER === */
+.cover { align-items: center; text-align: center; }
+.cover h1 { font-size: 52px; margin-bottom: 12px; }
+.subtitle { font-size: 18px; color: var(--text-dim); margin-bottom: 24px; max-width: 700px; }
+.meta { display: flex; gap: 12px; align-items: center; justify-content: center; margin-top: 8px; flex-wrap: wrap; }
+.meta .dot { color: var(--text-dim); opacity: 0.3; }
+.meta .date { font-size: 13px; color: var(--text-dim); }
+
+/* === TAGS === */
+.tag {
+  display: inline-block;
+  font-family: var(--font-body); font-size: 11px;
+  padding: 3px 10px; border-radius: 4px;
+  background: var(--teal-dim); color: var(--teal);
+  letter-spacing: 1px; text-transform: lowercase;
+}
+.tag.green-tag { background: rgba(56,217,169,0.15); color: var(--green); }
+.tag.blue-tag { background: rgba(59,130,246,0.15); color: var(--blue); }
+.tag.amber-tag { background: rgba(200,146,0,0.15); color: var(--amber); }
+.tag.red-tag { background: rgba(255,107,107,0.15); color: var(--red); }
+
+/* === CARDS === */
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-top: 20px; }
+.card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 12px; padding: 24px;
+  transition: all 0.3s;
+}
+.card:hover { border-color: var(--border-hover); box-shadow: 0 0 24px var(--teal-dim); }
+.card-icon { font-family: var(--font-heading); font-size: 24px; font-weight: 700; color: var(--teal); margin-bottom: 12px; }
+.card h3 { font-family: var(--font-heading); font-size: 18px; font-weight: 600; color: #fff; margin-bottom: 8px; }
+.card p { font-size: 14px; color: var(--text-dim); line-height: 1.5; }
+.card .tag { margin-top: 12px; }
+
+/* === STAT GRID === */
+.stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 24px; }
+.stat-grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
+.stat-grid.cols-4 { grid-template-columns: repeat(4, 1fr); }
+.stat-box {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 12px; padding: 24px 16px; text-align: center;
+  transition: border-color 0.3s;
+}
+.stat-box:hover { border-color: var(--border-hover); }
+.stat-box .num { font-family: var(--font-heading); font-size: 40px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.stat-box .stat-label { font-size: 12px; color: var(--text-label); margin-top: 8px; text-transform: lowercase; line-height: 1.4; }
+
+/* === LAYERS === */
+.layers { display: flex; flex-direction: column; gap: 8px; margin-top: 20px; }
+.layer {
+  display: flex; align-items: center; gap: 16px;
+  padding: 14px 20px; border-radius: 10px;
+  border: 1px solid var(--border);
+  background: rgba(28,28,46,0.5);
+  transition: all 0.3s;
+}
+.layer:hover { transform: translateX(6px); border-color: var(--border-hover); }
+.layer-num { font-family: var(--font-heading); font-size: 16px; font-weight: 700; min-width: 32px; }
+.layer-name { font-family: var(--font-heading); font-size: 16px; font-weight: 600; min-width: 180px; color: #fff; }
+.layer-desc { font-size: 14px; color: var(--text-dim); flex: 1; }
+
+/* === TIMELINE === */
+.timeline { display: flex; flex-direction: column; gap: 6px; margin-top: 20px; }
+.timeline-row {
+  display: flex; align-items: center; gap: 14px;
+  padding: 10px 20px; border-radius: 8px;
+  background: rgba(28,28,46,0.4);
+  border-left: 3px solid var(--border);
+  transition: all 0.3s;
+}
+.timeline-row:hover { background: rgba(28,28,46,0.7); }
+.timeline-row.teal-row { border-left-color: var(--teal); background: rgba(77,201,212,0.05); }
+.timeline-row.green-row { border-left-color: var(--green); background: rgba(56,217,169,0.05); }
+.timeline-row.red-row { border-left-color: var(--red); background: rgba(255,107,107,0.05); }
+.timeline-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.timeline-time { font-size: 13px; color: var(--text-dim); min-width: 80px; font-variant-numeric: tabular-nums; }
+.timeline-title { font-size: 15px; flex: 1; color: rgba(255,255,255,0.85); }
+.timeline-dur { font-size: 12px; padding: 2px 10px; border-radius: 4px; background: var(--bg-card); color: var(--text-dim); }
+
+/* === QUOTE === */
+.quote {
+  border-left: 3px solid var(--teal);
+  padding: 16px 24px; margin: 20px 0;
+  background: rgba(77,201,212,0.04);
+  border-radius: 0 8px 8px 0;
+}
+.quote p { font-size: 17px; font-style: italic; color: rgba(255,255,255,0.85); }
+.quote .author { font-size: 13px; color: var(--text-dim); margin-top: 8px; font-style: normal; }
+
+/* === SPLIT === */
+.split { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 20px; }
+
+/* === CODE BLOCK === */
+.code-block {
+  background: var(--bg-terminal); border: 1px solid var(--border);
+  border-radius: 10px; padding: 20px 24px;
+  font-family: var(--font-code); font-size: 14px; line-height: 1.7;
+  margin-top: 16px; overflow-x: auto;
+}
+.code-block .comment { color: var(--text-dim); }
+
+/* === DATA TABLE === */
+.data-table {
+  width: 100%; border-collapse: separate; border-spacing: 0;
+  margin-top: 16px; font-size: 14px;
+}
+.data-table th {
+  font-family: var(--font-body); font-size: 11px; font-weight: 500;
+  text-transform: uppercase; letter-spacing: 2px;
+  color: var(--text-label); padding: 10px 16px;
+  text-align: left; border-bottom: 1px solid var(--border);
+}
+.data-table td {
+  padding: 10px 16px; color: rgba(255,255,255,0.8);
+  border-bottom: 1px solid rgba(77,201,212,0.06);
+  font-family: var(--font-body); font-size: 14px;
+}
+.data-table tr:hover td { background: rgba(77,201,212,0.03); }
+.data-table .num-cell { font-family: var(--font-heading); font-weight: 600; font-variant-numeric: tabular-nums; }
+
+/* === SECTION DIVIDER === */
+.section-divider { align-items: center; text-align: center; }
+.section-divider .slide-inner { align-items: center; }
+.section-divider h1 { font-size: 44px; }
+.section-num {
+  font-family: var(--font-body); font-size: 80px; font-weight: 700;
+  color: var(--teal); opacity: 0.15; margin-bottom: -20px;
+}
+
+/* === SYMPTOM-CAUSE === */
+.symptom-cause { display: flex; flex-direction: column; gap: 8px; margin-top: 16px; }
+.sc-row {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+  border-radius: 8px; overflow: hidden;
+  border: 1px solid var(--border);
+  transition: border-color 0.3s;
+}
+.sc-row:hover { border-color: var(--border-hover); }
+.sc-symptom {
+  padding: 12px 16px; background: rgba(255,107,107,0.06);
+  border-right: 1px solid var(--border);
+  font-size: 14px; color: rgba(255,255,255,0.75);
+}
+.sc-cause {
+  padding: 12px 16px; background: rgba(77,201,212,0.04);
+  font-size: 14px; color: rgba(255,255,255,0.75);
+}
+.sc-header {
+  display: grid; grid-template-columns: 1fr 1fr;
+  font-size: 11px; text-transform: uppercase; letter-spacing: 2px;
+  color: var(--text-label); padding: 0 16px; margin-bottom: 4px;
+}
+
+/* === BULLET LIST === */
+.bullet-list { list-style: none; margin-top: 16px; }
+.bullet-list li {
+  padding: 8px 0 8px 24px; position: relative;
+  font-size: 16px; color: rgba(255,255,255,0.8);
+}
+.bullet-list li::before {
+  content: ''; position: absolute; left: 0; top: 16px;
+  width: 8px; height: 8px; border-radius: 2px;
+  background: var(--teal); opacity: 0.6;
+}
+.bullet-list li.green-bullet::before { background: var(--green); }
+.bullet-list li.blue-bullet::before { background: var(--blue); }
+
+/* === CHART PLACEHOLDER === */
+.chart-area {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 12px; padding: 24px; margin-top: 16px;
+  min-height: 280px; display: flex; align-items: center; justify-content: center;
+}
+.chart-area svg { width: 100%; max-height: 260px; }
+
+/* === GLOW DOTS === */
+.glow-dot {
+  position: absolute; width: 6px; height: 6px; border-radius: 50%;
+  background: var(--teal);
+  box-shadow: 0 0 12px var(--teal-glow), 0 0 24px var(--teal-dim);
+  opacity: 0.5; z-index: 5;
+}
+
+/* === SPEAKER HEADER === */
+.speaker-header {
+  display: flex; align-items: center; gap: 16px; margin-bottom: 24px;
+}
+.speaker-header img {
+  width: 56px; height: 56px; border-radius: 50%;
+  object-fit: cover; border: 2px solid var(--border);
+}
+.speaker-header .speaker-info { }
+.speaker-header .speaker-name { font-family: var(--font-heading); font-size: 16px; font-weight: 600; color: #fff; }
+.speaker-header .speaker-role { font-size: 12px; color: var(--text-dim); }
+
+/* === PROGRESS === */
+.progress-bar { position: fixed; bottom: 0; left: 0; height: 2px; background: var(--teal); transition: width 0.3s; z-index: 10001; }
+.nav-hint { position: fixed; bottom: 16px; right: 32px; font-size: 11px; color: var(--text-dim); opacity: 0.3; z-index: 10001; font-family: var(--font-body); }
+
+/* === ANIMATIONS === */
+@keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0; } }
+.slide.active .slide-inner > * { animation: fadeUp 0.5s ease-out both; }
+.slide.active .slide-inner > *:nth-child(2) { animation-delay: 0.08s; }
+.slide.active .slide-inner > *:nth-child(3) { animation-delay: 0.16s; }
+.slide.active .slide-inner > *:nth-child(4) { animation-delay: 0.24s; }
+.slide.active .slide-inner > *:nth-child(5) { animation-delay: 0.32s; }
+.slide.active .slide-inner > *:nth-child(6) { animation-delay: 0.40s; }
+.slide.active .slide-inner > *:nth-child(7) { animation-delay: 0.48s; }
+.cursor::after { content: '\2588'; animation: blink 1s step-end infinite; color: var(--teal); margin-left: 2px; }
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+  .slide { padding: 40px 24px 60px; }
+  h1 { font-size: 28px; }
+  h2 { font-size: 24px; }
+  .cover h1 { font-size: 32px; }
+  .cards { grid-template-columns: 1fr; }
+  .split { grid-template-columns: 1fr; gap: 20px; }
+  .stat-grid { grid-template-columns: 1fr 1fr; }
+  .sc-row { grid-template-columns: 1fr; }
+  .sc-symptom { border-right: none; border-bottom: 1px solid var(--border); }
+  .nav-hint { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- Effect layers -->
+<div class="mesh"></div>
+<div class="grain"></div>
+<div class="vignette"></div>
+<div class="top-line"></div>
+
+<!-- ==================== SLIDE 1: COVER ==================== -->
+<div class="slide active" id="s1">
+  <div class="slide-counter"><span class="current">1</span>/<span class="total"></span></div>
+  <img class="slide-logo" src="../../logo.png" alt="">
+  <div class="glow-dot" style="top:15%;left:10%"></div>
+  <div class="glow-dot" style="top:70%;right:15%"></div>
+  <div class="glow-dot" style="bottom:20%;left:30%"></div>
+  <div class="slide-inner cover">
+    <div class="label">// AI-NATIVE ORGANIZATIONS LAB &middot; WEEK 1</div>
+    <h1>AI-native<br>организации<span class="cursor"></span></h1>
+    <p class="subtitle">причины, процесс и эффект агентоцентричной трансформации бизнеса</p>
+    <div class="speaker-header" style="justify-content:center; margin-bottom:0; margin-top:16px">
+      <img src="../../speakers/stepan-gershuni.jpg" alt="">
+      <div class="speaker-info">
+        <div class="speaker-name">Степан Гершуни</div>
+        <div class="speaker-role">CybOS // cyber.fund</div>
+      </div>
+    </div>
+    <div class="meta" style="margin-top:16px">
+      <span class="tag">лекция 1</span>
+      <span class="tag green-tag">23 марта 2026</span>
+      <span class="dot">&middot;</span>
+      <span class="date">18:00 MSK</span>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 2: WEEK 1 DIVIDER ==================== -->
+<div class="slide section-divider" id="s2">
+  <div class="slide-counter"><span class="current">2</span>/<span class="total"></span></div>
+  <img class="slide-logo" src="../../logo.png" alt="">
+  <div class="glow-dot" style="top:30%;right:20%"></div>
+  <div class="slide-inner" style="align-items:center;text-align:center">
+    <div class="section-num">W1</div>
+    <h1>неделя 1</h1>
+    <p class="subtitle">почему ИИ-трансформация &mdash; самое важное</p>
+    <div class="meta" style="margin-top:20px">
+      <span class="tag">foundation</span>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 3: СТРУКТУРА ПРОГРАММЫ ==================== -->
+<div class="slide" id="s3">
+  <div class="slide-counter"><span class="current">3</span>/<span class="total"></span></div>
+  <img class="slide-logo" src="../../logo.png" alt="">
+  <div class="slide-inner">
+    <div class="label">// СТРУКТУРА ПРОГРАММЫ</div>
+    <h2>что включено в спринт</h2>
+    <ul class="bullet-list">
+      <li><span class="teal">3 лекции</span> &mdash; AI-трансформация, архитектура, стратегия</li>
+      <li class="green-bullet"><span class="green">10 воркшопов</span> &mdash; гостевые эксперты с практикой</li>
+      <li class="blue-bullet"><span class="blue">office hours</span> &mdash; открытые консультации</li>
+      <li>фокус-сессии &mdash; body doubling, breakout rooms</li>
+      <li>записи всех сессий &mdash; доступ навсегда</li>
+      <li>доступ в сообщество &mdash; AI Mindset community</li>
+      <li class="green-bullet"><span class="green">Demo Day</span> &mdash; презентации проектов участников</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 4: SCHEDULE ==================== -->
+<div class="slide" id="s4">
+  <div class="slide-counter"><span class="current">4</span>/<span class="total"></span></div>
+  <img class="slide-logo" src="../../logo.png" alt="">
+  <div class="slide-inner">
+    <div class="label">// РАСПИСАНИЕ</div>
+    <h2>3 недели. 15+ сессий.</h2>
+    <div class="timeline" style="font-size:13px;">
+      <div class="timeline-row teal-row">
+        <div class="timeline-dot" style="background:var(--teal)"></div>
+        <div class="timeline-time">23.03 пн</div>
+        <div class="timeline-title">Гершуни &mdash; почему ИИ-трансформация</div>
+        <div class="timeline-dur">18:00</div>
+      </div>
+      <div class="timeline-row teal-row">
+        <div class="timeline-dot" style="background:var(--teal)"></div>
+        <div class="timeline-time">24.03 вт</div>
+        <div class="timeline-title">Поваляев &mdash; coworking + personal OS</div>
+        <div class="timeline-dur">10:00</div>
+      </div>
+      <div class="timeline-row teal-row">
+        <div class="timeline-dot" style="background:var(--teal)"></div>
+        <div class="timeline-time">25.03 ср</div>
+        <div class="timeline-title">Поваляев &mdash; personal &rarr; team: аудит, AI Champion</div>
+        <div class="timeline-dur">18:00</div>
+      </div>
+      <div class="timeline-row teal-row">
+        <div class="timeline-dot" style="background:var(--teal)"></div>
+        <div class="timeline-time">27.03 пт</div>
+        <div class="timeline-title">Ханарин &mdash; AI-трансформация для организаций</div>
+        <div class="timeline-dur">18:00</div>
+      </div>
+      <div class="timeline-row green-row">
+        <div class="timeline-dot" style="background:var(--green)"></div>
+        <div class="timeline-time">30.03 пн</div>
+        <div class="timeline-title">Гершуни &mdash; система поверх модели</div>
+        <div class="timeline-dur">18:00</div>
+      </div>
+      <div class="timeline-row green-row">
+        <div class="timeline-dot" style="background:var(--green)"></div>
+        <div class="timeline-time">01.04 ср</div>
+        <div class="timeline-title">Амётов &mdash; AI-контент для бизнеса</div>
+        <div class="timeline-dur">12:00</div>
+      </div>
+      <div class="timeline-row green-row">
+        <div class="timeline-dot" style="background:var(--green)"></div>
+        <div class="timeline-time">01.04 ср</div>
+        <div class="timeline-title">Клебан &mdash; self-improving agents</div>
+        <div class="timeline-dur">18:00</div>
+      </div>
+      <div class="timeline-row green-row">
+        <div class="timeline-dot" style="background:var(--green)"></div>
+        <div class="timeline-time">02.04 чт</div>
+        <div class="timeline-title">Ковальский &mdash; AI-driven development</div>
+        <div class="timeline-dur">18:00</div>
+      </div>
+      <div class="timeline-row green-row">
+        <div class="timeline-dot" style="background:var(--green)"></div>
+        <div class="timeline-time">03.04 пт</div>
+        <div class="timeline-title">Кравцов &mdash; AI-native + граф знаний</div>
+        <div class="timeline-dur">18:00</div>
+      </div>
+      <div class="timeline-row red-row">
+        <div class="timeline-dot" style="background:var(--red)"></div>
+        <div class="timeline-time">06.04 пн</div>
+        <div class="timeline-title">Гершуни &mdash; стратегия &rarr; 90-дневный план</div>
+        <div class="timeline-dur">18:00</div>
+      </div>
+      <div class="timeline-row red-row">
+        <div class="timeline-dot" style="background:var(--red)"></div>
+        <div class="timeline-time">08.04 ср</div>
+        <div class="timeline-title">Аннаков &mdash; AI-автоматизация продаж</div>
+        <div class="timeline-dur">18:00</div>
+      </div>
+      <div class="timeline-row red-row">
+        <div class="timeline-dot" style="background:var(--red)"></div>
+        <div class="timeline-time">09.04 чт</div>
+        <div class="timeline-title">Бузько &mdash; AI в юридических процессах</div>
+        <div class="timeline-dur">18:00</div>
+      </div>
+      <div class="timeline-row red-row">
+        <div class="timeline-dot" style="background:var(--red)"></div>
+        <div class="timeline-time">10.04 пт</div>
+        <div class="timeline-title">Устинов &mdash; shared workspace &rarr; продукт-агент</div>
+        <div class="timeline-dur">18:00</div>
+      </div>
+      <div class="timeline-row" style="border-left-color:var(--amber);background:rgba(200,146,0,0.05)">
+        <div class="timeline-dot" style="background:var(--amber)"></div>
+        <div class="timeline-time">13.04 пн</div>
+        <div class="timeline-title">DEMO DAY &mdash; презентации участников</div>
+        <div class="timeline-dur">12:00</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 5: ПЛАН ПРОГРАММЫ ==================== -->
+<div class="slide" id="s5">
+  <div class="slide-counter"><span class="current">5</span>/<span class="total"></span></div>
+  <img class="slide-logo" src="../../logo.png" alt="">
+  <div class="slide-inner">
+    <div class="label">// ПЛАН ПРОГРАММЫ</div>
+    <h2>от личного AI к организационному</h2>
+    <div class="cards" style="grid-template-columns: repeat(3, 1fr);">
+      <div class="card">
+        <div class="card-icon teal">W1</div>
+        <h3>personal OS</h3>
+        <p>5 компаний &times; 5 стратегий. scaling laws. 5 уровней автоматизации. live demo персональной ОС</p>
+        <span class="tag">foundation</span>
+      </div>
+      <div class="card">
+        <div class="card-icon green">W2</div>
+        <h3>6 layers + практика</h3>
+        <p>инфраструктура MCP. контекст и данные. оркестрация. навыки и evals. VSM Стаффорда Бира</p>
+        <span class="tag green-tag">architecture</span>
+      </div>
+      <div class="card">
+        <div class="card-icon red">W3</div>
+        <h3>стратегия + план</h3>
+        <p>бизнес-модели. аудит процессов. 90-дневный план. AI Champion. Demo Day</p>
+        <span class="tag red-tag">results</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 6: SECTION — ЧТО УЖЕ ПРОИСХОДИТ ==================== -->
+<div class="slide section-divider" id="s6">
+  <div class="slide-counter"><span class="current">6</span>/<span class="total"></span></div>
+  <img class="slide-logo" src="../../logo.png" alt="">
+  <div class="glow-dot" style="top:25%;left:15%"></div>
+  <div class="glow-dot" style="bottom:30%;right:20%"></div>
+  <div class="slide-inner" style="align-items:center;text-align:center">
+    <div class="section-num">01</div>
+    <h1>что уже происходит</h1>
+    <p class="subtitle">компании, которые перестроились вокруг AI</p>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 7: SHOPIFY ==================== -->
+<div class="slide" id="s7">
+  <div class="slide-counter"><span class="current">7</span>/<span class="total"></span></div>
+  <img class="slide-logo" src="../../logo.png" alt="">
+  <div class="slide-inner">
+    <div class="label">// SHOPIFY</div>
+    <h2>рост без найма</h2>
+    <table class="data-table">
+      <thead>
+        <tr><th>метрика</th><th>было</th><th>стало</th><th>изменение</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Revenue</td><td class="num-cell">$5.6B</td><td class="num-cell teal">$11.6B</td><td class="num-cell green">+107%</td></tr>
+        <tr><td>Employees</td><td class="num-cell">11,600</td><td class="num-cell red">7,600</td><td class="num-cell red">&minus;34%</td></tr>
+        <tr><td>Rev / Employee</td><td class="num-cell">$483K</td><td class="num-cell teal">$1,521K</td><td class="num-cell green">~3.15x</td></tr>
+        <tr><td>FCF</td><td class="num-cell dim">&mdash;</td><td class="num-cell teal">$2.0B</td><td class="num-cell">17% margin</td></tr>
+        <tr><td>GMV</td><td class="num-cell dim">&mdash;</td><td class="num-cell teal">$378.4B</td><td class="num-cell green">+29% YoY</td></tr>
+      </tbody>
+    </table>
+    <div class="quote">
+      <p>&laquo;Before you hire, ask: could AI do this job? If not, could a team of AI agents handle the tasks?&raquo;</p>
+      <div class="author">&mdash; Tobi L&uuml;tke, CEO Shopify</div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 8: BLOCK ==================== -->
+<div class="slide" id="s8">
+  <div class="slide-counter"><span class="current">8</span>/<span class="total"></span></div>
+  <img class="slide-logo" src="../../logo.png" alt="">
+  <div class="slide-inner">
+    <div class="label">// BLOCK (SQUARE)</div>
+    <h2>цель: $2M на сотрудника</h2>
+    <div class="split">
+      <div>
+        <div class="stat-grid cols-2" style="margin-top:0">
+          <div class="stat-box">
+            <div class="num red">4,000+</div>
+            <div class="stat-label">уволено (~40%)<br>февраль 2026</div>
+          </div>
+          <div class="stat-box">
+            <div class="num teal">$10.36B</div>
+            <div class="stat-label">gross profit<br>FY2025</div>
+          </div>
+          <div class="stat-box">
+            <div class="num green">12K</div>
+            <div class="stat-label">сотрудников<br>используют Goose</div>
+          </div>
+          <div class="stat-box">
+            <div class="num amber">$2M</div>
+            <div class="stat-label">цель rev/FTE</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="quote" style="margin-top:0">
+          <p>&laquo;We're not just cutting costs. We're redesigning work around AI. Every team has an AI agent budget alongside their headcount.&raquo;</p>
+          <div class="author">&mdash; Jack Dorsey, Block</div>
+        </div>
+        <p style="margin-top:16px;font-size:14px;color:var(--text-dim)">Goose &mdash; внутренний AI-агент Block. Развёрнут на 12K сотрудников. Цель: каждый сотрудник генерирует $2M revenue.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 9: SPOTIFY ==================== -->
+<div class="slide" id="s9">
+  <div class="slide-counter"><span class="current">9</span>/<span class="total"></span></div>
+  <img class="slide-logo" src="../../logo.png" alt="">
+  <div class="slide-inner">
+    <div class="label">// SPOTIFY</div>
+    <h2>инженеры, которые не пишут код</h2>
+    <div class="split">
+      <div>
+        <div class="stat-grid cols-2" style="margin-top:0">
+          <div class="stat-box">
+            <div class="num teal">&minus;50%</div>
+            <div class="stat-label">pull requests</div>
+          </div>
+          <div class="stat-box">
+            <div class="num green">&minus;23%</div>
+            <div class="stat-label">R&D расходы YoY</div>
+          </div>
+          <div class="stat-box">
+            <div class="num blue">50+</div>
+            <div class="stat-label">новых фич</div>
+          </div>
+          <div class="stat-box">
+            <div class="num amber">751M</div>
+            <div class="stat-label">MAU</div>
+          </div>
+        </div>
+        <p style="margin-top:12px;font-size:13px;color:var(--text-dim)">1,500 layoffs &mdash; переход от кода к управлению агентами</p>
+      </div>
+      <div>
+        <div class="code-block" style="margin-top:0">
+          <span class="comment"># Honk System</span><br>
+          <span class="teal">stack</span>: Claude Code + Agent SDK<br>
+          <span class="teal">model</span>: Sonnet 4.5<br>
+          <span class="comment"># инженеры описывают intent,</span><br>
+          <span class="comment"># агенты пишут код</span>
+        </div>
+        <div class="quote" style="margin-top:12px">
+          <p>&laquo;Мы перешли от 'инженеры пишут код' к 'инженеры описывают intent, а агенты имплементируют'&raquo;</p>
+          <div class="author">&mdash; Gustav S&ouml;derstrom, co-President Spotify</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 10: BASE44 / POLSIA ==================== -->
+<div class="slide" id="s10">
+  <div class="slide-counter"><span class="current">10</span>/<span class="total"></span></div>
+  <img class="slide-logo" src="../../logo.png" alt="">
+  <div class="slide-inner">
+    <div class="label">// СТАРТАПЫ НОВОГО ТИПА</div>
+    <h2>Base44 + Polsia</h2>
+    <div class="split">
+      <div>
+        <h3 style="font-size:16px;color:var(--teal);margin-bottom:12px">Base44</h3>
+        <div class="layers" style="margin-top:0;gap:6px">
+          <div class="layer" style="padding:10px 16px">
+            <div class="layer-num teal">1</div>
+            <div class="layer-name" style="min-width:100px">человек</div>
+            <div class="layer-desc">solo founder</div>
+          </div>
+          <div class="layer" style="padding:10px 16px">
+            <div class="layer-num green">$0</div>
+            <div class="layer-name" style="min-width:100px">funding</div>
+            <div class="layer-desc">bootstrapped</div>
+          </div>
+          <div class="layer" style="padding:10px 16px">
+            <div class="layer-num amber">$1M</div>
+            <div class="layer-name" style="min-width:100px">ARR</div>
+            <div class="layer-desc">за 3 недели</div>
+          </div>
+          <div class="layer" style="padding:10px 16px">
+            <div class="layer-num red">$80M</div>
+            <div class="layer-name" style="min-width:100px">exit</div>
+            <div class="layer-desc">acquired by Wix</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h3 style="font-size:16px;color:var(--teal);margin-bottom:12px">Polsia</h3>
+        <div class="layers" style="margin-top:0;gap:6px">
+          <div class="layer" style="padding:10px 16px">
+            <div class="layer-num teal">1</div>
+            <div class="layer-name" style="min-width:100px">человек</div>
+            <div class="layer-desc">solo founder</div>
+          </div>
+          <div class="layer" style="padding:10px 16px">
+            <div class="layer-num green">Claude</div>
+            <div class="layer-name" style="min-width:100px">stack</div>
+            <div class="layer-desc">Opus + Sonnet</div>
+          </div>
+          <div class="layer" style="padding:10px 16px">
+            <div class="layer-num amber">$1M</div>
+            <div class="layer-name" style="min-width:100px">ARR</div>
+            <div class="layer-desc">за 3 недели</div>
+          </div>
+        </div>
+        <p style="margin-top:12px;font-size:13px;color:var(--text-dim)">AI-native стартап: один человек + AI-стек = полноценный продукт. Нулевой капитал, максимальная скорость.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 11: СТАТИСТИКА ==================== -->
+<div class="slide" id="s11">
+  <div class="slide-counter"><span class="current">11</span>/<span class="total"></span></div>
+  <img class="slide-logo" src="../../logo.png" alt="">
+  <div class="slide-inner">
+    <div class="label">// СТАТИСТИКА</div>
+    <h2>AI-native vs traditional SaaS</h2>
+    <div class="split">
+      <div>
+        <div class="stat-grid cols-2" style="margin-top:0">
+          <div class="stat-box">
+            <div class="num teal" style="font-size:32px">$129K</div>
+            <div class="stat-label">rev/FTE<br>traditional SaaS</div>
+          </div>
+          <div class="stat-box">
+            <div class="num green" style="font-size:32px">$1.13M</div>
+            <div class="stat-label">rev/FTE<br>AI-native</div>
+          </div>
+        </div>
+        <p style="margin-top:16px;font-size:14px;text-align:center;color:var(--teal);font-family:var(--font-heading);font-weight:600">8.8x разница в продуктивности</p>
+      </div>
+      <div>
+        <h3 style="font-size:14px;margin-bottom:12px">примеры AI-native компаний</h3>
+        <div class="layers" style="margin-top:0;gap:6px">
+          <div class="layer" style="padding:10px 16px">
+            <div class="layer-name" style="min-width:100px">Titan</div>
+            <div class="layer-desc">13 &rarr; 250 emp. $123M raised</div>
+          </div>
+          <div class="layer" style="padding:10px 16px">
+            <div class="layer-name" style="min-width:100px">Eudia</div>
+            <div class="layer-desc">$20M+ ARR</div>
+          </div>
+          <div class="layer" style="padding:10px 16px">
+            <div class="layer-name" style="min-width:100px">Base44</div>
+            <div class="layer-desc">1 person &rarr; $80M exit</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 12: SECTION — ПОЧЕМУ НЕ РАБОТАЕТ ==================== -->
+<div class="slide section-divider" id="s12">
+  <div class="slide-counter"><span class="current">12</span>/<span class="total"></span></div>
+  <img class="slide-logo" src="../../logo.png" alt="">
+  <div class="glow-dot" style="top:20%;right:25%"></div>
+  <div class="slide-inner" style="align-items:center;text-align:center">
+    <div class="section-num">02</div>
+    <h1>почему ИИ-трансформация<br>не работает?</h1>
+    <p class="subtitle">6 симптомов и их реальные причины</p>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 13: SYMPTOM / CAUSE ==================== -->
+<div class="slide" id="s13">
+  <div class="slide-counter"><span class="current">13</span>/<span class="total"></span></div>
+  <img class="slide-logo" src="../../logo.png" alt="">
+  <div class="slide-inner">
+    <div class="label">// СИМПТОМЫ И ПРИЧИНЫ</div>
+    <h2>что пошло не так</h2>
+    <div class="sc-header">
+      <span><span class="red">симптом</span></span>
+      <span><span class="teal">реальная причина</span></span>
+    </div>
+    <div class="symptom-cause">
+      <div class="sc-row">
+        <div class="sc-symptom">&laquo;ChatGPT не понимает наш контекст&raquo;</div>
+        <div class="sc-cause">нет общей базы знаний и онтологии</div>
+      </div>
+      <div class="sc-row">
+        <div class="sc-symptom">&laquo;AI галлюцинирует&raquo;</div>
+        <div class="sc-cause">нет памяти и контекстного окна</div>
+      </div>
+      <div class="sc-row">
+        <div class="sc-symptom">&laquo;слишком рискованно для продакшена&raquo;</div>
+        <div class="sc-cause">нет guardrails и review-процессов</div>
+      </div>
+      <div class="sc-row">
+        <div class="sc-symptom">&laquo;дорого, а ROI непонятен&raquo;</div>
+        <div class="sc-cause">нет FinOps и метрик эффективности</div>
+      </div>
+      <div class="sc-row">
+        <div class="sc-symptom">&laquo;каждый отдел сам по себе&raquo;</div>
+        <div class="sc-cause">нет инфраструктуры (MCP, общие агенты)</div>
+      </div>
+      <div class="sc-row">
+        <div class="sc-symptom">&laquo;непонятно, кто за это отвечает&raquo;</div>
+        <div class="sc-cause">нет AI Champion / AI Operating Officer</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 14: ТУЛ VS АРХИТЕКТУРА ==================== -->
+<div class="slide" id="s14">
+  <div class="slide-counter"><span class="current">14</span>/<span class="total"></span></div>
+  <img class="slide-logo" src="../../logo.png" alt="">
+  <div class="glow-dot" style="top:15%;right:10%"></div>
+  <div class="slide-inner" style="align-items:center">
+    <div class="label">// КЛЮЧЕВОЙ ИНСАЙТ</div>
+    <div class="quote" style="max-width:800px;border-left-width:4px;padding:32px 40px;margin:0">
+      <p style="font-size:24px;line-height:1.5">&laquo;Мы дали всем ChatGPT и ждали магии. Но это как дать всем Excel и ждать, что бухгалтерия сама настроится. Нужна <span class="teal">архитектура</span>, не тул.&raquo;</p>
+      <div class="author" style="margin-top:16px">&mdash; участник предыдущего спринта</div>
+    </div>
+    <div class="split" style="margin-top:32px;max-width:800px">
+      <div style="text-align:center">
+        <div style="font-size:40px;margin-bottom:8px" class="red">tool</div>
+        <p style="font-size:14px;color:var(--text-dim)">добавить ChatGPT в процессы<br>надеяться на adoption</p>
+      </div>
+      <div style="text-align:center">
+        <div style="font-size:40px;margin-bottom:8px" class="teal">architecture</div>
+        <p style="font-size:14px;color:var(--text-dim)">перестроить процессы вокруг AI<br>6 слоёв, роли, governance</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 15: ОЖИДАНИЯ ==================== -->
+<div class="slide" id="s15">
+  <div class="slide-counter"><span class="current">15</span>/<span class="total"></span></div>
+  <img class="slide-logo" src="../../logo.png" alt="">
+  <div class="slide-inner">
+    <div class="label">// ОЖИДАНИЯ</div>
+    <h2>что ожидать от программы</h2>
+    <div class="cards" style="grid-template-columns: 1fr 1fr;">
+      <div class="card" style="border-left:3px solid var(--green)">
+        <h3><span class="green">что получите</span></h3>
+        <ul class="bullet-list" style="margin-top:8px">
+          <li class="green-bullet" style="font-size:14px">десятки реальных кейсов AI-трансформации</li>
+          <li class="green-bullet" style="font-size:14px">практические фреймворки для внедрения</li>
+          <li class="green-bullet" style="font-size:14px">персональный 90-дневный план</li>
+          <li class="green-bullet" style="font-size:14px">community и нетворк</li>
+        </ul>
+      </div>
+      <div class="card" style="border-left:3px solid var(--red)">
+        <h3><span class="red">что это не</span></h3>
+        <ul class="bullet-list" style="margin-top:8px">
+          <li style="font-size:14px">это не серебряная пуля</li>
+          <li style="font-size:14px">это не консультация (но есть office hours)</li>
+          <li style="font-size:14px">нужно инвестировать время</li>
+          <li style="font-size:14px">не &laquo;подождать и посмотреть&raquo;</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 16: SECTION — СТРАТЕГИЧЕСКИ ВАЖНО ==================== -->
+<div class="slide section-divider" id="s16">
+  <div class="slide-counter"><span class="current">16</span>/<span class="total"></span></div>
+  <img class="slide-logo" src="../../logo.png" alt="">
+  <div class="glow-dot" style="bottom:25%;left:15%"></div>
+  <div class="glow-dot" style="top:20%;right:10%"></div>
+  <div class="slide-inner" style="align-items:center;text-align:center">
+    <div class="section-num">03</div>
+    <h1>почему это стратегически<br>важно?</h1>
+    <p class="subtitle">scaling laws, цена, compute &mdash; почему окно возможностей закрывается</p>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 17: НАДЁЖНОСТЬ — SWE-BENCH ==================== -->
+<div class="slide" id="s17">
+  <div class="slide-counter"><span class="current">17</span>/<span class="total"></span></div>
+  <img class="slide-logo" src="../../logo.png" alt="">
+  <div class="slide-inner">
+    <div class="label">// НАДЁЖНОСТЬ</div>
+    <h2>удвоение каждые ~89 дней</h2>
+    <div class="split">
+      <div>
+        <div class="chart-area">
+          <svg viewBox="0 0 440 260" xmlns="http://www.w3.org/2000/svg">
+            <text x="220" y="18" fill="rgba(255,255,255,0.45)" font-family="IBM Plex Mono" font-size="10" text-anchor="middle" letter-spacing="2">SWE-BENCH VERIFIED</text>
+            <!-- Y axis -->
+            <line x1="50" y1="30" x2="50" y2="230" stroke="rgba(77,201,212,0.15)" stroke-width="1"/>
+            <text x="45" y="235" fill="rgba(255,255,255,0.3)" font-family="IBM Plex Mono" font-size="9" text-anchor="end">0%</text>
+            <text x="45" y="180" fill="rgba(255,255,255,0.3)" font-family="IBM Plex Mono" font-size="9" text-anchor="end">20%</text>
+            <text x="45" y="130" fill="rgba(255,255,255,0.3)" font-family="IBM Plex Mono" font-size="9" text-anchor="end">40%</text>
+            <text x="45" y="80" fill="rgba(255,255,255,0.3)" font-family="IBM Plex Mono" font-size="9" text-anchor="end">60%</text>
+            <text x="45" y="35" fill="rgba(255,255,255,0.3)" font-family="IBM Plex Mono" font-size="9" text-anchor="end">80%</text>
+            <!-- grid lines -->
+            <line x1="50" y1="180" x2="420" y2="180" stroke="rgba(77,201,212,0.06)" stroke-width="1"/>
+            <line x1="50" y1="130" x2="420" y2="130" stroke="rgba(77,201,212,0.06)" stroke-width="1"/>
+            <line x1="50" y1="80" x2="420" y2="80" stroke="rgba(77,201,212,0.06)" stroke-width="1"/>
+            <!-- X axis -->
+            <line x1="50" y1="230" x2="420" y2="230" stroke="rgba(77,201,212,0.15)" stroke-width="1"/>
+            <text x="90" y="248" fill="rgba(255,255,255,0.3)" font-family="IBM Plex Mono" font-size="9" text-anchor="middle">2024 Q1</text>
+            <text x="180" y="248" fill="rgba(255,255,255,0.3)" font-family="IBM Plex Mono" font-size="9" text-anchor="middle">2024 Q3</text>
+            <text x="270" y="248" fill="rgba(255,255,255,0.3)" font-family="IBM Plex Mono" font-size="9" text-anchor="middle">2025 Q1</text>
+            <text x="370" y="248" fill="rgba(255,255,255,0.3)" font-family="IBM Plex Mono" font-size="9" text-anchor="middle">2025 Q4</text>
+            <!-- data points - exponential growth curve -->
+            <polyline fill="none" stroke="#4dc9d4" stroke-width="2.5" points="70,220 110,210 150,195 190,175 230,150 270,115 310,80 350,55 390,40"/>
+            <circle cx="390" cy="40" r="5" fill="#4dc9d4" stroke="#161620" stroke-width="2"/>
+            <text x="390" y="32" fill="#4dc9d4" font-family="Space Grotesk" font-size="11" font-weight="600" text-anchor="middle">72%</text>
+            <!-- label -->
+            <text x="385" y="55" fill="rgba(255,255,255,0.5)" font-family="IBM Plex Mono" font-size="8" text-anchor="end">Claude Opus</text>
+          </svg>
+        </div>
+      </div>
+      <div>
+        <div class="stat-grid cols-2" style="margin-top:0">
+          <div class="stat-box">
+            <div class="num teal" style="font-size:36px">~89</div>
+            <div class="stat-label">дней на<br>удвоение</div>
+          </div>
+          <div class="stat-box">
+            <div class="num amber" style="font-size:36px">72%</div>
+            <div class="stat-label">SWE-bench<br>top score</div>
+          </div>
+        </div>
+        <div class="quote" style="margin-top:16px">
+          <p style="font-size:14px">&laquo;99% надёжности &ne; 100%. Но тренд экспоненциальный &mdash; каждые 3 месяца модели решают вдвое больше задач.&raquo;</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 18: ЦЕНА ТОКЕНОВ ==================== -->
+<div class="slide" id="s18">
+  <div class="slide-counter"><span class="current">18</span>/<span class="total"></span></div>
+  <img class="slide-logo" src="../../logo.png" alt="">
+  <div class="slide-inner">
+    <div class="label">// ЦЕНА</div>
+    <h2>стоимость токенов падает<br>на порядок каждый год</h2>
+    <div class="split">
+      <div>
+        <div class="chart-area">
+          <svg viewBox="0 0 440 260" xmlns="http://www.w3.org/2000/svg">
+            <text x="220" y="18" fill="rgba(255,255,255,0.45)" font-family="IBM Plex Mono" font-size="10" text-anchor="middle" letter-spacing="2">TOKEN PRICE (LOG SCALE)</text>
+            <!-- Y axis labels -->
+            <text x="45" y="45" fill="rgba(255,255,255,0.3)" font-family="IBM Plex Mono" font-size="9" text-anchor="end">$100</text>
+            <text x="45" y="95" fill="rgba(255,255,255,0.3)" font-family="IBM Plex Mono" font-size="9" text-anchor="end">$10</text>
+            <text x="45" y="145" fill="rgba(255,255,255,0.3)" font-family="IBM Plex Mono" font-size="9" text-anchor="end">$1</text>
+            <text x="45" y="195" fill="rgba(255,255,255,0.3)" font-family="IBM Plex Mono" font-size="9" text-anchor="end">$0.10</text>
+            <text x="45" y="235" fill="rgba(255,255,255,0.3)" font-family="IBM Plex Mono" font-size="9" text-anchor="end">$0.01</text>
+            <!-- grid -->
+            <line x1="50" y1="45" x2="420" y2="45" stroke="rgba(77,201,212,0.06)" stroke-width="1"/>
+            <line x1="50" y1="95" x2="420" y2="95" stroke="rgba(77,201,212,0.06)" stroke-width="1"/>
+            <line x1="50" y1="145" x2="420" y2="145" stroke="rgba(77,201,212,0.06)" stroke-width="1"/>
+            <line x1="50" y1="195" x2="420" y2="195" stroke="rgba(77,201,212,0.06)" stroke-width="1"/>
+            <!-- X axis -->
+            <line x1="50" y1="240" x2="420" y2="240" stroke="rgba(77,201,212,0.15)" stroke-width="1"/>
+            <text x="100" y="255" fill="rgba(255,255,255,0.3)" font-family="IBM Plex Mono" font-size="9" text-anchor="middle">2022</text>
+            <text x="200" y="255" fill="rgba(255,255,255,0.3)" font-family="IBM Plex Mono" font-size="9" text-anchor="middle">2023</text>
+            <text x="300" y="255" fill="rgba(255,255,255,0.3)" font-family="IBM Plex Mono" font-size="9" text-anchor="middle">2024</text>
+            <text x="400" y="255" fill="rgba(255,255,255,0.3)" font-family="IBM Plex Mono" font-size="9" text-anchor="middle">2025</text>
+            <!-- price drop line -->
+            <polyline fill="none" stroke="#ff6b6b" stroke-width="2.5" stroke-dasharray="4,4" points="80,50 140,75 200,110 260,155 320,195 380,225"/>
+            <circle cx="80" cy="50" r="4" fill="#ff6b6b"/>
+            <circle cx="380" cy="225" r="5" fill="#38d9a9" stroke="#161620" stroke-width="2"/>
+            <!-- labels -->
+            <text x="85" y="42" fill="#ff6b6b" font-family="IBM Plex Mono" font-size="9">GPT-4 launch</text>
+            <text x="375" y="218" fill="#38d9a9" font-family="IBM Plex Mono" font-size="9" text-anchor="end">9-900x cheaper</text>
+          </svg>
+        </div>
+      </div>
+      <div>
+        <div class="stat-grid" style="margin-top:0;grid-template-columns:1fr">
+          <div class="stat-box">
+            <div class="num green" style="font-size:48px">9-900x</div>
+            <div class="stat-label">снижение цены<br>за 1 год</div>
+          </div>
+        </div>
+        <p style="margin-top:16px;font-size:14px;color:var(--text-dim)">Стоимость inference падает быстрее, чем стоимость cloud compute в 2010-х. То, что стоило $100 в 2023, стоит $0.10-$10 сегодня.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 19: TRAINING COMPUTE ==================== -->
+<div class="slide" id="s19">
+  <div class="slide-counter"><span class="current">19</span>/<span class="total"></span></div>
+  <img class="slide-logo" src="../../logo.png" alt="">
+  <div class="slide-inner">
+    <div class="label">// COMPUTE</div>
+    <h2>training compute: 5x в год</h2>
+    <div class="split">
+      <div>
+        <div class="chart-area">
+          <svg viewBox="0 0 440 260" xmlns="http://www.w3.org/2000/svg">
+            <text x="220" y="18" fill="rgba(255,255,255,0.45)" font-family="IBM Plex Mono" font-size="10" text-anchor="middle" letter-spacing="2">TRAINING COMPUTE FOR FRONTIER MODELS</text>
+            <!-- exponential bars -->
+            <rect x="80" y="200" width="50" height="30" rx="4" fill="rgba(77,201,212,0.3)"/>
+            <text x="105" y="220" fill="var(--text-dim)" font-family="IBM Plex Mono" font-size="8" text-anchor="middle">2020</text>
+            <rect x="150" y="180" width="50" height="50" rx="4" fill="rgba(77,201,212,0.4)"/>
+            <text x="175" y="205" fill="var(--text-dim)" font-family="IBM Plex Mono" font-size="8" text-anchor="middle">2021</text>
+            <rect x="220" y="150" width="50" height="80" rx="4" fill="rgba(77,201,212,0.5)"/>
+            <text x="245" y="185" fill="var(--text-dim)" font-family="IBM Plex Mono" font-size="8" text-anchor="middle">2022</text>
+            <rect x="290" y="100" width="50" height="130" rx="4" fill="rgba(77,201,212,0.7)"/>
+            <text x="315" y="155" fill="var(--text-dim)" font-family="IBM Plex Mono" font-size="8" text-anchor="middle">2023</text>
+            <rect x="360" y="40" width="50" height="190" rx="4" fill="#4dc9d4"/>
+            <text x="385" y="115" fill="#161620" font-family="Space Grotesk" font-size="11" font-weight="600" text-anchor="middle">5x/yr</text>
+            <text x="385" y="255" fill="var(--teal)" font-family="IBM Plex Mono" font-size="9" text-anchor="middle">2024-25</text>
+          </svg>
+        </div>
+      </div>
+      <div>
+        <div class="stat-grid cols-2" style="margin-top:0">
+          <div class="stat-box">
+            <div class="num teal" style="font-size:36px">5x</div>
+            <div class="stat-label">рост compute<br>в год</div>
+          </div>
+          <div class="stat-box">
+            <div class="num amber" style="font-size:36px">2020</div>
+            <div class="stat-label">начало<br>экспоненты</div>
+          </div>
+        </div>
+        <p style="margin-top:16px;font-size:14px;color:var(--text-dim)">Вычислительные мощности для обучения frontier-моделей растут на 5x каждый год с 2020. Это быстрее закона Мура.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 20: DATA CENTERS ==================== -->
+<div class="slide" id="s20">
+  <div class="slide-counter"><span class="current">20</span>/<span class="total"></span></div>
+  <img class="slide-logo" src="../../logo.png" alt="">
+  <div class="slide-inner">
+    <div class="label">// ИНФРАСТРУКТУРА</div>
+    <h2>frontier AI data centers</h2>
+    <div class="split">
+      <div>
+        <div class="chart-area">
+          <svg viewBox="0 0 440 260" xmlns="http://www.w3.org/2000/svg">
+            <text x="220" y="18" fill="rgba(255,255,255,0.45)" font-family="IBM Plex Mono" font-size="10" text-anchor="middle" letter-spacing="2">COMPUTE CAPACITY (H100 EQUIVALENT)</text>
+            <!-- stacked area approximation -->
+            <defs>
+              <linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#4dc9d4" stop-opacity="0.4"/>
+                <stop offset="100%" stop-color="#4dc9d4" stop-opacity="0.05"/>
+              </linearGradient>
+            </defs>
+            <polygon points="70,230 130,220 190,200 250,160 310,110 370,50 410,35 410,230" fill="url(#areaGrad)"/>
+            <polyline fill="none" stroke="#4dc9d4" stroke-width="2" points="70,230 130,220 190,200 250,160 310,110 370,50 410,35"/>
+            <!-- labels -->
+            <text x="100" y="248" fill="rgba(255,255,255,0.3)" font-family="IBM Plex Mono" font-size="9" text-anchor="middle">2023</text>
+            <text x="250" y="248" fill="rgba(255,255,255,0.3)" font-family="IBM Plex Mono" font-size="9" text-anchor="middle">2025</text>
+            <text x="400" y="248" fill="rgba(255,255,255,0.3)" font-family="IBM Plex Mono" font-size="9" text-anchor="middle">2027</text>
+            <circle cx="410" cy="35" r="5" fill="#4dc9d4" stroke="#161620" stroke-width="2"/>
+            <text x="395" y="28" fill="#4dc9d4" font-family="Space Grotesk" font-size="10" font-weight="600" text-anchor="end">4M H100e</text>
+          </svg>
+        </div>
+      </div>
+      <div>
+        <div class="stat-grid cols-2" style="margin-top:0">
+          <div class="stat-box">
+            <div class="num teal" style="font-size:32px">4M</div>
+            <div class="stat-label">H100-equivalent<br>к 2027</div>
+          </div>
+          <div class="stat-box">
+            <div class="num amber" style="font-size:32px">700MW</div>
+            <div class="stat-label">мощность<br>data centers</div>
+          </div>
+        </div>
+        <p style="margin-top:16px;font-size:14px;color:var(--text-dim)">Крупнейшие компании мира строят data centers на сотни мегаватт. Это инфраструктурная гонка, сравнимая с ранним интернетом.</p>
+        <p style="margin-top:8px;font-size:14px;color:var(--teal)">Окно для AI-трансформации &mdash; сейчас. Через 2-3 года отставание станет критическим.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 21: CTA / CLOSING ==================== -->
+<div class="slide" id="s21">
+  <div class="slide-counter"><span class="current">21</span>/<span class="total"></span></div>
+  <img class="slide-logo" src="../../logo.png" alt="">
+  <div class="glow-dot" style="top:25%;left:12%"></div>
+  <div class="glow-dot" style="bottom:20%;right:15%"></div>
+  <div class="slide-inner cover">
+    <div class="label">// DELIVERABLE</div>
+    <h1>что делаем на этой неделе</h1>
+    <div class="cards" style="grid-template-columns: 1fr 1fr; max-width:700px; margin-top:24px">
+      <div class="card" style="text-align:center">
+        <div class="card-icon teal" style="font-size:32px">01</div>
+        <h3>список процессов</h3>
+        <p>5-10 процессов для автоматизации в вашей компании</p>
+      </div>
+      <div class="card" style="text-align:center">
+        <div class="card-icon green" style="font-size:32px">02</div>
+        <h3>персональный AI-стек</h3>
+        <p>инструменты, модели, MCP-серверы &mdash; ваша Personal OS</p>
+      </div>
+    </div>
+    <div class="code-block" style="margin-top:32px;max-width:500px;text-align:left">
+      <span class="comment"># next session</span><br>
+      <span class="teal">when</span>: 24.03 вт 10:00<br>
+      <span class="teal">what</span>: coworking + personal OS setup<br>
+      <span class="teal">who</span>: Поваляев Александр<br>
+      <span class="comment"># bring your laptop</span>
+    </div>
+  </div>
+</div>
+
+<!-- UI Elements -->
+<div class="progress-bar"></div>
+<div class="nav-hint">&larr; &rarr; navigate &middot; F fullscreen</div>
+
+<script>
+const slides = document.querySelectorAll('.slide');
+const total = slides.length;
+let cur = 0;
+
+// Set totals
+document.querySelectorAll('.total').forEach(el => el.textContent = total);
+
+function go(n) {
+  if (n < 0 || n >= total) return;
+  slides[cur].classList.remove('active');
+  cur = n;
+  slides[cur].classList.add('active');
+  updateProgress();
+  history.replaceState(null, '', '#s' + (cur + 1));
+}
+
+function updateProgress() {
+  const pct = ((cur + 1) / total) * 100;
+  document.querySelector('.progress-bar').style.width = pct + '%';
+}
+
+// Keyboard nav
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'Enter') { e.preventDefault(); go(cur + 1); }
+  if (e.key === 'ArrowLeft' || e.key === 'Backspace') { e.preventDefault(); go(cur - 1); }
+  if (e.key === 'Home') { e.preventDefault(); go(0); }
+  if (e.key === 'End') { e.preventDefault(); go(total - 1); }
+  if (e.key === 'f' || e.key === 'F') {
+    if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+    else document.exitFullscreen();
+  }
+});
+
+// Touch swipe
+let touchStartX = 0;
+document.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; });
+document.addEventListener('touchend', e => {
+  const diff = touchStartX - e.changedTouches[0].screenX;
+  if (Math.abs(diff) > 50) {
+    if (diff > 0) go(cur + 1); else go(cur - 1);
+  }
+});
+
+// Hash nav
+if (location.hash) {
+  const m = location.hash.match(/s(\d+)/);
+  if (m) go(parseInt(m[1]) - 1);
+}
+
+updateProgress();
+</script>
+</body>
+</html>

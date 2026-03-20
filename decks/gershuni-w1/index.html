@@ -446,7 +446,7 @@ body.edit-mode .slide-inner > *.drag-over-bottom {
   display: none; position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%);
   gap: 2px; padding: 6px 10px;
   background: rgba(22,22,32,0.97); border: 1px solid var(--border);
-  border-radius: 10px; backdrop-filter: blur(12px); z-index: 10002;
+  border-radius: 10px; backdrop-filter: blur(12px); z-index: 16000;
   font-family: var(--font-body); align-items: center;
   max-width: 95vw; overflow-x: auto; overflow-y: hidden;
   scrollbar-width: none; -ms-overflow-style: none;
@@ -630,11 +630,11 @@ body.edit-mode #builder-toolbar { display: flex; }
   margin-bottom:24px; letter-spacing:2px;
 }
 .toc-grid {
-  display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:12px;
+  display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:8px;
 }
 .toc-item {
-  cursor:pointer; border:1px solid var(--border); border-radius:8px;
-  padding:12px 14px; transition:all 0.2s; background:var(--bg-card);
+  cursor:pointer; border:1px solid var(--border); border-radius:6px;
+  padding:8px 10px; transition:all 0.2s; background:var(--bg-card);
 }
 .toc-item:hover { border-color:var(--teal); background:var(--teal-dim); }
 .toc-item.toc-current { border-color:var(--teal); background:var(--teal-dim); }
@@ -988,6 +988,9 @@ body.vox-open #vox-panel {
   body.vox-open .slide {
     padding-right: 400px;
     transition: padding-right 0.25s ease;
+  }
+  body.vox-open #builder-toolbar {
+    transform: translateX(calc(-50% - 180px));
   }
 }
 
@@ -3896,10 +3899,12 @@ function activateEditOnSlides() {
       if (el.closest('.slide-counter') || el.closest('#edit-badge') || el.closest('.nav-hint') || el.closest('#builder-toolbar') || el.closest('#gh-modal') || el.closest('#block-actions')) return;
       el.contentEditable = 'true';
     });
-    // Make blocks draggable
+    // Make blocks draggable — guard against duplicate listeners
     const inner = slide.querySelector('.slide-inner');
     if (inner) {
       Array.from(inner.children).forEach(block => {
+        if (block._editListenersAttached) return;
+        block._editListenersAttached = true;
         block.draggable = true;
         block.addEventListener('dragstart', onDragStart);
         block.addEventListener('dragend', onDragEnd);
@@ -3937,6 +3942,19 @@ function setLayout(btn) {
 // ===== BLOCK SYSTEM =====
 function onBlockClick(e) {
   if (!editMode) return;
+  // Allow clicks on contenteditable elements to focus for text editing
+  const clickTarget = e.target;
+  if (clickTarget.contentEditable === 'true' || clickTarget.closest('[contenteditable="true"]')) {
+    // Still select the block visually but don't stop propagation
+    const block = e.currentTarget;
+    if (block !== selectedBlock) {
+      deselectBlock();
+      selectedBlock = block;
+      block.classList.add('block-selected');
+      positionBlockActions();
+    }
+    return; // let the click reach contenteditable
+  }
   e.stopPropagation();
   const block = e.currentTarget;
   if (block === selectedBlock) return;

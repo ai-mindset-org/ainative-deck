@@ -223,6 +223,268 @@ body.presenter-mode #presenter-panel { display: block; }
   .cards { grid-template-columns: 1fr; } .split { grid-template-columns: 1fr; gap: 20px; } .stat-grid, .stat-grid.cols-4, .stat-grid.cols-5 { grid-template-columns: repeat(2,1fr); }
   .speaker-grid { grid-template-columns: repeat(2, 1fr); } .curator-grid { grid-template-columns: repeat(2, 1fr); } .nav-hint { display: none; }
 }
+
+/* === VOX BOT === */
+/* ============================================================
+   VOX BOT — AI Assistant Panel
+   CSS for ainative-deck presentation system
+   ============================================================ */
+
+/* === VOX TRIGGER BUTTON === */
+#vox-trigger {
+  display: none; position: fixed; top: 50%; right: 0;
+  transform: translateY(-50%);
+  width: 32px; height: 48px;
+  background: rgba(22,22,32,0.95); border: 1px solid var(--border);
+  border-right: none; border-radius: 8px 0 0 8px;
+  color: var(--teal); font-size: 14px;
+  cursor: pointer; z-index: 10002;
+  transition: all 0.2s;
+  font-family: var(--font-body);
+  backdrop-filter: blur(12px);
+}
+#vox-trigger:hover {
+  width: 36px; background: var(--teal-dim);
+  border-color: var(--teal); color: #fff;
+}
+body.edit-mode #vox-trigger { display: block; }
+body.vox-open #vox-trigger { display: none; }
+
+/* === VOX PANEL === */
+#vox-panel {
+  display: none; position: fixed;
+  top: 0; right: 0; bottom: 0;
+  width: 360px;
+  background: rgba(16,16,24,0.98);
+  border-left: 1px solid var(--border);
+  backdrop-filter: blur(16px);
+  z-index: 15000;
+  flex-direction: column;
+  font-family: var(--font-body);
+  transition: transform 0.25s ease;
+}
+body.vox-open #vox-panel { display: flex; }
+
+/* Slide animation */
+body.vox-open #vox-panel {
+  animation: voxSlideIn 0.25s ease-out;
+}
+@keyframes voxSlideIn {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+/* === VOX HEADER === */
+.vox-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.vox-title {
+  font-family: var(--font-heading);
+  font-size: 14px; font-weight: 600;
+  color: var(--teal);
+  display: flex; align-items: center; gap: 8px;
+}
+.vox-icon {
+  font-size: 12px;
+  animation: voxPulse 3s ease-in-out infinite;
+}
+@keyframes voxPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+.vox-context {
+  font-family: var(--font-code);
+  font-size: 10px; font-weight: 400;
+  color: var(--text-dim);
+  letter-spacing: 0.5px;
+}
+.vox-close {
+  background: none; border: none;
+  color: var(--text-dim); font-size: 18px;
+  cursor: pointer; padding: 4px 8px;
+  border-radius: 4px;
+  transition: all 0.15s;
+}
+.vox-close:hover { color: var(--red); background: rgba(255,107,107,0.1); }
+
+/* === VOX QUICK ACTIONS === */
+.vox-actions {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 6px; padding: 12px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.vox-actions button {
+  display: flex; align-items: center; gap: 6px;
+  padding: 8px 10px; border-radius: 6px;
+  border: 1px solid var(--border);
+  background: rgba(28,28,46,0.4);
+  color: var(--text-dim);
+  cursor: pointer; font-family: var(--font-body);
+  font-size: 11px; transition: all 0.15s;
+  white-space: nowrap;
+}
+.vox-actions button:hover {
+  border-color: var(--teal); color: var(--teal);
+  background: var(--teal-dim);
+}
+.vox-actions button.active {
+  border-color: var(--teal); color: var(--teal);
+  background: var(--teal-dim);
+}
+.vox-act-icon {
+  font-size: 13px; min-width: 16px; text-align: center;
+}
+
+/* === VOX MESSAGES === */
+.vox-messages {
+  flex: 1; overflow-y: auto;
+  padding: 12px;
+  display: flex; flex-direction: column;
+  gap: 10px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--teal-dim) transparent;
+}
+.vox-messages::-webkit-scrollbar { width: 4px; }
+.vox-messages::-webkit-scrollbar-track { background: transparent; }
+.vox-messages::-webkit-scrollbar-thumb { background: var(--teal-dim); border-radius: 2px; }
+
+.vox-msg {
+  max-width: 95%;
+  animation: fadeUp 0.3s ease-out;
+}
+.vox-msg-bot { align-self: flex-start; }
+.vox-msg-user { align-self: flex-end; }
+
+.vox-msg-content {
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: rgba(255,255,255,0.85);
+}
+.vox-msg-bot .vox-msg-content {
+  background: rgba(28,28,46,0.6);
+  border: 1px solid var(--border);
+  border-bottom-left-radius: 2px;
+}
+.vox-msg-user .vox-msg-content {
+  background: rgba(77,201,212,0.12);
+  border: 1px solid rgba(77,201,212,0.2);
+  border-bottom-right-radius: 2px;
+  color: rgba(255,255,255,0.9);
+}
+
+/* Streaming indicator */
+.vox-msg-bot .vox-msg-content.streaming::after {
+  content: '\25CB';
+  animation: blink 0.8s step-end infinite;
+  color: var(--teal);
+  margin-left: 2px;
+}
+
+/* Action buttons inside messages */
+.vox-msg-actions {
+  display: flex; gap: 6px; margin-top: 8px; flex-wrap: wrap;
+}
+.vox-msg-actions button {
+  padding: 5px 12px; border-radius: 5px;
+  border: 1px solid var(--border);
+  background: rgba(28,28,46,0.6);
+  color: var(--text-dim); cursor: pointer;
+  font-family: var(--font-body); font-size: 11px;
+  transition: all 0.15s;
+}
+.vox-msg-actions button:hover {
+  border-color: var(--teal); color: var(--teal);
+}
+.vox-msg-actions button.primary {
+  background: var(--teal); color: var(--bg-deep);
+  border-color: var(--teal);
+}
+.vox-msg-actions button.primary:hover { opacity: 0.9; }
+
+/* Code blocks in messages */
+.vox-msg-content pre {
+  background: var(--bg-terminal);
+  border: 1px solid var(--border);
+  border-radius: 6px; padding: 10px 12px;
+  margin: 8px 0 4px; overflow-x: auto;
+  font-family: var(--font-code); font-size: 12px;
+  line-height: 1.5;
+}
+.vox-msg-content code {
+  background: rgba(28,28,46,0.8);
+  padding: 1px 5px; border-radius: 3px;
+  font-family: var(--font-code); font-size: 12px;
+}
+.vox-msg-content strong {
+  color: #fff; font-weight: 600;
+}
+
+/* === VOX INPUT === */
+.vox-input-area {
+  display: flex; gap: 8px; padding: 12px;
+  border-top: 1px solid var(--border);
+  flex-shrink: 0;
+  align-items: flex-end;
+}
+#vox-input {
+  flex: 1; padding: 10px 12px;
+  border-radius: 8px;
+  background: var(--bg-terminal);
+  border: 1px solid var(--border);
+  color: var(--text); font-family: var(--font-body);
+  font-size: 13px; resize: none; outline: none;
+  max-height: 120px;
+  transition: border-color 0.15s;
+}
+#vox-input:focus { border-color: var(--teal); }
+#vox-input::placeholder { color: var(--text-label); }
+
+.vox-send {
+  width: 36px; height: 36px;
+  border-radius: 8px;
+  border: 1px solid var(--teal);
+  background: var(--teal);
+  color: var(--bg-deep);
+  cursor: pointer; font-size: 16px;
+  font-family: var(--font-body);
+  transition: all 0.15s;
+  flex-shrink: 0;
+}
+.vox-send:hover { opacity: 0.85; }
+.vox-send:disabled {
+  opacity: 0.3; cursor: not-allowed;
+  background: var(--bg-card); color: var(--text-dim);
+  border-color: var(--border);
+}
+
+/* === VOX DIFF PREVIEW === */
+.vox-diff {
+  margin: 8px 0; padding: 10px;
+  background: var(--bg-terminal);
+  border: 1px solid var(--border);
+  border-radius: 6px; font-size: 12px;
+  font-family: var(--font-code);
+  line-height: 1.5;
+}
+.vox-diff .diff-del {
+  color: var(--red); text-decoration: line-through;
+  opacity: 0.6;
+}
+.vox-diff .diff-add {
+  color: var(--green);
+}
+
+/* === VOX RESPONSIVE === */
+@media (max-width: 768px) {
+  #vox-panel { width: 100%; }
+  #vox-trigger { display: none !important; }
+}
 </style>
 </head>
 <body>
@@ -462,7 +724,7 @@ body.presenter-mode #presenter-panel { display: block; }
 
 <!-- UI -->
 <div class="progress-bar"></div>
-<div class="nav-hint">&larr; &rarr; navigate &middot; E edit &middot; F fullscreen &middot; T presenter</div>
+<div class="nav-hint">&larr; &rarr; navigate &middot; E edit &middot; V vox &middot; F fullscreen &middot; T presenter</div>
 <div id="edit-badge">// EDIT MODE</div>
 <div id="block-actions"><button onclick="moveBlockUp()">&uarr;</button><button onclick="moveBlockDown()">&darr;</button><button class="danger" onclick="deleteBlock()">&times;</button></div>
 <div id="builder-toolbar"><button onclick="undo()">&#8617;</button><button onclick="redo()">&#8618;</button><div class="tb-sep"></div><button onclick="changeTextSize(1)">A+</button><button onclick="changeTextSize(-1)">A-</button><div class="tb-sep"></div><button onclick="insertImage()">img</button><button onclick="insertTextBlock()">txt</button><button onclick="insertCodeBlock()">{}</button><button onclick="openAiModal()">AI</button><div class="tb-sep"></div><button onclick="showLayoutPicker()" style="color:var(--teal)">+ slide</button><button onclick="duplicateSlide()">dup</button><button class="danger" onclick="deleteSlide()">del</button><div class="tb-sep"></div><button onclick="saveToGitHub()" style="font-weight:600">push</button><button id="auto-push-btn" onclick="toggleAutoPush()">auto</button><button id="preview-btn" onclick="togglePreview()">&#9673;</button><span class="save-status" id="save-status"></span></div>
@@ -472,6 +734,61 @@ body.presenter-mode #presenter-panel { display: block; }
 <div id="gh-modal"><div id="gh-modal-inner"><h3>GitHub Token</h3><p>Enter a GitHub token with repo scope.</p><input type="password" id="gh-token-input" placeholder="ghp_..." autocomplete="off"><div class="modal-actions"><button onclick="closeGhModal()">cancel</button><button class="primary" onclick="confirmGhToken()">save</button></div></div></div>
 <div id="img-action-menu"><button onclick="imgActionUpload()">upload</button><button onclick="imgActionSvg()">SVG</button><button onclick="imgActionImage()">image</button></div>
 
+<!-- ============================================================
+     VOX BOT — AI Assistant Panel
+     HTML elements for ainative-deck presentation system
+     Insert before </body>, after img-action-menu
+     ============================================================ -->
+
+<!-- Vox Bot Panel -->
+<div id="vox-panel">
+  <div class="vox-header">
+    <div class="vox-title">
+      <span class="vox-icon">&#9670;</span> vox
+      <span class="vox-context" id="vox-context">slide 1/10</span>
+    </div>
+    <button class="vox-close" onclick="toggleVox()" title="close (V)">&times;</button>
+  </div>
+
+  <!-- Quick Actions -->
+  <div class="vox-actions" id="vox-actions">
+    <button onclick="voxAction('improve')" data-action="improve">
+      <span class="vox-act-icon">&uarr;</span> make better
+    </button>
+    <button onclick="voxAction('add-slide')" data-action="add-slide">
+      <span class="vox-act-icon">+</span> add slide after
+    </button>
+    <button onclick="voxAction('layout')" data-action="layout">
+      <span class="vox-act-icon">&#9707;</span> change layout
+    </button>
+    <button onclick="voxAction('image')" data-action="image">
+      <span class="vox-act-icon">&#9635;</span> generate image
+    </button>
+    <button onclick="voxAction('rewrite')" data-action="rewrite">
+      <span class="vox-act-icon">&#9998;</span> rewrite text
+    </button>
+    <button onclick="voxAction('translate')" data-action="translate">
+      <span class="vox-act-icon">&#8644;</span> translate EN&#8596;RU
+    </button>
+  </div>
+
+  <!-- Chat Messages -->
+  <div class="vox-messages" id="vox-messages">
+    <div class="vox-msg vox-msg-bot">
+      <div class="vox-msg-content">ready. select a quick action or type a request below.</div>
+    </div>
+  </div>
+
+  <!-- Input Area -->
+  <div class="vox-input-area">
+    <textarea id="vox-input" placeholder="ask vox anything about this slide..." rows="2"></textarea>
+    <button class="vox-send" onclick="voxSend()" id="vox-send-btn">&rarr;</button>
+  </div>
+</div>
+
+<!-- Vox trigger button (visible in edit mode) -->
+<button id="vox-trigger" onclick="toggleVox()" title="Vox AI assistant (V)">&#9670;</button>
+
 <script>
 const DECK_VERSION='2026-03-23-v10';localStorage.removeItem('ainative-intro-call-state');localStorage.setItem('ainative-intro-call-version',DECK_VERSION);
 const GH_REPO='ai-mindset-org/ainative-deck',GH_FILE='intro-call.html',GH_BRANCH='main',STORAGE_KEY='ainative-intro-call-state',TOKEN_KEY='ainative-intro-call-gh-token',OR_KEY='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',OR_BASE='https://openrouter.ai/api/v1';
@@ -479,7 +796,7 @@ let slides,total,current=0,editMode=false,autoSaveTimer=null,autoPushTimer=null,
 const undoStack=[],redoStack=[],MAX_UNDO=50;
 function initSlides(){slides=document.querySelectorAll('.slide');total=slides.length;document.querySelectorAll('.total').forEach(function(el){el.textContent=total})}initSlides();
 function showSlide(n){if(n<0||n>=total)return;slides[current].classList.remove('active');current=n;slides[current].classList.add('active');document.querySelector('.progress-bar').style.width=((current+1)/total*100)+'%';document.querySelectorAll('.current').forEach(function(el){el.textContent=current+1});history.replaceState(null,'','#'+(current+1));deselectBlock();updatePreview()}
-document.addEventListener('keydown',function(e){if(e.target.contentEditable==='true'||e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA'){if((e.ctrlKey||e.metaKey)&&e.key==='z'&&!e.shiftKey){e.preventDefault();undo();return}if((e.ctrlKey||e.metaKey)&&(e.key==='Z'||e.key==='y')){e.preventDefault();redo();return}return}if(e.key===' '&&slides[current]&&slides[current].id==='s-timer')return;if(e.key==='ArrowRight'||e.key===' '||e.key==='Enter'){e.preventDefault();showSlide(current+1)}else if(e.key==='ArrowLeft'||e.key==='Backspace'){e.preventDefault();showSlide(current-1)}else if(e.key==='Home')showSlide(0);else if(e.key==='End')showSlide(total-1);else if(e.key==='f'||e.key==='F'){if(!document.fullscreenElement)document.documentElement.requestFullscreen().catch(function(){});else document.exitFullscreen()}else if(e.key==='e'||e.key==='E')toggleEdit();else if(e.key==='t'||e.key==='T')togglePresenter();else if((e.ctrlKey||e.metaKey)&&e.key==='z')undo();else if((e.ctrlKey||e.metaKey)&&(e.key==='Z'||e.key==='y'))redo();else if(e.key==='Delete'&&editMode&&selectedBlock)deleteBlock()},false);
+document.addEventListener('keydown',function(e){if(e.target.contentEditable==='true'||e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA'){if((e.ctrlKey||e.metaKey)&&e.key==='z'&&!e.shiftKey){e.preventDefault();undo();return}if((e.ctrlKey||e.metaKey)&&(e.key==='Z'||e.key==='y')){e.preventDefault();redo();return}return}if(e.key===' '&&slides[current]&&slides[current].id==='s-timer')return;if(e.key==='ArrowRight'||e.key===' '||e.key==='Enter'){e.preventDefault();showSlide(current+1)}else if(e.key==='ArrowLeft'||e.key==='Backspace'){e.preventDefault();showSlide(current-1)}else if(e.key==='Home')showSlide(0);else if(e.key==='End')showSlide(total-1);else if(e.key==='f'||e.key==='F'){if(!document.fullscreenElement)document.documentElement.requestFullscreen().catch(function(){});else document.exitFullscreen()}else if(e.key==='e'||e.key==='E')toggleEdit();else if(e.key==='t'||e.key==='T')togglePresenter();else if(e.key==='v'||e.key==='V')toggleVox();else if((e.ctrlKey||e.metaKey)&&e.key==='z')undo();else if((e.ctrlKey||e.metaKey)&&(e.key==='Z'||e.key==='y'))redo();else if(e.key==='Delete'&&editMode&&selectedBlock)deleteBlock()},false);
 document.addEventListener('keydown',function(e){if(e.target.contentEditable==='true'||e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA'){if(['ArrowRight','ArrowLeft',' ','Enter','Backspace'].includes(e.key)&&!(e.ctrlKey||e.metaKey))e.stopPropagation()}},true);
 var touchStartX=0;document.addEventListener('touchstart',function(e){touchStartX=e.touches[0].clientX});document.addEventListener('touchend',function(e){var d=touchStartX-e.changedTouches[0].clientX;if(Math.abs(d)>50)d>0?showSlide(current+1):showSlide(current-1)});
 if(location.hash){var n=parseInt(location.hash.slice(1))-1;if(n>=0&&n<total)showSlide(n)}
@@ -538,8 +855,8 @@ function closeGhModal(){document.getElementById('gh-modal').classList.remove('vi
 function confirmGhToken(){var t=document.getElementById('gh-token-input').value.trim();if(t){localStorage.setItem(TOKEN_KEY,t);closeGhModal();saveToGitHub()}}
 function setStatus(c,t){var e=document.getElementById('save-status');e.className='save-status '+c;e.textContent=t;if(c==='saved')setTimeout(function(){e.textContent=''},3000)}
 async function saveToGitHub(){var t=getGhToken();if(!t){showGhModal();return}setStatus('saving','pushing...');try{var g=await fetch('https://api.github.com/repos/'+GH_REPO+'/contents/'+GH_FILE+'?ref='+GH_BRANCH,{headers:{'Authorization':'token '+t,'Accept':'application/vnd.github.v3+json'}});var sha=null;if(g.ok)sha=(await g.json()).sha;var content=buildCleanHTML();var encoded=btoa(unescape(encodeURIComponent(content)));var body={message:'update intro-call \u2014 '+new Date().toISOString().slice(0,16),content:encoded,branch:GH_BRANCH};if(sha)body.sha=sha;var p=await fetch('https://api.github.com/repos/'+GH_REPO+'/contents/'+GH_FILE,{method:'PUT',headers:{'Authorization':'token '+t,'Accept':'application/vnd.github.v3+json','Content-Type':'application/json'},body:JSON.stringify(body)});if(p.ok){setStatus('saved','pushed');isDirty=false}else throw new Error((await p.json()).message||'error')}catch(e){setStatus('error','failed: '+e.message)}}
-function buildCleanHTML(){var c=document.documentElement.cloneNode(true);c.querySelector('body').classList.remove('edit-mode');c.querySelectorAll('.layout-bar').forEach(function(b){b.remove()});c.querySelectorAll('[contenteditable]').forEach(function(el){el.removeAttribute('contenteditable')});c.querySelectorAll('[draggable]').forEach(function(el){el.removeAttribute('draggable')});c.querySelectorAll('.block-selected,.drag-over-top,.drag-over-bottom,.block-dragging').forEach(function(el){el.classList.remove('block-selected','drag-over-top','drag-over-bottom','block-dragging')});c.querySelectorAll('#block-actions,#img-action-menu,#layout-picker,#ai-modal,#gh-modal,#preview-panel').forEach(function(el){el.classList.remove('visible')});c.querySelectorAll('.slide').forEach(function(s,i){s.classList.toggle('active',i===0)});var pb=c.querySelector('.progress-bar');if(pb)pb.style.width='';return'<!DOCTYPE html>\n'+c.outerHTML}
-document.addEventListener('keydown',function(e){if(e.key==='Escape'){closeLayoutPicker();closeAiModal();closeGhModal();document.getElementById('img-action-menu').classList.remove('visible');deselectBlock()}});
+function buildCleanHTML(){var c=document.documentElement.cloneNode(true);c.querySelector('body').classList.remove('edit-mode','vox-open');c.querySelectorAll('.layout-bar').forEach(function(b){b.remove()});c.querySelectorAll('[contenteditable]').forEach(function(el){el.removeAttribute('contenteditable')});c.querySelectorAll('[draggable]').forEach(function(el){el.removeAttribute('draggable')});c.querySelectorAll('.block-selected,.drag-over-top,.drag-over-bottom,.block-dragging').forEach(function(el){el.classList.remove('block-selected','drag-over-top','drag-over-bottom','block-dragging')});c.querySelectorAll('#block-actions,#img-action-menu,#layout-picker,#ai-modal,#gh-modal,#preview-panel').forEach(function(el){el.classList.remove('visible')});var vp=c.querySelector('#vox-panel');if(vp)vp.remove();var vt=c.querySelector('#vox-trigger');if(vt)vt.remove();c.querySelectorAll('.slide').forEach(function(s,i){s.classList.toggle('active',i===0)});var pb=c.querySelector('.progress-bar');if(pb)pb.style.width='';return'<!DOCTYPE html>\n'+c.outerHTML}
+document.addEventListener('keydown',function(e){if(e.key==='Escape'){if(typeof voxOpen!=='undefined'&&voxOpen){toggleVox();return}closeLayoutPicker();closeAiModal();closeGhModal();document.getElementById('img-action-menu').classList.remove('visible');deselectBlock()}});
 document.getElementById('layout-picker').addEventListener('click',function(e){if(e.target===e.currentTarget)closeLayoutPicker()});
 document.getElementById('ai-modal').addEventListener('click',function(e){if(e.target===e.currentTarget)closeAiModal()});
 document.getElementById('gh-modal').addEventListener('click',function(e){if(e.target===e.currentTarget)closeGhModal()});
@@ -548,7 +865,7 @@ var presNotes=[{t:"Cover",n:"\u043F\u0440\u0435\u0434\u0441\u0442\u0430\u0432\u0
 var agendaItems=[{time:"01",label:"participants"},{time:"02",label:"curators"},{time:"03",label:"speakers"},{time:"04",label:"program"},{time:"05",label:"intro round"}];
 function togglePresenter(){presenterMode=!presenterMode;document.body.classList.toggle('presenter-mode',presenterMode);if(presenterMode){presSeconds=0;presTimer=setInterval(function(){presSeconds++;var m=String(Math.floor(presSeconds/60)).padStart(2,'0');var s=String(presSeconds%60).padStart(2,'0');document.getElementById('pres-timer').textContent=m+':'+s},1000);updatePresenterNotes();document.getElementById('pres-agenda').innerHTML=agendaItems.map(function(a,i){return '<div class="pres-agenda-item'+(i===0?' active':'')+'"><span class="pres-agenda-time">'+a.time+'</span><span>'+a.label+'</span></div>'}).join('')}else{clearInterval(presTimer);document.getElementById('pres-timer').textContent='00:00'}}
 function updatePresenterNotes(){if(!presenterMode)return;var n=presNotes[current]||{t:'Slide '+(current+1),n:''};document.getElementById('pres-notes').innerHTML='<h4>'+n.t+'</h4><p>'+n.n+'</p>';var nx=presNotes[current+1];document.getElementById('pres-next-title').textContent=nx?nx.t:'end';var items=document.querySelectorAll('.pres-agenda-item');var ph=current<2?0:current<5?1:current<7?2:current<9?3:4;items.forEach(function(el,i){el.classList.toggle('active',i===ph)})}
-var origShowSlide=showSlide;showSlide=function(n){origShowSlide(n);if(presenterMode)updatePresenterNotes()};
+var origShowSlide=showSlide;showSlide=function(n){origShowSlide(n);if(presenterMode)updatePresenterNotes();if(typeof voxOpen!=='undefined'&&voxOpen)updateVoxContext()};
 
 // --- TIMER (with event listener fix) ---
 var timerInterval=null,timerSeconds=60,timerRunning=false,personCount=1;
@@ -639,6 +956,972 @@ document.addEventListener('keydown',function(e){
 },true);
 
 var loaded=loadFromLocal();if(!loaded)showSlide(current);
+
+// ===== VOX BOT =====
+// ============================================================
+// VOX BOT — AI Assistant Panel
+// Complete JavaScript for ainative-deck presentation system
+//
+// Dependencies (already defined in the deck):
+//   OR_KEY, OR_BASE — OpenRouter API credentials
+//   slides, total, current — slide navigation state
+//   editMode — edit mode flag
+//   pushUndo() — undo system
+//   initSlides(), showSlide(n) — slide navigation
+//   activateEditOnSlides() — re-enable contentEditable after DOM mutations
+//   toggleEdit() — toggle edit mode
+//   addSlideWithLayout(layout) — existing slide creation
+//   aiMode, aiResult — existing AI generation state
+//   runAiGeneration(), insertAiResult() — existing AI modal functions
+// ============================================================
+
+// ===== VOX STATE =====
+let voxOpen = false;
+let voxConversation = [];  // {role: 'user'|'assistant', content: string}
+let voxStreaming = false;
+let voxAbortController = null;
+let voxPreviewState = null;
+
+// ===== PANEL TOGGLE =====
+
+function toggleVox() {
+  voxOpen = !voxOpen;
+  document.body.classList.toggle('vox-open', voxOpen);
+
+  if (voxOpen) {
+    // Auto-enable edit mode if not already
+    if (!editMode) toggleEdit();
+    updateVoxContext();
+    // Focus input after panel animation completes
+    setTimeout(() => {
+      const input = document.getElementById('vox-input');
+      if (input) input.focus();
+    }, 280);
+  }
+}
+
+// ===== CONTEXT EXTRACTION =====
+
+/**
+ * Extract structured context from the current slide's DOM.
+ */
+function getSlideContext() {
+  const slide = slides[current];
+  const inner = slide.querySelector('.slide-inner');
+
+  const h1 = inner.querySelector('h1')?.textContent?.trim() || '';
+  const h2 = inner.querySelector('h2')?.textContent?.trim() || '';
+  const label = inner.querySelector('.label')?.textContent?.trim() || '';
+  const paragraphs = Array.from(inner.querySelectorAll('p')).map(p => p.textContent.trim());
+  const listItems = Array.from(inner.querySelectorAll('li')).map(li => li.textContent.trim());
+  const cards = Array.from(inner.querySelectorAll('.card')).map(c => ({
+    icon: c.querySelector('.card-icon')?.textContent?.trim() || '',
+    title: c.querySelector('h3')?.textContent?.trim() || '',
+    desc: c.querySelector('p')?.textContent?.trim() || ''
+  }));
+  const quotes = Array.from(inner.querySelectorAll('.quote, .quote-enhanced')).map(q => ({
+    text: q.querySelector('p')?.textContent?.trim() || '',
+    author: q.querySelector('.author')?.textContent?.trim() || ''
+  }));
+  const stats = Array.from(inner.querySelectorAll('.stat-box')).map(s => ({
+    num: s.querySelector('.num')?.textContent?.trim() || '',
+    label: s.querySelector('.stat-label')?.textContent?.trim() || ''
+  }));
+
+  const classes = Array.from(slide.classList);
+  const layoutClass = classes.find(c => c.startsWith('layout-')) || 'default';
+  const isCover = inner.classList.contains('cover') || slide.classList.contains('cover');
+  const isSectionDivider = slide.classList.contains('section-divider');
+  const hasImage = !!inner.querySelector('img:not(.slide-logo)') || !!inner.querySelector('.img-placeholder');
+  const hasGrid = !!inner.querySelector('.cards, .stat-grid, .split');
+
+  const allText = [h1, h2, ...paragraphs, ...listItems].join(' ');
+  const lang = /[а-яА-ЯёЁ]/.test(allText) ? 'ru' : 'en';
+
+  return {
+    slideIndex: current,
+    totalSlides: total,
+    layout: layoutClass,
+    isCover,
+    isSectionDivider,
+    hasImage,
+    hasGrid,
+    lang,
+    label,
+    h1, h2,
+    paragraphs,
+    listItems,
+    cards,
+    quotes,
+    stats,
+    rawHTML: inner.innerHTML
+  };
+}
+
+/**
+ * Get minimal context for any slide by index (for surrounding context).
+ */
+function getSlideContextAt(index) {
+  if (index < 0 || index >= total) return null;
+  const slide = slides[index];
+  const inner = slide.querySelector('.slide-inner');
+  return {
+    h1: inner.querySelector('h1')?.textContent?.trim() || '',
+    h2: inner.querySelector('h2')?.textContent?.trim() || '',
+    paragraphs: Array.from(inner.querySelectorAll('p')).map(p => p.textContent.trim())
+  };
+}
+
+/**
+ * Update the context display in the Vox panel header.
+ */
+function updateVoxContext() {
+  const ctx = getSlideContext();
+  const el = document.getElementById('vox-context');
+  if (el) {
+    el.textContent =
+      `slide ${ctx.slideIndex + 1}/${ctx.totalSlides}` +
+      (ctx.lang === 'ru' ? ' \u00b7 RU' : ' \u00b7 EN');
+  }
+}
+
+// ===== MESSAGE RENDERING =====
+
+/**
+ * Escape HTML to prevent XSS.
+ */
+function escapeHTML(str) {
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+
+/**
+ * Simple markdown-like formatting for Vox messages.
+ */
+function formatVoxContent(text) {
+  return text
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/```([\s\S]*?)```/g, '<pre>$1</pre>')
+    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+    .replace(/`([^`]+)`/g, '<code>$1</code>')
+    .replace(/\n/g, '<br>');
+}
+
+/**
+ * Add a message bubble to the Vox chat panel.
+ */
+function addVoxMessage(role, content, actions) {
+  const messagesEl = document.getElementById('vox-messages');
+  const msg = document.createElement('div');
+  msg.className = `vox-msg vox-msg-${role}`;
+
+  const formattedContent = role === 'user' ? escapeHTML(content) : formatVoxContent(content);
+  let html = `<div class="vox-msg-content">${formattedContent}</div>`;
+
+  if (actions && actions.length) {
+    html += '<div class="vox-msg-actions">';
+    actions.forEach(a => {
+      const cls = a.primary ? ' primary' : '';
+      html += `<button class="${cls}" onclick="${escapeHTML(a.onclick)}">${escapeHTML(a.label)}</button>`;
+    });
+    html += '</div>';
+  }
+
+  msg.innerHTML = html;
+  messagesEl.appendChild(msg);
+  messagesEl.scrollTop = messagesEl.scrollHeight;
+  return msg;
+}
+
+/**
+ * Create a streaming message placeholder with cursor animation.
+ */
+function addVoxStreamMessage() {
+  const messagesEl = document.getElementById('vox-messages');
+  const msg = document.createElement('div');
+  msg.className = 'vox-msg vox-msg-bot';
+  msg.innerHTML = '<div class="vox-msg-content streaming"></div>';
+  messagesEl.appendChild(msg);
+  messagesEl.scrollTop = messagesEl.scrollHeight;
+  return msg.querySelector('.vox-msg-content');
+}
+
+// ===== OPENROUTER API =====
+
+/**
+ * Streaming chat via OpenRouter.
+ */
+async function voxChat(systemPrompt, userMessage, onChunk) {
+  if (voxAbortController) voxAbortController.abort();
+  voxAbortController = new AbortController();
+  voxStreaming = true;
+  document.getElementById('vox-send-btn').disabled = true;
+
+  try {
+    const resp = await fetch(OR_BASE + '/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Authorization': 'Bearer ' + OR_KEY,
+        'Content-Type': 'application/json',
+        'HTTP-Referer': location.href
+      },
+      body: JSON.stringify({
+        model: 'anthropic/claude-sonnet-4-20250514',
+        stream: true,
+        messages: [
+          { role: 'system', content: systemPrompt },
+          ...voxConversation,
+          { role: 'user', content: userMessage }
+        ],
+        max_tokens: 4000
+      }),
+      signal: voxAbortController.signal
+    });
+
+    if (!resp.ok) {
+      const errBody = await resp.text();
+      throw new Error(`API error ${resp.status}: ${errBody.substring(0, 200)}`);
+    }
+
+    const reader = resp.body.getReader();
+    const decoder = new TextDecoder();
+    let fullContent = '';
+
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+
+      const chunk = decoder.decode(value, { stream: true });
+      const lines = chunk.split('\n').filter(l => l.startsWith('data: '));
+
+      for (const line of lines) {
+        const data = line.slice(6);
+        if (data === '[DONE]') continue;
+        try {
+          const parsed = JSON.parse(data);
+          const delta = parsed.choices?.[0]?.delta?.content || '';
+          if (delta) {
+            fullContent += delta;
+            onChunk(fullContent);
+          }
+        } catch (e) {
+          // Skip malformed JSON chunks
+        }
+      }
+    }
+
+    voxConversation.push({ role: 'user', content: userMessage });
+    voxConversation.push({ role: 'assistant', content: fullContent });
+
+    if (voxConversation.length > 20) {
+      voxConversation = voxConversation.slice(-20);
+    }
+
+    return fullContent;
+  } finally {
+    voxStreaming = false;
+    voxAbortController = null;
+    document.getElementById('vox-send-btn').disabled = false;
+  }
+}
+
+/**
+ * Non-streaming API call for structured JSON/HTML responses.
+ */
+async function voxGenerate(systemPrompt, userMessage) {
+  const resp = await fetch(OR_BASE + '/chat/completions', {
+    method: 'POST',
+    headers: {
+      'Authorization': 'Bearer ' + OR_KEY,
+      'Content-Type': 'application/json',
+      'HTTP-Referer': location.href
+    },
+    body: JSON.stringify({
+      model: 'anthropic/claude-sonnet-4-20250514',
+      messages: [
+        { role: 'system', content: systemPrompt },
+        { role: 'user', content: userMessage }
+      ],
+      max_tokens: 4000
+    })
+  });
+
+  if (!resp.ok) {
+    const errBody = await resp.text();
+    throw new Error(`API error ${resp.status}: ${errBody.substring(0, 200)}`);
+  }
+
+  const data = await resp.json();
+  return data.choices?.[0]?.message?.content || '';
+}
+
+// ===== SYSTEM PROMPT =====
+
+/**
+ * Build the system prompt for Vox with full program context for the intro call.
+ */
+function buildVoxSystemPrompt(ctx) {
+  return `You are Vox, an AI assistant built into a presentation editor for the AI-Native Organizations Sprint.
+You help create and edit slides. You know the full program context and can answer questions.
+
+PROGRAM CONTEXT:
+- Product: AI-Native Organizations Sprint by AI Mindset x CybOS (Stepan Gershuni)
+- Dates: 23 March \u2013 13 April 2026 (3 weeks + Demo Day)
+- Format: Online, live only (no pre-recordings). Price: EUR 1,490
+- 177 registered participants \u2013 founders, CEOs, C-level. 14 industries. 2000+ total headcount.
+- Central pain: "Personal AI works \u2013 team AI doesn\u2019t" (85%)
+- One-liner: "3 weeks that change how you run a company"
+
+THIS PRESENTATION: Intro Call (not a lecture \u2013 first lecture is Monday)
+- Purpose: meet participants, show curators, preview program & speakers, intro round
+- 10 slides: Cover, Agenda, Participants (177), AI Stack, Geography, Expectations, Curators (10), Speakers (10), Program (3 weeks), Timer (60s intro round)
+
+PROGRAM STRUCTURE (3 weeks):
+Week 1 (23\u201328 Mar): Personal AI + Team Processes
+- Mon 23.03 18:00 \u2013 Lecture: Gershuni (why AI transformation is most important)
+- Tue 24.03 18:00 \u2013 Workshop: Povaliaev (POS infrastructure setup)
+- Wed 25.03 18:00 \u2013 Workshop: Povaliaev (Personal\u2192Team: process audit, AI Champion)
+- Fri 27.03 18:00 \u2013 Guest: Dima Khanarin (AI transformation for organizations)
+- Sat 28.03 10:00 \u2013 Office hours
+Deliverables: Working personal AI assistant, daily usage, top 10 processes list
+
+Week 2 (30 Mar\u20134 Apr): System on Top of Model
+- Mon 30.03 18:00 \u2013 Lecture: Gershuni (6 layers of architecture)
+- Tue 31.03 12:00 \u2013 Focus: Povaliaev
+- Wed 01.04 12:00 \u2013 Guest: Alexey Amyotov (AI content for business)
+- Wed 01.04 18:00 \u2013 Guest: Vitaly Kleban (self-improving agents)
+- Thu 02.04 18:00 \u2013 Guest: Valery Kovalskii (AI-driven development: live build)
+- Fri 03.04 18:00 \u2013 Guest: Daniil Kravtsov (AI-native companies + knowledge graph)
+- Sat 04.04 10:00 \u2013 Office hours
+Deliverables: 6 layers understanding, data ontology, first skill file, orchestration topology
+
+Week 3 (6\u201313 Apr): Company Functions + Agent Pipelines
+- Mon 06.04 18:00 \u2013 Lecture: Gershuni (strategy to plan, business models, 90-day plan)
+- Tue 07.04 18:00 \u2013 Guest: Evgeny Rid (AI x Investments)
+- Wed 08.04 18:00 \u2013 Guest: Bayram Annakov (sales automation on AI agents)
+- Thu 09.04 18:00 \u2013 Guest: Roma Buzko (AI in legal processes)
+- Fri 10.04 18:00 \u2013 Guest: Seva Ustinov (shared workspace \u2192 product-agent)
+- Sat 11.04 10:00 \u2013 Office hours
+- Mon 13.04 18:00 \u2013 Demo Day
+Deliverables: Working automated business process, 90-day plan, Demo Day presentation
+
+SPEAKERS: Stepan Gershuni (cybos.ai, lectures), Alexander Povaliaev (AI Mindset, workshops), Dima Khanarin (codos.ai), Alexey Amyotov (Look At Media), Vitaly Kleban (cyber.Fund), Valery Kovalskii (Red Mad Robot), Daniil Kravtsov (Improvado), Evgeny Rid (investor), Bayram Annakov (onsa.ai), Roma Buzko (Buzko & Krasnov), Seva Ustinov (Plurio AI)
+
+CURATORS: 10 practitioners \u2013 Stanislav Fedoseev, Yury (Switzerland), Jin Kolesnikov (Singularity U), Stanislav Glazov, Alexander Vasiliev, Sereja Ris, Ilya Gindin, Anton Voskobovich, Alexander Stashenko, Kseniya Tkacheva
+
+PARTICIPANT STATS: 177 registered, 61% founders & CEO, 18% C-level, 12% heads & leads, 14 industries, 12 countries. ChatGPT 45%, Claude 45%, Cursor 22%, Perplexity 18%. 85% say personal AI works but team AI doesn\u2019t.
+
+SLIDE CONTEXT:
+- Current slide: ${ctx.slideIndex + 1} of ${ctx.totalSlides}
+- Language: ${ctx.lang === 'ru' ? 'Russian' : 'English'}
+- Layout: ${ctx.layout}
+- Is cover: ${ctx.isCover}
+- Has image: ${ctx.hasImage}
+
+DESIGN SYSTEM \u2014 CSS classes:
+- Headings: h1 (52px, white), h2 (38px, white), h3 (20px, dim)
+- Labels: .label (uppercase, small, dim) \u2014 format "// LABEL TEXT"
+- Body: p (17px, 0.8 opacity), li (same)
+- Colors: .teal (#4dc9d4), .green (#38d9a9), .blue (#3b82f6), .amber (#c89200), .red (#ff6b6b), .cyan (#38bdf8), .dim (0.5 opacity)
+- Tags: .tag (teal), .tag.green-tag, .tag.blue-tag, .tag.amber-tag, .tag.red-tag
+- Cards: .cards > .card (each with .card-icon, h3, p)
+- Stats: .stat-grid > .stat-box (each with .num, .stat-label) \u2014 .cols-2, .cols-4, .cols-5 variants
+- Layers: .layers > .layer (each with .layer-num, .layer-name, .layer-desc)
+- Quote: .quote-enhanced > p + .author
+- Code: .code-block > span.comment, span.teal, etc.
+- Split: .split (2-column grid)
+- Images: .slide-image or .img-placeholder
+- Bar chart: .bar-chart > .bar-row > .bar-label + .bar-track > .bar-fill
+- Week cards: .week-card > .week-header + .week-row
+- Speaker grid: .speaker-grid > .speaker-card (.speaker-photo, .speaker-name, .speaker-role, .speaker-topic)
+- Curator grid: .curator-grid > .curator-card (.curator-photo, .curator-name, .curator-desc)
+
+LAYOUT CLASSES (on .slide element):
+- layout-center, layout-left, layout-split, layout-img-left, layout-img-right
+
+RULES:
+- Keep responses concise \u2014 this is a side panel, not a full page
+- When generating HTML, use ONLY the CSS classes listed above
+- Always match the existing language (Russian or English) unless translating
+- Dark theme: bg #161620, text white/dim, accent teal
+- When you generate slide HTML, wrap it in <slide-html>...</slide-html> tags
+- Never include <div class="slide"> wrapper \u2014 only the content inside slide-inner
+- Presentation style: minimal, professional, IBM Plex Mono + Space Grotesk fonts
+- You can answer questions about the program, speakers, schedule, concepts
+- For content suggestions, draw from the program context above`;
+}
+
+// ===== SEND HANDLER =====
+
+/**
+ * Handle user input from the Vox text area.
+ */
+async function voxSend() {
+  const input = document.getElementById('vox-input');
+  const text = input.value.trim();
+  if (!text || voxStreaming) return;
+
+  input.value = '';
+  input.style.height = 'auto';
+  addVoxMessage('user', text);
+
+  const ctx = getSlideContext();
+  const streamEl = addVoxStreamMessage();
+
+  try {
+    const result = await voxChat(
+      buildVoxSystemPrompt(ctx),
+      text,
+      (content) => {
+        streamEl.innerHTML = formatVoxContent(content);
+        const messagesEl = document.getElementById('vox-messages');
+        messagesEl.scrollTop = messagesEl.scrollHeight;
+      }
+    );
+
+    streamEl.classList.remove('streaming');
+    streamEl.innerHTML = formatVoxContent(result);
+
+    parseAndOfferActions(result, streamEl.closest('.vox-msg'));
+  } catch (e) {
+    streamEl.classList.remove('streaming');
+    if (e.name === 'AbortError') {
+      streamEl.textContent = 'cancelled.';
+    } else {
+      streamEl.textContent = 'error: ' + e.message;
+      console.error('Vox error:', e);
+    }
+  }
+}
+
+// Handle Enter to send (Shift+Enter for newline)
+document.getElementById('vox-input')?.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    voxSend();
+  }
+});
+
+// ===== QUICK ACTION DISPATCHER =====
+
+function voxAction(action) {
+  const ctx = getSlideContext();
+
+  document.querySelectorAll('.vox-actions button').forEach(b => b.classList.remove('active'));
+  const btn = document.querySelector(`[data-action="${action}"]`);
+  if (btn) {
+    btn.classList.add('active');
+    setTimeout(() => btn.classList.remove('active'), 2000);
+  }
+
+  switch (action) {
+    case 'improve':    voxImproveSlide(ctx); break;
+    case 'add-slide':  voxAddSlide(ctx); break;
+    case 'layout':     voxChangeLayout(ctx); break;
+    case 'image':      voxGenerateImage(ctx); break;
+    case 'rewrite':    voxRewriteText(ctx); break;
+    case 'translate':  voxTranslateSlide(ctx); break;
+  }
+}
+
+// ===== CAPABILITY: IMPROVE SLIDE =====
+
+async function voxImproveSlide(ctx) {
+  addVoxMessage('user', '\u2191 make this slide better');
+  const streamEl = addVoxStreamMessage();
+
+  try {
+    const result = await voxChat(
+      buildVoxSystemPrompt(ctx),
+      `Analyze this slide and suggest specific improvements. For each suggestion, explain what to change and why. Consider:
+- Text clarity and conciseness
+- Visual hierarchy (is the heading clear? are there too many bullet points?)
+- Missing elements (should there be stats, a quote, an image?)
+- Layout appropriateness
+
+Current slide content:
+Label: ${ctx.label}
+H1: ${ctx.h1}
+H2: ${ctx.h2}
+Paragraphs: ${ctx.paragraphs.join(' | ')}
+List items: ${ctx.listItems.join(' | ')}
+Cards: ${JSON.stringify(ctx.cards)}
+Layout: ${ctx.layout}
+Has image: ${ctx.hasImage}
+
+Return your suggestions as numbered list. After the list, provide the improved HTML for the slide-inner div. Wrap the HTML in <slide-html>...</slide-html> tags.`,
+      (content) => {
+        streamEl.innerHTML = formatVoxContent(content);
+        document.getElementById('vox-messages').scrollTop = document.getElementById('vox-messages').scrollHeight;
+      }
+    );
+
+    streamEl.classList.remove('streaming');
+    streamEl.innerHTML = formatVoxContent(result);
+
+    const htmlMatch = result.match(/<slide-html>([\s\S]*?)<\/slide-html>/);
+    if (htmlMatch) {
+      const b64 = safeB64Encode(htmlMatch[1]);
+      const actionsDiv = document.createElement('div');
+      actionsDiv.className = 'vox-msg-actions';
+      actionsDiv.innerHTML = `
+        <button class="primary" onclick="voxApplySlideHTML('${b64}')">apply changes</button>
+        <button onclick="voxPreviewSlideHTML('${b64}')">preview</button>
+      `;
+      streamEl.closest('.vox-msg').appendChild(actionsDiv);
+    }
+  } catch (e) {
+    streamEl.classList.remove('streaming');
+    if (e.name !== 'AbortError') {
+      streamEl.textContent = 'error: ' + e.message;
+    }
+  }
+}
+
+// ===== CAPABILITY: ADD SLIDE =====
+
+async function voxAddSlide(ctx) {
+  addVoxMessage('user', '+ add slide after this');
+  addVoxMessage('bot', 'what should the new slide be about? describe the content or topic.',
+    [
+      { label: 'summary of this slide', onclick: "voxAddSlideWithPrompt('Create a summary/recap slide for the content shown above')" },
+      { label: 'transition slide', onclick: "voxAddSlideWithPrompt('Create a transition/section divider slide that bridges from the current topic to the next')" },
+      { label: 'Q&A slide', onclick: "voxAddSlideWithPrompt('Create a Q&A/discussion slide')" }
+    ]
+  );
+}
+
+async function voxAddSlideWithPrompt(prompt) {
+  if (!prompt) {
+    prompt = document.getElementById('vox-input').value.trim();
+    if (!prompt) return;
+    document.getElementById('vox-input').value = '';
+  }
+
+  addVoxMessage('user', prompt);
+  const streamEl = addVoxStreamMessage();
+  const ctx = getSlideContext();
+
+  const prevCtx = current > 0 ? getSlideContextAt(current - 1) : null;
+  const nextCtx = current < total - 1 ? getSlideContextAt(current + 1) : null;
+
+  try {
+    const result = await voxGenerate(
+      buildVoxSystemPrompt(ctx),
+      `Generate a new slide to insert after the current slide (slide ${ctx.slideIndex + 1}/${ctx.totalSlides}).
+
+User request: ${prompt}
+
+Context \u2014 current slide:
+${ctx.h1 || ctx.h2}: ${ctx.paragraphs.join('. ')}
+
+${prevCtx ? `Previous slide: ${prevCtx.h1 || prevCtx.h2}` : ''}
+${nextCtx ? `Next slide: ${nextCtx.h1 || nextCtx.h2}` : ''}
+
+Generate the complete HTML for the slide-inner div content. Use the presentation's CSS classes.
+Language: ${ctx.lang === 'ru' ? 'Russian' : 'English'}
+Style: minimal, professional, dark-theme presentation
+
+Return ONLY the inner HTML content. No wrapper divs. No slide-inner div itself.`
+    );
+
+    streamEl.classList.remove('streaming');
+    streamEl.textContent = 'slide generated.';
+
+    const b64 = safeB64Encode(result);
+    const actionsDiv = document.createElement('div');
+    actionsDiv.className = 'vox-msg-actions';
+    actionsDiv.innerHTML = `
+      <button class="primary" onclick="voxInsertNewSlide('${b64}')">insert slide</button>
+      <button onclick="voxPreviewNewSlide('${b64}')">preview</button>
+    `;
+    streamEl.closest('.vox-msg').appendChild(actionsDiv);
+  } catch (e) {
+    streamEl.classList.remove('streaming');
+    streamEl.textContent = 'error generating slide: ' + e.message;
+    console.error('Vox add slide error:', e);
+  }
+}
+
+/**
+ * Insert a new slide after the current one.
+ */
+function voxInsertNewSlide(b64html) {
+  const html = safeB64Decode(b64html);
+  pushUndo();
+
+  const newSlide = document.createElement('div');
+  newSlide.className = 'slide';
+  newSlide.id = 's' + (total + 1);
+
+  const counter = `<div class="slide-counter"><span class="current">${current + 2}</span>/<span class="total">${total + 1}</span></div>`;
+  const logo = '<img class="slide-logo" src="logo.png" alt="">';
+
+  let innerHTML = html;
+  if (!html.trim().startsWith('<div class="slide-inner')) {
+    innerHTML = `<div class="slide-inner">${html}</div>`;
+  }
+
+  newSlide.innerHTML = counter + logo + innerHTML;
+  slides[current].after(newSlide);
+  initSlides();
+  showSlide(current + 1);
+  if (editMode) activateEditOnSlides();
+
+  addVoxMessage('bot', `slide inserted at position ${current + 1}. you can edit it directly or use Vox to refine.`);
+  updateVoxContext();
+}
+
+/**
+ * Preview a new slide by temporarily inserting it.
+ */
+function voxPreviewNewSlide(b64html) {
+  voxInsertNewSlide(b64html);
+  addVoxMessage('bot', 'preview inserted. press Ctrl+Z to undo if you want to remove it.');
+}
+
+// ===== CAPABILITY: CHANGE LAYOUT =====
+
+async function voxChangeLayout(ctx) {
+  addVoxMessage('user', '\u25eb change layout');
+
+  const currentLayout = ctx.layout.replace('layout-', '') || 'default';
+  const available = ['center', 'left', 'split', 'img-left', 'img-right'];
+  const filtered = available.filter(l => l !== currentLayout);
+
+  const buttons = filtered.map(l => ({
+    label: l,
+    onclick: `voxApplyLayout('${l}')`
+  }));
+
+  addVoxMessage('bot',
+    `current layout: **${currentLayout}**. choose a new layout:`,
+    buttons
+  );
+}
+
+function voxApplyLayout(layout) {
+  pushUndo();
+  const slide = slides[current];
+
+  slide.className = slide.className.replace(/layout-\S+/g, '').trim();
+  slide.classList.add('layout-' + layout);
+
+  document.querySelectorAll('.layout-bar button').forEach(b => {
+    b.classList.toggle('active', b.dataset?.layout === layout);
+  });
+
+  addVoxMessage('bot', `layout changed to "${layout}".`);
+  if (editMode) activateEditOnSlides();
+}
+
+// ===== CAPABILITY: GENERATE IMAGE =====
+
+async function voxGenerateImage(ctx) {
+  addVoxMessage('user', '\u25a3 generate image for this slide');
+
+  addVoxMessage('bot', 'what kind of image? describe or let me suggest based on the slide content.',
+    [
+      { label: 'auto (from content)', onclick: 'voxGenImageAuto()', primary: true },
+      { label: 'SVG diagram', onclick: "voxGenImageMode('svg')" },
+      { label: 'photo illustration', onclick: "voxGenImageMode('image')" }
+    ]
+  );
+}
+
+async function voxGenImageAuto() {
+  const ctx = getSlideContext();
+  const slideContent = [ctx.h1, ctx.h2, ...ctx.paragraphs].filter(Boolean).join('. ');
+
+  addVoxMessage('user', 'auto-generate from slide content');
+  const streamEl = addVoxStreamMessage();
+
+  try {
+    const imagePrompt = await voxGenerate(
+      'You are an image prompt expert for dark-themed presentation slides. Generate concise, visual image prompts.',
+      `Based on this slide content, generate a short image prompt (max 30 words) for a clean, minimal illustration. The image should visually represent the key concept.
+
+Slide: ${slideContent}
+
+Return ONLY the prompt, nothing else.`
+    );
+
+    streamEl.classList.remove('streaming');
+    streamEl.textContent = `generating: "${imagePrompt.trim()}"`;
+
+    aiMode = 'svg';
+    const aiPromptEl = document.getElementById('ai-prompt');
+    if (aiPromptEl) aiPromptEl.value = imagePrompt.trim();
+    await runAiGeneration();
+
+    if (aiResult) {
+      addVoxMessage('bot', 'image generated.',
+        [
+          { label: 'insert into slide', onclick: 'insertAiResult(); addVoxMessage("bot", "image inserted.")', primary: true },
+          { label: 'regenerate', onclick: 'voxGenImageAuto()' }
+        ]
+      );
+    }
+  } catch (e) {
+    streamEl.classList.remove('streaming');
+    streamEl.textContent = 'error generating image: ' + e.message;
+    console.error('Vox image error:', e);
+  }
+}
+
+async function voxGenImageMode(mode) {
+  const input = document.getElementById('vox-input');
+  const customPrompt = input.value.trim();
+
+  if (!customPrompt) {
+    addVoxMessage('bot', 'type an image description in the input box, then click the mode button again.');
+    input.focus();
+    input.placeholder = 'describe the image you want...';
+    return;
+  }
+
+  input.value = '';
+  input.placeholder = 'ask vox anything about this slide...';
+
+  const streamEl = addVoxStreamMessage();
+
+  try {
+    aiMode = mode;
+    const aiPromptEl = document.getElementById('ai-prompt');
+    if (aiPromptEl) aiPromptEl.value = customPrompt;
+    await runAiGeneration();
+
+    streamEl.classList.remove('streaming');
+
+    if (aiResult) {
+      streamEl.textContent = `${mode === 'svg' ? 'SVG' : 'image'} generated.`;
+      const actionsDiv = document.createElement('div');
+      actionsDiv.className = 'vox-msg-actions';
+      actionsDiv.innerHTML = `
+        <button class="primary" onclick="insertAiResult(); addVoxMessage('bot', 'inserted.')">insert</button>
+        <button onclick="voxGenImageMode('${mode}')">regenerate</button>
+      `;
+      streamEl.closest('.vox-msg').appendChild(actionsDiv);
+    } else {
+      streamEl.textContent = 'generation failed. try a different prompt.';
+    }
+  } catch (e) {
+    streamEl.classList.remove('streaming');
+    streamEl.textContent = 'error: ' + e.message;
+  }
+}
+
+// ===== CAPABILITY: REWRITE TEXT =====
+
+async function voxRewriteText(ctx) {
+  addVoxMessage('user', '\u270e rewrite text');
+
+  const selection = window.getSelection();
+  const selectedText = selection.toString().trim();
+
+  if (selectedText) {
+    const b64 = safeB64Encode(selectedText);
+    const preview = selectedText.substring(0, 100) + (selectedText.length > 100 ? '...' : '');
+    addVoxMessage('bot', `selected text: "${preview}"\n\nchoose a style:`,
+      [
+        { label: 'more concise', onclick: `voxRewriteWithStyle('concise', '${b64}')` },
+        { label: 'more detailed', onclick: `voxRewriteWithStyle('detailed', '${b64}')` },
+        { label: 'more professional', onclick: `voxRewriteWithStyle('professional', '${b64}')` },
+        { label: 'simpler words', onclick: `voxRewriteWithStyle('simple', '${b64}')` }
+      ]
+    );
+  } else {
+    addVoxMessage('bot', 'select some text on the slide first (click and drag), then use this action. or type the text you want rewritten in the input box.');
+  }
+}
+
+async function voxRewriteWithStyle(style, b64text) {
+  const originalText = safeB64Decode(b64text);
+  const ctx = getSlideContext();
+  const streamEl = addVoxStreamMessage();
+
+  try {
+    const result = await voxChat(
+      buildVoxSystemPrompt(ctx),
+      `Rewrite this text in a "${style}" style. Keep the same language (${ctx.lang === 'ru' ? 'Russian' : 'English'}). Return ONLY the rewritten text, nothing else.
+
+Original: ${originalText}`,
+      (content) => { streamEl.innerHTML = formatVoxContent(content); }
+    );
+
+    streamEl.classList.remove('streaming');
+
+    const diffHtml = `<div class="vox-diff">
+      <div class="diff-del">${escapeHTML(originalText)}</div>
+      <div class="diff-add">${escapeHTML(result)}</div>
+    </div>`;
+    streamEl.innerHTML = diffHtml;
+
+    const b64Original = safeB64Encode(originalText);
+    const b64Result = safeB64Encode(result);
+    const actionsDiv = document.createElement('div');
+    actionsDiv.className = 'vox-msg-actions';
+    actionsDiv.innerHTML = `
+      <button class="primary" onclick="voxApplyRewrite('${b64Original}', '${b64Result}')">apply</button>
+      <button onclick="voxRewriteWithStyle('${style}', '${b64text}')">regenerate</button>
+    `;
+    streamEl.closest('.vox-msg').appendChild(actionsDiv);
+  } catch (e) {
+    streamEl.classList.remove('streaming');
+    if (e.name !== 'AbortError') {
+      streamEl.textContent = 'error: ' + e.message;
+    }
+  }
+}
+
+function voxApplyRewrite(b64original, b64replacement) {
+  const original = safeB64Decode(b64original);
+  const replacement = safeB64Decode(b64replacement);
+
+  pushUndo();
+  const inner = slides[current].querySelector('.slide-inner');
+
+  const walker = document.createTreeWalker(inner, NodeFilter.SHOW_TEXT);
+  while (walker.nextNode()) {
+    if (walker.currentNode.textContent.includes(original)) {
+      walker.currentNode.textContent = walker.currentNode.textContent.replace(original, replacement);
+      addVoxMessage('bot', 'text replaced.');
+      return;
+    }
+  }
+
+  const currentHTML = inner.innerHTML;
+  if (currentHTML.includes(escapeHTML(original))) {
+    inner.innerHTML = currentHTML.replace(escapeHTML(original), escapeHTML(replacement));
+    if (editMode) activateEditOnSlides();
+    addVoxMessage('bot', 'text replaced.');
+  } else {
+    addVoxMessage('bot', 'could not find the original text. it may have changed. try selecting the text again.');
+  }
+}
+
+// ===== CAPABILITY: TRANSLATE =====
+
+async function voxTranslateSlide(ctx) {
+  const targetLang = ctx.lang === 'ru' ? 'en' : 'ru';
+  const targetLabel = targetLang === 'en' ? 'English' : 'Russian';
+
+  addVoxMessage('user', `\u21c4 translate to ${targetLabel}`);
+  const streamEl = addVoxStreamMessage();
+
+  try {
+    const result = await voxGenerate(
+      buildVoxSystemPrompt(ctx),
+      `Translate all text content of this slide from ${ctx.lang === 'ru' ? 'Russian' : 'English'} to ${targetLabel}.
+
+Current slide HTML:
+${ctx.rawHTML}
+
+Rules:
+- Translate ALL text content (headings, paragraphs, list items, labels, card text, etc.)
+- Preserve ALL HTML structure, classes, and inline styles exactly
+- Do NOT translate CSS class names or HTML attributes
+- Labels like "// SECTION" should become "// \u0420\u0410\u0417\u0414\u0415\u041b" (RU) or stay as-is (EN)
+- Keep technical terms that are commonly used in the original language
+- Maintain the same tone and style
+
+Return ONLY the translated HTML for the slide-inner content.`
+    );
+
+    streamEl.classList.remove('streaming');
+    streamEl.textContent = `translated to ${targetLabel}.`;
+
+    const b64 = safeB64Encode(result);
+    const actionsDiv = document.createElement('div');
+    actionsDiv.className = 'vox-msg-actions';
+    actionsDiv.innerHTML = `
+      <button class="primary" onclick="voxApplySlideHTML('${b64}')">apply translation</button>
+      <button onclick="voxPreviewSlideHTML('${b64}')">preview</button>
+    `;
+    streamEl.closest('.vox-msg').appendChild(actionsDiv);
+  } catch (e) {
+    streamEl.classList.remove('streaming');
+    streamEl.textContent = 'error translating: ' + e.message;
+    console.error('Vox translate error:', e);
+  }
+}
+
+// ===== SHARED UTILITIES =====
+
+function safeB64Encode(str) {
+  return btoa(unescape(encodeURIComponent(str)));
+}
+
+function safeB64Decode(b64) {
+  return decodeURIComponent(escape(atob(b64)));
+}
+
+function voxApplySlideHTML(b64html) {
+  const html = safeB64Decode(b64html);
+  pushUndo();
+
+  const inner = slides[current].querySelector('.slide-inner');
+  const wasCover = inner.classList.contains('cover');
+  inner.innerHTML = html;
+  if (wasCover && !inner.classList.contains('cover')) {
+    inner.classList.add('cover');
+  }
+
+  if (editMode) activateEditOnSlides();
+  addVoxMessage('bot', 'changes applied. press Ctrl+Z to undo.');
+  updateVoxContext();
+}
+
+function voxPreviewSlideHTML(b64html) {
+  const html = safeB64Decode(b64html);
+
+  if (!voxPreviewState) {
+    voxPreviewState = slides[current].querySelector('.slide-inner').innerHTML;
+  }
+
+  slides[current].querySelector('.slide-inner').innerHTML = html;
+  if (editMode) activateEditOnSlides();
+
+  addVoxMessage('bot', 'previewing changes.',
+    [
+      { label: 'keep changes', onclick: `voxKeepPreview('${b64html}')`, primary: true },
+      { label: 'revert', onclick: 'voxRevertPreview()' }
+    ]
+  );
+}
+
+function voxKeepPreview(b64html) {
+  pushUndo();
+  voxPreviewState = null;
+  addVoxMessage('bot', 'changes kept.');
+}
+
+function voxRevertPreview() {
+  if (voxPreviewState) {
+    slides[current].querySelector('.slide-inner').innerHTML = voxPreviewState;
+    voxPreviewState = null;
+    if (editMode) activateEditOnSlides();
+    addVoxMessage('bot', 'reverted to original.');
+  }
+}
+
+function parseAndOfferActions(result, msgEl) {
+  const htmlMatch = result.match(/<slide-html>([\s\S]*?)<\/slide-html>/);
+  if (htmlMatch) {
+    const b64 = safeB64Encode(htmlMatch[1]);
+    const actionsDiv = document.createElement('div');
+    actionsDiv.className = 'vox-msg-actions';
+    actionsDiv.innerHTML = `
+      <button class="primary" onclick="voxApplySlideHTML('${b64}')">apply</button>
+      <button onclick="voxPreviewSlideHTML('${b64}')">preview</button>
+    `;
+    msgEl.appendChild(actionsDiv);
+  }
+}
+
 </script>
 </body>
 </html>

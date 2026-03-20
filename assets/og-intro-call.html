@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1200">
+<title>OG Cover — Intro Call</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body {
+  width: 1200px;
+  height: 630px;
+  overflow: hidden;
+  background: #161620;
+  color: #e6edf3;
+  font-family: 'IBM Plex Mono', monospace;
+}
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 60px 80px;
+  position: relative;
+}
+
+/* grid */
+body::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(77,201,212,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(77,201,212,0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+}
+
+/* mesh gradient */
+body::after {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse at 30% 40%, rgba(77,201,212,0.12) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 60%, rgba(59,130,246,0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 80%, rgba(56,217,169,0.05) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+/* vignette */
+.vignette {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.5) 100%);
+  pointer-events: none;
+}
+
+/* top accent line */
+.top-line {
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #4dc9d4, transparent);
+}
+
+/* corner brackets */
+.bracket-tl, .bracket-br {
+  position: absolute;
+  width: 40px; height: 40px;
+  border: 2px solid #4dc9d4;
+  opacity: 0.2;
+}
+.bracket-tl { top: 30px; left: 30px; border-right: none; border-bottom: none; }
+.bracket-br { bottom: 30px; right: 30px; border-left: none; border-top: none; }
+
+.content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.logo-main {
+  width: 64px;
+  height: 64px;
+  opacity: 0.7;
+  margin-bottom: 4px;
+}
+
+.label {
+  font-size: 13px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  color: rgba(255,255,255,0.4);
+}
+
+h1 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 48px;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.2;
+}
+
+h1 span {
+  color: #4dc9d4;
+}
+
+.subtitle {
+  font-size: 17px;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.6;
+  max-width: 650px;
+}
+
+.orgs {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 8px;
+}
+
+.org-name {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.7);
+  letter-spacing: 1px;
+}
+
+.org-x {
+  font-size: 14px;
+  color: #4dc9d4;
+  font-weight: 500;
+}
+
+.tag {
+  display: inline-block;
+  font-size: 12px;
+  padding: 4px 14px;
+  border-radius: 4px;
+  background: rgba(77,201,212,0.15);
+  color: #4dc9d4;
+  letter-spacing: 1px;
+  text-transform: lowercase;
+}
+</style>
+</head>
+<body>
+  <div class="top-line"></div>
+  <div class="vignette"></div>
+  <div class="bracket-tl"></div>
+  <div class="bracket-br"></div>
+
+  <div class="content">
+    <img class="logo-main" src="../logo.png" alt="AI Mindset">
+    <div class="label">// intro call</div>
+    <h1>AI-Native Organizations<br><span>Sprint</span></h1>
+    <div class="subtitle">8-week intensive program for building organizations where AI is a core team member</div>
+    <div class="orgs">
+      <span class="org-name">AI Mindset</span>
+      <span class="org-x">x</span>
+      <span class="org-name">CybOS</span>
+    </div>
+    <span class="tag">spring 2026</span>
+  </div>
+</body>
+</html>

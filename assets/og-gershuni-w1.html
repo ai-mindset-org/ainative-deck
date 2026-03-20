@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1200">
+<title>OG Cover — Gershuni W1</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body {
+  width: 1200px;
+  height: 630px;
+  overflow: hidden;
+  background: #161620;
+  color: #e6edf3;
+  font-family: 'IBM Plex Mono', monospace;
+}
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 60px 80px;
+  position: relative;
+}
+
+/* grid */
+body::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(77,201,212,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(77,201,212,0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+}
+
+/* mesh gradient */
+body::after {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(77,201,212,0.1) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(59,130,246,0.07) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 80%, rgba(56,217,169,0.05) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+/* vignette */
+.vignette {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.5) 100%);
+  pointer-events: none;
+}
+
+/* top accent line */
+.top-line {
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #4dc9d4, transparent);
+}
+
+/* corner brackets */
+.bracket-tl, .bracket-br {
+  position: absolute;
+  width: 40px; height: 40px;
+  border: 2px solid #4dc9d4;
+  opacity: 0.2;
+}
+.bracket-tl { top: 30px; left: 30px; border-right: none; border-bottom: none; }
+.bracket-br { bottom: 30px; right: 30px; border-left: none; border-top: none; }
+
+.content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.label {
+  font-size: 13px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  color: rgba(255,255,255,0.4);
+}
+
+h1 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 52px;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.15;
+  max-width: 800px;
+}
+
+.subtitle {
+  font-size: 18px;
+  color: rgba(255,255,255,0.55);
+  line-height: 1.6;
+  max-width: 700px;
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 12px;
+}
+
+.speaker {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.speaker-photo {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 2px solid rgba(77,201,212,0.3);
+  object-fit: cover;
+}
+
+.speaker-name {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.tag {
+  display: inline-block;
+  font-size: 12px;
+  padding: 4px 12px;
+  border-radius: 4px;
+  background: rgba(77,201,212,0.15);
+  color: #4dc9d4;
+  letter-spacing: 1px;
+  text-transform: lowercase;
+}
+
+.dot {
+  color: rgba(255,255,255,0.2);
+}
+
+.logo {
+  position: absolute;
+  bottom: 40px;
+  right: 60px;
+  width: 48px;
+  height: 48px;
+  opacity: 0.5;
+}
+
+.week-badge {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #4dc9d4;
+  border: 1px solid rgba(77,201,212,0.3);
+  padding: 4px 14px;
+  border-radius: 6px;
+  display: inline-block;
+  width: fit-content;
+}
+</style>
+</head>
+<body>
+  <div class="top-line"></div>
+  <div class="vignette"></div>
+  <div class="bracket-tl"></div>
+  <div class="bracket-br"></div>
+
+  <div class="content">
+    <div class="label">// lecture 1</div>
+    <h1>AI-native<br>organizations</h1>
+    <div class="subtitle">causes, process, and impact of agent-centric business transformation</div>
+    <div class="meta">
+      <div class="speaker">
+        <img class="speaker-photo" src="../speakers/stepan-gershuni.jpg" alt="Stepan Gershuni">
+        <span class="speaker-name">Stepan Gershuni</span>
+      </div>
+      <span class="dot">&middot;</span>
+      <span class="week-badge">week 1</span>
+      <span class="dot">&middot;</span>
+      <span class="tag">ai-native sprint</span>
+    </div>
+  </div>
+
+  <img class="logo" src="../logo.png" alt="AI Mindset">
+</body>
+</html>

@@ -303,32 +303,50 @@ body.presenter-mode #presenter-panel { display: block; }
   <div class="label">// geography &middot; 12 countries</div>
   <h2>География участников</h2>
   <svg viewBox="0 0 900 440" width="900" height="440" style="margin:0 auto;max-width:100%">
-    <!-- Simplified world map outline -->
     <rect width="900" height="440" fill="none"/>
-    <!-- Europe cluster -->
-    <circle cx="450" cy="140" r="5" fill="var(--teal)" opacity="0.9"/><text x="462" y="144" fill="var(--text-dim)" font-family="IBM Plex Mono" font-size="11">Germany</text>
-    <circle cx="430" cy="160" r="4" fill="var(--teal)" opacity="0.7"/><text x="442" y="164" fill="var(--text-dim)" font-family="IBM Plex Mono" font-size="11">Switzerland</text>
-    <circle cx="460" cy="120" r="3" fill="var(--blue)" opacity="0.7"/><text x="472" y="124" fill="var(--text-dim)" font-family="IBM Plex Mono" font-size="11">Netherlands</text>
-    <circle cx="475" cy="155" r="3" fill="var(--blue)" opacity="0.6"/><text x="487" y="159" fill="var(--text-dim)" font-family="IBM Plex Mono" font-size="11">Austria</text>
-    <circle cx="420" cy="130" r="4" fill="var(--teal)" opacity="0.7"/><text x="396" y="124" fill="var(--text-dim)" font-family="IBM Plex Mono" font-size="11" text-anchor="end">UK</text>
-    <circle cx="440" cy="175" r="3" fill="var(--green)" opacity="0.6"/><text x="452" y="179" fill="var(--text-dim)" font-family="IBM Plex Mono" font-size="11">Italy</text>
-    <!-- CIS cluster -->
-    <circle cx="560" cy="130" r="7" fill="var(--teal)" opacity="0.9"/><text x="572" y="134" fill="var(--teal)" font-family="IBM Plex Mono" font-size="12" font-weight="600">CIS &ndash; 48%</text>
-    <!-- US -->
-    <circle cx="180" cy="170" r="6" fill="var(--blue)" opacity="0.8"/><text x="192" y="174" fill="var(--text-dim)" font-family="IBM Plex Mono" font-size="11">USA</text>
-    <!-- Israel -->
-    <circle cx="520" cy="200" r="5" fill="var(--green)" opacity="0.8"/><text x="532" y="204" fill="var(--text-dim)" font-family="IBM Plex Mono" font-size="11">Israel</text>
-    <!-- UAE -->
-    <circle cx="580" cy="220" r="4" fill="var(--amber)" opacity="0.7"/><text x="592" y="224" fill="var(--text-dim)" font-family="IBM Plex Mono" font-size="11">UAE</text>
-    <!-- Asia -->
-    <circle cx="720" cy="180" r="3" fill="var(--cyan)" opacity="0.6"/><text x="732" y="184" fill="var(--text-dim)" font-family="IBM Plex Mono" font-size="11">Singapore</text>
-    <circle cx="700" cy="160" r="3" fill="var(--cyan)" opacity="0.5"/><text x="712" y="164" fill="var(--text-dim)" font-family="IBM Plex Mono" font-size="11">Thailand</text>
+    <!-- CIS cluster — 80 people, r=40 -->
+    <circle cx="560" cy="140" r="40" fill="var(--teal)" opacity="0.18"/>
+    <circle cx="560" cy="140" r="6" fill="var(--teal)" opacity="0.9"/>
+    <text x="560" y="100" text-anchor="middle" fill="var(--teal)" font-family="IBM Plex Mono" font-size="13" font-weight="600">CIS</text>
+    <text x="560" y="115" text-anchor="middle" fill="var(--teal)" font-family="IBM Plex Mono" font-size="11" opacity="0.8">80</text>
+    <!-- EU cluster — 46 people, r=30 -->
+    <circle cx="440" cy="150" r="30" fill="var(--blue)" opacity="0.14"/>
+    <circle cx="440" cy="150" r="5" fill="var(--blue)" opacity="0.9"/>
+    <text x="440" y="118" text-anchor="middle" fill="var(--blue)" font-family="IBM Plex Mono" font-size="13" font-weight="600">EU</text>
+    <text x="440" y="133" text-anchor="middle" fill="var(--blue)" font-family="IBM Plex Mono" font-size="11" opacity="0.8">46</text>
+    <!-- Israel — 15 people, r=18 -->
+    <circle cx="510" cy="220" r="18" fill="var(--green)" opacity="0.16"/>
+    <circle cx="510" cy="220" r="4" fill="var(--green)" opacity="0.9"/>
+    <text x="510" y="200" text-anchor="middle" fill="var(--green)" font-family="IBM Plex Mono" font-size="12" font-weight="600">Israel</text>
+    <text x="510" y="213" text-anchor="middle" fill="var(--green)" font-family="IBM Plex Mono" font-size="11" opacity="0.8">15</text>
+    <!-- USA — 12 people, r=16 -->
+    <circle cx="180" cy="170" r="16" fill="var(--cyan)" opacity="0.14"/>
+    <circle cx="180" cy="170" r="4" fill="var(--cyan)" opacity="0.9"/>
+    <text x="180" y="152" text-anchor="middle" fill="var(--cyan)" font-family="IBM Plex Mono" font-size="12" font-weight="600">USA</text>
+    <text x="180" y="165" text-anchor="middle" fill="var(--cyan)" font-family="IBM Plex Mono" font-size="11" opacity="0.8">12</text>
+    <!-- UAE/MENA — 8 people, r=14 -->
+    <circle cx="590" cy="240" r="14" fill="var(--amber)" opacity="0.16"/>
+    <circle cx="590" cy="240" r="3.5" fill="var(--amber)" opacity="0.9"/>
+    <text x="590" y="225" text-anchor="middle" fill="var(--amber)" font-family="IBM Plex Mono" font-size="12" font-weight="600">MENA</text>
+    <text x="590" y="238" text-anchor="middle" fill="var(--amber)" font-family="IBM Plex Mono" font-size="11" opacity="0.8">8</text>
+    <!-- Asia — 5 people, r=10 -->
+    <circle cx="720" cy="175" r="10" fill="var(--pink)" opacity="0.14"/>
+    <circle cx="720" cy="175" r="3" fill="var(--pink)" opacity="0.9"/>
+    <text x="720" y="162" text-anchor="middle" fill="var(--pink)" font-family="IBM Plex Mono" font-size="12" font-weight="600">Asia</text>
+    <text x="720" y="175" text-anchor="middle" fill="var(--pink)" font-family="IBM Plex Mono" font-size="11" opacity="0.8">5</text>
+    <!-- LATAM — 3 people, r=8 -->
+    <circle cx="250" cy="300" r="8" fill="var(--red)" opacity="0.14"/>
+    <circle cx="250" cy="300" r="2.5" fill="var(--red)" opacity="0.9"/>
+    <text x="250" y="288" text-anchor="middle" fill="var(--red)" font-family="IBM Plex Mono" font-size="12" font-weight="600">LATAM</text>
+    <text x="250" y="300" text-anchor="middle" fill="var(--red)" font-family="IBM Plex Mono" font-size="11" opacity="0.8">3</text>
     <!-- Connections -->
-    <line x1="560" y1="130" x2="450" y2="140" stroke="var(--teal)" stroke-width="0.5" opacity="0.15"/>
-    <line x1="560" y1="130" x2="520" y2="200" stroke="var(--teal)" stroke-width="0.5" opacity="0.15"/>
-    <line x1="450" y1="140" x2="180" y2="170" stroke="var(--blue)" stroke-width="0.5" opacity="0.1"/>
+    <line x1="560" y1="140" x2="440" y2="150" stroke="var(--teal)" stroke-width="0.5" opacity="0.15"/>
+    <line x1="560" y1="140" x2="510" y2="220" stroke="var(--teal)" stroke-width="0.5" opacity="0.12"/>
+    <line x1="440" y1="150" x2="180" y2="170" stroke="var(--blue)" stroke-width="0.5" opacity="0.1"/>
+    <line x1="440" y1="150" x2="510" y2="220" stroke="var(--green)" stroke-width="0.5" opacity="0.1"/>
+    <line x1="560" y1="140" x2="590" y2="240" stroke="var(--amber)" stroke-width="0.5" opacity="0.1"/>
     <!-- Legend -->
-    <text x="40" y="380" fill="var(--text-label)" font-family="IBM Plex Mono" font-size="11">CIS 48% &middot; EU 28% &middot; Israel 9% &middot; US 7% &middot; MENA 5% &middot; Asia 3%</text>
+    <text x="40" y="400" fill="var(--text-label)" font-family="IBM Plex Mono" font-size="11">CIS 80 &middot; EU 46 &middot; Israel 15 &middot; USA 12 &middot; MENA 8 &middot; Asia 5 &middot; LATAM 3 &middot; 169 total &middot; 12 countries</text>
   </svg>
 </div></div>
 
@@ -498,7 +516,7 @@ function imgActionImage(){document.getElementById('img-action-menu').classList.r
 function openAiModal(){document.getElementById('ai-modal').classList.add('visible');document.getElementById('ai-prompt').focus();document.querySelectorAll('#ai-modal-inner .ai-mode-tabs button').forEach(function(b){b.classList.toggle('active',b.dataset.mode===aiMode)});document.getElementById('ai-preview').classList.remove('visible');document.getElementById('ai-insert-btn').style.display='none';document.getElementById('ai-generate-btn').style.display='';document.getElementById('ai-status').textContent='';aiResult=null}
 function closeAiModal(){document.getElementById('ai-modal').classList.remove('visible')}
 function setAiMode(m){aiMode=m;document.querySelectorAll('#ai-modal-inner .ai-mode-tabs button').forEach(function(b){b.classList.toggle('active',b.dataset.mode===m)})}
-async function runAiGeneration(){var p=document.getElementById('ai-prompt').value.trim();if(!p)return;var st=document.getElementById('ai-status'),pr=document.getElementById('ai-preview'),gb=document.getElementById('ai-generate-btn'),ib=document.getElementById('ai-insert-btn');st.textContent='generating...';gb.style.display='none';try{var sp=aiMode==='svg'?'Generate minimal SVG for presentation. Dark bg #161620, accent #4dc9d4. 400x300 viewBox. Subject: '+p+'. Return ONLY SVG.':'Rich SVG illustration. Dark bg #161620, accent #4dc9d4/#3b82f6. viewBox="0 0 600 400". Subject: '+p+'. Return ONLY SVG.';var r=await fetch(OR_BASE+'/chat/completions',{method:'POST',headers:{'Authorization':'Bearer '+OR_KEY,'Content-Type':'application/json','HTTP-Referer':location.href},body:JSON.stringify({model:'anthropic/claude-sonnet-4-20250514',messages:[{role:'user',content:sp}],max_tokens:aiMode==='svg'?4000:6000})});if(!r.ok){st.textContent='API error '+r.status;gb.style.display='';return}var d=await r.json();if(d.error){st.textContent='Error';gb.style.display='';return}var c=(d.choices&&d.choices[0]&&d.choices[0].message?d.choices[0].message.content:'').replace(/```(?:xml|svg|html)?\n?/gi,'').replace(/```/g,'');var m=c.match(/<svg[\s\S]*?<\/svg>/i);if(m){aiResult={type:'svg',content:m[0]};pr.innerHTML=m[0];pr.classList.add('visible');st.textContent='done';ib.style.display=''}else{st.textContent='no SVG found';gb.style.display=''}}catch(e){st.textContent='error: '+e.message;gb.style.display=''}}
+async function runAiGeneration(){var p=document.getElementById('ai-prompt').value.trim();if(!p)return;var st=document.getElementById('ai-status'),pr=document.getElementById('ai-preview'),gb=document.getElementById('ai-generate-btn'),ib=document.getElementById('ai-insert-btn');st.textContent='generating...';gb.style.display='none';try{var resp=await fetch(OR_BASE+'/chat/completions',{method:'POST',headers:{'Authorization':'Bearer '+OR_KEY,'Content-Type':'application/json','HTTP-Referer':location.href},body:JSON.stringify({model:'anthropic/claude-sonnet-4-20250514',messages:[{role:'user',content:'Create a visually rich SVG illustration. Style: dark background #161620, primary accent #4dc9d4 (teal), secondary #3b82f6 (blue). Use gradients, subtle glow effects, rounded shapes. viewBox="0 0 600 400". Return ONLY the raw <svg>...</svg> code. No markdown, no code fences, no explanation, no text before or after the SVG tag. Subject: '+p}],max_tokens:6000})});if(!resp.ok){var errText=await resp.text();st.textContent='API error: '+resp.status+' \u2014 '+errText.substring(0,100);gb.style.display='';return}var data=await resp.json();if(data.error){st.textContent='API error: '+(data.error.message||JSON.stringify(data.error)).substring(0,100);gb.style.display='';return}var content=data.choices&&data.choices[0]&&data.choices[0].message?data.choices[0].message.content:'';if(Array.isArray(content)){content=content.map(function(c){return c.text||c.content||''}).join('')}content=content.replace(/```svg\s*/gi,'').replace(/```xml\s*/gi,'').replace(/```html\s*/gi,'').replace(/```\s*/g,'');var svgMatch=content.match(/<svg[\s\S]*<\/svg>/i);if(svgMatch){aiResult={type:'svg',content:svgMatch[0]};pr.innerHTML=svgMatch[0];pr.classList.add('visible');st.textContent='diagram generated';ib.style.display='';gb.style.display=''}else{console.warn('No SVG found. Response content:',content.substring(0,500));st.textContent='no SVG in response \u2014 try again or rephrase';gb.style.display=''}}catch(e){st.textContent='error: '+e.message;gb.style.display=''}}
 function insertAiResult(){if(!aiResult)return;pushUndo();var d=document.createElement('div');d.innerHTML=aiResult.content;d.style.maxWidth='100%';d.style.textAlign='center';if(activeImgPlaceholder)activeImgPlaceholder.replaceWith(d);else slides[current].querySelector('.slide-inner').appendChild(d);closeAiModal();activeImgPlaceholder=null;activateEditOnSlides()}
 var previewVisible=false;function togglePreview(){previewVisible=!previewVisible;document.getElementById('preview-panel').classList.toggle('visible',previewVisible);document.getElementById('preview-btn').classList.toggle('active',previewVisible);if(previewVisible)updatePreview()}
 function updatePreview(){if(!previewVisible)return;var n=current+1;var ps=document.getElementById('preview-scale');if(n>=total){ps.innerHTML='<div style="display:flex;align-items:center;justify-content:center;height:100%;color:var(--text-dim);font-size:120px">END</div>';return}var c=slides[n].cloneNode(true);c.classList.add('active');c.style.display='flex';c.querySelectorAll('.layout-bar').forEach(function(b){b.remove()});ps.innerHTML='';ps.appendChild(c)}

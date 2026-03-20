@@ -600,6 +600,10 @@ body.edit-mode #builder-toolbar { display: flex; }
   <img class="slide-logo" src="logo.png" alt="">
   <div class="slide-inner cover">
     <div class="label">// AI-NATIVE ORGANIZATIONS SPRINT</div>
+    <div style="display:flex;gap:24px;justify-content:center;margin-bottom:20px">
+      <img src="speakers/alexander-povaliaev.jpg" style="width:72px;height:72px;border-radius:50%;border:2px solid var(--border);object-fit:cover">
+      <img src="speakers/stepan-gershuni.jpg" style="width:72px;height:72px;border-radius:50%;border:2px solid var(--border);object-fit:cover">
+    </div>
     <h1>Intro Call<br><span class="teal">Audience & Format</span></h1>
     <p class="subtitle">Alexander Povaliaev &middot; Stepan Gershuni</p>
     <div class="meta">
@@ -913,8 +917,32 @@ body.edit-mode #builder-toolbar { display: flex; }
   </div>
 </div>
 
-<!-- ==================== SLIDE 13: INDUSTRIES ==================== -->
+<!-- ==================== SLIDE 13: SPEAKERS ==================== -->
 <div class="slide" id="s13">
+  <div class="slide-counter"><span class="current">13</span>/<span class="total"></span></div>
+  <img class="slide-logo" src="logo.png" alt="">
+  <div class="slide-inner">
+    <div class="label">// speakers</div>
+    <h2>12 спикеров</h2>
+    <div class="speaker-grid" style="grid-template-columns:repeat(6,1fr);gap:12px">
+      <div class="speaker-card"><img class="speaker-photo" src="speakers/stepan-gershuni.jpg" alt=""><div class="speaker-name">Stepan Gershuni</div><div class="speaker-role">CybOS // cyber.fund</div><div class="speaker-topic">3 лекции: why, architecture, strategy</div></div>
+      <div class="speaker-card"><img class="speaker-photo" src="speakers/alexander-povaliaev.jpg" alt=""><div class="speaker-name">Alexander Povaliaev</div><div class="speaker-role">AI Mindset</div><div class="speaker-topic">workshops, coworking</div></div>
+      <div class="speaker-card"><img class="speaker-photo" src="speakers/dima-khanarin.jpg" alt=""><div class="speaker-name">Dima Khanarin</div><div class="speaker-role">codos.ai</div><div class="speaker-topic">AI x operations</div></div>
+      <div class="speaker-card"><img class="speaker-photo" src="speakers/alex-amyotov.jpg" alt=""><div class="speaker-name">Alexey Amyotov</div><div class="speaker-role">Look At Media</div><div class="speaker-topic">AI x content</div></div>
+      <div class="speaker-card"><img class="speaker-photo" src="speakers/vitaly-kleban.jpg" alt=""><div class="speaker-name">Vitaly Kleban</div><div class="speaker-role">cyber.Fund</div><div class="speaker-topic">self-improving agents</div></div>
+      <div class="speaker-card"><img class="speaker-photo" src="speakers/valerii kovalskii.jpg" alt=""><div class="speaker-name">Valerii Kovalskii</div><div class="speaker-role">Red Mad Robot</div><div class="speaker-topic">AI-driven dev</div></div>
+      <div class="speaker-card"><img class="speaker-photo" src="speakers/daniel-kravtsov.jpeg" alt=""><div class="speaker-name">Daniel Kravtsov</div><div class="speaker-role">Improvado</div><div class="speaker-topic">AI x data</div></div>
+      <div class="speaker-card"><img class="speaker-photo" src="speakers/bayram-annakov.jpg" alt=""><div class="speaker-name">Bayram Annakov</div><div class="speaker-role">onsa.ai</div><div class="speaker-topic">AI x sales</div></div>
+      <div class="speaker-card"><img class="speaker-photo" src="speakers/roma-buzko.jpg" alt=""><div class="speaker-name">Roma Buzko</div><div class="speaker-role">Buzko Krasnov</div><div class="speaker-topic">AI x law</div></div>
+      <div class="speaker-card"><img class="speaker-photo" src="speakers/seva-ustinov.jpg" alt=""><div class="speaker-name">Seva Ustinov</div><div class="speaker-role">Plurio AI</div><div class="speaker-topic">AI x marketing</div></div>
+      <div class="speaker-card"><img class="speaker-photo" src="speakers/vitya-tarnavskii.jpg" alt=""><div class="speaker-name">Vitya Tarnavskii</div><div class="speaker-role">T-Bank</div><div class="speaker-topic">AI in corporations</div></div>
+      <div class="speaker-card"><img class="speaker-photo" src="speakers/eugene-rid.jpg" alt=""><div class="speaker-name">Eugene Rid</div><div class="speaker-role">Rid. Investments</div><div class="speaker-topic">AI x investments</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 14: INDUSTRIES ==================== -->
+<div class="slide" id="s14">
   <div class="slide-counter"><span class="current">13</span>/<span class="total"></span></div>
   <img class="slide-logo" src="logo.png" alt="">
   <div class="slide-inner">
@@ -937,8 +965,8 @@ body.edit-mode #builder-toolbar { display: flex; }
   </div>
 </div>
 
-<!-- ==================== SLIDE 14: MORE QUOTES ==================== -->
-<div class="slide" id="s14">
+<!-- ==================== SLIDE 15: MORE QUOTES ==================== -->
+<div class="slide" id="s15">
   <div class="slide-counter"><span class="current">14</span>/<span class="total"></span></div>
   <img class="slide-logo" src="logo.png" alt="">
   <div class="slide-inner">
@@ -950,8 +978,8 @@ body.edit-mode #builder-toolbar { display: flex; }
   </div>
 </div>
 
-<!-- ==================== SLIDE 15: TAKEAWAYS ==================== -->
-<div class="slide" id="s15">
+<!-- ==================== SLIDE 16: TAKEAWAYS ==================== -->
+<div class="slide" id="s16">
   <div class="slide-counter"><span class="current">15</span>/<span class="total"></span></div>
   <img class="slide-logo" src="logo.png" alt="">
   <div class="slide-inner cover">
@@ -1728,7 +1756,9 @@ async function runAiGeneration() {
       });
       const data = await resp.json();
       const content = data.choices?.[0]?.message?.content || '';
-      const svgMatch = content.match(/<svg[\s\S]*?<\/svg>/i);
+      // Strip markdown code blocks before regex
+      const cleaned = content.replace(/```(?:xml|svg|html)?\n?/gi, '').replace(/```/g, '');
+      const svgMatch = cleaned.match(/<svg[\s\S]*?<\/svg>/i);
       if (svgMatch) {
         aiResult = { type: 'svg', content: svgMatch[0] };
         previewEl.innerHTML = svgMatch[0];
@@ -1736,7 +1766,7 @@ async function runAiGeneration() {
         statusEl.textContent = 'SVG generated';
         insertBtn.style.display = '';
       } else {
-        statusEl.textContent = 'no SVG found in response';
+        statusEl.textContent = 'no SVG found — raw: ' + content.substring(0, 120);
         generateBtn.style.display = '';
       }
     } else {

@@ -3895,8 +3895,8 @@ async function runAiGeneration() {
         generateBtn.style.display = '';
       }
     } else {
-      // Image generation via OpenRouter image models
-      const resp = await fetch(OR_BASE + '/images/generations', {
+      // Illustration mode — generate detailed SVG via Claude chat/completions
+      const resp = await fetch(OR_BASE + '/chat/completions', {
         method: 'POST',
         headers: {
           'Authorization': 'Bearer ' + OR_KEY,
@@ -3904,45 +3904,43 @@ async function runAiGeneration() {
           'HTTP-Referer': location.href
         },
         body: JSON.stringify({
-          model: 'google/imagen-4',
-          prompt: `Clean, minimal illustration for a dark-themed presentation slide. Style: dark background #161620, teal accent #4dc9d4, blue accent #3b82f6. Modern, geometric, professional. Subject: ${prompt}`,
-          n: 1,
-          size: '1024x1024',
-          response_format: 'b64_json'
+          model: 'anthropic/claude-sonnet-4-20250514',
+          messages: [{
+            role: 'user',
+            content: `Create a detailed, visually rich SVG illustration. Dark background #161620, teal accent #4dc9d4, blue #3b82f6. Use: radial gradients, linear gradients, glow effects (feGaussianBlur), rounded shapes, layered composition, subtle opacity variations. Make it look like a polished infographic. viewBox="0 0 800 500". Return ONLY the <svg>...</svg> code. No markdown fences. Subject: ${prompt}`
+          }],
+          max_tokens: 8000
         })
       });
       if (!resp.ok) {
         const errBody = await resp.text();
-        statusEl.textContent = 'Image API error ' + resp.status + ': ' + (errBody.slice(0, 120));
-        // Fallback to SVG
-        aiMode = 'svg';
-        return runAiGeneration();
+        statusEl.textContent = 'API error ' + resp.status + ': ' + (errBody.slice(0, 120));
+        generateBtn.style.display = '';
+        return;
       }
       const data = await resp.json();
       if (data.error) {
-        statusEl.textContent = 'Image API error: ' + (data.error.message || JSON.stringify(data.error).slice(0, 120));
-        aiMode = 'svg';
-        return runAiGeneration();
+        statusEl.textContent = 'API error: ' + (data.error.message || JSON.stringify(data.error).slice(0, 120));
+        generateBtn.style.display = '';
+        return;
       }
-      if (data.data?.[0]?.b64_json) {
-        const b64 = data.data[0].b64_json;
-        const dataUrl = 'data:image/png;base64,' + b64;
-        aiResult = { type: 'image', content: dataUrl };
-        previewEl.innerHTML = `<img src="${dataUrl}" style="max-width:100%;border-radius:8px">`;
+      let content = data.choices?.[0]?.message?.content || '';
+      if (Array.isArray(content)) {
+        content = content.map(b => (typeof b === 'string') ? b : (b.text || '')).join('');
+      }
+      content = content.replace(/```(?:svg|xml|html)?\s*/gi, '').replace(/```/g, '');
+      const svgMatch = content.match(/<svg[\s\S]*<\/svg>/i);
+      if (svgMatch) {
+        aiResult = { type: 'svg', content: svgMatch[0] };
+        previewEl.innerHTML = svgMatch[0];
         previewEl.classList.add('visible');
-        statusEl.textContent = 'image generated';
+        statusEl.textContent = 'illustration generated';
         insertBtn.style.display = '';
-      } else if (data.data?.[0]?.url) {
-        aiResult = { type: 'image', content: data.data[0].url };
-        previewEl.innerHTML = `<img src="${data.data[0].url}" style="max-width:100%;border-radius:8px">`;
-        previewEl.classList.add('visible');
-        statusEl.textContent = 'image generated';
-        insertBtn.style.display = '';
+        generateBtn.style.display = '';
       } else {
-        // Fallback to SVG via Claude
-        statusEl.textContent = 'image API unavailable, trying SVG fallback...';
-        aiMode = 'svg';
-        return runAiGeneration();
+        console.warn('[AI] No SVG found in illustration response:', content.substring(0, 500));
+        statusEl.textContent = 'no SVG in response — try again or rephrase';
+        generateBtn.style.display = '';
       }
     }
   } catch (e) {

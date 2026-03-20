@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1200">
+<title>OG Cover — AI-Native Deck</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body {
+  width: 1200px;
+  height: 630px;
+  overflow: hidden;
+  background: #161620;
+  color: #e6edf3;
+  font-family: 'IBM Plex Mono', monospace;
+}
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 60px 80px;
+  position: relative;
+}
+
+/* grid */
+body::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(77,201,212,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(77,201,212,0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+}
+
+/* mesh gradient */
+body::after {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse at 25% 35%, rgba(77,201,212,0.12) 0%, transparent 45%),
+    radial-gradient(ellipse at 75% 65%, rgba(59,130,246,0.08) 0%, transparent 45%),
+    radial-gradient(ellipse at 50% 90%, rgba(56,217,169,0.06) 0%, transparent 40%);
+  pointer-events: none;
+}
+
+/* vignette */
+.vignette {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.5) 100%);
+  pointer-events: none;
+}
+
+/* top accent line */
+.top-line {
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #4dc9d4, transparent);
+}
+
+/* corner brackets */
+.bracket-tl, .bracket-br {
+  position: absolute;
+  width: 40px; height: 40px;
+  border: 2px solid #4dc9d4;
+  opacity: 0.2;
+}
+.bracket-tl { top: 30px; left: 30px; border-right: none; border-bottom: none; }
+.bracket-br { bottom: 30px; right: 30px; border-left: none; border-top: none; }
+
+.content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.logo-main {
+  width: 72px;
+  height: 72px;
+  opacity: 0.8;
+}
+
+h1 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 54px;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.15;
+}
+
+h1 span {
+  color: #4dc9d4;
+}
+
+.subtitle {
+  font-size: 17px;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.6;
+  max-width: 600px;
+}
+
+.terminal-bar {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-top: 16px;
+  padding: 12px 28px;
+  background: rgba(20,20,25,0.8);
+  border: 1px solid rgba(77,201,212,0.15);
+  border-radius: 8px;
+}
+
+.terminal-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: rgba(255,255,255,0.5);
+}
+
+.terminal-item .num {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: #4dc9d4;
+}
+
+.terminal-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(77,201,212,0.3);
+}
+
+.tag {
+  display: inline-block;
+  font-size: 12px;
+  padding: 4px 14px;
+  border-radius: 4px;
+  background: rgba(77,201,212,0.15);
+  color: #4dc9d4;
+  letter-spacing: 1px;
+  text-transform: lowercase;
+}
+
+.footer-label {
+  position: absolute;
+  bottom: 40px;
+  font-size: 11px;
+  color: rgba(255,255,255,0.25);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+</style>
+</head>
+<body>
+  <div class="top-line"></div>
+  <div class="vignette"></div>
+  <div class="bracket-tl"></div>
+  <div class="bracket-br"></div>
+
+  <div class="content">
+    <img class="logo-main" src="../logo.png" alt="AI Mindset">
+    <h1>AI-Native<br><span>Deck</span></h1>
+    <div class="subtitle">presentations, lectures, and materials for the AI-Native Organizations Sprint</div>
+    <div class="terminal-bar">
+      <div class="terminal-item">
+        <span class="num">12</span>
+        <span>speakers</span>
+      </div>
+      <div class="terminal-dot"></div>
+      <div class="terminal-item">
+        <span class="num">8</span>
+        <span>weeks</span>
+      </div>
+      <div class="terminal-dot"></div>
+      <div class="terminal-item">
+        <span class="num">1</span>
+        <span>sprint</span>
+      </div>
+    </div>
+    <span class="tag">ai mindset x cybos</span>
+  </div>
+
+  <div class="footer-label">ai-mindset-org.github.io/ainative-deck</div>
+</body>
+</html>

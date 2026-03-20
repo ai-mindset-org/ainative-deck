@@ -4,9 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Лекция 1 — AI-native организации | Степан Гершуни</title>
-<meta property="og:title" content="AI-native организации — Лекция 1">
+<meta property="og:title" content="AI-native организации — Лекция 1 — Степан Гершуни">
 <meta property="og:description" content="Причины, процесс и эффект агентоцентричной трансформации бизнеса">
 <meta property="og:type" content="website">
+<meta property="og:image" content="https://ai-mindset-org.github.io/ainative-deck/assets/og-gershuni-w1.png">
+<meta property="og:url" content="https://ai-mindset-org.github.io/ainative-deck/decks/gershuni-w1/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://ai-mindset-org.github.io/ainative-deck/assets/og-gershuni-w1.png">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -3243,6 +3247,7 @@ function showSlide(n) {
   history.replaceState(null, '', '#s' + (current + 1));
   deselectBlock();
   updatePreview();
+  if (typeof voxOpen !== 'undefined' && voxOpen) updateVoxContext();
 }
 
 // ===== KEYBOARD =====
@@ -4131,6 +4136,9 @@ async function saveToGitHub() {
 function buildCleanHTML() {
   const clone = document.documentElement.cloneNode(true);
   clone.querySelector('body').classList.remove('edit-mode');
+  clone.querySelector('body').classList.remove('vox-open');
+  clone.querySelector('#vox-panel')?.remove();
+  clone.querySelector('#vox-trigger')?.remove();
   clone.querySelectorAll('.layout-bar').forEach(b => b.remove());
   clone.querySelectorAll('[contenteditable]').forEach(el => el.removeAttribute('contenteditable'));
   clone.querySelectorAll('[draggable]').forEach(el => el.removeAttribute('draggable'));

@@ -113,15 +113,15 @@ body::before {
 }
 
 /* === TYPOGRAPHY === */
-h1 { font-family: var(--font-heading); font-size: 50px; font-weight: 700; margin-bottom: 16px; line-height: 1.15; color: #fff; }
-h2 { font-family: var(--font-heading); font-size: 36px; font-weight: 600; margin-bottom: 20px; line-height: 1.25; color: #fff; }
+h1 { font-family: var(--font-heading); font-size: 56px; font-weight: 700; margin-bottom: 16px; line-height: 1.15; color: #fff; }
+h2 { font-family: var(--font-heading); font-size: 40px; font-weight: 600; margin-bottom: 20px; line-height: 1.25; color: #fff; }
 h3 { font-family: var(--font-body); font-size: 22px; font-weight: 500; color: var(--text-dim); margin-bottom: 12px; }
 p, li { font-size: 18px; line-height: 1.7; color: rgba(255,255,255,0.8); }
 
 .label {
   font-family: var(--font-body); font-size: 13px; font-weight: 500;
   text-transform: uppercase; letter-spacing: 3px;
-  color: var(--text-label); margin-bottom: 16px;
+  color: rgba(255,255,255,0.5); margin-bottom: 16px;
 }
 .teal { color: var(--teal); } .green { color: var(--green); } .blue { color: var(--blue); }
 .amber { color: var(--amber); } .red { color: var(--red); } .cyan { color: var(--cyan); }
@@ -129,7 +129,7 @@ p, li { font-size: 18px; line-height: 1.7; color: rgba(255,255,255,0.8); }
 
 /* === COVER === */
 .cover { align-items: center; text-align: center; }
-.cover h1 { font-size: 56px; margin-bottom: 12px; }
+.cover h1 { font-size: 56px; margin-bottom: 14px; }
 .subtitle { font-size: 20px; color: var(--text-dim); margin-bottom: 24px; }
 .meta { display: flex; gap: 12px; align-items: center; justify-content: center; margin-top: 8px; }
 .meta .dot { color: var(--text-dim); opacity: 0.3; }
@@ -169,7 +169,7 @@ p, li { font-size: 18px; line-height: 1.7; color: rgba(255,255,255,0.8); }
   transition: border-color 0.3s;
 }
 .stat-box:hover { border-color: var(--border-hover); }
-.stat-box .num { font-family: var(--font-heading); font-size: 48px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.stat-box .num { font-family: var(--font-heading); font-size: 52px; font-weight: 700; font-variant-numeric: tabular-nums; }
 .stat-box .stat-label { font-size: 13px; color: var(--text-label); margin-top: 8px; text-transform: lowercase; line-height: 1.4; }
 
 /* === LAYERS === */
@@ -569,6 +569,84 @@ body.edit-mode #builder-toolbar { display: flex; }
 }
 #img-action-menu button:hover { background: var(--teal-dim); color: var(--teal); }
 
+/* === CONSTELLATION ANIMATION === */
+@keyframes pulse { 0%,100% { opacity: 0.3; r: 3; } 50% { opacity: 0.8; r: 5; } }
+@keyframes pulseSlow { 0%,100% { opacity: 0.2; r: 2; } 50% { opacity: 0.6; r: 3.5; } }
+@keyframes drift { 0% { transform: translateY(0); } 50% { transform: translateY(-8px); } 100% { transform: translateY(0); } }
+.constellation-node { animation: pulse 4s ease-in-out infinite; }
+.constellation-node:nth-child(odd) { animation: pulseSlow 5s ease-in-out infinite; }
+.constellation-node:nth-child(3n) { animation-delay: 1.5s; }
+.constellation-node:nth-child(5n) { animation-delay: 2.5s; }
+
+/* === STAT BOX GLOW === */
+.stat-box { position: relative; overflow: hidden; }
+.stat-box::before {
+  content: '';
+  position: absolute; inset: -20%;
+  background: radial-gradient(circle, var(--teal-dim) 0%, transparent 70%);
+  opacity: 0; transition: opacity 0.4s;
+  pointer-events: none;
+}
+.stat-box:hover::before { opacity: 1; }
+
+/* === QUOTE ENHANCED === */
+.quote-enhanced {
+  position: relative;
+  border-left: 3px solid var(--teal);
+  padding: 24px 32px; margin: 20px 0;
+  background: rgba(77,201,212,0.04);
+  border-radius: 0 12px 12px 0;
+  box-shadow: -3px 0 20px rgba(77,201,212,0.08);
+}
+.quote-enhanced p { font-size: 19px; font-style: italic; color: rgba(255,255,255,0.88); line-height: 1.7; }
+.quote-enhanced .author { font-size: 14px; color: var(--teal); margin-top: 12px; font-style: normal; font-weight: 500; }
+.quote-enhanced .author span { color: var(--text-dim); font-weight: 400; }
+
+/* === WEEK CARD === */
+.week-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 14px; padding: 20px 24px; margin-bottom: 12px;
+  transition: all 0.3s;
+}
+.week-card:hover { border-color: var(--border-hover); box-shadow: 0 0 24px var(--teal-dim); }
+.week-header {
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 12px; padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+.week-num {
+  font-family: var(--font-heading); font-size: 14px; font-weight: 700;
+  padding: 4px 12px; border-radius: 6px;
+  text-transform: uppercase; letter-spacing: 1px;
+}
+.week-title { font-family: var(--font-heading); font-size: 16px; font-weight: 600; color: #fff; }
+.week-dates { font-size: 12px; color: var(--text-dim); margin-left: auto; }
+.week-row {
+  display: flex; align-items: center; gap: 10px;
+  padding: 6px 0; font-size: 14px;
+}
+.week-row-time { font-size: 12px; color: var(--text-dim); min-width: 70px; font-variant-numeric: tabular-nums; }
+.week-row-title { flex: 1; color: rgba(255,255,255,0.85); }
+.week-row-dur { font-size: 11px; padding: 2px 8px; border-radius: 4px; background: var(--bg-terminal); color: var(--text-dim); }
+
+/* === CURATOR GRID === */
+.curator-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 16px; }
+.curator-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 10px; padding: 14px; text-align: center;
+  transition: all 0.3s; position: relative; overflow: hidden;
+}
+.curator-card:hover { border-color: var(--border-hover); box-shadow: 0 0 20px var(--teal-dim); }
+.curator-card.lead { border-color: var(--teal); background: rgba(77,201,212,0.06); }
+.curator-num { font-family: var(--font-heading); font-size: 11px; color: var(--text-label); position: absolute; top: 8px; left: 10px; }
+.curator-name { font-family: var(--font-heading); font-size: 14px; font-weight: 600; color: #fff; margin-bottom: 4px; }
+.curator-desc { font-size: 11px; color: var(--text-dim); line-height: 1.4; }
+.curator-tg { font-size: 10px; color: var(--teal); margin-top: 6px; opacity: 0.7; }
+
+/* === GLOWING PYRAMID === */
+.glow-pyramid polygon { filter: drop-shadow(0 0 12px rgba(77,201,212,0.15)); }
+.glow-pyramid line { filter: drop-shadow(0 0 6px rgba(77,201,212,0.1)); }
+
 /* === RESPONSIVE === */
 @media (max-width: 768px) {
   .slide { padding: 40px 24px 60px; }
@@ -579,6 +657,7 @@ body.edit-mode #builder-toolbar { display: flex; }
   .split { grid-template-columns: 1fr; gap: 20px; }
   .stat-grid { grid-template-columns: 1fr; }
   .speaker-grid { grid-template-columns: repeat(2, 1fr); }
+  .curator-grid { grid-template-columns: repeat(2, 1fr); }
   .nav-hint { display: none; }
   #builder-toolbar { flex-wrap: wrap; max-width: 90vw; }
   #preview-panel { display: none !important; }
@@ -599,33 +678,67 @@ body.edit-mode #builder-toolbar { display: flex; }
   <div class="slide-counter"><span class="current">1</span>/<span class="total"></span></div>
   <img class="slide-logo" src="logo.png" alt="">
   <div class="slide-inner cover">
-    <div class="label">// AI-NATIVE ORGANIZATIONS SPRINT</div>
-    <div style="display:flex;gap:24px;justify-content:center;margin-bottom:20px">
-      <img src="speakers/alexander-povaliaev.jpg" style="width:72px;height:72px;border-radius:50%;border:2px solid var(--border);object-fit:cover">
-      <img src="speakers/stepan-gershuni.jpg" style="width:72px;height:72px;border-radius:50%;border:2px solid var(--border);object-fit:cover">
+    <div class="label" style="letter-spacing:4px;font-size:11px;margin-bottom:24px">// AI MINDSET &times; CybOS</div>
+    <div style="display:flex;gap:24px;justify-content:center;margin-bottom:24px;align-items:center">
+      <div style="position:relative">
+        <img src="speakers/alexander-povaliaev.jpg" style="width:80px;height:80px;border-radius:50%;border:2px solid var(--teal);object-fit:cover;position:relative;z-index:2">
+        <div style="position:absolute;inset:-4px;border-radius:50%;border:1px solid var(--teal-glow);animation:pulse 3s ease-in-out infinite"></div>
+      </div>
+      <div style="position:relative">
+        <img src="speakers/stepan-gershuni.jpg" style="width:80px;height:80px;border-radius:50%;border:2px solid var(--blue);object-fit:cover;position:relative;z-index:2">
+        <div style="position:absolute;inset:-4px;border-radius:50%;border:1px solid rgba(59,130,246,0.3);animation:pulseSlow 4s ease-in-out infinite"></div>
+      </div>
     </div>
-    <h1>Intro Call<br><span class="teal">Audience & Format</span></h1>
-    <p class="subtitle">Alexander Povaliaev &middot; Stepan Gershuni</p>
+    <h1 style="font-size:56px">Intro Call<br><span class="teal">Audience & Format</span></h1>
+    <p class="subtitle" style="font-size:20px;margin-bottom:8px">Alexander Povaliaev &middot; Stepan Gershuni</p>
+    <p style="font-size:14px;color:var(--text-label);margin-bottom:20px;letter-spacing:1px">AI-NATIVE ORGANIZATIONS SPRINT</p>
     <div class="meta">
       <span class="tag">sprint s2</span>
       <span class="dot">&middot;</span>
       <span class="tag">23 mar – 13 apr 2026</span>
       <span class="dot">&middot;</span>
-      <span class="tag">38 участников · 5 кураторов</span>
+      <span class="tag">38 участников &middot; 12 кураторов</span>
     </div>
-    <!-- SVG decoration: constellation -->
-    <svg style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:5;opacity:0.12" viewBox="0 0 1920 1080">
-      <circle cx="200" cy="200" r="3" fill="#4dc9d4"/><circle cx="400" cy="150" r="2" fill="#4dc9d4"/>
-      <circle cx="350" cy="350" r="2.5" fill="#3b82f6"/><circle cx="550" cy="250" r="2" fill="#4dc9d4"/>
-      <line x1="200" y1="200" x2="400" y2="150" stroke="#4dc9d4" stroke-width="0.5" opacity="0.4"/>
-      <line x1="400" y1="150" x2="550" y2="250" stroke="#4dc9d4" stroke-width="0.5" opacity="0.3"/>
-      <line x1="350" y1="350" x2="550" y2="250" stroke="#3b82f6" stroke-width="0.5" opacity="0.3"/>
-      <line x1="200" y1="200" x2="350" y2="350" stroke="#3b82f6" stroke-width="0.5" opacity="0.2"/>
-      <circle cx="1500" cy="800" r="3" fill="#4dc9d4"/><circle cx="1700" cy="750" r="2" fill="#38d9a9"/>
-      <circle cx="1600" cy="900" r="2.5" fill="#3b82f6"/><circle cx="1400" cy="850" r="2" fill="#4dc9d4"/>
-      <line x1="1500" y1="800" x2="1700" y2="750" stroke="#4dc9d4" stroke-width="0.5" opacity="0.4"/>
-      <line x1="1700" y1="750" x2="1600" y2="900" stroke="#38d9a9" stroke-width="0.5" opacity="0.3"/>
-      <line x1="1400" y1="850" x2="1500" y2="800" stroke="#4dc9d4" stroke-width="0.5" opacity="0.3"/>
+    <!-- SVG decoration: animated constellation network -->
+    <svg style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:5;opacity:0.15" viewBox="0 0 1920 1080">
+      <!-- Top-left cluster -->
+      <circle class="constellation-node" cx="120" cy="140" r="3" fill="#4dc9d4"/>
+      <circle class="constellation-node" cx="280" cy="100" r="2.5" fill="#4dc9d4"/>
+      <circle class="constellation-node" cx="200" cy="240" r="2" fill="#3b82f6"/>
+      <circle class="constellation-node" cx="380" cy="180" r="3" fill="#38d9a9"/>
+      <circle class="constellation-node" cx="100" cy="320" r="2" fill="#4dc9d4"/>
+      <circle class="constellation-node" cx="320" cy="300" r="2.5" fill="#3b82f6"/>
+      <line x1="120" y1="140" x2="280" y2="100" stroke="#4dc9d4" stroke-width="0.6" opacity="0.35"/>
+      <line x1="280" y1="100" x2="380" y2="180" stroke="#4dc9d4" stroke-width="0.5" opacity="0.25"/>
+      <line x1="120" y1="140" x2="200" y2="240" stroke="#3b82f6" stroke-width="0.5" opacity="0.25"/>
+      <line x1="200" y1="240" x2="320" y2="300" stroke="#3b82f6" stroke-width="0.4" opacity="0.2"/>
+      <line x1="100" y1="320" x2="200" y2="240" stroke="#4dc9d4" stroke-width="0.4" opacity="0.2"/>
+      <line x1="380" y1="180" x2="320" y2="300" stroke="#38d9a9" stroke-width="0.4" opacity="0.2"/>
+      <!-- Top-right cluster -->
+      <circle class="constellation-node" cx="1600" cy="120" r="2.5" fill="#4dc9d4"/>
+      <circle class="constellation-node" cx="1750" cy="180" r="3" fill="#38d9a9"/>
+      <circle class="constellation-node" cx="1680" cy="280" r="2" fill="#3b82f6"/>
+      <circle class="constellation-node" cx="1820" cy="100" r="2" fill="#4dc9d4"/>
+      <line x1="1600" y1="120" x2="1750" y2="180" stroke="#4dc9d4" stroke-width="0.5" opacity="0.3"/>
+      <line x1="1750" y1="180" x2="1680" y2="280" stroke="#38d9a9" stroke-width="0.5" opacity="0.25"/>
+      <line x1="1820" y1="100" x2="1750" y2="180" stroke="#4dc9d4" stroke-width="0.4" opacity="0.2"/>
+      <!-- Bottom-left cluster -->
+      <circle class="constellation-node" cx="150" cy="800" r="2" fill="#3b82f6"/>
+      <circle class="constellation-node" cx="300" cy="850" r="2.5" fill="#4dc9d4"/>
+      <circle class="constellation-node" cx="220" cy="950" r="2" fill="#38d9a9"/>
+      <line x1="150" y1="800" x2="300" y2="850" stroke="#3b82f6" stroke-width="0.5" opacity="0.25"/>
+      <line x1="300" y1="850" x2="220" y2="950" stroke="#4dc9d4" stroke-width="0.4" opacity="0.2"/>
+      <!-- Bottom-right cluster -->
+      <circle class="constellation-node" cx="1550" cy="780" r="3" fill="#4dc9d4"/>
+      <circle class="constellation-node" cx="1720" cy="830" r="2.5" fill="#38d9a9"/>
+      <circle class="constellation-node" cx="1650" cy="920" r="2" fill="#3b82f6"/>
+      <circle class="constellation-node" cx="1800" cy="900" r="2.5" fill="#4dc9d4"/>
+      <circle class="constellation-node" cx="1500" cy="900" r="2" fill="#3b82f6"/>
+      <line x1="1550" y1="780" x2="1720" y2="830" stroke="#4dc9d4" stroke-width="0.6" opacity="0.3"/>
+      <line x1="1720" y1="830" x2="1800" y2="900" stroke="#38d9a9" stroke-width="0.5" opacity="0.25"/>
+      <line x1="1720" y1="830" x2="1650" y2="920" stroke="#3b82f6" stroke-width="0.4" opacity="0.2"/>
+      <line x1="1500" y1="900" x2="1550" y2="780" stroke="#3b82f6" stroke-width="0.4" opacity="0.2"/>
+      <line x1="1500" y1="900" x2="1650" y2="920" stroke="#4dc9d4" stroke-width="0.4" opacity="0.15"/>
     </svg>
   </div>
 </div>
@@ -638,15 +751,15 @@ body.edit-mode #builder-toolbar { display: flex; }
     <div class="label">// overview</div>
     <h2>Sprint в цифрах</h2>
     <div class="stat-grid">
-      <div class="stat-box"><div class="num teal">38</div><div class="stat-label">участников</div></div>
-      <div class="stat-box"><div class="num green">5</div><div class="stat-label">кураторов</div></div>
-      <div class="stat-box"><div class="num blue">12</div><div class="stat-label">спикеров</div></div>
-      <div class="stat-box"><div class="num teal">15</div><div class="stat-label">сессий</div></div>
-      <div class="stat-box"><div class="num green">2000+</div><div class="stat-label">людей в командах</div></div>
-      <div class="stat-box"><div class="num amber">~30</div><div class="stat-label">медиана команды</div></div>
-      <div class="stat-box"><div class="num blue">5</div><div class="stat-label">из POS Sprint</div></div>
-      <div class="stat-box"><div class="num red">85%</div><div class="stat-label">одна боль: personal→team</div></div>
-      <div class="stat-box"><div class="num cyan">16+</div><div class="stat-label">индустрий</div></div>
+      <div class="stat-box"><div class="num teal" style="font-size:52px">38</div><div class="stat-label">участников</div></div>
+      <div class="stat-box"><div class="num green" style="font-size:52px">12</div><div class="stat-label">кураторов</div></div>
+      <div class="stat-box"><div class="num blue" style="font-size:52px">11</div><div class="stat-label">спикеров</div></div>
+      <div class="stat-box"><div class="num teal" style="font-size:52px">15</div><div class="stat-label">сессий</div></div>
+      <div class="stat-box"><div class="num green" style="font-size:52px">2000+</div><div class="stat-label">людей в командах</div></div>
+      <div class="stat-box"><div class="num amber" style="font-size:52px">~30</div><div class="stat-label">медиана команды</div></div>
+      <div class="stat-box"><div class="num blue" style="font-size:52px">5</div><div class="stat-label">из POS Sprint</div></div>
+      <div class="stat-box"><div class="num red" style="font-size:52px">85%</div><div class="stat-label">одна боль: personal&rarr;team</div></div>
+      <div class="stat-box"><div class="num cyan" style="font-size:52px">16+</div><div class="stat-label">индустрий</div></div>
     </div>
   </div>
 </div>
@@ -739,11 +852,25 @@ body.edit-mode #builder-toolbar { display: flex; }
   <div class="slide-inner">
     <div class="label">// pain points</div>
     <h2>Главные боли</h2>
-    <!-- SVG pain pyramid -->
-    <svg viewBox="0 0 600 320" width="100%" height="280" style="margin:16px 0">
-      <polygon points="300,10 540,300 60,300" fill="none" stroke="rgba(77,201,212,0.15)" stroke-width="1"/>
-      <line x1="140" y1="180" x2="460" y2="180" stroke="rgba(77,201,212,0.1)" stroke-width="1"/>
-      <line x1="200" y1="240" x2="400" y2="240" stroke="rgba(77,201,212,0.1)" stroke-width="1"/>
+    <!-- SVG pain pyramid with glow -->
+    <svg class="glow-pyramid" viewBox="0 0 600 320" width="100%" height="280" style="margin:16px 0">
+      <defs>
+        <filter id="pyramidGlow">
+          <feGaussianBlur stdDeviation="4" result="blur"/>
+          <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+        </filter>
+        <linearGradient id="pyramidEdge" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#ff6b6b" stop-opacity="0.4"/>
+          <stop offset="50%" stop-color="#4dc9d4" stop-opacity="0.25"/>
+          <stop offset="100%" stop-color="#38d9a9" stop-opacity="0.15"/>
+        </linearGradient>
+      </defs>
+      <!-- Glow layer -->
+      <polygon points="300,10 540,300 60,300" fill="none" stroke="url(#pyramidEdge)" stroke-width="2" filter="url(#pyramidGlow)" opacity="0.6"/>
+      <!-- Main pyramid -->
+      <polygon points="300,10 540,300 60,300" fill="none" stroke="url(#pyramidEdge)" stroke-width="1.5"/>
+      <line x1="140" y1="180" x2="460" y2="180" stroke="rgba(77,201,212,0.12)" stroke-width="1"/>
+      <line x1="200" y1="240" x2="400" y2="240" stroke="rgba(77,201,212,0.12)" stroke-width="1"/>
       <!-- Level 1 -->
       <text x="300" y="80" text-anchor="middle" fill="#ff6b6b" font-family="Space Grotesk,sans-serif" font-size="28" font-weight="700">85%</text>
       <text x="300" y="105" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-family="IBM Plex Mono,monospace" font-size="12">"личное работает – командное нет"</text>
@@ -790,9 +917,13 @@ body.edit-mode #builder-toolbar { display: flex; }
   <div class="slide-inner">
     <div class="label">// voices</div>
     <h2>Голоса участников</h2>
-    <div class="quote"><p>"главный вызов: как от MVP переходить к масштабу? знаем как создать одного агента, но как на 450 человек?"</p><div class="author">— Artem Zarubenko, Group CEO LIFEPAY · 450 чел · Дубай</div></div>
-    <div class="quote"><p>"компания целиком из агентов, которых я сам собрал и научил зарабатывать деньги, а я наконец-то могу сидеть дома и ни с кем не разговаривать"</p><div class="author">— Stanislav Krukhmalev, ex-Сравни ($400M) · ВкусВилл KZ</div></div>
-    <div class="quote"><p>"пришел сюда за методологией и практикой, не за вдохновением"</p><div class="author">— Дмитрий Комратов, Forward Group · 20+ чел</div></div>
+    <!-- Large decorative quotation mark -->
+    <svg style="position:absolute;top:60px;left:40px;width:180px;height:180px;pointer-events:none;z-index:5;opacity:0.04" viewBox="0 0 100 100">
+      <text x="0" y="90" font-family="Georgia,serif" font-size="120" fill="#4dc9d4">&ldquo;</text>
+    </svg>
+    <div class="quote-enhanced"><p>"главный вызов: как от MVP переходить к масштабу? знаем как создать одного агента, но как на 450 человек?"</p><div class="author">Artem Zarubenko <span>&middot; Group CEO LIFEPAY &middot; 450 чел &middot; Дубай</span></div></div>
+    <div class="quote-enhanced"><p>"компания целиком из агентов, которых я сам собрал и научил зарабатывать деньги, а я наконец-то могу сидеть дома и ни с кем не разговаривать"</p><div class="author">Stanislav Krukhmalev <span>&middot; ex-Сравни ($400M) &middot; ВкусВилл KZ</span></div></div>
+    <div class="quote-enhanced"><p>"пришел сюда за методологией и практикой, не за вдохновением"</p><div class="author">Дмитрий Комратов <span>&middot; Forward Group &middot; 20+ чел</span></div></div>
   </div>
 </div>
 
@@ -824,8 +955,16 @@ body.edit-mode #builder-toolbar { display: flex; }
   <div class="slide-inner">
     <div class="label">// tools landscape</div>
     <h2>AI-инструменты</h2>
-    <!-- SVG bubble chart -->
+    <!-- SVG bubble chart with connecting lines -->
     <svg viewBox="0 0 800 400" width="100%" height="360" style="margin:16px 0">
+      <!-- Connecting lines between related tools -->
+      <line x1="250" y1="180" x2="480" y2="170" stroke="rgba(77,201,212,0.08)" stroke-width="1" stroke-dasharray="4 4"/>
+      <line x1="480" y1="170" x2="620" y2="290" stroke="rgba(77,201,212,0.06)" stroke-width="1" stroke-dasharray="4 4"/>
+      <line x1="250" y1="180" x2="370" y2="320" stroke="rgba(59,130,246,0.06)" stroke-width="1" stroke-dasharray="4 4"/>
+      <line x1="480" y1="170" x2="700" y2="140" stroke="rgba(255,59,139,0.06)" stroke-width="1" stroke-dasharray="4 4"/>
+      <line x1="480" y1="170" x2="560" y2="80" stroke="rgba(255,255,255,0.04)" stroke-width="1" stroke-dasharray="4 4"/>
+      <line x1="620" y1="290" x2="560" y2="80" stroke="rgba(200,146,0,0.05)" stroke-width="1" stroke-dasharray="4 4"/>
+      <!-- Bubbles -->
       <circle cx="250" cy="180" r="100" fill="rgba(56,217,169,0.12)" stroke="rgba(56,217,169,0.3)" stroke-width="1"/>
       <text x="250" y="170" text-anchor="middle" fill="#38d9a9" font-family="Space Grotesk,sans-serif" font-size="24" font-weight="700">ChatGPT</text>
       <text x="250" y="198" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="IBM Plex Mono,monospace" font-size="14">61%</text>
@@ -856,17 +995,83 @@ body.edit-mode #builder-toolbar { display: flex; }
   <div class="slide-counter"><span class="current">10</span>/<span class="total"></span></div>
   <img class="slide-logo" src="logo.png" alt="">
   <div class="slide-inner">
-    <div class="label">// curators</div>
+    <div class="label">// curators &middot; 13 people</div>
     <h2>Кураторы</h2>
-    <div class="cards" style="grid-template-columns:repeat(4,1fr)">
-      <div class="card" style="text-align:center"><div class="card-icon">01</div><h3>Стас Федосеев</h3><p>exCPO insuretech, exCTO банк. LLM, агентные системы. 2 лабы + POS</p><span class="tag">@Kettarian_Fox</span></div>
-      <div class="card" style="text-align:center"><div class="card-icon">02</div><h3>Юра</h3><p>solution architect, полупроводники, Швейцария. 20 лет IT, enterprise</p><span class="tag">@doonto</span></div>
-      <div class="card" style="text-align:center"><div class="card-icon">03</div><h3>Денис Смирнов</h3><p>agent infrastructure, agentplane.org. blockchain/DeFi/DAO c 2014</p><span class="tag">@densmirnov</span></div>
-      <div class="card" style="text-align:center"><div class="card-icon">04</div><h3>Джин Колесников</h3><p>стратегический консультант, футуролог. Singularity U. строит MAUOS</p><span class="tag">@He11ya</span></div>
-      <div class="card" style="text-align:center"><div class="card-icon">05</div><h3>Стас Глазов</h3><p>медиахудожник, Hou2Touch (2500+ студентов). 25 лет нодовых систем. Berlin/Tel Aviv</p><span class="tag">@prcdrl</span></div>
+    <div class="curator-grid">
+      <div class="curator-card lead">
+        <div class="curator-num" style="color:var(--teal)">lead</div>
+        <div class="curator-name" style="color:var(--teal)">Alex Povaliaev</div>
+        <div class="curator-desc">founder AI Mindset, lead curator</div>
+      </div>
+      <div class="curator-card">
+        <div class="curator-num">01</div>
+        <div class="curator-name">Стас Федосеев</div>
+        <div class="curator-desc">exCPO insuretech, exCTO банк, агентные системы</div>
+        <div class="curator-tg">@Kettarian_Fox</div>
+      </div>
+      <div class="curator-card">
+        <div class="curator-num">02</div>
+        <div class="curator-name">Yury</div>
+        <div class="curator-desc">solution architect, полупроводники, Швейцария</div>
+        <div class="curator-tg">@doonto</div>
+      </div>
+      <div class="curator-card">
+        <div class="curator-num">03</div>
+        <div class="curator-name">Денис Смирнов</div>
+        <div class="curator-desc">agent infrastructure, agentplane.org</div>
+        <div class="curator-tg">@densmirnov</div>
+      </div>
+      <div class="curator-card">
+        <div class="curator-num">04</div>
+        <div class="curator-name">Джин Колесников</div>
+        <div class="curator-desc">футуролог, Singularity U, MAUOS</div>
+        <div class="curator-tg">@He11ya</div>
+      </div>
+      <div class="curator-card">
+        <div class="curator-num">05</div>
+        <div class="curator-name">Стас Глазов</div>
+        <div class="curator-desc">медиахудожник, Hou2Touch 2500+ students, Berlin</div>
+        <div class="curator-tg">@prcdrl</div>
+      </div>
+      <div class="curator-card">
+        <div class="curator-num">06</div>
+        <div class="curator-name">Alexander Vasiliev</div>
+        <div class="curator-desc">CTO, Jarvis (90+ skills), Moscow</div>
+        <div class="curator-tg">@AlexFrmn</div>
+      </div>
+      <div class="curator-card">
+        <div class="curator-num">07</div>
+        <div class="curator-name">Ilya Gindin</div>
+        <div class="curator-desc">product, AI calendar tool</div>
+      </div>
+      <div class="curator-card">
+        <div class="curator-num">08</div>
+        <div class="curator-name">Anton Voskobovich</div>
+        <div class="curator-desc">Obsidian expert</div>
+      </div>
+      <div class="curator-card">
+        <div class="curator-num">09</div>
+        <div class="curator-name">Kseniya Tkacheva</div>
+        <div class="curator-desc">curator</div>
+      </div>
+      <div class="curator-card">
+        <div class="curator-num">10</div>
+        <div class="curator-name">Ilya Golubev</div>
+        <div class="curator-desc">curator</div>
+      </div>
+      <div class="curator-card">
+        <div class="curator-num">11</div>
+        <div class="curator-name">Alexander Stashenko</div>
+        <div class="curator-desc">curator</div>
+      </div>
+      <div class="curator-card" style="border-color:rgba(56,217,169,0.2)">
+        <div class="curator-num" style="color:var(--green)">S/C</div>
+        <div class="curator-name" style="color:var(--green)">Серёжа Рис</div>
+        <div class="curator-desc">speaker/curator crossover</div>
+        <div class="curator-tg">@serejaris</div>
+      </div>
     </div>
-    <p style="font-size:14px;color:var(--text-dim);margin-top:20px;text-align:center">+ кураторы из POS Sprint: Ilya Gindin, Anton Voskobovich, Ilya Golubev, Kseniya Tkacheva</p>
-    <p style="font-size:13px;color:var(--text-label);text-align:center;margin-top:8px">чат кураторов: AI-native orgs {curators} · 61+ сообщение, 1-1 с участниками уже идут</p>
+    <p style="font-size:13px;color:var(--text-label);text-align:center;margin-top:14px">чат кураторов: AI-native orgs {curators} &middot; 1-1 с участниками уже идут</p>
   </div>
 </div>
 
@@ -877,21 +1082,69 @@ body.edit-mode #builder-toolbar { display: flex; }
   <div class="slide-inner">
     <div class="label">// geography</div>
     <h2>География</h2>
-    <div class="split">
-      <div class="layers">
-        <div class="layer" style="border-left:3px solid var(--teal)"><div class="layer-num teal" style="min-width:32px">12</div><div class="layer-name">Москва</div></div>
-        <div class="layer" style="border-left:3px solid var(--blue)"><div class="layer-num blue" style="min-width:32px">5</div><div class="layer-name">Португалия</div><div class="layer-desc">Лиссабон, Кашкаиш, Эшторил</div></div>
-        <div class="layer" style="border-left:3px solid var(--green)"><div class="layer-num green" style="min-width:32px">4</div><div class="layer-name">СНГ</div><div class="layer-desc">Питер, Ростов, Алматы, Бишкек</div></div>
-        <div class="layer"><div class="layer-num" style="min-width:32px;color:var(--cyan)">2</div><div class="layer-name">Амстердам</div></div>
-        <div class="layer"><div class="layer-num" style="min-width:32px;color:var(--amber)">2</div><div class="layer-name">ОАЭ</div><div class="layer-desc">Дубай, Абу-Даби</div></div>
-        <div class="layer"><div class="layer-num" style="min-width:32px;color:var(--pink)">2</div><div class="layer-name">Кипр</div></div>
-        <div class="layer"><div class="layer-num dim" style="min-width:32px">7</div><div class="layer-name">Другое</div><div class="layer-desc">Черногория, Буэнос-Айрес, Таиланд, Белград, Вильнюс</div></div>
+    <!-- SVG World Map with location dots -->
+    <svg viewBox="0 0 900 320" width="100%" height="200" style="margin:8px 0 16px;display:block">
+      <!-- Simplified world map outline -->
+      <path d="M120,120 L130,100 L160,95 L180,100 L190,90 L210,85 L230,90 L240,100 L260,95 L280,90 L300,95 L310,100 L320,95 L340,90 L360,95 L370,100 L380,95 L395,100 L400,110 L410,120 L420,115 L440,110 L460,105 L480,100 L500,105 L520,100 L540,95 L560,100 L580,105 L600,100 L620,105 L640,110 L660,115 L680,120 L700,115 L720,110 L740,120 L750,130 L740,140 L730,150 L720,155 L710,160 L700,155 L690,150 L680,155 L660,160 L640,165 L620,170 L600,175 L580,170 L560,175 L540,180 L520,185 L500,180 L480,185 L460,190 L440,195 L420,200 L400,205 L380,200 L360,195 L340,200 L320,210 L300,215 L280,210 L260,205 L240,210 L220,215 L200,220 L180,215 L160,210 L140,200 L130,180 L120,160 Z" fill="none" stroke="rgba(77,201,212,0.08)" stroke-width="1"/>
+      <!-- Europe detail -->
+      <path d="M340,90 L345,80 L355,75 L365,80 L370,85 L380,80 L390,85 L395,90 L400,85 L410,80 L420,85 L425,95 L420,105 L410,110 L400,108 L390,112 L380,110 L370,115 L360,110 L350,105 L345,100 Z" fill="rgba(77,201,212,0.04)" stroke="rgba(77,201,212,0.1)" stroke-width="0.5"/>
+      <!-- Russia blob -->
+      <path d="M420,70 L480,60 L540,55 L600,58 L660,65 L700,70 L720,80 L710,90 L680,95 L640,92 L600,88 L560,85 L520,82 L480,78 L440,80 L425,78 Z" fill="rgba(77,201,212,0.04)" stroke="rgba(77,201,212,0.1)" stroke-width="0.5"/>
+      <!-- Location dots -->
+      <!-- Moscow (biggest) -->
+      <circle cx="450" cy="78" r="8" fill="rgba(77,201,212,0.25)" stroke="#4dc9d4" stroke-width="1.5"/>
+      <circle cx="450" cy="78" r="3" fill="#4dc9d4"/>
+      <text x="450" y="68" text-anchor="middle" fill="#4dc9d4" font-family="IBM Plex Mono,monospace" font-size="8" opacity="0.8">Moscow 12</text>
+      <!-- Lisbon -->
+      <circle cx="310" cy="108" r="5" fill="rgba(59,130,246,0.2)" stroke="#3b82f6" stroke-width="1"/>
+      <circle cx="310" cy="108" r="2" fill="#3b82f6"/>
+      <text x="310" y="120" text-anchor="middle" fill="#3b82f6" font-family="IBM Plex Mono,monospace" font-size="7" opacity="0.7">Lisbon 5</text>
+      <!-- Amsterdam -->
+      <circle cx="360" cy="85" r="4" fill="rgba(56,189,248,0.2)" stroke="#38bdf8" stroke-width="1"/>
+      <circle cx="360" cy="85" r="1.5" fill="#38bdf8"/>
+      <text x="360" y="79" text-anchor="middle" fill="#38bdf8" font-family="IBM Plex Mono,monospace" font-size="7" opacity="0.7">AMS</text>
+      <!-- Dubai -->
+      <circle cx="510" cy="130" r="4" fill="rgba(200,146,0,0.2)" stroke="#c89200" stroke-width="1"/>
+      <circle cx="510" cy="130" r="1.5" fill="#c89200"/>
+      <text x="510" y="142" text-anchor="middle" fill="#c89200" font-family="IBM Plex Mono,monospace" font-size="7" opacity="0.7">UAE</text>
+      <!-- Cyprus -->
+      <circle cx="420" cy="112" r="3.5" fill="rgba(255,59,139,0.15)" stroke="#ff3b8b" stroke-width="1"/>
+      <circle cx="420" cy="112" r="1.5" fill="#ff3b8b"/>
+      <!-- St Petersburg -->
+      <circle cx="435" cy="70" r="3" fill="rgba(77,201,212,0.15)" stroke="#4dc9d4" stroke-width="0.8"/>
+      <circle cx="435" cy="70" r="1.2" fill="#4dc9d4"/>
+      <!-- Almaty -->
+      <circle cx="540" cy="85" r="3" fill="rgba(56,217,169,0.15)" stroke="#38d9a9" stroke-width="0.8"/>
+      <circle cx="540" cy="85" r="1.2" fill="#38d9a9"/>
+      <text x="540" y="78" text-anchor="middle" fill="#38d9a9" font-family="IBM Plex Mono,monospace" font-size="7" opacity="0.7">KZ</text>
+      <!-- Buenos Aires -->
+      <circle cx="230" cy="260" r="2.5" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.25)" stroke-width="0.8"/>
+      <circle cx="230" cy="260" r="1" fill="rgba(255,255,255,0.4)"/>
+      <!-- Thailand -->
+      <circle cx="590" cy="150" r="2.5" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.25)" stroke-width="0.8"/>
+      <circle cx="590" cy="150" r="1" fill="rgba(255,255,255,0.4)"/>
+      <!-- Limassol -->
+      <circle cx="415" cy="116" r="2" fill="rgba(255,59,139,0.1)" stroke="rgba(255,59,139,0.2)" stroke-width="0.5"/>
+      <!-- Florida -->
+      <circle cx="190" cy="130" r="2.5" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.25)" stroke-width="0.8"/>
+      <circle cx="190" cy="130" r="1" fill="rgba(255,255,255,0.4)"/>
+      <text x="190" y="124" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-family="IBM Plex Mono,monospace" font-size="7">FL</text>
+    </svg>
+    <div class="split" style="gap:24px">
+      <div class="layers" style="gap:4px">
+        <div class="layer" style="border-left:3px solid var(--teal);padding:10px 16px"><div class="layer-num teal" style="min-width:32px">12</div><div class="layer-name">Москва</div></div>
+        <div class="layer" style="border-left:3px solid var(--blue);padding:10px 16px"><div class="layer-num blue" style="min-width:32px">5</div><div class="layer-name">Португалия</div><div class="layer-desc">Лиссабон, Кашкаиш, Эшторил</div></div>
+        <div class="layer" style="border-left:3px solid var(--green);padding:10px 16px"><div class="layer-num green" style="min-width:32px">4</div><div class="layer-name">СНГ</div><div class="layer-desc">Питер, Ростов, Алматы, Бишкек</div></div>
+        <div class="layer" style="padding:10px 16px"><div class="layer-num" style="min-width:32px;color:var(--cyan)">2</div><div class="layer-name">Амстердам</div></div>
+        <div class="layer" style="padding:10px 16px"><div class="layer-num" style="min-width:32px;color:var(--amber)">2</div><div class="layer-name">ОАЭ</div><div class="layer-desc">Дубай, Абу-Даби</div></div>
+        <div class="layer" style="padding:10px 16px"><div class="layer-num" style="min-width:32px;color:var(--pink)">2</div><div class="layer-name">Кипр</div></div>
+        <div class="layer" style="padding:10px 16px"><div class="layer-num dim" style="min-width:32px">7</div><div class="layer-name">Другое</div><div class="layer-desc">Черногория, Буэнос-Айрес, Таиланд, Белград</div></div>
       </div>
       <div>
         <div class="stat-grid" style="grid-template-columns:1fr">
-          <div class="stat-box"><div class="num teal">60%</div><div class="stat-label">Россия</div></div>
-          <div class="stat-box"><div class="num blue">15%</div><div class="stat-label">Португалия</div></div>
-          <div class="stat-box"><div class="num green">25%</div><div class="stat-label">мир</div></div>
+          <div class="stat-box"><div class="num teal" style="font-size:52px">60%</div><div class="stat-label">Россия</div></div>
+          <div class="stat-box"><div class="num blue" style="font-size:52px">15%</div><div class="stat-label">Португалия</div></div>
+          <div class="stat-box"><div class="num green" style="font-size:52px">25%</div><div class="stat-label">мир</div></div>
         </div>
       </div>
     </div>
@@ -903,20 +1156,42 @@ body.edit-mode #builder-toolbar { display: flex; }
   <div class="slide-counter"><span class="current">12</span>/<span class="total"></span></div>
   <img class="slide-logo" src="logo.png" alt="">
   <div class="slide-inner">
-    <div class="label">// program</div>
+    <div class="label">// program &middot; 3 weeks</div>
     <h2>Расписание</h2>
-    <div class="timeline" style="font-size:14px;gap:2px;">
-      <div class="timeline-row teal-row"><div class="timeline-dot" style="background:var(--teal)"></div><div class="timeline-time">23.03 пн</div><div class="timeline-title">Гершуни — почему ИИ-трансформация</div><div class="timeline-dur">18:00</div></div>
-      <div class="timeline-row green-row"><div class="timeline-dot" style="background:var(--green)"></div><div class="timeline-time">24.03 вт</div><div class="timeline-title">Поваляев — coworking + personal OS</div><div class="timeline-dur">10:00</div></div>
-      <div class="timeline-row green-row"><div class="timeline-dot" style="background:var(--green)"></div><div class="timeline-time">25.03 ср</div><div class="timeline-title">Поваляев — personal → team: аудит</div><div class="timeline-dur">18:00</div></div>
-      <div class="timeline-row teal-row"><div class="timeline-dot" style="background:var(--teal)"></div><div class="timeline-time">27.03 пт</div><div class="timeline-title">Ханарин — AI transformation for orgs</div><div class="timeline-dur">18:00</div></div>
-      <div class="timeline-row teal-row"><div class="timeline-dot" style="background:var(--teal)"></div><div class="timeline-time">30.03 пн</div><div class="timeline-title">Гершуни — система поверх модели</div><div class="timeline-dur">18:00</div></div>
-      <div class="timeline-row"><div class="timeline-dot" style="background:var(--blue)"></div><div class="timeline-time">01.04 ср</div><div class="timeline-title">Амётов — AI content · Клебан — self-improving agents</div><div class="timeline-dur">12+18</div></div>
-      <div class="timeline-row"><div class="timeline-dot" style="background:var(--blue)"></div><div class="timeline-time">02.04 чт</div><div class="timeline-title">Ковальский — AI-driven development live</div><div class="timeline-dur">18:00</div></div>
-      <div class="timeline-row"><div class="timeline-dot" style="background:var(--blue)"></div><div class="timeline-time">03.04 пт</div><div class="timeline-title">Кравцов — AI-native + knowledge graph</div><div class="timeline-dur">18:00</div></div>
-      <div class="timeline-row teal-row"><div class="timeline-dot" style="background:var(--teal)"></div><div class="timeline-time">06.04 пн</div><div class="timeline-title">Гершуни — стратегия → 90-дневный план</div><div class="timeline-dur">18:00</div></div>
-      <div class="timeline-row"><div class="timeline-dot" style="background:var(--amber)"></div><div class="timeline-time">07–10.04</div><div class="timeline-title">Тарнавский · Аннаков · Бузько · Устинов</div><div class="timeline-dur">18:00</div></div>
-      <div class="timeline-row red-row"><div class="timeline-dot" style="background:var(--red)"></div><div class="timeline-time">13.04 пн</div><div class="timeline-title"><strong>Demo Day</strong></div><div class="timeline-dur">12:00</div></div>
+    <!-- Week 1 -->
+    <div class="week-card">
+      <div class="week-header">
+        <div class="week-num" style="background:var(--teal-dim);color:var(--teal)">week 1</div>
+        <div class="week-title">Personal AI + Team Processes</div>
+        <div class="week-dates">23 &ndash; 28 Mar</div>
+      </div>
+      <div class="week-row"><div class="week-row-time">23.03 пн</div><div class="timeline-dot" style="background:var(--teal);width:6px;height:6px;border-radius:50%;flex-shrink:0"></div><div class="week-row-title">Гершуни &mdash; почему ИИ-трансформация</div><div class="week-row-dur">18:00</div></div>
+      <div class="week-row"><div class="week-row-time">24.03 вт</div><div class="timeline-dot" style="background:var(--green);width:6px;height:6px;border-radius:50%;flex-shrink:0"></div><div class="week-row-title">Поваляев &mdash; coworking + personal OS</div><div class="week-row-dur">10:00</div></div>
+      <div class="week-row"><div class="week-row-time">25.03 ср</div><div class="timeline-dot" style="background:var(--green);width:6px;height:6px;border-radius:50%;flex-shrink:0"></div><div class="week-row-title">Поваляев &mdash; personal &rarr; team: аудит</div><div class="week-row-dur">18:00</div></div>
+      <div class="week-row"><div class="week-row-time">27.03 пт</div><div class="timeline-dot" style="background:var(--teal);width:6px;height:6px;border-radius:50%;flex-shrink:0"></div><div class="week-row-title">Ханарин &mdash; AI transformation for orgs</div><div class="week-row-dur">18:00</div></div>
+    </div>
+    <!-- Week 2 -->
+    <div class="week-card">
+      <div class="week-header">
+        <div class="week-num" style="background:rgba(59,130,246,0.15);color:var(--blue)">week 2</div>
+        <div class="week-title">System Above the Model</div>
+        <div class="week-dates">30 Mar &ndash; 4 Apr</div>
+      </div>
+      <div class="week-row"><div class="week-row-time">30.03 пн</div><div class="timeline-dot" style="background:var(--teal);width:6px;height:6px;border-radius:50%;flex-shrink:0"></div><div class="week-row-title">Гершуни &mdash; система поверх модели</div><div class="week-row-dur">18:00</div></div>
+      <div class="week-row"><div class="week-row-time">01.04 ср</div><div class="timeline-dot" style="background:var(--blue);width:6px;height:6px;border-radius:50%;flex-shrink:0"></div><div class="week-row-title">Амётов &mdash; AI content &middot; Клебан &mdash; self-improving agents</div><div class="week-row-dur">12+18</div></div>
+      <div class="week-row"><div class="week-row-time">02.04 чт</div><div class="timeline-dot" style="background:var(--blue);width:6px;height:6px;border-radius:50%;flex-shrink:0"></div><div class="week-row-title">Ковальский &mdash; AI-driven development live</div><div class="week-row-dur">18:00</div></div>
+      <div class="week-row"><div class="week-row-time">03.04 пт</div><div class="timeline-dot" style="background:var(--blue);width:6px;height:6px;border-radius:50%;flex-shrink:0"></div><div class="week-row-title">Кравцов &mdash; AI-native + knowledge graph</div><div class="week-row-dur">18:00</div></div>
+    </div>
+    <!-- Week 3 -->
+    <div class="week-card">
+      <div class="week-header">
+        <div class="week-num" style="background:rgba(56,217,169,0.15);color:var(--green)">week 3</div>
+        <div class="week-title">Company Functions + Demo Day</div>
+        <div class="week-dates">6 &ndash; 13 Apr</div>
+      </div>
+      <div class="week-row"><div class="week-row-time">06.04 пн</div><div class="timeline-dot" style="background:var(--teal);width:6px;height:6px;border-radius:50%;flex-shrink:0"></div><div class="week-row-title">Гершуни &mdash; стратегия &rarr; 90-дневный план</div><div class="week-row-dur">18:00</div></div>
+      <div class="week-row"><div class="week-row-time">07&ndash;10.04</div><div class="timeline-dot" style="background:var(--amber);width:6px;height:6px;border-radius:50%;flex-shrink:0"></div><div class="week-row-title">Аннаков &middot; Бузько &middot; Устинов</div><div class="week-row-dur">18:00</div></div>
+      <div class="week-row" style="background:rgba(255,107,107,0.06);border-radius:6px;padding:8px 0"><div class="week-row-time" style="color:var(--red);font-weight:600">13.04 пн</div><div class="timeline-dot" style="background:var(--red);width:8px;height:8px;border-radius:50%;flex-shrink:0"></div><div class="week-row-title" style="color:#fff;font-weight:600">Demo Day</div><div class="week-row-dur" style="background:rgba(255,107,107,0.15);color:var(--red)">12:00</div></div>
     </div>
   </div>
 </div>
@@ -927,8 +1202,8 @@ body.edit-mode #builder-toolbar { display: flex; }
   <img class="slide-logo" src="logo.png" alt="">
   <div class="slide-inner">
     <div class="label">// speakers</div>
-    <h2>12 спикеров</h2>
-    <div class="speaker-grid" style="grid-template-columns:repeat(6,1fr);gap:12px">
+    <h2>11 спикеров</h2>
+    <div class="speaker-grid" style="grid-template-columns:repeat(5,1fr);gap:12px">
       <div class="speaker-card"><img class="speaker-photo" src="speakers/stepan-gershuni.jpg" alt=""><div class="speaker-name">Stepan Gershuni</div><div class="speaker-role">CybOS // cyber.fund</div><div class="speaker-topic">3 лекции: why, architecture, strategy</div></div>
       <div class="speaker-card"><img class="speaker-photo" src="speakers/alexander-povaliaev.jpg" alt=""><div class="speaker-name">Alexander Povaliaev</div><div class="speaker-role">AI Mindset</div><div class="speaker-topic">workshops, coworking</div></div>
       <div class="speaker-card"><img class="speaker-photo" src="speakers/dima-khanarin.jpg" alt=""><div class="speaker-name">Dima Khanarin</div><div class="speaker-role">codos.ai</div><div class="speaker-topic">AI x operations</div></div>
@@ -939,9 +1214,8 @@ body.edit-mode #builder-toolbar { display: flex; }
       <div class="speaker-card"><img class="speaker-photo" src="speakers/bayram-annakov.jpg" alt=""><div class="speaker-name">Bayram Annakov</div><div class="speaker-role">onsa.ai</div><div class="speaker-topic">AI x sales</div></div>
       <div class="speaker-card"><img class="speaker-photo" src="speakers/roma-buzko.jpg" alt=""><div class="speaker-name">Roma Buzko</div><div class="speaker-role">Buzko Krasnov</div><div class="speaker-topic">AI x law</div></div>
       <div class="speaker-card"><img class="speaker-photo" src="speakers/seva-ustinov.jpg" alt=""><div class="speaker-name">Seva Ustinov</div><div class="speaker-role">Plurio AI</div><div class="speaker-topic">AI x marketing</div></div>
-      <div class="speaker-card"><img class="speaker-photo" src="speakers/vitya-tarnavskii.jpg" alt=""><div class="speaker-name">Vitya Tarnavskii</div><div class="speaker-role">T-Bank</div><div class="speaker-topic">AI in corporations</div></div>
-      <div class="speaker-card"><img class="speaker-photo" src="speakers/eugene-rid.jpg" alt=""><div class="speaker-name">Eugene Rid</div><div class="speaker-role">Rid. Investments</div><div class="speaker-topic">AI x investments</div></div>
     </div>
+    <p style="font-size:13px;color:var(--text-dim);margin-top:12px;text-align:center">+ Серёжа Рис (@serejaris) &mdash; speaker/curator crossover</p>
   </div>
 </div>
 
@@ -976,9 +1250,13 @@ body.edit-mode #builder-toolbar { display: flex; }
   <div class="slide-inner">
     <div class="label">// more voices</div>
     <h2>Ещё голоса</h2>
-    <div class="quote"><p>"двоечница в мире ИИ... самый главный итог: создание проекта перехода агентства к AI-Native"</p><div class="author">— Лена Никитина, CEO Go Mobile · 160 чел</div></div>
-    <div class="quote"><p>"хочу выстроить компанию, которая будет в лидерах по эффективности в строительстве за счет глубокой интеграции AI"</p><div class="author">— Руслан Романченко · строительство · 100 чел · Ростов</div></div>
-    <div class="quote"><p>"не support-team — соучастники. не закрываем вопрос — открываем направления"</p><div class="author">— стиль AIM Lab</div></div>
+    <!-- Large decorative quotation mark -->
+    <svg style="position:absolute;top:50px;right:60px;width:200px;height:200px;pointer-events:none;z-index:5;opacity:0.03" viewBox="0 0 100 100">
+      <text x="0" y="90" font-family="Georgia,serif" font-size="120" fill="#4dc9d4">&rdquo;</text>
+    </svg>
+    <div class="quote-enhanced"><p>"двоечница в мире ИИ... самый главный итог: создание проекта перехода агентства к AI-Native"</p><div class="author">Лена Никитина <span>&middot; CEO Go Mobile &middot; 160 чел</span></div></div>
+    <div class="quote-enhanced"><p>"хочу выстроить компанию, которая будет в лидерах по эффективности в строительстве за счет глубокой интеграции AI"</p><div class="author">Руслан Романченко <span>&middot; строительство &middot; 100 чел &middot; Ростов</span></div></div>
+    <div class="quote-enhanced" style="border-left-color:var(--green);box-shadow:-3px 0 20px rgba(56,217,169,0.08)"><p>"не support-team &mdash; соучастники. не закрываем вопрос &mdash; открываем направления"</p><div class="author" style="color:var(--green)">стиль AIM Lab</div></div>
   </div>
 </div>
 
@@ -992,20 +1270,26 @@ body.edit-mode #builder-toolbar { display: flex; }
     <div class="cards" style="grid-template-columns:1fr 1fr;text-align:left">
       <div class="card"><div class="card-icon">01</div><h3>Аудитория senior</h3><p>61% founders/CEOs, decision makers с реальными бюджетами</p></div>
       <div class="card"><div class="card-icon" style="color:var(--blue)">02</div><h3>Запрос на framework</h3><p>"научите ChatGPT" не просит никто. запрос: архитектура AI в организации</p></div>
-      <div class="card"><div class="card-icon" style="color:var(--green)">03</div><h3>Personal → Team</h3><p>85% одна боль: "я использую AI, команда – нет". идеальный setup</p></div>
-      <div class="card"><div class="card-icon" style="color:var(--amber)">04</div><h3>Enterprise-grade</h3><p>LIFEPAY (450), Raiffeisen (100+), Go Mobile (160) — security, governance</p></div>
+      <div class="card"><div class="card-icon" style="color:var(--green)">03</div><h3>Personal &rarr; Team</h3><p>85% одна боль: "я использую AI, команда &ndash; нет". идеальный setup</p></div>
+      <div class="card"><div class="card-icon" style="color:var(--amber)">04</div><h3>Enterprise-grade</h3><p>LIFEPAY (450), Raiffeisen (100+), Go Mobile (160) &mdash; security, governance</p></div>
     </div>
     <div class="meta" style="margin-top:32px">
-      <span class="tag">AI Mindset × CybOS</span>
+      <span class="tag" style="font-size:12px;padding:4px 14px">AI Mindset &times; CybOS</span>
       <span class="dot">&middot;</span>
-      <span class="tag">intro call · 21.03 10:00 CET</span>
+      <span class="tag">intro call &middot; 21.03 10:00 CET</span>
     </div>
     <!-- SVG constellation decoration -->
-    <svg style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:5;opacity:0.08" viewBox="0 0 1920 1080">
-      <circle cx="100" cy="100" r="2" fill="#4dc9d4"/><circle cx="300" cy="80" r="1.5" fill="#3b82f6"/>
-      <circle cx="1600" cy="900" r="2" fill="#38d9a9"/><circle cx="1800" cy="950" r="1.5" fill="#4dc9d4"/>
-      <line x1="100" y1="100" x2="300" y2="80" stroke="#4dc9d4" stroke-width="0.5"/>
-      <line x1="1600" y1="900" x2="1800" y2="950" stroke="#38d9a9" stroke-width="0.5"/>
+    <svg style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:5;opacity:0.1" viewBox="0 0 1920 1080">
+      <circle class="constellation-node" cx="100" cy="100" r="2.5" fill="#4dc9d4"/>
+      <circle class="constellation-node" cx="280" cy="70" r="2" fill="#3b82f6"/>
+      <circle class="constellation-node" cx="180" cy="180" r="2" fill="#38d9a9"/>
+      <line x1="100" y1="100" x2="280" y2="70" stroke="#4dc9d4" stroke-width="0.5" opacity="0.3"/>
+      <line x1="100" y1="100" x2="180" y2="180" stroke="#38d9a9" stroke-width="0.4" opacity="0.2"/>
+      <circle class="constellation-node" cx="1600" cy="880" r="2.5" fill="#38d9a9"/>
+      <circle class="constellation-node" cx="1780" cy="920" r="2" fill="#4dc9d4"/>
+      <circle class="constellation-node" cx="1700" cy="800" r="2" fill="#3b82f6"/>
+      <line x1="1600" y1="880" x2="1780" y2="920" stroke="#38d9a9" stroke-width="0.5" opacity="0.3"/>
+      <line x1="1700" y1="800" x2="1600" y2="880" stroke="#3b82f6" stroke-width="0.4" opacity="0.2"/>
     </svg>
   </div>
 </div>

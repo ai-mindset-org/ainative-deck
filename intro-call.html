@@ -841,6 +841,18 @@ body.presenter-mode .progress-bar { width: 65vw !important; }
       <div class="stat-box"><div class="num red" style="font-size:52px">85%</div><div class="stat-label">одна боль: personal&rarr;team</div></div>
       <div class="stat-box"><div class="num cyan" style="font-size:52px">16+</div><div class="stat-label">индустрий</div></div>
     </div>
+    <svg style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:5;opacity:0.06" viewBox="0 0 1920 1080">
+      <circle cx="100" cy="180" r="2.5" fill="#4dc9d4"/>
+      <circle cx="220" cy="120" r="2" fill="#3b82f6"/>
+      <circle cx="160" cy="260" r="2" fill="#38d9a9"/>
+      <line x1="100" y1="180" x2="220" y2="120" stroke="#4dc9d4" stroke-width="0.5" opacity="0.3"/>
+      <line x1="100" y1="180" x2="160" y2="260" stroke="#38d9a9" stroke-width="0.4" opacity="0.2"/>
+      <circle cx="1700" cy="850" r="2.5" fill="#4dc9d4"/>
+      <circle cx="1820" cy="900" r="2" fill="#38d9a9"/>
+      <circle cx="1760" cy="950" r="2" fill="#3b82f6"/>
+      <line x1="1700" y1="850" x2="1820" y2="900" stroke="#4dc9d4" stroke-width="0.5" opacity="0.3"/>
+      <line x1="1820" y1="900" x2="1760" y2="950" stroke="#3b82f6" stroke-width="0.4" opacity="0.2"/>
+    </svg>
   </div>
 </div>
 
@@ -987,6 +999,16 @@ body.presenter-mode .progress-bar { width: 65vw !important; }
       <div class="layer" style="border-left:3px solid var(--cyan)"><div class="layer-num cyan" style="min-width:48px">15%</div><div class="layer-name">90-дневный план</div><div class="layer-desc">воспроизводимый roadmap</div></div>
       <div class="layer" style="border-left:3px solid var(--pink)"><div class="layer-num" style="min-width:48px;color:var(--pink)">12%</div><div class="layer-name">AI-native компания с нуля</div><div class="layer-desc">"целиком из агентов"</div></div>
     </div>
+    <svg style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:5;opacity:0.06" viewBox="0 0 1920 1080">
+      <circle cx="1620" cy="160" r="2.5" fill="#4dc9d4"/>
+      <circle cx="1770" cy="120" r="2" fill="#38d9a9"/>
+      <circle cx="1700" cy="250" r="2" fill="#3b82f6"/>
+      <line x1="1620" y1="160" x2="1770" y2="120" stroke="#4dc9d4" stroke-width="0.5" opacity="0.3"/>
+      <line x1="1770" y1="120" x2="1700" y2="250" stroke="#38d9a9" stroke-width="0.4" opacity="0.2"/>
+      <circle cx="130" cy="900" r="2" fill="#4dc9d4"/>
+      <circle cx="260" cy="950" r="2.5" fill="#3b82f6"/>
+      <line x1="130" y1="900" x2="260" y2="950" stroke="#4dc9d4" stroke-width="0.4" opacity="0.2"/>
+    </svg>
   </div>
 </div>
 
@@ -1129,11 +1151,6 @@ body.presenter-mode .progress-bar { width: 65vw !important; }
     <div class="label">// curators &middot; 12 people</div>
     <h2>Кураторы</h2>
     <div class="curator-grid">
-      <div class="curator-card lead">
-        <div class="curator-num" style="color:var(--teal)">lead</div>
-        <div class="curator-name" style="color:var(--teal)">Alex Povaliaev</div>
-        <div class="curator-desc">founder AI Mindset, lead curator</div>
-      </div>
       <div class="curator-card">
         <div class="curator-num">01</div>
         <div class="curator-name">Стас Федосеев</div>
@@ -1320,9 +1337,32 @@ body.presenter-mode .progress-bar { width: 65vw !important; }
   </div>
 </div>
 
-<!-- ==================== SLIDE 12: SCHEDULE ==================== -->
+<!-- ==================== SLIDE 12: SPEAKERS ==================== -->
 <div class="slide" id="s12">
   <div class="slide-counter"><span class="current">12</span>/<span class="total"></span></div>
+  <img class="slide-logo" src="logo.png" alt="">
+  <div class="slide-inner">
+    <div class="label">// speakers</div>
+    <h2>11 спикеров</h2>
+    <div class="speaker-grid" style="grid-template-columns:repeat(5,1fr);gap:12px">
+      <div class="speaker-card"><img class="speaker-photo" src="speakers/stepan-gershuni.jpg" alt=""><div class="speaker-name">Stepan Gershuni</div><div class="speaker-role">CybOS // cyber.fund</div><div class="speaker-topic">3 лекции: why, architecture, strategy</div></div>
+      <div class="speaker-card"><img class="speaker-photo" src="speakers/alexander-povaliaev.jpg" alt=""><div class="speaker-name">Alexander Povaliaev</div><div class="speaker-role">AI Mindset</div><div class="speaker-topic">workshops, coworking</div></div>
+      <div class="speaker-card"><img class="speaker-photo" src="speakers/dima-khanarin.jpg" alt=""><div class="speaker-name">Dima Khanarin</div><div class="speaker-role">codos.ai</div><div class="speaker-topic">AI x operations</div></div>
+      <div class="speaker-card"><img class="speaker-photo" src="speakers/alex-amyotov.jpg" alt=""><div class="speaker-name">Alexey Amyotov</div><div class="speaker-role">Look At Media</div><div class="speaker-topic">AI x content</div></div>
+      <div class="speaker-card"><img class="speaker-photo" src="speakers/vitaly-kleban.jpg" alt=""><div class="speaker-name">Vitaly Kleban</div><div class="speaker-role">cyber.Fund</div><div class="speaker-topic">self-improving agents</div></div>
+      <div class="speaker-card"><img class="speaker-photo" src="speakers/valerii kovalskii.jpg" alt=""><div class="speaker-name">Valerii Kovalskii</div><div class="speaker-role">Red Mad Robot</div><div class="speaker-topic">AI-driven dev</div></div>
+      <div class="speaker-card"><img class="speaker-photo" src="speakers/daniel-kravtsov.jpeg" alt=""><div class="speaker-name">Daniel Kravtsov</div><div class="speaker-role">Improvado</div><div class="speaker-topic">AI x data</div></div>
+      <div class="speaker-card"><img class="speaker-photo" src="speakers/bayram-annakov.jpg" alt=""><div class="speaker-name">Bayram Annakov</div><div class="speaker-role">onsa.ai</div><div class="speaker-topic">AI x sales</div></div>
+      <div class="speaker-card"><img class="speaker-photo" src="speakers/roma-buzko.jpg" alt=""><div class="speaker-name">Roma Buzko</div><div class="speaker-role">Buzko Krasnov</div><div class="speaker-topic">AI x law</div></div>
+      <div class="speaker-card"><img class="speaker-photo" src="speakers/seva-ustinov.jpg" alt=""><div class="speaker-name">Seva Ustinov</div><div class="speaker-role">Plurio AI</div><div class="speaker-topic">AI x marketing</div></div>
+    </div>
+    <p style="font-size:13px;color:var(--text-dim);margin-top:12px;text-align:center">+ Серёжа Рис (@serejaris) &mdash; speaker/curator crossover</p>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 13: SCHEDULE ==================== -->
+<div class="slide" id="s13">
+  <div class="slide-counter"><span class="current">13</span>/<span class="total"></span></div>
   <img class="slide-logo" src="logo.png" alt="">
   <div class="slide-inner">
     <div class="label">// program &middot; 3 weeks</div>
@@ -1365,29 +1405,6 @@ body.presenter-mode .progress-bar { width: 65vw !important; }
   </div>
 </div>
 
-<!-- ==================== SLIDE 13: SPEAKERS ==================== -->
-<div class="slide" id="s13">
-  <div class="slide-counter"><span class="current">13</span>/<span class="total"></span></div>
-  <img class="slide-logo" src="logo.png" alt="">
-  <div class="slide-inner">
-    <div class="label">// speakers</div>
-    <h2>11 спикеров</h2>
-    <div class="speaker-grid" style="grid-template-columns:repeat(5,1fr);gap:12px">
-      <div class="speaker-card"><img class="speaker-photo" src="speakers/stepan-gershuni.jpg" alt=""><div class="speaker-name">Stepan Gershuni</div><div class="speaker-role">CybOS // cyber.fund</div><div class="speaker-topic">3 лекции: why, architecture, strategy</div></div>
-      <div class="speaker-card"><img class="speaker-photo" src="speakers/alexander-povaliaev.jpg" alt=""><div class="speaker-name">Alexander Povaliaev</div><div class="speaker-role">AI Mindset</div><div class="speaker-topic">workshops, coworking</div></div>
-      <div class="speaker-card"><img class="speaker-photo" src="speakers/dima-khanarin.jpg" alt=""><div class="speaker-name">Dima Khanarin</div><div class="speaker-role">codos.ai</div><div class="speaker-topic">AI x operations</div></div>
-      <div class="speaker-card"><img class="speaker-photo" src="speakers/alex-amyotov.jpg" alt=""><div class="speaker-name">Alexey Amyotov</div><div class="speaker-role">Look At Media</div><div class="speaker-topic">AI x content</div></div>
-      <div class="speaker-card"><img class="speaker-photo" src="speakers/vitaly-kleban.jpg" alt=""><div class="speaker-name">Vitaly Kleban</div><div class="speaker-role">cyber.Fund</div><div class="speaker-topic">self-improving agents</div></div>
-      <div class="speaker-card"><img class="speaker-photo" src="speakers/valerii kovalskii.jpg" alt=""><div class="speaker-name">Valerii Kovalskii</div><div class="speaker-role">Red Mad Robot</div><div class="speaker-topic">AI-driven dev</div></div>
-      <div class="speaker-card"><img class="speaker-photo" src="speakers/daniel-kravtsov.jpeg" alt=""><div class="speaker-name">Daniel Kravtsov</div><div class="speaker-role">Improvado</div><div class="speaker-topic">AI x data</div></div>
-      <div class="speaker-card"><img class="speaker-photo" src="speakers/bayram-annakov.jpg" alt=""><div class="speaker-name">Bayram Annakov</div><div class="speaker-role">onsa.ai</div><div class="speaker-topic">AI x sales</div></div>
-      <div class="speaker-card"><img class="speaker-photo" src="speakers/roma-buzko.jpg" alt=""><div class="speaker-name">Roma Buzko</div><div class="speaker-role">Buzko Krasnov</div><div class="speaker-topic">AI x law</div></div>
-      <div class="speaker-card"><img class="speaker-photo" src="speakers/seva-ustinov.jpg" alt=""><div class="speaker-name">Seva Ustinov</div><div class="speaker-role">Plurio AI</div><div class="speaker-topic">AI x marketing</div></div>
-    </div>
-    <p style="font-size:13px;color:var(--text-dim);margin-top:12px;text-align:center">+ Серёжа Рис (@serejaris) &mdash; speaker/curator crossover</p>
-  </div>
-</div>
-
 <!-- ==================== SLIDE 14: INDUSTRIES ==================== -->
 <div class="slide" id="s14">
   <div class="slide-counter"><span class="current">14</span>/<span class="total"></span></div>
@@ -1409,6 +1426,48 @@ body.presenter-mode .progress-bar { width: 65vw !important; }
       <div class="card" style="padding:14px;text-align:center"><div class="card-icon" style="font-size:28px;color:var(--text-dim)">1</div><p style="font-size:12px">Hospitality / Food</p></div>
       <div class="card" style="padding:14px;text-align:center"><div class="card-icon" style="font-size:28px;color:var(--text-dim)">58</div><p style="font-size:12px">Other</p></div>
     </div>
+    <svg style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:5;opacity:0.05" viewBox="0 0 1920 1080">
+      <circle cx="80" cy="140" r="2.5" fill="#4dc9d4"/>
+      <circle cx="200" cy="90" r="2" fill="#38d9a9"/>
+      <circle cx="140" cy="220" r="2" fill="#3b82f6"/>
+      <line x1="80" y1="140" x2="200" y2="90" stroke="#4dc9d4" stroke-width="0.5" opacity="0.25"/>
+      <line x1="80" y1="140" x2="140" y2="220" stroke="#3b82f6" stroke-width="0.4" opacity="0.2"/>
+      <circle cx="1750" cy="880" r="2" fill="#4dc9d4"/>
+      <circle cx="1850" cy="930" r="2.5" fill="#38d9a9"/>
+      <circle cx="1680" cy="950" r="2" fill="#3b82f6"/>
+      <line x1="1750" y1="880" x2="1850" y2="930" stroke="#38d9a9" stroke-width="0.5" opacity="0.25"/>
+      <line x1="1680" y1="950" x2="1750" y2="880" stroke="#3b82f6" stroke-width="0.4" opacity="0.2"/>
+    </svg>
+  </div>
+</div>
+
+<!-- ==================== SLIDE: STACK BREAKDOWN ==================== -->
+<div class="slide" id="s-stack">
+  <div class="slide-counter"><span class="current"></span>/<span class="total"></span></div>
+  <img class="slide-logo" src="logo.png" alt="">
+  <div class="slide-inner">
+    <div class="label">// ai stack composition</div>
+    <h2>Срез стека</h2>
+    <div class="code-block" style="margin-top:16px">
+      <span class="comment">// ai stack composition &middot; nocodb n=165</span><br><br>
+      <span style="color:var(--teal)">chat_models</span>   &nbsp;&nbsp;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588; 45%&nbsp; ChatGPT + Claude<br>
+      <span style="color:var(--blue)">coding_ai</span>    &nbsp;&nbsp;&nbsp;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2591;&#x2591;&#x2591;&#x2591;&#x2591;&#x2591;&#x2591;&#x2591;&#x2591;&#x2591;&#x2591;&#x2591;&#x2591; 15%&nbsp; Codex + Cursor<br>
+      <span style="color:var(--green)">research</span>     &nbsp;&nbsp;&nbsp;&nbsp;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2591;&#x2591;&#x2591;&#x2591;&#x2591;&#x2591;&#x2591;&#x2591;&#x2591;&#x2591;&#x2591;&#x2591;&#x2591;&#x2591;&#x2591; 12%&nbsp; Perplexity + Gemini<br>
+      <span style="color:var(--amber)">automation</span>   &nbsp;&nbsp;&nbsp;&#x2588;&#x2588;&#x2588;&#x2588;&#x2591;&#x2591;&#x2591;&#x2591;&#x2591;&#x2591;&#x2591;&#x2591;&#x2591;&#x2591;&#x2591;&#x2591;&#x2591;&#x2591;&#x2591;&#x2591;&#x2591; &nbsp;9%&nbsp; OpenClaw + n8n<br>
+      <span style="color:var(--pink)">knowledge</span>    &nbsp;&nbsp;&nbsp;&#x2588;&#x2588;&#x2591;&#x2591;&#x2591;&#x2591;&#x2591;&#x2591;&#x2591;&#x2591;&#x2591;&#x2591;&#x2591;&#x2591;&#x2591;&#x2591;&#x2591;&#x2591;&#x2591;&#x2591;&#x2591; &nbsp;6%&nbsp; Obsidian<br>
+      <span class="comment"><br>// insight: ChatGPT и Claude в паритете (45%/45%)</span><br>
+      <span class="comment">// Codex обогнал Cursor. OpenClaw уже 9%</span>
+    </div>
+    <svg style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:5;opacity:0.06" viewBox="0 0 1920 1080">
+      <circle cx="1650" cy="150" r="2.5" fill="#4dc9d4"/>
+      <circle cx="1780" cy="200" r="2" fill="#3b82f6"/>
+      <circle cx="1720" cy="300" r="2" fill="#38d9a9"/>
+      <line x1="1650" y1="150" x2="1780" y2="200" stroke="#4dc9d4" stroke-width="0.5" opacity="0.3"/>
+      <line x1="1780" y1="200" x2="1720" y2="300" stroke="#3b82f6" stroke-width="0.4" opacity="0.2"/>
+      <circle cx="150" cy="800" r="2" fill="#4dc9d4"/>
+      <circle cx="280" cy="860" r="2.5" fill="#38d9a9"/>
+      <line x1="150" y1="800" x2="280" y2="860" stroke="#4dc9d4" stroke-width="0.4" opacity="0.2"/>
+    </svg>
   </div>
 </div>
 
@@ -1461,6 +1520,34 @@ body.presenter-mode .progress-bar { width: 65vw !important; }
       <line x1="1600" y1="880" x2="1780" y2="920" stroke="#38d9a9" stroke-width="0.5" opacity="0.3"/>
       <line x1="1700" y1="800" x2="1600" y2="880" stroke="#3b82f6" stroke-width="0.4" opacity="0.2"/>
     </svg>
+  </div>
+</div>
+
+<!-- ==================== SLIDE: INTRO TIMER ==================== -->
+<div class="slide" id="s-timer">
+  <div class="slide-counter"><span class="current"></span>/<span class="total"></span></div>
+  <img class="slide-logo" src="logo.png" alt="">
+  <div class="slide-inner cover">
+    <div class="label">// intro timer</div>
+    <!-- Large circular SVG timer -->
+    <svg id="timer-svg" viewBox="0 0 300 300" width="300" height="300" style="margin:0 auto 24px">
+      <circle cx="150" cy="150" r="130" fill="none" stroke="rgba(77,201,212,0.1)" stroke-width="8"/>
+      <circle id="timer-arc" cx="150" cy="150" r="130" fill="none" stroke="#4dc9d4" stroke-width="8"
+        stroke-dasharray="816.8" stroke-dashoffset="0" stroke-linecap="round"
+        transform="rotate(-90 150 150)" style="transition: stroke-dashoffset 1s linear"/>
+      <text id="timer-display" x="150" y="155" text-anchor="middle" fill="white"
+        font-family="Space Grotesk,sans-serif" font-size="64" font-weight="700">1:00</text>
+      <text id="timer-label" x="150" y="190" text-anchor="middle" fill="rgba(255,255,255,0.4)"
+        font-family="IBM Plex Mono,monospace" font-size="14">&#x043D;&#x0430;&#x0436;&#x043C;&#x0438; &#x043F;&#x0440;&#x043E;&#x0431;&#x0435;&#x043B;</text>
+    </svg>
+    <div style="display:flex;gap:12px;justify-content:center;margin-top:16px">
+      <button id="timer-start" onclick="startTimer()" style="background:var(--teal);color:#161620;border:none;padding:10px 28px;border-radius:6px;font-family:var(--font-body);font-size:14px;font-weight:600;cursor:pointer">start</button>
+      <button onclick="resetTimer()" style="background:var(--bg-card);color:var(--text-dim);border:1px solid var(--border);padding:10px 20px;border-radius:6px;font-family:var(--font-body);font-size:14px;cursor:pointer">reset</button>
+      <button onclick="nextPerson()" style="background:var(--bg-card);color:var(--teal);border:1px solid var(--border);padding:10px 20px;border-radius:6px;font-family:var(--font-body);font-size:14px;cursor:pointer">next &rarr;</button>
+    </div>
+    <div id="timer-counter" style="margin-top:20px;font-family:var(--font-code);font-size:13px;color:var(--text-dim)">
+      &#x0443;&#x0447;&#x0430;&#x0441;&#x0442;&#x043D;&#x0438;&#x043A; <span id="person-num">1</span> / 177
+    </div>
   </div>
 </div>
 
@@ -1600,7 +1687,7 @@ body.presenter-mode .progress-bar { width: 65vw !important; }
 
 <script>
 // Clear stale localStorage on version change
-const DECK_VERSION = '2026-03-20-v4';
+const DECK_VERSION = '2026-03-20-v5';
 if (localStorage.getItem('ainative-intro-call-version') !== DECK_VERSION) {
   localStorage.removeItem('ainative-intro-call-state');
   localStorage.setItem('ainative-intro-call-version', DECK_VERSION);
@@ -2591,6 +2678,95 @@ showSlide = function(n) {
   origShowSlide(n);
   if (presenterMode) updatePresenterNotes();
 };
+
+// ===== INTRO TIMER =====
+let timerInterval = null;
+let timerSeconds = 60;
+let timerRunning = false;
+let personCount = 1;
+const TIMER_TOTAL = 816.8; // 2 * PI * 130
+
+function updateTimerDisplay() {
+  const m = Math.floor(timerSeconds / 60);
+  const s = timerSeconds % 60;
+  document.getElementById('timer-display').textContent = m + ':' + String(s).padStart(2, '0');
+  const progress = (60 - timerSeconds) / 60;
+  document.getElementById('timer-arc').setAttribute('stroke-dashoffset', TIMER_TOTAL * (1 - progress));
+  // Color change at 10s
+  const arc = document.getElementById('timer-arc');
+  if (timerSeconds <= 10 && timerSeconds > 0) {
+    arc.setAttribute('stroke', '#ff6b6b');
+  } else if (timerSeconds <= 0) {
+    arc.setAttribute('stroke', '#ff6b6b');
+  } else {
+    arc.setAttribute('stroke', '#4dc9d4');
+  }
+}
+
+function startTimer() {
+  if (timerRunning) {
+    clearInterval(timerInterval);
+    timerRunning = false;
+    document.getElementById('timer-start').textContent = 'start';
+    document.getElementById('timer-label').textContent = '\u043F\u0430\u0443\u0437\u0430';
+    return;
+  }
+  timerRunning = true;
+  document.getElementById('timer-start').textContent = 'pause';
+  document.getElementById('timer-label').textContent = '';
+  timerInterval = setInterval(() => {
+    timerSeconds--;
+    updateTimerDisplay();
+    if (timerSeconds <= 0) {
+      clearInterval(timerInterval);
+      timerRunning = false;
+      document.getElementById('timer-start').textContent = 'start';
+      document.getElementById('timer-label').textContent = '\u0432\u0440\u0435\u043C\u044F \u0432\u044B\u0448\u043B\u043E!';
+      // Flash effect
+      document.getElementById('timer-display').style.fill = '#ff6b6b';
+      // Audio ping
+      try {
+        const ctx = new AudioContext();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.frequency.value = 880;
+        gain.gain.value = 0.3;
+        osc.start();
+        gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.5);
+        osc.stop(ctx.currentTime + 0.5);
+      } catch(e) {}
+    }
+  }, 1000);
+}
+
+function resetTimer() {
+  clearInterval(timerInterval);
+  timerRunning = false;
+  timerSeconds = 60;
+  document.getElementById('timer-start').textContent = 'start';
+  document.getElementById('timer-display').style.fill = 'white';
+  document.getElementById('timer-label').textContent = '\u043D\u0430\u0436\u043C\u0438 \u043F\u0440\u043E\u0431\u0435\u043B';
+  updateTimerDisplay();
+}
+
+function nextPerson() {
+  personCount++;
+  document.getElementById('person-num').textContent = personCount;
+  resetTimer();
+  startTimer();
+}
+
+// Override space bar on timer slide
+document.addEventListener('keydown', (e) => {
+  if (e.key === ' ' && slides[current] && slides[current].id === 's-timer') {
+    e.preventDefault();
+    e.stopPropagation();
+    if (!timerRunning) startTimer();
+    else startTimer(); // pause
+  }
+}, true); // capture phase to override navigation
 
 // ===== INIT =====
 const loaded = loadFromLocal();

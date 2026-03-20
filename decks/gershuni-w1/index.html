@@ -3857,9 +3857,9 @@ async function runAiGeneration() {
           model: 'anthropic/claude-sonnet-4-20250514',
           messages: [{
             role: 'user',
-            content: `Generate a clean, minimal SVG illustration for a presentation slide. Theme: dark background (#161620), accent color #4dc9d4 (teal). The SVG should be self-contained, 400x300 viewBox, no external dependencies. Subject: ${prompt}.\n\nIMPORTANT: Return ONLY the raw SVG code starting with <svg and ending with </svg>. No markdown, no code fences, no explanation.`
+            content: `Create a visually rich SVG illustration. Style: dark background #161620, primary accent #4dc9d4 (teal), secondary #3b82f6 (blue). Use gradients, subtle glow effects, rounded shapes. viewBox="0 0 600 400". Return ONLY the raw <svg>...</svg> code. No markdown, no code fences, no explanation, no text before or after the SVG tag. Subject: ${prompt}`
           }],
-          max_tokens: 4000
+          max_tokens: 6000
         })
       });
       if (!resp.ok) {
@@ -3879,16 +3879,19 @@ async function runAiGeneration() {
       if (Array.isArray(content)) {
         content = content.map(b => (typeof b === 'string') ? b : (b.text || '')).join('');
       }
+      // Strip markdown code fences if present
+      content = content.replace(/```(?:svg|xml|html)?\s*/gi, '').replace(/```/g, '');
       const svgMatch = content.match(/<svg[\s\S]*<\/svg>/i);
       if (svgMatch) {
         aiResult = { type: 'svg', content: svgMatch[0] };
         previewEl.innerHTML = svgMatch[0];
         previewEl.classList.add('visible');
-        statusEl.textContent = 'SVG generated';
+        statusEl.textContent = 'diagram generated';
         insertBtn.style.display = '';
+        generateBtn.style.display = '';
       } else {
-        statusEl.textContent = 'no SVG found in response (len=' + content.length + ')';
-        if (content) console.warn('[AI] response content:', content.slice(0, 500));
+        console.warn('[AI] No SVG found. Response content:', content.substring(0, 500));
+        statusEl.textContent = 'no SVG in response — try again or rephrase';
         generateBtn.style.display = '';
       }
     } else {

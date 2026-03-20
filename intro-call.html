@@ -1463,9 +1463,7 @@ body.presenter-mode .progress-bar { width: 65vw !important; }
       <span class="tag" style="background:rgba(255,59,139,0.15);color:var(--pink);font-size:13px;padding:6px 14px">hospitality/food &middot; 1</span>
       <span class="tag" style="background:rgba(255,107,107,0.15);color:var(--red);font-size:13px;padding:6px 14px">other &middot; 58</span>
     </div>
-    <div style="margin-top:24px;padding:14px 24px;background:rgba(28,28,46,0.6);border:1px solid var(--border);border-radius:8px">
-      <span style="font-family:var(--font-code);font-size:13px;color:var(--text-dim)">$ cat industries.csv | sort -t, -k2 -rn | head -12 <span style="color:var(--teal)"># nocodb export</span></span>
-    </div>
+    <p style="margin-top:20px;font-size:14px;color:var(--text-dim);text-align:center">источник: NoCoDB анкеты · n=165 · 14 индустрий</p>
     <svg style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:5;opacity:0.05" viewBox="0 0 1920 1080">
       <circle cx="80" cy="140" r="2.5" fill="#4dc9d4"/>
       <circle cx="200" cy="90" r="2" fill="#38d9a9"/>
@@ -1581,9 +1579,9 @@ body.presenter-mode .progress-bar { width: 65vw !important; }
         font-family="IBM Plex Mono,monospace" font-size="14">&#x043D;&#x0430;&#x0436;&#x043C;&#x0438; &#x043F;&#x0440;&#x043E;&#x0431;&#x0435;&#x043B;</text>
     </svg>
     <div style="display:flex;gap:12px;justify-content:center;margin-top:16px">
-      <button id="timer-start" onclick="startTimer()" style="background:var(--teal);color:#161620;border:none;padding:10px 28px;border-radius:6px;font-family:var(--font-body);font-size:14px;font-weight:600;cursor:pointer">start</button>
-      <button onclick="resetTimer()" style="background:var(--bg-card);color:var(--text-dim);border:1px solid var(--border);padding:10px 20px;border-radius:6px;font-family:var(--font-body);font-size:14px;cursor:pointer">reset</button>
-      <button onclick="nextPerson()" style="background:var(--bg-card);color:var(--teal);border:1px solid var(--border);padding:10px 20px;border-radius:6px;font-family:var(--font-body);font-size:14px;cursor:pointer">next &rarr;</button>
+      <button id="timer-start" onclick="window.startTimer()" style="background:var(--teal);color:#161620;border:none;padding:10px 28px;border-radius:6px;font-family:var(--font-body);font-size:14px;font-weight:600;cursor:pointer;position:relative;z-index:100">start</button>
+      <button onclick="window.resetTimer()" style="background:var(--bg-card);color:var(--text-dim);border:1px solid var(--border);padding:10px 20px;border-radius:6px;font-family:var(--font-body);font-size:14px;cursor:pointer;position:relative;z-index:100">reset</button>
+      <button onclick="window.nextPerson()" style="background:var(--bg-card);color:var(--teal);border:1px solid var(--border);padding:10px 20px;border-radius:6px;font-family:var(--font-body);font-size:14px;cursor:pointer;position:relative;z-index:100">next &rarr;</button>
     </div>
     <div id="timer-counter" style="margin-top:20px;font-family:var(--font-code);font-size:13px;color:var(--text-dim)">
       &#x0443;&#x0447;&#x0430;&#x0441;&#x0442;&#x043D;&#x0438;&#x043A; <span id="person-num">1</span>

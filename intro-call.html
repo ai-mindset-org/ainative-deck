@@ -11,6 +11,7 @@
 <meta property="og:url" content="https://ai-mindset-org.github.io/ainative-deck/intro-call.html">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://ai-mindset-org.github.io/ainative-deck/assets/og-intro-call.png">
+<link rel="icon" type="image/png" href="logo.png">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -1585,7 +1586,7 @@ body.presenter-mode .progress-bar { width: 65vw !important; }
       <button onclick="nextPerson()" style="background:var(--bg-card);color:var(--teal);border:1px solid var(--border);padding:10px 20px;border-radius:6px;font-family:var(--font-body);font-size:14px;cursor:pointer">next &rarr;</button>
     </div>
     <div id="timer-counter" style="margin-top:20px;font-family:var(--font-code);font-size:13px;color:var(--text-dim)">
-      &#x0443;&#x0447;&#x0430;&#x0441;&#x0442;&#x043D;&#x0438;&#x043A; <span id="person-num">1</span> / 177
+      &#x0443;&#x0447;&#x0430;&#x0441;&#x0442;&#x043D;&#x0438;&#x043A; <span id="person-num">1</span>
     </div>
   </div>
 </div>
@@ -1726,7 +1727,7 @@ body.presenter-mode .progress-bar { width: 65vw !important; }
 
 <script>
 // Clear stale localStorage on version change
-const DECK_VERSION = '2026-03-20-v6';
+const DECK_VERSION = '2026-03-20-v7';
 if (localStorage.getItem('ainative-intro-call-version') !== DECK_VERSION) {
   localStorage.removeItem('ainative-intro-call-state');
   localStorage.setItem('ainative-intro-call-version', DECK_VERSION);
@@ -1787,6 +1788,7 @@ document.addEventListener('keydown', (e) => {
     return;
   }
 
+  if (e.key === ' ' && slides[current] && slides[current].id === 's-timer') return; // handled by timer capture handler
   if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'Enter') { e.preventDefault(); showSlide(current + 1); }
   else if (e.key === 'ArrowLeft' || e.key === 'Backspace') { e.preventDefault(); showSlide(current - 1); }
   else if (e.key === 'Home') showSlide(0);
@@ -1875,7 +1877,7 @@ function redo() {
 }
 
 // ===== EDIT MODE =====
-const EDITABLE = 'h1,h2,h3,p,li,.layer-desc,.layer-name,.timeline-title,.timeline-dur,.card h3,.card p,.tag,.stat-box .num,.stat-box .stat-label,.quote p,.quote .author,.code-block span,.subtitle,.label,.date,.speaker-name,.speaker-role,.speaker-topic';
+const EDITABLE = 'h1,h2,h3,p,li,span,.layer-desc,.layer-name,.timeline-title,.timeline-dur,.card h3,.card p,.tag,.stat-box .num,.stat-box .stat-label,.quote p,.quote .author,.quote-enhanced p,.quote-enhanced .author,.code-block span,.subtitle,.label,.date,.speaker-name,.speaker-role,.speaker-topic';
 
 function toggleEdit() {
   editMode = !editMode;
@@ -1902,8 +1904,15 @@ function toggleEdit() {
 function activateEditOnSlides() {
   document.querySelectorAll('.slide').forEach(slide => {
     slide.querySelectorAll(EDITABLE).forEach(el => {
-      if (el.closest('.slide-counter') || el.closest('#edit-badge') || el.closest('.nav-hint') || el.closest('#builder-toolbar') || el.closest('#gh-modal') || el.closest('#block-actions')) return;
+      if (el.closest('.slide-counter') || el.closest('#edit-badge') || el.closest('.nav-hint') || el.closest('#builder-toolbar') || el.closest('#gh-modal') || el.closest('#block-actions') || el.closest('#timer-counter') || el.tagName === 'BUTTON') return;
       el.contentEditable = 'true';
+    });
+    // Also make text-only divs editable (custom stat cards, etc.)
+    slide.querySelectorAll('.slide-inner div').forEach(el => {
+      if (el.closest('.slide-counter') || el.closest('#edit-badge') || el.closest('.nav-hint') || el.closest('#builder-toolbar') || el.closest('#gh-modal') || el.closest('#block-actions') || el.closest('#timer-counter') || el.closest('button')) return;
+      if (el.children.length === 0 && el.textContent.trim().length > 0) {
+        el.contentEditable = 'true';
+      }
     });
     // Make blocks draggable
     const inner = slide.querySelector('.slide-inner');
@@ -2779,6 +2788,11 @@ function nextPerson() {
   startTimer();
 }
 
+// Expose timer functions to global scope for onclick handlers
+window.startTimer = startTimer;
+window.resetTimer = resetTimer;
+window.nextPerson = nextPerson;
+
 // Override space bar on timer slide (capture phase to intercept before navigation)
 document.addEventListener('keydown', (e) => {
   if (e.key === ' ' && slides[current] && slides[current].id === 's-timer') {
@@ -2789,9 +2803,6 @@ document.addEventListener('keydown', (e) => {
 }, true);
 
 // ===== INIT =====
-// Force fresh state every load during development
-localStorage.removeItem('ainative-intro-call-state');
-
 const loaded = loadFromLocal();
 if (!loaded) showSlide(current);
 </script>

@@ -3382,6 +3382,16 @@ function activateEditOnSlides() {
         if (block._editListenersAttached) return;
         block._editListenersAttached = true;
         block.draggable = true;
+        // Disable draggable when clicking on contenteditable elements so text is selectable
+        block.addEventListener('mousedown', (e) => {
+          if (e.target.contentEditable === 'true' || e.target.closest('[contenteditable="true"]')) {
+            block.draggable = false;
+          } else {
+            block.draggable = true;
+          }
+        });
+        // Re-enable draggable on mouseup so block can be dragged again later
+        block.addEventListener('mouseup', () => { block.draggable = true; });
         block.addEventListener('dragstart', onDragStart);
         block.addEventListener('dragend', onDragEnd);
         block.addEventListener('dragover', onDragOver);
@@ -3842,14 +3852,29 @@ async function runAiGeneration() {
           model: 'anthropic/claude-sonnet-4-20250514',
           messages: [{
             role: 'user',
-            content: `Generate a clean, minimal SVG illustration for a presentation slide. Theme: dark background (#161620), accent color #4dc9d4 (teal). The SVG should be self-contained, 400x300 viewBox, no external dependencies. Subject: ${prompt}. Return ONLY the SVG code, nothing else.`
+            content: `Generate a clean, minimal SVG illustration for a presentation slide. Theme: dark background (#161620), accent color #4dc9d4 (teal). The SVG should be self-contained, 400x300 viewBox, no external dependencies. Subject: ${prompt}.\n\nIMPORTANT: Return ONLY the raw SVG code starting with <svg and ending with </svg>. No markdown, no code fences, no explanation.`
           }],
           max_tokens: 4000
         })
       });
+      if (!resp.ok) {
+        const errBody = await resp.text();
+        statusEl.textContent = 'API error ' + resp.status + ': ' + (errBody.slice(0, 120));
+        generateBtn.style.display = '';
+        return;
+      }
       const data = await resp.json();
-      const content = data.choices?.[0]?.message?.content || '';
-      const svgMatch = content.match(/<svg[\s\S]*?<\/svg>/i);
+      if (data.error) {
+        statusEl.textContent = 'API error: ' + (data.error.message || JSON.stringify(data.error).slice(0, 120));
+        generateBtn.style.display = '';
+        return;
+      }
+      // Handle both string content and array content blocks (Anthropic via OpenRouter)
+      let content = data.choices?.[0]?.message?.content || '';
+      if (Array.isArray(content)) {
+        content = content.map(b => (typeof b === 'string') ? b : (b.text || '')).join('');
+      }
+      const svgMatch = content.match(/<svg[\s\S]*<\/svg>/i);
       if (svgMatch) {
         aiResult = { type: 'svg', content: svgMatch[0] };
         previewEl.innerHTML = svgMatch[0];
@@ -3857,7 +3882,8 @@ async function runAiGeneration() {
         statusEl.textContent = 'SVG generated';
         insertBtn.style.display = '';
       } else {
-        statusEl.textContent = 'no SVG found in response';
+        statusEl.textContent = 'no SVG found in response (len=' + content.length + ')';
+        if (content) console.warn('[AI] response content:', content.slice(0, 500));
         generateBtn.style.display = '';
       }
     } else {
@@ -3877,7 +3903,19 @@ async function runAiGeneration() {
           response_format: 'b64_json'
         })
       });
+      if (!resp.ok) {
+        const errBody = await resp.text();
+        statusEl.textContent = 'Image API error ' + resp.status + ': ' + (errBody.slice(0, 120));
+        // Fallback to SVG
+        aiMode = 'svg';
+        return runAiGeneration();
+      }
       const data = await resp.json();
+      if (data.error) {
+        statusEl.textContent = 'Image API error: ' + (data.error.message || JSON.stringify(data.error).slice(0, 120));
+        aiMode = 'svg';
+        return runAiGeneration();
+      }
       if (data.data?.[0]?.b64_json) {
         const b64 = data.data[0].b64_json;
         const dataUrl = 'data:image/png;base64,' + b64;
@@ -3901,6 +3939,7 @@ async function runAiGeneration() {
     }
   } catch (e) {
     statusEl.textContent = 'error: ' + e.message;
+    console.error('[AI generation]', e);
     generateBtn.style.display = '';
   }
 }

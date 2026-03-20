@@ -663,6 +663,64 @@ body.edit-mode #builder-toolbar { display: flex; }
   #preview-panel { display: none !important; }
   .layout-options { grid-template-columns: repeat(2, 1fr); }
 }
+
+/* === PRESENTER MODE (T key) === */
+body.presenter-mode .slide.active {
+  width: 65vw;
+}
+#presenter-panel {
+  display: none;
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 35vw;
+  height: 100vh;
+  background: var(--bg-deep);
+  border-left: 1px solid var(--border);
+  padding: 24px;
+  overflow-y: auto;
+  z-index: 10002;
+  font-family: var(--font-body);
+}
+body.presenter-mode #presenter-panel { display: block; }
+body.presenter-mode .progress-bar { width: 65vw !important; }
+#presenter-panel .pres-label {
+  font-family: var(--font-code); font-size: 11px;
+  text-transform: uppercase; letter-spacing: 3px;
+  color: var(--text-label); margin-bottom: 12px;
+}
+#presenter-panel .pres-timer {
+  font-family: var(--font-heading); font-size: 48px; font-weight: 700;
+  color: var(--teal); font-variant-numeric: tabular-nums; margin-bottom: 16px;
+}
+#presenter-panel .pres-notes {
+  font-size: 15px; line-height: 1.7; color: rgba(255,255,255,0.7); margin-bottom: 16px;
+}
+#presenter-panel .pres-notes h4 {
+  font-family: var(--font-heading); font-size: 14px; font-weight: 600;
+  color: var(--teal); margin-bottom: 6px;
+}
+#presenter-panel .pres-next {
+  border-top: 1px solid var(--border); padding-top: 12px; margin-top: 12px;
+}
+#presenter-panel .pres-next-label {
+  font-size: 11px; color: var(--text-label); letter-spacing: 2px;
+  text-transform: uppercase; margin-bottom: 6px;
+}
+#presenter-panel .pres-next-title {
+  font-size: 15px; color: rgba(255,255,255,0.5);
+}
+#presenter-panel .pres-agenda {
+  margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--border);
+}
+#presenter-panel .pres-agenda-item {
+  display: flex; gap: 10px; padding: 6px 0; font-size: 13px; color: var(--text-dim);
+  border-left: 2px solid transparent; padding-left: 8px; transition: all 0.2s;
+}
+#presenter-panel .pres-agenda-item.active {
+  color: var(--teal); font-weight: 500; border-left-color: var(--teal);
+}
+#presenter-panel .pres-agenda-time { min-width: 32px; color: var(--text-label); }
 </style>
 </head>
 <body>
@@ -739,6 +797,29 @@ body.edit-mode #builder-toolbar { display: flex; }
       <line x1="1720" y1="830" x2="1650" y2="920" stroke="#3b82f6" stroke-width="0.4" opacity="0.2"/>
       <line x1="1500" y1="900" x2="1550" y2="780" stroke="#3b82f6" stroke-width="0.4" opacity="0.2"/>
       <line x1="1500" y1="900" x2="1650" y2="920" stroke="#4dc9d4" stroke-width="0.4" opacity="0.15"/>
+    </svg>
+  </div>
+</div>
+
+<!-- ==================== SLIDE: INTRO CALL AGENDA ==================== -->
+<div class="slide" id="s-agenda">
+  <div class="slide-counter"><span class="current"></span>/<span class="total"></span></div>
+  <img class="slide-logo" src="logo.png" alt="">
+  <div class="slide-inner">
+    <div class="label">// intro call · 40 min</div>
+    <h2>Что будет сегодня</h2>
+    <div class="layers">
+      <div class="layer" style="border-left:3px solid var(--teal)"><div class="layer-num teal" style="min-width:48px">5'</div><div class="layer-name">знакомство</div><div class="layer-desc">кто мы, зачем этот спринт</div></div>
+      <div class="layer" style="border-left:3px solid var(--blue)"><div class="layer-num blue" style="min-width:48px">10'</div><div class="layer-name">аудитория</div><div class="layer-desc">кто здесь, какие задачи, какие боли</div></div>
+      <div class="layer" style="border-left:3px solid var(--green)"><div class="layer-num green" style="min-width:48px">10'</div><div class="layer-name">формат спринта</div><div class="layer-desc">3 недели, расписание, кураторы, Demo Day</div></div>
+      <div class="layer" style="border-left:3px solid var(--amber)"><div class="layer-num amber" style="min-width:48px">5'</div><div class="layer-name">что дальше</div><div class="layer-desc">понедельник 18:00 CET — первая лекция Гершуни</div></div>
+      <div class="layer" style="border-left:3px solid var(--pink)"><div class="layer-num" style="min-width:48px;color:var(--pink)">10'</div><div class="layer-name">Q&A</div><div class="layer-desc">вопросы, ожидания, настройка</div></div>
+    </div>
+    <svg style="position:absolute;right:60px;bottom:80px;opacity:0.06;z-index:5" width="180" height="180" viewBox="0 0 200 200">
+      <circle cx="100" cy="100" r="90" fill="none" stroke="#4dc9d4" stroke-width="1.5"/>
+      <circle cx="100" cy="100" r="3" fill="#4dc9d4"/>
+      <line x1="100" y1="100" x2="100" y2="35" stroke="#4dc9d4" stroke-width="2" stroke-linecap="round"/>
+      <line x1="100" y1="100" x2="155" y2="100" stroke="#4dc9d4" stroke-width="1.5" stroke-linecap="round"/>
     </svg>
   </div>
 </div>
@@ -1151,6 +1232,31 @@ body.edit-mode #builder-toolbar { display: flex; }
   </div>
 </div>
 
+<!-- ==================== SLIDE: WHAT TO EXPECT ==================== -->
+<div class="slide" id="s-expect">
+  <div class="slide-counter"><span class="current"></span>/<span class="total"></span></div>
+  <img class="slide-logo" src="logo.png" alt="">
+  <div class="slide-inner">
+    <div class="label">// what to expect</div>
+    <h2>Что будет на спринте</h2>
+    <div class="cards" style="grid-template-columns:repeat(3,1fr)">
+      <div class="card"><div class="card-icon" style="color:var(--teal)">W1</div><h3>Personal AI + Team</h3><p>настройка личной системы, аудит процессов, мост personal → team</p><span class="tag">23–28 марта</span></div>
+      <div class="card"><div class="card-icon" style="color:var(--blue)">W2</div><h3>System Above Model</h3><p>архитектура AI в организации, context directory, первый командный навык</p><span class="tag">30 мар – 4 апр</span></div>
+      <div class="card"><div class="card-icon" style="color:var(--green)">W3</div><h3>Agent Pipelines + Demo</h3><p>полноценные пайплайны, 90-дневный план, Demo Day — показать что собрали</p><span class="tag">6–13 апреля</span></div>
+    </div>
+    <div style="margin-top:24px;display:flex;gap:16px;flex-wrap:wrap">
+      <div style="flex:1;min-width:200px;padding:16px;border:1px solid var(--border);border-radius:8px;background:var(--bg-card)">
+        <p style="font-size:14px;color:var(--teal);margin-bottom:4px;font-weight:600">формат</p>
+        <p style="font-size:13px;color:var(--text-dim)">лекции + воркшопы + coworking + гостевые спикеры + 1-1 с кураторами</p>
+      </div>
+      <div style="flex:1;min-width:200px;padding:16px;border:1px solid var(--border);border-radius:8px;background:var(--bg-card)">
+        <p style="font-size:14px;color:var(--teal);margin-bottom:4px;font-weight:600">результат</p>
+        <p style="font-size:13px;color:var(--text-dim)">рабочий AI-контур для команды + 90-дневный план трансформации + Demo Day презентация</p>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- ==================== SLIDE 12: SCHEDULE ==================== -->
 <div class="slide" id="s12">
   <div class="slide-counter"><span class="current">12</span>/<span class="total"></span></div>
@@ -1294,9 +1400,21 @@ body.edit-mode #builder-toolbar { display: flex; }
   </div>
 </div>
 
+<!-- Presenter Panel (T key) -->
+<div id="presenter-panel">
+  <div class="pres-label">// presenter notes</div>
+  <div class="pres-timer" id="pres-timer">00:00</div>
+  <div class="pres-notes" id="pres-notes"></div>
+  <div class="pres-next">
+    <div class="pres-next-label">// next slide</div>
+    <div class="pres-next-title" id="pres-next-title"></div>
+  </div>
+  <div class="pres-agenda" id="pres-agenda"></div>
+</div>
+
 <!-- UI Elements -->
 <div class="progress-bar"></div>
-<div class="nav-hint">&larr; &rarr; navigate &middot; E edit &middot; F fullscreen</div>
+<div class="nav-hint">&larr; &rarr; navigate &middot; E edit &middot; F fullscreen &middot; T presenter</div>
 <div id="edit-badge">// EDIT MODE — changes auto-save &middot; Ctrl+Z undo</div>
 
 <!-- Block action buttons (positioned dynamically) -->
@@ -1481,6 +1599,7 @@ document.addEventListener('keydown', (e) => {
     else document.exitFullscreen();
   }
   else if (e.key === 'e' || e.key === 'E') toggleEdit();
+  else if (e.key === 't' || e.key === 'T') togglePresenter();
   else if ((e.ctrlKey || e.metaKey) && e.key === 'z' && !e.shiftKey) { e.preventDefault(); undo(); }
   else if ((e.ctrlKey || e.metaKey) && (e.key === 'Z' || e.key === 'y')) { e.preventDefault(); redo(); }
   else if (e.key === 'Delete' && editMode && selectedBlock) { deleteBlock(); }
@@ -2324,6 +2443,82 @@ document.getElementById('ai-modal').addEventListener('click', (e) => {
 document.getElementById('gh-modal').addEventListener('click', (e) => {
   if (e.target === e.currentTarget) closeGhModal();
 });
+
+// ===== PRESENTER MODE (T key) =====
+let presenterMode = false;
+let presTimer = null;
+let presSeconds = 0;
+
+const presNotes = [
+  { t: "Cover", n: "приветствие, представиться, Степан представляется. 2 мин" },
+  { t: "Agenda", n: "обзор: 40 минут, 5 блоков. не задерживаться" },
+  { t: "Цифры", n: "обзорные цифры, дать ощущение масштаба" },
+  { t: "Roles", n: "61% фаундеры — это не обычная аудитория. decision makers" },
+  { t: "AI зрелость", n: "спектр от 'двоечницы' до 90+ skills. спринт для всех уровней" },
+  { t: "Боли", n: "85% одна боль — personal vs team. ЭТО и есть тема спринта" },
+  { t: "Цели", n: "42% хотят framework, не инструмент — архитектуру" },
+  { t: "Цитаты", n: "дать прочитать, не комментировать. пауза" },
+  { t: "Enterprise", n: "показать калибр. Альфа-Капитал 2 трлн — серьёзно" },
+  { t: "Tools", n: "ChatGPT 61%, Claude 55%, Obsidian 36% — наши люди" },
+  { t: "Curators", n: "представить ключевых кураторов. 1-1 уже идут. записаться" },
+  { t: "What to expect", n: "3 недели overview. не раскрывать детали — будет в понедельник" },
+  { t: "Программа", n: "расписание по неделям. ПН 23.03 18:00 CET — Степан" },
+  { t: "Спикеры", n: "11 спикеров. каждый — практик, не теоретик" },
+  { t: "География", n: "60% Россия, timezone challenges для 40% зарубежных" },
+  { t: "Industries", n: "16+ индустрий. cross-pollination — ценность" },
+  { t: "Ещё цитаты", n: "пауза. дать прочитать" },
+  { t: "Takeaways", n: "закрытие. Q&A. напомнить: понедельник 18:00 CET" }
+];
+
+const agendaItems = [
+  { time: "5'", label: "знакомство" },
+  { time: "10'", label: "аудитория и боли" },
+  { time: "10'", label: "формат спринта" },
+  { time: "5'", label: "что дальше" },
+  { time: "10'", label: "Q&A" }
+];
+
+function togglePresenter() {
+  presenterMode = !presenterMode;
+  document.body.classList.toggle('presenter-mode', presenterMode);
+  if (presenterMode) {
+    presSeconds = 0;
+    presTimer = setInterval(() => {
+      presSeconds++;
+      const m = String(Math.floor(presSeconds / 60)).padStart(2, '0');
+      const s = String(presSeconds % 60).padStart(2, '0');
+      document.getElementById('pres-timer').textContent = m + ':' + s;
+    }, 1000);
+    updatePresenterNotes();
+    // Build agenda
+    const agendaEl = document.getElementById('pres-agenda');
+    agendaEl.innerHTML = agendaItems.map((a, i) =>
+      `<div class="pres-agenda-item${i === 0 ? ' active' : ''}"><span class="pres-agenda-time">${a.time}</span><span>${a.label}</span></div>`
+    ).join('');
+  } else {
+    clearInterval(presTimer);
+    document.getElementById('pres-timer').textContent = '00:00';
+  }
+}
+
+function updatePresenterNotes() {
+  if (!presenterMode) return;
+  const note = presNotes[current] || { t: 'Slide ' + (current + 1), n: '' };
+  document.getElementById('pres-notes').innerHTML = `<h4>${note.t}</h4><p>${note.n}</p>`;
+  const next = presNotes[current + 1];
+  document.getElementById('pres-next-title').textContent = next ? next.t : '— end —';
+  // Update agenda highlight based on slide position
+  const agendaItems = document.querySelectorAll('.pres-agenda-item');
+  const phase = current < 2 ? 0 : current < 7 ? 1 : current < 13 ? 2 : current < 15 ? 3 : 4;
+  agendaItems.forEach((el, i) => el.classList.toggle('active', i === phase));
+}
+
+// Hook into showSlide to update presenter notes
+const origShowSlide = showSlide;
+showSlide = function(n) {
+  origShowSlide(n);
+  if (presenterMode) updatePresenterNotes();
+};
 
 // ===== INIT =====
 const loaded = loadFromLocal();

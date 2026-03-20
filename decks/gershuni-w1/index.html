@@ -332,6 +332,12 @@ p, li { font-size: 17px; line-height: 1.7; color: rgba(255,255,255,0.8); }
 /* === ANIMATIONS === */
 @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0; } }
+@keyframes meshFloat { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(20px,-15px) scale(1.05); } }
+@keyframes particleDrift { 0% { transform: translateY(0) translateX(0); opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { transform: translateY(-100vh) translateX(40px); opacity: 0; } }
+@keyframes pulseGlow { 0%,100% { opacity: 0.3; } 50% { opacity: 0.7; } }
+@keyframes slideIn { from { opacity: 0; transform: translateX(-30px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes scaleIn { from { opacity: 0; transform: scale(0.85); } to { opacity: 1; transform: scale(1); } }
+@keyframes drawLine { from { stroke-dashoffset: 1000; } to { stroke-dashoffset: 0; } }
 .slide.active .slide-inner > * { animation: fadeUp 0.5s ease-out both; }
 .slide.active .slide-inner > *:nth-child(2) { animation-delay: 0.08s; }
 .slide.active .slide-inner > *:nth-child(3) { animation-delay: 0.16s; }
@@ -340,6 +346,114 @@ p, li { font-size: 17px; line-height: 1.7; color: rgba(255,255,255,0.8); }
 .slide.active .slide-inner > *:nth-child(6) { animation-delay: 0.40s; }
 .slide.active .slide-inner > *:nth-child(7) { animation-delay: 0.48s; }
 .cursor::after { content: '\2588'; animation: blink 1s step-end infinite; color: var(--teal); margin-left: 2px; }
+
+/* === SLIDE TRANSITIONS === */
+.slide { transition: opacity 0.35s ease; }
+.slide:not(.active) { opacity: 0; }
+
+/* === IMAGE HOVER ZOOM === */
+.slide-inner img:not(.slide-logo) {
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+.slide-inner img:not(.slide-logo):hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 30px rgba(77,201,212,0.15);
+}
+
+/* === GRADIENT OVERLAY FOR IMAGE SLIDES === */
+.img-overlay {
+  position: relative;
+}
+.img-overlay::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, transparent 40%, rgba(22,22,32,0.85) 100%);
+  border-radius: 8px;
+  pointer-events: none;
+}
+
+/* === TEXT SHADOWS FOR READABILITY === */
+.slide h1, .slide h2 {
+  text-shadow: 0 2px 20px rgba(0,0,0,0.4);
+}
+
+/* === GENERATIVE SVG BACKGROUND === */
+.gen-bg {
+  position: absolute; inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+.gen-bg svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.gen-bg .mesh-blob {
+  animation: meshFloat 12s ease-in-out infinite;
+}
+.gen-bg .mesh-blob:nth-child(2) { animation-delay: -4s; animation-duration: 15s; }
+.gen-bg .mesh-blob:nth-child(3) { animation-delay: -8s; animation-duration: 18s; }
+
+/* === PARTICLE FIELD === */
+.particle {
+  position: absolute;
+  width: 2px; height: 2px;
+  border-radius: 50%;
+  background: var(--teal);
+  opacity: 0;
+  animation: particleDrift linear infinite;
+}
+
+/* === SPEAKER CARD === */
+.speaker-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: all 0.3s;
+}
+.speaker-card:hover { border-color: var(--border-hover); box-shadow: 0 0 24px var(--teal-dim); }
+.speaker-card .speaker-name { font-family: var(--font-heading); font-size: 15px; font-weight: 600; color: #fff; }
+.speaker-card .speaker-company { font-size: 12px; color: var(--text-dim); }
+.speaker-card .speaker-topic { font-size: 13px; color: rgba(255,255,255,0.75); margin-top: 4px; }
+.speaker-card .speaker-date { font-size: 11px; font-family: var(--font-code); color: var(--text-label); margin-top: auto; }
+
+/* === DELIVERABLE CARDS === */
+.deliverable-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  transition: all 0.3s;
+}
+.deliverable-card:hover { border-color: var(--border-hover); transform: translateX(4px); }
+.deliverable-num {
+  font-family: var(--font-heading);
+  font-size: 28px;
+  font-weight: 700;
+  min-width: 40px;
+  line-height: 1;
+}
+.deliverable-content h3 { font-family: var(--font-heading); font-size: 16px; font-weight: 600; color: #fff; margin-bottom: 4px; }
+.deliverable-content p { font-size: 13px; color: var(--text-dim); line-height: 1.5; }
+
+/* === SECTION DIVIDER ENHANCED === */
+.section-divider .gen-bg { opacity: 0.6; }
+
+/* === STAT BOX ENHANCED === */
+.stat-box { position: relative; overflow: hidden; }
+.stat-box::before {
+  content: '';
+  position: absolute; top: -50%; left: -50%;
+  width: 200%; height: 200%;
+  background: radial-gradient(circle, rgba(77,201,212,0.04) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+.stat-box:hover::before { opacity: 1; }
 
 /* === IMAGE PLACEHOLDER === */
 .img-placeholder {
@@ -1008,18 +1122,69 @@ body.vox-open #vox-panel {
 <div class="slide active" id="s1">
   <div class="slide-counter"><span class="current">1</span>/<span class="total"></span></div>
   <img class="slide-logo" src="../../logo.png" alt="">
+  <!-- Generative SVG background: animated mesh gradient + particle field -->
+  <div class="gen-bg">
+    <svg viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <radialGradient id="mesh1" cx="25%" cy="40%" r="45%"><stop offset="0%" stop-color="rgba(77,201,212,0.12)"/><stop offset="100%" stop-color="transparent"/></radialGradient>
+        <radialGradient id="mesh2" cx="75%" cy="25%" r="40%"><stop offset="0%" stop-color="rgba(59,130,246,0.08)"/><stop offset="100%" stop-color="transparent"/></radialGradient>
+        <radialGradient id="mesh3" cx="60%" cy="75%" r="35%"><stop offset="0%" stop-color="rgba(56,217,169,0.06)"/><stop offset="100%" stop-color="transparent"/></radialGradient>
+        <linearGradient id="gridLine" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="transparent"/><stop offset="50%" stop-color="rgba(77,201,212,0.06)"/><stop offset="100%" stop-color="transparent"/></linearGradient>
+      </defs>
+      <!-- Animated mesh blobs -->
+      <ellipse class="mesh-blob" cx="480" cy="430" rx="400" ry="300" fill="url(#mesh1)"/>
+      <ellipse class="mesh-blob" cx="1440" cy="270" rx="350" ry="250" fill="url(#mesh2)"/>
+      <ellipse class="mesh-blob" cx="1150" cy="810" rx="320" ry="240" fill="url(#mesh3)"/>
+      <!-- Circuit-board pattern lines -->
+      <g stroke="rgba(77,201,212,0.04)" stroke-width="1" fill="none">
+        <path d="M 0 540 H 400 L 450 490 H 700 L 750 540 H 1920" style="stroke-dasharray:1000;animation:drawLine 4s ease-out forwards"/>
+        <path d="M 960 0 V 300 L 1010 350 V 600 L 960 650 V 1080" style="stroke-dasharray:1000;animation:drawLine 5s ease-out 0.5s forwards"/>
+        <circle cx="450" cy="490" r="4" fill="rgba(77,201,212,0.08)"/>
+        <circle cx="750" cy="540" r="4" fill="rgba(77,201,212,0.08)"/>
+        <circle cx="1010" cy="350" r="4" fill="rgba(77,201,212,0.08)"/>
+        <circle cx="960" cy="650" r="4" fill="rgba(77,201,212,0.08)"/>
+      </g>
+      <!-- Floating dots -->
+      <g fill="rgba(77,201,212,0.15)">
+        <circle cx="200" cy="200" r="2"><animate attributeName="opacity" values="0.1;0.4;0.1" dur="4s" repeatCount="indefinite"/></circle>
+        <circle cx="1700" cy="150" r="1.5"><animate attributeName="opacity" values="0.1;0.5;0.1" dur="3s" repeatCount="indefinite" begin="1s"/></circle>
+        <circle cx="1400" cy="900" r="2"><animate attributeName="opacity" values="0.1;0.3;0.1" dur="5s" repeatCount="indefinite" begin="2s"/></circle>
+        <circle cx="300" cy="800" r="1.5"><animate attributeName="opacity" values="0.1;0.4;0.1" dur="3.5s" repeatCount="indefinite" begin="0.5s"/></circle>
+        <circle cx="800" cy="100" r="1"><animate attributeName="opacity" values="0.1;0.6;0.1" dur="2.5s" repeatCount="indefinite" begin="1.5s"/></circle>
+        <circle cx="1100" cy="950" r="1.5"><animate attributeName="opacity" values="0.1;0.35;0.1" dur="4.5s" repeatCount="indefinite" begin="3s"/></circle>
+      </g>
+    </svg>
+  </div>
   <div class="glow-dot" style="top:15%;left:10%"></div>
   <div class="glow-dot" style="top:70%;right:15%"></div>
   <div class="glow-dot" style="bottom:20%;left:30%"></div>
-  <div class="slide-inner cover">
+  <div class="slide-inner cover" style="z-index:1;position:relative">
     <div class="label">// AI MINDSET &times; CYBOS</div>
     <h1>AI-Native Organizations<br>Sprint<span class="cursor"></span></h1>
     <p class="subtitle">3 недели, которые меняют подход к управлению компанией</p>
+    <div class="stat-grid cols-4" style="margin-top:24px;max-width:700px">
+      <div class="stat-box" style="padding:12px 8px;background:rgba(28,28,46,0.6)">
+        <div class="num teal" style="font-size:28px">3</div>
+        <div class="stat-label">недели</div>
+      </div>
+      <div class="stat-box" style="padding:12px 8px;background:rgba(28,28,46,0.6)">
+        <div class="num green" style="font-size:28px">11</div>
+        <div class="stat-label">спикеров</div>
+      </div>
+      <div class="stat-box" style="padding:12px 8px;background:rgba(28,28,46,0.6)">
+        <div class="num amber" style="font-size:28px">18</div>
+        <div class="stat-label">артефактов</div>
+      </div>
+      <div class="stat-box" style="padding:12px 8px;background:rgba(28,28,46,0.6)">
+        <div class="num cyan" style="font-size:28px">33</div>
+        <div class="stat-label">участника</div>
+      </div>
+    </div>
     <div class="meta" style="margin-top:16px">
       <span class="tag">sprint s2</span>
       <span class="tag green-tag">23 марта &mdash; 13 апреля 2026</span>
       <span class="dot">&middot;</span>
-      <span class="date">online &middot; live &middot; 18 артефактов</span>
+      <span class="date">online &middot; live</span>
     </div>
   </div>
 </div>
@@ -1062,32 +1227,56 @@ body.vox-open #vox-panel {
     <div class="label">// ДЛЯ КОГО</div>
     <h2>участники спринта</h2>
     <div class="stat-grid cols-4" style="margin-bottom:20px">
-      <div class="stat-box">
-        <div class="num teal" style="font-size:36px">33</div>
+      <div class="stat-box" style="border-top:3px solid var(--teal)">
+        <div class="num teal" style="font-size:42px">33</div>
         <div class="stat-label">участника</div>
       </div>
-      <div class="stat-box">
-        <div class="num green" style="font-size:36px">61%</div>
+      <div class="stat-box" style="border-top:3px solid var(--green)">
+        <div class="num green" style="font-size:42px">61%</div>
         <div class="stat-label">founders &amp; CEO</div>
       </div>
-      <div class="stat-box">
-        <div class="num amber" style="font-size:36px">2000+</div>
-        <div class="stat-label">людей под управлением</div>
+      <div class="stat-box" style="border-top:3px solid var(--amber)">
+        <div class="num amber" style="font-size:42px">14</div>
+        <div class="stat-label">индустрий</div>
       </div>
-      <div class="stat-box">
-        <div class="num cyan" style="font-size:36px">85%</div>
-        <div class="stat-label">&laquo;личный AI работает &mdash; командный нет&raquo;</div>
+      <div class="stat-box" style="border-top:3px solid var(--cyan)">
+        <div class="num cyan" style="font-size:42px">2000+</div>
+        <div class="stat-label">людей под управлением</div>
       </div>
     </div>
     <div class="split" style="gap:24px">
       <div>
-        <h3 style="font-size:14px;margin-bottom:8px">индустрии</h3>
-        <p style="font-size:13px;color:var(--text-dim);line-height:1.6">Fintech, E-commerce, SaaS, Gaming, Consulting, VC, EdTech, Construction, Mobile, Marketing, Hospitality, Crypto, Media, IT Infra</p>
+        <h3 style="font-size:14px;margin-bottom:8px"><span class="teal">14 индустрий</span></h3>
+        <div style="display:flex;flex-wrap:wrap;gap:4px">
+          <span class="tag" style="font-size:10px">Fintech</span>
+          <span class="tag" style="font-size:10px">E-commerce</span>
+          <span class="tag" style="font-size:10px">SaaS</span>
+          <span class="tag" style="font-size:10px">Gaming</span>
+          <span class="tag blue-tag" style="font-size:10px">Consulting</span>
+          <span class="tag blue-tag" style="font-size:10px">VC</span>
+          <span class="tag green-tag" style="font-size:10px">EdTech</span>
+          <span class="tag green-tag" style="font-size:10px">Construction</span>
+          <span class="tag amber-tag" style="font-size:10px">Mobile</span>
+          <span class="tag amber-tag" style="font-size:10px">Marketing</span>
+          <span class="tag" style="font-size:10px">Hospitality</span>
+          <span class="tag" style="font-size:10px">Crypto</span>
+          <span class="tag blue-tag" style="font-size:10px">Media</span>
+          <span class="tag blue-tag" style="font-size:10px">IT Infra</span>
+        </div>
       </div>
       <div>
-        <h3 style="font-size:14px;margin-bottom:8px">AI-стек участников</h3>
-        <p style="font-size:13px;color:var(--text-dim);line-height:1.6">ChatGPT (61%), Claude (55%), Obsidian (36%), Cursor (30%), n8n (12%), OpenClaw (12%)</p>
+        <h3 style="font-size:14px;margin-bottom:8px"><span class="green">AI-стек участников</span></h3>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;height:6px;border-radius:3px;background:rgba(77,201,212,0.15);overflow:hidden"><div style="width:61%;height:100%;background:var(--teal);border-radius:3px"></div></div><span style="font-size:12px;color:var(--text-dim)">ChatGPT <span class="teal">61%</span></span></div>
+          <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;height:6px;border-radius:3px;background:rgba(77,201,212,0.15);overflow:hidden"><div style="width:55%;height:100%;background:var(--green);border-radius:3px"></div></div><span style="font-size:12px;color:var(--text-dim)">Claude <span class="green">55%</span></span></div>
+          <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;height:6px;border-radius:3px;background:rgba(77,201,212,0.15);overflow:hidden"><div style="width:36%;height:100%;background:var(--blue);border-radius:3px"></div></div><span style="font-size:12px;color:var(--text-dim)">Obsidian <span class="blue">36%</span></span></div>
+          <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;height:6px;border-radius:3px;background:rgba(77,201,212,0.15);overflow:hidden"><div style="width:30%;height:100%;background:var(--amber);border-radius:3px"></div></div><span style="font-size:12px;color:var(--text-dim)">Cursor <span class="amber">30%</span></span></div>
+          <div style="display:flex;align-items:center;gap:8px"><div style="width:100px;height:6px;border-radius:3px;background:rgba(77,201,212,0.15);overflow:hidden"><div style="width:12%;height:100%;background:var(--cyan);border-radius:3px"></div></div><span style="font-size:12px;color:var(--text-dim)">n8n <span class="cyan">12%</span></span></div>
+        </div>
       </div>
+    </div>
+    <div style="margin-top:12px;padding:10px 16px;border-radius:8px;background:rgba(255,107,107,0.04);border:1px solid rgba(255,107,107,0.1);text-align:center">
+      <p style="font-size:14px;color:var(--text-dim)"><span class="red" style="font-weight:600">85%</span> участников: &laquo;личный AI работает &mdash; командный нет&raquo;</p>
     </div>
   </div>
 </div>
@@ -1154,26 +1343,79 @@ body.vox-open #vox-panel {
   <img class="slide-logo" src="../../logo.png" alt="">
   <div class="slide-inner" style="justify-content:flex-start;padding-top:8px;">
     <div class="label">// СПИКЕРЫ</div>
-    <h2 style="margin-bottom:8px;font-size:28px">11 спикеров-практиков</h2>
-    <table class="data-table" style="font-size:11px">
-      <thead>
-        <tr><th>спикер</th><th>компания</th><th>тема</th><th>когда</th></tr>
-      </thead>
-      <tbody>
-        <tr><td><span class="teal" style="font-weight:600">Степан Гершуни</span></td><td class="dim">cybos.ai, cyber.fund</td><td>все 3 лекции (пн)</td><td class="num-cell">W1-W3</td></tr>
-        <tr><td><span class="teal" style="font-weight:600">Александр Поваляев</span></td><td class="dim">AI Mindset</td><td>coworking, workshops, office hours</td><td class="num-cell">W1-W3</td></tr>
-        <tr><td><span class="green" style="font-weight:600">Дима Ханарин</span></td><td class="dim">codos.ai, ex-McKinsey</td><td>AI-трансформация для организаций</td><td class="num-cell">27.03</td></tr>
-        <tr><td><span class="green" style="font-weight:600">Алексей Амётов</span></td><td class="dim">Look At Media, SETKA</td><td>AI-контент для бизнеса</td><td class="num-cell">01.04</td></tr>
-        <tr><td><span class="green" style="font-weight:600">Виталий Клебан</span></td><td class="dim">cyber.Fund, Everynet</td><td>self-improving agents</td><td class="num-cell">01.04</td></tr>
-        <tr><td><span class="green" style="font-weight:600">Валерий Ковальский</span></td><td class="dim">Red Mad Robot</td><td>AI-driven development: live build</td><td class="num-cell">02.04</td></tr>
-        <tr><td><span class="green" style="font-weight:600">Даниил Кравцов</span></td><td class="dim">Improvado ($30M raised)</td><td>AI-native + knowledge graph</td><td class="num-cell">03.04</td></tr>
-        <tr><td><span class="blue" style="font-weight:600">Евгений Рид</span></td><td class="dim">Investor, author</td><td>AI &times; Investments и стратегия</td><td class="num-cell">07.04</td></tr>
-        <tr><td><span class="blue" style="font-weight:600">Байрам Аннаков</span></td><td class="dim">onsa.ai, ex-App in the Air</td><td>автоматизация продаж</td><td class="num-cell">08.04</td></tr>
-        <tr><td><span class="blue" style="font-weight:600">Рома Бузько</span></td><td class="dim">Buzko &amp; Krasnov, Skala.io</td><td>AI в юридических процессах</td><td class="num-cell">09.04</td></tr>
-        <tr><td><span class="blue" style="font-weight:600">Сева Устинов</span></td><td class="dim">Plurio AI, IT-Agency</td><td>shared workspace &rarr; продукт-агент</td><td class="num-cell">10.04</td></tr>
-      </tbody>
-    </table>
-    <div style="margin-top:8px"><span class="tag green-tag">$100M+ invested &middot; $100M+ raised &middot; $100M+ ARR</span></div>
+    <h2 style="margin-bottom:12px;font-size:28px">11 спикеров-практиков</h2>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px">
+      <!-- W1 speakers -->
+      <div class="speaker-card" style="border-top:3px solid var(--teal)">
+        <div class="speaker-name">Степан Гершуни</div>
+        <div class="speaker-company">cybos.ai, cyber.fund</div>
+        <div class="speaker-topic">все 3 лекции</div>
+        <div class="speaker-date"><span class="teal">W1-W3</span> &middot; пн</div>
+      </div>
+      <div class="speaker-card" style="border-top:3px solid var(--teal)">
+        <div class="speaker-name">Александр Поваляев</div>
+        <div class="speaker-company">AI Mindset</div>
+        <div class="speaker-topic">coworking, workshops, OH</div>
+        <div class="speaker-date"><span class="teal">W1-W3</span> &middot; вт/сб</div>
+      </div>
+      <div class="speaker-card" style="border-top:3px solid var(--teal)">
+        <div class="speaker-name">Дима Ханарин</div>
+        <div class="speaker-company">codos.ai, ex-McKinsey</div>
+        <div class="speaker-topic">AI-трансформация организаций</div>
+        <div class="speaker-date"><span class="teal">W1</span> &middot; 27.03</div>
+      </div>
+      <!-- W2 speakers -->
+      <div class="speaker-card" style="border-top:3px solid var(--green)">
+        <div class="speaker-name">Алексей Амётов</div>
+        <div class="speaker-company">Look At Media, SETKA</div>
+        <div class="speaker-topic">AI-контент для бизнеса</div>
+        <div class="speaker-date"><span class="green">W2</span> &middot; 01.04</div>
+      </div>
+      <div class="speaker-card" style="border-top:3px solid var(--green)">
+        <div class="speaker-name">Виталий Клебан</div>
+        <div class="speaker-company">cyber.Fund, Everynet</div>
+        <div class="speaker-topic">self-improving agents</div>
+        <div class="speaker-date"><span class="green">W2</span> &middot; 01.04</div>
+      </div>
+      <div class="speaker-card" style="border-top:3px solid var(--green)">
+        <div class="speaker-name">Валерий Ковальский</div>
+        <div class="speaker-company">Red Mad Robot</div>
+        <div class="speaker-topic">AI-driven dev: live build</div>
+        <div class="speaker-date"><span class="green">W2</span> &middot; 02.04</div>
+      </div>
+      <div class="speaker-card" style="border-top:3px solid var(--green)">
+        <div class="speaker-name">Даниил Кравцов</div>
+        <div class="speaker-company">Improvado ($30M raised)</div>
+        <div class="speaker-topic">AI-native + knowledge graph</div>
+        <div class="speaker-date"><span class="green">W2</span> &middot; 03.04</div>
+      </div>
+      <!-- W3 speakers -->
+      <div class="speaker-card" style="border-top:3px solid var(--blue)">
+        <div class="speaker-name">Евгений Рид</div>
+        <div class="speaker-company">Investor, author</div>
+        <div class="speaker-topic">AI &times; Investments</div>
+        <div class="speaker-date"><span class="blue">W3</span> &middot; 07.04</div>
+      </div>
+      <div class="speaker-card" style="border-top:3px solid var(--blue)">
+        <div class="speaker-name">Байрам Аннаков</div>
+        <div class="speaker-company">onsa.ai, ex-App in the Air</div>
+        <div class="speaker-topic">автоматизация продаж</div>
+        <div class="speaker-date"><span class="blue">W3</span> &middot; 08.04</div>
+      </div>
+      <div class="speaker-card" style="border-top:3px solid var(--blue)">
+        <div class="speaker-name">Рома Бузько</div>
+        <div class="speaker-company">Buzko &amp; Krasnov, Skala.io</div>
+        <div class="speaker-topic">AI в юридических процессах</div>
+        <div class="speaker-date"><span class="blue">W3</span> &middot; 09.04</div>
+      </div>
+      <div class="speaker-card" style="border-top:3px solid var(--blue)">
+        <div class="speaker-name">Сева Устинов</div>
+        <div class="speaker-company">Plurio AI, IT-Agency</div>
+        <div class="speaker-topic">shared workspace &rarr; агент</div>
+        <div class="speaker-date"><span class="blue">W3</span> &middot; 10.04</div>
+      </div>
+    </div>
+    <div style="margin-top:8px;text-align:center"><span class="tag green-tag">$100M+ invested &middot; $100M+ raised &middot; $100M+ ARR</span></div>
   </div>
 </div>
 
@@ -1184,29 +1426,50 @@ body.vox-open #vox-panel {
   <div class="slide-inner">
     <div class="label">// РЕЗУЛЬТАТЫ</div>
     <h2>18 артефактов за 3 недели</h2>
-    <div class="cards" style="grid-template-columns: repeat(4, 1fr);gap:12px;margin-top:16px">
-      <div class="card" style="border-top:3px solid var(--teal);padding:16px">
-        <div class="card-icon teal" style="font-size:20px">W1</div>
-        <h3 style="font-size:14px">Personal AI</h3>
-        <p style="font-size:12px">AI-ассистент + навыки для коммуникации, аналитики, дизайна</p>
+    <!-- Visual timeline of deliverables -->
+    <div style="display:flex;flex-direction:column;gap:8px;margin-top:16px">
+      <div class="deliverable-card" style="border-left:4px solid var(--teal)">
+        <div class="deliverable-num teal">W1</div>
+        <div class="deliverable-content">
+          <h3>Personal AI OS</h3>
+          <p>AI-ассистент, навыки для коммуникации, аналитики и дизайна. Аудит процессов. AI Champion role.</p>
+        </div>
+        <div style="margin-left:auto;display:flex;flex-direction:column;gap:2px;min-width:60px;text-align:right">
+          <span class="tag" style="font-size:9px">6 артефактов</span>
+        </div>
       </div>
-      <div class="card" style="border-top:3px solid var(--green);padding:16px">
-        <div class="card-icon green" style="font-size:20px">W2</div>
-        <h3 style="font-size:14px">System</h3>
-        <p style="font-size:12px">Карта процессов + онтология данных + автоматизация процесса</p>
+      <div class="deliverable-card" style="border-left:4px solid var(--green)">
+        <div class="deliverable-num green">W2</div>
+        <div class="deliverable-content">
+          <h3>System Architecture</h3>
+          <p>Карта процессов, онтология данных, 6 слоёв AI-native, автоматизация первого процесса.</p>
+        </div>
+        <div style="margin-left:auto;display:flex;flex-direction:column;gap:2px;min-width:60px;text-align:right">
+          <span class="tag green-tag" style="font-size:9px">6 артефактов</span>
+        </div>
       </div>
-      <div class="card" style="border-top:3px solid var(--red);padding:16px">
-        <div class="card-icon red" style="font-size:20px">W3</div>
-        <h3 style="font-size:14px">Pipeline</h3>
-        <p style="font-size:12px">Автоматизированный процесс + AI Champions + 90-дневный план</p>
+      <div class="deliverable-card" style="border-left:4px solid var(--red)">
+        <div class="deliverable-num red">W3</div>
+        <div class="deliverable-content">
+          <h3>Pipeline + Strategy</h3>
+          <p>Автоматизированный процесс, AI Champions, 90-дневный план трансформации.</p>
+        </div>
+        <div style="margin-left:auto;display:flex;flex-direction:column;gap:2px;min-width:60px;text-align:right">
+          <span class="tag red-tag" style="font-size:9px">4 артефакта</span>
+        </div>
       </div>
-      <div class="card" style="border-top:3px solid var(--amber);padding:16px">
-        <div class="card-icon amber" style="font-size:20px">DD</div>
-        <h3 style="font-size:14px">Demo Day</h3>
-        <p style="font-size:12px">Презентация: проблема &rarr; решение &rarr; ROI &rarr; что дальше</p>
+      <div class="deliverable-card" style="border-left:4px solid var(--amber)">
+        <div class="deliverable-num amber">DD</div>
+        <div class="deliverable-content">
+          <h3>Demo Day</h3>
+          <p>Презентация: проблема &rarr; решение &rarr; ROI &rarr; что дальше. Экспертная обратная связь.</p>
+        </div>
+        <div style="margin-left:auto;display:flex;flex-direction:column;gap:2px;min-width:60px;text-align:right">
+          <span class="tag amber-tag" style="font-size:9px">2 артефакта</span>
+        </div>
       </div>
     </div>
-    <div style="margin-top:16px;display:grid;grid-template-columns:1fr 1fr;gap:12px">
+    <div style="margin-top:12px;display:grid;grid-template-columns:1fr 1fr;gap:12px">
       <div style="padding:12px 16px;border-radius:8px;background:rgba(77,201,212,0.04);border:1px solid rgba(77,201,212,0.08);">
         <p style="font-size:13px;color:var(--text-dim);">После спринта: записи 12 месяцев, vault с шаблонами, alumni community, 25% скидка</p>
       </div>
@@ -1221,9 +1484,23 @@ body.vox-open #vox-panel {
 <div class="slide section-divider" id="s8">
   <div class="slide-counter"><span class="current">8</span>/<span class="total"></span></div>
   <img class="slide-logo" src="../../logo.png" alt="">
+  <!-- Generative SVG: data-flow visualization -->
+  <div class="gen-bg">
+    <svg viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <radialGradient id="s8mesh" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="rgba(77,201,212,0.1)"/><stop offset="100%" stop-color="transparent"/></radialGradient>
+      </defs>
+      <ellipse class="mesh-blob" cx="960" cy="540" rx="600" ry="400" fill="url(#s8mesh)"/>
+      <g stroke="rgba(77,201,212,0.05)" stroke-width="1" fill="none">
+        <path d="M 100 540 Q 480 400, 960 540 T 1820 540" stroke-dasharray="8 12"><animate attributeName="stroke-dashoffset" values="0;-40" dur="3s" repeatCount="indefinite"/></path>
+        <path d="M 100 500 Q 480 360, 960 500 T 1820 500" stroke-dasharray="8 12"><animate attributeName="stroke-dashoffset" values="0;-40" dur="4s" repeatCount="indefinite"/></path>
+        <path d="M 100 580 Q 480 440, 960 580 T 1820 580" stroke-dasharray="8 12"><animate attributeName="stroke-dashoffset" values="0;-40" dur="3.5s" repeatCount="indefinite"/></path>
+      </g>
+    </svg>
+  </div>
   <div class="glow-dot" style="top:30%;right:20%"></div>
   <div class="glow-dot" style="bottom:25%;left:15%"></div>
-  <div class="slide-inner" style="align-items:center;text-align:center">
+  <div class="slide-inner" style="align-items:center;text-align:center;z-index:1;position:relative">
     <div class="section-num">W1</div>
     <h1>лекция 1</h1>
     <p class="subtitle">Степан Гершуни &mdash; почему ИИ-трансформация самое важное</p>
@@ -1247,9 +1524,24 @@ body.vox-open #vox-panel {
 <div class="slide" id="s9">
   <div class="slide-counter"><span class="current">9</span>/<span class="total"></span></div>
   <img class="slide-logo" src="../../logo.png" alt="">
+  <div class="gen-bg">
+    <svg viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <radialGradient id="s9m1" cx="30%" cy="45%" r="40%"><stop offset="0%" stop-color="rgba(77,201,212,0.1)"/><stop offset="100%" stop-color="transparent"/></radialGradient>
+        <radialGradient id="s9m2" cx="70%" cy="30%" r="35%"><stop offset="0%" stop-color="rgba(59,130,246,0.06)"/><stop offset="100%" stop-color="transparent"/></radialGradient>
+      </defs>
+      <ellipse class="mesh-blob" cx="580" cy="490" rx="400" ry="300" fill="url(#s9m1)"/>
+      <ellipse class="mesh-blob" cx="1340" cy="320" rx="350" ry="250" fill="url(#s9m2)"/>
+      <g stroke="rgba(77,201,212,0.04)" stroke-width="1" fill="none">
+        <path d="M 0 540 H 300 L 350 490 H 600 L 650 540 H 1920" stroke-dasharray="1000" style="animation:drawLine 4s ease-out forwards"/>
+        <circle cx="350" cy="490" r="4" fill="rgba(77,201,212,0.06)"/>
+        <circle cx="650" cy="540" r="4" fill="rgba(77,201,212,0.06)"/>
+      </g>
+    </svg>
+  </div>
   <div class="glow-dot" style="top:15%;left:10%"></div>
   <div class="glow-dot" style="top:70%;right:15%"></div>
-  <div class="slide-inner cover">
+  <div class="slide-inner cover" style="z-index:1;position:relative">
     <div class="label">// AI-NATIVE ORGANIZATIONS LAB &middot; WEEK 1</div>
     <h1>AI-native<br>организации<span class="cursor"></span></h1>
     <p class="subtitle">причины, процесс и эффект агентоцентричной трансформации бизнеса</p>
@@ -1354,9 +1646,24 @@ body.vox-open #vox-panel {
 <div class="slide section-divider" id="s14">
   <div class="slide-counter"><span class="current">14</span>/<span class="total"></span></div>
   <img class="slide-logo" src="../../logo.png" alt="">
+  <div class="gen-bg">
+    <svg viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
+      <defs><radialGradient id="s14m" cx="40%" cy="50%" r="45%"><stop offset="0%" stop-color="rgba(77,201,212,0.08)"/><stop offset="100%" stop-color="transparent"/></radialGradient></defs>
+      <ellipse class="mesh-blob" cx="770" cy="540" rx="500" ry="350" fill="url(#s14m)"/>
+      <!-- Rising bars / growth indicator -->
+      <g fill="rgba(77,201,212,0.03)" stroke="rgba(77,201,212,0.06)" stroke-width="1">
+        <rect x="300" y="600" width="40" height="200" rx="4"><animate attributeName="height" values="200;280;200" dur="6s" repeatCount="indefinite"/><animate attributeName="y" values="600;520;600" dur="6s" repeatCount="indefinite"/></rect>
+        <rect x="360" y="500" width="40" height="300" rx="4"><animate attributeName="height" values="300;380;300" dur="7s" repeatCount="indefinite"/><animate attributeName="y" values="500;420;500" dur="7s" repeatCount="indefinite"/></rect>
+        <rect x="420" y="400" width="40" height="400" rx="4"><animate attributeName="height" values="400;480;400" dur="5s" repeatCount="indefinite"/><animate attributeName="y" values="400;320;400" dur="5s" repeatCount="indefinite"/></rect>
+        <rect x="1460" y="500" width="40" height="300" rx="4"><animate attributeName="height" values="300;400;300" dur="6.5s" repeatCount="indefinite"/><animate attributeName="y" values="500;400;500" dur="6.5s" repeatCount="indefinite"/></rect>
+        <rect x="1520" y="380" width="40" height="420" rx="4"><animate attributeName="height" values="420;520;420" dur="5.5s" repeatCount="indefinite"/><animate attributeName="y" values="380;280;380" dur="5.5s" repeatCount="indefinite"/></rect>
+        <rect x="1580" y="300" width="40" height="500" rx="4"><animate attributeName="height" values="500;580;500" dur="7.5s" repeatCount="indefinite"/><animate attributeName="y" values="300;220;300" dur="7.5s" repeatCount="indefinite"/></rect>
+      </g>
+    </svg>
+  </div>
   <div class="glow-dot" style="top:25%;left:15%"></div>
   <div class="glow-dot" style="bottom:30%;right:20%"></div>
-  <div class="slide-inner" style="align-items:center;text-align:center">
+  <div class="slide-inner" style="align-items:center;text-align:center;z-index:1;position:relative">
     <div class="section-num">01</div>
     <h1>что уже<br>происходит</h1>
   </div>
@@ -1492,8 +1799,19 @@ body.vox-open #vox-panel {
 <div class="slide section-divider" id="s21">
   <div class="slide-counter"><span class="current">21</span>/<span class="total"></span></div>
   <img class="slide-logo" src="../../logo.png" alt="">
+  <div class="gen-bg">
+    <svg viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
+      <defs><radialGradient id="s21m" cx="60%" cy="50%" r="40%"><stop offset="0%" stop-color="rgba(255,107,107,0.06)"/><stop offset="100%" stop-color="transparent"/></radialGradient></defs>
+      <ellipse class="mesh-blob" cx="1150" cy="540" rx="450" ry="320" fill="url(#s21m)"/>
+      <!-- Broken circuit pattern -->
+      <g stroke="rgba(255,107,107,0.04)" stroke-width="1.5" fill="none" stroke-dasharray="6 8">
+        <path d="M 200 400 H 600 L 650 350 H 900"><animate attributeName="stroke-dashoffset" values="0;-28" dur="3s" repeatCount="indefinite"/></path>
+        <path d="M 1020 700 H 1400 L 1450 650 H 1720"><animate attributeName="stroke-dashoffset" values="0;-28" dur="4s" repeatCount="indefinite"/></path>
+      </g>
+    </svg>
+  </div>
   <div class="glow-dot" style="top:20%;right:25%"></div>
-  <div class="slide-inner" style="align-items:center;text-align:center">
+  <div class="slide-inner" style="align-items:center;text-align:center;z-index:1;position:relative">
     <div class="section-num">02</div>
     <h1>почему ИИ-трансформация<br>не работает?</h1>
   </div>
@@ -1564,8 +1882,19 @@ body.vox-open #vox-panel {
 <div class="slide section-divider" id="s25">
   <div class="slide-counter"><span class="current">25</span>/<span class="total"></span></div>
   <img class="slide-logo" src="../../logo.png" alt="">
+  <div class="gen-bg">
+    <svg viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
+      <defs><radialGradient id="s25m" cx="50%" cy="45%" r="45%"><stop offset="0%" stop-color="rgba(59,130,246,0.07)"/><stop offset="100%" stop-color="transparent"/></radialGradient></defs>
+      <ellipse class="mesh-blob" cx="960" cy="490" rx="550" ry="380" fill="url(#s25m)"/>
+      <!-- Timeline arrow -->
+      <g stroke="rgba(59,130,246,0.05)" stroke-width="2" fill="none">
+        <path d="M 200 700 C 500 700, 600 400, 960 400 C 1320 400, 1420 250, 1720 250" stroke-dasharray="1000" style="animation:drawLine 3s ease-out forwards"/>
+        <polygon points="1720,240 1740,250 1720,260" fill="rgba(59,130,246,0.08)"/>
+      </g>
+    </svg>
+  </div>
   <div class="glow-dot" style="bottom:25%;left:15%"></div>
-  <div class="slide-inner" style="align-items:center;text-align:center">
+  <div class="slide-inner" style="align-items:center;text-align:center;z-index:1;position:relative">
     <div class="section-num">03</div>
     <h1>как мы тут оказались?</h1>
     <p class="subtitle">история ИИ за 5 минут</p>
@@ -1670,8 +1999,21 @@ body.vox-open #vox-panel {
 <div class="slide section-divider" id="s34">
   <div class="slide-counter"><span class="current">34</span>/<span class="total"></span></div>
   <img class="slide-logo" src="../../logo.png" alt="">
+  <div class="gen-bg">
+    <svg viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
+      <defs><radialGradient id="s34m" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="rgba(200,146,0,0.06)"/><stop offset="100%" stop-color="transparent"/></radialGradient></defs>
+      <ellipse class="mesh-blob" cx="960" cy="540" rx="600" ry="400" fill="url(#s34m)"/>
+      <!-- Concentric target rings -->
+      <g stroke="rgba(200,146,0,0.04)" stroke-width="1" fill="none">
+        <circle cx="960" cy="540" r="150"><animate attributeName="r" values="150;170;150" dur="4s" repeatCount="indefinite"/></circle>
+        <circle cx="960" cy="540" r="250"><animate attributeName="r" values="250;270;250" dur="5s" repeatCount="indefinite"/></circle>
+        <circle cx="960" cy="540" r="350"><animate attributeName="r" values="350;370;350" dur="6s" repeatCount="indefinite"/></circle>
+        <circle cx="960" cy="540" r="450"><animate attributeName="r" values="450;465;450" dur="7s" repeatCount="indefinite"/></circle>
+      </g>
+    </svg>
+  </div>
   <div class="glow-dot" style="bottom:25%;left:15%"></div>
-  <div class="slide-inner" style="align-items:center;text-align:center">
+  <div class="slide-inner" style="align-items:center;text-align:center;z-index:1;position:relative">
     <div class="section-num">04</div>
     <h1>почему это стратегически важно?</h1>
   </div>
@@ -1803,7 +2145,19 @@ body.vox-open #vox-panel {
 <div class="slide section-divider" id="s45">
   <div class="slide-counter"><span class="current">45</span>/<span class="total"></span></div>
   <img class="slide-logo" src="../../logo.png" alt="">
-  <div class="slide-inner" style="align-items:center;text-align:center">
+  <div class="gen-bg">
+    <svg viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
+      <defs><radialGradient id="s45m" cx="50%" cy="50%" r="40%"><stop offset="0%" stop-color="rgba(255,59,139,0.05)"/><stop offset="100%" stop-color="transparent"/></radialGradient></defs>
+      <ellipse class="mesh-blob" cx="960" cy="540" rx="500" ry="350" fill="url(#s45m)"/>
+      <!-- Recursive spiral hint -->
+      <g stroke="rgba(255,59,139,0.03)" stroke-width="1" fill="none">
+        <circle cx="960" cy="540" r="100"><animate attributeName="r" values="100;120;100" dur="3s" repeatCount="indefinite"/></circle>
+        <circle cx="960" cy="540" r="180"><animate attributeName="r" values="180;200;180" dur="4s" repeatCount="indefinite"/></circle>
+        <circle cx="960" cy="540" r="260"><animate attributeName="r" values="260;275;260" dur="5s" repeatCount="indefinite"/></circle>
+      </g>
+    </svg>
+  </div>
+  <div class="slide-inner" style="align-items:center;text-align:center;z-index:1;position:relative">
     <h1>Самый большой вопрос: RSI?</h1>
   </div>
 </div>
@@ -1844,7 +2198,26 @@ body.vox-open #vox-panel {
 <div class="slide section-divider" id="s48">
   <div class="slide-counter"><span class="current">48</span>/<span class="total"></span></div>
   <img class="slide-logo" src="../../logo.png" alt="">
-  <div class="slide-inner" style="align-items:center;text-align:center">
+  <div class="gen-bg">
+    <svg viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
+      <defs><radialGradient id="s48m" cx="50%" cy="50%" r="40%"><stop offset="0%" stop-color="rgba(56,217,169,0.07)"/><stop offset="100%" stop-color="transparent"/></radialGradient></defs>
+      <ellipse class="mesh-blob" cx="960" cy="540" rx="500" ry="350" fill="url(#s48m)"/>
+      <!-- Neural network nodes -->
+      <g fill="rgba(56,217,169,0.04)" stroke="rgba(56,217,169,0.03)" stroke-width="1">
+        <circle cx="400" cy="350" r="8"><animate attributeName="r" values="8;12;8" dur="3s" repeatCount="indefinite"/></circle>
+        <circle cx="600" cy="500" r="6"><animate attributeName="r" values="6;10;6" dur="4s" repeatCount="indefinite"/></circle>
+        <circle cx="500" cy="700" r="7"><animate attributeName="r" values="7;11;7" dur="3.5s" repeatCount="indefinite"/></circle>
+        <circle cx="1400" cy="380" r="8"><animate attributeName="r" values="8;12;8" dur="4.5s" repeatCount="indefinite"/></circle>
+        <circle cx="1500" cy="600" r="6"><animate attributeName="r" values="6;9;6" dur="3s" repeatCount="indefinite"/></circle>
+        <circle cx="1350" cy="750" r="7"><animate attributeName="r" values="7;10;7" dur="5s" repeatCount="indefinite"/></circle>
+        <line x1="400" y1="350" x2="600" y2="500" stroke-dasharray="4 6"><animate attributeName="stroke-dashoffset" values="0;-20" dur="3s" repeatCount="indefinite"/></line>
+        <line x1="600" y1="500" x2="500" y2="700" stroke-dasharray="4 6"><animate attributeName="stroke-dashoffset" values="0;-20" dur="4s" repeatCount="indefinite"/></line>
+        <line x1="1400" y1="380" x2="1500" y2="600" stroke-dasharray="4 6"><animate attributeName="stroke-dashoffset" values="0;-20" dur="3.5s" repeatCount="indefinite"/></line>
+        <line x1="1500" y1="600" x2="1350" y2="750" stroke-dasharray="4 6"><animate attributeName="stroke-dashoffset" values="0;-20" dur="4.5s" repeatCount="indefinite"/></line>
+      </g>
+    </svg>
+  </div>
+  <div class="slide-inner" style="align-items:center;text-align:center;z-index:1;position:relative">
     <div class="section-num">05</div>
     <h1>почему это происходит?</h1>
   </div>
@@ -1854,7 +2227,13 @@ body.vox-open #vox-panel {
 <div class="slide section-divider" id="s49">
   <div class="slide-counter"><span class="current">49</span>/<span class="total"></span></div>
   <img class="slide-logo" src="../../logo.png" alt="">
-  <div class="slide-inner" style="align-items:center;text-align:center">
+  <div class="gen-bg">
+    <svg viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
+      <defs><radialGradient id="s49m" cx="50%" cy="50%" r="40%"><stop offset="0%" stop-color="rgba(77,201,212,0.08)"/><stop offset="100%" stop-color="transparent"/></radialGradient></defs>
+      <ellipse class="mesh-blob" cx="960" cy="540" rx="500" ry="350" fill="url(#s49m)"/>
+    </svg>
+  </div>
+  <div class="slide-inner" style="align-items:center;text-align:center;z-index:1;position:relative">
     <h1>ИИ агент &mdash; это не софт и не сотрудник</h1>
   </div>
 </div>
@@ -1929,7 +2308,19 @@ body.vox-open #vox-panel {
 <div class="slide section-divider" id="s54">
   <div class="slide-counter"><span class="current">54</span>/<span class="total"></span></div>
   <img class="slide-logo" src="../../logo.png" alt="">
-  <div class="slide-inner" style="align-items:center;text-align:center">
+  <div class="gen-bg">
+    <svg viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
+      <defs><radialGradient id="s54m" cx="50%" cy="50%" r="40%"><stop offset="0%" stop-color="rgba(56,189,248,0.06)"/><stop offset="100%" stop-color="transparent"/></radialGradient></defs>
+      <ellipse class="mesh-blob" cx="960" cy="540" rx="500" ry="350" fill="url(#s54m)"/>
+      <!-- Connection web pattern -->
+      <g stroke="rgba(56,189,248,0.03)" stroke-width="1" fill="none">
+        <circle cx="960" cy="540" r="200" stroke-dasharray="4 8"><animate attributeName="r" values="200;220;200" dur="5s" repeatCount="indefinite"/></circle>
+        <circle cx="960" cy="540" r="300" stroke-dasharray="4 8"><animate attributeName="r" values="300;320;300" dur="6s" repeatCount="indefinite"/></circle>
+        <circle cx="960" cy="540" r="400" stroke-dasharray="4 8"><animate attributeName="r" values="400;415;400" dur="7s" repeatCount="indefinite"/></circle>
+      </g>
+    </svg>
+  </div>
+  <div class="slide-inner" style="align-items:center;text-align:center;z-index:1;position:relative">
     <div class="section-num">06</div>
     <h1>смена поведения клиентов</h1>
   </div>
@@ -1969,7 +2360,26 @@ body.vox-open #vox-panel {
 <div class="slide section-divider" id="s57">
   <div class="slide-counter"><span class="current">57</span>/<span class="total"></span></div>
   <img class="slide-logo" src="../../logo.png" alt="">
-  <div class="slide-inner" style="align-items:center;text-align:center">
+  <div class="gen-bg">
+    <svg viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
+      <defs><radialGradient id="s57m" cx="50%" cy="50%" r="40%"><stop offset="0%" stop-color="rgba(77,201,212,0.08)"/><stop offset="100%" stop-color="transparent"/></radialGradient></defs>
+      <ellipse class="mesh-blob" cx="960" cy="540" rx="500" ry="350" fill="url(#s57m)"/>
+      <!-- Agent grid pattern -->
+      <g fill="none" stroke="rgba(77,201,212,0.04)" stroke-width="1">
+        <rect x="350" y="350" width="80" height="80" rx="8"><animate attributeName="opacity" values="0.3;0.7;0.3" dur="4s" repeatCount="indefinite"/></rect>
+        <rect x="500" y="450" width="80" height="80" rx="8"><animate attributeName="opacity" values="0.3;0.7;0.3" dur="5s" repeatCount="indefinite"/></rect>
+        <rect x="380" y="580" width="80" height="80" rx="8"><animate attributeName="opacity" values="0.3;0.7;0.3" dur="3.5s" repeatCount="indefinite"/></rect>
+        <rect x="1440" y="350" width="80" height="80" rx="8"><animate attributeName="opacity" values="0.3;0.7;0.3" dur="4.5s" repeatCount="indefinite"/></rect>
+        <rect x="1340" y="500" width="80" height="80" rx="8"><animate attributeName="opacity" values="0.3;0.7;0.3" dur="3s" repeatCount="indefinite"/></rect>
+        <rect x="1490" y="600" width="80" height="80" rx="8"><animate attributeName="opacity" values="0.3;0.7;0.3" dur="5.5s" repeatCount="indefinite"/></rect>
+        <line x1="430" y1="390" x2="500" y2="450" stroke-dasharray="4 6"><animate attributeName="stroke-dashoffset" values="0;-20" dur="3s" repeatCount="indefinite"/></line>
+        <line x1="540" y1="530" x2="460" y2="580" stroke-dasharray="4 6"><animate attributeName="stroke-dashoffset" values="0;-20" dur="3s" repeatCount="indefinite"/></line>
+        <line x1="1480" y1="430" x2="1420" y2="500" stroke-dasharray="4 6"><animate attributeName="stroke-dashoffset" values="0;-20" dur="3s" repeatCount="indefinite"/></line>
+        <line x1="1380" y1="580" x2="1490" y2="600" stroke-dasharray="4 6"><animate attributeName="stroke-dashoffset" values="0;-20" dur="3s" repeatCount="indefinite"/></line>
+      </g>
+    </svg>
+  </div>
+  <div class="slide-inner" style="align-items:center;text-align:center;z-index:1;position:relative">
     <div class="section-num">07</div>
     <h1>Агенты</h1>
   </div>
@@ -2078,7 +2488,22 @@ body.vox-open #vox-panel {
 <div class="slide section-divider" id="s65">
   <div class="slide-counter"><span class="current">65</span>/<span class="total"></span></div>
   <img class="slide-logo" src="../../logo.png" alt="">
-  <div class="slide-inner" style="align-items:center;text-align:center">
+  <div class="gen-bg">
+    <svg viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <radialGradient id="s65m" cx="50%" cy="50%" r="40%"><stop offset="0%" stop-color="rgba(77,201,212,0.07)"/><stop offset="100%" stop-color="transparent"/></radialGradient>
+        <linearGradient id="tokenFlow" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="transparent"/><stop offset="50%" stop-color="rgba(77,201,212,0.08)"/><stop offset="100%" stop-color="transparent"/></linearGradient>
+      </defs>
+      <ellipse class="mesh-blob" cx="960" cy="540" rx="500" ry="350" fill="url(#s65m)"/>
+      <!-- Token flow streams -->
+      <g stroke="url(#tokenFlow)" stroke-width="3" fill="none">
+        <path d="M 0 400 Q 480 350, 960 400 T 1920 400" stroke-dasharray="10 20"><animate attributeName="stroke-dashoffset" values="0;-60" dur="3s" repeatCount="indefinite"/></path>
+        <path d="M 0 540 Q 480 490, 960 540 T 1920 540" stroke-dasharray="10 20"><animate attributeName="stroke-dashoffset" values="0;-60" dur="2.5s" repeatCount="indefinite"/></path>
+        <path d="M 0 680 Q 480 630, 960 680 T 1920 680" stroke-dasharray="10 20"><animate attributeName="stroke-dashoffset" values="0;-60" dur="3.5s" repeatCount="indefinite"/></path>
+      </g>
+    </svg>
+  </div>
+  <div class="slide-inner" style="align-items:center;text-align:center;z-index:1;position:relative">
     <div class="section-num">08</div>
     <h1>компания как поток токенов</h1>
   </div>
@@ -2180,7 +2605,18 @@ body.vox-open #vox-panel {
 <div class="slide section-divider" id="s72">
   <div class="slide-counter"><span class="current">72</span>/<span class="total"></span></div>
   <img class="slide-logo" src="../../logo.png" alt="">
-  <div class="slide-inner" style="align-items:center;text-align:center">
+  <div class="gen-bg">
+    <svg viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
+      <defs><radialGradient id="s72m" cx="50%" cy="50%" r="40%"><stop offset="0%" stop-color="rgba(56,217,169,0.07)"/><stop offset="100%" stop-color="transparent"/></radialGradient></defs>
+      <ellipse class="mesh-blob" cx="960" cy="540" rx="500" ry="350" fill="url(#s72m)"/>
+      <!-- Arrow transformation -->
+      <g stroke="rgba(56,217,169,0.05)" stroke-width="2" fill="none">
+        <path d="M 400 540 H 1520" stroke-dasharray="1000" style="animation:drawLine 2s ease-out forwards"/>
+        <polygon points="1520,530 1540,540 1520,550" fill="rgba(56,217,169,0.08)"/>
+      </g>
+    </svg>
+  </div>
+  <div class="slide-inner" style="align-items:center;text-align:center;z-index:1;position:relative">
     <h1>Исполнитель &rarr; Архитектор</h1>
   </div>
 </div>
@@ -2254,7 +2690,18 @@ body.vox-open #vox-panel {
 <div class="slide section-divider" id="s76">
   <div class="slide-counter"><span class="current">76</span>/<span class="total"></span></div>
   <img class="slide-logo" src="../../logo.png" alt="">
-  <div class="slide-inner" style="align-items:center;text-align:center">
+  <div class="gen-bg">
+    <svg viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
+      <defs><radialGradient id="s76m" cx="50%" cy="50%" r="45%"><stop offset="0%" stop-color="rgba(200,146,0,0.05)"/><stop offset="100%" stop-color="transparent"/></radialGradient></defs>
+      <ellipse class="mesh-blob" cx="960" cy="540" rx="550" ry="380" fill="url(#s76m)"/>
+      <!-- Economic graph waves -->
+      <g stroke="rgba(200,146,0,0.04)" stroke-width="1.5" fill="none">
+        <path d="M 200 600 C 400 580, 500 400, 700 420 C 900 440, 1000 300, 1200 320 C 1400 340, 1500 200, 1700 180" stroke-dasharray="1000" style="animation:drawLine 4s ease-out forwards"/>
+        <path d="M 200 650 C 400 640, 500 550, 700 560 C 900 570, 1000 480, 1200 490 C 1400 500, 1500 420, 1700 400" stroke-dasharray="1000" style="animation:drawLine 5s ease-out 0.5s forwards" stroke="rgba(77,201,212,0.04)"/>
+      </g>
+    </svg>
+  </div>
+  <div class="slide-inner" style="align-items:center;text-align:center;z-index:1;position:relative">
     <div class="section-num">09</div>
     <h1>как меняется экономика?</h1>
   </div>
@@ -2389,8 +2836,23 @@ body.vox-open #vox-panel {
 <div class="slide section-divider" id="s86">
   <div class="slide-counter"><span class="current">86</span>/<span class="total"></span></div>
   <img class="slide-logo" src="../../logo.png" alt="">
+  <div class="gen-bg">
+    <svg viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
+      <defs><radialGradient id="s86m" cx="50%" cy="50%" r="45%"><stop offset="0%" stop-color="rgba(56,217,169,0.07)"/><stop offset="100%" stop-color="transparent"/></radialGradient></defs>
+      <ellipse class="mesh-blob" cx="960" cy="540" rx="550" ry="380" fill="url(#s86m)"/>
+      <!-- 6 layers hint -->
+      <g fill="none" stroke="rgba(56,217,169,0.04)" stroke-width="1">
+        <rect x="350" y="280" width="1220" height="60" rx="6"><animate attributeName="opacity" values="0.2;0.5;0.2" dur="4s" repeatCount="indefinite"/></rect>
+        <rect x="350" y="360" width="1220" height="60" rx="6"><animate attributeName="opacity" values="0.2;0.5;0.2" dur="4.5s" repeatCount="indefinite"/></rect>
+        <rect x="350" y="440" width="1220" height="60" rx="6"><animate attributeName="opacity" values="0.2;0.5;0.2" dur="5s" repeatCount="indefinite"/></rect>
+        <rect x="350" y="520" width="1220" height="60" rx="6"><animate attributeName="opacity" values="0.2;0.5;0.2" dur="5.5s" repeatCount="indefinite"/></rect>
+        <rect x="350" y="600" width="1220" height="60" rx="6"><animate attributeName="opacity" values="0.2;0.5;0.2" dur="6s" repeatCount="indefinite"/></rect>
+        <rect x="350" y="680" width="1220" height="60" rx="6"><animate attributeName="opacity" values="0.2;0.5;0.2" dur="6.5s" repeatCount="indefinite"/></rect>
+      </g>
+    </svg>
+  </div>
   <div class="glow-dot" style="top:30%;right:20%"></div>
-  <div class="slide-inner" style="align-items:center;text-align:center">
+  <div class="slide-inner" style="align-items:center;text-align:center;z-index:1;position:relative">
     <div class="section-num">W2</div>
     <h1>Week 2</h1>
     <p class="subtitle">система поверх модели &mdash; 6 слоёв архитектуры</p>

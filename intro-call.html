@@ -809,13 +809,10 @@ body.presenter-mode .progress-bar { width: 65vw !important; }
     <div class="label">// intro call · 2 hours</div>
     <h2>Что будет сегодня</h2>
     <div class="layers">
-      <div class="layer" style="border-left:3px solid var(--teal)"><div class="layer-num teal" style="min-width:48px">10'</div><div class="layer-name">знакомство</div><div class="layer-desc">мы представимся, участники увидят друг друга</div></div>
-      <div class="layer" style="border-left:3px solid var(--blue)"><div class="layer-num blue" style="min-width:48px">20'</div><div class="layer-name">аудитория</div><div class="layer-desc">кто здесь, боли, цитаты, инструменты</div></div>
-      <div class="layer" style="border-left:3px solid var(--cyan)"><div class="layer-num cyan" style="min-width:48px">15'</div><div class="layer-name">топ-участники</div><div class="layer-desc">enterprise highlights, калибр аудитории</div></div>
-      <div class="layer" style="border-left:3px solid var(--green)"><div class="layer-num green" style="min-width:48px">15'</div><div class="layer-name">формат спринта</div><div class="layer-desc">3 недели, кураторы, Demo Day</div></div>
-      <div class="layer" style="border-left:3px solid var(--amber)"><div class="layer-num amber" style="min-width:48px">10'</div><div class="layer-name">программа и спикеры</div><div class="layer-desc">расписание, 11 спикеров-практиков</div></div>
-      <div class="layer" style="border-left:3px solid var(--pink)"><div class="layer-num" style="min-width:48px;color:var(--pink)">30'</div><div class="layer-name">знакомство участников</div><div class="layer-desc">по минуте каждый — кто вы, какая задача на спринт</div></div>
-      <div class="layer" style="border-left:3px solid var(--red)"><div class="layer-num" style="min-width:48px;color:var(--red)">20'</div><div class="layer-name">Q&A</div><div class="layer-desc">вопросы, ожидания, настройка</div></div>
+      <div class="layer" style="border-left:3px solid var(--teal)"><div class="layer-num teal" style="min-width:48px">01</div><div class="layer-name">знакомство</div><div class="layer-desc">все представляемся по минуте</div></div>
+      <div class="layer" style="border-left:3px solid var(--blue)"><div class="layer-num blue" style="min-width:48px">02</div><div class="layer-name">обзор когорты</div><div class="layer-desc">кто здесь, стек, география</div></div>
+      <div class="layer" style="border-left:3px solid var(--green)"><div class="layer-num green" style="min-width:48px">03</div><div class="layer-name">формат спринта</div><div class="layer-desc">3 недели, кураторы</div></div>
+      <div class="layer" style="border-left:3px solid var(--amber)"><div class="layer-num amber" style="min-width:48px">04</div><div class="layer-name">Q&A</div><div class="layer-desc">вопросы, ожидания, настройка</div></div>
     </div>
     <svg style="position:absolute;right:60px;bottom:80px;opacity:0.06;z-index:5" width="180" height="180" viewBox="0 0 200 200">
       <circle cx="100" cy="100" r="90" fill="none" stroke="#4dc9d4" stroke-width="1.5"/>
@@ -1016,8 +1013,8 @@ body.presenter-mode .progress-bar { width: 65vw !important; }
   <div class="slide-counter"><span class="current">8</span>/<span class="total"></span></div>
   <img class="slide-logo" src="logo.png" alt="">
   <div class="slide-inner">
-    <div class="label">// enterprise highlights</div>
-    <h2>Топ-участники</h2>
+    <div class="label">// participants</div>
+    <h2>Кто в когорте</h2>
     <div class="cards" style="grid-template-columns:repeat(3,1fr)">
       <div class="card"><div class="card-icon" style="color:var(--red)">Альфа-Капитал</div><h3>Антон Граборов</h3><p>Правление, 2+ трлн AUM, 2.2M клиентов. 15+ AI-проектов, 67% сотрудников используют AI</p><span class="tag">wealthtech · moscow</span></div>
       <div class="card"><div class="card-icon">LIFEPAY / Fortis</div><h3>Artem Zarubenko</h3><p>Group CEO, 450 чел. AI-OS с 10+ агентами. Claude Opus = Chief of Staff</p><span class="tag">fintech · dubai</span></div>
@@ -1085,6 +1082,42 @@ body.presenter-mode .progress-bar { width: 65vw !important; }
       <text x="100" y="118" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="IBM Plex Mono,monospace" font-size="10">Obsidian</text>
       <text x="100" y="133" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-family="IBM Plex Mono,monospace" font-size="9">6% · 11</text>
     </svg>
+  </div>
+</div>
+
+<!-- ==================== SLIDE: WHAT PARTICIPANTS WANT TO BUILD ==================== -->
+<div class="slide" id="s-build">
+  <div class="slide-counter"><span class="current"></span>/<span class="total"></span></div>
+  <img class="slide-logo" src="logo.png" alt="">
+  <div class="slide-inner">
+    <div class="label">// what participants want to build · nocodb n=165</div>
+    <h2>Что хотят построить</h2>
+    <div class="layers">
+      <div class="layer" style="border-left:3px solid var(--teal)"><div class="layer-num teal" style="min-width:48px">38%</div><div class="layer-name">AI-ассистент / бот</div><div class="layer-desc">63 участника</div></div>
+      <div class="layer" style="border-left:3px solid var(--blue)"><div class="layer-num blue" style="min-width:48px">26%</div><div class="layer-name">AI-агенты</div><div class="layer-desc">43 участника</div></div>
+      <div class="layer" style="border-left:3px solid var(--green)"><div class="layer-num green" style="min-width:48px">24%</div><div class="layer-name">Team AI adoption</div><div class="layer-desc">40 участников</div></div>
+      <div class="layer" style="border-left:3px solid var(--amber)"><div class="layer-num amber" style="min-width:48px">21%</div><div class="layer-name">Автоматизация процессов</div><div class="layer-desc">35 участников</div></div>
+      <div class="layer" style="border-left:3px solid var(--cyan)"><div class="layer-num cyan" style="min-width:48px">12%</div><div class="layer-name">Framework / архитектура</div><div class="layer-desc">20 участников</div></div>
+      <div class="layer" style="border-left:3px solid var(--pink)"><div class="layer-num" style="min-width:48px;color:var(--pink)">9%</div><div class="layer-name">AI-native трансформация</div><div class="layer-desc">15 участников</div></div>
+      <div class="layer" style="border-left:3px solid var(--text-dim)"><div class="layer-num" style="min-width:48px;color:var(--text-dim)">4%</div><div class="layer-name">Dashboard / аналитика</div><div class="layer-desc">6 участников</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SLIDE: VOICES FROM QUESTIONNAIRES ==================== -->
+<div class="slide" id="s-nocodb-quotes">
+  <div class="slide-counter"><span class="current"></span>/<span class="total"></span></div>
+  <img class="slide-logo" src="logo.png" alt="">
+  <div class="slide-inner">
+    <div class="label">// voices · nocodb questionnaires</div>
+    <h2>Голоса из анкет</h2>
+    <svg style="position:absolute;top:60px;left:40px;width:180px;height:180px;pointer-events:none;z-index:5;opacity:0.04" viewBox="0 0 100 100">
+      <text x="0" y="90" font-family="Georgia,serif" font-size="120" fill="#4dc9d4">&ldquo;</text>
+    </svg>
+    <div class="quote-enhanced"><p>"хочу понять как создать отдел, в котором сотрудники будут оркестрировать агентами"</p><div class="author">Дарья <span>&middot; @voronik1801</span></div></div>
+    <div class="quote-enhanced"><p>"понять, как лучше организовать архитектуру хранилища знаний для компании"</p><div class="author">Kostya Gorsky <span>&middot; @gorskiy</span></div></div>
+    <div class="quote-enhanced"><p>"хочу понять как применить знания связанные с AI в компании &mdash; увеличить перфоманс в 5-10 раз"</p><div class="author">Oleg Potemkin <span>&middot; @olegpotem</span></div></div>
+    <div class="quote-enhanced"><p>"понять как адаптироваться под новый дивный мир в компании, а не только самому"</p><div class="author">Sasha Radoslavov <span>&middot; @radoslavov</span></div></div>
   </div>
 </div>
 
@@ -1301,10 +1334,10 @@ body.presenter-mode .progress-bar { width: 65vw !important; }
         <div class="week-title">Personal AI + Team Processes</div>
         <div class="week-dates">23 &ndash; 28 Mar</div>
       </div>
-      <div class="week-row"><div class="week-row-time">23.03 пн</div><div class="timeline-dot" style="background:var(--teal);width:6px;height:6px;border-radius:50%;flex-shrink:0"></div><div class="week-row-title">Гершуни &mdash; почему ИИ-трансформация</div><div class="week-row-dur">18:00</div></div>
-      <div class="week-row"><div class="week-row-time">24.03 вт</div><div class="timeline-dot" style="background:var(--green);width:6px;height:6px;border-radius:50%;flex-shrink:0"></div><div class="week-row-title">Поваляев &mdash; coworking + personal OS</div><div class="week-row-dur">10:00</div></div>
-      <div class="week-row"><div class="week-row-time">25.03 ср</div><div class="timeline-dot" style="background:var(--green);width:6px;height:6px;border-radius:50%;flex-shrink:0"></div><div class="week-row-title">Поваляев &mdash; personal &rarr; team: аудит</div><div class="week-row-dur">18:00</div></div>
-      <div class="week-row"><div class="week-row-time">27.03 пт</div><div class="timeline-dot" style="background:var(--teal);width:6px;height:6px;border-radius:50%;flex-shrink:0"></div><div class="week-row-title">Ханарин &mdash; AI transformation for orgs</div><div class="week-row-dur">18:00</div></div>
+      <div class="week-row"><div class="week-row-time">23.03 пн</div><div class="timeline-dot" style="background:var(--teal);width:6px;height:6px;border-radius:50%;flex-shrink:0"></div><div class="week-row-title"><img src="speakers/stepan-gershuni.jpg" style="width:28px;height:28px;border-radius:50%;object-fit:cover;vertical-align:middle;margin-right:8px">Гершуни &mdash; почему ИИ-трансформация</div><div class="week-row-dur">18:00</div></div>
+      <div class="week-row"><div class="week-row-time">24.03 вт</div><div class="timeline-dot" style="background:var(--green);width:6px;height:6px;border-radius:50%;flex-shrink:0"></div><div class="week-row-title"><img src="speakers/alexander-povaliaev.jpg" style="width:28px;height:28px;border-radius:50%;object-fit:cover;vertical-align:middle;margin-right:8px">Поваляев &mdash; coworking + personal OS</div><div class="week-row-dur">10:00</div></div>
+      <div class="week-row"><div class="week-row-time">25.03 ср</div><div class="timeline-dot" style="background:var(--green);width:6px;height:6px;border-radius:50%;flex-shrink:0"></div><div class="week-row-title"><img src="speakers/alexander-povaliaev.jpg" style="width:28px;height:28px;border-radius:50%;object-fit:cover;vertical-align:middle;margin-right:8px">Поваляев &mdash; personal &rarr; team: аудит</div><div class="week-row-dur">18:00</div></div>
+      <div class="week-row"><div class="week-row-time">27.03 пт</div><div class="timeline-dot" style="background:var(--teal);width:6px;height:6px;border-radius:50%;flex-shrink:0"></div><div class="week-row-title"><img src="speakers/dima-khanarin.jpg" style="width:28px;height:28px;border-radius:50%;object-fit:cover;vertical-align:middle;margin-right:8px">Ханарин &mdash; AI transformation for orgs</div><div class="week-row-dur">18:00</div></div>
     </div>
     <!-- Week 2 -->
     <div class="week-card">
@@ -1313,10 +1346,10 @@ body.presenter-mode .progress-bar { width: 65vw !important; }
         <div class="week-title">System Above the Model</div>
         <div class="week-dates">30 Mar &ndash; 4 Apr</div>
       </div>
-      <div class="week-row"><div class="week-row-time">30.03 пн</div><div class="timeline-dot" style="background:var(--teal);width:6px;height:6px;border-radius:50%;flex-shrink:0"></div><div class="week-row-title">Гершуни &mdash; система поверх модели</div><div class="week-row-dur">18:00</div></div>
-      <div class="week-row"><div class="week-row-time">01.04 ср</div><div class="timeline-dot" style="background:var(--blue);width:6px;height:6px;border-radius:50%;flex-shrink:0"></div><div class="week-row-title">Амётов &mdash; AI content &middot; Клебан &mdash; self-improving agents</div><div class="week-row-dur">12+18</div></div>
-      <div class="week-row"><div class="week-row-time">02.04 чт</div><div class="timeline-dot" style="background:var(--blue);width:6px;height:6px;border-radius:50%;flex-shrink:0"></div><div class="week-row-title">Ковальский &mdash; AI-driven development live</div><div class="week-row-dur">18:00</div></div>
-      <div class="week-row"><div class="week-row-time">03.04 пт</div><div class="timeline-dot" style="background:var(--blue);width:6px;height:6px;border-radius:50%;flex-shrink:0"></div><div class="week-row-title">Кравцов &mdash; AI-native + knowledge graph</div><div class="week-row-dur">18:00</div></div>
+      <div class="week-row"><div class="week-row-time">30.03 пн</div><div class="timeline-dot" style="background:var(--teal);width:6px;height:6px;border-radius:50%;flex-shrink:0"></div><div class="week-row-title"><img src="speakers/stepan-gershuni.jpg" style="width:28px;height:28px;border-radius:50%;object-fit:cover;vertical-align:middle;margin-right:8px">Гершуни &mdash; система поверх модели</div><div class="week-row-dur">18:00</div></div>
+      <div class="week-row"><div class="week-row-time">01.04 ср</div><div class="timeline-dot" style="background:var(--blue);width:6px;height:6px;border-radius:50%;flex-shrink:0"></div><div class="week-row-title"><img src="speakers/alex-amyotov.jpg" style="width:28px;height:28px;border-radius:50%;object-fit:cover;vertical-align:middle;margin-right:8px">Амётов &mdash; AI content &middot; <img src="speakers/vitaly-kleban.jpg" style="width:28px;height:28px;border-radius:50%;object-fit:cover;vertical-align:middle;margin-right:8px">Клебан &mdash; self-improving agents</div><div class="week-row-dur">12+18</div></div>
+      <div class="week-row"><div class="week-row-time">02.04 чт</div><div class="timeline-dot" style="background:var(--blue);width:6px;height:6px;border-radius:50%;flex-shrink:0"></div><div class="week-row-title"><img src="speakers/valerii kovalskii.jpg" style="width:28px;height:28px;border-radius:50%;object-fit:cover;vertical-align:middle;margin-right:8px">Ковальский &mdash; AI-driven development live</div><div class="week-row-dur">18:00</div></div>
+      <div class="week-row"><div class="week-row-time">03.04 пт</div><div class="timeline-dot" style="background:var(--blue);width:6px;height:6px;border-radius:50%;flex-shrink:0"></div><div class="week-row-title"><img src="speakers/daniel-kravtsov.jpeg" style="width:28px;height:28px;border-radius:50%;object-fit:cover;vertical-align:middle;margin-right:8px">Кравцов &mdash; AI-native + knowledge graph</div><div class="week-row-dur">18:00</div></div>
     </div>
     <!-- Week 3 -->
     <div class="week-card">
@@ -1325,8 +1358,8 @@ body.presenter-mode .progress-bar { width: 65vw !important; }
         <div class="week-title">Company Functions + Demo Day</div>
         <div class="week-dates">6 &ndash; 13 Apr</div>
       </div>
-      <div class="week-row"><div class="week-row-time">06.04 пн</div><div class="timeline-dot" style="background:var(--teal);width:6px;height:6px;border-radius:50%;flex-shrink:0"></div><div class="week-row-title">Гершуни &mdash; стратегия &rarr; 90-дневный план</div><div class="week-row-dur">18:00</div></div>
-      <div class="week-row"><div class="week-row-time">07&ndash;10.04</div><div class="timeline-dot" style="background:var(--amber);width:6px;height:6px;border-radius:50%;flex-shrink:0"></div><div class="week-row-title">Аннаков &middot; Бузько &middot; Устинов</div><div class="week-row-dur">18:00</div></div>
+      <div class="week-row"><div class="week-row-time">06.04 пн</div><div class="timeline-dot" style="background:var(--teal);width:6px;height:6px;border-radius:50%;flex-shrink:0"></div><div class="week-row-title"><img src="speakers/stepan-gershuni.jpg" style="width:28px;height:28px;border-radius:50%;object-fit:cover;vertical-align:middle;margin-right:8px">Гершуни &mdash; стратегия &rarr; 90-дневный план</div><div class="week-row-dur">18:00</div></div>
+      <div class="week-row"><div class="week-row-time">07&ndash;10.04</div><div class="timeline-dot" style="background:var(--amber);width:6px;height:6px;border-radius:50%;flex-shrink:0"></div><div class="week-row-title"><img src="speakers/bayram-annakov.jpg" style="width:28px;height:28px;border-radius:50%;object-fit:cover;vertical-align:middle;margin-right:8px">Аннаков &middot; <img src="speakers/roma-buzko.jpg" style="width:28px;height:28px;border-radius:50%;object-fit:cover;vertical-align:middle;margin-right:8px">Бузько &middot; <img src="speakers/seva-ustinov.jpg" style="width:28px;height:28px;border-radius:50%;object-fit:cover;vertical-align:middle;margin-right:8px">Устинов</div><div class="week-row-dur">18:00</div></div>
       <div class="week-row" style="background:rgba(255,107,107,0.06);border-radius:6px;padding:8px 0"><div class="week-row-time" style="color:var(--red);font-weight:600">13.04 пн</div><div class="timeline-dot" style="background:var(--red);width:8px;height:8px;border-radius:50%;flex-shrink:0"></div><div class="week-row-title" style="color:#fff;font-weight:600">Demo Day</div><div class="week-row-dur" style="background:rgba(255,107,107,0.15);color:var(--red)">12:00</div></div>
     </div>
   </div>
@@ -1360,21 +1393,21 @@ body.presenter-mode .progress-bar { width: 65vw !important; }
   <div class="slide-counter"><span class="current">14</span>/<span class="total"></span></div>
   <img class="slide-logo" src="logo.png" alt="">
   <div class="slide-inner">
-    <div class="label">// industries · 16+</div>
+    <div class="label">// industries · participants · nocodb n=165</div>
     <h2>Индустрии</h2>
     <div class="cards" style="grid-template-columns:repeat(4,1fr);gap:10px">
-      <div class="card" style="padding:14px;text-align:center"><div class="card-icon" style="font-size:28px">3</div><p style="font-size:12px">fintech / banking</p></div>
-      <div class="card" style="padding:14px;text-align:center"><div class="card-icon" style="font-size:28px;color:var(--blue)">3</div><p style="font-size:12px">e-commerce</p></div>
-      <div class="card" style="padding:14px;text-align:center"><div class="card-icon" style="font-size:28px;color:var(--green)">3</div><p style="font-size:12px">SaaS / tech</p></div>
-      <div class="card" style="padding:14px;text-align:center"><div class="card-icon" style="font-size:28px;color:var(--amber)">3</div><p style="font-size:12px">gaming</p></div>
-      <div class="card" style="padding:14px;text-align:center"><div class="card-icon" style="font-size:28px;color:var(--cyan)">3</div><p style="font-size:12px">consulting</p></div>
-      <div class="card" style="padding:14px;text-align:center"><div class="card-icon" style="font-size:28px;color:var(--pink)">3</div><p style="font-size:12px">investment / VC</p></div>
-      <div class="card" style="padding:14px;text-align:center"><div class="card-icon" style="font-size:28px;color:var(--text-dim)">2</div><p style="font-size:12px">construction</p></div>
-      <div class="card" style="padding:14px;text-align:center"><div class="card-icon" style="font-size:28px;color:var(--text-dim)">2</div><p style="font-size:12px">hospitality</p></div>
-      <div class="card" style="padding:14px;text-align:center"><div class="card-icon" style="font-size:28px;color:var(--text-dim)">2</div><p style="font-size:12px">edtech</p></div>
-      <div class="card" style="padding:14px;text-align:center"><div class="card-icon" style="font-size:28px;color:var(--text-dim)">2</div><p style="font-size:12px">mobile apps</p></div>
-      <div class="card" style="padding:14px;text-align:center"><div class="card-icon" style="font-size:28px;color:var(--text-dim)">2</div><p style="font-size:12px">crypto / web3</p></div>
-      <div class="card" style="padding:14px;text-align:center"><div class="card-icon" style="font-size:28px;color:var(--text-dim)">5</div><p style="font-size:12px">other</p></div>
+      <div class="card" style="padding:14px;text-align:center"><div class="card-icon" style="font-size:28px;color:var(--teal)">30</div><p style="font-size:12px">SaaS / Product</p></div>
+      <div class="card" style="padding:14px;text-align:center"><div class="card-icon" style="font-size:28px;color:var(--green)">10</div><p style="font-size:12px">Marketing / Content</p></div>
+      <div class="card" style="padding:14px;text-align:center"><div class="card-icon" style="font-size:28px;color:var(--blue)">7</div><p style="font-size:12px">Investment / Crypto</p></div>
+      <div class="card" style="padding:14px;text-align:center"><div class="card-icon" style="font-size:28px;color:var(--cyan)">7</div><p style="font-size:12px">Education</p></div>
+      <div class="card" style="padding:14px;text-align:center"><div class="card-icon" style="font-size:28px;color:var(--amber)">6</div><p style="font-size:12px">IT / Development</p></div>
+      <div class="card" style="padding:14px;text-align:center"><div class="card-icon" style="font-size:28px;color:var(--pink)">6</div><p style="font-size:12px">Fintech / Banking</p></div>
+      <div class="card" style="padding:14px;text-align:center"><div class="card-icon" style="font-size:28px;color:var(--text-dim)">4</div><p style="font-size:12px">Construction / Real Estate</p></div>
+      <div class="card" style="padding:14px;text-align:center"><div class="card-icon" style="font-size:28px;color:var(--text-dim)">3</div><p style="font-size:12px">Health / Wellness</p></div>
+      <div class="card" style="padding:14px;text-align:center"><div class="card-icon" style="font-size:28px;color:var(--text-dim)">2</div><p style="font-size:12px">Consulting / Legal</p></div>
+      <div class="card" style="padding:14px;text-align:center"><div class="card-icon" style="font-size:28px;color:var(--text-dim)">2</div><p style="font-size:12px">E-commerce / Retail</p></div>
+      <div class="card" style="padding:14px;text-align:center"><div class="card-icon" style="font-size:28px;color:var(--text-dim)">1</div><p style="font-size:12px">Hospitality / Food</p></div>
+      <div class="card" style="padding:14px;text-align:center"><div class="card-icon" style="font-size:28px;color:var(--text-dim)">58</div><p style="font-size:12px">Other</p></div>
     </div>
   </div>
 </div>
@@ -1567,7 +1600,7 @@ body.presenter-mode .progress-bar { width: 65vw !important; }
 
 <script>
 // Clear stale localStorage on version change
-const DECK_VERSION = '2026-03-20-v3';
+const DECK_VERSION = '2026-03-20-v4';
 if (localStorage.getItem('ainative-intro-call-version') !== DECK_VERSION) {
   localStorage.removeItem('ainative-intro-call-state');
   localStorage.setItem('ainative-intro-call-version', DECK_VERSION);
@@ -2489,33 +2522,32 @@ let presSeconds = 0;
 
 const presNotes = [
   { t: "Cover", n: "приветствие, представиться, Степан представляется. 177 участников — подчеркнуть масштаб" },
-  { t: "Agenda", n: "обзор: 2 часа, 7 блоков. 30 мин — знакомство участников по минуте" },
+  { t: "Agenda", n: "обзор: 2 часа, 4 блока. знакомство, обзор когорты, формат, Q&A" },
   { t: "Цифры", n: "177 зарегистрированных, 165 с анкетами, 44 написали #intro. данные из NoCoDB" },
   { t: "Roles", n: "61% фаундеры — это не обычная аудитория. decision makers" },
   { t: "AI зрелость", n: "спектр от 'двоечницы' до 90+ skills. спринт для всех уровней" },
   { t: "Боли", n: "85% одна боль — personal vs team. ЭТО и есть тема спринта" },
   { t: "Цели", n: "42% хотят framework, не инструмент — архитектуру" },
   { t: "Цитаты", n: "новые цитаты из NoCoDB анкет. Dolgov, Kireeva (FunCorp), Bogdanov (AGIMA/SF). дать прочитать" },
-  { t: "Enterprise", n: "показать калибр. Альфа-Капитал 2 трлн — серьёзно" },
+  { t: "Кто в когорте", n: "показать калибр. Альфа-Капитал 2 трлн — серьёзно" },
   { t: "Tools", n: "ChatGPT и Claude — по 45%! tied. Codex 15%, Cursor 13%. данные из NoCoDB" },
+  { t: "Что хотят построить", n: "NoCoDB n=165. 38% бот/ассистент, 26% агенты, 24% team adoption. multi-select" },
+  { t: "Голоса из анкет", n: "NoCoDB цитаты — отличаются от чат-интро. дать прочитать" },
   { t: "Curators", n: "12 кураторов. представить ключевых. 1-1 уже идут. записаться" },
   { t: "What to expect", n: "3 недели overview. не раскрывать детали — будет в понедельник" },
   { t: "Программа", n: "расписание по неделям. ПН 23.03 18:00 CET — Степан" },
   { t: "Спикеры", n: "11 спикеров. каждый — практик, не теоретик" },
   { t: "География", n: "164 с геолокацией. 45 Москва, 9 Питер, 8 Кипр, 8 Португалия, 5 ОАЭ. глобальная аудитория" },
-  { t: "Industries", n: "16+ индустрий. cross-pollination — ценность" },
+  { t: "Industries", n: "NoCoDB n=165. SaaS 30, Marketing 10, Invest/Crypto 7. cross-pollination" },
   { t: "Ещё цитаты", n: "пауза. Круxмалёв, Комратов, Никитина. дать прочитать" },
   { t: "Takeaways", n: "закрытие. переход к знакомству участников (30 мин). потом Q&A (20 мин). напомнить: понедельник 18:00 CET" }
 ];
 
 const agendaItems = [
-  { time: "10'", label: "знакомство" },
-  { time: "20'", label: "аудитория и боли" },
-  { time: "15'", label: "топ-участники" },
-  { time: "15'", label: "формат спринта" },
-  { time: "10'", label: "программа и спикеры" },
-  { time: "30'", label: "знакомство участников" },
-  { time: "20'", label: "Q&A" }
+  { time: "01", label: "знакомство" },
+  { time: "02", label: "обзор когорты" },
+  { time: "03", label: "формат спринта" },
+  { time: "04", label: "Q&A" }
 ];
 
 function togglePresenter() {
@@ -2549,7 +2581,7 @@ function updatePresenterNotes() {
   document.getElementById('pres-next-title').textContent = next ? next.t : '— end —';
   // Update agenda highlight based on slide position
   const agendaItems = document.querySelectorAll('.pres-agenda-item');
-  const phase = current < 2 ? 0 : current < 7 ? 1 : current < 9 ? 2 : current < 12 ? 3 : current < 14 ? 4 : current < 17 ? 5 : 6;
+  const phase = current < 2 ? 0 : current < 14 ? 1 : current < 16 ? 2 : 3;
   agendaItems.forEach((el, i) => el.classList.toggle('active', i === phase));
 }
 

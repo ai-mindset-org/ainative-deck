@@ -1446,21 +1446,24 @@ body.presenter-mode .progress-bar { width: 65vw !important; }
   <div class="slide-counter"><span class="current">14</span>/<span class="total"></span></div>
   <img class="slide-logo" src="logo.png" alt="">
   <div class="slide-inner">
-    <div class="label">// industries · participants · nocodb n=165</div>
+    <div class="label">// industries &middot; participants &middot; nocodb n=165</div>
     <h2>Индустрии</h2>
-    <div class="cards" style="grid-template-columns:repeat(4,1fr);gap:10px">
-      <div class="card" style="padding:14px;text-align:center"><div class="card-icon" style="font-size:28px;color:var(--teal)">30</div><p style="font-size:12px">SaaS / Product</p></div>
-      <div class="card" style="padding:14px;text-align:center"><div class="card-icon" style="font-size:28px;color:var(--green)">10</div><p style="font-size:12px">Marketing / Content</p></div>
-      <div class="card" style="padding:14px;text-align:center"><div class="card-icon" style="font-size:28px;color:var(--blue)">7</div><p style="font-size:12px">Investment / Crypto</p></div>
-      <div class="card" style="padding:14px;text-align:center"><div class="card-icon" style="font-size:28px;color:var(--cyan)">7</div><p style="font-size:12px">Education</p></div>
-      <div class="card" style="padding:14px;text-align:center"><div class="card-icon" style="font-size:28px;color:var(--amber)">6</div><p style="font-size:12px">IT / Development</p></div>
-      <div class="card" style="padding:14px;text-align:center"><div class="card-icon" style="font-size:28px;color:var(--pink)">6</div><p style="font-size:12px">Fintech / Banking</p></div>
-      <div class="card" style="padding:14px;text-align:center"><div class="card-icon" style="font-size:28px;color:var(--text-dim)">4</div><p style="font-size:12px">Construction / Real Estate</p></div>
-      <div class="card" style="padding:14px;text-align:center"><div class="card-icon" style="font-size:28px;color:var(--text-dim)">3</div><p style="font-size:12px">Health / Wellness</p></div>
-      <div class="card" style="padding:14px;text-align:center"><div class="card-icon" style="font-size:28px;color:var(--text-dim)">2</div><p style="font-size:12px">Consulting / Legal</p></div>
-      <div class="card" style="padding:14px;text-align:center"><div class="card-icon" style="font-size:28px;color:var(--text-dim)">2</div><p style="font-size:12px">E-commerce / Retail</p></div>
-      <div class="card" style="padding:14px;text-align:center"><div class="card-icon" style="font-size:28px;color:var(--text-dim)">1</div><p style="font-size:12px">Hospitality / Food</p></div>
-      <div class="card" style="padding:14px;text-align:center"><div class="card-icon" style="font-size:28px;color:var(--text-dim)">58</div><p style="font-size:12px">Other</p></div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:20px">
+      <span class="tag" style="font-size:13px;padding:6px 14px">saas/product &middot; 30</span>
+      <span class="tag" style="background:rgba(56,217,169,0.15);color:var(--green);font-size:13px;padding:6px 14px">marketing/content &middot; 10</span>
+      <span class="tag" style="background:rgba(59,130,246,0.15);color:var(--blue);font-size:13px;padding:6px 14px">investment/crypto &middot; 7</span>
+      <span class="tag" style="background:rgba(56,189,248,0.15);color:var(--cyan);font-size:13px;padding:6px 14px">education &middot; 7</span>
+      <span class="tag" style="background:rgba(200,146,0,0.15);color:var(--amber);font-size:13px;padding:6px 14px">it/development &middot; 6</span>
+      <span class="tag" style="background:rgba(255,59,139,0.15);color:var(--pink);font-size:13px;padding:6px 14px">fintech/banking &middot; 6</span>
+      <span class="tag" style="font-size:13px;padding:6px 14px">construction/real estate &middot; 4</span>
+      <span class="tag" style="background:rgba(56,217,169,0.15);color:var(--green);font-size:13px;padding:6px 14px">health/wellness &middot; 3</span>
+      <span class="tag" style="background:rgba(59,130,246,0.15);color:var(--blue);font-size:13px;padding:6px 14px">consulting/legal &middot; 2</span>
+      <span class="tag" style="background:rgba(200,146,0,0.15);color:var(--amber);font-size:13px;padding:6px 14px">e-commerce/retail &middot; 2</span>
+      <span class="tag" style="background:rgba(255,59,139,0.15);color:var(--pink);font-size:13px;padding:6px 14px">hospitality/food &middot; 1</span>
+      <span class="tag" style="background:rgba(255,107,107,0.15);color:var(--red);font-size:13px;padding:6px 14px">other &middot; 58</span>
+    </div>
+    <div style="margin-top:24px;padding:14px 24px;background:rgba(28,28,46,0.6);border:1px solid var(--border);border-radius:8px">
+      <span style="font-family:var(--font-code);font-size:13px;color:var(--text-dim)">$ cat industries.csv | sort -t, -k2 -rn | head -12 <span style="color:var(--teal)"># nocodb export</span></span>
     </div>
     <svg style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:5;opacity:0.05" viewBox="0 0 1920 1080">
       <circle cx="80" cy="140" r="2.5" fill="#4dc9d4"/>
@@ -1723,7 +1726,7 @@ body.presenter-mode .progress-bar { width: 65vw !important; }
 
 <script>
 // Clear stale localStorage on version change
-const DECK_VERSION = '2026-03-20-v5';
+const DECK_VERSION = '2026-03-20-v6';
 if (localStorage.getItem('ainative-intro-call-version') !== DECK_VERSION) {
   localStorage.removeItem('ainative-intro-call-state');
   localStorage.setItem('ainative-intro-call-version', DECK_VERSION);
@@ -2338,71 +2341,53 @@ async function runAiGeneration() {
   generateBtn.style.display = 'none';
 
   try {
-    if (aiMode === 'svg') {
-      const resp = await fetch(OR_BASE + '/chat/completions', {
-        method: 'POST',
-        headers: {
-          'Authorization': 'Bearer ' + OR_KEY,
-          'Content-Type': 'application/json',
-          'HTTP-Referer': location.href
-        },
-        body: JSON.stringify({
-          model: 'anthropic/claude-sonnet-4-20250514',
-          messages: [{
-            role: 'user',
-            content: `Generate a clean, minimal SVG illustration for a presentation slide. Theme: dark background (#161620), accent color #4dc9d4 (teal). The SVG should be self-contained, 400x300 viewBox, no external dependencies. Subject: ${prompt}. Return ONLY the SVG code, nothing else.`
-          }],
-          max_tokens: 4000
-        })
-      });
-      const data = await resp.json();
-      const content = data.choices?.[0]?.message?.content || '';
-      // Strip markdown code blocks before regex
-      const cleaned = content.replace(/```(?:xml|svg|html)?\n?/gi, '').replace(/```/g, '');
-      const svgMatch = cleaned.match(/<svg[\s\S]*?<\/svg>/i);
-      if (svgMatch) {
-        aiResult = { type: 'svg', content: svgMatch[0] };
-        previewEl.innerHTML = svgMatch[0];
-        previewEl.classList.add('visible');
-        statusEl.textContent = 'SVG generated';
-        insertBtn.style.display = '';
-      } else {
-        statusEl.textContent = 'no SVG found — raw: ' + content.substring(0, 120);
-        generateBtn.style.display = '';
-      }
+    const svgPrompt = aiMode === 'svg'
+      ? `Generate a clean, minimal SVG illustration for a presentation slide. Theme: dark background (#161620), accent color #4dc9d4 (teal). The SVG should be self-contained, 400x300 viewBox, no external dependencies. Subject: ${prompt}. Return ONLY the SVG code, nothing else.`
+      : `Create a visually rich, detailed SVG illustration for a presentation slide. Style: dark background (#161620), primary accent #4dc9d4 (teal), secondary #3b82f6 (blue). Use gradients, subtle glow effects, rounded shapes, and layered composition. Make it look like a polished infographic or data visualization — not a simple icon. viewBox="0 0 600 400", self-contained, no external deps. Subject: ${prompt}. Return ONLY the <svg>...</svg> code.`;
+    const maxTok = aiMode === 'svg' ? 4000 : 6000;
+    const modeLabel = aiMode === 'svg' ? 'SVG' : 'illustration';
+
+    const resp = await fetch(OR_BASE + '/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Authorization': 'Bearer ' + OR_KEY,
+        'Content-Type': 'application/json',
+        'HTTP-Referer': location.href
+      },
+      body: JSON.stringify({
+        model: 'anthropic/claude-sonnet-4-20250514',
+        messages: [{ role: 'user', content: svgPrompt }],
+        max_tokens: maxTok
+      })
+    });
+
+    if (!resp.ok) {
+      const errBody = await resp.text();
+      statusEl.textContent = `API error ${resp.status}: ${errBody.substring(0, 200)}`;
+      generateBtn.style.display = '';
+      return;
+    }
+
+    const data = await resp.json();
+    if (data.error) {
+      statusEl.textContent = `API error: ${data.error.message || JSON.stringify(data.error).substring(0, 200)}`;
+      generateBtn.style.display = '';
+      return;
+    }
+
+    const content = data.choices?.[0]?.message?.content || '';
+    // Strip markdown code blocks before regex
+    const cleaned = content.replace(/```(?:xml|svg|html)?\n?/gi, '').replace(/```/g, '');
+    const svgMatch = cleaned.match(/<svg[\s\S]*?<\/svg>/i);
+    if (svgMatch) {
+      aiResult = { type: 'svg', content: svgMatch[0] };
+      previewEl.innerHTML = svgMatch[0];
+      previewEl.classList.add('visible');
+      statusEl.textContent = modeLabel + ' generated';
+      insertBtn.style.display = '';
     } else {
-      // Illustration mode — rich SVG via chat/completions
-      const resp = await fetch(OR_BASE + '/chat/completions', {
-        method: 'POST',
-        headers: {
-          'Authorization': 'Bearer ' + OR_KEY,
-          'Content-Type': 'application/json',
-          'HTTP-Referer': location.href
-        },
-        body: JSON.stringify({
-          model: 'anthropic/claude-sonnet-4-20250514',
-          messages: [{
-            role: 'user',
-            content: `Create a visually rich, detailed SVG illustration for a presentation slide. Style: dark background (#161620), primary accent #4dc9d4 (teal), secondary #3b82f6 (blue). Use gradients, subtle glow effects, rounded shapes, and layered composition. Make it look like a polished infographic or data visualization — not a simple icon. viewBox="0 0 600 400", self-contained, no external deps. Subject: ${prompt}. Return ONLY the <svg>...</svg> code.`
-          }],
-          max_tokens: 6000
-        })
-      });
-      const data = await resp.json();
-      const content = data.choices?.[0]?.message?.content || '';
-      // Strip markdown code blocks before regex
-      const cleaned = content.replace(/```(?:xml|svg|html)?\n?/gi, '').replace(/```/g, '');
-      const svgMatch = cleaned.match(/<svg[\s\S]*?<\/svg>/i);
-      if (svgMatch) {
-        aiResult = { type: 'svg', content: svgMatch[0] };
-        previewEl.innerHTML = svgMatch[0];
-        previewEl.classList.add('visible');
-        statusEl.textContent = 'illustration generated';
-        insertBtn.style.display = '';
-      } else {
-        statusEl.textContent = 'no illustration found — raw: ' + content.substring(0, 120);
-        generateBtn.style.display = '';
-      }
+      statusEl.textContent = 'no ' + modeLabel + ' found — raw: ' + content.substring(0, 120);
+      generateBtn.style.display = '';
     }
   } catch (e) {
     statusEl.textContent = 'error: ' + e.message;
@@ -2794,17 +2779,19 @@ function nextPerson() {
   startTimer();
 }
 
-// Override space bar on timer slide
+// Override space bar on timer slide (capture phase to intercept before navigation)
 document.addEventListener('keydown', (e) => {
   if (e.key === ' ' && slides[current] && slides[current].id === 's-timer') {
     e.preventDefault();
     e.stopPropagation();
-    if (!timerRunning) startTimer();
-    else startTimer(); // pause
+    startTimer(); // toggles: starts if stopped, pauses if running
   }
-}, true); // capture phase to override navigation
+}, true);
 
 // ===== INIT =====
+// Force fresh state every load during development
+localStorage.removeItem('ainative-intro-call-state');
+
 const loaded = loadFromLocal();
 if (!loaded) showSlide(current);
 </script>

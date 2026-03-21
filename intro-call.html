@@ -107,7 +107,7 @@ p, li { font-size: 17px; line-height: 1.7; color: rgba(255,255,255,0.8); }
 .week-row-time { font-size: 12px; color: var(--text-dim); min-width: 70px; font-variant-numeric: tabular-nums; }
 .week-row-title { flex: 1; color: rgba(255,255,255,0.85); }
 .week-row-dur { font-size: 11px; padding: 2px 8px; border-radius: 4px; background: var(--bg-terminal); color: var(--text-dim); }
-.curator-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-top: 16px; }
+.curator-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 16px; }
 .curator-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 16px; text-align: center; transition: all 0.3s; position: relative; overflow: hidden; }
 .curator-card:hover { border-color: var(--border-hover); box-shadow: 0 0 20px var(--teal-dim); }
 .curator-photo { width: 64px; height: 64px; border-radius: 50%; object-fit: cover; margin: 0 auto 10px; border: 2px solid var(--border); display: block; }
@@ -232,7 +232,7 @@ body.presenter-mode #presenter-panel { display: block; }
 
 /* === VOX TRIGGER BUTTON === */
 #vox-trigger {
-  display: none; position: fixed; top: 50%; right: 0;
+  display: block; position: fixed; top: 50%; right: 0;
   transform: translateY(-50%);
   width: 32px; height: 48px;
   background: rgba(22,22,32,0.95); border: 1px solid var(--border);
@@ -247,7 +247,6 @@ body.presenter-mode #presenter-panel { display: block; }
   width: 36px; background: var(--teal-dim);
   border-color: var(--teal); color: #fff;
 }
-body.edit-mode #vox-trigger { display: block; }
 body.vox-open #vox-trigger { display: none; }
 
 /* === VOX PANEL === */
@@ -483,7 +482,7 @@ body.vox-open #vox-panel {
 /* === VOX RESPONSIVE === */
 @media (max-width: 768px) {
   #vox-panel { width: 100%; }
-  #vox-trigger { display: none !important; }
+  #vox-trigger { bottom: 60px; top: auto; right: 12px; transform: none; width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--border); }
 }
 
 /* === TOC OVERLAY === */
@@ -557,7 +556,7 @@ body.vox-open #vox-panel {
     <div style="position:relative"><img src="speakers/alexander-povaliaev.jpg" style="width:80px;height:80px;border-radius:50%;border:2px solid var(--teal);object-fit:cover;position:relative;z-index:2"><div style="position:absolute;inset:-4px;border-radius:50%;border:1px solid var(--teal-glow);animation:pulse 3s ease-in-out infinite"></div></div>
     <div style="position:relative"><img src="speakers/stepan-gershuni.jpg" style="width:80px;height:80px;border-radius:50%;border:2px solid var(--blue);object-fit:cover;position:relative;z-index:2"><div style="position:absolute;inset:-4px;border-radius:50%;border:1px solid rgba(59,130,246,0.3);animation:pulseSlow 4s ease-in-out infinite"></div></div>
   </div>
-  <h1>AI-Native Organizations<br><span class="teal">Sprint</span></h1>
+  <h1>AI-Native Organizations<br><span class="teal">{sprint}</span></h1>
   <p class="subtitle">3 недели, которые меняют подход к управлению компанией</p>
   <p style="font-size:14px;color:var(--text-label);margin-bottom:20px;letter-spacing:2px">INTRO CALL &middot; 23 MARCH 2026</p>
   <div class="meta"><span class="tag">sprint s2</span><span class="dot">&middot;</span><span class="tag">23 mar &ndash; 13 apr 2026</span><span class="dot">&middot;</span><span class="tag">177 registered</span></div>
@@ -678,37 +677,48 @@ body.vox-open #vox-panel {
   <h2>Масштаб команд</h2>
   <div class="split" style="gap:28px;align-items:start">
     <div>
-      <svg viewBox="0 0 400 340" width="400" height="340" style="max-width:100%">
-        <!-- Concentric reference circles -->
-        <circle cx="200" cy="170" r="155" fill="none" stroke="rgba(77,201,212,0.05)" stroke-width="1"/>
-        <circle cx="200" cy="170" r="105" fill="none" stroke="rgba(77,201,212,0.07)" stroke-width="1"/>
-        <circle cx="200" cy="170" r="55" fill="none" stroke="rgba(77,201,212,0.09)" stroke-width="1"/>
-        <!-- 120+ -->
-        <circle cx="290" cy="90" r="38" fill="rgba(77,201,212,0.1)" stroke="var(--teal)" stroke-width="1.5"/>
-        <text x="290" y="85" text-anchor="middle" fill="var(--teal)" font-family="Space Grotesk" font-size="20" font-weight="700">120+</text>
-        <text x="290" y="103" text-anchor="middle" fill="var(--teal)" font-family="IBM Plex Mono" font-size="9" opacity="0.7">16% &middot; 7</text>
-        <!-- 50-120 -->
-        <circle cx="115" cy="108" r="33" fill="rgba(59,130,246,0.1)" stroke="var(--blue)" stroke-width="1.5"/>
-        <text x="115" y="104" text-anchor="middle" fill="var(--blue)" font-family="Space Grotesk" font-size="18" font-weight="700">50-120</text>
-        <text x="115" y="120" text-anchor="middle" fill="var(--blue)" font-family="IBM Plex Mono" font-size="9" opacity="0.7">18% &middot; 8</text>
-        <!-- 10-50 (largest segment) -->
-        <circle cx="200" cy="210" r="44" fill="rgba(56,217,169,0.1)" stroke="var(--green)" stroke-width="1.5"/>
-        <text x="200" y="205" text-anchor="middle" fill="var(--green)" font-family="Space Grotesk" font-size="20" font-weight="700">10-50</text>
-        <text x="200" y="223" text-anchor="middle" fill="var(--green)" font-family="IBM Plex Mono" font-size="9" opacity="0.7">29% &middot; 13</text>
-        <!-- 1-10 -->
-        <circle cx="330" cy="220" r="28" fill="rgba(200,146,0,0.1)" stroke="var(--amber)" stroke-width="1.5"/>
-        <text x="330" y="216" text-anchor="middle" fill="var(--amber)" font-family="Space Grotesk" font-size="16" font-weight="700">1-10</text>
-        <text x="330" y="231" text-anchor="middle" fill="var(--amber)" font-family="IBM Plex Mono" font-size="9" opacity="0.7">24% &middot; 11</text>
-        <!-- solo -->
-        <circle cx="85" cy="248" r="20" fill="rgba(255,59,139,0.07)" stroke="var(--pink)" stroke-width="1"/>
-        <text x="85" y="245" text-anchor="middle" fill="var(--pink)" font-family="Space Grotesk" font-size="13" font-weight="700">solo</text>
-        <text x="85" y="258" text-anchor="middle" fill="var(--pink)" font-family="IBM Plex Mono" font-size="9" opacity="0.7">13%</text>
-        <!-- connections -->
-        <line x1="160" y1="210" x2="140" y2="135" stroke="rgba(77,201,212,0.08)" stroke-width="0.5"/>
-        <line x1="240" y1="195" x2="260" y2="120" stroke="rgba(77,201,212,0.08)" stroke-width="0.5"/>
-        <!-- annotation -->
-        <text x="200" y="325" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-family="IBM Plex Mono" font-size="10">median team ~45 &middot; total 3500+ managed</text>
-      </svg>
+<svg viewBox="0 0 420 360" width="420" height="360" style="max-width:100%">
+  <style>
+    @keyframes teamPulse1 { 0%,100% { r: 22; } 50% { r: 24; } }
+    @keyframes teamPulse2 { 0%,100% { r: 30; } 50% { r: 32; } }
+    @keyframes teamPulse3 { 0%,100% { r: 48; } 50% { r: 50; } }
+    @keyframes teamPulse4 { 0%,100% { r: 36; } 50% { r: 38; } }
+    @keyframes teamPulse5 { 0%,100% { r: 16; } 50% { r: 18; } }
+  </style>
+  <!-- Guide rings -->
+  <circle cx="210" cy="175" r="140" fill="none" stroke="rgba(77,201,212,0.04)" stroke-width="1" stroke-dasharray="4,4"/>
+  <circle cx="210" cy="175" r="100" fill="none" stroke="rgba(77,201,212,0.05)" stroke-width="1" stroke-dasharray="4,4"/>
+  <circle cx="210" cy="175" r="60" fill="none" stroke="rgba(77,201,212,0.06)" stroke-width="1" stroke-dasharray="4,4"/>
+  <!-- CENTER: 120+ (biggest teams, center position) -->
+  <circle cx="210" cy="175" r="22" fill="rgba(77,201,212,0.12)" stroke="var(--teal)" stroke-width="2" style="animation: teamPulse1 4s ease-in-out infinite"/>
+  <text x="210" y="170" text-anchor="middle" fill="var(--teal)" font-family="Space Grotesk" font-size="14" font-weight="700">120+</text>
+  <text x="210" y="185" text-anchor="middle" fill="var(--teal)" font-family="IBM Plex Mono" font-size="8" opacity="0.8">7 компаний</text>
+  <!-- RING 1: 50-120 -->
+  <circle cx="140" cy="115" r="30" fill="rgba(59,130,246,0.08)" stroke="var(--blue)" stroke-width="1.5" style="animation: teamPulse2 5s ease-in-out infinite"/>
+  <text x="140" y="111" text-anchor="middle" fill="var(--blue)" font-family="Space Grotesk" font-size="14" font-weight="700">50-120</text>
+  <text x="140" y="126" text-anchor="middle" fill="var(--blue)" font-family="IBM Plex Mono" font-size="8" opacity="0.7">8 компаний</text>
+  <!-- RING 2: 10-50 (largest segment = biggest circle) -->
+  <circle cx="310" cy="125" r="48" fill="rgba(56,217,169,0.08)" stroke="var(--green)" stroke-width="1.5" style="animation: teamPulse3 4.5s ease-in-out infinite"/>
+  <text x="310" y="118" text-anchor="middle" fill="var(--green)" font-family="Space Grotesk" font-size="18" font-weight="700">10-50</text>
+  <text x="310" y="136" text-anchor="middle" fill="var(--green)" font-family="IBM Plex Mono" font-size="9" opacity="0.7">13 компаний</text>
+  <text x="310" y="148" text-anchor="middle" fill="var(--green)" font-family="IBM Plex Mono" font-size="8" opacity="0.5">29% — max</text>
+  <!-- RING 3: 1-10 -->
+  <circle cx="120" cy="245" r="36" fill="rgba(200,146,0,0.08)" stroke="var(--amber)" stroke-width="1.5" style="animation: teamPulse4 5.5s ease-in-out infinite"/>
+  <text x="120" y="240" text-anchor="middle" fill="var(--amber)" font-family="Space Grotesk" font-size="16" font-weight="700">1-10</text>
+  <text x="120" y="256" text-anchor="middle" fill="var(--amber)" font-family="IBM Plex Mono" font-size="8" opacity="0.7">11 компаний</text>
+  <!-- OUTER: solo -->
+  <circle cx="310" cy="255" r="16" fill="rgba(255,59,139,0.06)" stroke="var(--pink)" stroke-width="1" style="animation: teamPulse5 6s ease-in-out infinite"/>
+  <text x="310" y="252" text-anchor="middle" fill="var(--pink)" font-family="Space Grotesk" font-size="11" font-weight="700">solo</text>
+  <text x="310" y="264" text-anchor="middle" fill="var(--pink)" font-family="IBM Plex Mono" font-size="8" opacity="0.7">13%</text>
+  <!-- Connections from center -->
+  <line x1="210" y1="175" x2="140" y2="115" stroke="rgba(77,201,212,0.08)" stroke-width="0.5"/>
+  <line x1="210" y1="175" x2="310" y2="125" stroke="rgba(77,201,212,0.08)" stroke-width="0.5"/>
+  <line x1="210" y1="175" x2="120" y2="245" stroke="rgba(77,201,212,0.06)" stroke-width="0.5"/>
+  <line x1="210" y1="175" x2="310" y2="255" stroke="rgba(77,201,212,0.05)" stroke-width="0.5"/>
+  <!-- Legend -->
+  <text x="210" y="330" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-family="IBM Plex Mono" font-size="9">центр = крупные команды · размер = доля участников</text>
+  <text x="210" y="345" text-anchor="middle" fill="rgba(255,255,255,0.25)" font-family="IBM Plex Mono" font-size="9">медиана ~45 · total 3500+ сотрудников</text>
+</svg>
     </div>
     <div>
       <div class="stat-grid cols-2" style="margin-top:0;gap:10px">
@@ -853,8 +863,8 @@ body.vox-open #vox-panel {
       </div>
       <div class="stat-grid" style="grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px">
         <div class="stat-box" style="padding:12px 8px"><div class="num teal" style="font-size:24px">3</div><div class="stat-label">лекции</div></div>
-        <div class="stat-box" style="padding:12px 8px"><div class="num blue" style="font-size:24px">9</div><div class="stat-label">workshops</div></div>
-        <div class="stat-box" style="padding:12px 8px"><div class="num green" style="font-size:24px">2+</div><div class="stat-label">coworking</div></div>
+        <div class="stat-box" style="padding:12px 8px"><div class="num blue" style="font-size:24px">10+</div><div class="stat-label">workshops</div></div>
+        <div class="stat-box" style="padding:12px 8px"><div class="num green" style="font-size:24px">3+</div><div class="stat-label">coworking</div></div>
       </div>
       <div style="margin-top:10px;padding:12px 16px;border:1px solid var(--border);border-radius:8px;background:var(--bg-card)">
         <p style="font-size:11px;color:var(--text-label);margin-bottom:6px;letter-spacing:1px">// participant journey</p>
@@ -871,7 +881,7 @@ body.vox-open #vox-panel {
 
 <!-- S11: CURATORS (photo grid) -->
 <div class="slide" id="s11"><div class="slide-counter"><span class="current">11</span>/<span class="total"></span></div><img class="slide-logo" src="logo.png" alt=""><div class="slide-inner">
-  <div class="label">// curators &middot; 10 practitioners</div>
+  <div class="label">// curators &middot; 12 practitioners</div>
   <h2>Кураторы</h2>
   <p style="font-size:14px;color:var(--text-dim);margin-bottom:12px">каждый куратор работает с группой участников 1-1. помогают с практикой, разбором задач, подготовкой к Demo Day.</p>
   <div class="curator-grid">
@@ -885,6 +895,8 @@ body.vox-open #vox-panel {
     <div class="curator-card"><div class="curator-num">08</div><img class="curator-photo" src="curators/northcapen.jpg" alt=""><div class="curator-name"><a href="https://t.me/northcapen" target="_blank" style="color:white;text-decoration:none">Anton Voskobovich</a></div><div style="font-size:10px;color:var(--teal);margin:2px 0"><a href="https://t.me/northcapen" target="_blank" style="color:var(--teal);text-decoration:none">@northcapen</a></div><div class="curator-desc">AI operations, процессы</div></div>
     <div class="curator-card"><div class="curator-num">09</div><img class="curator-photo" src="curators/Alexander_Stashenko.jpg" alt=""><div class="curator-name"><a href="https://t.me/Alexander_Stashenko" target="_blank" style="color:white;text-decoration:none">Alexander Stashenko</a></div><div style="font-size:10px;color:var(--teal);margin:2px 0"><a href="https://t.me/Alexander_Stashenko" target="_blank" style="color:var(--teal);text-decoration:none">@Alexander_Stashenko</a></div><div class="curator-desc">AI consulting</div></div>
     <div class="curator-card"><div class="curator-num">10</div><img class="curator-photo" src="curators/ks_andr_a.jpg" alt=""><div class="curator-name"><a href="https://t.me/ks_andr_a" target="_blank" style="color:white;text-decoration:none">Kseniya Tkacheva</a></div><div style="font-size:10px;color:var(--teal);margin:2px 0"><a href="https://t.me/ks_andr_a" target="_blank" style="color:var(--teal);text-decoration:none">@ks_andr_a</a></div><div class="curator-desc">user experience</div></div>
+    <div class="curator-card"><div class="curator-num">11</div><div class="curator-photo" style="width:64px;height:64px;border-radius:50%;margin:0 auto 10px;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,rgba(255,107,107,0.3),rgba(255,59,139,0.2));font-family:var(--font-heading);font-size:20px;font-weight:700;color:#fff">DS</div><div class="curator-name"><a href="https://t.me/densmirnov" target="_blank" style="color:white;text-decoration:none">Denis Smirnov</a></div><div style="font-size:10px;color:var(--teal);margin:2px 0"><a href="https://t.me/densmirnov" target="_blank" style="color:var(--teal);text-decoration:none">@densmirnov</a></div><div class="curator-desc">tokenomics, governance, semantics, @daobuilders</div></div>
+    <div class="curator-card"><div class="curator-num">12</div><div class="curator-photo" style="width:64px;height:64px;border-radius:50%;margin:0 auto 10px;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,rgba(77,201,212,0.3),rgba(56,217,169,0.2));font-family:var(--font-heading);font-size:20px;font-weight:700;color:#fff">IG</div><div class="curator-name"><a href="https://t.me/oxigen717" target="_blank" style="color:white;text-decoration:none">Ilya Golubev</a></div><div style="font-size:10px;color:var(--teal);margin:2px 0"><a href="https://t.me/oxigen717" target="_blank" style="color:var(--teal);text-decoration:none">@oxigen717</a></div><div class="curator-desc">RAG, AI-агенты, n8n, автоматизации</div></div>
   </div>
   <div style="margin-top:12px;display:flex;gap:16px">
     <div style="flex:1;padding:12px 16px;border:1px solid var(--border);border-radius:8px;background:var(--bg-card)"><p style="font-size:13px;color:var(--teal);margin-bottom:4px;font-weight:600">что делают</p><p style="font-size:12px;color:var(--text-dim)">1-1 разборы, feedback на домашку, подготовка к Demo Day. кликайте на ник &ndash; пишите напрямую.</p></div>
@@ -908,7 +920,7 @@ body.vox-open #vox-panel {
     <div class="speaker-card"><img class="speaker-photo" src="speakers/bayram-annakov.jpg" alt=""><div class="speaker-name">Bayram Annakov</div><div class="speaker-role">onsa.ai</div><div class="speaker-topic">Sales automation</div></div>
     <div class="speaker-card"><img class="speaker-photo" src="speakers/roma-buzko.jpg" alt=""><div class="speaker-name">Roma Buzko</div><div class="speaker-role">Buzko Krasnov</div><div class="speaker-topic">AI in legal</div></div>
   </div>
-  <div style="margin-top:12px;text-align:center"><span style="font-size:12px;color:var(--text-dim)">+ <span style="color:rgba(255,255,255,0.7)">Seva Ustinov</span> (Plurio AI, agent-product) &middot; <span style="color:rgba(255,255,255,0.7)">Vitya Tarnavskii</span> (T-Bank, AI в корпорациях 300+)</span></div>
+  <div style="margin-top:12px;text-align:center"><span style="font-size:12px;color:var(--text-dim)">+ <span style="color:rgba(255,255,255,0.7)">Seva Ustinov</span> (Plurio AI, agent-product)</span></div>
   <div style="margin-top:6px;text-align:center"><span style="font-size:11px;color:var(--text-dim)">bonus: дополнительные спикеры, мастермайнды, разборы кейсов</span></div>
 </div></div>
 
@@ -926,12 +938,14 @@ body.vox-open #vox-panel {
     </div>
     <div class="week-card"><div class="week-header"><div class="week-num" style="background:rgba(59,130,246,0.15);color:var(--blue)">W2</div><div class="week-title">System Above the Model</div><div class="week-dates">30 Mar &ndash; 4 Apr</div></div>
       <div class="week-row"><div class="week-row-time">пн 30.03</div><div style="width:6px;height:6px;border-radius:50%;background:var(--teal);flex-shrink:0"></div><div class="week-row-title">Гершуни &ndash; 6-layer architecture</div><div class="week-row-dur">18:00</div></div>
+      <div class="week-row"><div class="week-row-time">вт 31.03</div><div style="width:6px;height:6px;border-radius:50%;background:var(--green);flex-shrink:0"></div><div class="week-row-title">Поваляев &ndash; focus session</div><div class="week-row-dur">12:00</div></div>
       <div class="week-row"><div class="week-row-time">ср 01.04</div><div style="width:6px;height:6px;border-radius:50%;background:var(--blue);flex-shrink:0"></div><div class="week-row-title">Амётов (12:00) + Клебан (18:00)</div><div class="week-row-dur">12+18</div></div>
       <div class="week-row"><div class="week-row-time">чт 02.04</div><div style="width:6px;height:6px;border-radius:50%;background:var(--blue);flex-shrink:0"></div><div class="week-row-title">Ковальский &ndash; AI-driven dev</div><div class="week-row-dur">18:00</div></div>
       <div class="week-row"><div class="week-row-time">пт 03.04</div><div style="width:6px;height:6px;border-radius:50%;background:var(--blue);flex-shrink:0"></div><div class="week-row-title">Кравцов &ndash; knowledge graph</div><div class="week-row-dur">18:00</div></div>
     </div>
     <div class="week-card"><div class="week-header"><div class="week-num" style="background:rgba(56,217,169,0.15);color:var(--green)">W3</div><div class="week-title">Agent Pipelines + Plan</div><div class="week-dates">6&ndash;13 Apr</div></div>
       <div class="week-row"><div class="week-row-time">пн 06.04</div><div style="width:6px;height:6px;border-radius:50%;background:var(--teal);flex-shrink:0"></div><div class="week-row-title">Гершуни &ndash; стратегия &rarr; план</div><div class="week-row-dur">18:00</div></div>
+      <div class="week-row"><div class="week-row-time">вт 07.04</div><div style="width:6px;height:6px;border-radius:50%;background:var(--green);flex-shrink:0"></div><div class="week-row-title">Поваляев &ndash; focus session</div><div class="week-row-dur">12:00</div></div>
       <div class="week-row"><div class="week-row-time">вт 07.04</div><div style="width:6px;height:6px;border-radius:50%;background:var(--amber);flex-shrink:0"></div><div class="week-row-title">Рид &ndash; AI &times; investments</div><div class="week-row-dur">18:00</div></div>
       <div class="week-row"><div class="week-row-time">ср 08.04</div><div style="width:6px;height:6px;border-radius:50%;background:var(--amber);flex-shrink:0"></div><div class="week-row-title">Аннаков &ndash; sales automation</div><div class="week-row-dur">18:00</div></div>
       <div class="week-row"><div class="week-row-time">чт 09.04</div><div style="width:6px;height:6px;border-radius:50%;background:var(--amber);flex-shrink:0"></div><div class="week-row-title">Бузько &ndash; AI in legal</div><div class="week-row-dur">18:00</div></div>
@@ -943,16 +957,48 @@ body.vox-open #vox-panel {
 
 <!-- FORMAT SLIDES (restored) -->
 <!-- S14: FORMAT SECTION DIVIDER -->
-<div class="slide" id="s14"><div class="slide-counter"><span class="current">14</span>/<span class="total"></span></div><img class="slide-logo" src="logo.png" alt=""><div class="slide-inner cover">
-  <div class="label" style="letter-spacing:4px;font-size:11px;margin-bottom:24px">// format deep dive</div>
-  <h1 style="font-size:46px">Как устроены <span class="teal">сессии</span></h1>
-  <p class="subtitle">6 форматов, каждый с конкретным результатом</p>
-  <div class="stat-grid cols-5" style="margin-top:28px;max-width:900px">
-    <div class="stat-box" style="border-top:2px solid var(--teal)"><div class="num teal" style="font-size:32px">3</div><div class="stat-label">лекции</div></div>
-    <div class="stat-box" style="border-top:2px solid var(--green)"><div class="num green" style="font-size:32px">3</div><div class="stat-label">coworking</div></div>
-    <div class="stat-box" style="border-top:2px solid var(--blue)"><div class="num blue" style="font-size:32px">8</div><div class="stat-label">workshops</div></div>
-    <div class="stat-box" style="border-top:2px solid var(--amber)"><div class="num amber" style="font-size:32px">3</div><div class="stat-label">office hours</div></div>
-    <div class="stat-box" style="border-top:2px solid var(--red)"><div class="num red" style="font-size:32px">1</div><div class="stat-label">demo day</div></div>
+<div class="slide" id="s14"><div class="slide-counter"><span class="current">14</span>/<span class="total"></span></div><img class="slide-logo" src="logo.png" alt=""><div class="slide-inner">
+  <div class="label" style="letter-spacing:4px;font-size:11px">// FORMAT DEEP DIVE</div>
+  <h2>Как устроены <span class="teal">сессии</span></h2>
+  <p style="font-size:14px;color:var(--text-dim);margin-bottom:16px">типичная неделя спринта — 4 дня, каждый с конкретным результатом</p>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px">
+    <div style="padding:16px;border:1px solid var(--teal);border-radius:12px;background:rgba(77,201,212,0.04);text-align:center">
+      <p style="font-size:11px;color:var(--text-label);margin-bottom:6px;letter-spacing:1px">ПН</p>
+      <p style="font-size:28px;font-weight:700;color:var(--teal);font-family:var(--font-heading)">2ч</p>
+      <p style="font-size:13px;color:#fff;font-weight:600;margin:6px 0 4px">лекция</p>
+      <p style="font-size:11px;color:var(--text-dim)">Гершуни — теория + кейсы + Q&amp;A</p>
+    </div>
+    <div style="padding:16px;border:1px solid var(--green);border-radius:12px;background:rgba(56,217,169,0.04);text-align:center">
+      <p style="font-size:11px;color:var(--text-label);margin-bottom:6px;letter-spacing:1px">ВТ</p>
+      <p style="font-size:28px;font-weight:700;color:var(--green);font-family:var(--font-heading)">2ч</p>
+      <p style="font-size:13px;color:#fff;font-weight:600;margin:6px 0 4px">coworking</p>
+      <p style="font-size:11px;color:var(--text-dim)">Поваляев — focus + deep work</p>
+    </div>
+    <div style="padding:16px;border:1px solid var(--blue);border-radius:12px;background:rgba(59,130,246,0.04);text-align:center">
+      <p style="font-size:11px;color:var(--text-label);margin-bottom:6px;letter-spacing:1px">СР–ЧТ</p>
+      <p style="font-size:28px;font-weight:700;color:var(--blue);font-family:var(--font-heading)">1.5ч</p>
+      <p style="font-size:13px;color:#fff;font-weight:600;margin:6px 0 4px">workshops</p>
+      <p style="font-size:11px;color:var(--text-dim)">гостевой эксперт — live demo</p>
+    </div>
+    <div style="padding:16px;border:1px solid var(--amber);border-radius:12px;background:rgba(200,146,0,0.04);text-align:center">
+      <p style="font-size:11px;color:var(--text-label);margin-bottom:6px;letter-spacing:1px">ПТ</p>
+      <p style="font-size:28px;font-weight:700;color:var(--amber);font-family:var(--font-heading)">1.5ч</p>
+      <p style="font-size:13px;color:#fff;font-weight:600;margin:6px 0 4px">guest expert</p>
+      <p style="font-size:11px;color:var(--text-dim)">реальный кейс трансформации</p>
+    </div>
+  </div>
+  <div style="display:flex;gap:10px">
+    <div style="flex:1;display:flex;gap:10px">
+      <div style="flex:1;padding:12px;border:1px solid var(--border);border-radius:10px;background:var(--bg-card);text-align:center"><p style="font-size:24px;font-weight:700;color:var(--teal);font-family:var(--font-heading)">3</p><p style="font-size:10px;color:var(--text-dim)">лекции</p></div>
+      <div style="flex:1;padding:12px;border:1px solid var(--border);border-radius:10px;background:var(--bg-card);text-align:center"><p style="font-size:24px;font-weight:700;color:var(--green);font-family:var(--font-heading)">3+</p><p style="font-size:10px;color:var(--text-dim)">coworking</p></div>
+      <div style="flex:1;padding:12px;border:1px solid var(--border);border-radius:10px;background:var(--bg-card);text-align:center"><p style="font-size:24px;font-weight:700;color:var(--blue);font-family:var(--font-heading)">10+</p><p style="font-size:10px;color:var(--text-dim)">workshops</p></div>
+      <div style="flex:1;padding:12px;border:1px solid var(--border);border-radius:10px;background:var(--bg-card);text-align:center"><p style="font-size:24px;font-weight:700;color:var(--amber);font-family:var(--font-heading)">3</p><p style="font-size:10px;color:var(--text-dim)">office hours</p></div>
+      <div style="flex:1;padding:12px;border:1px solid var(--border);border-radius:10px;background:var(--bg-card);text-align:center"><p style="font-size:24px;font-weight:700;color:var(--red);font-family:var(--font-heading)">1</p><p style="font-size:10px;color:var(--text-dim)">demo day</p></div>
+    </div>
+  </div>
+  <div style="margin-top:12px;display:flex;gap:10px">
+    <div style="flex:1;padding:10px 14px;background:rgba(77,201,212,0.04);border:1px solid var(--border);border-radius:8px"><p style="font-size:12px;color:rgba(255,255,255,0.7)"><span class="teal" style="font-weight:600">18:00 CET</span> — основное время. coworking иногда в 12:00</p></div>
+    <div style="flex:1;padding:10px 14px;background:rgba(77,201,212,0.04);border:1px solid var(--border);border-radius:8px"><p style="font-size:12px;color:rgba(255,255,255,0.7)"><span class="green" style="font-weight:600">записи</span> всех сессий доступны 12 месяцев</p></div>
   </div>
 </div></div>
 
@@ -1010,13 +1056,12 @@ body.vox-open #vox-panel {
     </div>
     <div>
       <p style="font-size:12px;color:var(--text-label);margin-bottom:8px;letter-spacing:2px">// все спикеры</p>
-      <div style="display:flex;flex-direction:column;gap:5px;max-height:480px;overflow-y:auto">
+      <div style="display:flex;flex-direction:column;gap:5px">
       <div class="speaker-detail" style="margin-bottom:0;padding:8px 12px"><img src="speakers/dima-khanarin.jpg" alt="" style="width:36px;height:36px"><div class="sd-info"><div class="sd-name" style="font-size:12px">Dima Khanarin</div><div class="sd-topic" style="font-size:10px;margin-top:1px">AI transformation &ndash; framework + action plan</div></div></div>
       <div class="speaker-detail" style="margin-bottom:0;padding:8px 12px"><img src="speakers/alex-amyotov.jpg" alt="" style="width:36px;height:36px"><div class="sd-info"><div class="sd-name" style="font-size:12px">Alexey Ametov</div><div class="sd-topic" style="font-size:10px;margin-top:1px">AI-контент &ndash; pipeline + verification</div></div></div>
       <div class="speaker-detail" style="margin-bottom:0;padding:8px 12px"><img src="speakers/vitaly-kleban.jpg" alt="" style="width:36px;height:36px"><div class="sd-info"><div class="sd-name" style="font-size:12px">Vitaly Kleban</div><div class="sd-topic" style="font-size:10px;margin-top:1px">self-improving agents &ndash; live demo</div></div></div>
       <div class="speaker-detail" style="margin-bottom:0;padding:8px 12px"><img src="speakers/valerii kovalskii.jpg" alt="" style="width:36px;height:36px"><div class="sd-info"><div class="sd-name" style="font-size:12px">Valery Kovalskii</div><div class="sd-topic" style="font-size:10px;margin-top:1px">AI-driven dev &ndash; live build</div></div></div>
       <div class="speaker-detail" style="margin-bottom:0;padding:8px 12px"><img src="speakers/daniel-kravtsov.jpeg" alt="" style="width:36px;height:36px"><div class="sd-info"><div class="sd-name" style="font-size:12px">Daniel Kravtsov</div><div class="sd-topic" style="font-size:10px;margin-top:1px">99 агентов + knowledge graph</div></div></div>
-      <div class="speaker-detail" style="margin-bottom:0;padding:8px 12px"><img src="speakers/vitya-tarnavskii.jpg" alt="" style="width:36px;height:36px"><div class="sd-info"><div class="sd-name" style="font-size:12px">Vitya Tarnavskii</div><div class="sd-topic" style="font-size:10px;margin-top:1px">AI в корпорациях &ndash; T-Bank, 300+ чел</div></div></div>
       <div class="speaker-detail" style="margin-bottom:0;padding:8px 12px"><img src="speakers/bayram-annakov.jpg" alt="" style="width:36px;height:36px"><div class="sd-info"><div class="sd-name" style="font-size:12px">Bayram Annakov</div><div class="sd-topic" style="font-size:10px;margin-top:1px">AI sales automation &ndash; onsa.ai</div></div></div>
       <div class="speaker-detail" style="margin-bottom:0;padding:8px 12px"><img src="speakers/roma-buzko.jpg" alt="" style="width:36px;height:36px"><div class="sd-info"><div class="sd-name" style="font-size:12px">Roma Buzko</div><div class="sd-topic" style="font-size:10px;margin-top:1px">AI in legal &ndash; Buzko Krasnov</div></div></div>
       <div class="speaker-detail" style="margin-bottom:0;padding:8px 12px"><img src="speakers/seva-ustinov.jpg" alt="" style="width:36px;height:36px"><div class="sd-info"><div class="sd-name" style="font-size:12px">Seva Ustinov</div><div class="sd-topic" style="font-size:10px;margin-top:1px">agent-product &ndash; Plurio AI</div></div></div>
@@ -1145,7 +1190,7 @@ body.vox-open #vox-panel {
   <div class="split" style="gap:32px;align-items:start">
     <div>
       <div class="stat-grid cols-2" style="margin-top:0;gap:10px">
-        <div class="stat-box"><div class="num teal" style="font-size:36px">10</div><div class="stat-label">кураторов-практиков</div></div>
+        <div class="stat-box"><div class="num teal" style="font-size:36px">12</div><div class="stat-label">кураторов-практиков</div></div>
         <div class="stat-box"><div class="num green" style="font-size:36px">1-1</div><div class="stat-label">персональная работа</div></div>
       </div>
       <div class="layers" style="margin-top:14px;gap:6px">
@@ -1157,11 +1202,19 @@ body.vox-open #vox-panel {
     </div>
     <div>
       <p style="font-size:12px;color:var(--text-label);margin-bottom:10px;letter-spacing:2px">// КТО ОНИ</p>
-      <div class="cards" style="grid-template-columns:1fr 1fr;gap:8px;margin-top:0">
-        <div class="card" style="padding:10px;text-align:center"><p style="font-size:12px;color:var(--teal);font-weight:600;margin-bottom:2px">Fedoseev</p><p style="font-size:10px;color:var(--text-dim)">exCPO insuretech, LLM-пайплайны</p></div>
-        <div class="card" style="padding:10px;text-align:center"><p style="font-size:12px;color:var(--blue);font-weight:600;margin-bottom:2px">Yury</p><p style="font-size:10px;color:var(--text-dim)">enterprise architect, корпоративная трансформация</p></div>
-        <div class="card" style="padding:10px;text-align:center"><p style="font-size:12px;color:var(--green);font-weight:600;margin-bottom:2px">Jin</p><p style="font-size:10px;color:var(--text-dim)">ex-Singularity University, futurist</p></div>
-        <div class="card" style="padding:10px;text-align:center"><p style="font-size:12px;color:var(--amber);font-weight:600;margin-bottom:2px">Vasiliev</p><p style="font-size:10px;color:var(--text-dim)">CTO, 90+ скиллов, 6 агентов</p></div>
+      <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin-top:0">
+        <div style="text-align:center"><img src="curators/alex_named.jpg" alt="" style="width:40px;height:40px;border-radius:50%;object-fit:cover;border:1.5px solid var(--border)"></div>
+        <div style="text-align:center"><img src="curators/Alexander_Stashenko.jpg" alt="" style="width:40px;height:40px;border-radius:50%;object-fit:cover;border:1.5px solid var(--border)"></div>
+        <div style="text-align:center"><img src="curators/AlexFrmn.jpg" alt="" style="width:40px;height:40px;border-radius:50%;object-fit:cover;border:1.5px solid var(--border)"></div>
+        <div style="text-align:center"><img src="curators/borodich.jpg" alt="" style="width:40px;height:40px;border-radius:50%;object-fit:cover;border:1.5px solid var(--border)"></div>
+        <div style="text-align:center"><img src="curators/doonto.jpg" alt="" style="width:40px;height:40px;border-radius:50%;object-fit:cover;border:1.5px solid var(--border)"></div>
+        <div style="text-align:center"><img src="curators/He11ya.jpg" alt="" style="width:40px;height:40px;border-radius:50%;object-fit:cover;border:1.5px solid var(--border)"></div>
+        <div style="text-align:center"><img src="curators/igindin.jpg" alt="" style="width:40px;height:40px;border-radius:50%;object-fit:cover;border:1.5px solid var(--border)"></div>
+        <div style="text-align:center"><img src="curators/Irhen_N.jpg" alt="" style="width:40px;height:40px;border-radius:50%;object-fit:cover;border:1.5px solid var(--border)"></div>
+        <div style="text-align:center"><img src="curators/Kettarian_Fox.jpg" alt="" style="width:40px;height:40px;border-radius:50%;object-fit:cover;border:1.5px solid var(--border)"></div>
+        <div style="text-align:center"><img src="curators/northcapen.jpg" alt="" style="width:40px;height:40px;border-radius:50%;object-fit:cover;border:1.5px solid var(--border)"></div>
+        <div style="text-align:center"><div style="width:40px;height:40px;border-radius:50%;background:var(--teal-dim);border:1.5px solid var(--border);display:inline-flex;align-items:center;justify-content:center;font-family:var(--font-heading);font-size:13px;font-weight:600;color:var(--teal)">DS</div></div>
+        <div style="text-align:center"><div style="width:40px;height:40px;border-radius:50%;background:rgba(59,130,246,0.15);border:1.5px solid var(--border);display:inline-flex;align-items:center;justify-content:center;font-family:var(--font-heading);font-size:13px;font-weight:600;color:var(--blue)">IG</div></div>
       </div>
       <div style="margin-top:12px;padding:12px 16px;border:1px solid var(--border);border-radius:8px;background:var(--bg-card)">
         <p style="font-size:13px;color:var(--teal);margin-bottom:4px;font-weight:600">как записаться</p>
@@ -1178,7 +1231,7 @@ body.vox-open #vox-panel {
   <div class="split" style="gap:32px;align-items:start">
     <div>
       <div class="stat-grid cols-2" style="margin-top:0;gap:10px">
-        <div class="stat-box"><div class="num teal" style="font-size:36px">169</div><div class="stat-label">участников в чате</div></div>
+        <div class="stat-box"><div class="num teal" style="font-size:36px">200+</div><div class="stat-label">участников в чате</div></div>
         <div class="stat-box"><div class="num green" style="font-size:36px">24/7</div><div class="stat-label">async доступ</div></div>
       </div>
       <div class="layers" style="margin-top:14px;gap:6px">
@@ -1201,8 +1254,99 @@ body.vox-open #vox-panel {
   </div>
 </div></div>
 
-<!-- S22: PARTICIPANT JOURNEY TIMELINE -->
+<!-- S22: LMS PLATFORM -->
 <div class="slide" id="s22"><div class="slide-counter"><span class="current">22</span>/<span class="total"></span></div><img class="slide-logo" src="logo.png" alt=""><div class="slide-inner">
+  <div class="label">// platform &middot; learn.aimindset.org</div>
+  <h2>Ваша <span class="teal">база</span></h2>
+  <div class="split" style="gap:28px;align-items:start">
+    <div>
+      <div style="padding:16px 20px;border:1px solid var(--teal);border-radius:12px;background:rgba(77,201,212,0.04);margin-bottom:14px">
+        <p style="font-size:13px;color:var(--teal);font-weight:600;margin-bottom:6px;letter-spacing:1px"><a href="https://learn.aimindset.org/s2" target="_blank" style="color:var(--teal);text-decoration:none;border-bottom:1px solid var(--teal-glow)">learn.aimindset.org/s2</a></p>
+        <p style="font-size:12px;color:rgba(255,255,255,0.7)">все материалы, записи, вопросы, календарь &ndash; в одном месте</p>
+      </div>
+      <div class="layers" style="gap:6px">
+        <div class="layer" style="padding:10px 14px;border-left:3px solid var(--red)">
+          <div class="layer-num red" style="min-width:24px;font-size:11px;font-weight:700;letter-spacing:1px">PRE</div>
+          <div>
+            <div class="layer-name" style="font-size:13px;min-width:0">prerequisite</div>
+            <div class="layer-desc" style="font-size:11px">4 видео перед стартом &ndash; POS prework</div>
+          </div>
+        </div>
+        <div class="layer" style="padding:10px 14px;border-left:3px solid var(--teal)">
+          <div class="layer-num teal" style="min-width:24px;font-size:14px">W1</div>
+          <div>
+            <div class="layer-name" style="font-size:13px;min-width:0">неделя 1 &ndash; 3</div>
+            <div class="layer-desc" style="font-size:11px">лекции, воркшопы, записи, материалы</div>
+          </div>
+        </div>
+        <div class="layer" style="padding:10px 14px;border-left:3px solid var(--green)">
+          <div class="layer-num green" style="min-width:24px;font-size:11px;font-weight:700;letter-spacing:1px">KB</div>
+          <div>
+            <div class="layer-name" style="font-size:13px;min-width:0">база знаний</div>
+            <div class="layer-desc" style="font-size:11px">автоматизация 101, vibe-coding 101, промпты, инструменты</div>
+          </div>
+        </div>
+        <div class="layer" style="padding:10px 14px;border-left:3px solid var(--blue)">
+          <div class="layer-num blue" style="min-width:24px;font-size:11px;font-weight:700;letter-spacing:1px">CAL</div>
+          <div>
+            <div class="layer-name" style="font-size:13px;min-width:0">календарь</div>
+            <div class="layer-desc" style="font-size:11px">Google Calendar, iCal &ndash; все сессии автоматически</div>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:12px;display:flex;gap:8px">
+        <div style="flex:1;padding:10px 12px;border:1px solid var(--border);border-radius:8px;background:var(--bg-card);text-align:center">
+          <p style="font-size:20px;font-weight:700;color:var(--teal);font-family:var(--font-heading)">24</p>
+          <p style="font-size:10px;color:var(--text-dim)">артефакта в коллекции</p>
+        </div>
+        <div style="flex:1;padding:10px 12px;border:1px solid var(--border);border-radius:8px;background:var(--bg-card);text-align:center">
+          <p style="font-size:20px;font-weight:700;color:var(--green);font-family:var(--font-heading)">12</p>
+          <p style="font-size:10px;color:var(--text-dim)">месяцев доступ</p>
+        </div>
+      </div>
+    </div>
+    <div>
+      <p style="font-size:12px;color:var(--text-label);margin-bottom:10px;letter-spacing:2px">// Q&A &mdash; ВОПРОСЫ К ЛЕКЦИИ</p>
+      <div style="padding:16px;border:1px solid rgba(255,107,107,0.3);border-radius:12px;background:rgba(255,107,107,0.04);margin-bottom:12px">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+          <div style="width:32px;height:32px;border-radius:8px;background:var(--red);display:flex;align-items:center;justify-content:center;font-size:16px;color:#fff">&#9654;</div>
+          <div>
+            <p style="font-size:13px;color:#fff;font-weight:600">задайте вопрос к лекции</p>
+            <p style="font-size:11px;color:var(--text-dim)">W1: Почему ИИ-трансформация &ndash; самое важное</p>
+          </div>
+        </div>
+        <div style="padding:10px 12px;border:1px solid var(--border);border-radius:8px;background:rgba(28,28,46,0.5);margin-bottom:8px">
+          <div style="display:flex;align-items:start;gap:8px">
+            <div style="display:flex;flex-direction:column;align-items:center;gap:2px;min-width:24px">
+              <span style="font-size:12px;color:var(--text-dim);cursor:pointer">&#9650;</span>
+              <span style="font-size:12px;color:var(--text-dim);font-weight:600">0</span>
+            </div>
+            <p style="font-size:11px;color:rgba(255,255,255,0.7);line-height:1.5">Сотрудники саботируют: боятся потерять работу, нравится незаменимость, страх что все узнают про дыры в процессах. Что делать?</p>
+          </div>
+          <p style="font-size:9px;color:var(--text-dim);margin-top:4px">@iserg &middot; 3 часа назад</p>
+        </div>
+        <div style="padding:10px 12px;border:1px solid var(--border);border-radius:8px;background:rgba(28,28,46,0.5)">
+          <div style="display:flex;align-items:start;gap:8px">
+            <div style="display:flex;flex-direction:column;align-items:center;gap:2px;min-width:24px">
+              <span style="font-size:12px;color:var(--text-dim);cursor:pointer">&#9650;</span>
+              <span style="font-size:12px;color:var(--text-dim);font-weight:600">0</span>
+            </div>
+            <p style="font-size:11px;color:rgba(255,255,255,0.7);line-height:1.5">Как слезть с Google Docs на уровне компании? Люди не хотят git и папки.</p>
+          </div>
+          <p style="font-size:9px;color:var(--text-dim);margin-top:4px">@iserg &middot; 2 часа назад</p>
+        </div>
+      </div>
+      <div class="cards" style="grid-template-columns:1fr;gap:6px;margin-top:0">
+        <div class="card" style="padding:10px 14px;border-left:3px solid var(--teal)"><p style="font-size:12px;color:rgba(255,255,255,0.8)"><span class="teal" style="font-weight:600">голосуйте</span> за вопросы &ndash; лучшие обсудим на лекции</p></div>
+        <div class="card" style="padding:10px 14px;border-left:3px solid var(--green)"><p style="font-size:12px;color:rgba(255,255,255,0.8)"><span class="green" style="font-weight:600">механика</span> работает для каждой встречи спринта</p></div>
+        <div class="card" style="padding:10px 14px;border-left:3px solid var(--blue)"><p style="font-size:12px;color:rgba(255,255,255,0.8)"><span class="blue" style="font-weight:600">vault</span> &ndash; все материалы, шаблоны, промпты отдаём</p></div>
+      </div>
+    </div>
+  </div>
+</div></div>
+
+<!-- S23: PARTICIPANT JOURNEY TIMELINE -->
+<div class="slide" id="s23"><div class="slide-counter"><span class="current">23</span>/<span class="total"></span></div><img class="slide-logo" src="logo.png" alt=""><div class="slide-inner">
   <div class="label">// participant journey &middot; timeline</div>
   <h2>Путь участника</h2>
   <svg viewBox="0 0 1000 440" width="100%" style="max-width:1000px;margin:12px auto 0">
@@ -1261,7 +1405,7 @@ body.vox-open #vox-panel {
     <text x="720" y="150" text-anchor="middle" fill="var(--green)" font-family="IBM Plex Mono" font-size="9" opacity="0.6">лекция + coworking + 4 guest</text>
   </svg>
   <div style="display:flex;gap:16px;justify-content:center;margin-top:8px">
-    <div style="padding:10px 20px;border:1px solid var(--border);border-radius:8px;background:var(--bg-card)"><p style="font-size:13px;color:rgba(255,255,255,0.8);text-align:center"><span class="teal" style="font-weight:600">18</span> артефактов &middot; <span class="blue" style="font-weight:600">10</span> спикеров &middot; <span class="green" style="font-weight:600">10</span> кураторов &middot; <span class="red" style="font-weight:600">1</span> Demo Day</p></div>
+    <div style="padding:10px 20px;border:1px solid var(--border);border-radius:8px;background:var(--bg-card)"><p style="font-size:13px;color:rgba(255,255,255,0.8);text-align:center"><span class="teal" style="font-weight:600">18</span> артефактов &middot; <span class="blue" style="font-weight:600">10</span> спикеров &middot; <span class="green" style="font-weight:600">12</span> кураторов &middot; <span class="red" style="font-weight:600">1</span> Demo Day</p></div>
   </div>
 </div></div>
 
@@ -1343,6 +1487,9 @@ body.vox-open #vox-panel {
 
   <!-- Quick Actions -->
   <div class="vox-actions" id="vox-actions">
+    <button onclick="toggleVoxLive()" id="vox-live-btn" data-action="live" style="grid-column:span 2;justify-content:center;font-weight:600">
+      <span class="vox-act-icon">&#9673;</span> LIVE OFF
+    </button>
     <button onclick="voxAction('improve')" data-action="improve">
       <span class="vox-act-icon">&uarr;</span> make better
     </button>
@@ -1378,7 +1525,7 @@ body.vox-open #vox-panel {
 </div>
 
 <!-- Vox trigger button (visible in edit mode) -->
-<button id="vox-trigger" onclick="toggleVox()" title="Vox AI assistant (V)">&#9670;</button>
+<button id="vox-trigger" title="Vox AI assistant (V)">&#9670;</button>
 
 <script>
 const DECK_VERSION='2026-03-21-v12';localStorage.removeItem('ainative-intro-call-state');localStorage.setItem('ainative-intro-call-version',DECK_VERSION);
@@ -1486,8 +1633,8 @@ var presNotes=[
   {t:"Pain Points",n:"85%: личное работает, командное нет. Запрос на framework, не на инструмент. Цитаты сильные."},
   {t:"Sprint Goals",n:"42% стратегия, 36% рабочий агент, 27% company OS. Никто не просит научите ChatGPT."},
   {t:"Lab Format",n:"7 форматов: workshop, co-working, curators, practice, buddy groups, bonus."},
-  {t:"Curators",n:"10 кураторов. TG ники кликабельны. Назначение на этой неделе."},
-  {t:"Speakers",n:"12 спикеров. + Tarnavskii (T-Bank 300+), Ustinov (Plurio AI)."},
+  {t:"Curators",n:"12 кураторов. TG ники кликабельны. Назначение на этой неделе. Новые: Denis Smirnov (tokenomics, governance), Ilya Golubev (RAG, AI-агенты)."},
+  {t:"Speakers",n:"12 спикеров. + Ustinov (Plurio AI)."},
   {t:"Program",n:"3 недели. W1 personal+team, W2 architecture, W3 agents+plan. Demo Day 13.04."},
   {t:"Format Deep Dive",n:"6 форматов, каждый с конкретным результатом."},
   {t:"Lecture",n:"2 часа live. 60 контент + 30 Q&A + 30 дискуссия."},
@@ -1495,8 +1642,9 @@ var presNotes=[
   {t:"Coworking",n:"2 часа. Check-in + deep work + sharing."},
   {t:"Office Hours",n:"1-2 часа, суббота 10:00. Hot seat."},
   {t:"Demo Day",n:"13 апреля. 5+3 мин. Проблема → Решение → ROI → План."},
-  {t:"Curators Detail",n:"10 кураторов. Async TG. Check-ins. Demo Day prep."},
+  {t:"Curators Detail",n:"12 кураторов. Async TG. Check-ins. Demo Day prep."},
   {t:"Community",n:"Telegram чат. Alumni навсегда. Vault. Записи 12 мес."},
+  {t:"LMS Platform",n:"learn.aimindset.org/s2. Все материалы, записи, Q&A. Механика вопросов к каждой лекции — голосование. Уже 2 вопроса к W1. Vault и шаблоны — всё отдаём. 24 артефакта в коллекции. prerequisite — 4 видео."},
   {t:"Journey",n:"Prework → W1 → W2 → W3 → Demo Day. 18 артефактов."},
   {t:"Timer",n:"по минуте на каждого. space = start/pause. next = следующий."}
 ];
@@ -1522,14 +1670,15 @@ var tocItems=[
   {slide:18,label:"Demo Day",icon:"19"},
   {slide:19,label:"Curators Detail",icon:"20"},
   {slide:20,label:"Community",icon:"21"},
-  {slide:21,label:"Journey",icon:"22"},
-  {slide:22,label:"Timer",icon:"23"}
+  {slide:21,label:"LMS Platform",icon:"22"},
+  {slide:22,label:"Journey",icon:"23"},
+  {slide:23,label:"Timer",icon:"24"}
 ];
 function togglePresenter(){presenterMode=!presenterMode;document.body.classList.toggle('presenter-mode',presenterMode);if(presenterMode){presSeconds=0;presTimer=setInterval(function(){presSeconds++;var m=String(Math.floor(presSeconds/60)).padStart(2,'0');var s=String(presSeconds%60).padStart(2,'0');document.getElementById('pres-timer').textContent=m+':'+s},1000);updatePresenterNotes();
 document.getElementById('pres-toc').innerHTML='<div style="font-size:10px;color:var(--text-label);letter-spacing:2px;margin-bottom:8px">// TABLE OF CONTENTS</div>'+tocItems.map(function(t,i){return '<div class="pres-agenda-item'+(i===current?' active':'')+'" style="cursor:pointer;padding:5px 8px;border-radius:4px;transition:all 0.15s" onclick="showSlide('+t.slide+')"><span style="color:var(--teal);min-width:22px;display:inline-block;font-size:11px">'+t.icon+'</span><span style="font-size:12px">'+t.label+'</span></div>'}).join('')}else{clearInterval(presTimer);document.getElementById('pres-timer').textContent='00:00'}}
 function updatePresenterNotes(){if(!presenterMode)return;var n=presNotes[current]||{t:'Slide '+(current+1),n:''};document.getElementById('pres-notes').innerHTML='<h4>'+n.t+'</h4><p>'+n.n+'</p>';var nx=presNotes[current+1];document.getElementById('pres-next-title').textContent=nx?nx.t:'end';
 document.querySelectorAll('#pres-toc .pres-agenda-item').forEach(function(el,i){el.classList.toggle('active',i===current);el.style.background=i===current?'var(--teal-dim)':'';el.style.borderLeftColor=i===current?'var(--teal)':'transparent'})}
-var origShowSlide=showSlide;showSlide=function(n){origShowSlide(n);if(presenterMode)updatePresenterNotes();if(typeof voxOpen!=='undefined'&&voxOpen)updateVoxContext()};
+var origShowSlide=showSlide;showSlide=function(n){origShowSlide(n);if(presenterMode)updatePresenterNotes();if(typeof voxOpen!=='undefined'&&voxOpen){updateVoxContext();if(voxLiveMode&&n!==voxLastTipSlide)generateAmbientTip(n)}};
 
 // --- TIMER (with event listener fix) ---
 var timerInterval=null,timerSeconds=60,timerRunning=false,personCount=1;
@@ -1645,6 +1794,9 @@ let voxConversation = [];  // {role: 'user'|'assistant', content: string}
 let voxStreaming = false;
 let voxAbortController = null;
 let voxPreviewState = null;
+let voxAmbientStarted = false;
+let voxLiveMode = false;
+let voxLastTipSlide = -1;
 
 // ===== PANEL TOGGLE =====
 
@@ -1653,14 +1805,20 @@ function toggleVox() {
   document.body.classList.toggle('vox-open', voxOpen);
 
   if (voxOpen) {
-    // Auto-enable edit mode if not already
-    if (!editMode) toggleEdit();
     updateVoxContext();
+    updateVoxActionsVisibility();
     // Focus input after panel animation completes
     setTimeout(() => {
       const input = document.getElementById('vox-input');
       if (input) input.focus();
     }, 280);
+    // Start ambient tips if not in edit mode
+    if (!editMode && !voxAmbientStarted) {
+      voxAmbientStarted = true;
+      addVoxMessage('bot', '**live mode** — ambient tips based on slide context.\n\nask me anything about the program, speakers, or participants.\n\npress `LIVE ON` for auto-tips on each slide.');
+    }
+  } else {
+    updateVoxActionsVisibility();
   }
 }
 
@@ -2585,6 +2743,86 @@ function parseAndOfferActions(result, msgEl) {
     msgEl.appendChild(actionsDiv);
   }
 }
+
+// ===== VOX UI HELPERS =====
+
+function updateVoxActionsVisibility() {
+  const actions = document.querySelectorAll('#vox-actions button[data-action]');
+  actions.forEach(btn => {
+    const action = btn.getAttribute('data-action');
+    if (action === 'live') {
+      btn.style.display = '';  // always visible
+    } else if (!editMode) {
+      btn.style.display = 'none';  // hide edit actions in presentation mode
+    } else {
+      btn.style.display = '';
+    }
+  });
+}
+
+// ===== VOX LIVE MODE (AMBIENT TIPS) =====
+
+function toggleVoxLive() {
+  voxLiveMode = !voxLiveMode;
+  const btn = document.getElementById('vox-live-btn');
+  btn.classList.toggle('active', voxLiveMode);
+  btn.innerHTML = voxLiveMode
+    ? '<span class="vox-act-icon">&#9673;</span> LIVE ON'
+    : '<span class="vox-act-icon">&#9673;</span> LIVE OFF';
+  if (voxLiveMode) {
+    addVoxMessage('bot', '**ambient mode on** — tips will appear as you navigate slides.');
+    generateAmbientTip(current);
+  } else {
+    addVoxMessage('bot', 'ambient mode off.');
+  }
+}
+
+async function generateAmbientTip(slideIndex) {
+  if (!voxLiveMode || voxStreaming) return;
+  if (slideIndex === voxLastTipSlide) return;
+  voxLastTipSlide = slideIndex;
+
+  const ctx = getSlideContext();
+  const prevCtx = getSlideContextAt(slideIndex - 1);
+  const nextCtx = getSlideContextAt(slideIndex + 1);
+  const note = presNotes[slideIndex] || {};
+
+  const tipPrompt = `You are a presentation coach giving a quick ambient tip to the presenter.
+
+Current slide ${slideIndex + 1}/${ctx.totalSlides}: "${ctx.h1 || ctx.h2}"
+Section: ${ctx.label}
+Content summary: ${ctx.paragraphs.slice(0, 3).join('; ')}
+Stats on slide: ${ctx.stats.map(s => s.num + ' ' + s.label).join(', ')}
+Presenter note: ${note.n || 'none'}
+${prevCtx ? 'Previous slide: "' + (prevCtx.h1 || prevCtx.h2) + '"' : ''}
+${nextCtx ? 'Next slide: "' + (nextCtx.h1 || nextCtx.h2) + '"' : ''}
+
+PARTICIPANT CONTEXT: 177 registered, 61% founders, 85% say personal AI works but team doesn't, median team ~45 employees. Mix: AGIMA 500+, LIFEPAY 450, Альфа-Капитал 2T+ AUM, solo founders.
+
+Give a SHORT (2-3 sentences) presenter tip in Russian. What to emphasize, which audience segment to address, what transition works. Be specific to THIS slide. Format: one punchy insight.`;
+
+  const streamEl = addVoxStreamMessage();
+  try {
+    await voxChat(
+      'You are a concise presentation coach. Reply in Russian. Max 3 sentences. No markdown headers.',
+      tipPrompt,
+      (content) => {
+        streamEl.innerHTML = formatVoxContent(content);
+        document.getElementById('vox-messages').scrollTop = document.getElementById('vox-messages').scrollHeight;
+      }
+    );
+    streamEl.classList.remove('streaming');
+  } catch (e) {
+    streamEl.classList.remove('streaming');
+    streamEl.innerHTML = '<em style="color:var(--red)">tip error: ' + e.message + '</em>';
+  }
+}
+
+document.getElementById('vox-trigger').addEventListener('click', function(e) {
+  e.preventDefault();
+  e.stopPropagation();
+  toggleVox();
+});
 
 </script>
 </body>

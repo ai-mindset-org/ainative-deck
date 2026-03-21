@@ -485,6 +485,66 @@ body.vox-open #vox-panel {
   #vox-panel { width: 100%; }
   #vox-trigger { display: none !important; }
 }
+
+/* === TOC OVERLAY === */
+#toc-overlay {
+  display: none; position: fixed; inset: 0;
+  background: rgba(0,0,0,0.75);
+  backdrop-filter: blur(12px);
+  z-index: 18000;
+  align-items: center; justify-content: center;
+}
+#toc-overlay.visible { display: flex; }
+#toc-inner {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 32px 36px;
+  max-width: 600px; width: 90%;
+  max-height: 80vh; overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--teal-dim) transparent;
+}
+#toc-inner h3 {
+  font-family: var(--font-heading);
+  font-size: 18px; font-weight: 600;
+  color: var(--teal); margin-bottom: 16px;
+  letter-spacing: 1px;
+}
+.toc-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px 14px; border-radius: 8px;
+  cursor: pointer; transition: all 0.15s;
+  border: 1px solid transparent;
+  margin-bottom: 4px;
+}
+.toc-item:hover {
+  background: var(--teal-dim);
+  border-color: var(--border-hover);
+}
+.toc-item.active {
+  background: rgba(77,201,212,0.08);
+  border-color: var(--teal);
+}
+.toc-num {
+  font-family: var(--font-heading);
+  font-size: 13px; font-weight: 700;
+  color: var(--text-dim); min-width: 28px;
+  text-align: right;
+}
+.toc-item.active .toc-num { color: var(--teal); }
+.toc-title {
+  font-family: var(--font-heading);
+  font-size: 14px; font-weight: 500;
+  color: rgba(255,255,255,0.8);
+  flex: 1;
+}
+.toc-item.active .toc-title { color: #fff; font-weight: 600; }
+.toc-section-tag {
+  font-size: 10px; padding: 2px 8px;
+  border-radius: 4px; letter-spacing: 0.5px;
+  font-family: var(--font-body);
+}
 </style>
 </head>
 <body>
@@ -612,8 +672,166 @@ body.vox-open #vox-panel {
   </svg>
 </div></div>
 
-<!-- S6: WHAT PARTICIPANTS WANT -->
+<!-- S6: TEAM SIZE + AI MATURITY -->
 <div class="slide" id="s6"><div class="slide-counter"><span class="current">6</span>/<span class="total"></span></div><img class="slide-logo" src="logo.png" alt=""><div class="slide-inner">
+  <div class="label">// team scale &middot; 3500+ employees managed</div>
+  <h2>Масштаб команд</h2>
+  <div class="split" style="gap:28px;align-items:start">
+    <div>
+      <svg viewBox="0 0 400 340" width="400" height="340" style="max-width:100%">
+        <!-- Concentric reference circles -->
+        <circle cx="200" cy="170" r="155" fill="none" stroke="rgba(77,201,212,0.05)" stroke-width="1"/>
+        <circle cx="200" cy="170" r="105" fill="none" stroke="rgba(77,201,212,0.07)" stroke-width="1"/>
+        <circle cx="200" cy="170" r="55" fill="none" stroke="rgba(77,201,212,0.09)" stroke-width="1"/>
+        <!-- 120+ -->
+        <circle cx="290" cy="90" r="38" fill="rgba(77,201,212,0.1)" stroke="var(--teal)" stroke-width="1.5"/>
+        <text x="290" y="85" text-anchor="middle" fill="var(--teal)" font-family="Space Grotesk" font-size="20" font-weight="700">120+</text>
+        <text x="290" y="103" text-anchor="middle" fill="var(--teal)" font-family="IBM Plex Mono" font-size="9" opacity="0.7">16% &middot; 7</text>
+        <!-- 50-120 -->
+        <circle cx="115" cy="108" r="33" fill="rgba(59,130,246,0.1)" stroke="var(--blue)" stroke-width="1.5"/>
+        <text x="115" y="104" text-anchor="middle" fill="var(--blue)" font-family="Space Grotesk" font-size="18" font-weight="700">50-120</text>
+        <text x="115" y="120" text-anchor="middle" fill="var(--blue)" font-family="IBM Plex Mono" font-size="9" opacity="0.7">18% &middot; 8</text>
+        <!-- 10-50 (largest segment) -->
+        <circle cx="200" cy="210" r="44" fill="rgba(56,217,169,0.1)" stroke="var(--green)" stroke-width="1.5"/>
+        <text x="200" y="205" text-anchor="middle" fill="var(--green)" font-family="Space Grotesk" font-size="20" font-weight="700">10-50</text>
+        <text x="200" y="223" text-anchor="middle" fill="var(--green)" font-family="IBM Plex Mono" font-size="9" opacity="0.7">29% &middot; 13</text>
+        <!-- 1-10 -->
+        <circle cx="330" cy="220" r="28" fill="rgba(200,146,0,0.1)" stroke="var(--amber)" stroke-width="1.5"/>
+        <text x="330" y="216" text-anchor="middle" fill="var(--amber)" font-family="Space Grotesk" font-size="16" font-weight="700">1-10</text>
+        <text x="330" y="231" text-anchor="middle" fill="var(--amber)" font-family="IBM Plex Mono" font-size="9" opacity="0.7">24% &middot; 11</text>
+        <!-- solo -->
+        <circle cx="85" cy="248" r="20" fill="rgba(255,59,139,0.07)" stroke="var(--pink)" stroke-width="1"/>
+        <text x="85" y="245" text-anchor="middle" fill="var(--pink)" font-family="Space Grotesk" font-size="13" font-weight="700">solo</text>
+        <text x="85" y="258" text-anchor="middle" fill="var(--pink)" font-family="IBM Plex Mono" font-size="9" opacity="0.7">13%</text>
+        <!-- connections -->
+        <line x1="160" y1="210" x2="140" y2="135" stroke="rgba(77,201,212,0.08)" stroke-width="0.5"/>
+        <line x1="240" y1="195" x2="260" y2="120" stroke="rgba(77,201,212,0.08)" stroke-width="0.5"/>
+        <!-- annotation -->
+        <text x="200" y="325" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-family="IBM Plex Mono" font-size="10">median team ~45 &middot; total 3500+ managed</text>
+      </svg>
+    </div>
+    <div>
+      <div class="stat-grid cols-2" style="margin-top:0;gap:10px">
+        <div class="stat-box"><div class="num teal" style="font-size:36px">3500+</div><div class="stat-label">сотрудников</div></div>
+        <div class="stat-box"><div class="num green" style="font-size:36px">~45</div><div class="stat-label">медианная команда</div></div>
+      </div>
+      <div style="margin-top:14px">
+        <p style="font-size:12px;color:var(--text-label);margin-bottom:8px;letter-spacing:2px">// AI MATURITY</p>
+        <svg viewBox="0 0 380 56" width="100%">
+          <rect x="0" y="8" width="380" height="32" rx="6" fill="rgba(28,28,46,0.5)" stroke="rgba(77,201,212,0.12)" stroke-width="1"/>
+          <rect x="3" y="11" width="36" height="26" rx="4" fill="rgba(255,107,107,0.2)"/>
+          <text x="21" y="28" text-anchor="middle" fill="var(--red)" font-family="Space Grotesk" font-size="11" font-weight="700">10%</text>
+          <rect x="42" y="11" width="260" height="26" rx="4" fill="rgba(59,130,246,0.13)"/>
+          <text x="172" y="28" text-anchor="middle" fill="var(--blue)" font-family="Space Grotesk" font-size="11" font-weight="700">70% intermediate</text>
+          <rect x="305" y="11" width="72" height="26" rx="4" fill="rgba(77,201,212,0.18)"/>
+          <text x="341" y="28" text-anchor="middle" fill="var(--teal)" font-family="Space Grotesk" font-size="11" font-weight="700">20%</text>
+          <text x="21" y="52" text-anchor="middle" fill="var(--red)" font-family="IBM Plex Mono" font-size="8">beg</text>
+          <text x="341" y="52" text-anchor="middle" fill="var(--teal)" font-family="IBM Plex Mono" font-size="8">adv</text>
+        </svg>
+      </div>
+      <div class="quote-enhanced" style="margin-top:14px"><p style="font-size:13px">&laquo;Как от MVP к масштабу? Знаем как создать одного агента, но как на 450 человек?&raquo;</p><div class="author">Zarubenko <span>&middot; LIFEPAY, 450 чел</span></div></div>
+      <div style="margin-top:10px;padding:10px 14px;border:1px solid var(--border);border-radius:8px;background:var(--bg-card)"><p style="font-size:12px;color:rgba(255,255,255,0.6)"><span style="color:var(--teal)">advanced:</span> Zarubenko (10+ агентов), Vasiliev (90+ skills), Комратов (CRM-бот), Рыбаков (AI-юрист)</p></div>
+    </div>
+  </div>
+</div></div>
+
+<!-- S7: ENTERPRISE HIGHLIGHTS -->
+<div class="slide" id="s7"><div class="slide-counter"><span class="current">7</span>/<span class="total"></span></div><img class="slide-logo" src="logo.png" alt=""><div class="slide-inner">
+  <div class="label">// enterprise &middot; who is in the room</div>
+  <h2>Кто в зале</h2>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:6px">
+    <div class="card" style="padding:14px;position:relative;overflow:hidden"><div style="position:absolute;top:0;left:0;right:0;height:2px;background:var(--teal)"></div><p style="font-size:22px;font-weight:700;color:var(--teal);font-family:var(--font-heading)">500+</p><p style="font-size:12px;color:#fff;margin-top:3px;font-weight:600">AGIMA</p><p style="font-size:10px;color:var(--text-dim);margin-top:3px">крупнейшая веб-студия</p></div>
+    <div class="card" style="padding:14px;position:relative;overflow:hidden"><div style="position:absolute;top:0;left:0;right:0;height:2px;background:var(--blue)"></div><p style="font-size:22px;font-weight:700;color:var(--blue);font-family:var(--font-heading)">450</p><p style="font-size:12px;color:#fff;margin-top:3px;font-weight:600">LIFEPAY</p><p style="font-size:10px;color:var(--text-dim);margin-top:3px">fintech, AI Chief of Staff</p></div>
+    <div class="card" style="padding:14px;position:relative;overflow:hidden"><div style="position:absolute;top:0;left:0;right:0;height:2px;background:var(--green)"></div><p style="font-size:22px;font-weight:700;color:var(--green);font-family:var(--font-heading)">360</p><p style="font-size:12px;color:#fff;margin-top:3px;font-weight:600">GSS Cosmetics</p><p style="font-size:10px;color:var(--text-dim);margin-top:3px">FMCG + digital</p></div>
+    <div class="card" style="padding:14px;position:relative;overflow:hidden"><div style="position:absolute;top:0;left:0;right:0;height:2px;background:var(--amber)"></div><p style="font-size:22px;font-weight:700;color:var(--amber);font-family:var(--font-heading)">60M+</p><p style="font-size:12px;color:#fff;margin-top:3px;font-weight:600">KeepSolid</p><p style="font-size:10px;color:var(--text-dim);margin-top:3px">VPN Unlimited users</p></div>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:10px">
+    <div class="card" style="padding:14px;position:relative;overflow:hidden"><div style="position:absolute;top:0;left:0;right:0;height:2px;background:var(--cyan)"></div><p style="font-size:22px;font-weight:700;color:var(--cyan);font-family:var(--font-heading)">2T+</p><p style="font-size:12px;color:#fff;margin-top:3px;font-weight:600">Альфа-Капитал</p><p style="font-size:10px;color:var(--text-dim);margin-top:3px">AUM, board director</p></div>
+    <div class="card" style="padding:14px;position:relative;overflow:hidden"><div style="position:absolute;top:0;left:0;right:0;height:2px;background:var(--pink)"></div><p style="font-size:22px;font-weight:700;color:var(--pink);font-family:var(--font-heading)">160</p><p style="font-size:12px;color:#fff;margin-top:3px;font-weight:600">Go Mobile</p><p style="font-size:10px;color:var(--text-dim);margin-top:3px">CEO + buying director</p></div>
+    <div class="card" style="padding:14px;position:relative;overflow:hidden"><div style="position:absolute;top:0;left:0;right:0;height:2px;background:var(--red)"></div><p style="font-size:22px;font-weight:700;color:var(--red);font-family:var(--font-heading)">100+</p><p style="font-size:12px;color:#fff;margin-top:3px;font-weight:600">FunCorp</p><p style="font-size:10px;color:var(--text-dim);margin-top:3px">CEO, AI-трансформация</p></div>
+    <div class="card" style="padding:14px;position:relative;overflow:hidden"><div style="position:absolute;top:0;left:0;right:0;height:2px;background:var(--green)"></div><p style="font-size:22px;font-weight:700;color:var(--green);font-family:var(--font-heading)">top-40</p><p style="font-size:12px;color:#fff;margin-top:3px;font-weight:600">Tothemoon</p><p style="font-size:10px;color:var(--text-dim);margin-top:3px">crypto exchange COO</p></div>
+  </div>
+  <div style="margin-top:12px;display:flex;gap:12px">
+    <div style="flex:1;padding:10px 14px;border:1px solid var(--border);border-radius:8px;background:var(--bg-card)">
+      <p style="font-size:11px;color:var(--text-label);margin-bottom:4px;letter-spacing:1px">// ALSO IN THE ROOM</p>
+      <p style="font-size:12px;color:rgba(255,255,255,0.6)">Raiffeisen (CPO) &middot; Nebius/Yandex &middot; Мое Дело (70K cl.) &middot; ВкусВилл KZ &middot; Unisender &middot; SecondLane &middot; cyber.fund</p>
+    </div>
+    <div style="flex:0 0 auto;padding:10px 14px;border:1px solid var(--border);border-radius:8px;background:var(--bg-card);text-align:center">
+      <p style="font-size:11px;color:var(--text-label);margin-bottom:4px;letter-spacing:1px">// INDUSTRIES</p>
+      <div style="display:flex;gap:4px;flex-wrap:wrap;justify-content:center"><span class="tag" style="font-size:9px">fintech</span><span class="tag blue-tag" style="font-size:9px">gaming</span><span class="tag green-tag" style="font-size:9px">saas</span><span class="tag amber-tag" style="font-size:9px">e-com</span><span class="tag red-tag" style="font-size:9px">crypto</span><span class="tag" style="font-size:9px">edtech</span><span class="tag blue-tag" style="font-size:9px">legal</span></div>
+    </div>
+  </div>
+</div></div>
+
+<!-- S8: PAIN POINTS + QUOTES -->
+<div class="slide" id="s8"><div class="slide-counter"><span class="current">8</span>/<span class="total"></span></div><img class="slide-logo" src="logo.png" alt=""><div class="slide-inner">
+  <div class="label">// pain points &middot; from 163 surveys</div>
+  <h2>Боли и запросы</h2>
+  <div class="split" style="gap:28px;align-items:start">
+    <div>
+      <!-- Pain points pyramid SVG -->
+      <svg viewBox="0 0 400 320" width="400" height="320" style="max-width:100%">
+        <!-- Tier 1 — widest -->
+        <polygon points="50,240 350,240 320,175 80,175" fill="rgba(255,107,107,0.1)" stroke="var(--red)" stroke-width="1"/>
+        <text x="200" y="195" text-anchor="middle" fill="var(--red)" font-family="IBM Plex Mono" font-size="10" font-weight="600">TIER 1 &mdash; 85%+</text>
+        <text x="200" y="212" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-family="IBM Plex Mono" font-size="11">&laquo;личное работает &ndash; командное нет&raquo;</text>
+        <text x="200" y="228" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-family="IBM Plex Mono" font-size="9">фрагментация данных &middot; ручные процессы</text>
+        <!-- Tier 2 — middle -->
+        <polygon points="80,170 320,170 290,115 110,115" fill="rgba(200,146,0,0.1)" stroke="var(--amber)" stroke-width="1"/>
+        <text x="200" y="133" text-anchor="middle" fill="var(--amber)" font-family="IBM Plex Mono" font-size="10" font-weight="600">TIER 2 &mdash; 50-70%</text>
+        <text x="200" y="150" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-family="IBM Plex Mono" font-size="10">MVP &rarr; production &middot; FOMO</text>
+        <text x="200" y="162" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-family="IBM Plex Mono" font-size="9">governance &middot; compliance</text>
+        <!-- Tier 3 — narrowest -->
+        <polygon points="110,110 290,110 260,65 140,65" fill="rgba(77,201,212,0.1)" stroke="var(--teal)" stroke-width="1"/>
+        <text x="200" y="82" text-anchor="middle" fill="var(--teal)" font-family="IBM Plex Mono" font-size="10" font-weight="600">TIER 3 &mdash; 20-40%</text>
+        <text x="200" y="98" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-family="IBM Plex Mono" font-size="9">инертность &middot; зоопарк &middot; нет времени</text>
+        <!-- Labels -->
+        <text x="200" y="260" text-anchor="middle" fill="rgba(255,255,255,0.25)" font-family="IBM Plex Mono" font-size="9">163 анкеты &middot; NoCoDB + 51 #intro в чате</text>
+        <!-- Goal bars below -->
+        <text x="10" y="286" fill="rgba(255,255,255,0.3)" font-family="IBM Plex Mono" font-size="9">// GOAL THEMES FROM SURVEYS</text>
+        <rect x="10" y="294" width="148" height="10" rx="2" fill="rgba(77,201,212,0.2)"/><text x="14" y="302" fill="var(--teal)" font-family="IBM Plex Mono" font-size="8">automation 37%</text>
+        <rect x="10" y="308" width="104" height="10" rx="2" fill="rgba(59,130,246,0.15)"/><text x="14" y="316" fill="var(--blue)" font-family="IBM Plex Mono" font-size="8">framework 26%</text>
+        <rect x="170" y="294" width="104" height="10" rx="2" fill="rgba(56,217,169,0.15)"/><text x="174" y="302" fill="var(--green)" font-family="IBM Plex Mono" font-size="8">agents 26%</text>
+        <rect x="170" y="308" width="100" height="10" rx="2" fill="rgba(200,146,0,0.15)"/><text x="174" y="316" fill="var(--amber)" font-family="IBM Plex Mono" font-size="8">team 25%</text>
+      </svg>
+    </div>
+    <div>
+      <div class="quote-enhanced" style="margin:0 0 12px"><p style="font-size:13px">&laquo;Хочу отдать машине все процессы, построить архитектуру уже под ИИ, а не из наследия&raquo;</p><div class="author">Smirnov <span>&middot; GSS 360 чел</span></div></div>
+      <div class="quote-enhanced" style="margin:0 0 12px;border-left-color:var(--blue)"><p style="font-size:13px">&laquo;67% сотрудников используют AI. Но как от точечных улучшений к изменению модели?&raquo;</p><div class="author" style="color:var(--blue)">Граборов <span>&middot; Альфа-Капитал</span></div></div>
+      <div class="quote-enhanced" style="margin:0 0 12px;border-left-color:var(--green)"><p style="font-size:13px">&laquo;Сокращение со 140 до 40 &ndash; нужны агенты, а не новые сотрудники&raquo;</p><div class="author" style="color:var(--green)">Ivanov <span>&middot; KeepSolid 60M+ users</span></div></div>
+      <div class="quote-enhanced" style="margin:0;border-left-color:var(--amber)"><p style="font-size:13px">&laquo;К Demo Day: модель AI-first &ndash; чтобы каждый реально использовал AI-ассистента&raquo;</p><div class="author" style="color:var(--amber)">Mukhametov <span>&middot; CEO FunCorp</span></div></div>
+    </div>
+  </div>
+</div></div>
+
+<!-- S9: SPRINT GOALS (DATA-DRIVEN) -->
+<div class="slide" id="s9"><div class="slide-counter"><span class="current">9</span>/<span class="total"></span></div><img class="slide-logo" src="logo.png" alt=""><div class="slide-inner">
+  <div class="label">// sprint goals &middot; from 163 surveys</div>
+  <h2>Цели участников</h2>
+  <div class="bar-chart">
+    <div class="bar-row"><div class="bar-label">AI-стратегия / framework</div><div class="bar-track"><div class="bar-fill" style="width:42%;background:linear-gradient(90deg,var(--teal),rgba(77,201,212,0.6))">42%</div></div></div>
+    <div class="bar-row"><div class="bar-label">Рабочий агент / пилот</div><div class="bar-track"><div class="bar-fill" style="width:36%;background:linear-gradient(90deg,var(--blue),rgba(59,130,246,0.6))">36%</div></div></div>
+    <div class="bar-row"><div class="bar-label">Company OS / dashboard</div><div class="bar-track"><div class="bar-fill" style="width:27%;background:linear-gradient(90deg,var(--green),rgba(56,217,169,0.6))">27%</div></div></div>
+    <div class="bar-row"><div class="bar-label">Team AI adoption</div><div class="bar-track"><div class="bar-fill" style="width:24%;background:linear-gradient(90deg,var(--amber),rgba(200,146,0,0.6))">24%</div></div></div>
+    <div class="bar-row"><div class="bar-label">90-дневный план</div><div class="bar-track"><div class="bar-fill" style="width:15%;background:linear-gradient(90deg,var(--cyan),rgba(56,189,248,0.6))">15%</div></div></div>
+    <div class="bar-row"><div class="bar-label">AI-native с нуля</div><div class="bar-track"><div class="bar-fill" style="width:12%;background:linear-gradient(90deg,var(--pink),rgba(255,59,139,0.6))">12%</div></div></div>
+  </div>
+  <div style="margin-top:14px;display:grid;grid-template-columns:1fr 1fr;gap:12px">
+    <div style="padding:12px 16px;border:1px solid var(--border);border-radius:8px;background:var(--bg-card)">
+      <p style="font-size:11px;color:var(--text-label);margin-bottom:6px;letter-spacing:1px">// AMBITIOUS GOALS</p>
+      <p style="font-size:12px;color:rgba(255,255,255,0.7);line-height:1.6"><span style="color:var(--teal)">Zarubenko</span> &ndash; сократить в 2-3x при росте производительности<br><span style="color:var(--blue)">Krukhmalev</span> &ndash; компания целиком из агентов<br><span style="color:var(--green)">Shatskii</span> &ndash; AI-CFO + AI-PMO + AI-legal</p>
+    </div>
+    <div style="padding:12px 16px;border:1px solid var(--border);border-radius:8px;background:var(--bg-card)">
+      <p style="font-size:11px;color:var(--text-label);margin-bottom:6px;letter-spacing:1px">// KEY INSIGHT</p>
+      <p style="font-size:13px;color:rgba(255,255,255,0.8);line-height:1.6">Никто не просит &laquo;научите ChatGPT&raquo;.</p>
+      <p style="font-size:13px;color:var(--teal);line-height:1.6;font-weight:600">Запрос: как выстроить архитектуру AI в организации.</p>
+      <p style="font-size:11px;color:var(--text-dim);margin-top:6px">Ключевое слово: <span style="color:var(--blue)">framework</span> (8+ раз)</p>
+    </div>
+  </div>
+</div></div>
+
+<!-- S10: WHAT PARTICIPANTS WANT -->
+<div class="slide" id="s10"><div class="slide-counter"><span class="current">10</span>/<span class="total"></span></div><img class="slide-logo" src="logo.png" alt=""><div class="slide-inner">
   <div class="label">// expectations &middot; from survey</div>
   <h2>Чего хотят участники</h2>
   <div class="bar-chart">
@@ -630,31 +848,31 @@ body.vox-open #vox-panel {
   </div>
 </div></div>
 
-<!-- S7: CURATORS -->
-<div class="slide" id="s7"><div class="slide-counter"><span class="current">7</span>/<span class="total"></span></div><img class="slide-logo" src="logo.png" alt=""><div class="slide-inner">
+<!-- S11: CURATORS -->
+<div class="slide" id="s11"><div class="slide-counter"><span class="current">11</span>/<span class="total"></span></div><img class="slide-logo" src="logo.png" alt=""><div class="slide-inner">
   <div class="label">// curators &middot; 10 practitioners</div>
   <h2>Кураторы</h2>
   <p style="font-size:14px;color:var(--text-dim);margin-bottom:12px">Каждый куратор работает с группой участников 1-1. Помогают с практикой, разбором задач, подготовкой к Demo Day.</p>
   <div class="curator-grid">
-    <div class="curator-card"><div class="curator-num">01</div><img class="curator-photo" src="curators/Kettarian_Fox.jpg" alt=""><div class="curator-name"><a href="https://t.me/Kettarian_Fox" target="_blank" style="color:white;text-decoration:none">Stanislav Fedoseev</a></div><div class="curator-desc">exCPO insuretech, agent systems</div></div>
-    <div class="curator-card"><div class="curator-num">02</div><img class="curator-photo" src="curators/doonto.jpg" alt=""><div class="curator-name"><a href="https://t.me/doonto" target="_blank" style="color:white;text-decoration:none">Yury</a></div><div class="curator-desc">corporate transformation, Switzerland</div></div>
-    <div class="curator-card"><div class="curator-num">03</div><img class="curator-photo" src="curators/He11ya.jpg" alt=""><div class="curator-name"><a href="https://t.me/He11ya" target="_blank" style="color:white;text-decoration:none">Jin Kolesnikov</a></div><div class="curator-desc">futurist, Singularity U</div></div>
-    <div class="curator-card"><div class="curator-num">04</div><img class="curator-photo" src="curators/prcdrl.jpg" alt=""><div class="curator-name"><a href="https://t.me/prcdrl" target="_blank" style="color:white;text-decoration:none">Stanislav Glazov</a></div><div class="curator-desc">AI infrastructure</div></div>
-    <div class="curator-card"><div class="curator-num">05</div><img class="curator-photo" src="curators/AlexFrmn.jpg" alt=""><div class="curator-name"><a href="https://t.me/AlexFrmn" target="_blank" style="color:white;text-decoration:none">Alexander Vasiliev</a></div><div class="curator-desc">AI engineering</div></div>
-    <div class="curator-card"><div class="curator-num">06</div><img class="curator-photo" src="curators/serejaris.jpg" alt=""><div class="curator-name"><a href="https://t.me/serejaris" target="_blank" style="color:white;text-decoration:none">Sereja Ris</a></div><div class="curator-desc">AI product</div></div>
-    <div class="curator-card"><div class="curator-num">07</div><img class="curator-photo" src="curators/igindin.jpg" alt=""><div class="curator-name"><a href="https://t.me/igindin" target="_blank" style="color:white;text-decoration:none">Ilya Gindin</a></div><div class="curator-desc">AI strategy</div></div>
-    <div class="curator-card"><div class="curator-num">08</div><img class="curator-photo" src="curators/northcapen.jpg" alt=""><div class="curator-name"><a href="https://t.me/northcapen" target="_blank" style="color:white;text-decoration:none">Anton Voskobovich</a></div><div class="curator-desc">AI ops</div></div>
-    <div class="curator-card"><div class="curator-num">09</div><img class="curator-photo" src="curators/Alexander_Stashenko.jpg" alt=""><div class="curator-name"><a href="https://t.me/Alexander_Stashenko" target="_blank" style="color:white;text-decoration:none">Alexander Stashenko</a></div><div class="curator-desc">AI consulting</div></div>
-    <div class="curator-card"><div class="curator-num">10</div><img class="curator-photo" src="curators/ks_andr_a.jpg" alt=""><div class="curator-name"><a href="https://t.me/ks_andr_a" target="_blank" style="color:white;text-decoration:none">Kseniya Tkacheva</a></div><div class="curator-desc">AI transformation</div></div>
+    <div class="curator-card"><div class="curator-num">01</div><img class="curator-photo" src="curators/Kettarian_Fox.jpg" alt=""><div class="curator-name"><a href="https://t.me/Kettarian_Fox" target="_blank" style="color:white;text-decoration:none">Stanislav Fedoseev</a></div><div style="font-size:10px;color:var(--teal);margin:2px 0"><a href="https://t.me/Kettarian_Fox" target="_blank" style="color:var(--teal);text-decoration:none">@Kettarian_Fox</a></div><div class="curator-desc">exCPO insuretech, агентные системы, LLM-пайплайны</div></div>
+    <div class="curator-card"><div class="curator-num">02</div><img class="curator-photo" src="curators/doonto.jpg" alt=""><div class="curator-name"><a href="https://t.me/doonto" target="_blank" style="color:white;text-decoration:none">Yury</a></div><div style="font-size:10px;color:var(--teal);margin:2px 0"><a href="https://t.me/doonto" target="_blank" style="color:var(--teal);text-decoration:none">@doonto</a></div><div class="curator-desc">enterprise architect, полупроводники, корпоративная трансформация</div></div>
+    <div class="curator-card"><div class="curator-num">03</div><img class="curator-photo" src="curators/He11ya.jpg" alt=""><div class="curator-name"><a href="https://t.me/He11ya" target="_blank" style="color:white;text-decoration:none">Jin Kolesnikov</a></div><div style="font-size:10px;color:var(--teal);margin:2px 0"><a href="https://t.me/He11ya" target="_blank" style="color:var(--teal);text-decoration:none">@He11ya</a></div><div class="curator-desc">futurist, ex-Singularity University, MAUOS</div></div>
+    <div class="curator-card"><div class="curator-num">04</div><img class="curator-photo" src="curators/prcdrl.jpg" alt=""><div class="curator-name"><a href="https://t.me/prcdrl" target="_blank" style="color:white;text-decoration:none">Stanislav Glazov</a></div><div style="font-size:10px;color:var(--teal);margin:2px 0"><a href="https://t.me/prcdrl" target="_blank" style="color:var(--teal);text-decoration:none">@prcdrl</a></div><div class="curator-desc">media artist, Hou2Touch (2500+ студентов), nod systems</div></div>
+    <div class="curator-card"><div class="curator-num">05</div><img class="curator-photo" src="curators/AlexFrmn.jpg" alt=""><div class="curator-name"><a href="https://t.me/AlexFrmn" target="_blank" style="color:white;text-decoration:none">Alexander Vasiliev</a></div><div style="font-size:10px;color:var(--teal);margin:2px 0"><a href="https://t.me/AlexFrmn" target="_blank" style="color:var(--teal);text-decoration:none">@AlexFrmn</a></div><div class="curator-desc">CTO, 6 агентов, 90+ скиллов, &laquo;Jarvis&raquo; POS</div></div>
+    <div class="curator-card"><div class="curator-num">06</div><img class="curator-photo" src="curators/serejaris.jpg" alt=""><div class="curator-name"><a href="https://t.me/serejaris" target="_blank" style="color:white;text-decoration:none">Sereja Ris</a></div><div style="font-size:10px;color:var(--teal);margin:2px 0"><a href="https://t.me/serejaris" target="_blank" style="color:var(--teal);text-decoration:none">@serejaris</a></div><div class="curator-desc">AI product, автоматизация</div></div>
+    <div class="curator-card"><div class="curator-num">07</div><img class="curator-photo" src="curators/igindin.jpg" alt=""><div class="curator-name"><a href="https://t.me/igindin" target="_blank" style="color:white;text-decoration:none">Ilya Gindin</a></div><div style="font-size:10px;color:var(--teal);margin:2px 0"><a href="https://t.me/igindin" target="_blank" style="color:var(--teal);text-decoration:none">@igindin</a></div><div class="curator-desc">AI-стратегия для бизнеса</div></div>
+    <div class="curator-card"><div class="curator-num">08</div><img class="curator-photo" src="curators/northcapen.jpg" alt=""><div class="curator-name"><a href="https://t.me/northcapen" target="_blank" style="color:white;text-decoration:none">Anton Voskobovich</a></div><div style="font-size:10px;color:var(--teal);margin:2px 0"><a href="https://t.me/northcapen" target="_blank" style="color:var(--teal);text-decoration:none">@northcapen</a></div><div class="curator-desc">AI operations, процессы</div></div>
+    <div class="curator-card"><div class="curator-num">09</div><img class="curator-photo" src="curators/Alexander_Stashenko.jpg" alt=""><div class="curator-name"><a href="https://t.me/Alexander_Stashenko" target="_blank" style="color:white;text-decoration:none">Alexander Stashenko</a></div><div style="font-size:10px;color:var(--teal);margin:2px 0"><a href="https://t.me/Alexander_Stashenko" target="_blank" style="color:var(--teal);text-decoration:none">@Alexander_Stashenko</a></div><div class="curator-desc">AI consulting</div></div>
+    <div class="curator-card"><div class="curator-num">10</div><img class="curator-photo" src="curators/ks_andr_a.jpg" alt=""><div class="curator-name"><a href="https://t.me/ks_andr_a" target="_blank" style="color:white;text-decoration:none">Kseniya Tkacheva</a></div><div style="font-size:10px;color:var(--teal);margin:2px 0"><a href="https://t.me/ks_andr_a" target="_blank" style="color:var(--teal);text-decoration:none">@ks_andr_a</a></div><div class="curator-desc">AI transformation</div></div>
   </div>
   <div style="margin-top:12px;display:flex;gap:16px">
-    <div style="flex:1;padding:12px 16px;border:1px solid var(--border);border-radius:8px;background:var(--bg-card)"><p style="font-size:13px;color:var(--teal);margin-bottom:4px;font-weight:600">что делают</p><p style="font-size:12px;color:var(--text-dim)">1-1 разборы, feedback, подготовка к Demo Day</p></div>
-    <div style="flex:1;padding:12px 16px;border:1px solid var(--border);border-radius:8px;background:var(--bg-card)"><p style="font-size:13px;color:var(--teal);margin-bottom:4px;font-weight:600">как связаться</p><p style="font-size:12px;color:var(--text-dim)">Telegram чат кураторов. Записывайтесь на 1-1.</p></div>
+    <div style="flex:1;padding:12px 16px;border:1px solid var(--border);border-radius:8px;background:var(--bg-card)"><p style="font-size:13px;color:var(--teal);margin-bottom:4px;font-weight:600">что делают</p><p style="font-size:12px;color:var(--text-dim)">1-1 разборы, feedback на домашку, подготовка к Demo Day. Кликайте на ник &ndash; пишите напрямую.</p></div>
+    <div style="flex:1;padding:12px 16px;border:1px solid var(--border);border-radius:8px;background:var(--bg-card)"><p style="font-size:13px;color:var(--teal);margin-bottom:4px;font-weight:600">как записаться</p><p style="font-size:12px;color:var(--text-dim)">Запишитесь на 1-1 в чате кураторов. Ваш куратор будет назначен на этой неделе.</p></div>
   </div>
 </div></div>
 
-<!-- S8: SPEAKERS -->
-<div class="slide" id="s8"><div class="slide-counter"><span class="current">8</span>/<span class="total"></span></div><img class="slide-logo" src="logo.png" alt=""><div class="slide-inner">
+<!-- S12: SPEAKERS -->
+<div class="slide" id="s12"><div class="slide-counter"><span class="current">12</span>/<span class="total"></span></div><img class="slide-logo" src="logo.png" alt=""><div class="slide-inner">
   <div class="label">// speakers &middot; 10 practitioners</div>
   <h2><span class="teal">10</span> спикеров</h2>
   <div class="speaker-grid" style="grid-template-columns:repeat(5,1fr);gap:12px">
@@ -672,8 +890,8 @@ body.vox-open #vox-panel {
   <div style="margin-top:12px;text-align:center"><span style="font-size:13px;color:var(--text-dim)">+ Seva Ustinov (Plurio AI) &middot; agent-product &middot; пт 10.04</span></div>
 </div></div>
 
-<!-- S9: PROGRAM OVERVIEW -->
-<div class="slide" id="s9"><div class="slide-counter"><span class="current">9</span>/<span class="total"></span></div><img class="slide-logo" src="logo.png" alt=""><div class="slide-inner">
+<!-- S13: PROGRAM OVERVIEW -->
+<div class="slide" id="s13"><div class="slide-counter"><span class="current">13</span>/<span class="total"></span></div><img class="slide-logo" src="logo.png" alt=""><div class="slide-inner">
   <div class="label">// program &middot; 3 weeks</div>
   <h2>Программа: 3 недели</h2>
   <div style="display:flex;flex-direction:column;gap:12px">
@@ -701,8 +919,324 @@ body.vox-open #vox-panel {
   </div>
 </div></div>
 
-<!-- S10: TIMER -->
-<div class="slide" id="s-timer"><div class="slide-counter"><span class="current">10</span>/<span class="total"></span></div><img class="slide-logo" src="logo.png" alt=""><div class="slide-inner cover">
+<!-- S14: FORMAT SECTION DIVIDER -->
+<div class="slide" id="s14"><div class="slide-counter"><span class="current">14</span>/<span class="total"></span></div><img class="slide-logo" src="logo.png" alt=""><div class="slide-inner cover">
+  <div class="label" style="letter-spacing:4px;font-size:11px;margin-bottom:24px">// format deep dive</div>
+  <h1 style="font-size:46px">Как устроены <span class="teal">сессии</span></h1>
+  <p class="subtitle">6 форматов, каждый с конкретным результатом</p>
+  <div class="stat-grid cols-5" style="margin-top:28px;max-width:900px">
+    <div class="stat-box" style="border-top:2px solid var(--teal)"><div class="num teal" style="font-size:32px">3</div><div class="stat-label">лекции</div></div>
+    <div class="stat-box" style="border-top:2px solid var(--green)"><div class="num green" style="font-size:32px">3</div><div class="stat-label">coworking</div></div>
+    <div class="stat-box" style="border-top:2px solid var(--blue)"><div class="num blue" style="font-size:32px">8</div><div class="stat-label">workshops</div></div>
+    <div class="stat-box" style="border-top:2px solid var(--amber)"><div class="num amber" style="font-size:32px">3</div><div class="stat-label">office hours</div></div>
+    <div class="stat-box" style="border-top:2px solid var(--red)"><div class="num red" style="font-size:32px">1</div><div class="stat-label">demo day</div></div>
+  </div>
+</div></div>
+
+<!-- S15: LECTURE FORMAT -->
+<div class="slide" id="s15"><div class="slide-counter"><span class="current">15</span>/<span class="total"></span></div><img class="slide-logo" src="logo.png" alt=""><div class="slide-inner">
+  <div class="label">// format &middot; lecture</div>
+  <h2>Лекция <span class="dim" style="font-size:22px;font-weight:400">&ndash; теоретическая рамка</span></h2>
+  <div class="split" style="gap:32px;align-items:start">
+    <div>
+      <div class="stat-grid cols-2" style="margin-top:0;gap:10px">
+        <div class="stat-box"><div class="num teal" style="font-size:36px">2ч</div><div class="stat-label">live session</div></div>
+        <div class="stat-box"><div class="num blue" style="font-size:36px">пн</div><div class="stat-label">18:00 CET</div></div>
+      </div>
+      <div style="margin-top:14px;padding:14px 18px;border:1px solid var(--border);border-radius:10px;background:var(--bg-card)">
+        <div class="speaker-detail" style="margin-bottom:0;padding:12px;border:none;background:transparent">
+          <img src="speakers/stepan-gershuni.jpg" alt="" style="width:48px;height:48px">
+          <div class="sd-info">
+            <div class="sd-name" style="font-size:15px">Степан Гершуни</div>
+            <div class="sd-company">CybOS &middot; cyber.fund</div>
+          </div>
+        </div>
+      </div>
+      <div class="layers" style="margin-top:14px;gap:6px">
+        <div class="layer" style="padding:10px 14px"><div class="layer-num teal" style="min-width:24px;font-size:14px">60</div><div class="layer-desc" style="font-size:13px">мин контент &ndash; теория + кейсы + живые демо</div></div>
+        <div class="layer" style="padding:10px 14px"><div class="layer-num blue" style="min-width:24px;font-size:14px">30</div><div class="layer-desc" style="font-size:13px">мин Q&A &ndash; вопросы из чата и голосом</div></div>
+        <div class="layer" style="padding:10px 14px"><div class="layer-num green" style="min-width:24px;font-size:14px">30</div><div class="layer-desc" style="font-size:13px">мин дискуссия &ndash; разбор кейсов участников</div></div>
+      </div>
+    </div>
+    <div>
+      <p style="font-size:12px;color:var(--text-label);margin-bottom:8px;letter-spacing:2px">// 3 ЛЕКЦИИ ЗА СПРИНТ</p>
+      <div class="week-card" style="margin-bottom:8px"><div class="week-header" style="margin-bottom:8px;padding-bottom:8px"><div class="week-num" style="background:var(--teal-dim);color:var(--teal);font-size:12px">W1</div><div class="week-title" style="font-size:14px">Трансформация</div></div><p style="font-size:12px;color:var(--text-dim);line-height:1.5">5 компаний &times; 5 стратегий. Scaling laws. 5 ограничений. Taxonomy автоматизации.</p></div>
+      <div class="week-card" style="margin-bottom:8px"><div class="week-header" style="margin-bottom:8px;padding-bottom:8px"><div class="week-num" style="background:rgba(59,130,246,0.15);color:var(--blue);font-size:12px">W2</div><div class="week-title" style="font-size:14px">Архитектура</div></div><p style="font-size:12px;color:var(--text-dim);line-height:1.5">6 слоёв AI-native org. Context engineering. 4 топологии оркестрации.</p></div>
+      <div class="week-card"><div class="week-header" style="margin-bottom:8px;padding-bottom:8px"><div class="week-num" style="background:rgba(56,217,169,0.15);color:var(--green);font-size:12px">W3</div><div class="week-title" style="font-size:14px">Стратегия</div></div><p style="font-size:12px;color:var(--text-dim);line-height:1.5">Business models. Process audit. 90-дневный план. Mirror agents.</p></div>
+      <div style="margin-top:12px;padding:10px 14px;background:rgba(77,201,212,0.04);border:1px solid var(--border);border-radius:8px"><p style="font-size:12px;color:rgba(255,255,255,0.7)"><span class="teal">записи</span> доступны 12 месяцев после спринта</p></div>
+    </div>
+  </div>
+</div></div>
+
+<!-- S16: WORKSHOP FORMAT -->
+<div class="slide" id="s16"><div class="slide-counter"><span class="current">16</span>/<span class="total"></span></div><img class="slide-logo" src="logo.png" alt=""><div class="slide-inner">
+  <div class="label">// format &middot; workshop</div>
+  <h2>Workshop <span class="dim" style="font-size:22px;font-weight:400">&ndash; конкретный навык</span></h2>
+  <div class="split" style="gap:32px;align-items:start">
+    <div>
+      <div class="stat-grid cols-2" style="margin-top:0;gap:10px">
+        <div class="stat-box"><div class="num blue" style="font-size:36px">1.5&ndash;2ч</div><div class="stat-label">live session</div></div>
+        <div class="stat-box"><div class="num green" style="font-size:36px">ср&ndash;пт</div><div class="stat-label">18:00 CET</div></div>
+      </div>
+      <div class="layers" style="margin-top:14px;gap:6px">
+        <div class="layer" style="padding:10px 14px"><div class="layer-num blue" style="min-width:24px;font-size:14px">40</div><div class="layer-desc" style="font-size:13px">мин теория &ndash; фреймворк от эксперта</div></div>
+        <div class="layer" style="padding:10px 14px"><div class="layer-num green" style="min-width:24px;font-size:14px">40</div><div class="layer-desc" style="font-size:13px">мин практика &ndash; строите свой артефакт</div></div>
+        <div class="layer" style="padding:10px 14px"><div class="layer-num amber" style="min-width:24px;font-size:14px">20</div><div class="layer-desc" style="font-size:13px">мин Q&A &ndash; вопросы по вашей ситуации</div></div>
+      </div>
+      <div class="quote-enhanced" style="margin-top:14px"><p style="font-size:13px">Каждый workshop = конкретный навык с конкретным результатом. Участник уходит с работающим артефактом.</p></div>
+    </div>
+    <div>
+      <p style="font-size:12px;color:var(--text-label);margin-bottom:10px;letter-spacing:2px">// СПИКЕРЫ WORKSHOPS</p>
+      <div class="speaker-detail" style="margin-bottom:8px;padding:10px 14px"><img src="speakers/dima-khanarin.jpg" alt="" style="width:40px;height:40px"><div class="sd-info"><div class="sd-name" style="font-size:13px">Dima Khanarin</div><div class="sd-topic" style="font-size:11px;margin-top:2px">AI transformation &ndash; framework + action plan</div></div></div>
+      <div class="speaker-detail" style="margin-bottom:8px;padding:10px 14px"><img src="speakers/alex-amyotov.jpg" alt="" style="width:40px;height:40px"><div class="sd-info"><div class="sd-name" style="font-size:13px">Alexey Ametov</div><div class="sd-topic" style="font-size:11px;margin-top:2px">AI-контент &ndash; pipeline + verification checklist</div></div></div>
+      <div class="speaker-detail" style="margin-bottom:8px;padding:10px 14px"><img src="speakers/vitaly-kleban.jpg" alt="" style="width:40px;height:40px"><div class="sd-info"><div class="sd-name" style="font-size:13px">Vitaly Kleban</div><div class="sd-topic" style="font-size:11px;margin-top:2px">Self-improving agents &ndash; live demo + framework</div></div></div>
+      <div class="speaker-detail" style="margin-bottom:8px;padding:10px 14px"><img src="speakers/valerii kovalskii.jpg" alt="" style="width:40px;height:40px"><div class="sd-info"><div class="sd-name" style="font-size:13px">Valery Kovalskii</div><div class="sd-topic" style="font-size:11px;margin-top:2px">AI-driven dev &ndash; live build от бизнес-задачи</div></div></div>
+      <div class="speaker-detail" style="margin-bottom:0;padding:10px 14px"><img src="speakers/daniel-kravtsov.jpeg" alt="" style="width:40px;height:40px"><div class="sd-info"><div class="sd-name" style="font-size:13px">Daniel Kravtsov</div><div class="sd-topic" style="font-size:11px;margin-top:2px">99 агентов в реальном времени + knowledge graph</div></div></div>
+    </div>
+  </div>
+</div></div>
+
+<!-- S17: COWORKING / FOCUS SESSION FORMAT -->
+<div class="slide" id="s17"><div class="slide-counter"><span class="current">17</span>/<span class="total"></span></div><img class="slide-logo" src="logo.png" alt=""><div class="slide-inner">
+  <div class="label">// format &middot; coworking &amp; focus session</div>
+  <h2>Coworking <span class="dim" style="font-size:22px;font-weight:400">&ndash; применение на практике</span></h2>
+  <div class="split" style="gap:32px;align-items:start">
+    <div>
+      <div class="stat-grid cols-2" style="margin-top:0;gap:10px">
+        <div class="stat-box"><div class="num green" style="font-size:36px">2ч</div><div class="stat-label">deep work session</div></div>
+        <div class="stat-box"><div class="num teal" style="font-size:36px">вт</div><div class="stat-label">12:00 или 18:00 CET</div></div>
+      </div>
+      <div style="margin-top:14px;padding:14px 18px;border:1px solid var(--border);border-radius:10px;background:var(--bg-card)">
+        <div class="speaker-detail" style="margin-bottom:0;padding:12px;border:none;background:transparent">
+          <img src="speakers/alexander-povaliaev.jpg" alt="" style="width:48px;height:48px">
+          <div class="sd-info">
+            <div class="sd-name" style="font-size:15px">Александр Поваляев</div>
+            <div class="sd-company">AI Mindset &middot; founder</div>
+          </div>
+        </div>
+      </div>
+      <div class="layers" style="margin-top:14px;gap:6px">
+        <div class="layer" style="padding:10px 14px"><div class="layer-num green" style="min-width:24px;font-size:14px">10</div><div class="layer-desc" style="font-size:13px">мин check-in &ndash; что сделали, на чём фокус</div></div>
+        <div class="layer" style="padding:10px 14px"><div class="layer-num teal" style="min-width:24px;font-size:14px">80</div><div class="layer-desc" style="font-size:13px">мин глубокая работа &ndash; body doubling, breakout rooms</div></div>
+        <div class="layer" style="padding:10px 14px"><div class="layer-num blue" style="min-width:24px;font-size:14px">20</div><div class="layer-desc" style="font-size:13px">мин sharing &ndash; что получилось, вопросы</div></div>
+      </div>
+    </div>
+    <div>
+      <p style="font-size:12px;color:var(--text-label);margin-bottom:10px;letter-spacing:2px">// ЦЕЛЬ</p>
+      <div class="cards" style="grid-template-columns:1fr;gap:8px;margin-top:0">
+        <div class="card" style="padding:14px;border-left:3px solid var(--green)"><h3 style="font-size:14px;margin-bottom:4px">Настроить своё AI-окружение</h3><p style="font-size:12px">Применить знания с лекции в своём стеке</p></div>
+        <div class="card" style="padding:14px;border-left:3px solid var(--teal)"><h3 style="font-size:14px;margin-bottom:4px">Focus practice</h3><p style="font-size:12px">Техника внимания для работы с AI</p></div>
+      </div>
+      <p style="font-size:12px;color:var(--text-label);margin-top:14px;margin-bottom:10px;letter-spacing:2px">// ПО НЕДЕЛЯМ</p>
+      <div class="layers" style="gap:6px">
+        <div class="layer" style="padding:8px 12px"><div class="layer-num teal" style="min-width:24px;font-size:12px">W1</div><div class="layer-desc" style="font-size:12px">POS setup &ndash; personal AI environment</div></div>
+        <div class="layer" style="padding:8px 12px"><div class="layer-num blue" style="min-width:24px;font-size:12px">W2</div><div class="layer-desc" style="font-size:12px">Skill files &ndash; первый закодированный процесс</div></div>
+        <div class="layer" style="padding:8px 12px"><div class="layer-num green" style="min-width:24px;font-size:12px">W3</div><div class="layer-desc" style="font-size:12px">90-day plan &ndash; стратегия внедрения</div></div>
+      </div>
+    </div>
+  </div>
+</div></div>
+
+<!-- S18: OFFICE HOURS FORMAT -->
+<div class="slide" id="s18"><div class="slide-counter"><span class="current">18</span>/<span class="total"></span></div><img class="slide-logo" src="logo.png" alt=""><div class="slide-inner">
+  <div class="label">// format &middot; office hours</div>
+  <h2>Office Hours <span class="dim" style="font-size:22px;font-weight:400">&ndash; открытые консультации</span></h2>
+  <div class="split" style="gap:32px;align-items:start">
+    <div>
+      <div class="stat-grid cols-2" style="margin-top:0;gap:10px">
+        <div class="stat-box"><div class="num amber" style="font-size:36px">1&ndash;2ч</div><div class="stat-label">open session</div></div>
+        <div class="stat-box"><div class="num teal" style="font-size:36px">сб</div><div class="stat-label">10:00 CET</div></div>
+      </div>
+      <div class="layers" style="margin-top:14px;gap:6px">
+        <div class="layer" style="padding:10px 14px"><div class="layer-num amber" style="min-width:24px;font-size:14px">01</div><div class="layer-desc" style="font-size:13px">Hot seat &ndash; каждый участник задаёт вопрос по своей ситуации</div></div>
+        <div class="layer" style="padding:10px 14px"><div class="layer-num teal" style="min-width:24px;font-size:14px">02</div><div class="layer-desc" style="font-size:13px">Спикеры недели помогают с конкретными кейсами</div></div>
+        <div class="layer" style="padding:10px 14px"><div class="layer-num green" style="min-width:24px;font-size:14px">03</div><div class="layer-desc" style="font-size:13px">Неформальный нетворкинг между участниками</div></div>
+      </div>
+      <div class="quote-enhanced" style="margin-top:14px"><p style="font-size:13px">Формат hot seat: ваш конкретный кейс разбирают эксперты и другие участники.</p></div>
+    </div>
+    <div>
+      <p style="font-size:12px;color:var(--text-label);margin-bottom:10px;letter-spacing:2px">// КТО ВЕДЁТ</p>
+      <div style="padding:14px 18px;border:1px solid var(--border);border-radius:10px;background:var(--bg-card);margin-bottom:12px">
+        <div class="speaker-detail" style="margin-bottom:0;padding:8px;border:none;background:transparent">
+          <img src="speakers/alexander-povaliaev.jpg" alt="" style="width:40px;height:40px">
+          <div class="sd-info">
+            <div class="sd-name" style="font-size:14px">Поваляев</div>
+            <div class="sd-topic" style="font-size:11px;margin-top:2px">+ спикеры текущей недели</div>
+          </div>
+        </div>
+      </div>
+      <p style="font-size:12px;color:var(--text-label);margin-bottom:10px;letter-spacing:2px">// РАСПИСАНИЕ</p>
+      <div class="layers" style="gap:6px">
+        <div class="layer" style="padding:8px 12px"><div class="layer-num teal" style="min-width:24px;font-size:12px">сб</div><div class="layer-desc" style="font-size:12px">28.03 &ndash; W1 wrap-up + Ханарин</div></div>
+        <div class="layer" style="padding:8px 12px"><div class="layer-num blue" style="min-width:24px;font-size:12px">сб</div><div class="layer-desc" style="font-size:12px">04.04 &ndash; W2 wrap-up + Клебан, Ковальский, Кравцов</div></div>
+        <div class="layer" style="padding:8px 12px"><div class="layer-num green" style="min-width:24px;font-size:12px">сб</div><div class="layer-desc" style="font-size:12px">11.04 &ndash; W3 wrap-up + Рид, Аннаков, Бузько</div></div>
+      </div>
+    </div>
+  </div>
+</div></div>
+
+<!-- S19: DEMO DAY FORMAT -->
+<div class="slide" id="s19"><div class="slide-counter"><span class="current">19</span>/<span class="total"></span></div><img class="slide-logo" src="logo.png" alt=""><div class="slide-inner">
+  <div class="label">// format &middot; demo day</div>
+  <h2>Demo Day <span class="red" style="font-size:22px;font-weight:400">&ndash; 13 апреля</span></h2>
+  <div class="split" style="gap:32px;align-items:start">
+    <div>
+      <div class="stat-grid cols-2" style="margin-top:0;gap:10px">
+        <div class="stat-box" style="border-top:2px solid var(--red)"><div class="num red" style="font-size:36px">пн</div><div class="stat-label">13 апреля &middot; 18:00 CET</div></div>
+        <div class="stat-box" style="border-top:2px solid var(--teal)"><div class="num teal" style="font-size:36px">5+3</div><div class="stat-label">мин выступление + Q&A</div></div>
+      </div>
+      <p style="font-size:12px;color:var(--text-label);margin-top:16px;margin-bottom:10px;letter-spacing:2px">// СТРУКТУРА ВЫСТУПЛЕНИЯ</p>
+      <div class="layers" style="gap:6px">
+        <div class="layer" style="padding:10px 14px;border-left:3px solid var(--red)"><div class="layer-num red" style="min-width:24px;font-size:14px">01</div><div class="layer-name" style="min-width:120px;font-size:14px">Проблема</div><div class="layer-desc" style="font-size:12px">что не работало до спринта</div></div>
+        <div class="layer" style="padding:10px 14px;border-left:3px solid var(--amber)"><div class="layer-num amber" style="min-width:24px;font-size:14px">02</div><div class="layer-name" style="min-width:120px;font-size:14px">Решение</div><div class="layer-desc" style="font-size:12px">что построили за 3 недели</div></div>
+        <div class="layer" style="padding:10px 14px;border-left:3px solid var(--green)"><div class="layer-num green" style="min-width:24px;font-size:14px">03</div><div class="layer-name" style="min-width:120px;font-size:14px">ROI</div><div class="layer-desc" style="font-size:12px">измеримый результат</div></div>
+        <div class="layer" style="padding:10px 14px;border-left:3px solid var(--teal)"><div class="layer-num teal" style="min-width:24px;font-size:14px">04</div><div class="layer-name" style="min-width:120px;font-size:14px">90-дневный план</div><div class="layer-desc" style="font-size:12px">что дальше после спринта</div></div>
+      </div>
+    </div>
+    <div>
+      <p style="font-size:12px;color:var(--text-label);margin-bottom:10px;letter-spacing:2px">// ЖЮРИ</p>
+      <div style="display:flex;gap:12px;margin-bottom:16px">
+        <div style="text-align:center"><img src="speakers/stepan-gershuni.jpg" alt="" style="width:56px;height:56px;border-radius:50%;border:2px solid var(--teal);object-fit:cover"><p style="font-size:11px;color:var(--text-dim);margin-top:4px">Гершуни</p></div>
+        <div style="text-align:center"><img src="speakers/alexander-povaliaev.jpg" alt="" style="width:56px;height:56px;border-radius:50%;border:2px solid var(--blue);object-fit:cover"><p style="font-size:11px;color:var(--text-dim);margin-top:4px">Поваляев</p></div>
+      </div>
+      <div class="cards" style="grid-template-columns:1fr;gap:8px;margin-top:0">
+        <div class="card" style="padding:14px;border-left:3px solid var(--teal)"><h3 style="font-size:14px;margin-bottom:4px">Обратная связь от экспертов</h3><p style="font-size:12px">Конкретные рекомендации для вашего плана</p></div>
+        <div class="card" style="padding:14px;border-left:3px solid var(--green)"><h3 style="font-size:14px;margin-bottom:4px">Подготовка с Week 2</h3><p style="font-size:12px">Кураторы помогают с презентацией</p></div>
+      </div>
+      <div style="margin-top:12px;padding:12px 16px;background:rgba(255,107,107,0.06);border:1px solid rgba(255,107,107,0.15);border-radius:8px;text-align:center"><p style="font-size:14px;color:rgba(255,255,255,0.85);font-weight:600"><span class="red">Demo Day:</span> понедельник 13 апреля 18:00 CET</p></div>
+    </div>
+  </div>
+</div></div>
+
+<!-- S20: CURATORS DETAIL -->
+<div class="slide" id="s20"><div class="slide-counter"><span class="current">20</span>/<span class="total"></span></div><img class="slide-logo" src="logo.png" alt=""><div class="slide-inner">
+  <div class="label">// format &middot; curators support</div>
+  <h2>Кураторы <span class="dim" style="font-size:22px;font-weight:400">&ndash; поддержка между сессиями</span></h2>
+  <div class="split" style="gap:32px;align-items:start">
+    <div>
+      <div class="stat-grid cols-2" style="margin-top:0;gap:10px">
+        <div class="stat-box"><div class="num teal" style="font-size:36px">10</div><div class="stat-label">кураторов-практиков</div></div>
+        <div class="stat-box"><div class="num green" style="font-size:36px">1-1</div><div class="stat-label">персональная работа</div></div>
+      </div>
+      <div class="layers" style="margin-top:14px;gap:6px">
+        <div class="layer" style="padding:10px 14px"><div class="layer-num teal" style="min-width:24px;font-size:14px">01</div><div class="layer-desc" style="font-size:13px">Помощь между сессиями &ndash; async в Telegram</div></div>
+        <div class="layer" style="padding:10px 14px"><div class="layer-num blue" style="min-width:24px;font-size:14px">02</div><div class="layer-desc" style="font-size:13px">Проверка артефактов, обратная связь</div></div>
+        <div class="layer" style="padding:10px 14px"><div class="layer-num green" style="min-width:24px;font-size:14px">03</div><div class="layer-desc" style="font-size:13px">Подготовка к Demo Day</div></div>
+        <div class="layer" style="padding:10px 14px"><div class="layer-num amber" style="min-width:24px;font-size:14px">04</div><div class="layer-desc" style="font-size:13px">Check-ins каждые 2 дня</div></div>
+      </div>
+    </div>
+    <div>
+      <p style="font-size:12px;color:var(--text-label);margin-bottom:10px;letter-spacing:2px">// КТО ОНИ</p>
+      <div class="cards" style="grid-template-columns:1fr 1fr;gap:8px;margin-top:0">
+        <div class="card" style="padding:10px;text-align:center"><p style="font-size:12px;color:var(--teal);font-weight:600;margin-bottom:2px">Fedoseev</p><p style="font-size:10px;color:var(--text-dim)">exCPO insuretech, LLM-пайплайны</p></div>
+        <div class="card" style="padding:10px;text-align:center"><p style="font-size:12px;color:var(--blue);font-weight:600;margin-bottom:2px">Yury</p><p style="font-size:10px;color:var(--text-dim)">enterprise architect, корпоративная трансформация</p></div>
+        <div class="card" style="padding:10px;text-align:center"><p style="font-size:12px;color:var(--green);font-weight:600;margin-bottom:2px">Jin</p><p style="font-size:10px;color:var(--text-dim)">ex-Singularity University, futurist</p></div>
+        <div class="card" style="padding:10px;text-align:center"><p style="font-size:12px;color:var(--amber);font-weight:600;margin-bottom:2px">Vasiliev</p><p style="font-size:10px;color:var(--text-dim)">CTO, 90+ скиллов, 6 агентов</p></div>
+      </div>
+      <div style="margin-top:12px;padding:12px 16px;border:1px solid var(--border);border-radius:8px;background:var(--bg-card)">
+        <p style="font-size:13px;color:var(--teal);margin-bottom:4px;font-weight:600">как записаться</p>
+        <p style="font-size:12px;color:var(--text-dim)">Ваш куратор будет назначен на этой неделе. Пишите в чат кураторов для 1-1 разборов.</p>
+      </div>
+    </div>
+  </div>
+</div></div>
+
+<!-- S21: TELEGRAM & COMMUNITY -->
+<div class="slide" id="s21"><div class="slide-counter"><span class="current">21</span>/<span class="total"></span></div><img class="slide-logo" src="logo.png" alt=""><div class="slide-inner">
+  <div class="label">// format &middot; community</div>
+  <h2>Telegram и <span class="teal">сообщество</span></h2>
+  <div class="split" style="gap:32px;align-items:start">
+    <div>
+      <div class="stat-grid cols-2" style="margin-top:0;gap:10px">
+        <div class="stat-box"><div class="num teal" style="font-size:36px">169</div><div class="stat-label">участников в чате</div></div>
+        <div class="stat-box"><div class="num green" style="font-size:36px">24/7</div><div class="stat-label">async доступ</div></div>
+      </div>
+      <div class="layers" style="margin-top:14px;gap:6px">
+        <div class="layer" style="padding:10px 14px"><div class="layer-num teal" style="min-width:24px;font-size:14px">01</div><div class="layer-desc" style="font-size:13px">Telegram &ndash; главный канал коммуникации</div></div>
+        <div class="layer" style="padding:10px 14px"><div class="layer-num blue" style="min-width:24px;font-size:14px">02</div><div class="layer-desc" style="font-size:13px">Общий чат + тематические треды</div></div>
+        <div class="layer" style="padding:10px 14px"><div class="layer-num green" style="min-width:24px;font-size:14px">03</div><div class="layer-desc" style="font-size:13px">Асинхронные обсуждения между сессиями</div></div>
+        <div class="layer" style="padding:10px 14px"><div class="layer-num amber" style="min-width:24px;font-size:14px">04</div><div class="layer-desc" style="font-size:13px">Alumni доступ навсегда</div></div>
+      </div>
+    </div>
+    <div>
+      <p style="font-size:12px;color:var(--text-label);margin-bottom:10px;letter-spacing:2px">// ПОСЛЕ СПРИНТА</p>
+      <div class="cards" style="grid-template-columns:1fr;gap:8px;margin-top:0">
+        <div class="card" style="padding:14px;border-left:3px solid var(--teal)"><h3 style="font-size:14px;margin-bottom:4px">Записи &ndash; 12 месяцев</h3><p style="font-size:12px">Все сессии доступны на learn.aimindset.org</p></div>
+        <div class="card" style="padding:14px;border-left:3px solid var(--blue)"><h3 style="font-size:14px;margin-bottom:4px">Vault с шаблонами</h3><p style="font-size:12px">Skills, playbooks, ontology &ndash; всё в Obsidian vault</p></div>
+        <div class="card" style="padding:14px;border-left:3px solid var(--green)"><h3 style="font-size:14px;margin-bottom:4px">Alumni community</h3><p style="font-size:12px">Доступ в чат и нетворкинг навсегда</p></div>
+        <div class="card" style="padding:14px;border-left:3px solid var(--amber)"><h3 style="font-size:14px;margin-bottom:4px">Office hours по субботам</h3><p style="font-size:12px">Поваляев + спикеры &ndash; каждую субботу 10:00 CET</p></div>
+      </div>
+      <div style="margin-top:12px;padding:10px 14px;background:rgba(77,201,212,0.04);border:1px solid var(--border);border-radius:8px;text-align:center"><p style="font-size:12px;color:rgba(255,255,255,0.7)"><span class="teal">25%</span> скидка на следующие программы для alumni</p></div>
+    </div>
+  </div>
+</div></div>
+
+<!-- S22: PARTICIPANT JOURNEY TIMELINE -->
+<div class="slide" id="s22"><div class="slide-counter"><span class="current">22</span>/<span class="total"></span></div><img class="slide-logo" src="logo.png" alt=""><div class="slide-inner">
+  <div class="label">// participant journey &middot; timeline</div>
+  <h2>Путь участника</h2>
+  <svg viewBox="0 0 1000 440" width="100%" style="max-width:1000px;margin:12px auto 0">
+    <!-- Timeline line -->
+    <line x1="80" y1="200" x2="920" y2="200" stroke="var(--teal)" stroke-width="2" opacity="0.3"/>
+    <!-- Prework -->
+    <circle cx="120" cy="200" r="24" fill="rgba(255,107,107,0.1)" stroke="var(--red)" stroke-width="2"/>
+    <text x="120" y="196" text-anchor="middle" fill="var(--red)" font-family="Space Grotesk" font-size="10" font-weight="700">PRE</text>
+    <text x="120" y="208" text-anchor="middle" fill="var(--red)" font-family="IBM Plex Mono" font-size="8">WORK</text>
+    <text x="120" y="246" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-family="IBM Plex Mono" font-size="10">POS prework</text>
+    <text x="120" y="260" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-family="IBM Plex Mono" font-size="9">4 видео</text>
+    <!-- W1 -->
+    <circle cx="320" cy="200" r="32" fill="rgba(77,201,212,0.1)" stroke="var(--teal)" stroke-width="2"/>
+    <text x="320" y="196" text-anchor="middle" fill="var(--teal)" font-family="Space Grotesk" font-size="14" font-weight="700">W1</text>
+    <text x="320" y="210" text-anchor="middle" fill="var(--teal)" font-family="IBM Plex Mono" font-size="8">23&ndash;28 MAR</text>
+    <text x="320" y="248" text-anchor="middle" fill="#fff" font-family="Space Grotesk" font-size="12" font-weight="600">Personal AI</text>
+    <text x="320" y="264" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="IBM Plex Mono" font-size="9">AI-ассистент</text>
+    <text x="320" y="278" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="IBM Plex Mono" font-size="9">top 10 процессов</text>
+    <text x="320" y="292" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="IBM Plex Mono" font-size="9">daily usage</text>
+    <!-- Arrow -->
+    <line x1="160" y1="200" x2="280" y2="200" stroke="var(--teal)" stroke-width="1" opacity="0.4" stroke-dasharray="4,4"/>
+    <!-- W2 -->
+    <circle cx="520" cy="200" r="32" fill="rgba(59,130,246,0.1)" stroke="var(--blue)" stroke-width="2"/>
+    <text x="520" y="196" text-anchor="middle" fill="var(--blue)" font-family="Space Grotesk" font-size="14" font-weight="700">W2</text>
+    <text x="520" y="210" text-anchor="middle" fill="var(--blue)" font-family="IBM Plex Mono" font-size="8">30 MAR&ndash;4 APR</text>
+    <text x="520" y="248" text-anchor="middle" fill="#fff" font-family="Space Grotesk" font-size="12" font-weight="600">Architecture</text>
+    <text x="520" y="264" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="IBM Plex Mono" font-size="9">6 layers</text>
+    <text x="520" y="278" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="IBM Plex Mono" font-size="9">data ontology</text>
+    <text x="520" y="292" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="IBM Plex Mono" font-size="9">first skill file</text>
+    <!-- Arrow -->
+    <line x1="360" y1="200" x2="480" y2="200" stroke="var(--blue)" stroke-width="1" opacity="0.4" stroke-dasharray="4,4"/>
+    <!-- W3 -->
+    <circle cx="720" cy="200" r="32" fill="rgba(56,217,169,0.1)" stroke="var(--green)" stroke-width="2"/>
+    <text x="720" y="196" text-anchor="middle" fill="var(--green)" font-family="Space Grotesk" font-size="14" font-weight="700">W3</text>
+    <text x="720" y="210" text-anchor="middle" fill="var(--green)" font-family="IBM Plex Mono" font-size="8">6&ndash;11 APR</text>
+    <text x="720" y="248" text-anchor="middle" fill="#fff" font-family="Space Grotesk" font-size="12" font-weight="600">Functions</text>
+    <text x="720" y="264" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="IBM Plex Mono" font-size="9">automated process</text>
+    <text x="720" y="278" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="IBM Plex Mono" font-size="9">AI champions</text>
+    <text x="720" y="292" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="IBM Plex Mono" font-size="9">90-day plan</text>
+    <!-- Arrow -->
+    <line x1="560" y1="200" x2="680" y2="200" stroke="var(--green)" stroke-width="1" opacity="0.4" stroke-dasharray="4,4"/>
+    <!-- Demo Day -->
+    <circle cx="900" cy="200" r="28" fill="rgba(255,107,107,0.1)" stroke="var(--red)" stroke-width="2.5"/>
+    <text x="900" y="196" text-anchor="middle" fill="var(--red)" font-family="Space Grotesk" font-size="11" font-weight="700">DEMO</text>
+    <text x="900" y="208" text-anchor="middle" fill="var(--red)" font-family="IBM Plex Mono" font-size="8">13 APR</text>
+    <text x="900" y="248" text-anchor="middle" fill="#fff" font-family="Space Grotesk" font-size="12" font-weight="600">Demo Day</text>
+    <text x="900" y="264" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="IBM Plex Mono" font-size="9">5 мин презентация</text>
+    <text x="900" y="278" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="IBM Plex Mono" font-size="9">ROI + план</text>
+    <!-- Arrow -->
+    <line x1="760" y1="200" x2="864" y2="200" stroke="var(--red)" stroke-width="1" opacity="0.4" stroke-dasharray="4,4"/>
+    <!-- Bottom: artifacts count -->
+    <text x="500" y="340" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-family="IBM Plex Mono" font-size="11">18 артефактов за спринт &middot; от personal AI до automated business process</text>
+    <!-- Weekly format icons -->
+    <text x="320" y="150" text-anchor="middle" fill="var(--teal)" font-family="IBM Plex Mono" font-size="9" opacity="0.6">лекция + 2 workshop + office hours</text>
+    <text x="520" y="150" text-anchor="middle" fill="var(--blue)" font-family="IBM Plex Mono" font-size="9" opacity="0.6">лекция + coworking + 4 guest</text>
+    <text x="720" y="150" text-anchor="middle" fill="var(--green)" font-family="IBM Plex Mono" font-size="9" opacity="0.6">лекция + coworking + 4 guest</text>
+  </svg>
+  <div style="display:flex;gap:16px;justify-content:center;margin-top:8px">
+    <div style="padding:10px 20px;border:1px solid var(--border);border-radius:8px;background:var(--bg-card)"><p style="font-size:13px;color:rgba(255,255,255,0.8);text-align:center"><span class="teal" style="font-weight:600">18</span> артефактов &middot; <span class="blue" style="font-weight:600">10</span> спикеров &middot; <span class="green" style="font-weight:600">10</span> кураторов &middot; <span class="red" style="font-weight:600">1</span> Demo Day</p></div>
+  </div>
+</div></div>
+
+<!-- TIMER -->
+<div class="slide" id="s-timer"><div class="slide-counter"><span class="current">14</span>/<span class="total"></span></div><img class="slide-logo" src="logo.png" alt=""><div class="slide-inner cover">
   <div class="label">// intro timer &middot; 60 seconds each</div>
   <svg id="timer-svg" viewBox="0 0 300 300" width="280" height="280" style="margin:0 auto 12px">
     <circle cx="150" cy="150" r="130" fill="none" stroke="rgba(77,201,212,0.1)" stroke-width="8"/>
@@ -720,11 +1254,28 @@ body.vox-open #vox-panel {
 </div></div>
 
 <!-- Presenter Panel -->
-<div id="presenter-panel"><div class="pres-label">// presenter notes</div><div class="pres-timer" id="pres-timer">00:00</div><div class="pres-notes" id="pres-notes"></div><div class="pres-next"><div class="pres-next-label">// next slide</div><div class="pres-next-title" id="pres-next-title"></div></div><div class="pres-agenda" id="pres-agenda"></div></div>
+<div id="presenter-panel">
+  <div class="pres-label">// presenter notes</div>
+  <div class="pres-timer" id="pres-timer">00:00</div>
+  <div class="pres-notes" id="pres-notes"></div>
+  <div class="pres-next"><div class="pres-next-label">// next slide</div><div class="pres-next-title" id="pres-next-title"></div></div>
+  <div class="pres-toc" id="pres-toc" style="margin-top:16px;padding-top:12px;border-top:1px solid var(--border)">
+    <div style="font-size:10px;color:var(--text-label);letter-spacing:2px;margin-bottom:8px">// TABLE OF CONTENTS</div>
+  </div>
+  <div class="pres-agenda" id="pres-agenda"></div>
+  <div style="margin-top:16px;padding:10px 12px;border:1px solid var(--border);border-radius:8px;background:rgba(77,201,212,0.04)">
+    <div style="font-size:10px;color:var(--text-label);letter-spacing:1px;margin-bottom:6px">// SAVE INFO</div>
+    <div style="font-size:11px;color:var(--text-dim);line-height:1.6">
+      <span style="color:var(--teal)">E</span> edit mode &rarr; auto-save localStorage<br>
+      <span style="color:var(--teal)">push</span> &rarr; commit to GitHub<br>
+      <span style="color:var(--teal)">auto</span> &rarr; push every 60s
+    </div>
+  </div>
+</div>
 
 <!-- UI -->
 <div class="progress-bar"></div>
-<div class="nav-hint">&larr; &rarr; navigate &middot; E edit &middot; V vox &middot; F fullscreen &middot; T presenter</div>
+<div class="nav-hint">&larr; &rarr; navigate &middot; E edit &middot; V vox &middot; F fullscreen &middot; T toc &middot; P presenter</div>
 <div id="edit-badge">// EDIT MODE</div>
 <div id="block-actions"><button onclick="moveBlockUp()">&uarr;</button><button onclick="moveBlockDown()">&darr;</button><button class="danger" onclick="deleteBlock()">&times;</button></div>
 <div id="builder-toolbar"><button onclick="undo()">&#8617;</button><button onclick="redo()">&#8618;</button><div class="tb-sep"></div><button onclick="changeTextSize(1)">A+</button><button onclick="changeTextSize(-1)">A-</button><div class="tb-sep"></div><button onclick="insertImage()">img</button><button onclick="insertTextBlock()">txt</button><button onclick="insertCodeBlock()">{}</button><button onclick="openAiModal()">AI</button><div class="tb-sep"></div><button onclick="showLayoutPicker()" style="color:var(--teal)">+ slide</button><button onclick="duplicateSlide()">dup</button><button class="danger" onclick="deleteSlide()">del</button><div class="tb-sep"></div><button onclick="saveToGitHub()" style="font-weight:600">push</button><button id="auto-push-btn" onclick="toggleAutoPush()">auto</button><button id="preview-btn" onclick="togglePreview()">&#9673;</button><span class="save-status" id="save-status"></span></div>
@@ -733,6 +1284,14 @@ body.vox-open #vox-panel {
 <div id="ai-modal"><div id="ai-modal-inner"><h3>AI generate</h3><div class="ai-mode-tabs"><button class="active" onclick="setAiMode('svg')" data-mode="svg">diagram</button><button onclick="setAiMode('image')" data-mode="image">illustration</button></div><textarea id="ai-prompt" placeholder="describe..."></textarea><div class="ai-status" id="ai-status"></div><div class="ai-preview" id="ai-preview"></div><div class="modal-actions"><button onclick="closeAiModal()">cancel</button><button class="primary" onclick="runAiGeneration()" id="ai-generate-btn">generate</button><button onclick="insertAiResult()" id="ai-insert-btn" style="display:none">insert</button></div></div></div>
 <div id="gh-modal"><div id="gh-modal-inner"><h3>GitHub Token</h3><p>Enter a GitHub token with repo scope.</p><input type="password" id="gh-token-input" placeholder="ghp_..." autocomplete="off"><div class="modal-actions"><button onclick="closeGhModal()">cancel</button><button class="primary" onclick="confirmGhToken()">save</button></div></div></div>
 <div id="img-action-menu"><button onclick="imgActionUpload()">upload</button><button onclick="imgActionSvg()">SVG</button><button onclick="imgActionImage()">image</button></div>
+
+<!-- TOC Overlay -->
+<div id="toc-overlay">
+  <div id="toc-inner">
+    <h3>// table of contents</h3>
+    <div id="toc-list"></div>
+  </div>
+</div>
 
 <!-- ============================================================
      VOX BOT — AI Assistant Panel
@@ -745,7 +1304,7 @@ body.vox-open #vox-panel {
   <div class="vox-header">
     <div class="vox-title">
       <span class="vox-icon">&#9670;</span> vox
-      <span class="vox-context" id="vox-context">slide 1/10</span>
+      <span class="vox-context" id="vox-context">slide 1/14</span>
     </div>
     <button class="vox-close" onclick="toggleVox()" title="close (V)">&times;</button>
   </div>
@@ -796,7 +1355,7 @@ let slides,total,current=0,editMode=false,autoSaveTimer=null,autoPushTimer=null,
 const undoStack=[],redoStack=[],MAX_UNDO=50;
 function initSlides(){slides=document.querySelectorAll('.slide');total=slides.length;document.querySelectorAll('.total').forEach(function(el){el.textContent=total})}initSlides();
 function showSlide(n){if(n<0||n>=total)return;slides[current].classList.remove('active');current=n;slides[current].classList.add('active');document.querySelector('.progress-bar').style.width=((current+1)/total*100)+'%';document.querySelectorAll('.current').forEach(function(el){el.textContent=current+1});history.replaceState(null,'','#'+(current+1));deselectBlock();updatePreview()}
-document.addEventListener('keydown',function(e){if(e.target.contentEditable==='true'||e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA'){if((e.ctrlKey||e.metaKey)&&e.key==='z'&&!e.shiftKey){e.preventDefault();undo();return}if((e.ctrlKey||e.metaKey)&&(e.key==='Z'||e.key==='y')){e.preventDefault();redo();return}return}if(e.key===' '&&slides[current]&&slides[current].id==='s-timer')return;if(e.key==='ArrowRight'||e.key===' '||e.key==='Enter'){e.preventDefault();showSlide(current+1)}else if(e.key==='ArrowLeft'||e.key==='Backspace'){e.preventDefault();showSlide(current-1)}else if(e.key==='Home')showSlide(0);else if(e.key==='End')showSlide(total-1);else if(e.key==='f'||e.key==='F'){if(!document.fullscreenElement)document.documentElement.requestFullscreen().catch(function(){});else document.exitFullscreen()}else if(e.key==='e'||e.key==='E')toggleEdit();else if(e.key==='t'||e.key==='T')togglePresenter();else if(e.key==='v'||e.key==='V')toggleVox();else if((e.ctrlKey||e.metaKey)&&e.key==='z')undo();else if((e.ctrlKey||e.metaKey)&&(e.key==='Z'||e.key==='y'))redo();else if(e.key==='Delete'&&editMode&&selectedBlock)deleteBlock()},false);
+document.addEventListener('keydown',function(e){if(e.target.contentEditable==='true'||e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA'){if((e.ctrlKey||e.metaKey)&&e.key==='z'&&!e.shiftKey){e.preventDefault();undo();return}if((e.ctrlKey||e.metaKey)&&(e.key==='Z'||e.key==='y')){e.preventDefault();redo();return}return}if(e.key===' '&&slides[current]&&slides[current].id==='s-timer')return;if(e.key==='ArrowRight'||e.key===' '||e.key==='Enter'){e.preventDefault();showSlide(current+1)}else if(e.key==='ArrowLeft'||e.key==='Backspace'){e.preventDefault();showSlide(current-1)}else if(e.key==='Home')showSlide(0);else if(e.key==='End')showSlide(total-1);else if(e.key==='f'||e.key==='F'){if(!document.fullscreenElement)document.documentElement.requestFullscreen().catch(function(){});else document.exitFullscreen()}else if(e.key==='e'||e.key==='E')toggleEdit();else if(e.key==='t'||e.key==='T')toggleTOC();else if(e.key==='p'||e.key==='P')togglePresenter();else if(e.key==='v'||e.key==='V')toggleVox();else if((e.ctrlKey||e.metaKey)&&e.key==='z')undo();else if((e.ctrlKey||e.metaKey)&&(e.key==='Z'||e.key==='y'))redo();else if(e.key==='Delete'&&editMode&&selectedBlock)deleteBlock()},false);
 document.addEventListener('keydown',function(e){if(e.target.contentEditable==='true'||e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA'){if(['ArrowRight','ArrowLeft',' ','Enter','Backspace'].includes(e.key)&&!(e.ctrlKey||e.metaKey))e.stopPropagation()}},true);
 var touchStartX=0;document.addEventListener('touchstart',function(e){touchStartX=e.touches[0].clientX});document.addEventListener('touchend',function(e){var d=touchStartX-e.changedTouches[0].clientX;if(Math.abs(d)>50)d>0?showSlide(current+1):showSlide(current-1)});
 if(location.hash){var n=parseInt(location.hash.slice(1))-1;if(n>=0&&n<total)showSlide(n)}
@@ -855,16 +1414,89 @@ function closeGhModal(){document.getElementById('gh-modal').classList.remove('vi
 function confirmGhToken(){var t=document.getElementById('gh-token-input').value.trim();if(t){localStorage.setItem(TOKEN_KEY,t);closeGhModal();saveToGitHub()}}
 function setStatus(c,t){var e=document.getElementById('save-status');e.className='save-status '+c;e.textContent=t;if(c==='saved')setTimeout(function(){e.textContent=''},3000)}
 async function saveToGitHub(){var t=getGhToken();if(!t){showGhModal();return}setStatus('saving','pushing...');try{var g=await fetch('https://api.github.com/repos/'+GH_REPO+'/contents/'+GH_FILE+'?ref='+GH_BRANCH,{headers:{'Authorization':'token '+t,'Accept':'application/vnd.github.v3+json'}});var sha=null;if(g.ok)sha=(await g.json()).sha;var content=buildCleanHTML();var encoded=btoa(unescape(encodeURIComponent(content)));var body={message:'update intro-call \u2014 '+new Date().toISOString().slice(0,16),content:encoded,branch:GH_BRANCH};if(sha)body.sha=sha;var p=await fetch('https://api.github.com/repos/'+GH_REPO+'/contents/'+GH_FILE,{method:'PUT',headers:{'Authorization':'token '+t,'Accept':'application/vnd.github.v3+json','Content-Type':'application/json'},body:JSON.stringify(body)});if(p.ok){setStatus('saved','pushed');isDirty=false}else throw new Error((await p.json()).message||'error')}catch(e){setStatus('error','failed: '+e.message)}}
-function buildCleanHTML(){var c=document.documentElement.cloneNode(true);c.querySelector('body').classList.remove('edit-mode','vox-open');c.querySelectorAll('.layout-bar').forEach(function(b){b.remove()});c.querySelectorAll('[contenteditable]').forEach(function(el){el.removeAttribute('contenteditable')});c.querySelectorAll('[draggable]').forEach(function(el){el.removeAttribute('draggable')});c.querySelectorAll('.block-selected,.drag-over-top,.drag-over-bottom,.block-dragging').forEach(function(el){el.classList.remove('block-selected','drag-over-top','drag-over-bottom','block-dragging')});c.querySelectorAll('#block-actions,#img-action-menu,#layout-picker,#ai-modal,#gh-modal,#preview-panel').forEach(function(el){el.classList.remove('visible')});var vp=c.querySelector('#vox-panel');if(vp)vp.remove();var vt=c.querySelector('#vox-trigger');if(vt)vt.remove();c.querySelectorAll('.slide').forEach(function(s,i){s.classList.toggle('active',i===0)});var pb=c.querySelector('.progress-bar');if(pb)pb.style.width='';return'<!DOCTYPE html>\n'+c.outerHTML}
-document.addEventListener('keydown',function(e){if(e.key==='Escape'){if(typeof voxOpen!=='undefined'&&voxOpen){toggleVox();return}closeLayoutPicker();closeAiModal();closeGhModal();document.getElementById('img-action-menu').classList.remove('visible');deselectBlock()}});
+function buildCleanHTML(){var c=document.documentElement.cloneNode(true);c.querySelector('body').classList.remove('edit-mode','vox-open','toc-open');c.querySelectorAll('.layout-bar').forEach(function(b){b.remove()});c.querySelectorAll('[contenteditable]').forEach(function(el){el.removeAttribute('contenteditable')});c.querySelectorAll('[draggable]').forEach(function(el){el.removeAttribute('draggable')});c.querySelectorAll('.block-selected,.drag-over-top,.drag-over-bottom,.block-dragging').forEach(function(el){el.classList.remove('block-selected','drag-over-top','drag-over-bottom','block-dragging')});c.querySelectorAll('#block-actions,#img-action-menu,#layout-picker,#ai-modal,#gh-modal,#preview-panel,#toc-overlay').forEach(function(el){el.classList.remove('visible')});var vm=c.querySelector('#vox-messages');if(vm){vm.innerHTML='<div class="vox-msg vox-msg-bot"><div class="vox-msg-content">ready. select a quick action or type a request below.</div></div>'}c.querySelectorAll('.slide').forEach(function(s,i){s.classList.toggle('active',i===0)});var pb=c.querySelector('.progress-bar');if(pb)pb.style.width='';return'<!DOCTYPE html>\n'+c.outerHTML}
+document.addEventListener('keydown',function(e){if(e.key==='Escape'){if(typeof voxOpen!=='undefined'&&voxOpen){toggleVox();return}var tocEl=document.getElementById('toc-overlay');if(tocEl&&tocEl.classList.contains('visible')){tocEl.classList.remove('visible');return}closeLayoutPicker();closeAiModal();closeGhModal();document.getElementById('img-action-menu').classList.remove('visible');deselectBlock()}});
 document.getElementById('layout-picker').addEventListener('click',function(e){if(e.target===e.currentTarget)closeLayoutPicker()});
 document.getElementById('ai-modal').addEventListener('click',function(e){if(e.target===e.currentTarget)closeAiModal()});
 document.getElementById('gh-modal').addEventListener('click',function(e){if(e.target===e.currentTarget)closeGhModal()});
+// ===== TOC OVERLAY =====
+function toggleTOC(){
+  var overlay=document.getElementById('toc-overlay');
+  var isOpen=overlay.classList.contains('visible');
+  if(isOpen){overlay.classList.remove('visible');return}
+  var list=document.getElementById('toc-list');
+  list.innerHTML='';
+  document.querySelectorAll('.slide').forEach(function(s,i){
+    var inner=s.querySelector('.slide-inner');
+    var title=inner.querySelector('h1,h2');
+    var label=inner.querySelector('.label');
+    var titleText=title?title.textContent.trim():'Slide '+(i+1);
+    var labelText=label?label.textContent.replace(/\/\//g,'').trim():'';
+    var item=document.createElement('div');
+    item.className='toc-item'+(i===current?' active':'');
+    item.innerHTML='<span class="toc-num">'+(i+1)+'</span><span class="toc-title">'+titleText+'</span>'+(labelText?'<span class="toc-section-tag" style="background:var(--teal-dim);color:var(--teal)">'+labelText+'</span>':'');
+    item.addEventListener('click',function(){overlay.classList.remove('visible');showSlide(i)});
+    list.appendChild(item);
+  });
+  overlay.classList.add('visible');
+}
+document.getElementById('toc-overlay').addEventListener('click',function(e){if(e.target===e.currentTarget)this.classList.remove('visible')});
+
 var presenterMode=false,presTimer=null,presSeconds=0;
-var presNotes=[{t:"Cover",n:"\u043F\u0440\u0435\u0434\u0441\u0442\u0430\u0432\u0438\u0442\u044C\u0441\u044F, \u0421\u0442\u0435\u043F\u0430\u043D \u043F\u0440\u0435\u0434\u0441\u0442\u0430\u0432\u043B\u044F\u0435\u0442\u0441\u044F. AI Mindset \u00d7 CybOS"},{t:"Agenda",n:"\u0441\u0435\u0433\u043E\u0434\u043D\u044F intro call 2 \u0447\u0430\u0441\u0430. \u043B\u0435\u043A\u0446\u0438\u044F 1 \u2014 \u043F\u043E\u043D\u0435\u0434\u0435\u043B\u044C\u043D\u0438\u043A 18:00 CET"},{t:"Participants",n:"177 registered, 165 \u0430\u043D\u043A\u0435\u0442, 61% founders. NoCoDB \u0434\u0430\u043D\u043D\u044B\u0435"},{t:"AI Stack",n:"ChatGPT \u0438 Claude \u0432 \u043F\u0430\u0440\u0438\u0442\u0435\u0442\u0435 45%/45%. Codex \u043E\u0431\u043E\u0433\u043D\u0430\u043B Cursor"},{t:"Geography",n:"80 \u0438\u0437 \u0421\u041D\u0413 (48%), 46 \u0415\u0432\u0440\u043E\u043F\u0430, 15 \u0418\u0437\u0440\u0430\u0438\u043B\u044C. 12 \u0441\u0442\u0440\u0430\u043D"},{t:"What They Want",n:"38% \u0445\u043E\u0442\u044F\u0442 AI-\u0430\u0441\u0441\u0438\u0441\u0442\u0435\u043D\u0442\u0430, 26% \u0430\u0433\u0435\u043D\u0442\u044B, 24% team adoption"},{t:"Curators",n:"10 \u043A\u0443\u0440\u0430\u0442\u043E\u0440\u043E\u0432, 1-1 \u0443\u0436\u0435 \u0438\u0434\u0443\u0442. \u0437\u0430\u043F\u0438\u0441\u0430\u0442\u044C\u0441\u044F \u0447\u0435\u0440\u0435\u0437 cal"},{t:"Speakers",n:"10 \u0441\u043F\u0438\u043A\u0435\u0440\u043E\u0432-\u043F\u0440\u0430\u043A\u0442\u0438\u043A\u043E\u0432. \u043A\u0430\u0436\u0434\u044B\u0439 \u0432\u0435\u0434\u0451\u0442 \u0441\u0432\u043E\u044E \u0442\u0435\u043C\u0443"},{t:"Program",n:"3 \u043D\u0435\u0434\u0435\u043B\u0438. \u043F\u043E\u043D\u0435\u0434\u0435\u043B\u044C\u043D\u0438\u043A \u0421\u0442\u0435\u043F\u0430\u043D. \u043D\u0435 \u0440\u0430\u0441\u043A\u0440\u044B\u0432\u0430\u0442\u044C \u043A\u043E\u043D\u0442\u0435\u043D\u0442"},{t:"Timer",n:"\u043F\u043E \u043C\u0438\u043D\u0443\u0442\u0435 \u043D\u0430 \u043A\u0430\u0436\u0434\u043E\u0433\u043E. space = start/pause. next = \u0441\u043B\u0435\u0434\u0443\u044E\u0449\u0438\u0439"}];
-var agendaItems=[{time:"01",label:"participants"},{time:"02",label:"curators"},{time:"03",label:"speakers"},{time:"04",label:"program"},{time:"05",label:"intro round"}];
-function togglePresenter(){presenterMode=!presenterMode;document.body.classList.toggle('presenter-mode',presenterMode);if(presenterMode){presSeconds=0;presTimer=setInterval(function(){presSeconds++;var m=String(Math.floor(presSeconds/60)).padStart(2,'0');var s=String(presSeconds%60).padStart(2,'0');document.getElementById('pres-timer').textContent=m+':'+s},1000);updatePresenterNotes();document.getElementById('pres-agenda').innerHTML=agendaItems.map(function(a,i){return '<div class="pres-agenda-item'+(i===0?' active':'')+'"><span class="pres-agenda-time">'+a.time+'</span><span>'+a.label+'</span></div>'}).join('')}else{clearInterval(presTimer);document.getElementById('pres-timer').textContent='00:00'}}
-function updatePresenterNotes(){if(!presenterMode)return;var n=presNotes[current]||{t:'Slide '+(current+1),n:''};document.getElementById('pres-notes').innerHTML='<h4>'+n.t+'</h4><p>'+n.n+'</p>';var nx=presNotes[current+1];document.getElementById('pres-next-title').textContent=nx?nx.t:'end';var items=document.querySelectorAll('.pres-agenda-item');var ph=current<2?0:current<5?1:current<7?2:current<9?3:4;items.forEach(function(el,i){el.classList.toggle('active',i===ph)})}
+var presNotes=[
+  {t:"Cover",n:"представиться, Степан представляется. AI Mindset \u00d7 CybOS. 177 registered."},
+  {t:"Agenda",n:"сегодня intro call ~1.5 часа. НЕ первая лекция. лекция 1 — понедельник 18:00 CET Степан."},
+  {t:"Participants",n:"177 registered, 163 анкеты (92%), 51 #intro в чате. 61% founders. NoCoDB данные."},
+  {t:"AI Stack",n:"ChatGPT и Claude в паритете 45%/45%. Claude Code 27%! Codex обогнал Cursor. OpenClaw уже у 10%."},
+  {t:"Geography",n:"Москва 45, Питер 9, Кипр 8, Португалия 8, ОАЭ 5. 12 стран. 30+ городов."},
+  {t:"Team Scale",n:"3500+ сотрудников. Медиана ~45 чел. 16% enterprise 120+. AI maturity: 70% intermediate."},
+  {t:"Enterprise",n:"AGIMA 500+, LIFEPAY 450, GSS 360, KeepSolid 60M users. Альфа-Капитал 2T+ AUM. Это не студенты."},
+  {t:"Pain Points",n:"85%: личное работает, командное нет. Запрос на framework, не на инструмент. Цитаты сильные."},
+  {t:"Sprint Goals",n:"42% стратегия, 36% рабочий агент, 27% company OS. Никто не просит научите ChatGPT."},
+  {t:"Expectations",n:"72% AI-стратегия, 65% автоматизация. Ключевой insight: запрос на систему."},
+  {t:"Curators",n:"10 кураторов. Кликайте на ники — пишите напрямую. Назначение на этой неделе."},
+  {t:"Speakers",n:"10 спикеров-практиков. Каждый ведёт свою тему. Не раскрывать контент."},
+  {t:"Program",n:"3 недели. W1 personal+team, W2 architecture, W3 agents+plan. Demo Day 13 апреля."},
+  {t:"Format Deep Dive",n:"переход к детальному разбору форматов. 6 форматов, каждый с конкретным результатом."},
+  {t:"Lecture",n:"2 часа live, понедельник 18:00 CET. Степан. 60 мин контент + 30 Q\u0026A + 30 дискуссия. 3 лекции за спринт."},
+  {t:"Workshop",n:"1.5\u20132 часа, ср\u2013пт. Приглашённые эксперты. 40 теория + 40 практика + 20 Q\u0026A. Уходишь с артефактом."},
+  {t:"Coworking",n:"2 часа, вторник. Поваляев. Check-in 10 мин + deep work 80 мин + sharing 20 мин. Body doubling."},
+  {t:"Office Hours",n:"1\u20132 часа, суббота 10:00. Hot seat формат. Спикеры недели помогают."},
+  {t:"Demo Day",n:"13 апреля 18:00. 5+3 мин. Проблема \u2192 Решение \u2192 ROI \u2192 90-дневный план. Подготовка с W2."},
+  {t:"Curators Detail",n:"10 кураторов. Async в Telegram. Проверка артефактов. Check-ins каждые 2 дня. Подготовка к Demo Day."},
+  {t:"Community",n:"Telegram чат 169 участников. Alumni навсегда. Vault с шаблонами. Записи 12 месяцев."},
+  {t:"Journey",n:"Визуальный timeline. Prework \u2192 W1 Personal AI \u2192 W2 Architecture \u2192 W3 Functions \u2192 Demo Day. 18 артефактов."},
+  {t:"Timer",n:"по минуте на каждого. space = start/pause. next = следующий. Имя, роль, зачем пришёл."}
+];
+var tocItems=[
+  {slide:0,label:"Cover",icon:"01"},
+  {slide:1,label:"Agenda",icon:"02"},
+  {slide:2,label:"Participants",icon:"03"},
+  {slide:3,label:"AI Stack",icon:"04"},
+  {slide:4,label:"Geography",icon:"05"},
+  {slide:5,label:"Team Scale + Maturity",icon:"06"},
+  {slide:6,label:"Enterprise",icon:"07"},
+  {slide:7,label:"Pain Points + Quotes",icon:"08"},
+  {slide:8,label:"Sprint Goals",icon:"09"},
+  {slide:9,label:"Expectations",icon:"10"},
+  {slide:10,label:"Curators",icon:"11"},
+  {slide:11,label:"Speakers",icon:"12"},
+  {slide:12,label:"Program",icon:"13"},
+  {slide:13,label:"Format Deep Dive",icon:"14"},
+  {slide:14,label:"Lecture",icon:"15"},
+  {slide:15,label:"Workshop",icon:"16"},
+  {slide:16,label:"Coworking",icon:"17"},
+  {slide:17,label:"Office Hours",icon:"18"},
+  {slide:18,label:"Demo Day",icon:"19"},
+  {slide:19,label:"Curators Detail",icon:"20"},
+  {slide:20,label:"Community",icon:"21"},
+  {slide:21,label:"Journey",icon:"22"},
+  {slide:22,label:"Timer / Intro Round",icon:"23"}
+];
+function togglePresenter(){presenterMode=!presenterMode;document.body.classList.toggle('presenter-mode',presenterMode);if(presenterMode){presSeconds=0;presTimer=setInterval(function(){presSeconds++;var m=String(Math.floor(presSeconds/60)).padStart(2,'0');var s=String(presSeconds%60).padStart(2,'0');document.getElementById('pres-timer').textContent=m+':'+s},1000);updatePresenterNotes();
+document.getElementById('pres-toc').innerHTML='<div style="font-size:10px;color:var(--text-label);letter-spacing:2px;margin-bottom:8px">// TABLE OF CONTENTS</div>'+tocItems.map(function(t,i){return '<div class="pres-agenda-item'+(i===current?' active':'')+'" style="cursor:pointer;padding:5px 8px;border-radius:4px;transition:all 0.15s" onclick="showSlide('+t.slide+')"><span style="color:var(--teal);min-width:22px;display:inline-block;font-size:11px">'+t.icon+'</span><span style="font-size:12px">'+t.label+'</span></div>'}).join('')}else{clearInterval(presTimer);document.getElementById('pres-timer').textContent='00:00'}}
+function updatePresenterNotes(){if(!presenterMode)return;var n=presNotes[current]||{t:'Slide '+(current+1),n:''};document.getElementById('pres-notes').innerHTML='<h4>'+n.t+'</h4><p>'+n.n+'</p>';var nx=presNotes[current+1];document.getElementById('pres-next-title').textContent=nx?nx.t:'end';
+document.querySelectorAll('#pres-toc .pres-agenda-item').forEach(function(el,i){el.classList.toggle('active',i===current);el.style.background=i===current?'var(--teal-dim)':'';el.style.borderLeftColor=i===current?'var(--teal)':'transparent'})}
 var origShowSlide=showSlide;showSlide=function(n){origShowSlide(n);if(presenterMode)updatePresenterNotes();if(typeof voxOpen!=='undefined'&&voxOpen)updateVoxContext()};
 
 // --- TIMER (with event listener fix) ---

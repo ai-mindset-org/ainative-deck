@@ -232,21 +232,24 @@ body.presenter-mode #presenter-panel { display: block; }
 
 /* === VOX TRIGGER BUTTON === */
 #vox-trigger {
-  display: block; position: fixed; top: 50%; right: 0;
+  display: flex; align-items: center; justify-content: center;
+  position: fixed; top: 50%; right: 0;
   transform: translateY(-50%);
-  width: 32px; height: 48px;
+  width: 40px; height: 40px;
   background: rgba(22,22,32,0.95); border: 1px solid var(--border);
-  border-right: none; border-radius: 8px 0 0 8px;
+  border-right: none; border-radius: 10px 0 0 10px;
   color: var(--teal); font-size: 14px;
   cursor: pointer; z-index: 10002;
   transition: all 0.2s;
   font-family: var(--font-body);
   backdrop-filter: blur(12px);
+  padding: 6px;
 }
 #vox-trigger:hover {
-  width: 36px; background: var(--teal-dim);
+  width: 44px; background: var(--teal-dim);
   border-color: var(--teal); color: #fff;
 }
+#vox-trigger svg { width: 26px; height: 26px; }
 body.vox-open #vox-trigger { display: none; }
 
 /* === VOX PANEL === */
@@ -287,9 +290,10 @@ body.vox-open #vox-panel {
   display: flex; align-items: center; gap: 8px;
 }
 .vox-icon {
-  font-size: 12px;
+  display: inline-flex; align-items: center;
   animation: voxPulse 3s ease-in-out infinite;
 }
+.vox-icon svg { width: 16px; height: 16px; }
 @keyframes voxPulse {
   0%, 100% { opacity: 1; }
   50% { opacity: 0.4; }
@@ -482,7 +486,7 @@ body.vox-open #vox-panel {
 /* === VOX RESPONSIVE === */
 @media (max-width: 768px) {
   #vox-panel { width: 100%; }
-  #vox-trigger { bottom: 60px; top: auto; right: 12px; transform: none; width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--border); }
+  #vox-trigger { bottom: 60px; top: auto; right: 12px; transform: none; width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--border); }
 }
 
 /* === TOC OVERLAY === */
@@ -1485,7 +1489,7 @@ body.vox-open #vox-panel {
 <div id="vox-panel">
   <div class="vox-header">
     <div class="vox-title">
-      <span class="vox-icon">&#9670;</span> vox
+      <span class="vox-icon"><svg viewBox="0 0 5 5" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="0" width="5" height="5" rx="0.5" fill="#1c1c2e"/><rect x="1" y="1" width="1" height="1" fill="#4dc9d4"/><rect x="3" y="1" width="1" height="1" fill="#4dc9d4"/><rect x="0" y="2" width="1" height="1" fill="#38d9a9" opacity="0.5"/><rect x="4" y="2" width="1" height="1" fill="#38d9a9" opacity="0.5"/><rect x="1" y="3" width="1" height="1" fill="#38d9a9"/><rect x="2" y="3" width="1" height="1" fill="#4dc9d4"/><rect x="3" y="3" width="1" height="1" fill="#38d9a9"/><rect x="2" y="4" width="1" height="1" fill="#38d9a9" opacity="0.4"/></svg></span> vox
       <span class="vox-context" id="vox-context">slide 1/14</span>
     </div>
     <button class="vox-close" onclick="toggleVox()" title="close (V)">&times;</button>
@@ -1530,12 +1534,13 @@ body.vox-open #vox-panel {
   </div>
 </div>
 
-<!-- Vox trigger button (visible in edit mode) -->
-<button id="vox-trigger" title="Vox AI assistant (V)">&#9670;</button>
+<!-- Vox trigger button (always visible, works in both edit and presentation modes) -->
+<button id="vox-trigger" title="Vox AI assistant (V)"><svg viewBox="0 0 5 5" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="0" width="5" height="5" rx="0.5" fill="#1c1c2e"/><rect x="1" y="1" width="1" height="1" fill="#4dc9d4"/><rect x="3" y="1" width="1" height="1" fill="#4dc9d4"/><rect x="0" y="2" width="1" height="1" fill="#38d9a9" opacity="0.5"/><rect x="4" y="2" width="1" height="1" fill="#38d9a9" opacity="0.5"/><rect x="1" y="3" width="1" height="1" fill="#38d9a9"/><rect x="2" y="3" width="1" height="1" fill="#4dc9d4"/><rect x="3" y="3" width="1" height="1" fill="#38d9a9"/><rect x="2" y="4" width="1" height="1" fill="#38d9a9" opacity="0.4"/></svg></button>
 
 <script>
 const DECK_VERSION='2026-03-21-v12';localStorage.removeItem('ainative-intro-call-state');localStorage.setItem('ainative-intro-call-version',DECK_VERSION);
-const GH_REPO='ai-mindset-org/ainative-deck',GH_FILE='intro-call.html',GH_BRANCH='main',STORAGE_KEY='ainative-intro-call-state',TOKEN_KEY='ainative-intro-call-gh-token',OR_KEY='REMOVED_OPENROUTER_KEY',OR_BASE='https://openrouter.ai/api/v1';
+const GH_REPO='ai-mindset-org/ainative-deck',GH_FILE='intro-call.html',GH_BRANCH='main',STORAGE_KEY='ainative-intro-call-state',TOKEN_KEY='ainative-intro-call-gh-token',OR_BASE='https://openrouter.ai/api/v1';
+var OR_KEY=localStorage.getItem('ainative-or-key')||'';
 let slides,total,current=0,editMode=false,autoSaveTimer=null,autoPushTimer=null,autoPushEnabled=false,isDirty=false,selectedBlock=null,aiMode='svg',aiResult=null,activeImgPlaceholder=null;
 const undoStack=[],redoStack=[],MAX_UNDO=50;
 function initSlides(){slides=document.querySelectorAll('.slide');total=slides.length;document.querySelectorAll('.total').forEach(function(el){el.textContent=total})}initSlides();
@@ -1983,6 +1988,12 @@ function addVoxStreamMessage() {
  * Streaming chat via OpenRouter.
  */
 async function voxChat(systemPrompt, userMessage, onChunk) {
+  if (!OR_KEY) {
+    addVoxMessage('bot', '**api key required**\n\nвставьте OpenRouter API key для активации VOX.\n\n→ [openrouter.ai/keys](https://openrouter.ai/keys)', [
+      {label: 'set key', onclick: 'promptVoxKey()', primary: true}
+    ]);
+    return '';
+  }
   if (voxAbortController) voxAbortController.abort();
   voxAbortController = new AbortController();
   voxStreaming = true;
@@ -2011,6 +2022,11 @@ async function voxChat(systemPrompt, userMessage, onChunk) {
 
     if (!resp.ok) {
       const errBody = await resp.text();
+      if (resp.status === 401) {
+        OR_KEY = '';
+        localStorage.removeItem('ainative-or-key');
+        throw new Error('401 — key expired or invalid');
+      }
       throw new Error(`API error ${resp.status}: ${errBody.substring(0, 200)}`);
     }
 
@@ -2060,6 +2076,12 @@ async function voxChat(systemPrompt, userMessage, onChunk) {
  * Non-streaming API call for structured JSON/HTML responses.
  */
 async function voxGenerate(systemPrompt, userMessage) {
+  if (!OR_KEY) {
+    addVoxMessage('bot', '**api key required**\n\nвставьте OpenRouter API key для активации VOX.\n\n→ [openrouter.ai/keys](https://openrouter.ai/keys)', [
+      {label: 'set key', onclick: 'promptVoxKey()', primary: true}
+    ]);
+    return '';
+  }
   const resp = await fetch(OR_BASE + '/chat/completions', {
     method: 'POST',
     headers: {
@@ -2079,6 +2101,11 @@ async function voxGenerate(systemPrompt, userMessage) {
 
   if (!resp.ok) {
     const errBody = await resp.text();
+    if (resp.status === 401) {
+      OR_KEY = '';
+      localStorage.removeItem('ainative-or-key');
+      throw new Error('401 — key expired or invalid');
+    }
     throw new Error(`API error ${resp.status}: ${errBody.substring(0, 200)}`);
   }
 
@@ -2141,6 +2168,32 @@ SPEAKERS: Stepan Gershuni (cybos.ai, lectures), Alexander Povaliaev (AI Mindset,
 CURATORS: 10 practitioners \u2013 Stanislav Fedoseev, Yury (Switzerland), Jin Kolesnikov (Singularity U), Stanislav Glazov, Alexander Vasiliev, Sereja Ris, Ilya Gindin, Anton Voskobovich, Alexander Stashenko, Kseniya Tkacheva
 
 PARTICIPANT STATS: 177 registered, 61% founders & CEO, 18% C-level, 12% heads & leads, 14 industries, 12 countries. ChatGPT 45%, Claude 45%, Cursor 22%, Perplexity 18%. 85% say personal AI works but team AI doesn\u2019t.
+
+NOTABLE PARTICIPANTS (from #intro in chat):
+- AGIMA (500+ people) \u2014 largest web studio, exploring AI for client projects
+- LIFEPAY (450 people) \u2014 fintech, already has 10+ AI agents running
+- GSS Cosmetics (360) \u2014 FMCG, digital transformation
+- KeepSolid (60M+ users) \u2014 VPN Unlimited
+- \u0410\u043b\u044c\u0444\u0430-\u041a\u0430\u043f\u0438\u0442\u0430\u043b (2T+ AUM) \u2014 asset management, compliance-heavy
+- Go Mobile (160) \u2014 mobile marketing
+- FunCorp (100+) \u2014 mobile entertainment
+- Tothemoon \u2014 top-40 crypto exchange
+- Raiffeisen CPO, Nebius/Yandex, \u041c\u043e\u0435 \u0414\u0435\u043b\u043e (70K clients), \u0412\u043a\u0443\u0441\u0412\u0438\u043b\u043b KZ, Unisender, SecondLane, cyber.fund
+
+KEY AUDIENCE INSIGHTS:
+- 85% report: "personal AI works, team AI doesn\u2019t"
+- Top goals: automation (37%), framework (26%), agents (26%), team (25%)
+- AI maturity: 10% beginner, 70% intermediate, 20% advanced
+- Advanced users already have: AI Chief of Staff (10+ agents), personal OS (90+ skills), CRM bots, AI lawyers
+- Pain point #1: "How to go from MVP to production scale?"
+- Pain point #2: "FOMO \u2014 everyone talks AI but nobody has a system"
+- Median team size: ~45 employees
+- ChatGPT 45%, Claude 45% (parity!), Cursor 22%, Perplexity 18%
+
+When giving tips, reference SPECIFIC companies and their contexts. For example:
+- On "team scale" slide: mention AGIMA\u2019s 500+ challenge vs solo founders
+- On "pain points": quote the LIFEPAY question about scaling from MVP
+- On "enterprise": highlight \u0410\u043b\u044c\u0444\u0430-\u041a\u0430\u043f\u0438\u0442\u0430\u043b\u2019s compliance constraints
 
 SLIDE CONTEXT:
 - Current slide: ${ctx.slideIndex + 1} of ${ctx.totalSlides}
@@ -2218,6 +2271,11 @@ async function voxSend() {
     streamEl.classList.remove('streaming');
     if (e.name === 'AbortError') {
       streamEl.textContent = 'cancelled.';
+    } else if (e.message && e.message.indexOf('401') !== -1) {
+      streamEl.parentElement.remove();
+      addVoxMessage('bot', '**key expired or invalid**\n\nобновите OpenRouter API key.\n\n→ [openrouter.ai/keys](https://openrouter.ai/keys)', [
+        {label: 'set key', onclick: 'promptVoxKey()', primary: true}
+      ]);
     } else {
       streamEl.textContent = 'error: ' + e.message;
       console.error('Vox error:', e);
@@ -2820,7 +2878,27 @@ Give a SHORT (2-3 sentences) presenter tip in Russian. What to emphasize, which 
     streamEl.classList.remove('streaming');
   } catch (e) {
     streamEl.classList.remove('streaming');
-    streamEl.innerHTML = '<em style="color:var(--red)">tip error: ' + e.message + '</em>';
+    if (e.message && e.message.indexOf('401') !== -1) {
+      streamEl.parentElement.remove();
+      addVoxMessage('bot', '**key expired or invalid**\n\nобновите OpenRouter API key.\n\n→ [openrouter.ai/keys](https://openrouter.ai/keys)', [
+        {label: 'set key', onclick: 'promptVoxKey()', primary: true}
+      ]);
+      voxLiveMode = false;
+      var btn = document.getElementById('vox-live-btn');
+      btn.classList.remove('active');
+      btn.innerHTML = '<span class="vox-act-icon">&#9673;</span> LIVE OFF';
+    } else {
+      streamEl.innerHTML = '<em style="color:var(--red)">tip error: ' + e.message + '</em>';
+    }
+  }
+}
+
+function promptVoxKey() {
+  var key = prompt('OpenRouter API Key:');
+  if (key && key.startsWith('sk-or-')) {
+    OR_KEY = key;
+    localStorage.setItem('ainative-or-key', key);
+    addVoxMessage('bot', '**key saved.** try again \u2014 type a question or press LIVE ON.');
   }
 }
 

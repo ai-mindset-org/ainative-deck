@@ -3,11 +3,36 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Q&A — AI-Native Sprint — W1</title>
-<meta property="og:title" content="AI-Native Sprint — Q&A">
-<meta property="og:description" content="W1 — лекция 1 — Степан Гершуни">
+<title>Q&A · W1 лекция 1</title>
+<meta property="og:title" content="Q&A · W1 лекция 1">
+<meta property="og:description" content="Степан Гершуни — AI-трансформация">
 <meta property="og:type" content="website">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<!--
+=== SUPABASE SETUP ===
+
+Run this SQL in your Supabase SQL Editor:
+
+create table qa_questions (
+  id uuid default gen_random_uuid() primary key,
+  session_id text not null default 'w1-lecture',
+  phase text not null default 'during',
+  question text not null,
+  author text default 'анонимно',
+  votes int default 0,
+  voter_ids text[] default '{}',
+  created_at timestamptz default now()
+);
+
+alter publication supabase_realtime add table qa_questions;
+
+alter table qa_questions enable row level security;
+create policy "Anyone can read" on qa_questions for select using (true);
+create policy "Anyone can insert" on qa_questions for insert with check (true);
+create policy "Anyone can update votes" on qa_questions for update using (true);
+-->
+
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
@@ -24,6 +49,7 @@
   --green: #38d9a9;
   --blue: #3b82f6;
   --amber: #c89200;
+  --red: #e5534b;
   --border: rgba(77,201,212,0.12);
   --border-hover: rgba(77,201,212,0.3);
   --grid-size: 60px;
@@ -89,6 +115,127 @@ body::before {
   padding: 24px 16px 40px;
 }
 
+/* === CONFIG PANEL === */
+.config-panel {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 24px;
+}
+.config-panel h2 {
+  font-family: var(--font-heading);
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+.config-panel p {
+  font-size: 12px;
+  color: var(--text-dim);
+  margin-bottom: 16px;
+}
+.config-row {
+  margin-bottom: 12px;
+}
+.config-row label {
+  display: block;
+  font-family: var(--font-code);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-label);
+  margin-bottom: 6px;
+}
+.config-row input {
+  width: 100%;
+  padding: 10px 14px;
+  background: var(--bg-deep);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: var(--text);
+  font-family: var(--font-code);
+  font-size: 12px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+.config-row input:focus {
+  border-color: var(--teal);
+  box-shadow: 0 0 0 3px rgba(77,201,212,0.1);
+}
+.config-row input::placeholder {
+  color: var(--text-label);
+  opacity: 0.5;
+}
+.btn-config {
+  width: 100%;
+  padding: 12px;
+  margin-top: 4px;
+  background: linear-gradient(135deg, var(--teal), #3ba8b2);
+  border: none;
+  border-radius: 10px;
+  color: var(--bg-deep);
+  font-family: var(--font-heading);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.btn-config:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 20px rgba(77,201,212,0.3);
+}
+.config-error {
+  margin-top: 10px;
+  padding: 8px 12px;
+  background: rgba(229,83,75,0.1);
+  border: 1px solid rgba(229,83,75,0.2);
+  border-radius: 8px;
+  font-size: 12px;
+  color: var(--red);
+  display: none;
+}
+
+/* === OFFLINE BANNER === */
+.offline-banner {
+  display: none;
+  background: rgba(200,146,0,0.1);
+  border: 1px solid rgba(200,146,0,0.2);
+  border-radius: 10px;
+  padding: 10px 16px;
+  margin-bottom: 20px;
+  font-family: var(--font-code);
+  font-size: 11px;
+  color: var(--amber);
+  text-align: center;
+}
+
+/* === CONNECTION STATUS === */
+.connection-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-code);
+  font-size: 11px;
+  color: var(--text-label);
+  opacity: 0.7;
+}
+.connection-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--text-label);
+  transition: background 0.3s ease;
+}
+.connection-dot.connected {
+  background: var(--green);
+  box-shadow: 0 0 6px rgba(56,217,169,0.5);
+}
+.connection-dot.error {
+  background: var(--red);
+  box-shadow: 0 0 6px rgba(229,83,75,0.5);
+}
+
 /* === HEADER === */
 .header {
   text-align: center;
@@ -133,9 +280,9 @@ body::before {
 }
 .phase-tab {
   flex: 1;
-  padding: 10px 16px;
+  padding: 10px 12px;
   font-family: var(--font-body);
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 500;
   text-align: center;
   border: none;
@@ -161,7 +308,7 @@ body::before {
   height: 20px;
   line-height: 20px;
   padding: 0 6px;
-  margin-left: 6px;
+  margin-left: 4px;
   border-radius: 10px;
   font-size: 11px;
   font-family: var(--font-code);
@@ -230,11 +377,14 @@ textarea.form-input {
   align-items: center;
   gap: 12px;
 }
-.form-hint {
+.char-counter {
   font-size: 11px;
   color: var(--text-label);
   opacity: 0.6;
+  font-family: var(--font-code);
 }
+.char-counter.warn { color: var(--amber); opacity: 1; }
+.char-counter.over { color: var(--red); opacity: 1; }
 .btn-submit {
   padding: 10px 28px;
   background: linear-gradient(135deg, var(--teal), #3ba8b2);
@@ -256,6 +406,12 @@ textarea.form-input {
 }
 .btn-submit:active {
   transform: translateY(0);
+}
+.btn-submit:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
 }
 .btn-submit.sent {
   background: linear-gradient(135deg, var(--green), #2db590);
@@ -300,10 +456,25 @@ textarea.form-input {
 .question-card:hover {
   border-color: var(--border-hover);
 }
+.question-card.new-question {
+  animation: slideIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
 
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(16px); }
   to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(-20px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes voteFlash {
+  0% { box-shadow: 0 0 0 0 rgba(77,201,212,0.3); }
+  50% { box-shadow: 0 0 12px 2px rgba(77,201,212,0.15); }
+  100% { box-shadow: 0 0 0 0 rgba(77,201,212,0); }
+}
+.question-card.vote-updated {
+  animation: voteFlash 0.6s ease;
 }
 
 .question-text {
@@ -345,9 +516,19 @@ textarea.form-input {
   text-transform: uppercase;
   padding: 3px 8px;
   border-radius: 6px;
+  opacity: 0.6;
+}
+.phase-before {
+  background: rgba(59,130,246,0.15);
+  color: var(--blue);
+}
+.phase-during {
   background: var(--teal-dim);
   color: var(--teal);
-  opacity: 0.6;
+}
+.phase-after {
+  background: rgba(56,217,169,0.15);
+  color: var(--green);
 }
 
 .btn-upvote {
@@ -455,11 +636,14 @@ textarea.form-input {
 ::-webkit-scrollbar-thumb { background: rgba(77,201,212,0.15); border-radius: 4px; }
 ::-webkit-scrollbar-thumb:hover { background: rgba(77,201,212,0.3); }
 
+/* === HIDDEN === */
+.hidden { display: none !important; }
+
 /* === RESPONSIVE === */
 @media (max-width: 480px) {
   .container { padding: 16px 12px 32px; }
   .header h1 { font-size: 22px; }
-  .phase-tab { padding: 9px 10px; font-size: 12px; }
+  .phase-tab { padding: 9px 8px; font-size: 11px; }
   .form-card { padding: 16px; }
   .question-card { padding: 14px; }
   .form-footer { flex-direction: column; align-items: stretch; }
@@ -476,43 +660,70 @@ textarea.form-input {
 
 <div class="container">
 
+  <!-- Config Panel (shown when Supabase not configured) -->
+  <div class="config-panel hidden" id="config-panel">
+    <h2>Supabase</h2>
+    <p>вставьте URL и anon key вашего проекта</p>
+    <div class="config-row">
+      <label for="config-url">project url</label>
+      <input type="text" id="config-url" placeholder="https://xxxxx.supabase.co">
+    </div>
+    <div class="config-row">
+      <label for="config-key">anon key</label>
+      <input type="text" id="config-key" placeholder="eyJhbGciOiJIUzI1NiIs...">
+    </div>
+    <button class="btn-config" onclick="saveConfig()">подключиться</button>
+    <div class="config-error" id="config-error"></div>
+  </div>
+
+  <!-- Offline Banner -->
+  <div class="offline-banner" id="offline-banner">
+    offline mode &mdash; вопросы видны только вам
+  </div>
+
   <!-- Header -->
   <div class="header">
     <div class="header-label">sprint s2 &middot; q&amp;a</div>
-    <h1>AI-Native Sprint &mdash; Q&amp;A</h1>
-    <div class="header-sub">W1 &middot; <span>lecture 1</span> &middot; Stepan Gershuni</div>
+    <h1>Q&amp;A &middot; W1 лекция 1</h1>
+    <div class="header-sub"><span>Степан Гершуни</span> &mdash; AI-трансформация</div>
   </div>
 
   <!-- Phase Tabs -->
   <div class="phase-tabs">
-    <button class="phase-tab active" data-phase="pre" onclick="switchPhase('pre')">
-      before lecture <span class="count" id="count-pre">0</span>
+    <button class="phase-tab" data-phase="before" onclick="switchPhase('before')">
+      до лекции <span class="count" id="count-before">0</span>
     </button>
-    <button class="phase-tab" data-phase="post" onclick="switchPhase('post')">
-      after lecture <span class="count" id="count-post">0</span>
+    <button class="phase-tab active" data-phase="during" onclick="switchPhase('during')">
+      во время <span class="count" id="count-during">0</span>
+    </button>
+    <button class="phase-tab" data-phase="after" onclick="switchPhase('after')">
+      после лекции <span class="count" id="count-after">0</span>
     </button>
   </div>
 
   <!-- Form -->
   <div class="form-card">
     <div class="form-row">
-      <label class="form-label" for="name-input">name</label>
-      <input class="form-input" id="name-input" type="text" placeholder="anonymous" autocomplete="off" maxlength="60">
+      <label class="form-label" for="name-input">имя</label>
+      <input class="form-input" id="name-input" type="text" placeholder="анонимно" autocomplete="off" maxlength="60">
     </div>
     <div class="form-row">
-      <label class="form-label" for="question-input">question</label>
-      <textarea class="form-input" id="question-input" placeholder="what would you like to ask?" maxlength="1000"></textarea>
+      <label class="form-label" for="question-input">вопрос</label>
+      <textarea class="form-input" id="question-input" placeholder="что хотите спросить?" maxlength="500"></textarea>
     </div>
     <div class="form-footer">
-      <span class="form-hint" id="char-count">0 / 1000</span>
-      <button class="btn-submit" id="btn-submit" onclick="submitQuestion()">submit</button>
+      <span class="char-counter" id="char-count">0 / 500</span>
+      <button class="btn-submit" id="btn-submit" onclick="submitQuestion()">отправить</button>
     </div>
   </div>
 
   <!-- Questions -->
   <div class="questions-header">
-    <span class="questions-title">questions</span>
-    <span class="questions-sort">sorted by votes</span>
+    <span class="questions-title">вопросы</span>
+    <span class="connection-status" id="connection-status">
+      <span class="connection-dot" id="connection-dot"></span>
+      <span id="connection-label">offline</span>
+    </span>
   </div>
   <div class="questions-list" id="questions-list"></div>
 
@@ -527,49 +738,218 @@ textarea.form-input {
 <!-- Toast -->
 <div class="toast" id="toast"></div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 (function() {
   'use strict';
 
-  // --- Config ---
-  const PAGE_ID = 'ainative-qa-w1-lecture';
-  const STORAGE_KEY = PAGE_ID + '-questions';
-  const VOTES_KEY = PAGE_ID + '-votes';
-  const USER_KEY = PAGE_ID + '-userid';
+  // ============================================================
+  // CONFIG — fill in your Supabase credentials, or leave empty
+  // to use the config panel / localStorage fallback
+  // ============================================================
+  const SUPABASE_URL = '';
+  const SUPABASE_KEY = '';
+  // ============================================================
+
+  const SESSION_ID = 'w1-lecture';
+  const LS_CONFIG_URL = 'qa-supabase-url';
+  const LS_CONFIG_KEY = 'qa-supabase-key';
+  const LS_QUESTIONS = 'qa-w1-questions';
+  const LS_VOTER_ID = 'qa-w1-voter-id';
 
   // --- State ---
-  let currentPhase = 'pre';
+  let supabase = null;
+  let isOnline = false;
+  let currentPhase = 'during';
+  let questions = [];
+  let channel = null;
 
-  // --- User ID (prevents double-voting) ---
-  function getUserId() {
-    let id = localStorage.getItem(USER_KEY);
+  // --- Voter ID ---
+  function getVoterId() {
+    let id = localStorage.getItem(LS_VOTER_ID);
     if (!id) {
-      id = 'u_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 8);
-      localStorage.setItem(USER_KEY, id);
+      id = 'v_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 8);
+      localStorage.setItem(LS_VOTER_ID, id);
     }
     return id;
   }
-  const userId = getUserId();
+  const voterId = getVoterId();
 
-  // --- Storage ---
-  function getQuestions() {
+  // --- Supabase Init ---
+  function getSupabaseConfig() {
+    const url = SUPABASE_URL || localStorage.getItem(LS_CONFIG_URL) || '';
+    const key = SUPABASE_KEY || localStorage.getItem(LS_CONFIG_KEY) || '';
+    return { url: url.trim(), key: key.trim() };
+  }
+
+  async function initSupabase() {
+    const { url, key } = getSupabaseConfig();
+    if (!url || !key) {
+      showConfigPanel();
+      return false;
+    }
+
     try {
-      return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-    } catch { return []; }
+      supabase = window.supabase.createClient(url, key);
+      // Test connection
+      const { error } = await supabase.from('qa_questions').select('id', { count: 'exact', head: true });
+      if (error) throw error;
+
+      isOnline = true;
+      setConnectionStatus('connected');
+      hideConfigPanel();
+      document.getElementById('offline-banner').style.display = 'none';
+      await loadQuestions();
+      subscribeRealtime();
+      return true;
+    } catch (err) {
+      console.error('Supabase init failed:', err);
+      isOnline = false;
+      supabase = null;
+      setConnectionStatus('error');
+      // If hardcoded config failed, show error in config panel
+      if (SUPABASE_URL && SUPABASE_KEY) {
+        goOffline();
+      } else {
+        showConfigPanel();
+        showConfigError('не удалось подключиться: ' + (err.message || err));
+      }
+      return false;
+    }
   }
 
-  function saveQuestions(questions) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(questions));
+  function goOffline() {
+    isOnline = false;
+    setConnectionStatus('error');
+    document.getElementById('offline-banner').style.display = 'block';
+    hideConfigPanel();
+    loadLocalQuestions();
+    renderQuestions();
   }
 
-  function getVotedSet() {
+  window.saveConfig = function() {
+    const url = document.getElementById('config-url').value.trim();
+    const key = document.getElementById('config-key').value.trim();
+    if (!url || !key) {
+      showConfigError('заполните оба поля');
+      return;
+    }
+    localStorage.setItem(LS_CONFIG_URL, url);
+    localStorage.setItem(LS_CONFIG_KEY, key);
+    hideConfigError();
+    initSupabase();
+  };
+
+  function showConfigPanel() {
+    document.getElementById('config-panel').classList.remove('hidden');
+    document.getElementById('offline-banner').style.display = 'none';
+    // Pre-fill from localStorage
+    const { url, key } = getSupabaseConfig();
+    if (url) document.getElementById('config-url').value = url;
+    if (key) document.getElementById('config-key').value = key;
+  }
+
+  function hideConfigPanel() {
+    document.getElementById('config-panel').classList.add('hidden');
+  }
+
+  function showConfigError(msg) {
+    const el = document.getElementById('config-error');
+    el.textContent = msg;
+    el.style.display = 'block';
+  }
+
+  function hideConfigError() {
+    document.getElementById('config-error').style.display = 'none';
+  }
+
+  function setConnectionStatus(state) {
+    const dot = document.getElementById('connection-dot');
+    const label = document.getElementById('connection-label');
+    dot.className = 'connection-dot';
+    if (state === 'connected') {
+      dot.classList.add('connected');
+      label.textContent = 'live';
+    } else if (state === 'error') {
+      dot.classList.add('error');
+      label.textContent = 'offline';
+    } else {
+      label.textContent = 'offline';
+    }
+  }
+
+  // --- Load Questions ---
+  async function loadQuestions() {
+    if (!isOnline) {
+      loadLocalQuestions();
+      return;
+    }
     try {
-      return new Set(JSON.parse(localStorage.getItem(VOTES_KEY)) || []);
-    } catch { return new Set(); }
+      const { data, error } = await supabase
+        .from('qa_questions')
+        .select('*')
+        .eq('session_id', SESSION_ID)
+        .order('votes', { ascending: false })
+        .order('created_at', { ascending: false });
+      if (error) throw error;
+      questions = data || [];
+      renderQuestions();
+    } catch (err) {
+      console.error('Load questions failed:', err);
+      loadLocalQuestions();
+    }
   }
 
-  function saveVotedSet(set) {
-    localStorage.setItem(VOTES_KEY, JSON.stringify([...set]));
+  function loadLocalQuestions() {
+    try {
+      questions = JSON.parse(localStorage.getItem(LS_QUESTIONS)) || [];
+    } catch { questions = []; }
+    renderQuestions();
+  }
+
+  function saveLocalQuestions() {
+    localStorage.setItem(LS_QUESTIONS, JSON.stringify(questions));
+  }
+
+  // --- Realtime ---
+  function subscribeRealtime() {
+    if (!supabase || channel) return;
+
+    channel = supabase
+      .channel('qa-realtime')
+      .on(
+        'postgres_changes',
+        { event: 'INSERT', schema: 'public', table: 'qa_questions', filter: `session_id=eq.${SESSION_ID}` },
+        (payload) => {
+          const newQ = payload.new;
+          // Avoid duplicates
+          if (!questions.find(q => q.id === newQ.id)) {
+            newQ._isNew = true;
+            questions.push(newQ);
+            renderQuestions();
+          }
+        }
+      )
+      .on(
+        'postgres_changes',
+        { event: 'UPDATE', schema: 'public', table: 'qa_questions', filter: `session_id=eq.${SESSION_ID}` },
+        (payload) => {
+          const updated = payload.new;
+          const idx = questions.findIndex(q => q.id === updated.id);
+          if (idx >= 0) {
+            const wasVotes = questions[idx].votes;
+            questions[idx] = { ...updated, _voteUpdated: updated.votes !== wasVotes };
+            renderQuestions();
+          }
+        }
+      )
+      .subscribe((status) => {
+        if (status === 'SUBSCRIBED') {
+          setConnectionStatus('connected');
+        } else if (status === 'CLOSED' || status === 'CHANNEL_ERROR') {
+          setConnectionStatus('error');
+        }
+      });
   }
 
   // --- Phase ---
@@ -582,7 +962,7 @@ textarea.form-input {
   };
 
   // --- Submit ---
-  window.submitQuestion = function() {
+  window.submitQuestion = async function() {
     const nameInput = document.getElementById('name-input');
     const questionInput = document.getElementById('question-input');
     const btn = document.getElementById('btn-submit');
@@ -595,117 +975,207 @@ textarea.form-input {
       return;
     }
 
-    const name = nameInput.value.trim() || 'anonymous';
-    const question = {
-      id: 'q_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 6),
-      text: text,
-      author: name,
-      phase: currentPhase,
-      timestamp: Date.now(),
-      votes: 0,
-      userId: userId,
-    };
+    if (text.length > 500) return;
 
-    const questions = getQuestions();
-    questions.push(question);
-    saveQuestions(questions);
+    const author = nameInput.value.trim() || 'анонимно';
+
+    btn.disabled = true;
+    btn.textContent = '...';
+
+    if (isOnline && supabase) {
+      try {
+        const { error } = await supabase.from('qa_questions').insert({
+          session_id: SESSION_ID,
+          phase: currentPhase,
+          question: text,
+          author: author,
+          votes: 0,
+          voter_ids: [],
+        });
+        if (error) throw error;
+      } catch (err) {
+        console.error('Insert failed:', err);
+        showToast('ошибка отправки');
+        btn.disabled = false;
+        btn.textContent = 'отправить';
+        return;
+      }
+    } else {
+      // Offline fallback
+      const q = {
+        id: 'local_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 6),
+        session_id: SESSION_ID,
+        phase: currentPhase,
+        question: text,
+        author: author,
+        votes: 0,
+        voter_ids: [],
+        created_at: new Date().toISOString(),
+        _isNew: true,
+      };
+      questions.push(q);
+      saveLocalQuestions();
+      renderQuestions();
+    }
 
     // Reset form
     questionInput.value = '';
     updateCharCount();
-    btn.textContent = 'sent!';
+    btn.textContent = 'отправлено';
     btn.classList.add('sent');
+    btn.disabled = false;
     setTimeout(() => {
-      btn.textContent = 'submit';
+      btn.textContent = 'отправить';
       btn.classList.remove('sent');
     }, 1800);
-
-    showToast('question submitted');
-    renderQuestions();
+    showToast('вопрос отправлен');
   };
 
   // --- Upvote ---
-  window.upvoteQuestion = function(id) {
-    const voted = getVotedSet();
-    const questions = getQuestions();
+  window.upvoteQuestion = async function(id) {
     const q = questions.find(q => q.id === id);
     if (!q) return;
 
-    if (voted.has(id)) {
-      // Un-vote
-      voted.delete(id);
-      q.votes = Math.max(0, q.votes - 1);
+    const voterIds = q.voter_ids || [];
+    const hasVoted = voterIds.includes(voterId);
+
+    let newVoterIds;
+    let newVotes;
+
+    if (hasVoted) {
+      newVoterIds = voterIds.filter(v => v !== voterId);
+      newVotes = Math.max(0, (q.votes || 0) - 1);
     } else {
-      voted.add(id);
-      q.votes = (q.votes || 0) + 1;
+      newVoterIds = [...voterIds, voterId];
+      newVotes = (q.votes || 0) + 1;
     }
 
-    saveVotedSet(voted);
-    saveQuestions(questions);
-    renderQuestions();
+    if (isOnline && supabase) {
+      // Optimistic update
+      q.votes = newVotes;
+      q.voter_ids = newVoterIds;
+      renderQuestions();
+
+      try {
+        const { error } = await supabase
+          .from('qa_questions')
+          .update({ votes: newVotes, voter_ids: newVoterIds })
+          .eq('id', id);
+        if (error) throw error;
+      } catch (err) {
+        console.error('Vote failed:', err);
+        // Revert
+        if (hasVoted) {
+          q.votes = (q.votes || 0) + 1;
+          q.voter_ids = [...q.voter_ids, voterId];
+        } else {
+          q.votes = Math.max(0, (q.votes || 0) - 1);
+          q.voter_ids = q.voter_ids.filter(v => v !== voterId);
+        }
+        renderQuestions();
+        showToast('ошибка голосования');
+      }
+    } else {
+      q.votes = newVotes;
+      q.voter_ids = newVoterIds;
+      saveLocalQuestions();
+      renderQuestions();
+    }
   };
 
   // --- Render ---
   function renderQuestions() {
-    const questions = getQuestions();
-    const voted = getVotedSet();
     const container = document.getElementById('questions-list');
+
+    // Update counts
+    const counts = { before: 0, during: 0, after: 0 };
+    questions.forEach(q => {
+      if (counts[q.phase] !== undefined) counts[q.phase]++;
+    });
+    document.getElementById('count-before').textContent = counts.before;
+    document.getElementById('count-during').textContent = counts.during;
+    document.getElementById('count-after').textContent = counts.after;
 
     // Filter by phase
     const filtered = questions.filter(q => q.phase === currentPhase);
 
-    // Sort by votes desc, then by timestamp desc
-    filtered.sort((a, b) => (b.votes || 0) - (a.votes || 0) || b.timestamp - a.timestamp);
-
-    // Update counts
-    const preCount = questions.filter(q => q.phase === 'pre').length;
-    const postCount = questions.filter(q => q.phase === 'post').length;
-    document.getElementById('count-pre').textContent = preCount;
-    document.getElementById('count-post').textContent = postCount;
+    // Sort by votes desc, then by created_at desc
+    filtered.sort((a, b) => {
+      const vDiff = (b.votes || 0) - (a.votes || 0);
+      if (vDiff !== 0) return vDiff;
+      const aTime = new Date(a.created_at).getTime();
+      const bTime = new Date(b.created_at).getTime();
+      return bTime - aTime;
+    });
 
     if (filtered.length === 0) {
       container.innerHTML = `
         <div class="empty-state">
           <div class="empty-icon">?</div>
-          <div class="empty-text">no questions yet &mdash; be the first</div>
+          <div class="empty-text">пока нет вопросов &mdash; будьте первым</div>
         </div>`;
       return;
     }
 
     container.innerHTML = filtered.map((q, i) => {
-      const isVoted = voted.has(q.id);
-      const time = formatTime(q.timestamp);
-      const phaseLabel = q.phase === 'pre' ? 'before' : 'after';
-      const delay = i * 0.05;
+      const hasVoted = (q.voter_ids || []).includes(voterId);
+      const time = formatRelativeTime(q.created_at);
+      const phaseLabels = { before: 'до', during: 'во время', after: 'после' };
+      const phaseLabel = phaseLabels[q.phase] || q.phase;
+      const phaseClass = 'phase-' + q.phase;
+      const delay = i * 0.04;
+      const extraClass = q._isNew ? ' new-question' : (q._voteUpdated ? ' vote-updated' : '');
       return `
-        <div class="question-card" style="animation-delay: ${delay}s">
-          <div class="question-text">${escapeHtml(q.text)}</div>
+        <div class="question-card${extraClass}" style="animation-delay: ${delay}s" data-id="${q.id}">
+          <div class="question-text">${escapeHtml(q.question)}</div>
           <div class="question-meta">
             <div class="question-info">
-              <span class="question-author">${escapeHtml(q.author)}</span>
+              <span class="question-author">${escapeHtml(q.author || 'анонимно')}</span>
               <span class="question-time">${time}</span>
-              <span class="question-phase-badge">${phaseLabel}</span>
+              <span class="question-phase-badge ${phaseClass}">${phaseLabel}</span>
             </div>
-            <button class="btn-upvote ${isVoted ? 'voted' : ''}" onclick="upvoteQuestion('${q.id}')">
+            <button class="btn-upvote ${hasVoted ? 'voted' : ''}" onclick="upvoteQuestion('${q.id}')">
               <span class="arrow">&uarr;</span>
               <span>${q.votes || 0}</span>
             </button>
           </div>
         </div>`;
     }).join('');
+
+    // Clear animation flags
+    questions.forEach(q => { q._isNew = false; q._voteUpdated = false; });
+  }
+
+  // --- Relative Time (Russian) ---
+  function formatRelativeTime(dateStr) {
+    const now = Date.now();
+    const then = new Date(dateStr).getTime();
+    const diffSec = Math.floor((now - then) / 1000);
+
+    if (diffSec < 10) return 'только что';
+    if (diffSec < 60) return diffSec + ' сек назад';
+
+    const diffMin = Math.floor(diffSec / 60);
+    if (diffMin === 1) return '1 мин назад';
+    if (diffMin < 5) return diffMin + ' мин назад';
+    if (diffMin < 60) return diffMin + ' мин назад';
+
+    const diffHour = Math.floor(diffMin / 60);
+    if (diffHour === 1) return '1 час назад';
+    if (diffHour < 5) return diffHour + ' часа назад';
+    if (diffHour < 24) return diffHour + ' часов назад';
+
+    const diffDay = Math.floor(diffHour / 24);
+    if (diffDay === 1) return 'вчера';
+    if (diffDay < 7) return diffDay + ' дн назад';
+
+    // Fallback to date
+    const d = new Date(dateStr);
+    const pad = n => String(n).padStart(2, '0');
+    return pad(d.getDate()) + '.' + pad(d.getMonth() + 1) + ' ' + pad(d.getHours()) + ':' + pad(d.getMinutes());
   }
 
   // --- Helpers ---
-  function formatTime(ts) {
-    const d = new Date(ts);
-    const pad = n => String(n).padStart(2, '0');
-    const day = pad(d.getDate());
-    const month = pad(d.getMonth() + 1);
-    const hours = pad(d.getHours());
-    const mins = pad(d.getMinutes());
-    return `${day}.${month} ${hours}:${mins}`;
-  }
-
   function escapeHtml(str) {
     const div = document.createElement('div');
     div.textContent = str;
@@ -722,13 +1192,26 @@ textarea.form-input {
   function updateCharCount() {
     const textarea = document.getElementById('question-input');
     const counter = document.getElementById('char-count');
-    counter.textContent = textarea.value.length + ' / 1000';
+    const len = textarea.value.length;
+    counter.textContent = len + ' / 500';
+    counter.className = 'char-counter';
+    if (len > 450) counter.classList.add('warn');
+    if (len >= 500) counter.classList.add('over');
   }
+
+  // --- Update relative times periodically ---
+  setInterval(() => {
+    document.querySelectorAll('.question-time').forEach(el => {
+      const card = el.closest('.question-card');
+      if (!card) return;
+      const id = card.dataset.id;
+      const q = questions.find(q => q.id === id);
+      if (q) el.textContent = formatRelativeTime(q.created_at);
+    });
+  }, 30000);
 
   // --- Init ---
   document.getElementById('question-input').addEventListener('input', updateCharCount);
-
-  // Enter to submit (desktop convenience), Shift+Enter for newline
   document.getElementById('question-input').addEventListener('keydown', function(e) {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
@@ -736,7 +1219,23 @@ textarea.form-input {
     }
   });
 
-  renderQuestions();
+  // Restore saved name
+  const savedName = localStorage.getItem('qa-w1-name');
+  if (savedName) document.getElementById('name-input').value = savedName;
+  document.getElementById('name-input').addEventListener('change', function() {
+    localStorage.setItem('qa-w1-name', this.value);
+  });
+
+  // Boot
+  if (typeof window.supabase !== 'undefined') {
+    initSupabase().then(ok => {
+      if (!ok) goOffline();
+    });
+  } else {
+    // Supabase SDK not loaded — pure offline
+    goOffline();
+  }
+
 })();
 </script>
 </body>

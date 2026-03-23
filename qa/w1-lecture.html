@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Q&A — AI-Native Sprint — W1</title>
+<meta property="og:title" content="AI-Native Sprint — Q&A">
+<meta property="og:description" content="W1 — лекция 1 — Степан Гершуни">
+<meta property="og:type" content="website">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #161620;
+  --bg-deep: #0a0a0f;
+  --bg-card: #1c1c2e;
+  --bg-terminal: #141419;
+  --text: #e6edf3;
+  --text-dim: rgba(255,255,255,0.5);
+  --text-label: rgba(255,255,255,0.45);
+  --teal: #4dc9d4;
+  --teal-dim: rgba(77,201,212,0.15);
+  --teal-glow: rgba(77,201,212,0.3);
+  --green: #38d9a9;
+  --blue: #3b82f6;
+  --amber: #c89200;
+  --border: rgba(77,201,212,0.12);
+  --border-hover: rgba(77,201,212,0.3);
+  --grid-size: 60px;
+  --font-heading: 'Space Grotesk', sans-serif;
+  --font-body: 'IBM Plex Mono', monospace;
+  --font-code: 'JetBrains Mono', monospace;
+}
+
+html { height: 100%; }
+body {
+  min-height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* === EFFECT LAYERS === */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image:
+    linear-gradient(rgba(77,201,212,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(77,201,212,0.03) 1px, transparent 1px);
+  background-size: var(--grid-size) var(--grid-size);
+  pointer-events: none; z-index: 0;
+}
+.mesh {
+  position: fixed; inset: 0;
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(77,201,212,0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(59,130,246,0.06) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 80%, rgba(56,217,169,0.04) 0%, transparent 50%);
+  pointer-events: none; z-index: 0;
+}
+.grain {
+  position: fixed; inset: 0;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='5' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+  opacity: 0.14;
+  pointer-events: none; z-index: 9998;
+}
+.vignette {
+  position: fixed; inset: 0;
+  background: radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.4) 100%);
+  pointer-events: none; z-index: 9997;
+}
+.top-line {
+  position: fixed; top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--teal), transparent);
+  z-index: 10000;
+}
+
+/* === LAYOUT === */
+.container {
+  position: relative; z-index: 10;
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 24px 16px 40px;
+}
+
+/* === HEADER === */
+.header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+.header-label {
+  font-family: var(--font-code);
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--teal);
+  opacity: 0.7;
+  margin-bottom: 8px;
+}
+.header h1 {
+  font-family: var(--font-heading);
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.2;
+  margin-bottom: 6px;
+}
+.header-sub {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--text-dim);
+}
+.header-sub span {
+  color: var(--teal);
+  opacity: 0.8;
+}
+
+/* === PHASE TABS === */
+.phase-tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 24px;
+  background: var(--bg-deep);
+  border-radius: 12px;
+  padding: 4px;
+  border: 1px solid var(--border);
+}
+.phase-tab {
+  flex: 1;
+  padding: 10px 16px;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+  text-align: center;
+  border: none;
+  border-radius: 9px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: transparent;
+  color: var(--text-dim);
+  position: relative;
+}
+.phase-tab:hover {
+  color: var(--text);
+  background: rgba(255,255,255,0.03);
+}
+.phase-tab.active {
+  background: var(--teal-dim);
+  color: var(--teal);
+  box-shadow: 0 0 20px rgba(77,201,212,0.1);
+}
+.phase-tab .count {
+  display: inline-block;
+  min-width: 20px;
+  height: 20px;
+  line-height: 20px;
+  padding: 0 6px;
+  margin-left: 6px;
+  border-radius: 10px;
+  font-size: 11px;
+  font-family: var(--font-code);
+  background: rgba(255,255,255,0.06);
+  color: var(--text-dim);
+  vertical-align: middle;
+}
+.phase-tab.active .count {
+  background: rgba(77,201,212,0.2);
+  color: var(--teal);
+}
+
+/* === FORM === */
+.form-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 24px;
+  transition: border-color 0.3s ease;
+}
+.form-card:focus-within {
+  border-color: var(--border-hover);
+  box-shadow: 0 0 40px rgba(77,201,212,0.05);
+}
+.form-row {
+  margin-bottom: 12px;
+}
+.form-label {
+  display: block;
+  font-family: var(--font-code);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-label);
+  margin-bottom: 6px;
+}
+.form-input {
+  width: 100%;
+  padding: 10px 14px;
+  background: var(--bg-deep);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.form-input::placeholder {
+  color: var(--text-label);
+  opacity: 0.7;
+}
+.form-input:focus {
+  border-color: var(--teal);
+  box-shadow: 0 0 0 3px rgba(77,201,212,0.1);
+}
+textarea.form-input {
+  min-height: 80px;
+  resize: vertical;
+  line-height: 1.5;
+}
+.form-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+.form-hint {
+  font-size: 11px;
+  color: var(--text-label);
+  opacity: 0.6;
+}
+.btn-submit {
+  padding: 10px 28px;
+  background: linear-gradient(135deg, var(--teal), #3ba8b2);
+  border: none;
+  border-radius: 10px;
+  color: var(--bg-deep);
+  font-family: var(--font-heading);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.btn-submit:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 20px rgba(77,201,212,0.3);
+}
+.btn-submit:active {
+  transform: translateY(0);
+}
+.btn-submit.sent {
+  background: linear-gradient(135deg, var(--green), #2db590);
+  pointer-events: none;
+}
+
+/* === QUESTIONS LIST === */
+.questions-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+.questions-title {
+  font-family: var(--font-code);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-label);
+}
+.questions-sort {
+  font-family: var(--font-code);
+  font-size: 11px;
+  color: var(--text-dim);
+  opacity: 0.5;
+}
+
+.questions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.question-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 16px;
+  transition: all 0.3s ease;
+  animation: fadeUp 0.4s ease both;
+}
+.question-card:hover {
+  border-color: var(--border-hover);
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.question-text {
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text);
+  margin-bottom: 12px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+.question-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.question-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.question-author {
+  font-family: var(--font-code);
+  font-size: 12px;
+  color: var(--teal);
+  opacity: 0.7;
+}
+.question-time {
+  font-family: var(--font-code);
+  font-size: 11px;
+  color: var(--text-label);
+  opacity: 0.5;
+}
+.question-phase-badge {
+  font-family: var(--font-code);
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: var(--teal-dim);
+  color: var(--teal);
+  opacity: 0.6;
+}
+
+.btn-upvote {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text-dim);
+  font-family: var(--font-code);
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  flex-shrink: 0;
+}
+.btn-upvote:hover {
+  border-color: var(--border-hover);
+  color: var(--teal);
+  background: var(--teal-dim);
+}
+.btn-upvote.voted {
+  border-color: rgba(77,201,212,0.25);
+  color: var(--teal);
+  background: var(--teal-dim);
+}
+.btn-upvote .arrow {
+  display: inline-block;
+  transition: transform 0.25s ease;
+}
+.btn-upvote:hover .arrow,
+.btn-upvote.voted .arrow {
+  transform: translateY(-2px);
+}
+
+/* === EMPTY STATE === */
+.empty-state {
+  text-align: center;
+  padding: 48px 20px;
+  color: var(--text-dim);
+}
+.empty-icon {
+  font-size: 36px;
+  margin-bottom: 12px;
+  opacity: 0.3;
+}
+.empty-text {
+  font-family: var(--font-body);
+  font-size: 14px;
+  opacity: 0.5;
+}
+
+/* === FOOTER === */
+.footer {
+  margin-top: 48px;
+  padding: 20px 0;
+  text-align: center;
+  border-top: 1px solid var(--border);
+}
+.footer-text {
+  font-family: var(--font-code);
+  font-size: 11px;
+  color: var(--text-label);
+  opacity: 0.4;
+  margin-bottom: 6px;
+}
+.footer a {
+  font-family: var(--font-code);
+  font-size: 11px;
+  color: var(--teal);
+  opacity: 0.5;
+  text-decoration: none;
+  transition: opacity 0.3s;
+}
+.footer a:hover { opacity: 0.9; }
+
+/* === TOAST === */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(80px);
+  background: var(--bg-card);
+  border: 1px solid var(--teal);
+  border-radius: 12px;
+  padding: 12px 24px;
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--teal);
+  z-index: 10001;
+  opacity: 0;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4), 0 0 20px rgba(77,201,212,0.1);
+}
+.toast.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+
+/* === SCROLL === */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(77,201,212,0.15); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(77,201,212,0.3); }
+
+/* === RESPONSIVE === */
+@media (max-width: 480px) {
+  .container { padding: 16px 12px 32px; }
+  .header h1 { font-size: 22px; }
+  .phase-tab { padding: 9px 10px; font-size: 12px; }
+  .form-card { padding: 16px; }
+  .question-card { padding: 14px; }
+  .form-footer { flex-direction: column; align-items: stretch; }
+  .btn-submit { text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<div class="top-line"></div>
+<div class="mesh"></div>
+<div class="grain"></div>
+<div class="vignette"></div>
+
+<div class="container">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-label">sprint s2 &middot; q&amp;a</div>
+    <h1>AI-Native Sprint &mdash; Q&amp;A</h1>
+    <div class="header-sub">W1 &middot; <span>lecture 1</span> &middot; Stepan Gershuni</div>
+  </div>
+
+  <!-- Phase Tabs -->
+  <div class="phase-tabs">
+    <button class="phase-tab active" data-phase="pre" onclick="switchPhase('pre')">
+      before lecture <span class="count" id="count-pre">0</span>
+    </button>
+    <button class="phase-tab" data-phase="post" onclick="switchPhase('post')">
+      after lecture <span class="count" id="count-post">0</span>
+    </button>
+  </div>
+
+  <!-- Form -->
+  <div class="form-card">
+    <div class="form-row">
+      <label class="form-label" for="name-input">name</label>
+      <input class="form-input" id="name-input" type="text" placeholder="anonymous" autocomplete="off" maxlength="60">
+    </div>
+    <div class="form-row">
+      <label class="form-label" for="question-input">question</label>
+      <textarea class="form-input" id="question-input" placeholder="what would you like to ask?" maxlength="1000"></textarea>
+    </div>
+    <div class="form-footer">
+      <span class="form-hint" id="char-count">0 / 1000</span>
+      <button class="btn-submit" id="btn-submit" onclick="submitQuestion()">submit</button>
+    </div>
+  </div>
+
+  <!-- Questions -->
+  <div class="questions-header">
+    <span class="questions-title">questions</span>
+    <span class="questions-sort">sorted by votes</span>
+  </div>
+  <div class="questions-list" id="questions-list"></div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div class="footer-text">AI Mindset &times; CybOS &middot; AI-Native Sprint S2 &middot; 2026</div>
+    <a href="https://learn.aimindset.org" target="_blank" rel="noopener">learn.aimindset.org</a>
+  </div>
+
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+(function() {
+  'use strict';
+
+  // --- Config ---
+  const PAGE_ID = 'ainative-qa-w1-lecture';
+  const STORAGE_KEY = PAGE_ID + '-questions';
+  const VOTES_KEY = PAGE_ID + '-votes';
+  const USER_KEY = PAGE_ID + '-userid';
+
+  // --- State ---
+  let currentPhase = 'pre';
+
+  // --- User ID (prevents double-voting) ---
+  function getUserId() {
+    let id = localStorage.getItem(USER_KEY);
+    if (!id) {
+      id = 'u_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 8);
+      localStorage.setItem(USER_KEY, id);
+    }
+    return id;
+  }
+  const userId = getUserId();
+
+  // --- Storage ---
+  function getQuestions() {
+    try {
+      return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+    } catch { return []; }
+  }
+
+  function saveQuestions(questions) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(questions));
+  }
+
+  function getVotedSet() {
+    try {
+      return new Set(JSON.parse(localStorage.getItem(VOTES_KEY)) || []);
+    } catch { return new Set(); }
+  }
+
+  function saveVotedSet(set) {
+    localStorage.setItem(VOTES_KEY, JSON.stringify([...set]));
+  }
+
+  // --- Phase ---
+  window.switchPhase = function(phase) {
+    currentPhase = phase;
+    document.querySelectorAll('.phase-tab').forEach(tab => {
+      tab.classList.toggle('active', tab.dataset.phase === phase);
+    });
+    renderQuestions();
+  };
+
+  // --- Submit ---
+  window.submitQuestion = function() {
+    const nameInput = document.getElementById('name-input');
+    const questionInput = document.getElementById('question-input');
+    const btn = document.getElementById('btn-submit');
+    const text = questionInput.value.trim();
+
+    if (!text) {
+      questionInput.focus();
+      questionInput.style.borderColor = 'var(--amber)';
+      setTimeout(() => { questionInput.style.borderColor = ''; }, 1500);
+      return;
+    }
+
+    const name = nameInput.value.trim() || 'anonymous';
+    const question = {
+      id: 'q_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 6),
+      text: text,
+      author: name,
+      phase: currentPhase,
+      timestamp: Date.now(),
+      votes: 0,
+      userId: userId,
+    };
+
+    const questions = getQuestions();
+    questions.push(question);
+    saveQuestions(questions);
+
+    // Reset form
+    questionInput.value = '';
+    updateCharCount();
+    btn.textContent = 'sent!';
+    btn.classList.add('sent');
+    setTimeout(() => {
+      btn.textContent = 'submit';
+      btn.classList.remove('sent');
+    }, 1800);
+
+    showToast('question submitted');
+    renderQuestions();
+  };
+
+  // --- Upvote ---
+  window.upvoteQuestion = function(id) {
+    const voted = getVotedSet();
+    const questions = getQuestions();
+    const q = questions.find(q => q.id === id);
+    if (!q) return;
+
+    if (voted.has(id)) {
+      // Un-vote
+      voted.delete(id);
+      q.votes = Math.max(0, q.votes - 1);
+    } else {
+      voted.add(id);
+      q.votes = (q.votes || 0) + 1;
+    }
+
+    saveVotedSet(voted);
+    saveQuestions(questions);
+    renderQuestions();
+  };
+
+  // --- Render ---
+  function renderQuestions() {
+    const questions = getQuestions();
+    const voted = getVotedSet();
+    const container = document.getElementById('questions-list');
+
+    // Filter by phase
+    const filtered = questions.filter(q => q.phase === currentPhase);
+
+    // Sort by votes desc, then by timestamp desc
+    filtered.sort((a, b) => (b.votes || 0) - (a.votes || 0) || b.timestamp - a.timestamp);
+
+    // Update counts
+    const preCount = questions.filter(q => q.phase === 'pre').length;
+    const postCount = questions.filter(q => q.phase === 'post').length;
+    document.getElementById('count-pre').textContent = preCount;
+    document.getElementById('count-post').textContent = postCount;
+
+    if (filtered.length === 0) {
+      container.innerHTML = `
+        <div class="empty-state">
+          <div class="empty-icon">?</div>
+          <div class="empty-text">no questions yet &mdash; be the first</div>
+        </div>`;
+      return;
+    }
+
+    container.innerHTML = filtered.map((q, i) => {
+      const isVoted = voted.has(q.id);
+      const time = formatTime(q.timestamp);
+      const phaseLabel = q.phase === 'pre' ? 'before' : 'after';
+      const delay = i * 0.05;
+      return `
+        <div class="question-card" style="animation-delay: ${delay}s">
+          <div class="question-text">${escapeHtml(q.text)}</div>
+          <div class="question-meta">
+            <div class="question-info">
+              <span class="question-author">${escapeHtml(q.author)}</span>
+              <span class="question-time">${time}</span>
+              <span class="question-phase-badge">${phaseLabel}</span>
+            </div>
+            <button class="btn-upvote ${isVoted ? 'voted' : ''}" onclick="upvoteQuestion('${q.id}')">
+              <span class="arrow">&uarr;</span>
+              <span>${q.votes || 0}</span>
+            </button>
+          </div>
+        </div>`;
+    }).join('');
+  }
+
+  // --- Helpers ---
+  function formatTime(ts) {
+    const d = new Date(ts);
+    const pad = n => String(n).padStart(2, '0');
+    const day = pad(d.getDate());
+    const month = pad(d.getMonth() + 1);
+    const hours = pad(d.getHours());
+    const mins = pad(d.getMinutes());
+    return `${day}.${month} ${hours}:${mins}`;
+  }
+
+  function escapeHtml(str) {
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  function showToast(msg) {
+    const toast = document.getElementById('toast');
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2200);
+  }
+
+  function updateCharCount() {
+    const textarea = document.getElementById('question-input');
+    const counter = document.getElementById('char-count');
+    counter.textContent = textarea.value.length + ' / 1000';
+  }
+
+  // --- Init ---
+  document.getElementById('question-input').addEventListener('input', updateCharCount);
+
+  // Enter to submit (desktop convenience), Shift+Enter for newline
+  document.getElementById('question-input').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      submitQuestion();
+    }
+  });
+
+  renderQuestions();
+})();
+</script>
+</body>
+</html>

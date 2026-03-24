@@ -1786,8 +1786,8 @@ function toggleAutoPush() { autoPushEnabled = !autoPushEnabled; document.getElem
 function startAutoPush() { stopAutoPush(); autoPushTimer = setInterval(() => { if (isDirty && getGhToken()) { saveToGitHub(); isDirty = false; } }, 60000); }
 function stopAutoPush() { clearInterval(autoPushTimer); }
 
-function saveToLocal() { const data = captureState(); try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch(e) {} setStatus('saved','auto-saved'); }
-function loadFromLocal() { try { const raw = localStorage.getItem(STORAGE_KEY); if (!raw) return false; const data = JSON.parse(raw); if (!data.slides?.length) return false; document.querySelectorAll('.slide').forEach(s => s.remove()); const topLine = document.querySelector('.top-line'); data.slides.forEach(html => { const w = document.createElement('div'); w.innerHTML = html; topLine.after(w.firstElementChild); }); initSlides(); showSlide(data.current||0); return true; } catch(e) { return false; } }
+function saveToLocal() { const data = captureState(); data._v2fix = true; try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch(e) {} setStatus('saved','auto-saved'); }
+function loadFromLocal() { try { const raw = localStorage.getItem(STORAGE_KEY); if (!raw) return false; const data = JSON.parse(raw); if (!data.slides?.length) return false; document.querySelectorAll('.slide').forEach(s => s.remove()); const topLine = document.querySelector('.top-line'); const frag = document.createDocumentFragment(); data.slides.forEach(html => { const w = document.createElement('div'); w.innerHTML = html; frag.appendChild(w.firstElementChild); }); topLine.after(frag); initSlides(); showSlide(data.current||0); return true; } catch(e) { return false; } }
 window.addEventListener('beforeunload', () => { if (editMode) saveToLocal(); });
 
 function getGhToken() { return localStorage.getItem(TOKEN_KEY); }
@@ -1825,6 +1825,8 @@ function buildCleanHTML() {
 document.getElementById('layout-picker').addEventListener('click', (e) => { if (e.target === e.currentTarget) closeLayoutPicker(); });
 document.getElementById('gh-modal').addEventListener('click', (e) => { if (e.target === e.currentTarget) closeGhModal(); });
 
+// Clear stale localStorage from buggy version (slides were reversed)
+try { const cached = localStorage.getItem(STORAGE_KEY); if (cached) { const d = JSON.parse(cached); if (!d._v2fix) { localStorage.removeItem(STORAGE_KEY); } } } catch(e) {}
 const loaded = loadFromLocal();
 if (!loaded) showSlide(current);
 updateTimeline();

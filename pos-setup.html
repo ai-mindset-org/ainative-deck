@@ -873,14 +873,11 @@ body.edit-mode #builder-toolbar { display: flex; }
         <div class="stat-label">90-day plan<br><span class="blue">week 2&ndash;3</span></div>
       </div>
     </div>
-    <table class="styled-table" style="max-width:700px; margin-top:24px; font-size:15px;">
-      <thead><tr><th style="color:var(--text-dim)">Principle</th><th style="color:var(--text-dim)">Unix</th><th style="color:var(--teal)">POS</th></tr></thead>
-      <tbody>
-        <tr><td>Config</td><td class="dim">/etc/</td><td class="teal">CLAUDE.md</td></tr>
-        <tr><td>Executable</td><td class="dim">script.sh</td><td class="teal">Skill</td></tr>
-        <tr><td>Driver</td><td class="dim">kernel module</td><td class="teal">MCP</td></tr>
-      </tbody>
-    </table>
+    <div class="layers" style="max-width:700px; margin-top:20px;">
+      <div class="layer" style="border-color:rgba(77,201,212,0.3)"><div class="layer-num teal">01</div><div class="layer-name" style="color:var(--teal)">CLAUDE.md</div><div class="layer-desc">правила &mdash; агент читает при каждом запуске</div></div>
+      <div class="layer" style="border-color:rgba(56,217,169,0.3)"><div class="layer-num green">02</div><div class="layer-name" style="color:var(--green)">скиллы</div><div class="layer-desc">markdown-инструкция &rarr; одна команда &rarr; цепочка действий</div></div>
+      <div class="layer" style="border-color:rgba(59,130,246,0.3)"><div class="layer-num blue">03</div><div class="layer-name" style="color:var(--blue)">MCP</div><div class="layer-desc">подключения к Calendar, Telegram, Linear, Krisp</div></div>
+    </div>
   </div>
 </div>
 
@@ -912,18 +909,25 @@ body.edit-mode #builder-toolbar { display: flex; }
   <div class="slide-counter"><span class="current">7</span>/<span class="total"></span></div>
   <img class="slide-logo" src="logo.png" alt="">
   <div class="slide-inner" style="align-items:center; text-align:center;">
-    <div class="label">// KEYBOARD SPEED</div>
-    <h2>your bottleneck is not the model &mdash; it's <span class="red">you</span></h2>
-    <div class="terminal" style="max-width:800px; margin:16px auto 0;">
-      <div class="terminal-header">
-        <div class="terminal-dot r"></div><div class="terminal-dot y"></div><div class="terminal-dot g"></div>
-        <div class="terminal-title">keyboard.aimindset.org</div>
+    <div class="label">// БАЗОВАЯ ПРОДУКТИВНОСТЬ</div>
+    <h2>ваш bottleneck &mdash; не модель, а <span class="red">скорость ввода</span></h2>
+    <div class="stat-grid" style="margin-top:20px; max-width:800px;">
+      <div class="stat-box">
+        <div class="num teal" style="font-size:36px">68</div>
+        <div class="stat-label">часов в год<br><span class="dim" style="font-size:12px">экономия от базовых настроек</span></div>
       </div>
-      <div style="width:100%; height:360px; overflow:hidden; background:#161620;">
-        <iframe src="https://keyboard.aimindset.org/" style="width:100%; height:500px; border:none; transform:scale(0.9); transform-origin:top left; pointer-events:auto;" loading="lazy"></iframe>
+      <div class="stat-box">
+        <div class="num amber" style="font-size:36px">3 сек</div>
+        <div class="stat-label">поиск приложения<br><span class="dim" style="font-size:12px">&times; 50 раз в день = 2.5 мин</span></div>
+      </div>
+      <div class="stat-box">
+        <div class="num red" style="font-size:36px">30 сек</div>
+        <div class="stat-label">скопировать адрес<br><span class="dim" style="font-size:12px">сниппет: 30 сек &rarr; 3 сек</span></div>
       </div>
     </div>
+    <p style="font-size:16px; color:var(--text-dim); margin-top:16px; max-width:650px">клавиатура, автозамена, Karabiner, BetterTouchTool &mdash; до AI, до инструментов. физический ввод.</p>
     <a class="link-btn" href="https://keyboard.aimindset.org/" target="_blank" style="margin-top:12px; font-size:16px; padding:10px 20px">keyboard.aimindset.org &nearr;</a>
+    <a class="link-btn" href="https://mac-productivity-guide.netlify.app/" target="_blank" style="margin-top:8px; font-size:14px; padding:8px 16px">mac productivity guide &nearr;</a>
   </div>
 </div>
 
@@ -1131,7 +1135,12 @@ body.edit-mode #builder-toolbar { display: flex; }
         <span class="dim">&ndash; mission &rarr; agent reads &rarr; decides tone, priorities</span>
       </div>
     </div>
-    <p style="font-size:16px; color:var(--text-dim); margin-top:12px">convention = <span class="teal">agreement</span> between you and your agent</p>
+    <div style="display:flex; gap:12px; margin-top:12px; flex-wrap:wrap; justify-content:center;">
+      <a class="link-btn" href="https://ai-mindset-org.github.io/ainative-lab/naming.html" target="_blank" style="font-size:14px; padding:8px 16px">naming cheatsheet &nearr;</a>
+      <a class="link-btn" href="https://github.com/ai-mindset-org/ainative-lab" target="_blank" style="font-size:14px; padding:8px 16px">GitHub: ainative-lab &nearr;</a>
+      <a class="link-btn" href="https://github.com/ai-mindset-org/ainative-deck" target="_blank" style="font-size:14px; padding:8px 16px">GitHub: this deck &nearr;</a>
+    </div>
+    <p style="font-size:15px; color:var(--text-dim); margin-top:8px">конвенция = <span class="teal">соглашение</span> между вами и агентом</p>
   </div>
 </div>
 
@@ -1143,13 +1152,13 @@ body.edit-mode #builder-toolbar { display: flex; }
     <div class="label">// RULES &rarr; AUTONOMY</div>
     <h2>why rules <span class="teal">enable</span> autonomy</h2>
     <div class="layers" style="max-width:750px; margin-top:16px;">
-      <div class="layer" style="border-color:rgba(255,107,107,0.3)"><div class="layer-num red">L0</div><div class="layer-name" style="color:var(--red)">no rules</div><div class="layer-desc">manual everything, hallucinations, zero trust</div></div>
-      <div class="layer"><div class="layer-num amber">L1</div><div class="layer-name" style="color:var(--amber)">basic rules</div><div class="layer-desc">CLAUDE.md exists but sparse, agent drafts, human rewrites</div></div>
-      <div class="layer"><div class="layer-num blue">L2</div><div class="layer-name" style="color:var(--blue)">guardrails</div><div class="layer-desc">naming, forbidden actions, skills &mdash; agent executes within bounds</div></div>
-      <div class="layer" style="border-color:rgba(77,201,212,0.4)"><div class="layer-num teal">L3</div><div class="layer-name" style="color:var(--teal)">clear rules</div><div class="layer-desc">autonomous &mdash; agent decides within your value system</div></div>
+      <div class="layer" style="border-color:rgba(255,107,107,0.3)"><div class="layer-num red">L0</div><div class="layer-name" style="color:var(--red)">нет правил</div><div class="layer-desc">ручное управление, галлюцинации, zero trust</div></div>
+      <div class="layer"><div class="layer-num amber">L1</div><div class="layer-name" style="color:var(--amber)">базовые</div><div class="layer-desc">CLAUDE.md есть, но скудный. агент пишет черновик, ты переписываешь</div></div>
+      <div class="layer"><div class="layer-num blue">L2</div><div class="layer-name" style="color:var(--blue)">guardrails</div><div class="layer-desc">naming, запреты, скиллы &mdash; агент исполняет в рамках</div></div>
+      <div class="layer" style="border-color:rgba(77,201,212,0.4)"><div class="layer-num teal">L3</div><div class="layer-name" style="color:var(--teal)">полные правила</div><div class="layer-desc">автономия &mdash; агент решает в рамках ваших ценностей и стратегии</div></div>
     </div>
-    <div class="quote" style="margin-top:20px; max-width:700px;">
-      <p style="font-size:17px">&laquo;strategy used to be IPO fluff. now agents read it and make decisions.&raquo;</p>
+    <div class="quote" style="margin-top:16px; max-width:700px;">
+      <p style="font-size:17px">&laquo;раньше стратегия и vision были шелухой для IPO. сейчас агент читает вашу стратегию и принимает решения на её основе.&raquo;</p>
     </div>
   </div>
 </div>

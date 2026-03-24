@@ -11,6 +11,7 @@
 <meta property="og:url" content="https://ai-mindset-org.github.io/ainative-deck/pos-setup.html">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://ai-mindset-org.github.io/ainative-deck/assets/og-pos-setup.png">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23161620'/><text x='16' y='22' text-anchor='middle' fill='%234dc9d4' font-size='18' font-family='monospace'>P</text></svg>">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -430,34 +431,35 @@ p, li { font-size: 20px; line-height: 1.7; color: rgba(255,255,255,0.8); }
 #notes-panel.visible { display: block; }
 #notes-panel h4 { font-family: var(--font-heading); font-size: 14px; color: var(--teal); margin-bottom: 8px; }
 
-/* === TOC OVERLAY === */
-#toc-overlay {
-  display: none; position: fixed; inset: 0;
-  background: rgba(10,10,15,0.96);
+/* === TOC SIDE PANEL === */
+#toc-panel {
+  position: fixed; top: 0; right: -320px; bottom: 0;
+  width: 320px; background: rgba(10,10,15,0.94);
   backdrop-filter: blur(16px); z-index: 20000;
-  overflow-y: auto; padding: 40px;
+  overflow-y: auto; padding: 20px 16px;
+  border-left: 1px solid var(--border);
+  transition: right 0.3s ease;
 }
-#toc-overlay.visible { display: block; }
-#toc-overlay h2 { font-family: var(--font-heading); font-size: 28px; color: #fff; margin-bottom: 24px; text-align: center; }
-#toc-overlay .toc-grid {
-  display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
-  max-width: 1100px; margin: 0 auto;
+#toc-panel.visible { right: 0; }
+#toc-panel h2 { font-family: var(--font-heading); font-size: 16px; color: #fff; margin-bottom: 16px; letter-spacing: 1px; }
+#toc-panel .toc-grid {
+  display: flex; flex-direction: column; gap: 4px;
 }
-#toc-overlay .toc-item {
-  background: var(--bg-card); border: 1px solid var(--border);
-  border-radius: 10px; padding: 12px; cursor: pointer;
-  transition: all 0.2s; min-height: 80px;
+#toc-panel .toc-item {
+  background: transparent; border: 1px solid transparent;
+  border-radius: 6px; padding: 6px 10px; cursor: pointer;
+  transition: all 0.2s; display: flex; align-items: baseline; gap: 8px;
 }
-#toc-overlay .toc-item:hover { border-color: var(--teal); background: var(--teal-dim); }
-#toc-overlay .toc-item.current { border-color: var(--teal); box-shadow: 0 0 16px var(--teal-dim); }
-#toc-overlay .toc-num { font-family: var(--font-heading); font-size: 12px; color: var(--teal); font-weight: 700; }
-#toc-overlay .toc-title { font-size: 11px; color: rgba(255,255,255,0.7); margin-top: 4px; line-height: 1.3; }
-#toc-overlay .toc-block-header {
-  grid-column: 1 / -1;
-  font-family: var(--font-heading); font-size: 14px;
-  color: var(--teal); padding: 8px 0 4px;
+#toc-panel .toc-item:hover { border-color: var(--border-hover); background: var(--teal-dim); }
+#toc-panel .toc-item.current { border-color: var(--teal); background: rgba(77,201,212,0.08); }
+#toc-panel .toc-num { font-family: var(--font-heading); font-size: 11px; color: var(--teal); font-weight: 700; min-width: 22px; }
+#toc-panel .toc-title { font-size: 12px; color: rgba(255,255,255,0.7); line-height: 1.3; }
+#toc-panel .toc-block-header {
+  font-family: var(--font-heading); font-size: 12px;
+  color: var(--teal); padding: 10px 0 4px;
   border-bottom: 1px solid var(--border);
-  margin-top: 8px;
+  margin-top: 6px; letter-spacing: 1px;
+  text-transform: uppercase;
 }
 
 /* === BREAK SLIDE === */
@@ -743,7 +745,7 @@ body.edit-mode #builder-toolbar { display: flex; }
   #builder-toolbar { flex-wrap: wrap; max-width: 90vw; }
   #preview-panel { display: none !important; }
   .layout-options { grid-template-columns: repeat(2, 1fr); }
-  #toc-overlay .toc-grid { grid-template-columns: repeat(2, 1fr); }
+  #toc-panel { width: 260px; }
   #timeline-bar { display: none; }
 }
 </style>
@@ -877,7 +879,7 @@ body.edit-mode #builder-toolbar { display: flex; }
     <h1>barriers to <span class="teal">access</span></h1>
     <p class="dim" style="margin-top:12px; max-width:700px; font-size:22px">if you think 3 minutes before typing a prompt,<br>you are not experimenting</p>
     <div class="svg-container" style="margin-top:32px">
-      <svg viewBox="0 0 600 250" xmlns="http://www.w3.org/2000/svg" style="max-width:500px">
+      <svg viewBox="0 0 780 325" xmlns="http://www.w3.org/2000/svg" style="max-width:650px">
         <defs>
           <linearGradient id="wallGrad" x1="0" y1="0" x2="1" y2="0">
             <stop offset="0%" stop-color="#4dc9d4" stop-opacity="0.3"/>
@@ -886,26 +888,26 @@ body.edit-mode #builder-toolbar { display: flex; }
           </linearGradient>
           <filter id="glow1"><feGaussianBlur stdDeviation="3" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
         </defs>
-        <circle cx="120" cy="100" r="24" fill="none" stroke="#4dc9d4" stroke-width="2" opacity="0.8"/>
-        <line x1="120" y1="124" x2="120" y2="180" stroke="#4dc9d4" stroke-width="2" opacity="0.6"/>
-        <line x1="120" y1="145" x2="95" y2="165" stroke="#4dc9d4" stroke-width="2" opacity="0.6"/>
-        <line x1="120" y1="145" x2="145" y2="165" stroke="#4dc9d4" stroke-width="2" opacity="0.6"/>
-        <line x1="120" y1="180" x2="100" y2="220" stroke="#4dc9d4" stroke-width="2" opacity="0.6"/>
-        <line x1="120" y1="180" x2="140" y2="220" stroke="#4dc9d4" stroke-width="2" opacity="0.6"/>
-        <text x="120" y="245" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="IBM Plex Mono" font-size="12">you</text>
-        <rect x="240" y="50" width="40" height="170" rx="4" fill="url(#wallGrad)" opacity="0.6">
-          <animate attributeName="width" values="40;8;40" dur="4s" repeatCount="indefinite"/>
-          <animate attributeName="x" values="240;256;240" dur="4s" repeatCount="indefinite"/>
+        <circle cx="156" cy="130" r="32" fill="none" stroke="#4dc9d4" stroke-width="2.5" opacity="0.8"/>
+        <line x1="156" y1="162" x2="156" y2="234" stroke="#4dc9d4" stroke-width="2.5" opacity="0.6"/>
+        <line x1="156" y1="189" x2="124" y2="215" stroke="#4dc9d4" stroke-width="2.5" opacity="0.6"/>
+        <line x1="156" y1="189" x2="189" y2="215" stroke="#4dc9d4" stroke-width="2.5" opacity="0.6"/>
+        <line x1="156" y1="234" x2="130" y2="286" stroke="#4dc9d4" stroke-width="2.5" opacity="0.6"/>
+        <line x1="156" y1="234" x2="182" y2="286" stroke="#4dc9d4" stroke-width="2.5" opacity="0.6"/>
+        <text x="156" y="315" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="IBM Plex Mono" font-size="16">you</text>
+        <rect x="312" y="65" width="52" height="221" rx="5" fill="url(#wallGrad)" opacity="0.6">
+          <animate attributeName="width" values="52;10;52" dur="4s" repeatCount="indefinite"/>
+          <animate attributeName="x" values="312;333;312" dur="4s" repeatCount="indefinite"/>
         </rect>
-        <text x="260" y="245" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-family="IBM Plex Mono" font-size="12">friction</text>
-        <rect x="400" y="80" rx="12" width="80" height="80" fill="none" stroke="#3b82f6" stroke-width="2" opacity="0.8" filter="url(#glow1)"/>
-        <text x="440" y="128" text-anchor="middle" fill="#3b82f6" font-family="Space Grotesk" font-size="24" font-weight="600">AI</text>
-        <text x="440" y="245" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="IBM Plex Mono" font-size="12">agent</text>
-        <line x1="170" y1="125" x2="230" y2="125" stroke="rgba(77,201,212,0.4)" stroke-width="1" stroke-dasharray="4,4">
-          <animate attributeName="stroke-dashoffset" from="0" to="-8" dur="1s" repeatCount="indefinite"/>
+        <text x="338" y="315" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-family="IBM Plex Mono" font-size="16">friction</text>
+        <rect x="520" y="104" rx="16" width="104" height="104" fill="none" stroke="#3b82f6" stroke-width="2.5" opacity="0.8" filter="url(#glow1)"/>
+        <text x="572" y="166" text-anchor="middle" fill="#3b82f6" font-family="Space Grotesk" font-size="32" font-weight="600">AI</text>
+        <text x="572" y="315" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="IBM Plex Mono" font-size="16">agent</text>
+        <line x1="221" y1="163" x2="299" y2="163" stroke="rgba(77,201,212,0.4)" stroke-width="2" stroke-dasharray="5,5">
+          <animate attributeName="stroke-dashoffset" from="0" to="-10" dur="1s" repeatCount="indefinite"/>
         </line>
-        <line x1="310" y1="125" x2="390" y2="125" stroke="rgba(59,130,246,0.4)" stroke-width="1" stroke-dasharray="4,4">
-          <animate attributeName="stroke-dashoffset" from="0" to="-8" dur="1s" repeatCount="indefinite"/>
+        <line x1="403" y1="163" x2="507" y2="163" stroke="rgba(59,130,246,0.4)" stroke-width="2" stroke-dasharray="5,5">
+          <animate attributeName="stroke-dashoffset" from="0" to="-10" dur="1s" repeatCount="indefinite"/>
         </line>
       </svg>
     </div>
@@ -949,28 +951,53 @@ body.edit-mode #builder-toolbar { display: flex; }
     <h2>voice &rarr; <span class="teal">structured data</span></h2>
     <p class="dim" style="font-size:17px; margin-bottom:8px">calls are not artifacts. calls = data. data needs structure.</p>
     <div class="svg-container">
-      <svg viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg" style="max-width:750px">
-        <defs><filter id="glow2"><feGaussianBlur stdDeviation="2" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
-        <g transform="translate(60,100)"><circle r="30" fill="none" stroke="#4dc9d4" stroke-width="1.5" opacity="0.8"/><text y="5" text-anchor="middle" fill="#4dc9d4" font-family="Space Grotesk" font-size="12" font-weight="600">Voice</text><text y="55" text-anchor="middle" fill="rgba(255,255,255,0.35)" font-family="IBM Plex Mono" font-size="10">dictation</text></g>
-        <g transform="translate(220,100)"><rect x="-50" y="-25" width="100" height="50" rx="8" fill="none" stroke="#3b82f6" stroke-width="1.5" opacity="0.8"/><text y="5" text-anchor="middle" fill="#3b82f6" font-family="Space Grotesk" font-size="12" font-weight="600">Krisp</text><text y="55" text-anchor="middle" fill="rgba(255,255,255,0.35)" font-family="IBM Plex Mono" font-size="10">transcribe</text></g>
-        <g transform="translate(400,100)"><rect x="-55" y="-25" width="110" height="50" rx="8" fill="none" stroke="#38d9a9" stroke-width="1.5" opacity="0.8"/><text y="5" text-anchor="middle" fill="#38d9a9" font-family="Space Grotesk" font-size="12" font-weight="600">Transcript</text><text y="55" text-anchor="middle" fill="rgba(255,255,255,0.35)" font-family="IBM Plex Mono" font-size="10">raw text</text></g>
-        <g transform="translate(580,100)"><rect x="-60" y="-25" width="120" height="50" rx="8" fill="none" stroke="#c89200" stroke-width="1.5" opacity="0.8"/><text y="5" text-anchor="middle" fill="#c89200" font-family="Space Grotesk" font-size="12" font-weight="600">Structured</text><text y="55" text-anchor="middle" fill="rgba(255,255,255,0.35)" font-family="IBM Plex Mono" font-size="10">action items</text></g>
-        <g transform="translate(740,100)"><circle r="30" fill="none" stroke="#4dc9d4" stroke-width="1.5" opacity="0.8" filter="url(#glow2)"/><text y="5" text-anchor="middle" fill="#4dc9d4" font-family="Space Grotesk" font-size="12" font-weight="600">Context</text><text y="55" text-anchor="middle" fill="rgba(255,255,255,0.35)" font-family="IBM Plex Mono" font-size="10">POS input</text></g>
-        <line x1="95" y1="100" x2="165" y2="100" stroke="rgba(77,201,212,0.4)" stroke-width="1"/>
-        <line x1="275" y1="100" x2="340" y2="100" stroke="rgba(59,130,246,0.4)" stroke-width="1"/>
-        <line x1="460" y1="100" x2="515" y2="100" stroke="rgba(56,217,169,0.4)" stroke-width="1"/>
-        <line x1="645" y1="100" x2="705" y2="100" stroke="rgba(200,146,0,0.4)" stroke-width="1"/>
-        <circle r="3" fill="#4dc9d4" opacity="0.8"><animateMotion path="M95,100 L165,100" dur="2s" repeatCount="indefinite"/></circle>
-        <circle r="3" fill="#3b82f6" opacity="0.8"><animateMotion path="M275,100 L340,100" dur="2s" repeatCount="indefinite" begin="0.5s"/></circle>
-        <circle r="3" fill="#38d9a9" opacity="0.8"><animateMotion path="M460,100 L515,100" dur="2s" repeatCount="indefinite" begin="1s"/></circle>
-        <circle r="3" fill="#c89200" opacity="0.8"><animateMotion path="M645,100 L705,100" dur="2s" repeatCount="indefinite" begin="1.5s"/></circle>
+      <svg viewBox="0 0 1040 260" xmlns="http://www.w3.org/2000/svg" style="max-width:900px">
+        <defs><filter id="glow2"><feGaussianBlur stdDeviation="3" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+        <g transform="translate(78,130)"><circle r="40" fill="none" stroke="#4dc9d4" stroke-width="2" opacity="0.8"/><text y="6" text-anchor="middle" fill="#4dc9d4" font-family="Space Grotesk" font-size="16" font-weight="600">Voice</text><text y="65" text-anchor="middle" fill="rgba(255,255,255,0.35)" font-family="IBM Plex Mono" font-size="13">dictation</text></g>
+        <g transform="translate(286,130)"><rect x="-65" y="-33" width="130" height="66" rx="10" fill="none" stroke="#3b82f6" stroke-width="2" opacity="0.8"/><text y="6" text-anchor="middle" fill="#3b82f6" font-family="Space Grotesk" font-size="16" font-weight="600">Krisp</text><text y="65" text-anchor="middle" fill="rgba(255,255,255,0.35)" font-family="IBM Plex Mono" font-size="13">transcribe</text></g>
+        <g transform="translate(520,130)"><rect x="-72" y="-33" width="143" height="66" rx="10" fill="none" stroke="#38d9a9" stroke-width="2" opacity="0.8"/><text y="6" text-anchor="middle" fill="#38d9a9" font-family="Space Grotesk" font-size="16" font-weight="600">Transcript</text><text y="65" text-anchor="middle" fill="rgba(255,255,255,0.35)" font-family="IBM Plex Mono" font-size="13">raw text</text></g>
+        <g transform="translate(754,130)"><rect x="-78" y="-33" width="156" height="66" rx="10" fill="none" stroke="#c89200" stroke-width="2" opacity="0.8"/><text y="6" text-anchor="middle" fill="#c89200" font-family="Space Grotesk" font-size="16" font-weight="600">Structured</text><text y="65" text-anchor="middle" fill="rgba(255,255,255,0.35)" font-family="IBM Plex Mono" font-size="13">action items</text></g>
+        <g transform="translate(962,130)"><circle r="40" fill="none" stroke="#4dc9d4" stroke-width="2" opacity="0.8" filter="url(#glow2)"/><text y="6" text-anchor="middle" fill="#4dc9d4" font-family="Space Grotesk" font-size="16" font-weight="600">Context</text><text y="65" text-anchor="middle" fill="rgba(255,255,255,0.35)" font-family="IBM Plex Mono" font-size="13">POS input</text></g>
+        <line x1="124" y1="130" x2="215" y2="130" stroke="rgba(77,201,212,0.4)" stroke-width="2"/>
+        <line x1="358" y1="130" x2="442" y2="130" stroke="rgba(59,130,246,0.4)" stroke-width="2"/>
+        <line x1="598" y1="130" x2="670" y2="130" stroke="rgba(56,217,169,0.4)" stroke-width="2"/>
+        <line x1="839" y1="130" x2="917" y2="130" stroke="rgba(200,146,0,0.4)" stroke-width="2"/>
+        <circle r="4" fill="#4dc9d4" opacity="0.8"><animateMotion path="M124,130 L215,130" dur="2s" repeatCount="indefinite"/></circle>
+        <circle r="4" fill="#3b82f6" opacity="0.8"><animateMotion path="M358,130 L442,130" dur="2s" repeatCount="indefinite" begin="0.5s"/></circle>
+        <circle r="4" fill="#38d9a9" opacity="0.8"><animateMotion path="M598,130 L670,130" dur="2s" repeatCount="indefinite" begin="1s"/></circle>
+        <circle r="4" fill="#c89200" opacity="0.8"><animateMotion path="M839,130 L917,130" dur="2s" repeatCount="indefinite" begin="1.5s"/></circle>
       </svg>
     </div>
   </div>
 </div>
 
-<!-- ==================== SLIDE 9: CONVENTION ==================== -->
-<div class="slide" id="s9" data-block="3" data-notes="Timing: ~12 min. Convention = agreement. Not rules imposed, but rules agreed upon. Between you, your team, and your agents.">
+<!-- ==================== SLIDE 9: KEYBOARD ==================== -->
+<div class="slide" id="s9" data-block="2" data-notes="Timing: ~10 min. keyboard.aimindset.org reference. Keyboard speed is your bottleneck, not the model. Show the site.">
+  <div class="slide-counter"><span class="current">9</span>/<span class="total"></span></div>
+  <img class="slide-logo" src="logo.png" alt="">
+  <div class="slide-inner" style="align-items:center; text-align:center;">
+    <div class="label">// KEYBOARD SPEED</div>
+    <h2>if you type 30 wpm &mdash; <span class="red">that's</span> your bottleneck</h2>
+    <div class="terminal" style="max-width:600px; margin:20px auto 0; text-align:left;">
+      <div class="terminal-header">
+        <div class="terminal-dot r"></div><div class="terminal-dot y"></div><div class="terminal-dot g"></div>
+        <div class="terminal-title">keyboard.aimindset.org</div>
+      </div>
+      <div class="terminal-body" style="font-size:14px">
+        <span class="hl">keyboard optimization for AI-native workflow</span><br><br>
+        <span class="out">shortcuts:</span> Cmd+Space (Raycast), Ctrl+L (Claude)<br>
+        <span class="out">text expansion:</span> snippets for common prompts<br>
+        <span class="out">voice input:</span> dictation as primary input<br>
+        <span class="out">layout:</span> optimized for speed, not QWERTY defaults<br><br>
+        <span class="dim">goal: input speed should not be the constraint</span>
+      </div>
+    </div>
+    <a class="link-btn" href="https://keyboard.aimindset.org/" target="_blank" style="margin-top:16px; font-size:16px; padding:10px 20px">keyboard.aimindset.org &nearr;</a>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 10: CONVENTION ==================== -->
+<div class="slide" id="s10" data-block="3" data-notes="Timing: ~12 min. Convention = agreement. Not rules imposed, but rules agreed upon. Between you, your team, and your agents.">
   <div class="slide-counter"><span class="current">9</span>/<span class="total"></span></div>
   <img class="slide-logo" src="logo.png" alt="">
   <div class="slide-inner" style="align-items:center; text-align:center;">
@@ -979,17 +1006,17 @@ body.edit-mode #builder-toolbar { display: flex; }
     <p style="font-size:28px; font-family:var(--font-heading); color:#fff; margin:16px 0 8px">an <span class="teal">AGREEMENT</span></p>
     <p class="dim" style="font-size:18px; max-width:600px; margin-bottom:24px">between you, your team, and your agents.<br>not rules imposed &mdash; rules agreed upon.</p>
     <div class="svg-container">
-      <svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg" style="max-width:350px">
-        <defs><filter id="glow3"><feGaussianBlur stdDeviation="3"/><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
-        <line x1="200" y1="60" x2="80" y2="220" stroke="rgba(77,201,212,0.2)" stroke-width="1" stroke-dasharray="6,4"><animate attributeName="stroke-opacity" values="0.15;0.4;0.15" dur="3s" repeatCount="indefinite"/></line>
-        <line x1="200" y1="60" x2="320" y2="220" stroke="rgba(59,130,246,0.2)" stroke-width="1" stroke-dasharray="6,4"><animate attributeName="stroke-opacity" values="0.15;0.4;0.15" dur="3s" repeatCount="indefinite" begin="1s"/></line>
-        <line x1="80" y1="220" x2="320" y2="220" stroke="rgba(56,217,169,0.2)" stroke-width="1" stroke-dasharray="6,4"><animate attributeName="stroke-opacity" values="0.15;0.4;0.15" dur="3s" repeatCount="indefinite" begin="2s"/></line>
-        <circle cx="200" cy="150" r="28" fill="rgba(77,201,212,0.08)" stroke="#4dc9d4" stroke-width="1.5" filter="url(#glow3)"/>
-        <text x="200" y="146" text-anchor="middle" fill="#4dc9d4" font-family="Space Grotesk" font-size="10" font-weight="600">CONVENTION</text>
-        <text x="200" y="158" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-family="IBM Plex Mono" font-size="8">agreement</text>
-        <circle cx="200" cy="50" r="22" fill="none" stroke="#4dc9d4" stroke-width="1.5"/><text x="200" y="54" text-anchor="middle" fill="#4dc9d4" font-family="Space Grotesk" font-size="12" font-weight="600">You</text>
-        <circle cx="80" cy="230" r="22" fill="none" stroke="#38d9a9" stroke-width="1.5"/><text x="80" y="234" text-anchor="middle" fill="#38d9a9" font-family="Space Grotesk" font-size="12" font-weight="600">Team</text>
-        <circle cx="320" cy="230" r="22" fill="none" stroke="#3b82f6" stroke-width="1.5"/><text x="320" y="234" text-anchor="middle" fill="#3b82f6" font-family="Space Grotesk" font-size="12" font-weight="600">Agents</text>
+      <svg viewBox="0 0 520 364" xmlns="http://www.w3.org/2000/svg" style="max-width:460px">
+        <defs><filter id="glow3"><feGaussianBlur stdDeviation="4"/><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+        <line x1="260" y1="78" x2="104" y2="286" stroke="rgba(77,201,212,0.2)" stroke-width="2" stroke-dasharray="8,5"><animate attributeName="stroke-opacity" values="0.15;0.4;0.15" dur="3s" repeatCount="indefinite"/></line>
+        <line x1="260" y1="78" x2="416" y2="286" stroke="rgba(59,130,246,0.2)" stroke-width="2" stroke-dasharray="8,5"><animate attributeName="stroke-opacity" values="0.15;0.4;0.15" dur="3s" repeatCount="indefinite" begin="1s"/></line>
+        <line x1="104" y1="286" x2="416" y2="286" stroke="rgba(56,217,169,0.2)" stroke-width="2" stroke-dasharray="8,5"><animate attributeName="stroke-opacity" values="0.15;0.4;0.15" dur="3s" repeatCount="indefinite" begin="2s"/></line>
+        <circle cx="260" cy="195" r="36" fill="rgba(77,201,212,0.08)" stroke="#4dc9d4" stroke-width="2" filter="url(#glow3)"/>
+        <text x="260" y="190" text-anchor="middle" fill="#4dc9d4" font-family="Space Grotesk" font-size="14" font-weight="600">CONVENTION</text>
+        <text x="260" y="206" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-family="IBM Plex Mono" font-size="11">agreement</text>
+        <circle cx="260" cy="65" r="29" fill="none" stroke="#4dc9d4" stroke-width="2"/><text x="260" y="70" text-anchor="middle" fill="#4dc9d4" font-family="Space Grotesk" font-size="16" font-weight="600">You</text>
+        <circle cx="104" cy="299" r="29" fill="none" stroke="#38d9a9" stroke-width="2"/><text x="104" y="304" text-anchor="middle" fill="#38d9a9" font-family="Space Grotesk" font-size="16" font-weight="600">Team</text>
+        <circle cx="416" cy="299" r="29" fill="none" stroke="#3b82f6" stroke-width="2"/><text x="416" y="304" text-anchor="middle" fill="#3b82f6" font-family="Space Grotesk" font-size="16" font-weight="600">Agents</text>
       </svg>
     </div>
   </div>
@@ -1129,27 +1156,27 @@ body.edit-mode #builder-toolbar { display: flex; }
     <div class="label">// RULES &rarr; GUARDRAILS &rarr; AUTONOMY</div>
     <h2>why rules <span class="teal">enable</span> autonomy</h2>
     <div class="svg-container" style="margin-top:16px">
-      <svg viewBox="0 0 700 200" xmlns="http://www.w3.org/2000/svg" style="max-width:650px">
-        <rect x="20" y="50" width="180" height="100" rx="12" fill="none" stroke="#ff6b6b" stroke-width="1.5" opacity="0.8"/>
-        <text x="110" y="85" text-anchor="middle" fill="#ff6b6b" font-family="Space Grotesk" font-size="16" font-weight="600">No Rules</text>
-        <text x="110" y="110" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-family="IBM Plex Mono" font-size="11">hallucinations</text>
-        <text x="110" y="125" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-family="IBM Plex Mono" font-size="11">"it's unsafe"</text>
-        <text x="110" y="140" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-family="IBM Plex Mono" font-size="11">zero trust</text>
-        <line x1="210" y1="100" x2="250" y2="100" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
-        <polygon points="250,96 258,100 250,104" fill="rgba(255,255,255,0.3)"/>
-        <rect x="260" y="50" width="180" height="100" rx="12" fill="none" stroke="#c89200" stroke-width="1.5" opacity="0.8"/>
-        <text x="350" y="85" text-anchor="middle" fill="#c89200" font-family="Space Grotesk" font-size="16" font-weight="600">Guardrails</text>
-        <text x="350" y="110" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-family="IBM Plex Mono" font-size="11">CLAUDE.md rules</text>
-        <text x="350" y="125" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-family="IBM Plex Mono" font-size="11">naming convention</text>
-        <text x="350" y="140" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-family="IBM Plex Mono" font-size="11">forbidden actions</text>
-        <line x1="450" y1="100" x2="490" y2="100" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
-        <polygon points="490,96 498,100 490,104" fill="rgba(255,255,255,0.3)"/>
-        <rect x="500" y="50" width="180" height="100" rx="12" fill="none" stroke="#4dc9d4" stroke-width="2"><animate attributeName="stroke-opacity" values="0.6;1;0.6" dur="2s" repeatCount="indefinite"/></rect>
-        <text x="590" y="85" text-anchor="middle" fill="#4dc9d4" font-family="Space Grotesk" font-size="16" font-weight="600">Autonomy</text>
-        <text x="590" y="110" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-family="IBM Plex Mono" font-size="11">agent decides</text>
-        <text x="590" y="125" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-family="IBM Plex Mono" font-size="11">within your rules</text>
-        <text x="590" y="140" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-family="IBM Plex Mono" font-size="11">high trust</text>
-        <text x="350" y="185" text-anchor="middle" fill="rgba(255,255,255,0.25)" font-family="IBM Plex Mono" font-size="11">L01 slide #19: why transformation fails</text>
+      <svg viewBox="0 0 910 260" xmlns="http://www.w3.org/2000/svg" style="max-width:800px">
+        <rect x="26" y="65" width="234" height="130" rx="16" fill="none" stroke="#ff6b6b" stroke-width="2" opacity="0.8"/>
+        <text x="143" y="108" text-anchor="middle" fill="#ff6b6b" font-family="Space Grotesk" font-size="22" font-weight="600">No Rules</text>
+        <text x="143" y="136" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-family="IBM Plex Mono" font-size="14">hallucinations</text>
+        <text x="143" y="156" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-family="IBM Plex Mono" font-size="14">"it's unsafe"</text>
+        <text x="143" y="176" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-family="IBM Plex Mono" font-size="14">zero trust</text>
+        <line x1="273" y1="130" x2="325" y2="130" stroke="rgba(255,255,255,0.2)" stroke-width="2"/>
+        <polygon points="325,125 336,130 325,135" fill="rgba(255,255,255,0.3)"/>
+        <rect x="338" y="65" width="234" height="130" rx="16" fill="none" stroke="#c89200" stroke-width="2" opacity="0.8"/>
+        <text x="455" y="108" text-anchor="middle" fill="#c89200" font-family="Space Grotesk" font-size="22" font-weight="600">Guardrails</text>
+        <text x="455" y="136" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-family="IBM Plex Mono" font-size="14">CLAUDE.md rules</text>
+        <text x="455" y="156" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-family="IBM Plex Mono" font-size="14">naming convention</text>
+        <text x="455" y="176" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-family="IBM Plex Mono" font-size="14">forbidden actions</text>
+        <line x1="585" y1="130" x2="637" y2="130" stroke="rgba(255,255,255,0.2)" stroke-width="2"/>
+        <polygon points="637,125 648,130 637,135" fill="rgba(255,255,255,0.3)"/>
+        <rect x="650" y="65" width="234" height="130" rx="16" fill="none" stroke="#4dc9d4" stroke-width="2.5"><animate attributeName="stroke-opacity" values="0.6;1;0.6" dur="2s" repeatCount="indefinite"/></rect>
+        <text x="767" y="108" text-anchor="middle" fill="#4dc9d4" font-family="Space Grotesk" font-size="22" font-weight="600">Autonomy</text>
+        <text x="767" y="136" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-family="IBM Plex Mono" font-size="14">agent decides</text>
+        <text x="767" y="156" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-family="IBM Plex Mono" font-size="14">within your rules</text>
+        <text x="767" y="176" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-family="IBM Plex Mono" font-size="14">high trust</text>
+        <text x="455" y="240" text-anchor="middle" fill="rgba(255,255,255,0.25)" font-family="IBM Plex Mono" font-size="14">L01 slide #19: why transformation fails</text>
       </svg>
     </div>
   </div>
@@ -1180,19 +1207,19 @@ body.edit-mode #builder-toolbar { display: flex; }
     <div class="label">// BLOCK 05 &middot; CLAUDE CODE</div>
     <h2>agent = LLM + <span class="teal">harness</span></h2>
     <div class="svg-container" style="margin-top:16px">
-      <svg viewBox="0 0 600 260" xmlns="http://www.w3.org/2000/svg" style="max-width:520px">
-        <defs><filter id="glow4"><feGaussianBlur stdDeviation="4"/><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
-        <circle cx="300" cy="130" r="50" fill="rgba(77,201,212,0.06)" stroke="#4dc9d4" stroke-width="2" filter="url(#glow4)"/>
-        <text x="300" y="125" text-anchor="middle" fill="#4dc9d4" font-family="Space Grotesk" font-size="20" font-weight="700">LLM</text>
-        <text x="300" y="145" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-family="IBM Plex Mono" font-size="11">intelligence</text>
-        <circle cx="300" cy="130" r="100" fill="none" stroke="rgba(59,130,246,0.3)" stroke-width="1" stroke-dasharray="8,4"><animateTransform attributeName="transform" type="rotate" from="0 300 130" to="360 300 130" dur="30s" repeatCount="indefinite"/></circle>
-        <g><rect x="145" y="20" width="90" height="30" rx="6" fill="rgba(28,28,46,0.8)" stroke="#3b82f6" stroke-width="1"/><text x="190" y="40" text-anchor="middle" fill="#3b82f6" font-family="IBM Plex Mono" font-size="11">CLAUDE.md</text></g>
-        <g><rect x="365" y="20" width="90" height="30" rx="6" fill="rgba(28,28,46,0.8)" stroke="#38d9a9" stroke-width="1"/><text x="410" y="40" text-anchor="middle" fill="#38d9a9" font-family="IBM Plex Mono" font-size="11">memory/</text></g>
-        <g><rect x="440" y="110" width="90" height="30" rx="6" fill="rgba(28,28,46,0.8)" stroke="#c89200" stroke-width="1"/><text x="485" y="130" text-anchor="middle" fill="#c89200" font-family="IBM Plex Mono" font-size="11">skills/</text></g>
-        <g><rect x="365" y="210" width="90" height="30" rx="6" fill="rgba(28,28,46,0.8)" stroke="#ff6b6b" stroke-width="1"/><text x="410" y="230" text-anchor="middle" fill="#ff6b6b" font-family="IBM Plex Mono" font-size="11">MCP tools</text></g>
-        <g><rect x="145" y="210" width="90" height="30" rx="6" fill="rgba(28,28,46,0.8)" stroke="#38bdf8" stroke-width="1"/><text x="190" y="230" text-anchor="middle" fill="#38bdf8" font-family="IBM Plex Mono" font-size="11">context</text></g>
-        <g><rect x="60" y="110" width="90" height="30" rx="6" fill="rgba(28,28,46,0.8)" stroke="#ff3b8b" stroke-width="1"/><text x="105" y="130" text-anchor="middle" fill="#ff3b8b" font-family="IBM Plex Mono" font-size="11">evals</text></g>
-        <text x="300" y="255" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-family="IBM Plex Mono" font-size="11">L01 slide #54 &middot; today you build the harness</text>
+      <svg viewBox="0 0 780 338" xmlns="http://www.w3.org/2000/svg" style="max-width:680px">
+        <defs><filter id="glow4"><feGaussianBlur stdDeviation="5"/><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+        <circle cx="390" cy="169" r="65" fill="rgba(77,201,212,0.06)" stroke="#4dc9d4" stroke-width="2.5" filter="url(#glow4)"/>
+        <text x="390" y="162" text-anchor="middle" fill="#4dc9d4" font-family="Space Grotesk" font-size="28" font-weight="700">LLM</text>
+        <text x="390" y="186" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-family="IBM Plex Mono" font-size="14">intelligence</text>
+        <circle cx="390" cy="169" r="130" fill="none" stroke="rgba(59,130,246,0.3)" stroke-width="2" stroke-dasharray="10,5"><animateTransform attributeName="transform" type="rotate" from="0 390 169" to="360 390 169" dur="30s" repeatCount="indefinite"/></circle>
+        <g><rect x="189" y="26" width="117" height="39" rx="8" fill="rgba(28,28,46,0.8)" stroke="#3b82f6" stroke-width="2"/><text x="247" y="52" text-anchor="middle" fill="#3b82f6" font-family="IBM Plex Mono" font-size="14">CLAUDE.md</text></g>
+        <g><rect x="475" y="26" width="117" height="39" rx="8" fill="rgba(28,28,46,0.8)" stroke="#38d9a9" stroke-width="2"/><text x="533" y="52" text-anchor="middle" fill="#38d9a9" font-family="IBM Plex Mono" font-size="14">memory/</text></g>
+        <g><rect x="572" y="143" width="117" height="39" rx="8" fill="rgba(28,28,46,0.8)" stroke="#c89200" stroke-width="2"/><text x="630" y="169" text-anchor="middle" fill="#c89200" font-family="IBM Plex Mono" font-size="14">skills/</text></g>
+        <g><rect x="475" y="273" width="117" height="39" rx="8" fill="rgba(28,28,46,0.8)" stroke="#ff6b6b" stroke-width="2"/><text x="533" y="299" text-anchor="middle" fill="#ff6b6b" font-family="IBM Plex Mono" font-size="14">MCP tools</text></g>
+        <g><rect x="189" y="273" width="117" height="39" rx="8" fill="rgba(28,28,46,0.8)" stroke="#38bdf8" stroke-width="2"/><text x="247" y="299" text-anchor="middle" fill="#38bdf8" font-family="IBM Plex Mono" font-size="14">context</text></g>
+        <g><rect x="78" y="143" width="117" height="39" rx="8" fill="rgba(28,28,46,0.8)" stroke="#ff3b8b" stroke-width="2"/><text x="136" y="169" text-anchor="middle" fill="#ff3b8b" font-family="IBM Plex Mono" font-size="14">evals</text></g>
+        <text x="390" y="331" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-family="IBM Plex Mono" font-size="14">L01 slide #54 &middot; today you build the harness</text>
       </svg>
     </div>
   </div>
@@ -1260,22 +1287,22 @@ body.edit-mode #builder-toolbar { display: flex; }
     <div class="label">// MCP &middot; USB PORTS FOR YOUR AGENT</div>
     <h2>MCP &mdash; <span class="teal">connected</span> intelligence</h2>
     <div class="svg-container" style="margin-top:8px">
-      <svg viewBox="0 0 600 350" xmlns="http://www.w3.org/2000/svg" style="max-width:520px">
-        <defs><filter id="glow5"><feGaussianBlur stdDeviation="4"/><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
-        <circle cx="300" cy="175" r="45" fill="rgba(77,201,212,0.08)" stroke="#4dc9d4" stroke-width="2" filter="url(#glow5)"/>
-        <text x="300" y="168" text-anchor="middle" fill="#4dc9d4" font-family="Space Grotesk" font-size="14" font-weight="700">Claude</text>
-        <text x="300" y="184" text-anchor="middle" fill="#4dc9d4" font-family="Space Grotesk" font-size="14" font-weight="700">Code</text>
-        <line x1="300" y1="130" x2="300" y2="45" stroke="rgba(77,201,212,0.3)" stroke-width="1"/><circle cx="300" cy="35" r="22" fill="none" stroke="#38d9a9" stroke-width="1.5"/><text x="300" y="39" text-anchor="middle" fill="#38d9a9" font-family="IBM Plex Mono" font-size="10">Calendar</text>
-        <line x1="258" y1="148" x2="150" y2="65" stroke="rgba(56,217,169,0.3)" stroke-width="1"/><circle cx="138" cy="55" r="22" fill="none" stroke="#3b82f6" stroke-width="1.5"/><text x="138" y="59" text-anchor="middle" fill="#3b82f6" font-family="IBM Plex Mono" font-size="10">Telegram</text>
-        <line x1="342" y1="148" x2="450" y2="65" stroke="rgba(59,130,246,0.3)" stroke-width="1"/><circle cx="462" cy="55" r="22" fill="none" stroke="#c89200" stroke-width="1.5"/><text x="462" y="59" text-anchor="middle" fill="#c89200" font-family="IBM Plex Mono" font-size="10">Linear</text>
-        <line x1="345" y1="175" x2="470" y2="175" stroke="rgba(200,146,0,0.3)" stroke-width="1"/><circle cx="487" cy="175" r="22" fill="none" stroke="#ff3b8b" stroke-width="1.5"/><text x="487" y="179" text-anchor="middle" fill="#ff3b8b" font-family="IBM Plex Mono" font-size="10">Krisp</text>
-        <line x1="255" y1="175" x2="130" y2="175" stroke="rgba(255,59,139,0.3)" stroke-width="1"/><circle cx="113" cy="175" r="22" fill="none" stroke="#38bdf8" stroke-width="1.5"/><text x="113" y="179" text-anchor="middle" fill="#38bdf8" font-family="IBM Plex Mono" font-size="10">Notion</text>
-        <line x1="258" y1="202" x2="150" y2="285" stroke="rgba(56,189,248,0.3)" stroke-width="1"/><circle cx="138" cy="295" r="22" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/><text x="138" y="299" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="IBM Plex Mono" font-size="9">Playwright</text>
-        <line x1="300" y1="220" x2="300" y2="310" stroke="rgba(255,255,255,0.2)" stroke-width="1"/><circle cx="300" cy="322" r="22" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/><text x="300" y="326" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="IBM Plex Mono" font-size="9">Filesystem</text>
-        <line x1="342" y1="202" x2="450" y2="285" stroke="rgba(255,255,255,0.2)" stroke-width="1"/><circle cx="462" cy="295" r="22" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/><text x="462" y="299" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="IBM Plex Mono" font-size="10">Exa</text>
-        <circle r="3" fill="#38d9a9" opacity="0.8"><animateMotion path="M300,130 L300,55" dur="2s" repeatCount="indefinite"/></circle>
-        <circle r="3" fill="#3b82f6" opacity="0.8"><animateMotion path="M258,148 L150,65" dur="2.5s" repeatCount="indefinite"/></circle>
-        <circle r="3" fill="#c89200" opacity="0.8"><animateMotion path="M342,148 L450,65" dur="2.2s" repeatCount="indefinite"/></circle>
+      <svg viewBox="0 0 780 455" xmlns="http://www.w3.org/2000/svg" style="max-width:680px">
+        <defs><filter id="glow5"><feGaussianBlur stdDeviation="5"/><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+        <circle cx="390" cy="228" r="59" fill="rgba(77,201,212,0.08)" stroke="#4dc9d4" stroke-width="2.5" filter="url(#glow5)"/>
+        <text x="390" y="218" text-anchor="middle" fill="#4dc9d4" font-family="Space Grotesk" font-size="18" font-weight="700">Claude</text>
+        <text x="390" y="240" text-anchor="middle" fill="#4dc9d4" font-family="Space Grotesk" font-size="18" font-weight="700">Code</text>
+        <line x1="390" y1="169" x2="390" y2="59" stroke="rgba(77,201,212,0.3)" stroke-width="2"/><circle cx="390" cy="46" r="29" fill="none" stroke="#38d9a9" stroke-width="2"/><text x="390" y="51" text-anchor="middle" fill="#38d9a9" font-family="IBM Plex Mono" font-size="14">Calendar</text>
+        <line x1="335" y1="193" x2="195" y2="85" stroke="rgba(56,217,169,0.3)" stroke-width="2"/><circle cx="179" cy="72" r="29" fill="none" stroke="#3b82f6" stroke-width="2"/><text x="179" y="77" text-anchor="middle" fill="#3b82f6" font-family="IBM Plex Mono" font-size="14">Telegram</text>
+        <line x1="445" y1="193" x2="585" y2="85" stroke="rgba(59,130,246,0.3)" stroke-width="2"/><circle cx="601" cy="72" r="29" fill="none" stroke="#c89200" stroke-width="2"/><text x="601" y="77" text-anchor="middle" fill="#c89200" font-family="IBM Plex Mono" font-size="14">Linear</text>
+        <line x1="449" y1="228" x2="611" y2="228" stroke="rgba(200,146,0,0.3)" stroke-width="2"/><circle cx="633" cy="228" r="29" fill="none" stroke="#ff3b8b" stroke-width="2"/><text x="633" y="233" text-anchor="middle" fill="#ff3b8b" font-family="IBM Plex Mono" font-size="14">Krisp</text>
+        <line x1="331" y1="228" x2="169" y2="228" stroke="rgba(255,59,139,0.3)" stroke-width="2"/><circle cx="147" cy="228" r="29" fill="none" stroke="#38bdf8" stroke-width="2"/><text x="147" y="233" text-anchor="middle" fill="#38bdf8" font-family="IBM Plex Mono" font-size="14">Notion</text>
+        <line x1="335" y1="263" x2="195" y2="371" stroke="rgba(56,189,248,0.3)" stroke-width="2"/><circle cx="179" cy="384" r="29" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="2"/><text x="179" y="389" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="IBM Plex Mono" font-size="12">Playwright</text>
+        <line x1="390" y1="287" x2="390" y2="403" stroke="rgba(255,255,255,0.2)" stroke-width="2"/><circle cx="390" cy="419" r="29" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="2"/><text x="390" y="424" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="IBM Plex Mono" font-size="12">Filesystem</text>
+        <line x1="445" y1="263" x2="585" y2="371" stroke="rgba(255,255,255,0.2)" stroke-width="2"/><circle cx="601" cy="384" r="29" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="2"/><text x="601" y="389" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="IBM Plex Mono" font-size="14">Exa</text>
+        <circle r="4" fill="#38d9a9" opacity="0.8"><animateMotion path="M390,169 L390,72" dur="2s" repeatCount="indefinite"/></circle>
+        <circle r="4" fill="#3b82f6" opacity="0.8"><animateMotion path="M335,193 L195,85" dur="2.5s" repeatCount="indefinite"/></circle>
+        <circle r="4" fill="#c89200" opacity="0.8"><animateMotion path="M445,193 L585,85" dur="2.2s" repeatCount="indefinite"/></circle>
       </svg>
     </div>
   </div>
@@ -1425,7 +1452,11 @@ body.edit-mode #builder-toolbar { display: flex; }
           <div class="layer" style="padding:8px 14px"><div class="layer-num blue" style="font-size:14px">03</div><div class="layer-name" style="font-size:14px; min-width:100px">Telegram</div><div class="layer-desc" style="font-size:13px">12 unread messages</div></div>
           <div class="layer" style="padding:8px 14px"><div class="layer-num amber" style="font-size:14px">04</div><div class="layer-name" style="font-size:14px; min-width:100px">Krisp</div><div class="layer-desc" style="font-size:13px">yesterday's action items</div></div>
         </div>
-        <p style="font-size:14px; color:var(--text-dim); margin-top:16px">prework #3 &middot; cyclic pipelines &middot; this runs every morning</p>
+        <p style="font-size:14px; color:var(--text-dim); margin-top:12px">prework #3 &middot; cyclic pipelines &middot; this runs every morning</p>
+        <a class="download-btn" href="#" onclick="downloadFile('daily-focus.md', DAILY_FOCUS_SKILL); return false;" style="margin-top:8px">
+          <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 1v9M3 7l4 4 4-4M2 12h10"/></svg>
+          download daily-focus.md
+        </a>
       </div>
     </div>
   </div>
@@ -1442,31 +1473,40 @@ body.edit-mode #builder-toolbar { display: flex; }
       <div class="file-tree">
         <span class="dir">.claude/skills/</span><br>
         <span class="hl">&nbsp;&nbsp;morning-brief.md</span><br>
-        <span class="file">&nbsp;&nbsp;daily-focus.md</span><br>
+        <span class="hl">&nbsp;&nbsp;daily-focus.md</span><br>
+        <span class="hl">&nbsp;&nbsp;vox.md</span><br>
+        <span class="hl">&nbsp;&nbsp;eval.md</span><br>
         <span class="file">&nbsp;&nbsp;meeting-prep.md</span><br>
         <span class="file">&nbsp;&nbsp;weekly-review.md</span><br>
-        <span class="file">&nbsp;&nbsp;draft-message.md</span><br>
-        <span class="file">&nbsp;&nbsp;infocompressor.md</span><br>
         <span class="file">&nbsp;&nbsp;content-voice.md</span><br>
         <span class="file">&nbsp;&nbsp;linear-action.md</span><br>
         <span class="file">&nbsp;&nbsp;context-compact.md</span><br>
         <span class="file">&nbsp;&nbsp;calendar.md</span>
       </div>
       <div>
-        <div class="card" style="margin-bottom:12px">
-          <div class="card-icon" style="font-size:18px">/morning-brief</div>
-          <p>reads calendar + tasks, shows 3 focuses for today</p>
-          <span class="tag green-tag">daily use</span>
+        <div class="card" style="margin-bottom:10px; padding:16px">
+          <div class="card-icon" style="font-size:16px">/daily-focus</div>
+          <p style="font-size:14px">full day pipeline: Calendar + Tasks + Messages</p>
+          <a class="download-btn" href="#" onclick="downloadFile('daily-focus.md', DAILY_FOCUS_SKILL); return false;" style="margin-top:6px; font-size:12px; padding:4px 12px">
+            <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" style="width:12px;height:12px"><path d="M7 1v9M3 7l4 4 4-4M2 12h10"/></svg>
+            download
+          </a>
         </div>
-        <div class="card" style="margin-bottom:12px">
-          <div class="card-icon" style="font-size:18px">/daily-focus</div>
-          <p>full day pipeline: Calendar + Linear + TG + context</p>
-          <span class="tag blue-tag">meta-skill</span>
+        <div class="card" style="margin-bottom:10px; padding:16px">
+          <div class="card-icon" style="font-size:16px">/vox</div>
+          <p style="font-size:14px">terminal day advisor &mdash; actionable day planning</p>
+          <a class="download-btn" href="#" onclick="downloadFile('vox.md', VOX_SKILL); return false;" style="margin-top:6px; font-size:12px; padding:4px 12px">
+            <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" style="width:12px;height:12px"><path d="M7 1v9M3 7l4 4 4-4M2 12h10"/></svg>
+            download
+          </a>
         </div>
-        <div class="card">
-          <div class="card-icon" style="font-size:18px">/draft-message</div>
-          <p>writes messages in author's communication style</p>
-          <span class="tag">content</span>
+        <div class="card" style="padding:16px">
+          <div class="card-icon" style="font-size:16px">/eval</div>
+          <p style="font-size:14px">T/R/C quality framework for AI responses</p>
+          <a class="download-btn" href="#" onclick="downloadFile('eval.md', EVAL_SKILL); return false;" style="margin-top:6px; font-size:12px; padding:4px 12px">
+            <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" style="width:12px;height:12px"><path d="M7 1v9M3 7l4 4 4-4M2 12h10"/></svg>
+            download
+          </a>
         </div>
       </div>
     </div>
@@ -1525,19 +1565,19 @@ body.edit-mode #builder-toolbar { display: flex; }
     <div class="label">// BLOCK 08 &middot; DOPAMINE TRAP</div>
     <h2>the <span class="red">trap</span>: 3 hours, 0 business</h2>
     <div class="svg-container" style="margin-top:12px">
-      <svg viewBox="0 0 500 300" xmlns="http://www.w3.org/2000/svg" style="max-width:420px">
-        <circle cx="250" cy="150" r="100" fill="none" stroke="rgba(255,107,107,0.15)" stroke-width="1" stroke-dasharray="8,4"/>
-        <g transform="translate(250,50)"><rect x="-40" y="-16" width="80" height="32" rx="6" fill="rgba(255,107,107,0.1)" stroke="#ff6b6b" stroke-width="1.5"/><text y="5" text-anchor="middle" fill="#ff6b6b" font-family="Space Grotesk" font-size="13" font-weight="600">Prompt!</text></g>
-        <g transform="translate(350,150)"><rect x="-40" y="-16" width="80" height="32" rx="6" fill="rgba(56,217,169,0.1)" stroke="#38d9a9" stroke-width="1.5"/><text y="5" text-anchor="middle" fill="#38d9a9" font-family="Space Grotesk" font-size="13" font-weight="600">Works!</text></g>
-        <g transform="translate(250,250)"><rect x="-40" y="-16" width="80" height="32" rx="6" fill="rgba(200,146,0,0.1)" stroke="#c89200" stroke-width="1.5"/><text y="5" text-anchor="middle" fill="#c89200" font-family="Space Grotesk" font-size="13" font-weight="600">More!</text></g>
-        <g transform="translate(150,150)"><rect x="-44" y="-16" width="88" height="32" rx="6" fill="rgba(255,107,107,0.15)" stroke="#ff6b6b" stroke-width="2"/><text y="5" text-anchor="middle" fill="#ff6b6b" font-family="Space Grotesk" font-size="13" font-weight="700">Dead end</text></g>
-        <path d="M290,55 Q330,80 345,130" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
-        <path d="M345,170 Q330,220 290,245" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
-        <path d="M210,245 Q170,220 155,175" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
-        <path d="M155,130 Q170,80 210,55" fill="none" stroke="rgba(255,107,107,0.3)" stroke-width="1.5"/>
-        <circle r="4" fill="#ff6b6b" opacity="0.8"><animateMotion path="M250,50 Q350,50 350,150 Q350,250 250,250 Q150,250 150,150 Q150,50 250,50" dur="4s" repeatCount="indefinite"/></circle>
-        <text x="250" y="145" text-anchor="middle" fill="#ff6b6b" font-family="Space Grotesk" font-size="32" font-weight="700">-19%</text>
-        <text x="250" y="168" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-family="IBM Plex Mono" font-size="12">actual speed (METR)</text>
+      <svg viewBox="0 0 650 390" xmlns="http://www.w3.org/2000/svg" style="max-width:550px">
+        <circle cx="325" cy="195" r="130" fill="none" stroke="rgba(255,107,107,0.15)" stroke-width="2" stroke-dasharray="10,5"/>
+        <g transform="translate(325,65)"><rect x="-52" y="-21" width="104" height="42" rx="8" fill="rgba(255,107,107,0.1)" stroke="#ff6b6b" stroke-width="2"/><text y="7" text-anchor="middle" fill="#ff6b6b" font-family="Space Grotesk" font-size="18" font-weight="600">Prompt!</text></g>
+        <g transform="translate(455,195)"><rect x="-52" y="-21" width="104" height="42" rx="8" fill="rgba(56,217,169,0.1)" stroke="#38d9a9" stroke-width="2"/><text y="7" text-anchor="middle" fill="#38d9a9" font-family="Space Grotesk" font-size="18" font-weight="600">Works!</text></g>
+        <g transform="translate(325,325)"><rect x="-52" y="-21" width="104" height="42" rx="8" fill="rgba(200,146,0,0.1)" stroke="#c89200" stroke-width="2"/><text y="7" text-anchor="middle" fill="#c89200" font-family="Space Grotesk" font-size="18" font-weight="600">More!</text></g>
+        <g transform="translate(195,195)"><rect x="-57" y="-21" width="114" height="42" rx="8" fill="rgba(255,107,107,0.15)" stroke="#ff6b6b" stroke-width="2.5"/><text y="7" text-anchor="middle" fill="#ff6b6b" font-family="Space Grotesk" font-size="18" font-weight="700">Dead end</text></g>
+        <path d="M377,72 Q429,104 449,169" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="2"/>
+        <path d="M449,221 Q429,286 377,318" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="2"/>
+        <path d="M273,318 Q221,286 201,228" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="2"/>
+        <path d="M201,169 Q221,104 273,72" fill="none" stroke="rgba(255,107,107,0.3)" stroke-width="2"/>
+        <circle r="5" fill="#ff6b6b" opacity="0.8"><animateMotion path="M325,65 Q455,65 455,195 Q455,325 325,325 Q195,325 195,195 Q195,65 325,65" dur="4s" repeatCount="indefinite"/></circle>
+        <text x="325" y="188" text-anchor="middle" fill="#ff6b6b" font-family="Space Grotesk" font-size="42" font-weight="700">-19%</text>
+        <text x="325" y="218" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-family="IBM Plex Mono" font-size="16">actual speed (METR)</text>
       </svg>
     </div>
     <p style="font-size:15px; color:var(--text-dim); margin-top:4px">L01 slide #8 &middot; METR research: -19% speed, +20% feeling of speed</p>
@@ -1575,31 +1615,6 @@ body.edit-mode #builder-toolbar { display: flex; }
       <p style="font-size:17px">&laquo;don't optimize what needs to be reinvented&raquo;</p>
       <div class="author">L01 slide #17</div>
     </div>
-  </div>
-</div>
-
-<!-- ==================== SLIDE 30: KEYBOARD ==================== -->
-<div class="slide" id="s30" data-block="8" data-notes="Timing: ~82 min. keyboard.aimindset.org reference. Keyboard speed is your bottleneck, not the model. Show the site.">
-  <div class="slide-counter"><span class="current">30</span>/<span class="total"></span></div>
-  <img class="slide-logo" src="logo.png" alt="">
-  <div class="slide-inner" style="align-items:center; text-align:center;">
-    <div class="label">// KEYBOARD SPEED</div>
-    <h2>if you type 30 wpm &mdash; <span class="red">that's</span> your bottleneck</h2>
-    <div class="terminal" style="max-width:600px; margin:20px auto 0; text-align:left;">
-      <div class="terminal-header">
-        <div class="terminal-dot r"></div><div class="terminal-dot y"></div><div class="terminal-dot g"></div>
-        <div class="terminal-title">keyboard.aimindset.org</div>
-      </div>
-      <div class="terminal-body" style="font-size:14px">
-        <span class="hl">keyboard optimization for AI-native workflow</span><br><br>
-        <span class="out">shortcuts:</span> Cmd+Space (Raycast), Ctrl+L (Claude)<br>
-        <span class="out">text expansion:</span> snippets for common prompts<br>
-        <span class="out">voice input:</span> dictation as primary input<br>
-        <span class="out">layout:</span> optimized for speed, not QWERTY defaults<br><br>
-        <span class="dim">goal: input speed should not be the constraint</span>
-      </div>
-    </div>
-    <a class="link-btn" href="https://keyboard.aimindset.org/" target="_blank" style="margin-top:16px; font-size:16px; padding:10px 20px">keyboard.aimindset.org &nearr;</a>
   </div>
 </div>
 
@@ -1652,7 +1667,7 @@ body.edit-mode #builder-toolbar { display: flex; }
 </div>
 
 <!-- ==================== SLIDE 33: TOMORROW + CURATORS ==================== -->
-<div class="slide" id="s33" data-block="9" data-notes="Timing: ~90 min. Tomorrow preview. Personal -> Team bridge. Curator presentations. Alexander Vasiliev 'Jarvis' system with 6 agents, 90+ skills.">
+<div class="slide" id="s33" data-block="9" data-notes="Timing: ~90 min. Tomorrow preview. Personal -> Team bridge. Curator presentations: Denis Smirnov (traceable agents), Alexander Vasiliev (Jarvis), Sereja Ris (AI-first edtech).">
   <div class="slide-counter"><span class="current">33</span>/<span class="total"></span></div>
   <img class="slide-logo" src="logo.png" alt="">
   <div class="slide-inner">
@@ -1669,20 +1684,25 @@ body.edit-mode #builder-toolbar { display: flex; }
         <div class="quote" style="margin-top:16px">
           <p style="font-size:15px">deliverable: 2 skills + 1 MCP integration + top 10 process list</p>
         </div>
+        <a class="link-btn" href="https://share.note.sx" target="_blank" style="margin-top:12px">schedule &nearr;</a>
       </div>
       <div>
-        <h3 style="font-size:18px; color:var(--teal); margin-bottom:12px">curator presentations</h3>
-        <div class="card" style="margin-bottom:10px; padding:16px">
-          <h3 style="font-size:16px; margin-bottom:6px">Alexander Vasiliev <span class="dim" style="font-size:13px">@AlexFrmn</span></h3>
-          <p style="font-size:14px">"Jarvis" system &mdash; 6 agents, 90+ skills, full automation of personal operations</p>
+        <h3 style="font-size:18px; color:var(--teal); margin-bottom:10px">curator presentations</h3>
+        <div class="card" style="margin-bottom:8px; padding:14px">
+          <h3 style="font-size:15px; margin-bottom:4px">Denis Smirnov</h3>
+          <p style="font-size:13px">traceable agents, process migration to local agents, git hooks &amp; guardrails</p>
+          <span class="tag blue-tag" style="font-size:10px">agents &middot; guardrails</span>
+        </div>
+        <div class="card" style="margin-bottom:8px; padding:14px">
+          <h3 style="font-size:15px; margin-bottom:4px">Alexander Vasiliev <span class="dim" style="font-size:12px">@AlexFrmn</span></h3>
+          <p style="font-size:13px">"Jarvis" &mdash; 6 agents, 90+ skills, RAG, ServerPilot</p>
           <span class="tag green-tag" style="font-size:10px">live demo</span>
         </div>
-        <div class="card" style="padding:16px">
-          <h3 style="font-size:16px; margin-bottom:6px">other curators</h3>
-          <p style="font-size:14px">available for 1:1 sessions<br>specific industry implementations</p>
-          <span class="tag" style="font-size:10px">book in #support</span>
+        <div class="card" style="padding:14px">
+          <h3 style="font-size:15px; margin-bottom:4px">Sereja Ris</h3>
+          <p style="font-size:13px">AI-first edtech, 1-person company patterns</p>
+          <span class="tag amber-tag" style="font-size:10px">1-person co</span>
         </div>
-        <p style="font-size:14px; color:var(--text-dim); margin-top:12px">tomorrow: more about the team stack</p>
       </div>
     </div>
   </div>
@@ -1765,7 +1785,7 @@ body.edit-mode #builder-toolbar { display: flex; }
 
 <!-- Progress bar -->
 <div class="progress-bar"></div>
-<div class="nav-hint">arrows / space &middot; F fullscreen &middot; N notes &middot; E edit &middot; T contents</div>
+<div class="nav-hint">arrows / space &middot; F fullscreen &middot; N notes &middot; E edit &middot; T contents panel</div>
 
 <!-- Edit badge -->
 <div id="edit-badge">// EDIT MODE &mdash; changes auto-save &middot; Ctrl+Z undo</div>
@@ -1773,8 +1793,8 @@ body.edit-mode #builder-toolbar { display: flex; }
 <!-- Speaker notes panel -->
 <div id="notes-panel"></div>
 
-<!-- TOC overlay -->
-<div id="toc-overlay"><h2>// TABLE OF CONTENTS</h2><div class="toc-grid" id="toc-grid"></div></div>
+<!-- TOC side panel -->
+<div id="toc-panel"><h2>// CONTENTS</h2><div class="toc-grid" id="toc-grid"></div></div>
 
 <!-- Block action buttons -->
 <div id="block-actions">
@@ -1902,6 +1922,161 @@ Compile a morning briefing:
 Format: short, to the point, no fluff.
 `;
 
+const DAILY_FOCUS_SKILL = `---
+name: daily-focus
+description: Daily focus pipeline. Aggregates calendar, tasks, messages into a focused plan for the day.
+---
+
+# Daily Focus
+
+Generate a daily focus message with the following pipeline:
+
+## Step 1: Gather Inputs
+1. Read today's **calendar** events
+2. Check **task manager** for active/overdue items
+3. Scan **messages** for anything requiring action
+4. Check yesterday's unfinished items
+
+## Step 2: Analyze & Prioritize
+- Identify the **3 most important focuses** for today
+- Flag any **conflicts** between events and deep work time
+- Suggest one thing to **skip or delegate**
+
+## Step 3: Output Format
+
+\\\`\\\`\\\`
+daily focus -- [date]
+
+3 focuses:
+1. [highest priority task] -- [context]
+2. [second priority] -- [context]
+3. [third priority] -- [context]
+
+skip today: [what to deprioritize]
+
+energy: [morning plan], [afternoon plan]
+\\\`\\\`\\\`
+
+## Parameters
+- \\\`/daily-focus\\\` -- full pipeline (default)
+- \\\`/daily-focus --brief\\\` -- just the 3 focuses, no analysis
+
+## Principles
+- Short, actionable, no fluff
+- Time-block around calendar anchors
+- Flag overdue items explicitly
+- Suggest what NOT to do (as important as what to do)
+`;
+
+const VOX_SKILL = `---
+name: vox
+description: Terminal day advisor. Gives actionable day-planning advice based on full context.
+---
+
+# /vox -- Terminal Day Advisor
+
+VOX is a day-planning advisor that provides actionable advice based on your full context.
+
+## What VOX Does
+- Reads today's focus, calendar, tasks, recent meetings
+- Analyzes priorities, gaps, conflicts, overdue items
+- Gives concrete recommendations -- what to do now, what to skip, what to delegate
+
+## Workflow
+
+### Step 1: Gather Context
+Collect from available sources:
+- Calendar events for today
+- Active tasks (In Progress + Todo)
+- Recent meeting notes and action items
+- Yesterday's unfinished items
+
+### Step 2: Analyze & Advise
+
+**Voice:** Short sentences, no filler. Bold key items and times. Opinionated -- "skip this", "this is overdue", "block 30 min for X".
+
+**Structure:**
+
+\\\`\\\`\\\`
+## VOX -- [day, date]
+
+### now
+[What to focus on RIGHT NOW based on time + calendar + energy]
+
+### day
+[Time-blocked plan with calendar events as anchors]
+
+### flags
+[Overdue items, conflicts, gaps, risks]
+
+### suggestions
+[Concrete actions with ready-to-run commands]
+\\\`\\\`\\\`
+
+### Step 3: Follow-up
+Answer follow-up questions using already-fetched context.
+
+## Arguments
+- \\\`/vox\\\` -- full day brief (default)
+- \\\`/vox now\\\` -- just the "right now" section
+- \\\`/vox [question]\\\` -- ask about your day/context
+`;
+
+const EVAL_SKILL = `---
+name: eval
+description: Evaluate AI response quality using T/R/C framework. Binary pass/fail per area.
+---
+
+# /eval -- Response Quality Evaluation
+
+Evaluate AI responses using three areas. Binary pass/fail only -- no scales.
+
+## Framework: T/R/C
+
+| Area | What it covers | Key criteria |
+|------|---------------|--------------|
+| **T (Text)** | Quality of the response | Structure, clarity, insights, actionable |
+| **R (Rules)** | Following conventions | Naming, folders, formatting, style guides |
+| **C (Code)** | Code quality (if applicable) | Works, minimal, idiomatic, no side effects |
+
+## Process
+
+### 1. Analyze the last exchange
+- What did the user ask?
+- What type of task? (text / code / organization)
+
+### 2. Evaluate per area
+
+| Area | Criterion | Result | Reason |
+|------|----------|--------|--------|
+| Text | Structure | pass/fail | ... |
+| Text | Insights | pass/fail | ... |
+| Rules | Conventions | pass/fail | ... |
+| Code | Works | pass/fail | ... |
+
+### 3. Error Analysis (for each fail)
+- **What happened:** specific description
+- **Why:** root cause
+- **How to fix:** concrete action
+- **Prevention rule:** instruction for future
+
+### 4. Auto-eval footer format
+
+\\\`\\\`\\\`
+eval: T:pass R:pass C:n/a
+\\\`\\\`\\\`
+
+## Symbols
+- pass = the response meets the criterion
+- fail = the response misses the criterion
+- n/a = not applicable (e.g., no code in a text-only response)
+
+## When to use
+- After important responses you want to evaluate
+- When a response could have been better
+- For calibrating quality over time
+`;
+
 const NAMING_CHEATSHEET = `# Naming Convention Cheatsheet
 
 ## Format
@@ -2017,6 +2192,7 @@ function showSlide(n) {
   updateNotes();
   updateTimeline();
   updatePreview();
+  updateTocHighlight();
   deselectBlock();
   // Start break timer if on break slide
   if (slides[current].dataset.block === 'break') startBreakTimer();
@@ -2053,11 +2229,11 @@ function stopBreakTimer() { clearInterval(breakTimerInterval); }
 function toggleNotes() { notesVisible = !notesVisible; document.getElementById('notes-panel').classList.toggle('visible', notesVisible); if (notesVisible) updateNotes(); }
 function updateNotes() { if (!notesVisible) return; const panel = document.getElementById('notes-panel'); const noteText = slides[current].dataset.notes || 'No notes for this slide.'; panel.innerHTML = `<h4>// SPEAKER NOTES — SLIDE ${current + 1}</h4><p>${noteText}</p>`; }
 
-// ===== TOC =====
+// ===== TOC SIDE PANEL =====
 function toggleToc() {
   tocVisible = !tocVisible;
-  const overlay = document.getElementById('toc-overlay');
-  overlay.classList.toggle('visible', tocVisible);
+  const panel = document.getElementById('toc-panel');
+  panel.classList.toggle('visible', tocVisible);
   if (tocVisible) buildToc();
 }
 function buildToc() {
@@ -2071,24 +2247,34 @@ function buildToc() {
       if (blockInfo) {
         const header = document.createElement('div');
         header.className = 'toc-block-header';
-        header.textContent = `Block ${blockInfo.id}: ${blockInfo.name} (${blockInfo.dur} min)`;
+        header.textContent = `${blockInfo.id}. ${blockInfo.name} (${blockInfo.dur} min)`;
         grid.appendChild(header);
       } else if (blockId === 'break') {
         const header = document.createElement('div');
         header.className = 'toc-block-header';
         header.style.color = 'var(--amber)';
-        header.textContent = 'BREAK (5 min)';
+        header.textContent = 'break (5 min)';
         grid.appendChild(header);
       }
       lastBlock = blockId;
     }
     const item = document.createElement('div');
     item.className = 'toc-item' + (i === current ? ' current' : '');
-    const label = s.querySelector('.label')?.textContent || '';
     const title = s.querySelector('h1, h2')?.textContent || '';
-    item.innerHTML = `<div class="toc-num">${i + 1}</div><div class="toc-title">${title.slice(0, 50)}</div>`;
-    item.onclick = () => { showSlide(i); toggleToc(); };
+    item.innerHTML = `<div class="toc-num">${i + 1}</div><div class="toc-title">${title.slice(0, 40)}</div>`;
+    item.onclick = () => { showSlide(i); };
     grid.appendChild(item);
+  });
+}
+// Update TOC highlight on slide change
+function updateTocHighlight() {
+  if (!tocVisible) return;
+  const items = document.querySelectorAll('#toc-grid .toc-item');
+  let idx = 0;
+  items.forEach(item => {
+    const num = parseInt(item.querySelector('.toc-num')?.textContent);
+    if (num === current + 1) item.classList.add('current');
+    else item.classList.remove('current');
   });
 }
 
@@ -2131,7 +2317,7 @@ document.addEventListener('keydown', (e) => {
   else if ((e.ctrlKey || e.metaKey) && e.key === 'z' && !e.shiftKey) { e.preventDefault(); undo(); }
   else if ((e.ctrlKey || e.metaKey) && (e.key === 'Z' || e.key === 'y')) { e.preventDefault(); redo(); }
   else if (e.key === 'Delete' && editMode && selectedBlock) { deleteBlock(); }
-  else if (e.key === 'Escape') { if (tocVisible) toggleToc(); closeLayoutPicker(); closeGhModal(); document.getElementById('img-action-menu').classList.remove('visible'); deselectBlock(); }
+  else if (e.key === 'Escape') { if (tocVisible) toggleToc(); closeLayoutPicker(); closeGhModal(); document.getElementById('img-action-menu').classList.remove('visible'); deselectBlock(); document.getElementById('toc-panel').classList.remove('visible'); tocVisible = false; }
 }, false);
 
 document.addEventListener('keydown', (e) => {
@@ -2319,7 +2505,7 @@ function buildCleanHTML() {
   clone.querySelectorAll('[draggable]').forEach(el => el.removeAttribute('draggable'));
   clone.querySelectorAll('.block-selected,.drag-over-top,.drag-over-bottom,.block-dragging').forEach(el => { el.classList.remove('block-selected','drag-over-top','drag-over-bottom','block-dragging'); });
   clone.querySelectorAll('#block-actions,#img-action-menu').forEach(el => { el.classList.remove('visible'); });
-  clone.querySelectorAll('#layout-picker,#gh-modal,#toc-overlay').forEach(el => { el.classList.remove('visible'); });
+  clone.querySelectorAll('#layout-picker,#gh-modal,#toc-panel').forEach(el => { el.classList.remove('visible'); });
   clone.querySelectorAll('#preview-panel,#notes-panel').forEach(el => { el.classList.remove('visible'); });
   clone.querySelectorAll('.slide').forEach((s, i) => { s.classList.toggle('active', i === 0); });
   const pb = clone.querySelector('.progress-bar'); if (pb) pb.style.width = '';

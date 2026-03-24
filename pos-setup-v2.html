@@ -1,0 +1,1827 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Personal OS Setup v2 — AI Mindset</title>
+<meta property="og:title" content="Personal OS Setup v2 — AI-Native Sprint">
+<meta property="og:description" content="собираем персональную операционную систему &mdash; dashboard, awareness, skills">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://ai-mindset-org.github.io/ainative-deck/assets/og-pos-setup.png">
+<meta property="og:url" content="https://ai-mindset-org.github.io/ainative-deck/pos-setup-v2.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://ai-mindset-org.github.io/ainative-deck/assets/og-pos-setup.png">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23161620'/><text x='16' y='22' text-anchor='middle' fill='%234dc9d4' font-size='18' font-family='monospace'>P</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #161620; --bg-deep: #0a0a0f; --bg-card: #1c1c2e; --bg-terminal: #141419;
+  --text: #e6edf3; --text-dim: rgba(255,255,255,0.5); --text-label: rgba(255,255,255,0.45);
+  --teal: #4dc9d4; --teal-dim: rgba(77,201,212,0.15); --teal-glow: rgba(77,201,212,0.3);
+  --green: #38d9a9; --blue: #3b82f6; --amber: #c89200; --red: #ff6b6b;
+  --pink: #ff3b8b; --cyan: #38bdf8;
+  --border: rgba(77,201,212,0.12); --border-hover: rgba(77,201,212,0.3);
+  --grid-size: 60px;
+  --font-heading: 'Space Grotesk', sans-serif;
+  --font-body: 'IBM Plex Mono', monospace;
+  --font-code: 'JetBrains Mono', monospace;
+}
+html, body { width: 100%; height: 100%; background: var(--bg); color: var(--text); font-family: var(--font-body); font-size: 20px; overflow: hidden; -webkit-font-smoothing: antialiased; }
+body::before { content: ''; position: fixed; inset: 0; background-image: linear-gradient(rgba(77,201,212,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(77,201,212,0.03) 1px, transparent 1px); background-size: var(--grid-size) var(--grid-size); pointer-events: none; z-index: 1; }
+.mesh { position: fixed; inset: 0; background: radial-gradient(ellipse at 20% 50%, rgba(77,201,212,0.08) 0%, transparent 50%), radial-gradient(ellipse at 80% 20%, rgba(59,130,246,0.06) 0%, transparent 50%), radial-gradient(ellipse at 50% 80%, rgba(56,217,169,0.04) 0%, transparent 50%); pointer-events: none; z-index: 2; }
+.grain { position: fixed; inset: 0; background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='5' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E"); opacity: 0.14; pointer-events: none; z-index: 9998; }
+.vignette { position: fixed; inset: 0; background: radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.4) 100%); pointer-events: none; z-index: 9997; }
+.top-line { position: fixed; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--teal), transparent); z-index: 10000; }
+#timeline-bar { position: fixed; top: 2px; left: 0; right: 0; height: 28px; background: rgba(10,10,15,0.92); border-bottom: 1px solid var(--border); z-index: 10001; display: flex; align-items: center; padding: 0 12px; font-family: var(--font-body); backdrop-filter: blur(8px); }
+#timeline-bar .tl-track { flex: 1; height: 6px; background: rgba(77,201,212,0.08); border-radius: 3px; position: relative; margin: 0 8px; }
+#timeline-bar .tl-progress { position: absolute; top: 0; left: 0; height: 100%; background: linear-gradient(90deg, var(--teal), var(--green)); border-radius: 3px; transition: width 0.4s; }
+#timeline-bar .tl-time { font-size: 8px; color: var(--text-dim); min-width: 30px; text-align: center; letter-spacing: 0.5px; }
+#constellation { position: fixed; inset: 0; pointer-events: none; z-index: 3; }
+.slide { display: none; flex-direction: column; justify-content: center; align-items: center; width: 100vw; height: 100vh; padding: 60px 80px 80px; position: relative; z-index: 10; }
+.slide.active { display: flex; }
+.slide-inner { width: 100%; max-width: 1100px; flex: 1; display: flex; flex-direction: column; justify-content: center; position: relative; }
+.slide::before, .slide::after { content: ''; position: absolute; width: 30px; height: 30px; border: 2px solid var(--teal); opacity: 0.15; z-index: 11; }
+.slide::before { top: 24px; left: 24px; border-right: none; border-bottom: none; }
+.slide::after { bottom: 24px; right: 24px; border-left: none; border-top: none; }
+.slide-counter { position: absolute; top: 34px; right: 32px; font-family: var(--font-body); font-size: 12px; color: var(--text-dim); opacity: 0.5; z-index: 12; }
+.slide-logo { position: absolute; bottom: 24px; left: 32px; width: 36px; height: 36px; opacity: 0.4; z-index: 12; pointer-events: none; }
+h1 { font-family: var(--font-heading); font-size: 56px; font-weight: 700; margin-bottom: 16px; line-height: 1.15; color: #fff; }
+h2 { font-family: var(--font-heading); font-size: 42px; font-weight: 600; margin-bottom: 20px; line-height: 1.25; color: #fff; }
+h3 { font-family: var(--font-body); font-size: 24px; font-weight: 500; color: var(--text-dim); margin-bottom: 12px; }
+p, li { font-size: 20px; line-height: 1.7; color: rgba(255,255,255,0.8); }
+.label { font-family: var(--font-body); font-size: 15px; font-weight: 500; text-transform: uppercase; letter-spacing: 3px; color: var(--text-label); margin-bottom: 16px; }
+.teal { color: var(--teal); } .green { color: var(--green); } .blue { color: var(--blue); }
+.amber { color: var(--amber); } .red { color: var(--red); } .cyan { color: var(--cyan); } .dim { color: var(--text-dim); }
+.cover { align-items: center; text-align: center; }
+.cover h1 { font-size: 56px; margin-bottom: 12px; }
+.subtitle { font-size: 22px; color: var(--text-dim); margin-bottom: 24px; }
+.meta { display: flex; gap: 12px; align-items: center; justify-content: center; margin-top: 8px; flex-wrap: wrap; }
+.meta .dot { color: var(--text-dim); opacity: 0.3; }
+.meta .date { font-size: 15px; color: var(--text-dim); }
+.tag { display: inline-block; font-family: var(--font-body); font-size: 12px; padding: 3px 10px; border-radius: 4px; background: var(--teal-dim); color: var(--teal); letter-spacing: 1px; text-transform: lowercase; }
+.tag.green-tag { background: rgba(56,217,169,0.15); color: var(--green); }
+.tag.blue-tag { background: rgba(59,130,246,0.15); color: var(--blue); }
+.tag.amber-tag { background: rgba(200,146,0,0.15); color: var(--amber); }
+.tag.red-tag { background: rgba(255,107,107,0.15); color: var(--red); }
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-top: 20px; }
+.card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 24px; transition: all 0.3s; }
+.card:hover { border-color: var(--border-hover); box-shadow: 0 0 24px var(--teal-dim); }
+.card-icon { font-family: var(--font-heading); font-size: 24px; font-weight: 700; color: var(--teal); margin-bottom: 12px; }
+.card h3 { font-family: var(--font-heading); font-size: 20px; font-weight: 600; color: #fff; margin-bottom: 8px; }
+.card p { font-size: 16px; color: var(--text-dim); line-height: 1.5; }
+.card .tag { margin-top: 12px; }
+.stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 24px; }
+.stat-grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
+.stat-grid.cols-4 { grid-template-columns: repeat(4, 1fr); }
+.stat-grid.cols-5 { grid-template-columns: repeat(5, 1fr); }
+.stat-box { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 28px 20px; text-align: center; transition: border-color 0.3s; }
+.stat-box:hover { border-color: var(--border-hover); }
+.stat-box .num { font-family: var(--font-heading); font-size: 48px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.stat-box .stat-label { font-size: 15px; color: var(--text-label); margin-top: 8px; text-transform: lowercase; line-height: 1.4; }
+.layers { display: flex; flex-direction: column; gap: 8px; margin-top: 20px; }
+.layer { display: flex; align-items: center; gap: 16px; padding: 14px 20px; border-radius: 10px; border: 1px solid var(--border); background: rgba(28,28,46,0.5); transition: all 0.3s; }
+.layer:hover { transform: translateX(6px); border-color: var(--border-hover); }
+.layer-num { font-family: var(--font-heading); font-size: 18px; font-weight: 700; min-width: 32px; }
+.layer-name { font-family: var(--font-heading); font-size: 18px; font-weight: 600; min-width: 180px; color: #fff; }
+.layer-desc { font-size: 16px; color: var(--text-dim); flex: 1; }
+.timeline { display: flex; flex-direction: column; gap: 6px; margin-top: 20px; }
+.timeline-row { display: flex; align-items: center; gap: 14px; padding: 10px 20px; border-radius: 8px; background: rgba(28,28,46,0.4); border-left: 3px solid var(--border); transition: all 0.3s; }
+.timeline-row:hover { background: rgba(28,28,46,0.7); }
+.timeline-row.teal-row { border-left-color: var(--teal); background: rgba(77,201,212,0.05); }
+.timeline-row.green-row { border-left-color: var(--green); background: rgba(56,217,169,0.05); }
+.timeline-row.blue-row { border-left-color: var(--blue); background: rgba(59,130,246,0.05); }
+.timeline-row.amber-row { border-left-color: var(--amber); background: rgba(200,146,0,0.05); }
+.timeline-row.red-row { border-left-color: var(--red); background: rgba(255,107,107,0.05); }
+.timeline-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.timeline-time { font-size: 15px; color: var(--text-dim); min-width: 80px; font-variant-numeric: tabular-nums; }
+.timeline-title { font-size: 18px; flex: 1; color: rgba(255,255,255,0.85); }
+.timeline-dur { font-size: 14px; padding: 2px 10px; border-radius: 4px; background: var(--bg-card); color: var(--text-dim); }
+.quote { border-left: 3px solid var(--teal); padding: 16px 24px; margin: 20px 0; background: rgba(77,201,212,0.04); border-radius: 0 8px 8px 0; }
+.quote p { font-size: 20px; font-style: italic; color: rgba(255,255,255,0.85); }
+.quote .author { font-size: 15px; color: var(--text-dim); margin-top: 8px; font-style: normal; }
+.big-quote { text-align: center; padding: 40px 60px; }
+.big-quote p { font-size: 36px; font-family: var(--font-heading); font-weight: 600; font-style: normal; color: #fff; line-height: 1.4; }
+.big-quote .author { font-size: 16px; color: var(--text-dim); margin-top: 16px; font-style: normal; }
+.split { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 20px; }
+.code-block { background: var(--bg-terminal); border: 1px solid var(--border); border-radius: 10px; padding: 20px 24px; font-family: var(--font-code); font-size: 16px; line-height: 1.7; margin-top: 16px; overflow-x: auto; cursor: pointer; position: relative; }
+.code-block .comment { color: var(--text-dim); }
+.code-block:hover { border-color: var(--border-hover); }
+.code-block .copy-hint { position: absolute; top: 8px; right: 12px; font-size: 10px; color: var(--text-label); opacity: 0; transition: opacity 0.2s; }
+.code-block:hover .copy-hint { opacity: 1; }
+.code-block.copied .copy-hint { color: var(--green); }
+.styled-table { width: 100%; border-collapse: collapse; margin-top: 16px; font-size: 16px; }
+.styled-table th { font-family: var(--font-heading); font-size: 15px; font-weight: 600; text-align: left; padding: 12px 16px; border-bottom: 1px solid var(--border); color: var(--teal); text-transform: uppercase; letter-spacing: 1px; }
+.styled-table td { padding: 10px 16px; border-bottom: 1px solid rgba(77,201,212,0.06); color: rgba(255,255,255,0.75); font-size: 16px; }
+.styled-table tr:hover td { background: rgba(77,201,212,0.03); }
+.speaker-cover-photo { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 3px solid var(--border); margin-bottom: 20px; }
+.svg-container { margin-top: 20px; display: flex; justify-content: center; }
+.svg-container svg { max-width: 100%; height: auto; }
+.terminal { background: var(--bg-terminal); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin-top: 16px; }
+.terminal-header { display: flex; align-items: center; gap: 8px; padding: 10px 16px; background: rgba(255,255,255,0.03); border-bottom: 1px solid var(--border); }
+.terminal-dot { width: 10px; height: 10px; border-radius: 50%; }
+.terminal-dot.r { background: #ff5f57; } .terminal-dot.y { background: #febc2e; } .terminal-dot.g { background: #28c840; }
+.terminal-title { font-size: 12px; color: var(--text-dim); margin-left: 8px; font-family: var(--font-body); }
+.terminal-body { padding: 16px 20px; font-family: var(--font-code); font-size: 15px; line-height: 1.8; color: rgba(255,255,255,0.8); }
+.terminal-body .prompt { color: var(--teal); } .terminal-body .cmd { color: #fff; }
+.terminal-body .out { color: var(--text-dim); } .terminal-body .hl { color: var(--green); } .terminal-body .warn { color: var(--amber); }
+.file-tree { font-family: var(--font-code); font-size: 15px; line-height: 1.8; background: var(--bg-terminal); border: 1px solid var(--border); border-radius: 10px; padding: 16px 20px; margin-top: 12px; }
+.file-tree .dir { color: var(--blue); } .file-tree .file { color: rgba(255,255,255,0.7); } .file-tree .hl { color: var(--teal); font-weight: 500; }
+.exercise-card { background: rgba(77,201,212,0.05); border: 2px solid var(--teal); border-radius: 16px; padding: 32px; margin-top: 20px; }
+.exercise-card h3 { font-family: var(--font-heading); font-size: 24px; color: var(--teal); margin-bottom: 16px; }
+.exercise-card ol, .exercise-card ul { padding-left: 20px; }
+.exercise-card li { font-size: 18px; margin-bottom: 8px; color: rgba(255,255,255,0.85); }
+.exercise-card .timer { font-family: var(--font-heading); font-size: 16px; color: var(--amber); margin-top: 16px; }
+.hw-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; }
+.hw-item { background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; padding: 16px 20px; transition: all 0.3s; }
+.hw-item:hover { border-color: var(--border-hover); }
+.hw-item .hw-num { font-family: var(--font-heading); font-size: 18px; font-weight: 700; color: var(--teal); margin-bottom: 6px; }
+.hw-item .hw-text { font-size: 16px; color: rgba(255,255,255,0.75); line-height: 1.5; }
+.hw-item .hw-link { font-size: 14px; color: var(--blue); margin-top: 6px; display: block; text-decoration: none; }
+.hw-item .hw-link:hover { color: var(--teal); }
+.link-btn { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 6px; background: var(--teal-dim); border: 1px solid var(--border); color: var(--teal); font-size: 14px; font-family: var(--font-body); text-decoration: none; transition: all 0.2s; margin-top: 12px; }
+.link-btn:hover { border-color: var(--teal); background: rgba(77,201,212,0.2); }
+.download-btn { display: inline-flex; align-items: center; gap: 8px; padding: 8px 18px; border-radius: 8px; background: rgba(56,217,169,0.1); border: 1px solid rgba(56,217,169,0.3); color: var(--green); font-size: 14px; font-family: var(--font-body); text-decoration: none; cursor: pointer; transition: all 0.2s; margin-top: 12px; }
+.download-btn:hover { border-color: var(--green); background: rgba(56,217,169,0.2); }
+.download-btn svg { width: 14px; height: 14px; }
+.naming-part { display: inline-block; padding: 2px 8px; border-radius: 4px; font-family: var(--font-code); font-size: 18px; margin: 2px; }
+.np-project { background: rgba(77,201,212,0.2); color: var(--teal); }
+.np-type { background: rgba(59,130,246,0.2); color: var(--blue); }
+.np-desc { background: rgba(56,217,169,0.15); color: var(--green); }
+.np-date { background: rgba(200,146,0,0.15); color: var(--amber); }
+.progress-bar { position: fixed; bottom: 0; left: 0; height: 2px; background: var(--teal); transition: width 0.3s; z-index: 10001; }
+.nav-hint { position: fixed; bottom: 16px; right: 32px; font-size: 11px; color: var(--text-dim); opacity: 0.3; z-index: 10001; font-family: var(--font-body); }
+#notes-panel { display: none; position: fixed; bottom: 0; left: 0; right: 0; height: 200px; background: rgba(10,10,15,0.97); border-top: 1px solid var(--border); backdrop-filter: blur(12px); z-index: 10002; overflow-y: auto; padding: 16px 32px; font-family: var(--font-body); font-size: 15px; color: rgba(255,255,255,0.75); line-height: 1.6; }
+#notes-panel.visible { display: block; }
+#notes-panel h4 { font-family: var(--font-heading); font-size: 14px; color: var(--teal); margin-bottom: 8px; }
+#toc-panel { position: fixed; top: 0; right: -320px; bottom: 0; width: 320px; background: rgba(10,10,15,0.94); backdrop-filter: blur(16px); z-index: 20000; overflow-y: auto; padding: 20px 16px; border-left: 1px solid var(--border); transition: right 0.3s ease; }
+#toc-panel.visible { right: 0; }
+#toc-panel h2 { font-family: var(--font-heading); font-size: 16px; color: #fff; margin-bottom: 16px; letter-spacing: 1px; }
+#toc-panel .toc-grid { display: flex; flex-direction: column; gap: 4px; }
+#toc-panel .toc-item { background: transparent; border: 1px solid transparent; border-radius: 6px; padding: 6px 10px; cursor: pointer; transition: all 0.2s; display: flex; align-items: baseline; gap: 8px; }
+#toc-panel .toc-item:hover { border-color: var(--border-hover); background: var(--teal-dim); }
+#toc-panel .toc-item.current { border-color: var(--teal); background: rgba(77,201,212,0.08); }
+#toc-panel .toc-num { font-family: var(--font-heading); font-size: 11px; color: var(--teal); font-weight: 700; min-width: 22px; }
+#toc-panel .toc-title { font-size: 12px; color: rgba(255,255,255,0.7); line-height: 1.3; }
+#toc-panel .toc-block-header { font-family: var(--font-heading); font-size: 12px; color: var(--teal); padding: 10px 0 4px; border-bottom: 1px solid var(--border); margin-top: 6px; letter-spacing: 1px; text-transform: uppercase; }
+.slide-image { max-width: 100%; max-height: 60vh; border-radius: 12px; border: 1px solid var(--border); margin: 16px 0; }
+.img-placeholder { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 200px; border: 2px dashed var(--border); border-radius: 12px; background: rgba(77,201,212,0.03); cursor: pointer; transition: all 0.3s; gap: 8px; padding: 24px; }
+.img-placeholder:hover { border-color: var(--teal); background: rgba(77,201,212,0.06); }
+.tg-mockup { background: #0e1621; border: 1px solid rgba(77,201,212,0.15); border-radius: 14px; padding: 16px; max-width: 380px; margin: 12px auto; }
+.tg-mockup .tg-header { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+.tg-mockup .tg-avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--teal); display: flex; align-items: center; justify-content: center; font-family: var(--font-heading); font-size: 14px; color: var(--bg); font-weight: 700; }
+.tg-mockup .tg-name { font-size: 13px; color: #fff; font-weight: 600; }
+.tg-mockup .tg-subtitle { font-size: 10px; color: var(--text-dim); }
+.tg-mockup .tg-message { font-size: 13px; color: rgba(255,255,255,0.85); line-height: 1.6; font-family: var(--font-body); }
+.tg-mockup .tg-message strong { color: var(--teal); font-weight: 600; }
+.tg-mockup .tg-time { font-size: 10px; color: var(--text-dim); text-align: right; margin-top: 6px; }
+/* === DASHBOARD MOCKUP === */
+.dash-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 16px; }
+.dash-cell { background: var(--bg-terminal); border: 1px solid var(--border); border-radius: 8px; padding: 12px; font-size: 11px; font-family: var(--font-code); color: var(--text-dim); line-height: 1.5; min-height: 70px; }
+.dash-cell .dash-title { font-size: 9px; color: var(--text-label); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+.dash-cell .dash-val { font-family: var(--font-heading); font-size: 20px; font-weight: 700; }
+/* === AWARENESS TABLE === */
+.awareness-row { display: flex; align-items: center; gap: 16px; padding: 12px 16px; border-radius: 8px; background: rgba(28,28,46,0.4); border-left: 3px solid var(--border); margin-bottom: 6px; }
+.awareness-row .aw-layer { font-family: var(--font-heading); font-size: 14px; font-weight: 600; min-width: 130px; }
+.awareness-row .aw-what { font-size: 14px; color: rgba(255,255,255,0.7); flex: 1; }
+.awareness-row .aw-how { font-size: 12px; color: var(--text-dim); min-width: 140px; }
+/* === ANIMATIONS === */
+@keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0; } }
+@keyframes pulse { 0%,100% { opacity: 0.4; } 50% { opacity: 1; } }
+@keyframes pulseSlow { 0%,100% { opacity: 0.3; } 50% { opacity: 0.8; } }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.slide.active .slide-inner > * { animation: fadeUp 0.5s ease-out both; }
+.slide.active .slide-inner > *:nth-child(2) { animation-delay: 0.08s; }
+.slide.active .slide-inner > *:nth-child(3) { animation-delay: 0.16s; }
+.slide.active .slide-inner > *:nth-child(4) { animation-delay: 0.24s; }
+.slide.active .slide-inner > *:nth-child(5) { animation-delay: 0.32s; }
+.slide.active .slide-inner > *:nth-child(6) { animation-delay: 0.40s; }
+.slide.active .slide-inner > *:nth-child(7) { animation-delay: 0.48s; }
+.cursor::after { content: '\2588'; animation: blink 1s step-end infinite; color: var(--teal); margin-left: 2px; }
+.glow-dot { position: absolute; width: 200px; height: 200px; border-radius: 50%; pointer-events: none; z-index: 5; background: radial-gradient(circle, rgba(77,201,212,0.08) 0%, transparent 70%); }
+/* === EDIT MODE === */
+body.edit-mode [contenteditable="true"] { outline: 1px dashed rgba(77,201,212,0.2); outline-offset: 2px; border-radius: 4px; }
+body.edit-mode [contenteditable="true"]:focus { outline-color: var(--teal); background: rgba(77,201,212,0.05); }
+#edit-badge { display: none; position: fixed; top: 36px; left: 50%; transform: translateX(-50%); font-size: 10px; color: var(--teal); padding: 4px 14px; border-radius: 4px; background: rgba(77,201,212,0.1); border: 1px solid rgba(77,201,212,0.2); z-index: 10001; font-family: var(--font-body); letter-spacing: 1px; }
+body.edit-mode #edit-badge { display: block; }
+#block-actions { display: none; position: fixed; z-index: 10010; gap: 4px; }
+#block-actions.visible { display: flex; }
+#block-actions button { background: var(--bg-card); border: 1px solid var(--border); color: var(--text); width: 24px; height: 24px; border-radius: 4px; cursor: pointer; font-size: 14px; display: flex; align-items: center; justify-content: center; }
+#block-actions button.danger { color: var(--red); }
+.block-selected { outline: 2px solid var(--teal) !important; outline-offset: 4px; border-radius: 6px; }
+.block-dragging { opacity: 0.4; }
+.drag-over-top { border-top: 2px solid var(--teal) !important; }
+.drag-over-bottom { border-bottom: 2px solid var(--teal) !important; }
+#builder-toolbar { display: none; position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%); background: rgba(10,10,15,0.95); border: 1px solid var(--border); border-radius: 10px; padding: 6px 12px; z-index: 10003; gap: 4px; align-items: center; backdrop-filter: blur(12px); }
+body.edit-mode #builder-toolbar { display: flex; }
+#builder-toolbar button { background: transparent; border: 1px solid transparent; color: var(--text-dim); padding: 4px 10px; border-radius: 6px; cursor: pointer; font-size: 12px; font-family: var(--font-body); transition: all 0.2s; }
+#builder-toolbar button:hover { background: var(--teal-dim); color: var(--teal); border-color: var(--border); }
+#builder-toolbar button.danger { color: var(--red); }
+#builder-toolbar button.active { color: var(--teal); border-color: var(--teal); background: rgba(77,201,212,0.1); }
+#builder-toolbar .tb-sep { width: 1px; height: 20px; background: var(--border); margin: 0 4px; }
+#builder-toolbar .save-status { font-size: 10px; margin-left: 6px; color: var(--text-dim); }
+#builder-toolbar .save-status.saving { color: var(--amber); }
+#builder-toolbar .save-status.saved { color: var(--green); }
+#builder-toolbar .save-status.error { color: var(--red); }
+.layout-bar { position: absolute; bottom: 26px; right: 80px; display: none; gap: 4px; z-index: 13; }
+body.edit-mode .layout-bar { display: flex; }
+.layout-bar button { background: rgba(10,10,15,0.8); border: 1px solid var(--border); border-radius: 4px; width: 28px; height: 22px; cursor: pointer; padding: 2px; display: flex; align-items: center; justify-content: center; }
+.layout-bar button:hover, .layout-bar button.active { border-color: var(--teal); background: rgba(77,201,212,0.1); }
+.layout-bar svg { width: 16px; height: 12px; fill: var(--text-dim); }
+#layout-picker { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 30000; align-items: center; justify-content: center; }
+#layout-picker.visible { display: flex; }
+#layout-picker-inner { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 24px; max-width: 500px; width: 90%; }
+#layout-picker-inner h3 { font-family: var(--font-heading); font-size: 18px; color: #fff; margin-bottom: 16px; }
+.layout-options { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.layout-option { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 12px 8px; border-radius: 8px; border: 1px solid var(--border); cursor: pointer; transition: all 0.2s; }
+.layout-option:hover { border-color: var(--teal); background: var(--teal-dim); }
+.layout-option svg { width: 48px; height: 36px; fill: var(--text-dim); opacity: 0.5; }
+.layout-option span { font-size: 10px; color: var(--text-dim); }
+#gh-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 30000; align-items: center; justify-content: center; }
+#gh-modal.visible { display: flex; }
+#gh-modal-inner { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 24px; max-width: 420px; width: 90%; }
+#gh-modal-inner h3 { font-family: var(--font-heading); font-size: 18px; color: #fff; margin-bottom: 8px; }
+#gh-modal-inner p { font-size: 14px; color: var(--text-dim); margin-bottom: 12px; }
+#gh-modal-inner input { width: 100%; background: var(--bg-terminal); border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; color: var(--text); font-family: var(--font-code); font-size: 14px; margin-bottom: 12px; }
+.modal-actions { display: flex; gap: 8px; justify-content: flex-end; }
+.modal-actions button { background: var(--bg-terminal); border: 1px solid var(--border); border-radius: 8px; padding: 8px 16px; color: var(--text-dim); font-family: var(--font-body); font-size: 14px; cursor: pointer; }
+.modal-actions button.primary { background: var(--teal-dim); color: var(--teal); border-color: var(--teal); }
+#img-action-menu { display: none; position: fixed; z-index: 10011; gap: 4px; }
+#img-action-menu.visible { display: flex; }
+#img-action-menu button { background: var(--bg-card); border: 1px solid var(--border); color: var(--text-dim); padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 12px; font-family: var(--font-body); }
+#img-action-menu button:hover { border-color: var(--teal); color: var(--teal); }
+#preview-panel { display: none; position: fixed; bottom: 70px; right: 24px; width: 240px; height: 135px; background: rgba(10,10,15,0.9); border: 1px solid var(--border); border-radius: 8px; z-index: 10003; overflow: hidden; }
+#preview-panel.visible { display: block; }
+.preview-label { font-size: 8px; color: var(--text-dim); padding: 4px 8px; letter-spacing: 1px; }
+.preview-content { width: 100%; height: calc(100% - 20px); overflow: hidden; position: relative; }
+.preview-scale { transform: scale(0.125); transform-origin: top left; width: 1920px; height: 920px; pointer-events: none; }
+@media (max-width: 768px) {
+  .slide { padding: 40px 24px 60px; }
+  h1 { font-size: 36px; } h2 { font-size: 28px; }
+  .split { grid-template-columns: 1fr; gap: 20px; }
+  .cards { grid-template-columns: 1fr; }
+  .stat-grid, .stat-grid.cols-4, .stat-grid.cols-5 { grid-template-columns: repeat(2, 1fr); }
+  .hw-grid { grid-template-columns: 1fr; }
+  .dash-grid { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+</head>
+<body>
+<div class="mesh"></div><div class="grain"></div><div class="vignette"></div><div class="top-line"></div>
+<canvas id="constellation"></canvas>
+<div id="timeline-bar"><span class="tl-time">18:00</span><div class="tl-track"><div class="tl-progress" id="tl-progress"></div></div><span class="tl-time">20:15</span></div>
+
+<!-- ===== S1: COVER ===== -->
+<div class="slide active" id="s1" data-block="1" data-notes="Cover. 'добрый вечер. вчера Стёпа показал ЗАЧЕМ. сегодня мы строим РУКАМИ. вы уходите с работающей системой, не с конспектом.'">
+  <div class="slide-counter"><span class="current">1</span>/<span class="total"></span></div>
+  <img class="slide-logo" src="logo.png" alt="">
+  <div class="glow-dot" style="top:15%;left:10%"></div><div class="glow-dot" style="top:70%;right:15%"></div><div class="glow-dot" style="bottom:20%;left:30%"></div>
+  <div class="slide-inner cover">
+    <div class="label" style="letter-spacing:4px;font-size:11px;margin-bottom:24px">// AI-NATIVE SPRINT s2 &middot; ДЕНЬ 2</div>
+    <div style="position:relative;display:inline-block;margin-bottom:20px">
+      <img class="speaker-cover-photo" src="speakers/alexander-povaliaev.jpg" alt="Alexander Povaliaev">
+      <div style="position:absolute;inset:-4px;border-radius:50%;border:1px solid var(--teal-glow);animation:pulse 3s ease-in-out infinite"></div>
+    </div>
+    <h1>Personal OS <span class="teal">Setup</span><span class="cursor"></span></h1>
+    <p class="subtitle">dashboard &middot; awareness &middot; skills &mdash; собираем персональную операционную систему</p>
+    <div class="meta">
+      <span class="tag">воркшоп</span>
+      <span class="tag green-tag">24 mar 2026</span>
+      <span class="tag blue-tag">~135 min</span>
+      <span class="dot">&middot;</span>
+      <span class="date">Alexander Povaliaev &middot; AI Mindset</span>
+    </div>
+  </div>
+</div>
+
+<!-- ===== S2: MANTRA ===== -->
+<div class="slide" id="s2" data-block="1" data-notes="Мантра из prework #1. 'Это наше правило на сегодня. Один скилл. Работающий. Настоящий.'">
+  <div class="slide-counter"><span class="current">2</span>/<span class="total"></span></div>
+  <img class="slide-logo" src="logo.png" alt="">
+  <div class="slide-inner">
+    <div class="label">// PREWORK #1 &middot; MANTRA</div>
+    <div class="big-quote">
+      <p>&laquo;start with one skill,<br>not with <span class="dim" style="text-decoration:line-through">Jarvis</span>&raquo;</p>
+      <div class="author">POS &mdash; архитектура внимания, не набор инструментов</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== S3: AGENDA ===== -->
+<div class="slide" id="s3" data-block="1" data-notes="Обзор 11 блоков + перерыв. ~135 мин. Обновлён с блоком дашборд и awareness.">
+  <div class="slide-counter"><span class="current">3</span>/<span class="total"></span></div>
+  <img class="slide-logo" src="logo.png" alt="">
+  <div class="slide-inner">
+    <div class="label">// agenda &middot; ~135 мин</div>
+    <h2>сегодня: ваш <span class="teal">Personal OS</span></h2>
+    <p style="font-size:14px;color:var(--text-dim);margin-bottom:14px">deliverable: Personal OS с 3 working skills. формат &ndash; live demo + hands-on + breakout rooms.</p>
+    <div class="layers" style="gap:4px">
+      <div class="layer" style="padding:10px 16px;border-left:3px solid var(--teal)"><div class="layer-num teal" style="min-width:32px;font-size:15px">01</div><div class="layer-name" style="min-width:170px;font-size:15px">Связка с L01</div><div class="layer-desc" style="font-size:13px">10 мин &middot; Стёпа показал почему. Сегодня &ndash; первый шаг</div></div>
+      <div class="layer" style="padding:10px 16px;border-left:3px solid var(--teal)"><div class="layer-num teal" style="min-width:32px;font-size:15px">02</div><div class="layer-name" style="min-width:170px;font-size:15px">Барьеры доступа</div><div class="layer-desc" style="font-size:13px">15 мин &middot; клавиатура, голос, Raycast, zero friction</div></div>
+      <div class="layer" style="padding:10px 16px;border-left:3px solid var(--green)"><div class="layer-num green" style="min-width:32px;font-size:15px">03</div><div class="layer-name" style="min-width:170px;font-size:15px">Naming Convention</div><div class="layer-desc" style="font-size:13px">10 мин &middot; без правил vault = свалка за 2 недели</div></div>
+      <div class="layer" style="padding:10px 16px;border-left:3px solid var(--green)"><div class="layer-num green" style="min-width:32px;font-size:15px">04</div><div class="layer-name" style="min-width:170px;font-size:15px">Правила + CLAUDE.md</div><div class="layer-desc" style="font-size:13px">10 мин &middot; конституция для агента</div></div>
+      <div class="layer" style="padding:10px 16px;border-left:3px solid var(--blue)"><div class="layer-num blue" style="min-width:32px;font-size:15px">05</div><div class="layer-name" style="min-width:170px;font-size:15px">Дашборд + Awareness</div><div class="layer-desc" style="font-size:13px">10 мин &middot; POS как зеркало, CLI awareness</div></div>
+      <div class="layer" style="padding:10px 16px;border-left:3px solid var(--blue)"><div class="layer-num blue" style="min-width:32px;font-size:15px">06</div><div class="layer-name" style="min-width:170px;font-size:15px">Claude Code / CoWork</div><div class="layer-desc" style="font-size:13px">20 мин &middot; npm install &rarr; первая команда</div></div>
+      <div class="layer" style="padding:6px 16px;border-left:3px solid var(--amber);background:rgba(200,146,0,0.03)"><div class="layer-num dim" style="min-width:32px"></div><div class="layer-name dim" style="min-width:170px;font-size:13px">// перерыв</div><div class="layer-desc dim" style="font-size:13px">5 мин</div></div>
+      <div class="layer" style="padding:10px 16px;border-left:3px solid var(--amber)"><div class="layer-num amber" style="min-width:32px;font-size:15px">07</div><div class="layer-name" style="min-width:170px;font-size:15px">Первый скилл</div><div class="layer-desc" style="font-size:13px">15 мин &middot; meeting-summary.md от нуля</div></div>
+      <div class="layer" style="padding:10px 16px;border-left:3px solid var(--amber)"><div class="layer-num amber" style="min-width:32px;font-size:15px">08</div><div class="layer-name" style="min-width:170px;font-size:15px">L0&ndash;L3 карта</div><div class="layer-desc" style="font-size:13px">15 мин &middot; 3 процесса + уровни автономии</div></div>
+      <div class="layer" style="padding:10px 16px;border-left:3px solid var(--red)"><div class="layer-num red" style="min-width:32px;font-size:15px">09</div><div class="layer-name" style="min-width:170px;font-size:15px">Границы и фокус</div><div class="layer-desc" style="font-size:13px">5 мин &middot; дофаминовая ловушка</div></div>
+      <div class="layer" style="padding:10px 16px;border-left:3px solid var(--red)"><div class="layer-num red" style="min-width:32px;font-size:15px">10</div><div class="layer-name" style="min-width:170px;font-size:15px">Домашка</div><div class="layer-desc" style="font-size:13px">10 мин &middot; aim-skill + quiz + 3 skills</div></div>
+      <div class="layer" style="padding:10px 16px;border-left:3px solid rgba(255,255,255,0.15)"><div class="layer-num dim" style="min-width:32px;font-size:15px">11</div><div class="layer-name" style="min-width:170px;font-size:15px">Q&A + Breakout</div><div class="layer-desc" style="font-size:13px">30 мин &middot; группы по 3&ndash;4 человека</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== S4: BRIDGE ===== -->
+<div class="slide" id="s4" data-block="1" data-notes="Мост от вчера. Вчера Стёпа показал масштаб &mdash; Shopify, Block, Spotify. Сегодня мы начинаем с вас. Не с компании, не с команды &mdash; с вашего личного стека.">
+  <div class="slide-counter"><span class="current">4</span>/<span class="total"></span></div>
+  <img class="slide-logo" src="logo.png" alt="">
+  <div class="slide-inner">
+    <div class="label">// block 01 &middot; мост от L01</div>
+    <h2>вчера &ndash; <span class="dim">почему</span>. сегодня &ndash; <span class="teal">как</span>.</h2>
+    <div class="quote" style="margin:0 0 16px;border-left-color:var(--amber);background:rgba(200,146,0,0.04)">
+      <p style="font-size:17px;font-style:italic">&laquo;вчера Стёпа показал масштаб &ndash; Shopify, Block, Spotify. сегодня мы начинаем с вас.&raquo;</p>
+    </div>
+    <div class="cards" style="grid-template-columns:repeat(3,1fr);margin-top:8px">
+      <div class="card" style="padding:18px;border-top:2px solid var(--amber)">
+        <div class="card-icon amber" style="font-size:16px">POS &rarr; Team &rarr; Company</div>
+        <p style="font-size:13px">сегодня &ndash; POS. первая колонка: 1 человек, 3 скилла.</p>
+      </div>
+      <div class="card" style="padding:18px;border-top:2px solid var(--teal)">
+        <div class="card-icon teal" style="font-size:16px">Moat = оркестратор</div>
+        <p style="font-size:13px">ваш moat &ndash; не модель. ваш moat &ndash; контекст и правила.</p>
+      </div>
+      <div class="card" style="padding:18px;border-top:2px solid var(--red)">
+        <div class="card-icon red" style="font-size:16px">агент = LLM + Harness</div>
+        <p style="font-size:13px">строим харнес: CLAUDE.md, skills, MCP. не промтим.</p>
+      </div>
+    </div>
+    <div style="margin-top:12px;padding:12px 20px;background:rgba(77,201,212,0.04);border:1px solid var(--border);border-radius:8px;text-align:center">
+      <span style="font-size:14px;color:rgba(255,255,255,0.8)">мантра: <span class="teal" style="font-weight:600">&laquo;начинай с одного скилла, не с Джарвиса&raquo;</span></span>
+    </div>
+  </div>
+</div>
+
+<!-- ===== S5: POS TABLE ===== -->
+<div class="slide" id="s5" data-block="1" data-notes="POS &rarr; Team OS &rarr; Company OS прогрессия. Сегодня заполняем первую колонку.">
+  <div class="slide-counter"><span class="current">5</span>/<span class="total"></span></div>
+  <img class="slide-logo" src="logo.png" alt="">
+  <div class="slide-inner" style="align-items:center;">
+    <div class="label">// ПРОГРЕССИЯ</div>
+    <h2>POS &rarr; Team OS &rarr; <span class="teal">Company OS</span></h2>
+    <table class="styled-table" style="max-width:800px;">
+      <thead><tr><th></th><th style="color:var(--teal)">Personal OS</th><th style="color:var(--green)">Team OS</th><th style="color:var(--blue)">Company OS</th></tr></thead>
+      <tbody>
+        <tr><td class="dim">масштаб</td><td>1 человек</td><td>3&ndash;10 человек</td><td>организация</td></tr>
+        <tr><td class="dim">скиллы</td><td>3 работающих</td><td>общая библиотека</td><td>уровень отделов</td></tr>
+        <tr><td class="dim">контекст</td><td>CLAUDE.md</td><td>командные правила + memory</td><td>граф знаний компании</td></tr>
+        <tr><td class="dim">автономия</td><td>L1&ndash;L2</td><td>L2&ndash;L3</td><td>L3 + governance</td></tr>
+        <tr><td class="dim">таймлайн</td><td class="teal" style="font-weight:600">сегодня</td><td class="green">завтра</td><td class="blue">неделя 2&ndash;3</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:15px; color:var(--text-dim); margin-top:16px">сегодня заполняем первую колонку</p>
+  </div>
+</div>
+
+<!-- ===== S6: 3 POS PRINCIPLES ===== -->
+<div class="slide" id="s6" data-block="1" data-notes="Три принципа POS. Аналогия с Unix: Config = CLAUDE.md, Script = Skill, Module = MCP driver. У каждого компьютера есть ОС. Она складывалась из скиллов, подключений, правил. Сегодня мы её соберём осознанно.">
+  <div class="slide-counter"><span class="current">6</span>/<span class="total"></span></div>
+  <img class="slide-logo" src="logo.png" alt="">
+  <div class="slide-inner">
+    <div class="label">// 3 ПРИНЦИПА</div>
+    <h2>у каждого компьютера есть <span class="teal">ОС</span>. у вас тоже.</h2>
+    <table class="styled-table" style="max-width:800px;">
+      <thead><tr><th>аналогия</th><th>Unix</th><th style="color:var(--teal)">Personal OS</th></tr></thead>
+      <tbody>
+        <tr><td class="dim">конфигурация</td><td>/etc/</td><td class="teal" style="font-weight:600">CLAUDE.md &mdash; файл, который агент читает при каждом запуске</td></tr>
+        <tr><td class="dim">исполняемый файл</td><td>script.sh</td><td class="teal" style="font-weight:600">Skill &mdash; markdown-инструкции, одна команда &rarr; цепочка действий</td></tr>
+        <tr><td class="dim">драйвер</td><td>kernel module</td><td class="teal" style="font-weight:600">MCP &mdash; подключение к Telegram, Linear, Calendar</td></tr>
+      </tbody>
+    </table>
+    <div class="quote" style="margin-top:20px">
+      <p style="font-size:17px">&laquo;POS &mdash; это не шаблон, который ты &laquo;внедряешь&raquo;. Это архитектура, которую ты наполняешь своей реальностью.&raquo;</p>
+      <div class="author">&mdash; POS Sprint Demo Day, 14 систем построено</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== S7: BARRIERS ===== -->
+<div class="slide" id="s7" data-block="2" data-notes="Блок 2. Барьеры. 'Если вы 3 минуты думаете, набрать ли что-то &mdash; вы не экспериментируете. А если вы не экспериментируете &mdash; вы не видите возможности этих инструментов.' Связка с L01 slide #8: METR: -19% скорость, +20% ощущение. Причина &mdash; friction доступа.">
+  <div class="slide-counter"><span class="current">7</span>/<span class="total"></span></div>
+  <img class="slide-logo" src="logo.png" alt="">
+  <div class="slide-inner" style="align-items:center; text-align:center;">
+    <div class="label">// БЛОК 02 &middot; БАРЬЕРЫ</div>
+    <h1>барьеры <span class="teal">доступа</span></h1>
+    <p class="dim" style="margin-top:12px; max-width:700px; font-size:22px">если вы 3 минуты думаете набрать ли что-то &mdash;<br>вы не экспериментируете</p>
+    <div class="svg-container" style="margin-top:32px">
+      <svg viewBox="0 0 780 325" xmlns="http://www.w3.org/2000/svg" style="max-width:650px">
+        <defs><linearGradient id="wallGrad" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#4dc9d4" stop-opacity="0.3"/><stop offset="50%" stop-color="#3b82f6" stop-opacity="0.5"/><stop offset="100%" stop-color="#4dc9d4" stop-opacity="0.3"/></linearGradient></defs>
+        <circle cx="156" cy="130" r="32" fill="none" stroke="#4dc9d4" stroke-width="2.5" opacity="0.8"/>
+        <line x1="156" y1="162" x2="156" y2="234" stroke="#4dc9d4" stroke-width="2.5" opacity="0.6"/>
+        <line x1="156" y1="189" x2="124" y2="215" stroke="#4dc9d4" stroke-width="2.5" opacity="0.6"/>
+        <line x1="156" y1="189" x2="189" y2="215" stroke="#4dc9d4" stroke-width="2.5" opacity="0.6"/>
+        <line x1="156" y1="234" x2="130" y2="286" stroke="#4dc9d4" stroke-width="2.5" opacity="0.6"/>
+        <line x1="156" y1="234" x2="182" y2="286" stroke="#4dc9d4" stroke-width="2.5" opacity="0.6"/>
+        <text x="156" y="315" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="IBM Plex Mono" font-size="16">вы</text>
+        <rect x="312" y="65" width="52" height="221" rx="5" fill="url(#wallGrad)" opacity="0.6"><animate attributeName="width" values="52;10;52" dur="4s" repeatCount="indefinite"/><animate attributeName="x" values="312;333;312" dur="4s" repeatCount="indefinite"/></rect>
+        <text x="338" y="315" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-family="IBM Plex Mono" font-size="16">friction</text>
+
+        <rect x="520" y="104" rx="16" width="104" height="104" fill="none" stroke="#3b82f6" stroke-width="2.5" opacity="0.8"/>
+        <text x="572" y="166" text-anchor="middle" fill="#3b82f6" font-family="Space Grotesk" font-size="32" font-weight="600">AI</text>
+        <text x="572" y="315" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="IBM Plex Mono" font-size="16">agent</text>
+      </svg>
+    </div>
+  </div>
+</div>
+
+<!-- ===== S8: RAYCAST ===== -->
+<div class="slide" id="s8" data-block="2" data-notes="Raycast демо. Cmd+Space &rarr; мгновенный AI. Показать keyboard.aimindset.org. POS level 0 &mdash; доступ за 0 секунд.">
+  <div class="slide-counter"><span class="current">8</span>/<span class="total"></span></div>
+  <img class="slide-logo" src="logo.png" alt="">
+  <div class="slide-inner">
+    <div class="label">// БЫСТРЫЙ ДОСТУП</div>
+    <h2><span class="teal">Cmd+Space</span> &rarr; мгновенный AI</h2>
+    <div class="terminal">
+      <div class="terminal-header"><div class="terminal-dot r"></div><div class="terminal-dot y"></div><div class="terminal-dot g"></div><div class="terminal-title">Raycast &mdash; AI Command</div></div>
+      <div class="terminal-body">
+        <span class="prompt">&#x276F;</span> <span class="cmd">summarize my last 3 meetings and extract action items</span><br><br>
+        <span class="out">analyzing transcripts from Krisp...</span><br>
+        <span class="hl">1. Follow up with Vlada on partnership deck</span><br>
+        <span class="hl">2. Schedule tech review with Dan &mdash; Thursday</span><br>
+        <span class="hl">3. Send sprint recap to #support channel</span><br><br>
+        <span class="out dim">3 meetings analyzed &middot; 5 action items &middot; 1.2s</span>
+      </div>
+    </div>
+    <div style="display:flex; gap:12px; margin-top:16px; flex-wrap:wrap;">
+      <a class="link-btn" href="https://keyboard.aimindset.org/" target="_blank">keyboard.aimindset.org &nearr;</a>
+      <span class="tag">POS level 0 &mdash; доступ за 0 секунд</span>
+    </div>
+  </div>
+</div>
+
+<!-- ===== S9: VOICE ===== -->
+<div class="slide" id="s9" data-block="2" data-notes="5 слоёв ввода. WISPR Flow для голосовой диктовки. Krisp для транскрибации звонков. Content Voice = 5 тонов. Звонки = данные. 'Звонки &mdash; не артефакт. Звонок = данные. Данные нужно хранить красиво.'">
+  <div class="slide-counter"><span class="current">9</span>/<span class="total"></span></div>
+  <img class="slide-logo" src="logo.png" alt="">
+  <div class="slide-inner">
+    <div class="label">// 5 СЛОЁВ ВВОДА</div>
+    <h2>голос &rarr; <span class="teal">структурированные данные</span></h2>
+    <p class="dim" style="font-size:17px; margin-bottom:12px">звонки &mdash; не артефакт. звонок = данные. данные нужно хранить красиво.</p>
+    <div class="layers" style="gap:6px;">
+      <div class="layer" style="border-left:3px solid var(--teal)"><div class="layer-num teal">01</div><div class="layer-name" style="min-width:160px">скорость набора</div><div class="layer-desc">key repeat, шорткаты, набор &mdash; POS level -1</div></div>
+      <div class="layer" style="border-left:3px solid var(--blue)"><div class="layer-num blue">02</div><div class="layer-name" style="min-width:160px">Raycast / Cmd+Space</div><div class="layer-desc">доступ к AI без friction &mdash; POS level 0</div></div>
+      <div class="layer" style="border-left:3px solid var(--green)"><div class="layer-num green">03</div><div class="layer-name" style="min-width:160px"><a href="https://wisprflow.com" target="_blank" style="color:var(--green);text-decoration:none">WISPR Flow</a></div><div class="layer-desc">голос &rarr; текст в любое поле. &laquo;80% сообщений я набираю голосом&raquo;</div></div>
+      <div class="layer" style="border-left:3px solid var(--amber)"><div class="layer-num amber">04</div><div class="layer-name" style="min-width:160px">Krisp &middot; Granola</div><div class="layer-desc">транскрипция звонков &rarr; summary &rarr; action items через MCP</div></div>
+      <div class="layer" style="border-left:3px solid var(--red)"><div class="layer-num red">05</div><div class="layer-name" style="min-width:160px">Content Voice</div><div class="layer-desc">5 тонов: partner, public, internal, gonzo, content</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== S10: KEYBOARD ===== -->
+<div class="slide" id="s10" data-block="2" data-notes="keyboard.aimindset.org. 90 мин на оптимизацию клавиатуры. Ваш bottleneck &mdash; не модель, а вы. 'Если вы набираете 30 слов в минуту &mdash; это ваш bottleneck, не модель.'">
+  <div class="slide-counter"><span class="current">10</span>/<span class="total"></span></div>
+  <img class="slide-logo" src="logo.png" alt="">
+  <div class="slide-inner" style="align-items:center; text-align:center;">
+    <div class="label">// СКОРОСТЬ НАБОРА</div>
+    <h2>ваш bottleneck &mdash; не модель, а <span class="red">вы</span></h2>
+    <div class="terminal" style="max-width:900px; margin:12px auto 0;">
+      <div class="terminal-header"><div class="terminal-dot r"></div><div class="terminal-dot y"></div><div class="terminal-dot g"></div><div class="terminal-title">keyboard.aimindset.org &mdash; keyboard cost visualizer</div></div>
+      <div style="width:100%; height:420px; overflow:hidden; background:#161620; border-radius:0 0 12px 12px;">
+        <iframe src="https://keyboard.aimindset.org/" style="width:111%; height:560px; border:none; transform:scale(0.9); transform-origin:top left; pointer-events:auto;" loading="lazy"></iframe>
+      </div>
+    </div>
+    <div style="display:flex; gap:12px; margin-top:12px; flex-wrap:wrap; justify-content:center;">
+      <a class="link-btn" href="https://keyboard.aimindset.org/" target="_blank" style="font-size:16px; padding:10px 20px">keyboard.aimindset.org &nearr;</a>
+      <span class="tag">90 мин на оптимизацию &mdash; и ввод не тормозит</span>
+    </div>
+  </div>
+</div>
+
+<!-- ===== S11: CONVENTION ===== -->
+<div class="slide" id="s11" data-block="3" data-notes="Конвенция = соглашение. Между вами, вашей командой и вашими агентами. 'Конвенция &mdash; это не набор правил сверху. Это соглашение между вами и агентом. Вы договариваетесь: вот так мы работаем.'">
+  <div class="slide-counter"><span class="current">11</span>/<span class="total"></span></div>
+  <img class="slide-logo" src="logo.png" alt="">
+  <div class="slide-inner" style="align-items:center; text-align:center;">
+    <div class="label">// КОНЦЕПЦИЯ</div>
+    <h2>что такое <span class="teal">конвенция</span>?</h2>
+    <p style="font-size:28px; font-family:var(--font-heading); color:#fff; margin:16px 0 8px"><span class="teal">СОГЛАШЕНИЕ</span></p>
+    <p class="dim" style="font-size:18px; max-width:600px; margin-bottom:24px">между вами, вашей командой и вашими агентами.<br>не навязанные правила &mdash; согласованные правила.</p>
+    <div class="svg-container">
+      <svg viewBox="0 0 520 364" xmlns="http://www.w3.org/2000/svg" style="max-width:420px">
+        <defs><filter id="glow3"><feGaussianBlur stdDeviation="4"/><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+        <line x1="260" y1="78" x2="104" y2="286" stroke="rgba(77,201,212,0.2)" stroke-width="2" stroke-dasharray="8,5"><animate attributeName="stroke-opacity" values="0.15;0.4;0.15" dur="3s" repeatCount="indefinite"/></line>
+        <line x1="260" y1="78" x2="416" y2="286" stroke="rgba(59,130,246,0.2)" stroke-width="2" stroke-dasharray="8,5"><animate attributeName="stroke-opacity" values="0.15;0.4;0.15" dur="3s" repeatCount="indefinite" begin="1s"/></line>
+        <line x1="104" y1="286" x2="416" y2="286" stroke="rgba(56,217,169,0.2)" stroke-width="2" stroke-dasharray="8,5"><animate attributeName="stroke-opacity" values="0.15;0.4;0.15" dur="3s" repeatCount="indefinite" begin="2s"/></line>
+        <circle cx="260" cy="195" r="36" fill="rgba(77,201,212,0.08)" stroke="#4dc9d4" stroke-width="2" filter="url(#glow3)"/>
+        <text x="260" y="190" text-anchor="middle" fill="#4dc9d4" font-family="Space Grotesk" font-size="14" font-weight="600">CONVENTION</text>
+        <text x="260" y="206" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-family="IBM Plex Mono" font-size="11">соглашение</text>
+        <circle cx="260" cy="65" r="29" fill="none" stroke="#4dc9d4" stroke-width="2"/><text x="260" y="70" text-anchor="middle" fill="#4dc9d4" font-family="Space Grotesk" font-size="16" font-weight="600">Вы</text>
+        <circle cx="104" cy="299" r="29" fill="none" stroke="#38d9a9" stroke-width="2"/><text x="104" y="304" text-anchor="middle" fill="#38d9a9" font-family="Space Grotesk" font-size="16" font-weight="600">Команда</text>
+        <circle cx="416" cy="299" r="29" fill="none" stroke="#3b82f6" stroke-width="2"/><text x="416" y="304" text-anchor="middle" fill="#3b82f6" font-family="Space Grotesk" font-size="16" font-weight="600">Агенты</text>
+      </svg>
+    </div>
+  </div>
+</div>
+
+<!-- ===== S12: NAMING ===== -->
+<div class="slide" id="s12" data-block="3" data-notes="Naming convention. Без naming ваш vault за 2 недели превратится в свалку. А агент не найдёт ни один файл. Из звонка с Ирой: 'когда мы выходим хоть на два человека &mdash; любые погрешности в названиях сразу критичны, просто всё ломается.'">
+  <div class="slide-counter"><span class="current">12</span>/<span class="total"></span></div>
+  <img class="slide-logo" src="logo.png" alt="">
+  <div class="slide-inner">
+    <div class="label">// БЛОК 03 &middot; NAMING CONVENTION</div>
+    <h2>первый слой <span class="teal">структуры</span></h2>
+    <div style="margin:20px 0; font-size:22px; font-family:var(--font-code); text-align:center;">
+      <span class="naming-part np-project">{project}</span>
+      <span class="naming-part np-type">{type}</span>
+      <span class="naming-part np-desc">description</span>
+      <span style="color:var(--text-dim);margin:0 4px">&ndash;</span>
+      <span class="naming-part np-date">YYYY-MM-DD</span>
+      <span style="color:var(--text-dim)">.md</span>
+    </div>
+    <div class="code-block" onclick="copyCode(this)">
+      <span class="copy-hint">click to copy</span>
+      <span class="comment"># real examples</span><br>
+      <span class="np-project" style="background:none">{AIM}</span> <span class="np-type" style="background:none">{analysis}</span> <span class="np-desc" style="background:none">AI-Native Sprint Audience</span> <span style="color:var(--text-dim)">&ndash;</span> <span class="np-date" style="background:none">2026-03-23</span>.md<br>
+      <span class="np-project" style="background:none">{personal}</span> <span class="np-type" style="background:none">{note}</span> <span class="np-desc" style="background:none">morning reflection</span> <span style="color:var(--text-dim)">&ndash;</span> <span class="np-date" style="background:none">2026-03-24</span>.md<br>
+      <span class="np-project" style="background:none">{transcript}</span> <span class="np-type" style="background:none">{krisp}</span> <span class="np-desc" style="background:none">sync w Gershuni</span> <span style="color:var(--text-dim)">&ndash;</span> <span class="np-date" style="background:none">2026-03-23 1242</span>.md
+    </div>
+    <div style="display:flex; gap:12px; margin-top:16px; flex-wrap:wrap; align-items:center;">
+      <a class="link-btn" href="https://ai-mindset-org.github.io/ainative-lab/naming.html#builder" target="_blank">naming builder &nearr;</a>
+      <a class="link-btn" href="https://ai-mindset-org.github.io/ainative-lab/naming.html" target="_blank">полный гайд (14 секций) &nearr;</a>
+      <span class="tag green-tag">агент ищет файлы по паттерну</span>
+    </div>
+  </div>
+</div>
+
+<!-- ===== S13: BEFORE/AFTER ===== -->
+<div class="slide" id="s13" data-block="3" data-notes="До/После. Без naming &mdash; хаос. С naming &mdash; агент находит по паттерну. 'Агент ищет файлы по паттерну &mdash; {type} &rarr; Grep &rarr; результат. Без naming он слепой.'">
+  <div class="slide-counter"><span class="current">13</span>/<span class="total"></span></div>
+  <img class="slide-logo" src="logo.png" alt="">
+  <div class="slide-inner">
+    <div class="label">// NAMING &middot; ДО / ПОСЛЕ</div>
+    <h2>без naming &mdash; <span class="red">слепой агент</span></h2>
+    <div class="split">
+      <div>
+        <h3 class="red" style="font-size:16px; margin-bottom:12px">до: хаос</h3>
+        <div class="file-tree">
+          <span class="file">notes.md</span><br><span class="file">meeting tuesday.md</span><br><span class="file">ideas draft 2.md</span><br><span class="file">New Document (3).md</span><br><span class="file">final_final_v2.md</span><br><span class="file">Copy of report.md</span><br><span class="file">Untitled.md</span>
+        </div>
+      </div>
+      <div>
+        <h3 class="green" style="font-size:16px; margin-bottom:12px">после: структура</h3>
+        <div class="file-tree">
+          <span class="hl">{AIM} {analysis} Sprint Audience &ndash; 2026-03-23.md</span><br>
+          <span class="hl">{AIM} {meeting} Weekly Sync &ndash; 2026-03-24.md</span><br>
+          <span class="hl">{AIM} {rule} Communication Style &ndash; 2026-01-15.md</span><br>
+          <span class="hl">{personal} {note} Morning Reflection &ndash; 2026-03-24.md</span><br>
+          <span class="hl">{transcript} {krisp} sync Gershuni &ndash; 2026-03-23.md</span>
+        </div>
+      </div>
+    </div>
+    <p style="font-size:14px; color:var(--text-dim); margin-top:16px">&laquo;когда мы выходим хоть на два человека &mdash; любые погрешности в названиях сразу критичны&raquo; &mdash; Ира, AI Mindset, 8 человек, 15K+ файлов</p>
+  </div>
+</div>
+
+<!-- ===== S14: SYMPTOMS ===== -->
+<div class="slide" id="s14" data-block="4" data-notes="Почему трансформация не работает. Симптомы и реальные причины из L01 slide #19. 'Если у вас нет внутренних принципов &mdash; вы не можете принять решение. Может ли ваш агент это за вас решить, если принципы не вынесены на бумагу?'">
+  <div class="slide-counter"><span class="current">14</span>/<span class="total"></span></div>
+  <img class="slide-logo" src="logo.png" alt="">
+  <div class="slide-inner">
+    <div class="label">// БЛОК 04 &middot; ПРАВИЛА</div>
+    <h2>симптомы &rarr; <span class="teal">реальные причины</span></h2>
+    <table class="styled-table" style="max-width:800px;">
+      <thead><tr><th style="color:var(--red)">симптом</th><th style="color:var(--teal)">реальная причина</th><th>ваш фикс сегодня</th></tr></thead>
+      <tbody>
+        <tr><td class="red">&laquo;агент галлюцинирует&raquo;</td><td>нет памяти, нет валидации</td><td class="teal">CLAUDE.md + eval protocol</td></tr>
+        <tr><td class="red">&laquo;это небезопасно&raquo;</td><td>нет guardrails</td><td class="teal">список запрещённых действий</td></tr>
+        <tr><td class="red">&laquo;никто не пользуется&raquo;</td><td>нет культуры</td><td class="teal">naming + правила + скиллы = культура</td></tr>
+        <tr><td class="red">&laquo;не знает контекст&raquo;</td><td>нет persistent context</td><td class="teal">слои контекста</td></tr>
+        <tr><td class="red">&laquo;все промтят по-разному&raquo;</td><td>нет общих спецификаций</td><td class="teal">skills/</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ===== S15: CLAUDE.MD ===== -->
+<div class="slide" id="s15" data-block="4" data-notes="CLAUDE.md как конституция. Не промпт. Описание того, как ты работаешь. Реальные фрагменты из production CLAUDE.md — 8 человек, 15K+ файлов.">
+  <div class="slide-counter"><span class="current">15</span>/<span class="total"></span></div>
+  <img class="slide-logo" src="logo.png" alt="">
+  <div class="slide-inner">
+    <div class="label">// КОНСТИТУЦИЯ</div>
+    <h2>CLAUDE.md &mdash; <span class="teal">конституция</span> агента</h2>
+    <div class="split" style="gap:24px;">
+      <div class="terminal" style="margin-top:0;">
+        <div class="terminal-header"><div class="terminal-dot r"></div><div class="terminal-dot y"></div><div class="terminal-dot g"></div><div class="terminal-title">~/.claude/CLAUDE.md &mdash; production, 8 человек</div></div>
+        <div class="terminal-body" style="font-size:12px; line-height:1.7;">
+          <span class="hl"># Naming Convention</span><br>
+          <span class="dim">{project} {type} description &ndash; YYYY-MM-DD.md</span><br>
+          <span class="dim">НЕ добавлять интерфейс в названия</span><br><br>
+          <span class="hl"># Communication Style</span><br>
+          <span class="dim">&ndash; строчная буква в начале</span><br>
+          <span class="dim">&ndash; без эмоджи, en dash (&ndash;)</span><br>
+          <span class="dim">&ndash; конкретно: кто, что, когда</span><br><br>
+          <span class="hl"># Forbidden Actions</span><br>
+          <span class="warn">&ndash; NEVER send to channel 1877517944</span><br>
+          <span class="warn">&ndash; NEVER create new folders</span><br><br>
+          <span class="hl"># Context Management Protocol</span><br>
+          <span class="dim">&lt;50% &rarr; ● OK &middot; 50-70% &rarr; ◐ WARN</span><br>
+          <span class="dim">&gt;70% &rarr; ○ CRIT &rarr; /context-compact</span><br><br>
+          <span class="hl"># AI Evals Protocol</span><br>
+          <span class="dim">eval: T:&#x2713; R:&#x2713; C:&#x25CB; в каждом ответе</span>
+        </div>
+      </div>
+      <div>
+        <h3 style="font-size:16px; color:var(--teal); margin-bottom:12px">что в CLAUDE.md</h3>
+        <div class="layers" style="gap:5px;">
+          <div class="layer" style="padding:8px 12px"><div class="layer-num teal" style="font-size:13px">01</div><div class="layer-desc" style="font-size:13px">naming convention &mdash; как называть файлы</div></div>
+          <div class="layer" style="padding:8px 12px"><div class="layer-num blue" style="font-size:13px">02</div><div class="layer-desc" style="font-size:13px">communication style &mdash; как писать</div></div>
+          <div class="layer" style="padding:8px 12px"><div class="layer-num amber" style="font-size:13px">03</div><div class="layer-desc" style="font-size:13px">forbidden actions &mdash; чего нельзя</div></div>
+          <div class="layer" style="padding:8px 12px"><div class="layer-num green" style="font-size:13px">04</div><div class="layer-desc" style="font-size:13px">context protocol &mdash; когда handoff</div></div>
+          <div class="layer" style="padding:8px 12px"><div class="layer-num red" style="font-size:13px">05</div><div class="layer-desc" style="font-size:13px">eval protocol &mdash; self-check</div></div>
+          <div class="layer" style="padding:8px 12px"><div class="layer-num" style="font-size:13px;color:var(--pink)">06</div><div class="layer-desc" style="font-size:13px">стратегия &mdash; mission &rarr; tone &rarr; priorities</div></div>
+        </div>
+        <p style="font-size:13px; color:var(--text-dim); margin-top:12px">не промпт. описание того, <span class="teal">как ты работаешь</span>.</p>
+        <a class="link-btn" href="https://ai-mindset-org.github.io/ainative-lab/" target="_blank" style="margin-top:8px;">ainative-lab &mdash; генератор CLAUDE.md &nearr;</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== S16: RULES PROGRESSION ===== -->
+<div class="slide" id="s16" data-block="4" data-notes="Правила &rarr; Guardrails &rarr; Автономия. Правила создают доверие, доверие создаёт автономию. Из звонка с Ирой: 'Раньше стратегия и видение были шелухой для IPO. Сейчас это реально работает &mdash; агент читает вашу стратегию и принимает решения на её основе.'">
+  <div class="slide-counter"><span class="current">16</span>/<span class="total"></span></div>
+  <img class="slide-logo" src="logo.png" alt="">
+  <div class="slide-inner" style="align-items:center;">
+    <div class="label">// СТРАТЕГИЯ КАК ФУНДАМЕНТ</div>
+    <h2>стратегия = <span class="teal">операционная основа</span></h2>
+    <div class="split" style="margin-top:20px; max-width:900px;">
+      <div class="big-quote" style="padding:20px;">
+        <p style="font-size:24px;">раньше: стратегия = <span class="red" style="text-decoration:line-through">шелуха для IPO</span><br><br>
+        сейчас: стратегия = <span class="teal">что агент читает</span><br>чтобы принимать решения</p>
+      </div>
+      <div>
+        <div class="layers" style="gap:6px;">
+          <div class="layer" style="padding:10px 16px;border-left:3px solid var(--red)"><div class="layer-num red" style="font-size:14px">L0</div><div class="layer-name" style="font-size:14px;min-width:80px">нет правил</div><div class="layer-desc" style="font-size:13px">галлюцинации, ноль доверия</div></div>
+          <div class="layer" style="padding:10px 16px;border-left:3px solid var(--amber)"><div class="layer-num amber" style="font-size:14px">L1</div><div class="layer-name" style="font-size:14px;min-width:80px">Guardrails</div><div class="layer-desc" style="font-size:13px">CLAUDE.md, naming, forbidden</div></div>
+          <div class="layer" style="padding:10px 16px;border-left:3px solid var(--teal)"><div class="layer-num teal" style="font-size:14px">L2</div><div class="layer-name" style="font-size:14px;min-width:80px">автономия</div><div class="layer-desc" style="font-size:13px">агент решает в рамках ваших правил</div></div>
+        </div>
+        <p style="font-size:13px; color:var(--text-dim); margin-top:12px">правила создают доверие &rarr; доверие создаёт автономию</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== S17: DASHBOARD AS MIRROR (NEW!) ===== -->
+<div class="slide" id="s17" data-block="5" data-notes="Блок 5. Дашборд как зеркало. 'Убери подписи &mdash; по расположению блоков восстановишь, чем человек живёт.' 12 блоков, каждый когда-то был скиллом и до сих пор является скиллом. Связка с OpenClaw (prework #4): дашборд и awareness &mdash; это Data &amp; context layer из 7-слойной модели.">
+  <div class="slide-counter"><span class="current">17</span>/<span class="total"></span></div>
+  <img class="slide-logo" src="logo.png" alt="">
+  <div class="slide-inner">
+    <div class="label">// БЛОК 05 &middot; ДАШБОРД &amp; AWARENESS</div>
+    <h2>дашборд как <span class="teal">зеркало</span></h2>
+    <p style="font-size:16px; color:var(--text-dim); margin-bottom:12px">&laquo;убери подписи &mdash; по расположению блоков восстановишь, чем человек живёт&raquo;</p>
+    <div class="dash-grid">
+      <div class="dash-cell" style="border-top:2px solid var(--teal)"><div class="dash-title">задачи linear</div><div class="dash-val teal">7</div>в работе</div>
+      <div class="dash-cell" style="border-top:2px solid var(--blue)"><div class="dash-title">календарь</div><div class="dash-val blue">3</div>встречи сегодня</div>
+      <div class="dash-cell" style="border-top:2px solid var(--green)"><div class="dash-title">telegram</div><div class="dash-val green">12</div>непрочитанных</div>
+      <div class="dash-cell" style="border-top:2px solid var(--amber)"><div class="dash-title">daily focus</div><div class="dash-val amber">3</div>приоритета</div>
+      <div class="dash-cell" style="border-top:2px solid var(--red)"><div class="dash-title">сессии</div><div class="dash-val red">50</div>claude / день</div>
+      <div class="dash-cell" style="border-top:2px solid var(--cyan)"><div class="dash-title">tool calls</div><div class="dash-val cyan">1500</div>в день</div>
+      <div class="dash-cell" style="border-top:2px solid var(--pink)"><div class="dash-title">агенты</div><div class="dash-val" style="color:var(--pink)">6</div>параллельно</div>
+      <div class="dash-cell" style="border-top:2px solid rgba(255,255,255,0.2)"><div class="dash-title">advisor</div><div class="dash-val dim">VOX</div>дневной советник</div>
+    </div>
+    <p style="font-size:13px; color:var(--text-dim); margin-top:12px">каждый блок когда-то был скиллом &mdash; и до сих пор является. терминал или визуал, один пайплайн.</p>
+    <div style="display:flex; gap:12px; margin-top:8px; flex-wrap:wrap;">
+      <a class="link-btn" href="https://ai-mindset-org.github.io/pos-stack-explorer/" target="_blank">POS playground &nearr;</a>
+    </div>
+  </div>
+</div>
+
+<!-- ===== S18: CLI AWARENESS (NEW!) ===== -->
+<div class="slide" id="s18" data-block="5" data-notes="CLI Awareness System. 4 layers like a pilot's dashboard. All built with 3 bash scripts, a JSON file, and CLAUDE.md rules.">
+  <div class="slide-counter"><span class="current">18</span>/<span class="total"></span></div>
+  <img class="slide-logo" src="logo.png" alt="">
+  <div class="slide-inner">
+    <div class="label">// CLI AWARENESS SYSTEM</div>
+    <h2>терминал, который <span class="teal">знает</span></h2>
+    <p style="font-size:16px; color:var(--text-dim); margin-bottom:16px">&laquo;у пилота &mdash; приборная панель. высота, скорость, топливо. ты не думаешь о приборах, пока не загорится предупреждение.&raquo;</p>
+    <div class="awareness-row" style="border-left-color:var(--teal)"><div class="aw-layer teal">Status line</div><div class="aw-what"><code style="font-size:12px;color:var(--green)">&#9655; notes &#9670; Opus 4.6 &#9618;&#9618;&#9618;&#9618;&#9618;&#9617; 48% &#9680;AIM-2054 11m</code></div><div class="aw-how dim">bash hook</div></div>
+    <div class="awareness-row" style="border-left-color:var(--blue)"><div class="aw-layer blue">Footer protocol</div><div class="aw-what"><code style="font-size:12px;color:var(--green)">&#9671; ctx: 96K | 104K left | 48% | &#9679;<br>&#9643; eval: T:&#x2713; R:&#x2713; C:&#x25CB;<br>&#9643; linear: AIM-2054 &middot; speakers &middot; &#9680; IP</code></div><div class="aw-how dim">CLAUDE.md</div></div>
+    <div class="awareness-row" style="border-left-color:var(--green)"><div class="aw-layer green">Linear layer</div><div class="aw-what">задачи привязаны к сессии, рекомендации: update / close / comment</div><div class="aw-how dim">hook + MCP</div></div>
+    <div class="awareness-row" style="border-left-color:var(--amber)"><div class="aw-layer amber">Mission control</div><div class="aw-what">контекст виден в iTerm status bar, даже при скролле</div><div class="aw-how dim">JSON + iTerm2</div></div>
+    <div class="quote" style="margin-top:12px">
+      <p style="font-size:14px">&laquo;вся система &mdash; три bash-скрипта, JSON-файл и правила в CLAUDE.md. никаких плагинов.&raquo;</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== S18b: VAULT STRUCTURE (NEW) ===== -->
+<div class="slide" id="s18b" data-block="5" data-notes="Реальная структура vault. 8 человек, 15K+ файлов. Naming + folders = агент находит всё. Показать баланс MCP и не-MCP.">
+  <div class="slide-counter"><span class="current">19</span>/<span class="total"></span></div>
+  <img class="slide-logo" src="logo.png" alt="">
+  <div class="slide-inner">
+    <div class="label">// VAULT STRUCTURE &middot; PRODUCTION</div>
+    <h2>структура vault &mdash; <span class="teal">8 человек, 15K+ файлов</span></h2>
+    <div class="split" style="gap:24px;">
+      <div class="file-tree" style="font-size:13px; line-height:1.6;">
+        <span class="dir">ai-mindset-2026/</span><br>
+        &nbsp;&nbsp;<span class="hl">AGENTS.md</span> <span class="dim">&larr; индекс для агентов</span><br>
+        &nbsp;&nbsp;<span class="dir">aim-rules/</span> <span class="dim">&larr; {rule}, {prd}, {skill}</span><br>
+        &nbsp;&nbsp;<span class="dir">inbox/</span> <span class="dim">&larr; {research}, {analysis}</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="dir">logs/</span> <span class="dim">&larr; логи агентов</span><br>
+        &nbsp;&nbsp;<span class="dir">meetings/</span> <span class="dim">&larr; {meeting}, {transcript}</span><br>
+        &nbsp;&nbsp;<span class="dir">Labs/</span> <span class="dim">&larr; когорты (f25, w26, s2)</span><br>
+        &nbsp;&nbsp;<span class="dir">Org/</span> <span class="dim">&larr; HR, Partners, Marketing</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="dir">HR/roles/</span> <span class="dim">&larr; карточки ролей</span><br>
+        &nbsp;&nbsp;<span class="dir">Products/</span> <span class="dim">&larr; Space, Circle, B2B</span>
+      </div>
+      <div>
+        <h3 style="font-size:16px; color:var(--teal); margin-bottom:12px">баланс MCP &harr; файловый</h3>
+        <div class="stat-grid cols-2" style="gap:8px; margin-top:0;">
+          <div class="stat-box" style="padding:16px"><div class="num teal" style="font-size:28px">9</div><div class="stat-label">MCP серверов</div></div>
+          <div class="stat-box" style="padding:16px"><div class="num green" style="font-size:28px">70+</div><div class="stat-label">скиллов</div></div>
+          <div class="stat-box" style="padding:16px"><div class="num blue" style="font-size:28px">15K+</div><div class="stat-label">файлов в vault</div></div>
+          <div class="stat-box" style="padding:16px"><div class="num amber" style="font-size:28px">8</div><div class="stat-label">человек в команде</div></div>
+        </div>
+        <p style="font-size:13px; color:var(--text-dim); margin-top:10px">всё текст. всё markdown. всё в Obsidian + .claude/</p>
+        <a class="link-btn" href="https://ai-mindset-org.github.io/pos-stack-explorer/" target="_blank" style="margin-top:6px;">POS stack explorer &nearr;</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== S19: AGENT = LLM + HARNESS ===== -->
+<div class="slide" id="s19" data-block="6" data-notes="Блок 6. Агент = LLM + Harness. Сегодня вы строите свой харнес. Связка с L01 slide #54: Terminal Bench &mdash; обвязка важнее модели. Из Стёпы: 'Prompt Engineering &rarr; Context Engineering &rarr; Harness Engineering. 2026 = agent harnesses.'">
+  <div class="slide-counter"><span class="current">19</span>/<span class="total"></span></div>
+  <img class="slide-logo" src="logo.png" alt="">
+  <div class="slide-inner" style="align-items:center;">
+    <div class="label">// БЛОК 06 &middot; SETUP</div>
+    <h2>агент = LLM + <span class="teal">харнес</span></h2>
+    <div class="svg-container" style="margin-top:16px">
+      <svg viewBox="0 0 780 338" xmlns="http://www.w3.org/2000/svg" style="max-width:640px">
+        <defs><filter id="glow4"><feGaussianBlur stdDeviation="5"/><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+        <circle cx="390" cy="169" r="65" fill="rgba(77,201,212,0.06)" stroke="#4dc9d4" stroke-width="2.5" filter="url(#glow4)"/>
+        <text x="390" y="162" text-anchor="middle" fill="#4dc9d4" font-family="Space Grotesk" font-size="28" font-weight="700">LLM</text>
+        <text x="390" y="186" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-family="IBM Plex Mono" font-size="14">интеллект</text>
+        <circle cx="390" cy="169" r="130" fill="none" stroke="rgba(59,130,246,0.3)" stroke-width="2" stroke-dasharray="10,5"><animateTransform attributeName="transform" type="rotate" from="0 390 169" to="360 390 169" dur="30s" repeatCount="indefinite"/></circle>
+        <g><rect x="189" y="26" width="117" height="39" rx="8" fill="rgba(28,28,46,0.8)" stroke="#3b82f6" stroke-width="2"/><text x="247" y="52" text-anchor="middle" fill="#3b82f6" font-family="IBM Plex Mono" font-size="14">CLAUDE.md</text></g>
+        <g><rect x="475" y="26" width="117" height="39" rx="8" fill="rgba(28,28,46,0.8)" stroke="#38d9a9" stroke-width="2"/><text x="533" y="52" text-anchor="middle" fill="#38d9a9" font-family="IBM Plex Mono" font-size="14">memory/</text></g>
+        <g><rect x="572" y="143" width="117" height="39" rx="8" fill="rgba(28,28,46,0.8)" stroke="#c89200" stroke-width="2"/><text x="630" y="169" text-anchor="middle" fill="#c89200" font-family="IBM Plex Mono" font-size="14">skills/</text></g>
+        <g><rect x="475" y="273" width="117" height="39" rx="8" fill="rgba(28,28,46,0.8)" stroke="#ff6b6b" stroke-width="2"/><text x="533" y="299" text-anchor="middle" fill="#ff6b6b" font-family="IBM Plex Mono" font-size="14">MCP tools</text></g>
+        <g><rect x="189" y="273" width="117" height="39" rx="8" fill="rgba(28,28,46,0.8)" stroke="#38bdf8" stroke-width="2"/><text x="247" y="299" text-anchor="middle" fill="#38bdf8" font-family="IBM Plex Mono" font-size="14">context</text></g>
+        <g><rect x="78" y="143" width="117" height="39" rx="8" fill="rgba(28,28,46,0.8)" stroke="#ff3b8b" stroke-width="2"/><text x="136" y="169" text-anchor="middle" fill="#ff3b8b" font-family="IBM Plex Mono" font-size="14">evals</text></g>
+        <text x="390" y="331" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-family="IBM Plex Mono" font-size="14">сегодня вы строите свой харнес</text>
+      </svg>
+    </div>
+  </div>
+</div>
+
+<!-- ===== S20: 3 INTERFACES ===== -->
+<div class="slide" id="s20" data-block="6" data-notes="Три интерфейса, один стек. Claude Code для терминала. CoWork для бизнеса. Codex для кода. 'CoWork &mdash; это Claude Code, но про бизнес. Не только про инженеров. Всё в интерфейсе, никакого терминала.' (Стёпа)">
+  <div class="slide-counter"><span class="current">20</span>/<span class="total"></span></div>
+  <img class="slide-logo" src="logo.png" alt="">
+  <div class="slide-inner">
+    <div class="label">// ТРИ ИНТЕРФЕЙСА, ОДИН СТЕК</div>
+    <h2>выберите свой <span class="teal">интерфейс</span></h2>
+    <div class="cards" style="grid-template-columns:repeat(3, 1fr);">
+      <div class="card" style="border-top:3px solid var(--teal)">
+        <div class="card-icon teal">Claude Code</div>
+        <h3>терминал</h3>
+        <p>универсальный, локальные файлы, полный контроль. для тех, кто живёт в терминале.</p>
+        <span class="tag">продвинутые</span>
+      </div>
+      <div class="card" style="border-top:3px solid var(--green)">
+        <div class="card-icon green">CoWork</div>
+        <h3>визуальный UI</h3>
+        <p>бизнес-пользователи, коннекторы (Linear, Slack, Notion). те же скиллы, без терминала.</p>
+        <span class="tag green-tag">бизнес</span>
+      </div>
+      <div class="card" style="border-top:3px solid var(--blue)">
+        <div class="card-icon blue">Codex</div>
+        <h3>чистый код</h3>
+        <p>только инженеры. генерация кода, review, CI/CD. другой продукт, та же модель.</p>
+        <span class="tag blue-tag">инженерия</span>
+      </div>
+    </div>
+    <p style="font-size:15px; color:var(--text-dim); margin-top:16px">&laquo;CoWork &mdash; это Claude Code, но про бизнес. Всё в интерфейсе, никакого терминала.&raquo; &mdash; Стёпа</p>
+  </div>
+</div>
+
+<!-- ===== S21: SETUP ===== -->
+<div class="slide" id="s21" data-block="6" data-notes="Live setup. 4 команды. Claude Code = ваш первый сотрудник. CLAUDE.md = его должностная инструкция. Связка с prework #2: 'Персональная корпорация &mdash; ты CEO, агенты &mdash; сотрудники.'">
+  <div class="slide-counter"><span class="current">21</span>/<span class="total"></span></div>
+  <img class="slide-logo" src="logo.png" alt="">
+  <div class="slide-inner">
+    <div class="label">// LIVE SETUP</div>
+    <h2>4 команды до <span class="teal">вашего первого агента</span></h2>
+    <div class="terminal">
+      <div class="terminal-header"><div class="terminal-dot r"></div><div class="terminal-dot y"></div><div class="terminal-dot g"></div><div class="terminal-title">Terminal &mdash; Claude Code Setup</div></div>
+      <div class="terminal-body">
+        <span class="out"># 1. установка</span><br>
+        <span class="prompt">$</span> <span class="cmd">npm install -g @anthropic-ai/claude-code</span><br><br>
+        <span class="out"># 2. рабочая папка</span><br>
+        <span class="prompt">$</span> <span class="cmd">mkdir ~/aim-sprint && cd ~/aim-sprint</span><br><br>
+        <span class="out"># 3. запуск</span><br>
+        <span class="prompt">$</span> <span class="cmd">claude</span><br><br>
+        <span class="out"># 4. первая команда</span><br>
+        <span class="prompt">&#x276F;</span> <span class="cmd">&ldquo;создай CLAUDE.md с моим контекстом &mdash;</span><br>
+        <span class="cmd">&nbsp; я [кто], моя компания [что],</span><br>
+        <span class="cmd">&nbsp; моя главная задача [проблема]&rdquo;</span>
+      </div>
+    </div>
+    <div style="display:flex; gap:12px; margin-top:16px; flex-wrap:wrap; align-items:center;">
+      <p style="font-size:16px; color:var(--text-dim);">Claude Code = ваш первый сотрудник. CLAUDE.md = его должностная инструкция.</p>
+    </div>
+    <div style="display:flex; gap:10px; margin-top:8px; flex-wrap:wrap;">
+      <a class="link-btn" href="https://ai-mindset-org.github.io/pos-stack-explorer/" target="_blank">POS playground &nearr;</a>
+      <a class="link-btn" href="https://ai-mindset-org.github.io/ainative-lab/" target="_blank">ainative-lab hub &nearr;</a>
+    </div>
+  </div>
+</div>
+
+<!-- ===== S22: MCP HUB ===== -->
+<div class="slide" id="s22" data-block="6" data-notes="MCP Hub. USB-порты для вашего AI-агента. Calendar, Telegram, Linear, Krisp, Notion. Из звонка с Гершуни: 'Всё, что называется MCP, RAG и прочее &mdash; это на самом деле просто контекст. Просто промт-инжиниринг.'">
+  <div class="slide-counter"><span class="current">22</span>/<span class="total"></span></div>
+  <img class="slide-logo" src="logo.png" alt="">
+  <div class="slide-inner" style="align-items:center;">
+    <div class="label">// MCP &middot; USB-ПОРТЫ ДЛЯ АГЕНТА</div>
+    <h2>MCP &mdash; <span class="teal">подключённый</span> интеллект</h2>
+    <div class="svg-container" style="margin-top:8px">
+      <svg viewBox="0 0 780 420" xmlns="http://www.w3.org/2000/svg" style="max-width:640px">
+        <defs><filter id="glow5"><feGaussianBlur stdDeviation="5"/><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+        <circle cx="390" cy="210" r="59" fill="rgba(77,201,212,0.08)" stroke="#4dc9d4" stroke-width="2.5" filter="url(#glow5)"/>
+        <text x="390" y="200" text-anchor="middle" fill="#4dc9d4" font-family="Space Grotesk" font-size="18" font-weight="700">Claude</text>
+        <text x="390" y="222" text-anchor="middle" fill="#4dc9d4" font-family="Space Grotesk" font-size="18" font-weight="700">Code</text>
+        <line x1="390" y1="151" x2="390" y2="52" stroke="rgba(77,201,212,0.3)" stroke-width="2"/><circle cx="390" cy="39" r="29" fill="none" stroke="#38d9a9" stroke-width="2"/><text x="390" y="44" text-anchor="middle" fill="#38d9a9" font-family="IBM Plex Mono" font-size="14">Calendar</text>
+        <line x1="335" y1="175" x2="195" y2="75" stroke="rgba(56,217,169,0.3)" stroke-width="2"/><circle cx="179" cy="62" r="29" fill="none" stroke="#3b82f6" stroke-width="2"/><text x="179" y="67" text-anchor="middle" fill="#3b82f6" font-family="IBM Plex Mono" font-size="14">Telegram</text>
+        <line x1="445" y1="175" x2="585" y2="75" stroke="rgba(59,130,246,0.3)" stroke-width="2"/><circle cx="601" cy="62" r="29" fill="none" stroke="#c89200" stroke-width="2"/><text x="601" y="67" text-anchor="middle" fill="#c89200" font-family="IBM Plex Mono" font-size="14">Linear</text>
+        <line x1="449" y1="210" x2="611" y2="210" stroke="rgba(200,146,0,0.3)" stroke-width="2"/><circle cx="633" cy="210" r="29" fill="none" stroke="#ff3b8b" stroke-width="2"/><text x="633" y="215" text-anchor="middle" fill="#ff3b8b" font-family="IBM Plex Mono" font-size="14">Krisp</text>
+        <line x1="331" y1="210" x2="169" y2="210" stroke="rgba(255,59,139,0.3)" stroke-width="2"/><circle cx="147" cy="210" r="29" fill="none" stroke="#38bdf8" stroke-width="2"/><text x="147" y="215" text-anchor="middle" fill="#38bdf8" font-family="IBM Plex Mono" font-size="14">Notion</text>
+        <line x1="335" y1="245" x2="195" y2="345" stroke="rgba(56,189,248,0.3)" stroke-width="2"/><circle cx="179" cy="358" r="29" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="2"/><text x="179" y="363" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="IBM Plex Mono" font-size="12">Playwright</text>
+        <line x1="445" y1="245" x2="585" y2="345" stroke="rgba(255,255,255,0.2)" stroke-width="2"/><circle cx="601" cy="358" r="29" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="2"/><text x="601" y="363" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="IBM Plex Mono" font-size="14">Exa</text>
+        <circle r="4" fill="#38d9a9" opacity="0.8"><animateMotion path="M390,151 L390,65" dur="2s" repeatCount="indefinite"/></circle>
+        <circle r="4" fill="#3b82f6" opacity="0.8"><animateMotion path="M335,175 L195,75" dur="2.5s" repeatCount="indefinite"/></circle>
+      </svg>
+    </div>
+  </div>
+</div>
+
+<!-- ===== S23: CONTEXT LAYERS ===== -->
+<div class="slide" id="s23" data-block="6" data-notes="Слои контекста = полный харнес. 4 слоя: CLAUDE.md, memory/, skills/, MCP.">
+  <div class="slide-counter"><span class="current">23</span>/<span class="total"></span></div>
+  <img class="slide-logo" src="logo.png" alt="">
+  <div class="slide-inner">
+    <div class="label">// СЛОИ КОНТЕКСТА</div>
+    <h2>ваш харнес = <span class="teal">4 слоя</span></h2>
+    <div class="layers">
+      <div class="layer"><div class="layer-num teal">01</div><div class="layer-name">CLAUDE.md</div><div class="layer-desc">правила, naming, стиль коммуникации, запрещённые действия</div></div>
+      <div class="layer"><div class="layer-num green">02</div><div class="layer-name">memory/</div><div class="layer-desc">кросс-сессионный контекст: что сделано, что дальше</div></div>
+      <div class="layer"><div class="layer-num blue">03</div><div class="layer-name">skills/</div><div class="layer-desc">переиспользуемые спецификации: daily-focus, content-voice, eval</div></div>
+      <div class="layer"><div class="layer-num amber">04</div><div class="layer-name">MCP</div><div class="layer-desc">Calendar, Telegram, Linear, Krisp, Filesystem &mdash; подключённые инструменты</div></div>
+    </div>
+    <div class="file-tree" style="margin-top:16px">
+      <span class="dir">~/.claude/</span><br>
+      &nbsp;&nbsp;<span class="hl">CLAUDE.md</span> &larr; глобальные правила<br>
+      &nbsp;&nbsp;<span class="dir">skills/</span><br>
+      &nbsp;&nbsp;&nbsp;&nbsp;<span class="hl">daily-focus.md</span> &larr; v12<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;<span class="file">vox.md</span> &middot; <span class="file">eval.md</span> &middot; <span class="file">content-voice.md</span><br>
+      &nbsp;&nbsp;<span class="dir">memory/</span><br>
+      &nbsp;&nbsp;&nbsp;&nbsp;<span class="file">MEMORY.md</span> &larr; авто-генерируемый
+    </div>
+  </div>
+</div>
+
+<!-- ===== S24: NAMING TOOL LIVE ===== -->
+<div class="slide" id="s24" data-block="6" data-notes="Live naming tool. Участники могут попробовать прямо сейчас. Конфигуратор: project + type + description &rarr; filename.">
+  <div class="slide-counter"><span class="current">24</span>/<span class="total"></span></div>
+  <img class="slide-logo" src="logo.png" alt="">
+  <div class="slide-inner" style="align-items:center;">
+    <div class="label">// NAMING TOOL &middot; LIVE</div>
+    <h2>попробуйте <span class="teal">прямо сейчас</span></h2>
+    <div class="terminal" style="max-width:900px; margin:12px auto 0;">
+      <div class="terminal-header"><div class="terminal-dot r"></div><div class="terminal-dot y"></div><div class="terminal-dot g"></div><div class="terminal-title">naming convention &mdash; interactive builder</div></div>
+      <div style="width:100%; height:380px; overflow:hidden; background:var(--bg-terminal);">
+        <iframe src="https://ai-mindset-org.github.io/ainative-lab/naming.html" style="width:100%; height:560px; border:none; transform:scale(0.85); transform-origin:top left; pointer-events:auto;" loading="lazy"></iframe>
+      </div>
+    </div>
+    <div style="display:flex; gap:12px; margin-top:12px; flex-wrap:wrap;">
+      <a class="link-btn" href="https://ai-mindset-org.github.io/ainative-lab/naming.html#builder" target="_blank" style="font-size:16px; padding:10px 20px">naming builder &nearr;</a>
+      <a class="link-btn" href="https://ai-mindset-org.github.io/ainative-lab/naming.html" target="_blank" style="font-size:14px; padding:8px 16px">полный гайд (14 секций) &nearr;</a>
+    </div>
+  </div>
+</div>
+
+<!-- ===== S25: BREAK ===== -->
+<div class="slide" id="s25" data-block="break" data-notes="ПЕРЕРЫВ. 5 минут. Встаньте, разомнитесь, попейте воды.">
+  <div class="slide-counter"><span class="current">25</span>/<span class="total"></span></div>
+  <img class="slide-logo" src="logo.png" alt="">
+  <div class="glow-dot" style="top:20%;left:20%"></div><div class="glow-dot" style="top:30%;right:25%"></div><div class="glow-dot" style="bottom:30%;left:15%"></div><div class="glow-dot" style="bottom:20%;right:20%"></div>
+  <div class="slide-inner cover">
+    <div class="label">// BREAK</div>
+    <h1 style="font-size:48px; color:var(--text-dim)">// ПЕРЕРЫВ &middot; <span class="teal">5 МИН</span></h1>
+    <p class="subtitle" style="font-size:20px; margin-top:8px">встаньте, разомнитесь, попейте воды</p>
+    <div style="margin-top:32px">
+      <svg width="160" height="160" viewBox="0 0 160 160">
+        <circle cx="80" cy="80" r="70" fill="none" stroke="rgba(77,201,212,0.15)" stroke-width="4"/>
+        <circle cx="80" cy="80" r="70" fill="none" stroke="var(--teal)" stroke-width="4" stroke-dasharray="440" stroke-dashoffset="0" stroke-linecap="round" transform="rotate(-90 80 80)" id="break-circle">
+          <animate attributeName="stroke-dashoffset" from="0" to="440" dur="300s" begin="indefinite" fill="freeze" id="break-anim"/>
+        </circle>
+        <text x="80" y="78" text-anchor="middle" fill="#4dc9d4" font-family="Space Grotesk" font-size="36" font-weight="700" id="break-time">5:00</text>
+        <text x="80" y="100" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-family="IBM Plex Mono" font-size="11">remaining</text>
+      </svg>
+    </div>
+  </div>
+</div>
+
+<!-- ===== S26: SKILL CONCEPT ===== -->
+<div class="slide" id="s26" data-block="7" data-notes="Блок 7. Скилл = спецификация, не код. Вы не пишете отчёт &mdash; вы пишете спецификацию отчёта. Из Стёпы: 'когда делаешь скилл &mdash; начинай с эвалов. С людьми это работает ровно так же, как с кодом.' 70 скиллов за полтора года &mdash; каждый из повторяющегося действия.">
+  <div class="slide-counter"><span class="current">26</span>/<span class="total"></span></div>
+  <img class="slide-logo" src="logo.png" alt="">
+  <div class="slide-inner" style="align-items:center; text-align:center;">
+    <div class="label">// БЛОК 07 &middot; СКИЛЛЫ</div>
+    <h1>скилл = <span class="teal">спецификация</span>,<br>не код</h1>
+    <div class="split" style="margin-top:24px; text-align:left; max-width:700px;">
+      <div>
+        <h3 class="dim" style="font-size:16px; margin-bottom:12px">было</h3>
+        <p style="font-size:18px">вы пишете отчёт</p>
+        <p style="font-size:18px">вы пишете черновик письма</p>
+        <p style="font-size:18px">вы анализируете данные</p>
+      </div>
+      <div>
+        <h3 class="teal" style="font-size:16px; margin-bottom:12px">стало</h3>
+        <p style="font-size:18px">вы пишете <span class="teal">спецификацию</span> отчёта</p>
+        <p style="font-size:18px">вы пишете <span class="teal">спецификацию</span> письма</p>
+        <p style="font-size:18px">вы пишете <span class="teal">спецификацию</span> анализа</p>
+      </div>
+    </div>
+    <p style="font-size:15px; color:var(--text-dim); margin-top:20px">исполнитель &rarr; архитектор</p>
+  </div>
+</div>
+
+<!-- ===== S27: MEETING SUMMARY — LIVE CREATION ===== -->
+<div class="slide" id="s27" data-block="7" data-notes="Live создание скилла с нуля. mkdir .claude/skills, пишем meeting-summary.md, запускаем /meeting-summary на реальном транскрипте. Итерация: 'Что не нравится? Давайте поправим вместе. Скилл &mdash; это живой документ.'">
+  <div class="slide-counter"><span class="current">27</span>/<span class="total"></span></div>
+  <img class="slide-logo" src="logo.png" alt="">
+  <div class="slide-inner">
+    <div class="label">// СОЗДАЁМ С НУЛЯ</div>
+    <h2>строим <span class="teal">/meeting-summary</span></h2>
+    <div class="terminal">
+      <div class="terminal-header"><div class="terminal-dot r"></div><div class="terminal-dot y"></div><div class="terminal-dot g"></div><div class="terminal-title">~/.claude/skills/meeting-summary.md</div></div>
+      <div class="terminal-body" style="font-size:13px; line-height:1.7;">
+        <span class="out">---</span><br>
+        <span class="hl">name:</span> meeting-summary<br>
+        <span class="hl">description:</span> Structured summary from transcript<br>
+        <span class="out">---</span><br><br>
+        <span class="hl"># Meeting Summary</span><br><br>
+        <span class="dim">1.</span> Find latest transcript in <span class="cmd">transcripts/</span><br>
+        <span class="dim">2.</span> Extract: participants, key decisions, <span class="hl">action items</span><br>
+        <span class="dim">3.</span> Split action items by <span class="hl">responsible person</span><br>
+        <span class="dim">4.</span> Format: short, to the point, names + dates<br>
+        <span class="dim">5.</span> Save with naming: <span class="cmd">{project} {summary} desc &ndash; YYYY-MM-DD.md</span>
+      </div>
+    </div>
+    <p style="font-size:16px; color:var(--text-dim); margin-top:12px">запуск: <span class="teal">/meeting-summary</span> &mdash; итерация: &laquo;что не нравится? давайте поправим вместе.&raquo;</p>
+    <div style="display:flex; gap:12px; margin-top:8px; flex-wrap:wrap;">
+      <span class="tag green-tag">5 строк markdown = работающий скилл</span>
+      <span class="tag">скилл &mdash; живой документ</span>
+    </div>
+  </div>
+</div>
+
+<!-- ===== S28: DAILY FOCUS ===== -->
+<div class="slide" id="s28" data-block="7" data-notes="THE real skill — daily-focus v12. 4 MCP-входа, auto-styling, visual output. Показать реальную карточку.">
+  <div class="slide-counter"><span class="current">28</span>/<span class="total"></span></div>
+  <img class="slide-logo" src="logo.png" alt="">
+  <div class="slide-inner">
+    <div class="label">// /DAILY-FOCUS v12 &middot; 898 СТРОК &middot; PRODUCTION</div>
+    <h2><span class="teal">/daily-focus</span> &mdash; как устроен настоящий скилл</h2>
+    <div class="split" style="gap:20px;">
+      <div class="terminal" style="margin-top:0;">
+        <div class="terminal-header"><div class="terminal-dot r"></div><div class="terminal-dot y"></div><div class="terminal-dot g"></div><div class="terminal-title">898 строк &middot; 5 агентов параллельно &middot; 5 стилей</div></div>
+        <div class="terminal-body" style="font-size:11px; line-height:1.55;">
+          <span class="hl"># Step 0</span> &mdash; detect context (day type, energy)<br>
+          <span class="hl"># Step 1</span> &mdash; <span class="cmd">5 parallel sub-agents:</span><br>
+          &nbsp;&nbsp;<span class="dim">agent 1:</span> Google Calendar (5 calendar IDs)<br>
+          &nbsp;&nbsp;<span class="dim">agent 2:</span> Linear (IP + overdue + triage)<br>
+          &nbsp;&nbsp;<span class="dim">agent 3:</span> Telegram (unread, action items)<br>
+          &nbsp;&nbsp;<span class="dim">agent 4:</span> Krisp (yesterday&rsquo;s meetings)<br>
+          &nbsp;&nbsp;<span class="dim">agent 5:</span> Vault context (memory, focus)<br>
+          <span class="hl"># Step 2</span> &mdash; reconcile Calendar &harr; Krisp<br>
+          <span class="hl"># Step 3</span> &mdash; 3 фокуса + 1 skip + energy map<br>
+          <span class="hl"># Step 4</span> &mdash; generate HTML card (5 styles)<br>
+          <span class="hl"># Step 5</span> &mdash; <span class="cmd">Playwright</span> &rarr; PNG @2x DPR<br>
+          <span class="hl"># Step 6</span> &mdash; <span class="cmd">Telethon</span> &rarr; photo + caption<br>
+          <span class="hl"># Step 7</span> &mdash; cleanup temp files
+        </div>
+      </div>
+      <div>
+        <h3 style="font-size:15px; color:var(--teal); margin-bottom:8px">5 визуальных стилей</h3>
+        <div style="font-size:13px; color:rgba(255,255,255,0.7); line-height:1.8;">
+          <span class="teal">timeline</span> &mdash; расписание по часам (3+ встреч)<br>
+          <span class="green">convergence</span> &mdash; линии от проектов к центру (пт)<br>
+          <span class="blue">bento</span> &mdash; сетка мини-панелей (разный день)<br>
+          <span class="amber">radar</span> &mdash; кольца приоритетов (deep work)<br>
+          <span class="dim">minimal</span> &mdash; только текст (low energy)
+        </div>
+        <h3 style="font-size:15px; color:var(--teal); margin-top:10px; margin-bottom:6px">auto-accent по типу дня</h3>
+        <div style="font-size:13px; color:rgba(255,255,255,0.7); line-height:1.8;">
+          <span style="color:var(--red)">&#9679;</span> urgent/launch &rarr; red<br>
+          <span style="color:var(--blue)">&#9679;</span> deep work (&le;2 meetings) &rarr; blue<br>
+          <span style="color:var(--pink)">&#9679;</span> strategy &rarr; purple<br>
+          <span style="color:var(--amber)">&#9679;</span> default &rarr; amber
+        </div>
+        <h3 style="font-size:15px; color:var(--teal); margin-top:10px; margin-bottom:6px">weekday logic</h3>
+        <div style="font-size:12px; color:rgba(255,255,255,0.5); line-height:1.6;">
+          пн &rarr; overview &middot; вт &rarr; deep work &middot; ср &rarr; midcheck<br>
+          чт &rarr; sprint &middot; пт &rarr; summary &middot; сб/вс &rarr; minimal
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== S28: DAILY FOCUS OUTPUT ===== -->
+<div class="slide" id="s28" data-block="7" data-notes="Daily Focus результат в Telegram. 4 MCP-входа &rarr; одно фокусное сообщение каждое утро. 'Это ваш первый пайплайн: данные вошли &rarr; агент обработал &rarr; артефакт вышел.'">
+  <div class="slide-counter"><span class="current">28</span>/<span class="total"></span></div>
+  <img class="slide-logo" src="logo.png" alt="">
+  <div class="slide-inner">
+    <div class="label">// DAILY FOCUS &middot; РЕЗУЛЬТАТ</div>
+    <h2>что агент отправляет <span class="teal">каждое утро</span></h2>
+    <div class="split" style="align-items:start;">
+      <div class="tg-mockup">
+        <div class="tg-header"><div class="tg-avatar">A</div><div><div class="tg-name">Claude Code</div><div class="tg-subtitle">Saved Messages</div></div></div>
+        <div class="tg-message">
+          <strong>daily focus &mdash; 24 мар 2026</strong><br><br>
+          3 фокуса:<br>
+          1. POS Setup deck &mdash; новый v2 с дашбордом<br>
+          2. подготовка спринта &mdash; breakout rooms<br>
+          3. партнёрство &mdash; оффер Гершуни<br><br>
+          пропустить сегодня: рассылка (четверг)<br><br>
+          энергия: утром deep work, воркшоп 18:00 CET
+        </div>
+        <div class="tg-time">08:15</div>
+      </div>
+      <div>
+        <h3 style="font-size:18px; color:var(--teal); margin-bottom:16px">входы пайплайна</h3>
+        <div class="layers" style="gap:6px;">
+          <div class="layer" style="padding:8px 14px"><div class="layer-num teal" style="font-size:14px">01</div><div class="layer-name" style="font-size:14px; min-width:100px">Calendar</div><div class="layer-desc" style="font-size:13px">3 встречи сегодня</div></div>
+          <div class="layer" style="padding:8px 14px"><div class="layer-num green" style="font-size:14px">02</div><div class="layer-name" style="font-size:14px; min-width:100px">Linear</div><div class="layer-desc" style="font-size:13px">5 задач в работе</div></div>
+          <div class="layer" style="padding:8px 14px"><div class="layer-num blue" style="font-size:14px">03</div><div class="layer-name" style="font-size:14px; min-width:100px">Telegram</div><div class="layer-desc" style="font-size:13px">12 непрочитанных</div></div>
+          <div class="layer" style="padding:8px 14px"><div class="layer-num amber" style="font-size:14px">04</div><div class="layer-name" style="font-size:14px; min-width:100px">Krisp</div><div class="layer-desc" style="font-size:13px">вчерашние action items</div></div>
+        </div>
+        <p style="font-size:14px; color:var(--text-dim); margin-top:12px">циклический пайплайн &mdash; запускается каждое утро</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== S29: SKILLS DIRECTORY ===== -->
+<div class="slide" id="s29" data-block="7" data-notes="Реальный каталог скиллов из работающей POS. 70 скиллов за полтора года. Каждый из повторяющегося действия.">
+  <div class="slide-counter"><span class="current">29</span>/<span class="total"></span></div>
+  <img class="slide-logo" src="logo.png" alt="">
+  <div class="slide-inner">
+    <div class="label">// 70 СКИЛЛОВ &middot; ДАШБОРД</div>
+    <h2>скиллы из <span class="teal">работающей POS</span></h2>
+    <div class="split">
+      <div>
+        <div class="file-tree" style="font-size:12px; line-height:1.5;">
+          <span class="dir">.claude/skills/ &mdash; 50+ директорий</span><br>
+          <span class="hl">&nbsp;&nbsp;daily-focus/</span> <span class="dim">v12, 898 строк</span><br>
+          <span class="hl">&nbsp;&nbsp;vox/</span> <span class="dim">terminal advisor</span><br>
+          <span class="hl">&nbsp;&nbsp;eval/</span> <span class="dim">T/R/C self-eval</span><br>
+          <span class="file">&nbsp;&nbsp;content-voice/</span> <span class="dim">5 тонов</span><br>
+          <span class="file">&nbsp;&nbsp;linear-action/</span> <span class="dim">задачи</span><br>
+          <span class="file">&nbsp;&nbsp;research/</span> <span class="dim">Exa parallel</span><br>
+          <span class="file">&nbsp;&nbsp;telegram/</span> <span class="dim">MTProto</span><br>
+          <span class="file">&nbsp;&nbsp;imagine/</span> <span class="dim">OpenRouter</span><br>
+          <span class="file">&nbsp;&nbsp;ceo-council/</span> <span class="dim">3 Opus-агента</span><br>
+          <span class="file">&nbsp;&nbsp;reel-edit/</span> <span class="dim">видео монтаж</span><br>
+          <span class="file">&nbsp;&nbsp;video-art/</span> <span class="dim">GPU шейдеры</span><br>
+          <span class="file">&nbsp;&nbsp;pos-morning/</span> <span class="dim">утренний brief</span><br>
+          <span class="file">&nbsp;&nbsp;AIM-crm/</span> <span class="dim">партнёры</span><br>
+          <span class="file">&nbsp;&nbsp;focus-ship-sprint/</span> <span class="dim">tmux lanes</span><br>
+          <span class="dim">&nbsp;&nbsp;... и ещё ~35 скиллов</span>
+        </div>
+      </div>
+      <div>
+        <div class="card" style="margin-bottom:8px; padding:14px; border-top:2px solid var(--teal)">
+          <div class="card-icon" style="font-size:15px">/daily-focus</div>
+          <p style="font-size:13px">Calendar + Linear + Telegram + Krisp &rarr; 3 фокуса + визуальная карточка</p>
+        </div>
+        <div class="card" style="margin-bottom:8px; padding:14px; border-top:2px solid var(--green)">
+          <div class="card-icon" style="font-size:15px; color:var(--green)">/vox</div>
+          <p style="font-size:13px">terminal day advisor &mdash; actionable план дня с командами</p>
+        </div>
+        <div class="card" style="margin-bottom:8px; padding:14px; border-top:2px solid var(--blue)">
+          <div class="card-icon" style="font-size:15px; color:var(--blue)">/eval</div>
+          <p style="font-size:13px">T/R/C quality framework &mdash; binary pass/fail, self-improvement loop</p>
+        </div>
+        <div class="card" style="padding:14px; border-top:2px solid var(--amber)">
+          <div class="card-icon" style="font-size:15px; color:var(--amber)">/linear-action</div>
+          <p style="font-size:13px">update, close, comment задачи &mdash; рекомендации в footer каждого ответа</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== S30: DEMO DAY ===== -->
+<div class="slide" id="s30" data-block="7" data-notes="POS Sprint Demo Day. 14 систем за 2 недели. Одинаковые вводные, 14 разных результатов. 'POS &mdash; это не шаблон, который ты внедряешь. Это архитектура, которую ты наполняешь своей реальностью.'">
+  <div class="slide-counter"><span class="current">30</span>/<span class="total"></span></div>
+  <img class="slide-logo" src="logo.png" alt="">
+  <div class="slide-inner" style="align-items:center;">
+    <div class="label">// POS SPRINT DEMO DAY</div>
+    <h2>одинаковые вводные, <span class="teal">14 систем</span></h2>
+    <div class="cards" style="grid-template-columns: repeat(3, 1fr); font-size:14px;">
+      <div class="card" style="padding:16px"><div class="card-icon" style="font-size:18px">01</div><p style="font-size:14px">поисковик по 30K научных журналов</p></div>
+      <div class="card" style="padding:16px"><div class="card-icon" style="font-size:18px">02</div><p style="font-size:14px">AI-корпорация с 11 отделами-агентами</p></div>
+      <div class="card" style="padding:16px"><div class="card-icon" style="font-size:18px">03</div><p style="font-size:14px">POS-дашборд с тамагочи</p></div>
+      <div class="card" style="padding:16px"><div class="card-icon" style="font-size:18px">04</div><p style="font-size:14px">YouTube-фактчекер в tmux</p></div>
+      <div class="card" style="padding:16px"><div class="card-icon" style="font-size:18px">05</div><p style="font-size:14px">контент-пайплайн с CEO Council</p></div>
+      <div class="card" style="padding:16px"><div class="card-icon" style="font-size:18px">14</div><p style="font-size:14px">...и ещё 9 уникальных систем</p></div>
+    </div>
+    <p style="font-size:15px; color:var(--text-dim); margin-top:12px">&laquo;POS &mdash; это не шаблон. это архитектура, которую ты наполняешь своей реальностью.&raquo;</p>
+  </div>
+</div>
+
+<!-- ===== S31: L0-L3 MAP ===== -->
+<div class="slide" id="s31" data-block="8" data-notes="Блок 8. Карта автономии L0-L3 из L01 slides #62-63. 'Ваша задача: определить, где суждение необходимо, и автоматизировать всё остальное.' Из Стёпы: 'Действие &lt; Процесс &lt; (Операционная) Система' &mdash; сегодня строим систему, не набор действий.">
+  <div class="slide-counter"><span class="current">31</span>/<span class="total"></span></div>
+  <img class="slide-logo" src="logo.png" alt="">
+  <div class="slide-inner">
+    <div class="label">// БЛОК 08 &middot; КАРТА АВТОНОМИИ L0&ndash;L3</div>
+    <h2>где ваша команда <span class="teal">сегодня</span>?</h2>
+    <table class="styled-table" style="font-size:15px;">
+      <thead><tr><th></th><th>L0 &middot; AI подсказывает</th><th>L1 &middot; AI делает черновик</th><th>L2 &middot; AI исполняет</th><th>L3 &middot; автопилот</th></tr></thead>
+      <tbody>
+        <tr><td class="teal" style="font-weight:600">продажи</td><td>переговоры</td><td>коммерческие предложения</td><td>аутрич</td><td>скоринг</td></tr>
+        <tr><td class="blue" style="font-weight:600">инженерия</td><td>архитектура</td><td>code review</td><td style="color:var(--blue);font-weight:500">генерация кода</td><td>CI/CD</td></tr>
+        <tr><td class="green" style="font-weight:600">финансы</td><td>утверждение бюджета</td><td>отчёты</td><td>фрод-детект</td><td>мониторинг</td></tr>
+        <tr><td class="amber" style="font-weight:600">юридический</td><td style="font-weight:500">подписание</td><td>черновики контрактов</td><td>проверка документов</td><td>комплаенс</td></tr>
+        <tr><td class="red" style="font-weight:600">операции</td><td>собеседования</td><td>онбординг</td><td>расписание</td><td style="color:var(--amber);font-weight:500">алерты</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:14px; color:var(--text-dim); margin-top:12px; text-align:center">&laquo;ваша задача: определить, где суждение необходимо, и автоматизировать всё остальное&raquo;</p>
+  </div>
+</div>
+
+<!-- ===== S32: EXERCISE ===== -->
+<div class="slide" id="s32" data-block="8" data-notes="Упражнение: запишите 3 процесса. 5 мин на запись, 10 мин обсуждение в breakout rooms. 'Напишите 3 процесса которые вы делаете каждый день и которые болезненны или повторяются.' Breakout rooms: группы по 3-4 человека.">
+  <div class="slide-counter"><span class="current">32</span>/<span class="total"></span></div>
+  <img class="slide-logo" src="logo.png" alt="">
+  <div class="slide-inner">
+    <div class="label">// УПРАЖНЕНИЕ &middot; 3 ПРОЦЕССА</div>
+    <h2>ваша очередь: <span class="teal">3 процесса</span></h2>
+    <div class="exercise-card">
+      <h3>запишите 3 повторяющихся процесса</h3>
+      <ol>
+        <li>3 процесса, которые вы делаете каждый день и которые <strong>болезненны или повторяются</strong></li>
+        <li>Оцените каждый: какой уровень автономии (L0&ndash;L3) у вас <strong>сейчас</strong>?</li>
+        <li>Какой уровень <strong>возможен</strong> уже на этой неделе?</li>
+        <li>(бонус) Какой из них можно превратить в скилл <strong>прямо сейчас</strong>?</li>
+      </ol>
+      <div class="timer">5 мин написать &middot; 10 мин обсуждение в breakout rooms (группы по 3&ndash;4)</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== S33: DOPAMINE TRAP ===== -->
+<div class="slide" id="s33" data-block="9" data-notes="Блок 9. Дофаминовая ловушка. METR: -19% реальная скорость, +20% ощущение скорости. 'POS &mdash; это не только то, что вы делаете с AI. Это и то, что вы НЕ делаете.'">
+  <div class="slide-counter"><span class="current">33</span>/<span class="total"></span></div>
+  <img class="slide-logo" src="logo.png" alt="">
+  <div class="slide-inner" style="align-items:center;">
+    <div class="label">// БЛОК 09 &middot; ГРАНИЦЫ</div>
+    <h2><span class="red">ловушка</span>: 3 часа, 0 бизнеса</h2>
+    <div class="svg-container" style="margin-top:12px">
+      <svg viewBox="0 0 650 360" xmlns="http://www.w3.org/2000/svg" style="max-width:500px">
+        <circle cx="325" cy="180" r="120" fill="none" stroke="rgba(255,107,107,0.15)" stroke-width="2" stroke-dasharray="10,5"/>
+        <g transform="translate(325,60)"><rect x="-48" y="-19" width="96" height="38" rx="8" fill="rgba(255,107,107,0.1)" stroke="#ff6b6b" stroke-width="2"/><text y="6" text-anchor="middle" fill="#ff6b6b" font-family="Space Grotesk" font-size="16" font-weight="600">Промт!</text></g>
+        <g transform="translate(445,180)"><rect x="-48" y="-19" width="96" height="38" rx="8" fill="rgba(56,217,169,0.1)" stroke="#38d9a9" stroke-width="2"/><text y="6" text-anchor="middle" fill="#38d9a9" font-family="Space Grotesk" font-size="16" font-weight="600">Работает!</text></g>
+        <g transform="translate(325,300)"><rect x="-48" y="-19" width="96" height="38" rx="8" fill="rgba(200,146,0,0.1)" stroke="#c89200" stroke-width="2"/><text y="6" text-anchor="middle" fill="#c89200" font-family="Space Grotesk" font-size="16" font-weight="600">Ещё!</text></g>
+        <g transform="translate(205,180)"><rect x="-52" y="-19" width="104" height="38" rx="8" fill="rgba(255,107,107,0.15)" stroke="#ff6b6b" stroke-width="2.5"/><text y="6" text-anchor="middle" fill="#ff6b6b" font-family="Space Grotesk" font-size="16" font-weight="700">Тупик</text></g>
+        <circle r="5" fill="#ff6b6b" opacity="0.8"><animateMotion path="M325,60 Q445,60 445,180 Q445,300 325,300 Q205,300 205,180 Q205,60 325,60" dur="4s" repeatCount="indefinite"/></circle>
+        <text x="325" y="175" text-anchor="middle" fill="#ff6b6b" font-family="Space Grotesk" font-size="38" font-weight="700">-19%</text>
+        <text x="325" y="200" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-family="IBM Plex Mono" font-size="14">actual speed (METR)</text>
+      </svg>
+    </div>
+    <p style="font-size:15px; color:var(--text-dim); margin-top:4px">METR research: -19% реальная скорость, +20% ощущение скорости</p>
+  </div>
+</div>
+
+<!-- ===== S34: ANTI-PATTERNS ===== -->
+<div class="slide" id="s34" data-block="9" data-notes="POS анти-паттерны. Три главные ловушки. 'Не оптимизируйте то, что нужно переизобрести.' Context management: когда контекст заполнен на 70% &mdash; модель сама переходит в режим handoff.">
+  <div class="slide-counter"><span class="current">34</span>/<span class="total"></span></div>
+  <img class="slide-logo" src="logo.png" alt="">
+  <div class="slide-inner">
+    <div class="label">// АНТИ-ПАТТЕРНЫ</div>
+    <h2>POS <span class="red">анти-паттерны</span></h2>
+    <div class="cards" style="grid-template-columns:repeat(3, 1fr);">
+      <div class="card" style="border-color:rgba(255,107,107,0.2)"><div class="card-icon red">01</div><h3>over-engineer</h3><p>строить Jarvis в первый день вместо одного работающего скилла</p><span class="tag red-tag">ловушка сложности</span></div>
+      <div class="card" style="border-color:rgba(255,107,107,0.2)"><div class="card-icon red">02</div><h3>chase tools</h3><p>менять 5 инструментов в неделю вместо освоения одного стека</p><span class="tag red-tag">FOMO ловушка</span></div>
+      <div class="card" style="border-color:rgba(255,107,107,0.2)"><div class="card-icon red">03</div><h3>skip rules</h3><p>без CLAUDE.md, без naming &mdash; хаос при масштабировании</p><span class="tag red-tag">ловушка масштаба</span></div>
+    </div>
+    <div class="quote" style="margin-top:20px">
+      <p style="font-size:17px">&laquo;не оптимизируйте то, что нужно переизобрести&raquo;</p>
+      <div class="author">&mdash; Stanley, Lehman: &ldquo;Why Greatness Cannot Be Planned&rdquo;</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== S35: HOMEWORK ===== -->
+<div class="slide" id="s35" data-block="10" data-notes="Block 10. Домашка из speaker notes. 6 заданий на неделю. Скриншот в #support.">
+  <div class="slide-counter"><span class="current">35</span>/<span class="total"></span></div>
+  <img class="slide-logo" src="logo.png" alt="">
+  <div class="slide-inner">
+    <div class="label">// БЛОК 10 &middot; ДОМАШКА</div>
+    <h2>домашка на <span class="teal">неделю</span></h2>
+    <table class="styled-table" style="font-size:15px;">
+      <thead><tr><th>#</th><th>задание</th><th>откуда</th></tr></thead>
+      <tbody>
+        <tr><td class="teal" style="font-weight:700">1</td><td><strong>Поставить Claude Code / CoWork</strong> и создать CLAUDE.md</td><td>сегодня</td></tr>
+        <tr><td class="teal" style="font-weight:700">2</td><td><strong>1 работающий скилл</strong> в <code style="font-size:13px;color:var(--green)">.claude/skills/</code> &mdash; попробуйте /morning-brief</td><td>сегодня</td></tr>
+        <tr><td class="teal" style="font-weight:700">3</td><td><strong>Naming convention</strong> &mdash; переименовать 5 файлов по формату</td><td>сегодня</td></tr>
+        <tr><td class="teal" style="font-weight:700">4</td><td><strong>3 процесса + карта L0-L3</strong> &mdash; 3 болезненных процесса, уровень автономии</td><td>L01 #63</td></tr>
+        <tr><td class="blue" style="font-weight:700">5</td><td><strong>Keyboard shortcuts</strong> &mdash; настроить 3 шортката для частых действий</td><td>сегодня</td></tr>
+        <tr><td class="amber" style="font-weight:700">6</td><td><strong>(bonus)</strong> Vibe-code SaaS за который платите</td><td>L01 #20</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:16px; color:var(--amber); margin-top:16px; font-weight:500">сдать: скриншот работающего скилла &rarr; #support чат</p>
+  </div>
+</div>
+
+<!-- ===== S36: PLUGIN FLOW ===== -->
+<div class="slide" id="s36" data-block="10" data-notes="Plugin flow. Запустить 'aim sprint' в Claude Code. Квиз &rarr; Уровень &rarr; Контекст &rarr; Аудит &rarr; Топ-3 &rarr; Чемпионы &rarr; week1.md. ~25 мин guided path.">
+  <div class="slide-counter"><span class="current">36</span>/<span class="total"></span></div>
+  <img class="slide-logo" src="logo.png" alt="">
+  <div class="slide-inner" style="align-items:center;">
+    <div class="label">// AIM-SKILL PLUGIN FLOW</div>
+    <h2>неделя 1: <span class="teal">~25 мин</span> guided path</h2>
+    <div class="svg-container" style="margin-top:12px">
+      <svg viewBox="0 0 750 180" xmlns="http://www.w3.org/2000/svg" style="max-width:700px">
+        <g><rect x="10" y="50" width="85" height="60" rx="8" fill="none" stroke="#4dc9d4" stroke-width="1.5"/><text x="52" y="75" text-anchor="middle" fill="#4dc9d4" font-family="Space Grotesk" font-size="12" font-weight="600">Quiz</text><text x="52" y="95" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-family="IBM Plex Mono" font-size="9">оценка уровня</text></g>
+        <line x1="100" y1="80" x2="118" y2="80" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+        <g><rect x="120" y="50" width="85" height="60" rx="8" fill="none" stroke="#3b82f6" stroke-width="1.5"/><text x="162" y="75" text-anchor="middle" fill="#3b82f6" font-family="Space Grotesk" font-size="12" font-weight="600">L0-L3</text><text x="162" y="95" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-family="IBM Plex Mono" font-size="9">текущий уровень</text></g>
+        <line x1="210" y1="80" x2="228" y2="80" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+        <g><rect x="230" y="50" width="85" height="60" rx="8" fill="none" stroke="#38d9a9" stroke-width="1.5"/><text x="272" y="75" text-anchor="middle" fill="#38d9a9" font-family="Space Grotesk" font-size="12" font-weight="600">Context</text><text x="272" y="95" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-family="IBM Plex Mono" font-size="9">инфо о компании</text></g>
+        <line x1="320" y1="80" x2="338" y2="80" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+        <g><rect x="340" y="50" width="85" height="60" rx="8" fill="none" stroke="#c89200" stroke-width="1.5"/><text x="382" y="75" text-anchor="middle" fill="#c89200" font-family="Space Grotesk" font-size="12" font-weight="600">Audit</text><text x="382" y="95" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-family="IBM Plex Mono" font-size="9">аудит процессов</text></g>
+        <line x1="430" y1="80" x2="448" y2="80" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+        <g><rect x="450" y="50" width="85" height="60" rx="8" fill="none" stroke="#ff3b8b" stroke-width="1.5"/><text x="492" y="75" text-anchor="middle" fill="#ff3b8b" font-family="Space Grotesk" font-size="12" font-weight="600">Top 3</text><text x="492" y="95" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-family="IBM Plex Mono" font-size="9">приоритеты</text></g>
+        <line x1="540" y1="80" x2="558" y2="80" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+        <g><rect x="560" y="50" width="85" height="60" rx="8" fill="none" stroke="#38bdf8" stroke-width="1.5"/><text x="602" y="75" text-anchor="middle" fill="#38bdf8" font-family="Space Grotesk" font-size="12" font-weight="600">Champions</text><text x="602" y="95" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-family="IBM Plex Mono" font-size="9">назначить роли</text></g>
+        <line x1="650" y1="80" x2="668" y2="80" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+        <g><rect x="670" y="50" width="70" height="60" rx="8" fill="rgba(77,201,212,0.08)" stroke="#4dc9d4" stroke-width="2"><animate attributeName="stroke-opacity" values="0.6;1;0.6" dur="2s" repeatCount="indefinite"/></rect><text x="705" y="75" text-anchor="middle" fill="#4dc9d4" font-family="Space Grotesk" font-size="11" font-weight="700">week1</text><text x="705" y="90" text-anchor="middle" fill="#4dc9d4" font-family="Space Grotesk" font-size="11" font-weight="700">.md</text></g>
+        <circle r="3" fill="#4dc9d4" opacity="0.9"><animateMotion path="M52,115 L162,115 L272,115 L382,115 L492,115 L602,115 L705,115" dur="5s" repeatCount="indefinite"/></circle>
+        <text x="375" y="155" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-family="IBM Plex Mono" font-size="11">запуск: aim sprint в Claude Code / Codex</text>
+      </svg>
+    </div>
+  </div>
+</div>
+
+<!-- ===== S37: TOMORROW ===== -->
+<div class="slide" id="s37" data-block="10" data-notes="Завтра: personal &rarr; team. Кураторы показывают свои системы. 'Сегодня вы построили персональную ОС. Завтра &mdash; мост к команде. Spec-driven development, контекст как текстовый файл, передача задач агенту последовательно.'">
+  <div class="slide-counter"><span class="current">37</span>/<span class="total"></span></div>
+  <img class="slide-logo" src="logo.png" alt="">
+  <div class="glow-dot" style="top:20%;left:15%"></div><div class="glow-dot" style="bottom:30%;right:20%"></div>
+  <div class="slide-inner cover">
+    <div class="label">// ЗАВТРА &middot; 25.03</div>
+    <h2>personal &rarr; <span class="teal">team</span></h2>
+    <div class="card" style="max-width:600px; margin:24px auto; padding:28px; border-color:rgba(77,201,212,0.25);">
+      <p style="font-size:20px; color:#fff; line-height:1.6; text-align:center;">
+        spec-driven development &middot; аудит процессов &middot; AI Champion<br>
+        контекст как текстовый файл &middot; передача задач агенту<br><br>
+        кураторы показывают свои системы:<br>
+        <span class="teal">Jarvis</span> (6 агентов) &middot; <span class="green">traceable agents</span> &middot; <span class="amber">компания из 1 человека</span>
+      </p>
+    </div>
+    <p style="font-size:15px; color:var(--text-dim)">deliverable: 2 скилла + 1 MCP-интеграция + top 10 list процессов</p>
+  </div>
+</div>
+
+<!-- ===== S38: RESOURCES ===== -->
+<div class="slide" id="s38" data-block="11" data-notes="Ресурсы: prework, инструменты, ссылки для setup.">
+  <div class="slide-counter"><span class="current">38</span>/<span class="total"></span></div>
+  <img class="slide-logo" src="logo.png" alt="">
+  <div class="slide-inner">
+    <div class="label">// РЕСУРСЫ</div>
+    <h2>ссылки и <span class="teal">инструменты</span></h2>
+    <div class="split">
+      <div>
+        <h3 style="font-size:17px; color:var(--teal); margin-bottom:12px">интерактивные инструменты</h3>
+        <div style="font-size:14px; line-height:2.2">
+          <a class="link-btn" href="https://ai-mindset-org.github.io/ainative-lab/" target="_blank" style="margin:3px 0; display:inline-flex">ainative-lab hub &nearr;</a><br>
+          <a class="link-btn" href="https://ai-mindset-org.github.io/pos-stack-explorer/" target="_blank" style="margin:3px 0; display:inline-flex">POS stack explorer &nearr;</a><br>
+          <a class="link-btn" href="https://ai-mindset-org.github.io/ainative-lab/naming.html" target="_blank" style="margin:3px 0; display:inline-flex">naming &amp; vault structure &nearr;</a><br>
+          <a class="link-btn" href="https://keyboard.aimindset.org/" target="_blank" style="margin:3px 0; display:inline-flex">keyboard cost visualizer &nearr;</a>
+        </div>
+        <h3 style="font-size:17px; color:var(--teal); margin-top:16px; margin-bottom:8px">prework видео</h3>
+        <div style="font-size:14px; line-height:2">
+          <span class="dim">#1</span> Что такое POS <span class="tag" style="font-size:10px">57 мин</span><br>
+          <span class="dim">#2</span> Персональная корпорация <span class="tag" style="font-size:10px">40 мин</span><br>
+          <span class="dim">#3</span> Циклические пайплайны <span class="tag" style="font-size:10px">52 мин</span>
+        </div>
+      </div>
+      <div>
+        <h3 style="font-size:17px; color:var(--teal); margin-bottom:12px">установка</h3>
+        <div class="code-block" onclick="copyCode(this)" style="font-size:14px; margin-top:4px">
+          <span class="copy-hint">click to copy</span>
+          npm install -g @anthropic-ai/claude-code
+        </div>
+        <h3 style="font-size:17px; color:var(--teal); margin-top:16px; margin-bottom:8px">плагин и квиз</h3>
+        <div style="font-size:14px; line-height:2">
+          <a class="link-btn" href="https://cybos.ai/aim-skill.zip" target="_blank" style="margin:3px 0; display:inline-flex">aim-skill.zip &nearr;</a><br>
+          <a class="link-btn" href="https://codos.ai/quiz" target="_blank" style="margin:3px 0; display:inline-flex">codos.ai/quiz &nearr;</a>
+        </div>
+        <h3 style="font-size:17px; color:var(--teal); margin-top:16px; margin-bottom:8px">starter pack</h3>
+        <div style="font-size:14px; line-height:2">
+          <a class="link-btn" href="https://github.com/ai-mindset-org/ainative-deck/tree/main/downloads" target="_blank" style="margin:3px 0; display:inline-flex">готовые скиллы на GitHub &nearr;</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== S39: CLOSING ===== -->
+<div class="slide" id="s39" data-block="11" data-notes="Закрытие. Повторяем мантру. Один скилл. Работающий. Настоящий. Потом Q&amp;A + breakout rooms.">
+  <div class="slide-counter"><span class="current">39</span>/<span class="total"></span></div>
+  <img class="slide-logo" src="logo.png" alt="">
+  <div class="glow-dot" style="top:15%;left:10%"></div><div class="glow-dot" style="top:70%;right:15%"></div><div class="glow-dot" style="bottom:20%;left:30%"></div><div class="glow-dot" style="top:35%;right:25%"></div>
+  <div class="slide-inner cover">
+    <div class="label">// ЗАКРЫТИЕ</div>
+    <div class="big-quote">
+      <p>&laquo;начни с одного скилла,<br>не с <span class="dim" style="text-decoration:line-through">Jarvis</span>&raquo;</p>
+    </div>
+    <div class="stat-grid" style="max-width:700px; margin:32px auto 0;">
+      <div class="stat-box"><div class="num teal">1</div><div class="stat-label">CLAUDE.md</div></div>
+      <div class="stat-box"><div class="num green">3</div><div class="stat-label">работающих скилла</div></div>
+      <div class="stat-box"><div class="num blue">3</div><div class="stat-label">процесса на карте</div></div>
+    </div>
+    <div class="meta" style="margin-top:24px">
+      <span class="tag">AI Mindset</span>
+      <span class="tag green-tag">AI-Native Sprint s2</span>
+      <span class="dot">&middot;</span>
+      <span class="date">до завтра &middot; 25.03</span>
+    </div>
+  </div>
+</div>
+
+<!-- Progress bar -->
+<div class="progress-bar"></div>
+<div class="nav-hint">стрелки / пробел &middot; F полный экран &middot; N заметки &middot; E редактор &middot; T содержание</div>
+<div id="edit-badge">// EDIT MODE &mdash; changes auto-save &middot; Ctrl+Z undo</div>
+<div id="notes-panel"></div>
+<div id="toc-panel"><h2>// СОДЕРЖАНИЕ</h2><div class="toc-grid" id="toc-grid"></div></div>
+<div id="block-actions"><button onclick="moveBlockUp()" title="move up">&uarr;</button><button onclick="moveBlockDown()" title="move down">&darr;</button><button class="danger" onclick="deleteBlock()" title="delete block">&times;</button></div>
+<div id="builder-toolbar">
+  <button onclick="undo()" title="undo">&#8617;</button><button onclick="redo()" title="redo">&#8618;</button><div class="tb-sep"></div>
+  <button onclick="changeTextSize(1)" title="A+">A+</button><button onclick="changeTextSize(-1)" title="A-">A-</button><div class="tb-sep"></div>
+  <button onclick="insertImage()">img</button><button onclick="insertTextBlock()">txt</button><button onclick="insertCodeBlock()">{}</button><div class="tb-sep"></div>
+  <button onclick="showLayoutPicker()" style="color:var(--teal)">+ slide</button><button onclick="duplicateSlide()">dup</button><button class="danger" onclick="deleteSlide()">del</button><div class="tb-sep"></div>
+  <button onclick="saveToGitHub()" style="font-weight:600">push</button><button id="auto-push-btn" onclick="toggleAutoPush()">auto</button><button id="preview-btn" onclick="togglePreview()">&#9673;</button>
+  <span class="save-status" id="save-status"></span>
+</div>
+<div id="preview-panel"><div class="preview-label">// NEXT SLIDE</div><div class="preview-content"><div class="preview-scale" id="preview-scale"></div></div></div>
+<div id="layout-picker"><div id="layout-picker-inner"><h3>choose layout for new slide</h3><div class="layout-options">
+  <div class="layout-option" onclick="addSlideWithLayout('center')"><svg viewBox="0 0 48 36"><rect x="12" y="4" width="24" height="4" rx="2"/><rect x="8" y="14" width="32" height="3" rx="1.5"/><rect x="14" y="22" width="20" height="3" rx="1.5"/></svg><span>center</span></div>
+  <div class="layout-option" onclick="addSlideWithLayout('left')"><svg viewBox="0 0 48 36"><rect x="4" y="4" width="28" height="4" rx="2"/><rect x="4" y="14" width="36" height="3" rx="1.5"/><rect x="4" y="22" width="24" height="3" rx="1.5"/></svg><span>left text</span></div>
+  <div class="layout-option" onclick="addSlideWithLayout('split')"><svg viewBox="0 0 48 36"><rect x="2" y="2" width="20" height="32" rx="2" opacity="0.6"/><rect x="26" y="2" width="20" height="32" rx="2" opacity="0.6"/></svg><span>two columns</span></div>
+  <div class="layout-option" onclick="addSlideWithLayout('cards')"><svg viewBox="0 0 48 36"><rect x="2" y="2" width="12" height="32" rx="2" opacity="0.5"/><rect x="18" y="2" width="12" height="32" rx="2" opacity="0.5"/><rect x="34" y="2" width="12" height="32" rx="2" opacity="0.5"/></svg><span>cards</span></div>
+  <div class="layout-option" onclick="addSlideWithLayout('quote')"><svg viewBox="0 0 48 36"><rect x="6" y="8" width="2" height="20" rx="1"/><rect x="12" y="10" width="28" height="3" rx="1.5" opacity="0.7"/><rect x="12" y="18" width="22" height="3" rx="1.5" opacity="0.7"/></svg><span>quote</span></div>
+  <div class="layout-option" onclick="addSlideWithLayout('img-left')"><svg viewBox="0 0 48 36"><rect x="2" y="2" width="20" height="32" rx="2" opacity="0.3"/><rect x="26" y="6" width="18" height="3" rx="1.5"/></svg><span>img + text</span></div>
+  <div class="layout-option" onclick="addSlideWithLayout('img-right')"><svg viewBox="0 0 48 36"><rect x="4" y="6" width="18" height="3" rx="1.5"/><rect x="26" y="2" width="20" height="32" rx="2" opacity="0.3"/></svg><span>text + img</span></div>
+  <div class="layout-option" onclick="addSlideWithLayout('big-image')"><svg viewBox="0 0 48 36"><rect x="2" y="2" width="44" height="24" rx="2" opacity="0.3"/><rect x="10" y="30" width="28" height="3" rx="1.5"/></svg><span>big image</span></div>
+</div></div></div>
+<div id="gh-modal"><div id="gh-modal-inner"><h3>GitHub Token</h3><p>enter a GitHub personal access token with <code>repo</code> scope.</p><input type="password" id="gh-token-input" placeholder="ghp_xxxxx..." autocomplete="off"><p style="font-size:11px;opacity:0.6">token stored in localStorage only.</p><div class="modal-actions"><button onclick="closeGhModal()">cancel</button><button class="primary" onclick="confirmGhToken()">save token</button></div></div></div>
+<div id="img-action-menu"><button onclick="imgActionUpload()">upload</button></div>
+<script>
+const GH_REPO = 'ai-mindset-org/ainative-deck';
+const GH_FILE = 'pos-setup-v2.html';
+const GH_BRANCH = 'main';
+const STORAGE_KEY = 'pos-setup-v2-deck-state';
+const TOKEN_KEY = 'ainative-deck-gh-token';
+
+const CLAUDE_STARTER = `# CLAUDE.md — Starter Template
+
+## About Me
+- Name: [your name]
+- Role: [your role]
+- Company: [company name]
+- Main challenge: [what you're solving]
+
+## Naming Convention
+Format: {project} {type} description – YYYY-MM-DD.md
+
+## Communication Style
+- lowercase at block start
+- no emoji
+- en dash (–), not em dash
+- concise: main point in first 2–3 lines
+
+## Forbidden Actions
+- NEVER create new folders — use existing only
+- NEVER send without confirmation to public channels
+
+## My Stack
+- Claude Code for daily operations
+- Obsidian for knowledge management
+- [add your tools]
+`;
+
+const DAILY_FOCUS_SKILL = `---
+name: daily-focus
+description: Daily focus pipeline with visual output.
+version: 12.0
+---
+
+# Daily Focus Skill v12
+
+## Pipeline
+
+### Step 1: Gather Inputs
+1. Read today's **calendar** events (via MCP)
+2. Check **task manager** for active/overdue items
+3. Scan **messages** for action items
+4. Check yesterday's unfinished items from memory
+
+### Step 2: Analyze & Prioritize
+- Identify **3 most important focuses** for today
+- Flag **conflicts** between events and deep work
+- Suggest one thing to **skip or delegate**
+
+### Step 3: Output
+
+\\\`\\\`\\\`
+#FOCUS
+daily focus -- [date] [weekday]
+
+3 focuses:
+1. [PROJECT] highest priority -- [context]
+2. [PROJECT] second priority
+3. [PROJECT] third priority
+
+skip today: [what to deprioritize]
+
+energy: [morning plan], [afternoon plan]
+\\\`\\\`\\\`
+
+## Principles
+- Short, actionable, no fluff
+- Time-block around calendar anchors
+- Suggest what NOT to do
+`;
+
+const VOX_SKILL = `---
+name: vox
+description: Terminal day advisor. Actionable day-planning.
+---
+
+# /vox -- Terminal Day Advisor
+
+## What VOX Does
+- Reads today's focus, calendar, tasks, recent meetings
+- Analyzes priorities, gaps, conflicts
+- Gives concrete recommendations
+
+## Workflow
+
+### Step 1: Gather Context
+- Calendar events for today
+- Active tasks (In Progress + Todo)
+- Recent meeting notes
+
+### Step 2: Analyze & Advise
+
+**Voice:** Short sentences, no filler. Bold key items. Opinionated.
+
+**Structure:**
+\\\`\\\`\\\`
+## VOX -- [day, date]
+
+### now
+[What to focus on RIGHT NOW]
+
+### day
+[Time-blocked plan]
+
+### flags
+[Overdue items, conflicts, risks]
+
+### suggestions
+[Concrete actions]
+\\\`\\\`\\\`
+`;
+
+const EVAL_SKILL = `---
+name: eval
+description: Evaluate AI response quality using T/R/C framework.
+---
+
+# /eval -- Response Quality Evaluation
+
+## Framework: T/R/C
+
+| Area | What it covers |
+|------|---------------|
+| **T (Text)** | Structure, clarity, insights, actionable |
+| **R (Rules)** | Naming, folders, formatting, style |
+| **C (Code)** | Works, minimal, idiomatic |
+
+## Process
+1. Analyze the last exchange
+2. Evaluate per area (pass/fail)
+3. Error analysis for each fail
+4. Auto-eval footer: \\\`eval: T:pass R:pass C:n/a\\\`
+`;
+
+const NAMING_CHEATSHEET = `# Naming Convention Cheatsheet
+
+## Format
+{project} {type} description – YYYY-MM-DD.md
+
+## Projects
+- {AIM} — AI Mindset team
+- {personal} — personal notes
+- {company} — your company
+
+## Types
+- {rule} — rules, standards
+- {analysis} — research, analysis
+- {meeting} — meeting notes
+- {note} — general notes
+- {draft} — drafts, WIP
+- {research} — deep research
+- {guide} — how-to guides
+
+## Examples
+{AIM} {analysis} Sprint Audience – 2026-03-23.md
+{personal} {note} morning reflection – 2026-03-24.md
+{AIM} {rule} Communication Style – 2026-01-15.md
+`;
+
+const BLOCKS = [
+  { id: 1, name: 'Bridge', start: 0, dur: 10, color: '#4dc9d4' },
+  { id: 2, name: 'Barriers', start: 10, dur: 15, color: '#4dc9d4' },
+  { id: 3, name: 'Naming', start: 25, dur: 10, color: '#38d9a9' },
+  { id: 4, name: 'Rules', start: 35, dur: 10, color: '#38d9a9' },
+  { id: 5, name: 'Dashboard', start: 45, dur: 10, color: '#3b82f6' },
+  { id: 6, name: 'Setup', start: 55, dur: 20, color: '#3b82f6' },
+  { id: 'break', name: 'Break', start: 75, dur: 5, color: '#c89200' },
+  { id: 7, name: 'Skills', start: 80, dur: 15, color: '#c89200' },
+  { id: 8, name: 'Processes', start: 95, dur: 15, color: '#c89200' },
+  { id: 9, name: 'Boundaries', start: 110, dur: 5, color: '#ff6b6b' },
+  { id: 10, name: 'Homework', start: 115, dur: 10, color: '#ff6b6b' },
+  { id: 11, name: 'Q&A', start: 125, dur: 30, color: '#ff6b6b' },
+];
+const TOTAL_MINUTES = 135;
+const START_HOUR = 18;
+
+let slides, total, current = 0;
+let editMode = false, notesVisible = false, tocVisible = false;
+let autoSaveTimer = null, autoPushTimer = null, autoPushEnabled = false, isDirty = false;
+let selectedBlock = null, activeImgPlaceholder = null, previewVisible = false, breakTimerInterval = null;
+const undoStack = [], redoStack = [], MAX_UNDO = 50;
+
+const canvas = document.getElementById('constellation');
+const ctx2d = canvas.getContext('2d');
+let stars = [];
+function initConstellation() {
+  canvas.width = window.innerWidth; canvas.height = window.innerHeight; stars = [];
+  const count = Math.floor((canvas.width * canvas.height) / 15000);
+  for (let i = 0; i < count; i++) stars.push({ x: Math.random()*canvas.width, y: Math.random()*canvas.height, r: Math.random()*1.5+0.5, vx: (Math.random()-0.5)*0.15, vy: (Math.random()-0.5)*0.15, alpha: Math.random()*0.4+0.1 });
+}
+function drawConstellation() {
+  ctx2d.clearRect(0,0,canvas.width,canvas.height);
+  const maxDist = 120;
+  for (let i = 0; i < stars.length; i++) {
+    const s = stars[i]; s.x += s.vx; s.y += s.vy;
+    if (s.x < 0) s.x = canvas.width; if (s.x > canvas.width) s.x = 0;
+    if (s.y < 0) s.y = canvas.height; if (s.y > canvas.height) s.y = 0;
+    ctx2d.beginPath(); ctx2d.arc(s.x, s.y, s.r, 0, Math.PI*2);
+    ctx2d.fillStyle = `rgba(77,201,212,${s.alpha})`; ctx2d.fill();
+    for (let j = i+1; j < stars.length; j++) {
+      const s2 = stars[j]; const dx = s.x-s2.x, dy = s.y-s2.y, dist = Math.sqrt(dx*dx+dy*dy);
+      if (dist < maxDist) { ctx2d.beginPath(); ctx2d.moveTo(s.x,s.y); ctx2d.lineTo(s2.x,s2.y); ctx2d.strokeStyle = `rgba(77,201,212,${0.08*(1-dist/maxDist)})`; ctx2d.lineWidth = 0.5; ctx2d.stroke(); }
+    }
+  }
+  requestAnimationFrame(drawConstellation);
+}
+initConstellation(); drawConstellation();
+window.addEventListener('resize', initConstellation);
+
+function initSlides() { slides = document.querySelectorAll('.slide'); total = slides.length; document.querySelectorAll('.total').forEach(el => el.textContent = total); }
+initSlides();
+
+function showSlide(n) {
+  if (n < 0 || n >= total) return;
+  slides[current].classList.remove('active'); current = n; slides[current].classList.add('active');
+  document.querySelector('.progress-bar').style.width = ((current+1)/total*100)+'%';
+  document.querySelectorAll('.current').forEach(el => el.textContent = current+1);
+  history.replaceState(null,'','#'+(current+1));
+  updateNotes(); updateTimeline(); updatePreview(); updateTocHighlight(); deselectBlock();
+  if (slides[current].dataset.block === 'break') startBreakTimer(); else stopBreakTimer();
+}
+
+function updateTimeline() {
+  const progress = document.getElementById('tl-progress');
+  const slidePercent = (current+1)/total;
+  progress.style.width = (slidePercent*100)+'%';
+}
+
+function startBreakTimer() {
+  stopBreakTimer(); let remaining = 300;
+  const timeEl = document.getElementById('break-time'); if (!timeEl) return;
+  breakTimerInterval = setInterval(() => {
+    remaining--; if (remaining <= 0) { stopBreakTimer(); remaining = 0; }
+    timeEl.textContent = Math.floor(remaining/60)+':'+(remaining%60<10?'0':'')+(remaining%60);
+  }, 1000);
+}
+function stopBreakTimer() { clearInterval(breakTimerInterval); }
+
+function toggleNotes() { notesVisible = !notesVisible; document.getElementById('notes-panel').classList.toggle('visible', notesVisible); if (notesVisible) updateNotes(); }
+function updateNotes() { if (!notesVisible) return; const panel = document.getElementById('notes-panel'); const noteText = slides[current].dataset.notes || 'No notes.'; panel.innerHTML = `<h4>// SPEAKER NOTES — SLIDE ${current+1}</h4><p>${noteText}</p>`; }
+
+function toggleToc() { tocVisible = !tocVisible; document.getElementById('toc-panel').classList.toggle('visible', tocVisible); if (tocVisible) buildToc(); }
+function buildToc() {
+  const grid = document.getElementById('toc-grid'); grid.innerHTML = ''; let lastBlock = '';
+  slides.forEach((s,i) => {
+    const blockId = s.dataset.block || '';
+    if (blockId !== lastBlock) {
+      const blockInfo = BLOCKS.find(b => String(b.id) === blockId);
+      if (blockInfo) { const h = document.createElement('div'); h.className = 'toc-block-header'; h.textContent = `${blockInfo.id}. ${blockInfo.name} (${blockInfo.dur} min)`; grid.appendChild(h); }
+      else if (blockId === 'break') { const h = document.createElement('div'); h.className = 'toc-block-header'; h.style.color = 'var(--amber)'; h.textContent = 'break (5 min)'; grid.appendChild(h); }
+      lastBlock = blockId;
+    }
+    const item = document.createElement('div'); item.className = 'toc-item'+(i===current?' current':'');
+    const title = s.querySelector('h1,h2')?.textContent || '';
+    item.innerHTML = `<div class="toc-num">${i+1}</div><div class="toc-title">${title.slice(0,40)}</div>`;
+    item.onclick = () => showSlide(i); grid.appendChild(item);
+  });
+}
+function updateTocHighlight() { if (!tocVisible) return; document.querySelectorAll('#toc-grid .toc-item').forEach(item => { const num = parseInt(item.querySelector('.toc-num')?.textContent); item.classList.toggle('current', num === current+1); }); }
+
+function downloadFile(filename, content) { const blob = new Blob([content], {type:'text/markdown'}); const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = filename; document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url); }
+function copyCode(el) { const text = el.innerText.replace(/click to copy\n?/,'').trim(); navigator.clipboard.writeText(text).then(() => { el.classList.add('copied'); const hint = el.querySelector('.copy-hint'); if (hint) { const orig = hint.textContent; hint.textContent = 'copied!'; setTimeout(() => { hint.textContent = orig; el.classList.remove('copied'); }, 2000); } }); }
+
+document.addEventListener('keydown', (e) => {
+  if (e.target.contentEditable === 'true' || e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+    if ((e.ctrlKey||e.metaKey) && e.key === 'z' && !e.shiftKey) { e.preventDefault(); undo(); return; }
+    if ((e.ctrlKey||e.metaKey) && (e.key === 'Z' || e.key === 'y')) { e.preventDefault(); redo(); return; }
+    return;
+  }
+  if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'Enter') { e.preventDefault(); showSlide(current+1); }
+  else if (e.key === 'ArrowLeft' || e.key === 'Backspace') { e.preventDefault(); showSlide(current-1); }
+  else if (e.key === 'Home') showSlide(0);
+  else if (e.key === 'End') showSlide(total-1);
+  else if (e.key === 'f' || e.key === 'F') { if (!document.fullscreenElement) document.documentElement.requestFullscreen().catch(()=>{}); else document.exitFullscreen(); }
+  else if (e.key === 'n' || e.key === 'N') toggleNotes();
+  else if (e.key === 't' || e.key === 'T') toggleToc();
+  else if (e.key === 'e' || e.key === 'E') toggleEdit();
+  else if ((e.ctrlKey||e.metaKey) && e.key === 'z' && !e.shiftKey) { e.preventDefault(); undo(); }
+  else if ((e.ctrlKey||e.metaKey) && (e.key === 'Z' || e.key === 'y')) { e.preventDefault(); redo(); }
+  else if (e.key === 'Delete' && editMode && selectedBlock) deleteBlock();
+  else if (e.key === 'Escape') { if (tocVisible) toggleToc(); closeLayoutPicker(); closeGhModal(); document.getElementById('img-action-menu').classList.remove('visible'); deselectBlock(); document.getElementById('toc-panel').classList.remove('visible'); tocVisible = false; }
+}, false);
+document.addEventListener('keydown', (e) => { if (e.target.contentEditable === 'true' || e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') { if (['ArrowRight','ArrowLeft',' ','Enter','Backspace'].includes(e.key) && !(e.ctrlKey||e.metaKey)) e.stopPropagation(); } }, true);
+
+let touchStartX = 0;
+document.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; });
+document.addEventListener('touchend', e => { const diff = touchStartX - e.changedTouches[0].clientX; if (Math.abs(diff) > 50) diff > 0 ? showSlide(current+1) : showSlide(current-1); });
+
+if (location.hash) { const n = parseInt(location.hash.slice(1))-1; if (n >= 0 && n < total) current = n; }
+
+function captureState() {
+  const data = [];
+  document.querySelectorAll('.slide').forEach(s => {
+    const clone = s.cloneNode(true);
+    clone.querySelectorAll('.layout-bar').forEach(b => b.remove());
+    clone.querySelectorAll('[contenteditable]').forEach(el => el.removeAttribute('contenteditable'));
+    clone.querySelectorAll('[draggable]').forEach(el => el.removeAttribute('draggable'));
+    clone.querySelectorAll('.block-selected,.drag-over-top,.drag-over-bottom,.block-dragging').forEach(el => { el.classList.remove('block-selected','drag-over-top','drag-over-bottom','block-dragging'); });
+    clone.classList.remove('active'); data.push(clone.outerHTML);
+  });
+  return { slides: data, current };
+}
+function pushUndo() { undoStack.push(captureState()); if (undoStack.length > MAX_UNDO) undoStack.shift(); redoStack.length = 0; isDirty = true; }
+function restoreState(state) { document.querySelectorAll('.slide').forEach(s => s.remove()); const topLine = document.querySelector('.top-line'); const frag = document.createDocumentFragment(); state.slides.forEach(html => { const w = document.createElement('div'); w.innerHTML = html; frag.appendChild(w.firstElementChild); }); topLine.after(frag); initSlides(); showSlide(Math.min(state.current, total-1)); if (editMode) activateEditOnSlides(); }
+function undo() { if (!undoStack.length) return; redoStack.push(captureState()); restoreState(undoStack.pop()); }
+function redo() { if (!redoStack.length) return; undoStack.push(captureState()); restoreState(redoStack.pop()); }
+
+const EDITABLE = 'h1,h2,h3,p,li,.layer-desc,.layer-name,.timeline-title,.timeline-dur,.card h3,.card p,.tag,.stat-box .num,.stat-box .stat-label,.quote p,.quote .author,.code-block span,.subtitle,.label,.date,.hw-text,.hw-num,.exercise-card h3,.exercise-card li,.big-quote p,.big-quote .author,.tg-message,.tg-name,.dash-cell,.aw-what,.aw-layer';
+
+function toggleEdit() {
+  editMode = !editMode; document.body.classList.toggle('edit-mode', editMode);
+  if (editMode) { pushUndo(); activateEditOnSlides(); autoSaveTimer = setInterval(() => saveToLocal(), 10000); document.addEventListener('paste', handlePaste); if (autoPushEnabled) startAutoPush(); }
+  else { document.querySelectorAll('[contenteditable]').forEach(el => el.removeAttribute('contenteditable')); document.querySelectorAll('[draggable]').forEach(el => el.removeAttribute('draggable')); document.querySelectorAll('.layout-bar').forEach(b => b.remove()); deselectBlock(); clearInterval(autoSaveTimer); stopAutoPush(); document.removeEventListener('paste', handlePaste); saveToLocal(); }
+}
+function activateEditOnSlides() {
+  document.querySelectorAll('.slide').forEach(slide => {
+    slide.querySelectorAll(EDITABLE).forEach(el => { if (el.closest('.slide-counter') || el.closest('#edit-badge') || el.closest('#builder-toolbar')) return; el.contentEditable = 'true'; });
+    const inner = slide.querySelector('.slide-inner');
+    if (inner) Array.from(inner.children).forEach(block => { block.draggable = true; block.addEventListener('dragstart', onDragStart); block.addEventListener('dragend', onDragEnd); block.addEventListener('dragover', onDragOver); block.addEventListener('dragleave', onDragLeave); block.addEventListener('drop', onDrop); block.addEventListener('click', onBlockClick); });
+    if (!slide.querySelector('.layout-bar')) {
+      const bar = document.createElement('div'); bar.className = 'layout-bar';
+      bar.innerHTML = '<button title="center" data-layout="center" onclick="setLayout(this)"><svg viewBox="0 0 16 12"><rect x="4" y="1" width="8" height="2" rx="1"/><rect x="2" y="5" width="12" height="2" rx="1"/><rect x="4" y="9" width="8" height="2" rx="1"/></svg></button><button title="left" data-layout="left" onclick="setLayout(this)"><svg viewBox="0 0 16 12"><rect x="1" y="1" width="10" height="2" rx="1"/><rect x="1" y="5" width="14" height="2" rx="1"/><rect x="1" y="9" width="8" height="2" rx="1"/></svg></button><button title="split" data-layout="split" onclick="setLayout(this)"><svg viewBox="0 0 16 12"><rect x="1" y="1" width="6" height="10" rx="1"/><rect x="9" y="1" width="6" height="10" rx="1"/></svg></button>';
+      slide.appendChild(bar);
+    }
+  });
+}
+function setLayout(btn) { const slide = btn.closest('.slide'); pushUndo(); slide.className = slide.className.replace(/layout-\S+/g,'').trim(); slide.classList.add('layout-'+btn.dataset.layout); }
+
+function onBlockClick(e) { if (!editMode) return; e.stopPropagation(); const block = e.currentTarget; if (block === selectedBlock) return; deselectBlock(); selectedBlock = block; block.classList.add('block-selected'); positionBlockActions(); }
+function deselectBlock() { if (selectedBlock) selectedBlock.classList.remove('block-selected'); selectedBlock = null; document.getElementById('block-actions').classList.remove('visible'); document.getElementById('img-action-menu').classList.remove('visible'); }
+function positionBlockActions() { if (!selectedBlock) return; const rect = selectedBlock.getBoundingClientRect(); const actions = document.getElementById('block-actions'); actions.style.top = (rect.top-30)+'px'; actions.style.left = (rect.right-80)+'px'; actions.classList.add('visible'); }
+function deleteBlock() { if (!selectedBlock || !editMode) return; const inner = selectedBlock.closest('.slide-inner'); if (!inner || Array.from(inner.children).length <= 1) return; pushUndo(); selectedBlock.remove(); deselectBlock(); }
+function moveBlockUp() { if (!selectedBlock || !editMode) return; const prev = selectedBlock.previousElementSibling; if (!prev) return; pushUndo(); selectedBlock.parentNode.insertBefore(selectedBlock, prev); positionBlockActions(); }
+function moveBlockDown() { if (!selectedBlock || !editMode) return; const next = selectedBlock.nextElementSibling; if (!next) return; pushUndo(); next.after(selectedBlock); positionBlockActions(); }
+document.addEventListener('click', (e) => { if (!editMode) return; if (e.target.closest('#block-actions') || e.target.closest('#builder-toolbar') || e.target.closest('#img-action-menu')) return; if (!e.target.closest('.slide-inner')) deselectBlock(); });
+
+let draggedBlock = null;
+function onDragStart(e) { if (!editMode) return; draggedBlock = e.currentTarget; draggedBlock.classList.add('block-dragging'); e.dataTransfer.effectAllowed = 'move'; e.dataTransfer.setData('text/plain',''); }
+function onDragEnd(e) { if (draggedBlock) draggedBlock.classList.remove('block-dragging'); draggedBlock = null; document.querySelectorAll('.drag-over-top,.drag-over-bottom').forEach(el => el.classList.remove('drag-over-top','drag-over-bottom')); }
+function onDragOver(e) { if (!draggedBlock || e.currentTarget === draggedBlock) return; e.preventDefault(); e.dataTransfer.dropEffect = 'move'; const rect = e.currentTarget.getBoundingClientRect(); const midY = rect.top+rect.height/2; e.currentTarget.classList.remove('drag-over-top','drag-over-bottom'); e.currentTarget.classList.add(e.clientY < midY ? 'drag-over-top' : 'drag-over-bottom'); }
+function onDragLeave(e) { e.currentTarget.classList.remove('drag-over-top','drag-over-bottom'); }
+function onDrop(e) { e.preventDefault(); if (!draggedBlock || e.currentTarget === draggedBlock) return; const target = e.currentTarget; const rect = target.getBoundingClientRect(); pushUndo(); if (e.clientY < rect.top+rect.height/2) target.parentNode.insertBefore(draggedBlock, target); else target.after(draggedBlock); target.classList.remove('drag-over-top','drag-over-bottom'); }
+
+function changeTextSize(delta) { const sel = window.getSelection(); if (!sel.rangeCount) return; const el = sel.anchorNode?.parentElement || sel.anchorNode; if (!el?.closest?.('.slide')) return; const target = el.closest('[contenteditable="true"]') || el; const cur = parseFloat(getComputedStyle(target).fontSize); pushUndo(); target.style.fontSize = (cur+delta*2)+'px'; }
+function insertImage() { const input = document.createElement('input'); input.type = 'file'; input.accept = 'image/*'; input.onchange = (e) => { const file = e.target.files[0]; if (!file) return; pushUndo(); const reader = new FileReader(); reader.onload = (ev) => { const img = document.createElement('img'); img.src = ev.target.result; img.className = 'slide-image'; img.style.maxWidth = '80%'; slides[current].querySelector('.slide-inner').appendChild(img); activateEditOnSlides(); }; reader.readAsDataURL(file); }; input.click(); }
+function handlePaste(e) { const items = e.clipboardData?.items; if (!items) return; for (const item of items) { if (item.type.startsWith('image/')) { e.preventDefault(); pushUndo(); const blob = item.getAsFile(); const reader = new FileReader(); reader.onload = (ev) => { const img = document.createElement('img'); img.src = ev.target.result; img.className = 'slide-image'; img.style.maxWidth = '80%'; slides[current].querySelector('.slide-inner').appendChild(img); activateEditOnSlides(); }; reader.readAsDataURL(blob); break; } } }
+function insertTextBlock() { pushUndo(); const p = document.createElement('p'); p.contentEditable = 'true'; p.textContent = 'new text block'; p.style.color = 'rgba(255,255,255,0.8)'; slides[current].querySelector('.slide-inner').appendChild(p); activateEditOnSlides(); p.focus(); }
+function insertCodeBlock() { pushUndo(); const div = document.createElement('div'); div.className = 'code-block'; div.innerHTML = '<span class="comment" contenteditable="true"># your code here</span>'; slides[current].querySelector('.slide-inner').appendChild(div); activateEditOnSlides(); }
+
+function showLayoutPicker() { document.getElementById('layout-picker').classList.add('visible'); }
+function closeLayoutPicker() { document.getElementById('layout-picker').classList.remove('visible'); }
+function addSlideWithLayout(layout) {
+  closeLayoutPicker(); pushUndo();
+  const newSlide = document.createElement('div'); newSlide.className = 'slide'; newSlide.id = 's'+(total+1); newSlide.dataset.notes = 'New slide.'; newSlide.dataset.block = slides[current]?.dataset.block || '';
+  const counter = `<div class="slide-counter"><span class="current">${current+2}</span>/<span class="total">${total+1}</span></div>`;
+  const logo = '<img class="slide-logo" src="logo.png" alt="">';
+  const layouts = {
+    center: '<div class="slide-inner cover"><div class="label">// NEW SECTION</div><h2>slide title</h2><p>click to edit</p></div>',
+    left: '<div class="slide-inner"><div class="label">// NEW SECTION</div><h2>slide title</h2><p>click to edit</p></div>',
+    split: '<div class="slide-inner" style="display:grid;grid-template-columns:1fr 1fr;gap:32px;"><div><div class="label">// LEFT</div><h2>left</h2><p>edit</p></div><div><div class="label">// RIGHT</div><h2>right</h2><p>edit</p></div></div>',
+    'img-left': '<div class="slide-inner" style="display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:center;"><div class="img-placeholder" onclick="showImgActions(this,event)"><span>click to add image</span></div><div><div class="label">// SECTION</div><h2>title</h2><p>text</p></div></div>',
+    'img-right': '<div class="slide-inner" style="display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:center;"><div><div class="label">// SECTION</div><h2>title</h2><p>text</p></div><div class="img-placeholder" onclick="showImgActions(this,event)"><span>click to add image</span></div></div>',
+    'big-image': '<div class="slide-inner cover"><div class="img-placeholder" style="width:80%;min-height:300px" onclick="showImgActions(this,event)"><span>click to add image</span></div><p style="margin-top:16px">caption</p></div>',
+    cards: '<div class="slide-inner"><div class="label">// SECTION</div><h2>title</h2><div class="cards"><div class="card"><div class="card-icon">01</div><h3>card</h3><p>text</p></div><div class="card"><div class="card-icon">02</div><h3>card</h3><p>text</p></div><div class="card"><div class="card-icon">03</div><h3>card</h3><p>text</p></div></div></div>',
+    quote: '<div class="slide-inner cover"><div class="quote" style="max-width:700px"><p>enter your quote</p><div class="author">— Author</div></div></div>'
+  };
+  newSlide.innerHTML = counter + logo + (layouts[layout] || layouts.left);
+  slides[current].after(newSlide); initSlides(); showSlide(current+1); if (editMode) activateEditOnSlides();
+}
+function duplicateSlide() { pushUndo(); const clone = slides[current].cloneNode(true); clone.classList.remove('active'); clone.id = 's'+(total+1); slides[current].after(clone); initSlides(); showSlide(current+1); if (editMode) activateEditOnSlides(); }
+function deleteSlide() { if (total <= 1) return; if (!confirm('delete this slide?')) return; pushUndo(); const toRemove = slides[current]; if (current > 0) showSlide(current-1); else showSlide(0); toRemove.remove(); initSlides(); showSlide(Math.min(current, total-1)); }
+function showImgActions(placeholder, e) { if (!editMode) return; e.stopPropagation(); activeImgPlaceholder = placeholder; const menu = document.getElementById('img-action-menu'); const rect = placeholder.getBoundingClientRect(); menu.style.top = (rect.top+rect.height/2-20)+'px'; menu.style.left = (rect.left+rect.width/2-30)+'px'; menu.classList.add('visible'); }
+function imgActionUpload() { document.getElementById('img-action-menu').classList.remove('visible'); if (!activeImgPlaceholder) return; const input = document.createElement('input'); input.type = 'file'; input.accept = 'image/*'; input.onchange = (e) => { const file = e.target.files[0]; if (!file) return; pushUndo(); const reader = new FileReader(); reader.onload = (ev) => { const img = document.createElement('img'); img.src = ev.target.result; img.className = 'slide-image'; img.style.maxWidth = '100%'; activeImgPlaceholder.replaceWith(img); activateEditOnSlides(); }; reader.readAsDataURL(file); }; input.click(); }
+
+function togglePreview() { previewVisible = !previewVisible; document.getElementById('preview-panel').classList.toggle('visible', previewVisible); document.getElementById('preview-btn').classList.toggle('active', previewVisible); if (previewVisible) updatePreview(); }
+function updatePreview() { if (!previewVisible) return; const nextIdx = current+1; const previewScale = document.getElementById('preview-scale'); if (nextIdx >= total) { previewScale.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:var(--text-dim);font-size:120px;font-family:var(--font-body)">// END</div>'; return; } const clone = slides[nextIdx].cloneNode(true); clone.classList.add('active'); clone.style.display = 'flex'; clone.querySelectorAll('.layout-bar').forEach(b => b.remove()); previewScale.innerHTML = ''; previewScale.appendChild(clone); }
+
+function toggleAutoPush() { autoPushEnabled = !autoPushEnabled; document.getElementById('auto-push-btn').classList.toggle('active', autoPushEnabled); if (autoPushEnabled && editMode) startAutoPush(); else stopAutoPush(); }
+function startAutoPush() { stopAutoPush(); autoPushTimer = setInterval(() => { if (isDirty && getGhToken()) { saveToGitHub(); isDirty = false; } }, 60000); }
+function stopAutoPush() { clearInterval(autoPushTimer); }
+
+function saveToLocal() { const data = captureState(); try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch(e) {} setStatus('saved','auto-saved'); }
+function loadFromLocal() { try { const raw = localStorage.getItem(STORAGE_KEY); if (!raw) return false; const data = JSON.parse(raw); if (!data.slides?.length) return false; document.querySelectorAll('.slide').forEach(s => s.remove()); const topLine = document.querySelector('.top-line'); data.slides.forEach(html => { const w = document.createElement('div'); w.innerHTML = html; topLine.after(w.firstElementChild); }); initSlides(); showSlide(data.current||0); return true; } catch(e) { return false; } }
+window.addEventListener('beforeunload', () => { if (editMode) saveToLocal(); });
+
+function getGhToken() { return localStorage.getItem(TOKEN_KEY); }
+function showGhModal() { document.getElementById('gh-modal').classList.add('visible'); document.getElementById('gh-token-input').focus(); }
+function closeGhModal() { document.getElementById('gh-modal').classList.remove('visible'); }
+function confirmGhToken() { const token = document.getElementById('gh-token-input').value.trim(); if (token) { localStorage.setItem(TOKEN_KEY, token); closeGhModal(); saveToGitHub(); } }
+function setStatus(cls, text) { const el = document.getElementById('save-status'); el.className = 'save-status '+cls; el.textContent = text; if (cls === 'saved') setTimeout(() => el.textContent = '', 3000); }
+async function saveToGitHub() {
+  const token = getGhToken(); if (!token) { showGhModal(); return; }
+  setStatus('saving','pushing...');
+  try {
+    const getResp = await fetch(`https://api.github.com/repos/${GH_REPO}/contents/${GH_FILE}?ref=${GH_BRANCH}`, { headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json' } });
+    let sha = null; if (getResp.ok) { const data = await getResp.json(); sha = data.sha; }
+    const content = buildCleanHTML();
+    const encoded = btoa(unescape(encodeURIComponent(content)));
+    const body = { message: `update pos-setup-v2 — ${new Date().toISOString().slice(0,16)}`, content: encoded, branch: GH_BRANCH };
+    if (sha) body.sha = sha;
+    const putResp = await fetch(`https://api.github.com/repos/${GH_REPO}/contents/${GH_FILE}`, { method: 'PUT', headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json', 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+    if (putResp.ok) { setStatus('saved','pushed to GitHub'); isDirty = false; } else { const err = await putResp.json(); throw new Error(err.message); }
+  } catch (e) { setStatus('error','push failed: '+e.message); }
+}
+function buildCleanHTML() {
+  const clone = document.documentElement.cloneNode(true);
+  clone.querySelector('body').classList.remove('edit-mode');
+  clone.querySelectorAll('.layout-bar').forEach(b => b.remove());
+  clone.querySelectorAll('[contenteditable]').forEach(el => el.removeAttribute('contenteditable'));
+  clone.querySelectorAll('[draggable]').forEach(el => el.removeAttribute('draggable'));
+  clone.querySelectorAll('.block-selected,.drag-over-top,.drag-over-bottom,.block-dragging').forEach(el => el.classList.remove('block-selected','drag-over-top','drag-over-bottom','block-dragging'));
+  clone.querySelectorAll('#block-actions,#img-action-menu,#layout-picker,#gh-modal,#toc-panel,#preview-panel,#notes-panel').forEach(el => el.classList.remove('visible'));
+  clone.querySelectorAll('.slide').forEach((s,i) => s.classList.toggle('active', i===0));
+  const pb = clone.querySelector('.progress-bar'); if (pb) pb.style.width = '';
+  return '<!DOCTYPE html>\n'+clone.outerHTML;
+}
+
+document.getElementById('layout-picker').addEventListener('click', (e) => { if (e.target === e.currentTarget) closeLayoutPicker(); });
+document.getElementById('gh-modal').addEventListener('click', (e) => { if (e.target === e.currentTarget) closeGhModal(); });
+
+const loaded = loadFromLocal();
+if (!loaded) showSlide(current);
+updateTimeline();
+</script>
+</body>
+</html>

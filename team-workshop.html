@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Personal → Team — AI-Native Sprint Day 3</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23161620'/><text x='16' y='22' text-anchor='middle' fill='%234dc9d4' font-size='18' font-family='monospace'>T</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #161620; --bg-deep: #0a0a0f; --bg-card: #1c1c2e; --bg-terminal: #141419;
+  --text: #e6edf3; --text-dim: rgba(255,255,255,0.5); --text-label: rgba(255,255,255,0.45);
+  --teal: #4dc9d4; --teal-dim: rgba(77,201,212,0.15); --teal-glow: rgba(77,201,212,0.3);
+  --green: #38d9a9; --blue: #3b82f6; --amber: #c89200; --red: #ff6b6b; --pink: #ff3b8b; --cyan: #38bdf8;
+  --border: rgba(77,201,212,0.12); --border-hover: rgba(77,201,212,0.3); --grid-size: 60px;
+  --font-heading: 'Space Grotesk', sans-serif; --font-body: 'IBM Plex Mono', monospace; --font-code: 'JetBrains Mono', monospace;
+}
+html, body { width: 100%; height: 100%; background: var(--bg); color: var(--text); font-family: var(--font-body); font-size: 18px; overflow: hidden; -webkit-font-smoothing: antialiased; }
+body::before { content: ''; position: fixed; inset: 0; background-image: linear-gradient(rgba(77,201,212,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(77,201,212,0.03) 1px, transparent 1px); background-size: var(--grid-size) var(--grid-size); pointer-events: none; z-index: 1; }
+.mesh { position: fixed; inset: 0; background: radial-gradient(ellipse at 20% 50%, rgba(77,201,212,0.08) 0%, transparent 50%), radial-gradient(ellipse at 80% 20%, rgba(59,130,246,0.06) 0%, transparent 50%), radial-gradient(ellipse at 50% 80%, rgba(56,217,169,0.04) 0%, transparent 50%); pointer-events: none; z-index: 2; }
+.grain { position: fixed; inset: 0; background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='5' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E"); opacity: 0.14; pointer-events: none; z-index: 9998; }
+.vignette { position: fixed; inset: 0; background: radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.4) 100%); pointer-events: none; z-index: 9997; }
+.top-line { position: fixed; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--teal), transparent); z-index: 10000; }
+.slide { display: none; flex-direction: column; justify-content: center; align-items: center; width: 100vw; height: 100vh; padding: 60px 80px 80px; position: relative; z-index: 10; }
+.slide.active { display: flex; }
+.slide-inner { width: 100%; max-width: 1100px; flex: 1; display: flex; flex-direction: column; justify-content: center; position: relative; }
+.slide::before, .slide::after { content: ''; position: absolute; width: 30px; height: 30px; border: 2px solid var(--teal); opacity: 0.15; z-index: 11; }
+.slide::before { top: 24px; left: 24px; border-right: none; border-bottom: none; }
+.slide::after { bottom: 24px; right: 24px; border-left: none; border-top: none; }
+.slide-counter { position: absolute; top: 34px; right: 32px; font-family: var(--font-body); font-size: 12px; color: var(--text-dim); opacity: 0.5; z-index: 12; }
+.slide-logo { position: absolute; bottom: 24px; left: 32px; width: 36px; height: 36px; opacity: 0.4; z-index: 12; pointer-events: none; }
+h1 { font-family: var(--font-heading); font-size: 52px; font-weight: 700; margin-bottom: 16px; line-height: 1.15; color: #fff; }
+h2 { font-family: var(--font-heading); font-size: 38px; font-weight: 600; margin-bottom: 20px; line-height: 1.25; color: #fff; }
+h3 { font-family: var(--font-body); font-size: 20px; font-weight: 500; color: var(--text-dim); margin-bottom: 12px; }
+p, li { font-size: 17px; line-height: 1.7; color: rgba(255,255,255,0.8); }
+.label { font-family: var(--font-body); font-size: 13px; font-weight: 500; text-transform: uppercase; letter-spacing: 3px; color: var(--text-label); margin-bottom: 16px; }
+.teal { color: var(--teal); } .green { color: var(--green); } .blue { color: var(--blue); } .amber { color: var(--amber); } .red { color: var(--red); } .dim { color: var(--text-dim); }
+.cover { align-items: center; text-align: center; }
+.subtitle { font-size: 18px; color: var(--text-dim); margin-bottom: 24px; }
+.meta { display: flex; gap: 12px; align-items: center; justify-content: center; margin-top: 8px; flex-wrap: wrap; }
+.tag { display: inline-block; font-family: var(--font-body); font-size: 11px; padding: 3px 10px; border-radius: 4px; background: var(--teal-dim); color: var(--teal); letter-spacing: 1px; text-transform: lowercase; }
+.tag.green-tag { background: rgba(56,217,169,0.15); color: var(--green); }
+.tag.blue-tag { background: rgba(59,130,246,0.15); color: var(--blue); }
+.tag.amber-tag { background: rgba(200,146,0,0.15); color: var(--amber); }
+.tag.red-tag { background: rgba(255,107,107,0.15); color: var(--red); }
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-top: 20px; }
+.card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 24px; transition: all 0.3s; }
+.card:hover { border-color: var(--border-hover); box-shadow: 0 0 24px var(--teal-dim); }
+.card-icon { font-family: var(--font-heading); font-size: 20px; font-weight: 700; color: var(--teal); margin-bottom: 10px; }
+.card h3 { font-family: var(--font-heading); font-size: 16px; font-weight: 600; color: #fff; margin-bottom: 8px; }
+.card p { font-size: 14px; color: var(--text-dim); line-height: 1.5; }
+.split { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 20px; }
+.quote { border-left: 3px solid var(--teal); padding: 16px 24px; margin: 16px 0; background: rgba(77,201,212,0.04); border-radius: 0 8px 8px 0; }
+.quote p { font-size: 17px; font-style: italic; color: rgba(255,255,255,0.85); }
+.quote .author { font-size: 14px; color: var(--text-dim); margin-top: 8px; font-style: normal; }
+.layers { display: flex; flex-direction: column; gap: 8px; margin-top: 16px; }
+.layer { display: flex; align-items: center; gap: 16px; padding: 12px 18px; border-radius: 10px; border: 1px solid var(--border); background: rgba(28,28,46,0.5); transition: all 0.3s; }
+.layer:hover { transform: translateX(6px); border-color: var(--border-hover); }
+.layer-num { font-family: var(--font-heading); font-size: 15px; font-weight: 700; min-width: 28px; }
+.layer-name { font-family: var(--font-heading); font-size: 15px; font-weight: 600; min-width: 160px; color: #fff; }
+.layer-desc { font-size: 13px; color: var(--text-dim); flex: 1; }
+.glow-dot { position: absolute; width: 200px; height: 200px; border-radius: 50%; pointer-events: none; z-index: 5; background: radial-gradient(circle, rgba(77,201,212,0.08) 0%, transparent 70%); }
+.progress-bar { position: fixed; bottom: 0; left: 0; height: 2px; background: var(--teal); transition: width 0.3s; z-index: 10001; }
+.nav-hint { position: fixed; bottom: 16px; right: 32px; font-size: 11px; color: var(--text-dim); opacity: 0.3; z-index: 10001; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes pulse { 0%,100% { opacity: 0.4; } 50% { opacity: 1; } }
+.slide.active .slide-inner > * { animation: fadeUp 0.5s ease-out both; }
+.slide.active .slide-inner > *:nth-child(2) { animation-delay: 0.08s; }
+.slide.active .slide-inner > *:nth-child(3) { animation-delay: 0.16s; }
+.slide.active .slide-inner > *:nth-child(4) { animation-delay: 0.24s; }
+.slide.active .slide-inner > *:nth-child(5) { animation-delay: 0.32s; }
+@media (max-width: 768px) { .slide { padding: 40px 24px 60px; } h1 { font-size: 32px; } h2 { font-size: 26px; } .split { grid-template-columns: 1fr; } .cards { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="mesh"></div><div class="grain"></div><div class="vignette"></div><div class="top-line"></div>
+
+<!-- S1: COVER -->
+<div class="slide active" id="s1">
+  <div class="slide-counter"><span class="current">1</span>/<span class="total"></span></div>
+  <img class="slide-logo" src="logo.png" alt="">
+  <div class="glow-dot" style="top:15%;left:10%"></div><div class="glow-dot" style="bottom:20%;right:15%"></div>
+  <div class="slide-inner cover">
+    <div class="label" style="letter-spacing:4px;font-size:11px;margin-bottom:20px">// AI-NATIVE SPRINT s2 &middot; ДЕНЬ 3</div>
+    <div style="display:flex;gap:20px;justify-content:center;margin-bottom:20px;align-items:center">
+      <div style="position:relative"><img src="curators/densmirnov.jpg" style="width:72px;height:72px;border-radius:50%;border:2px solid var(--teal);object-fit:cover"><div style="position:absolute;inset:-3px;border-radius:50%;border:1px solid var(--teal-glow);animation:pulse 3s ease-in-out infinite"></div></div>
+      <div style="position:relative"><img src="curators/AlexFrmn.jpg" style="width:72px;height:72px;border-radius:50%;border:2px solid var(--green);object-fit:cover"><div style="position:absolute;inset:-3px;border-radius:50%;border:1px solid rgba(56,217,169,0.3);animation:pulse 4s ease-in-out infinite"></div></div>
+      <div style="position:relative"><img src="curators/serejaris.jpg" style="width:72px;height:72px;border-radius:50%;border:2px solid var(--amber);object-fit:cover"><div style="position:absolute;inset:-3px;border-radius:50%;border:1px solid rgba(200,146,0,0.3);animation:pulse 3.5s ease-in-out infinite"></div></div>
+    </div>
+    <h1>personal &rarr; <span class="teal">team</span></h1>
+    <p class="subtitle">от личной ОС к командным процессам &middot; 3 куратора &middot; Q&A</p>
+    <div class="meta">
+      <span class="tag">workshop</span>
+      <span class="tag green-tag">25 mar 2026</span>
+      <span class="tag blue-tag">18:00 CET</span>
+    </div>
+  </div>
+</div>
+
+<!-- S2: AGENDA -->
+<div class="slide" id="s2">
+  <div class="slide-counter"><span class="current">2</span>/<span class="total"></span></div>
+  <img class="slide-logo" src="logo.png" alt="">
+  <div class="slide-inner">
+    <div class="label">// agenda &middot; 25.03</div>
+    <h2>сегодня: <span class="teal">3 доклада</span> + Q&A</h2>
+    <div class="layers" style="gap:6px">
+      <div class="layer" style="border-left:3px solid var(--teal)"><div class="layer-num teal">01</div><div class="layer-name">Денис Смирнов</div><div class="layer-desc">скучные агенты &mdash; харнесс, рамки, предсказуемость</div></div>
+      <div class="layer" style="border-left:3px solid var(--green)"><div class="layer-num green">02</div><div class="layer-name">Alexander Vasiliev</div><div class="layer-desc">лиминальное пространство &mdash; 90 скиллов, 12 доменов, Context/Agent/Rules</div></div>
+      <div class="layer" style="border-left:3px solid var(--amber)"><div class="layer-num amber">03</div><div class="layer-name">Серёжа Рис</div><div class="layer-desc">персональная корпорация &mdash; AI в командный процесс, GitHub</div></div>
+      <div class="layer" style="border-left:3px solid var(--blue)"><div class="layer-num blue">04</div><div class="layer-name">Q&A по вопросам</div><div class="layer-desc">ответы на вопросы участников из чата</div></div>
+      <div class="layer" style="border-left:3px solid var(--red)"><div class="layer-num red">05</div><div class="layer-name">Team Stack demo</div><div class="layer-desc">Alex &mdash; shared vault, naming, роли, Linear awareness</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- S3: DENIS SMIRNOV -->
+<div class="slide" id="s3">
+  <div class="slide-counter"><span class="current">3</span>/<span class="total"></span></div>
+  <img class="slide-logo" src="logo.png" alt="">
+  <div class="slide-inner">
+    <div class="label">// 01 &middot; ДЕНИС СМИРНОВ &middot; @densmirnov</div>
+    <div class="split" style="gap:32px;align-items:start">
+      <div>
+        <div style="display:flex;align-items:center;gap:16px;margin-bottom:16px">
+          <img src="curators/densmirnov.jpg" style="width:80px;height:80px;border-radius:50%;object-fit:cover;border:2px solid var(--teal)">
+          <div><h2 style="font-size:28px;margin-bottom:4px">скучные <span class="teal">агенты</span></h2><p style="font-size:14px;color:var(--text-dim)">как харнесс делает агентов управляемыми</p></div>
+        </div>
+        <p style="font-size:15px;line-height:1.8">покажу свой рабочий стек и объясню, что делает агентов пригодными для реальной работы: <span class="teal">правила</span>, <span class="teal">ограничения</span>, <span class="teal">память</span>, структуру задач и управляемый контекст.</p>
+        <p style="font-size:15px;line-height:1.8;margin-top:12px">на примере собственного фреймворка и лучших практик разберём, как превратить агента из эффектного демо в <span class="teal">предсказуемый и воспроизводимый</span> рабочий инструмент.</p>
+      </div>
+      <div>
+        <h3 style="font-size:15px;color:var(--teal);margin-bottom:12px">ключевые темы</h3>
+        <div class="layers" style="gap:5px">
+          <div class="layer" style="padding:8px 14px"><div class="layer-num teal" style="font-size:13px">1</div><div class="layer-desc" style="font-size:13px">жёсткие рамки лучше полной свободы</div></div>
+          <div class="layer" style="padding:8px 14px"><div class="layer-num teal" style="font-size:13px">2</div><div class="layer-desc" style="font-size:13px">правила и ограничения = предсказуемость</div></div>
+          <div class="layer" style="padding:8px 14px"><div class="layer-num teal" style="font-size:13px">3</div><div class="layer-desc" style="font-size:13px">память и структура задач</div></div>
+          <div class="layer" style="padding:8px 14px"><div class="layer-num teal" style="font-size:13px">4</div><div class="layer-desc" style="font-size:13px">управляемый контекст</div></div>
+          <div class="layer" style="padding:8px 14px"><div class="layer-num teal" style="font-size:13px">5</div><div class="layer-desc" style="font-size:13px">от демо к воспроизводимому инструменту</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- S4: ALEXANDER VASILIEV -->
+<div class="slide" id="s4">
+  <div class="slide-counter"><span class="current">4</span>/<span class="total"></span></div>
+  <img class="slide-logo" src="logo.png" alt="">
+  <div class="slide-inner">
+    <div class="label">// 02 &middot; ALEXANDER VASILIEV &middot; @AlexFrmn</div>
+    <div class="split" style="gap:32px;align-items:start">
+      <div>
+        <div style="display:flex;align-items:center;gap:16px;margin-bottom:16px">
+          <img src="curators/AlexFrmn.jpg" style="width:80px;height:80px;border-radius:50%;object-fit:cover;border:2px solid var(--green)">
+          <div><h2 style="font-size:26px;margin-bottom:4px">лиминальное <span class="green">пространство</span></h2><p style="font-size:14px;color:var(--text-dim)">AI-инженера</p></div>
+        </div>
+        <p style="font-size:15px;line-height:1.8">8 месяцев, <span class="green">90 скиллов</span>, 20 MCP-серверов, 9 агентов на 3 серверах &mdash; и всё это работало только когда я за терминалом.</p>
+        <p style="font-size:15px;line-height:1.8;margin-top:12px">после лекции Степана взял 4 проекта для бизнеса и понял: vault из <span class="red">2200 файлов &mdash; хаос</span>, агенты не знают где что лежит, inbox из 66 файлов не разобран.</p>
+        <p style="font-size:15px;line-height:1.8;margin-top:12px">два дня перестраивал всё: <span class="green">12 доменов</span>, machine-readable права, reference files.</p>
+      </div>
+      <div>
+        <h3 style="font-size:15px;color:var(--green);margin-bottom:12px">что покажет</h3>
+        <div class="layers" style="gap:5px">
+          <div class="layer" style="padding:8px 14px"><div class="layer-num green" style="font-size:13px">1</div><div class="layer-desc" style="font-size:13px">2200 файлов &rarr; 12 доменов</div></div>
+          <div class="layer" style="padding:8px 14px"><div class="layer-num green" style="font-size:13px">2</div><div class="layer-desc" style="font-size:13px">machine-readable права доступа</div></div>
+          <div class="layer" style="padding:8px 14px"><div class="layer-num green" style="font-size:13px">3</div><div class="layer-desc" style="font-size:13px">Context / Agent / Rules фреймворк</div></div>
+          <div class="layer" style="padding:8px 14px"><div class="layer-num green" style="font-size:13px">4</div><div class="layer-desc" style="font-size:13px">перестать быть единственным роутером</div></div>
+        </div>
+        <div class="quote" style="margin-top:16px;border-left-color:var(--green)">
+          <p style="font-size:14px">&laquo;если хочешь перестать быть единственным роутером в своей системе &mdash; нужна структура, которую агенты могут читать сами.&raquo;</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- S5: SEREJA RIS -->
+<div class="slide" id="s5">
+  <div class="slide-counter"><span class="current">5</span>/<span class="total"></span></div>
+  <img class="slide-logo" src="logo.png" alt="">
+  <div class="slide-inner">
+    <div class="label">// 03 &middot; СЕРЁЖА РИС</div>
+    <div class="split" style="gap:32px;align-items:start">
+      <div>
+        <div style="display:flex;align-items:center;gap:16px;margin-bottom:16px">
+          <img src="curators/serejaris.jpg" style="width:80px;height:80px;border-radius:50%;object-fit:cover;border:2px solid var(--amber)">
+          <div><h2 style="font-size:26px;margin-bottom:4px">персональная <span class="amber">корпорация</span></h2><p style="font-size:14px;color:var(--text-dim)">AI в командный процесс</p></div>
+        </div>
+        <p style="font-size:15px;line-height:1.8">как перенести личный AI в рабочий контур, где задачи <span class="amber">не теряют контекст</span> при передаче между людьми и агентами.</p>
+        <p style="font-size:15px;line-height:1.8;margin-top:12px">переносимая модель работы: <span class="amber">общая память задач</span>, история решений, правила и очередь работы.</p>
+        <p style="font-size:15px;line-height:1.8;margin-top:12px">GitHub как пример реализации, но те же принципы &mdash; Bitrix / Linear / GitLab.</p>
+      </div>
+      <div>
+        <h3 style="font-size:15px;color:var(--amber);margin-bottom:12px">ключевые темы</h3>
+        <div class="layers" style="gap:5px">
+          <div class="layer" style="padding:8px 14px"><div class="layer-num amber" style="font-size:13px">1</div><div class="layer-desc" style="font-size:13px">общая память задач</div></div>
+          <div class="layer" style="padding:8px 14px"><div class="layer-num amber" style="font-size:13px">2</div><div class="layer-desc" style="font-size:13px">история решений &mdash; кто, когда, почему</div></div>
+          <div class="layer" style="padding:8px 14px"><div class="layer-num amber" style="font-size:13px">3</div><div class="layer-desc" style="font-size:13px">правила и очередь работы</div></div>
+          <div class="layer" style="padding:8px 14px"><div class="layer-num amber" style="font-size:13px">4</div><div class="layer-desc" style="font-size:13px">контекст не теряется при передаче</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- S6: Q&A -->
+<div class="slide" id="s6">
+  <div class="slide-counter"><span class="current">6</span>/<span class="total"></span></div>
+  <img class="slide-logo" src="logo.png" alt="">
+  <div class="slide-inner">
+    <div class="label">// Q&A &middot; ВАШИ ВОПРОСЫ</div>
+    <h2>о чём вы <span class="teal">спрашивали</span></h2>
+    <div class="cards" style="grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px">
+      <div class="card" style="padding:14px;border-top:2px solid var(--teal)">
+        <div class="card-icon teal" style="font-size:14px">онтология контекста</div>
+        <p style="font-size:11px">как дизайнить структуру vault из data-болота? алгоритм конструирования</p>
+        <span class="tag" style="font-size:9px;margin-top:6px">@principal_andrew</span>
+      </div>
+      <div class="card" style="padding:14px;border-top:2px solid var(--blue)">
+        <div class="card-icon blue" style="font-size:14px">контекст не утонет?</div>
+        <p style="font-size:11px">naming convention = поиск по именам. без RAG. AGENTS.md лаконичный</p>
+        <span class="tag blue-tag" style="font-size:9px;margin-top:6px">@antoncp</span>
+      </div>
+      <div class="card" style="padding:14px;border-top:2px solid var(--green)">
+        <div class="card-icon green" style="font-size:14px">vault на команду</div>
+        <p style="font-size:11px">Obsidian Sync / Dropbox. AGENTS.md как индекс. naming = машиночитаемость</p>
+        <span class="tag green-tag" style="font-size:9px;margin-top:6px">@olegpotem</span>
+      </div>
+      <div class="card" style="padding:14px;border-top:2px solid var(--amber)">
+        <div class="card-icon amber" style="font-size:14px">прошлые сессии</div>
+        <p style="font-size:11px">claude --continue, episodic memory plugin, /sessions, memory/ files</p>
+        <span class="tag amber-tag" style="font-size:9px;margin-top:6px">@dmezhov</span>
+      </div>
+      <div class="card" style="padding:14px;border-top:2px solid var(--red)">
+        <div class="card-icon red" style="font-size:14px">по слоям + best practices</div>
+        <p style="font-size:11px">Context: Obsidian. Rules: CLAUDE.md. Skills: markdown. MCP: Calendar+Linear+TG</p>
+        <span class="tag red-tag" style="font-size:9px;margin-top:6px">@fshkn</span>
+      </div>
+      <div class="card" style="padding:14px;border-top:2px solid var(--cyan)">
+        <div class="card-icon" style="font-size:14px;color:var(--cyan)">стоит ли строить?</div>
+        <p style="font-size:11px">навык orchestration &ne; инструмент. инструменты сменятся, навык останется</p>
+        <span class="tag" style="font-size:9px;margin-top:6px;background:rgba(56,189,248,0.15);color:var(--cyan)">@antoncp</span>
+      </div>
+      <div class="card" style="padding:14px;border-top:2px solid var(--pink)">
+        <div class="card-icon" style="font-size:14px;color:var(--pink)">4000 заметок &rarr; Obsidian</div>
+        <p style="font-size:11px">export, bulk rename по convention, агент помогает кластеризовать</p>
+        <span class="tag" style="font-size:9px;margin-top:6px;background:rgba(255,59,139,0.15);color:var(--pink)">@tonkolytko</span>
+      </div>
+      <div class="card" style="padding:14px;border-top:2px solid rgba(255,255,255,0.2)">
+        <div class="card-icon dim" style="font-size:14px">Claude + Telegram</div>
+        <p style="font-size:11px">MCP Telegram через Telethon. MTProto. чтение/отправка через Claude Code</p>
+        <span class="tag" style="font-size:9px;margin-top:6px">@dmezhov</span>
+      </div>
+      <div class="card" style="padding:14px;border-top:2px solid rgba(255,255,255,0.2)">
+        <div class="card-icon dim" style="font-size:14px">Claude + Codex вместе</div>
+        <p style="font-size:11px">одна папка, один CLAUDE.md, разные задачи. skills/ общие</p>
+        <span class="tag" style="font-size:9px;margin-top:6px">@artveretevo</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- S7: TEAM STACK DEMO -->
+<div class="slide" id="s7">
+  <div class="slide-counter"><span class="current">7</span>/<span class="total"></span></div>
+  <img class="slide-logo" src="logo.png" alt="">
+  <div class="slide-inner">
+    <div class="label">// TEAM STACK &middot; AI MINDSET</div>
+    <h2>командный стек: <span class="teal">8 человек</span></h2>
+    <div class="split" style="gap:24px">
+      <div>
+        <h3 style="font-size:15px;color:var(--teal);margin-bottom:10px">shared vault</h3>
+        <div class="layers" style="gap:4px">
+          <div class="layer" style="padding:8px 12px"><div class="layer-num teal" style="font-size:12px">01</div><div class="layer-desc" style="font-size:12px">AGENTS.md &mdash; индекс для агентов</div></div>
+          <div class="layer" style="padding:8px 12px"><div class="layer-num green" style="font-size:12px">02</div><div class="layer-desc" style="font-size:12px">aim-rules/ &mdash; правила, стандарты, PRD</div></div>
+          <div class="layer" style="padding:8px 12px"><div class="layer-num blue" style="font-size:12px">03</div><div class="layer-desc" style="font-size:12px">Org/HR/roles/ &mdash; карточки ролей (8 человек)</div></div>
+          <div class="layer" style="padding:8px 12px"><div class="layer-num amber" style="font-size:12px">04</div><div class="layer-desc" style="font-size:12px">meetings/ &mdash; транскрипты + action items</div></div>
+          <div class="layer" style="padding:8px 12px"><div class="layer-num red" style="font-size:12px">05</div><div class="layer-desc" style="font-size:12px">inbox/ &mdash; research, analysis, drafts</div></div>
+        </div>
+        <h3 style="font-size:15px;color:var(--teal);margin-top:14px;margin-bottom:10px">Linear awareness</h3>
+        <div style="font-family:var(--font-code);font-size:11px;color:var(--green);background:var(--bg-terminal);padding:10px 14px;border-radius:8px;border:1px solid var(--border);line-height:1.6">
+          &#9643; linear: AIM-2054 &middot; speakers &middot; &#9680; IP<br>
+          &#9643; linear: AIM-2319 &middot; AGI bot &middot; &#9680; IP &rarr; /linear-action update
+        </div>
+      </div>
+      <div>
+        <h3 style="font-size:15px;color:var(--teal);margin-bottom:10px">как это работает</h3>
+        <div class="cards" style="grid-template-columns:1fr;gap:8px;margin-top:0">
+          <div class="card" style="padding:14px;border-left:3px solid var(--teal)"><p style="font-size:13px"><span class="teal">naming convention</span> &mdash; машиночитаемые имена файлов. агент ищет по паттерну.</p></div>
+          <div class="card" style="padding:14px;border-left:3px solid var(--green)"><p style="font-size:13px"><span class="green">role cards</span> &mdash; при назначении задач агент сверяет зоны ответственности.</p></div>
+          <div class="card" style="padding:14px;border-left:3px solid var(--blue)"><p style="font-size:13px"><span class="blue">communication rules</span> &mdash; 5 тонов, запрещённые каналы, en dash стиль.</p></div>
+          <div class="card" style="padding:14px;border-left:3px solid var(--amber)"><p style="font-size:13px"><span class="amber">synced via Obsidian</span> &mdash; Dropbox + Obsidian Sync. изменения видны сразу.</p></div>
+        </div>
+        <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap">
+          <a href="https://ai-mindset-org.github.io/pos-stack-explorer/" target="_blank" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:6px;background:var(--teal-dim);border:1px solid var(--border);color:var(--teal);font-size:13px;text-decoration:none">POS stack explorer &nearr;</a>
+          <a href="https://ai-mindset-org.github.io/ainative-lab/" target="_blank" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:6px;background:var(--teal-dim);border:1px solid var(--border);color:var(--teal);font-size:13px;text-decoration:none">ainative-lab &nearr;</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="progress-bar"></div>
+<div class="nav-hint">arrows / space &middot; F fullscreen</div>
+
+<script>
+let slides = document.querySelectorAll('.slide'), total = slides.length, current = 0;
+document.querySelectorAll('.total').forEach(el => el.textContent = total);
+function show(n) {
+  if (n < 0 || n >= total) return;
+  slides[current].classList.remove('active'); current = n; slides[current].classList.add('active');
+  document.querySelector('.progress-bar').style.width = ((current+1)/total*100)+'%';
+  document.querySelectorAll('.current').forEach(el => el.textContent = current+1);
+  history.replaceState(null,'','#'+(current+1));
+}
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'Enter') { e.preventDefault(); show(current+1); }
+  else if (e.key === 'ArrowLeft' || e.key === 'Backspace') { e.preventDefault(); show(current-1); }
+  else if (e.key === 'Home') show(0);
+  else if (e.key === 'End') show(total-1);
+  else if (e.key === 'f' || e.key === 'F') { if (!document.fullscreenElement) document.documentElement.requestFullscreen().catch(()=>{}); else document.exitFullscreen(); }
+});
+let tx = 0;
+document.addEventListener('touchstart', e => { tx = e.touches[0].clientX; });
+document.addEventListener('touchend', e => { const d = tx - e.changedTouches[0].clientX; if (Math.abs(d) > 50) d > 0 ? show(current+1) : show(current-1); });
+if (location.hash) { const n = parseInt(location.hash.slice(1))-1; if (n >= 0 && n < total) { current = n; slides[0].classList.remove('active'); slides[current].classList.add('active'); } }
+</script>
+</body>
+</html>

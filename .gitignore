@@ -1,1 +1,5 @@
 .netlify
+.env
+.env.local
+.env.*.local
+*.backup-*

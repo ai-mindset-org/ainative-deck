@@ -3209,8 +3209,20 @@ const GH_FILE = 'decks/gershuni-w1/index.html';
 const GH_BRANCH = 'main';
 const STORAGE_KEY = 'gershuni-w1-state';
 const TOKEN_KEY = 'ainative-deck-gh-token';
-const OR_KEY = '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';
+var OR_KEY = localStorage.getItem('ainative-or-key') || '';
 const OR_BASE = 'https://openrouter.ai/api/v1';
+
+// Key setup helper
+function ensureORKey() {
+  if (OR_KEY) return true;
+  const key = prompt('Enter OpenRouter API key:\n\n→ openrouter.ai/keys');
+  if (key && key.startsWith('sk-or-')) {
+    OR_KEY = key;
+    localStorage.setItem('ainative-or-key', key);
+    return true;
+  }
+  return false;
+}
 
 // ===== STATE =====
 let slides, total, current = 0;
@@ -3836,6 +3848,7 @@ function setAiMode(mode) {
 async function runAiGeneration() {
   const prompt = document.getElementById('ai-prompt').value.trim();
   if (!prompt) return;
+  if (!ensureORKey()) return;
   const statusEl = document.getElementById('ai-status');
   const previewEl = document.getElementById('ai-preview');
   const generateBtn = document.getElementById('ai-generate-btn');
@@ -4498,6 +4511,7 @@ function addVoxStreamMessage() {
  * @returns {Promise<string>} — the full response content
  */
 async function voxChat(systemPrompt, userMessage, onChunk) {
+  if (!ensureORKey()) throw new Error('API key required');
   if (voxAbortController) voxAbortController.abort();
   voxAbortController = new AbortController();
   voxStreaming = true;

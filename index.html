@@ -805,6 +805,12 @@ body.edit-mode #builder-toolbar { display: flex; }
     <h2>industry practitioners</h2>
     <div class="speaker-grid" style="grid-template-columns: repeat(4, 1fr);">
       <div class="speaker-card">
+        <img class="speaker-photo" src="speakers/eugene-lisovskiy.jpg" alt="Eugene Lisovskiy">
+        <div class="speaker-name">Eugene Lisovskiy</div>
+        <div class="speaker-role">3x founder // MAPS.ME</div>
+        <div class="speaker-topic">how to build a business factory</div>
+      </div>
+      <div class="speaker-card">
         <img class="speaker-photo" src="speakers/dima-khanarin.jpg" alt="Dima Khanarin">
         <div class="speaker-name">Dima Khanarin</div>
         <div class="speaker-role">codos.ai</div>
@@ -829,6 +835,12 @@ body.edit-mode #builder-toolbar { display: flex; }
         <div class="speaker-topic">AI-driven development</div>
       </div>
       <div class="speaker-card">
+        <img class="speaker-photo" src="speakers/george-strakhov.png" alt="George Strakhov">
+        <div class="speaker-name">George Strakhov</div>
+        <div class="speaker-role">move38 // Oxford AI</div>
+        <div class="speaker-topic">building agent teams</div>
+      </div>
+      <div class="speaker-card">
         <img class="speaker-photo" src="speakers/daniel-kravtsov.jpeg" alt="Daniel Kravtsov">
         <div class="speaker-name">Daniel Kravtsov</div>
         <div class="speaker-role">CEO // Improvado</div>
@@ -851,6 +863,18 @@ body.edit-mode #builder-toolbar { display: flex; }
         <div class="speaker-name">Seva Ustinov</div>
         <div class="speaker-role">Founder // Plurio AI</div>
         <div class="speaker-topic">AI x marketing</div>
+      </div>
+      <div class="speaker-card">
+        <img class="speaker-photo" src="speakers/gleb-sidora.png" alt="Gleb Sidora">
+        <div class="speaker-name">Gleb Sidora</div>
+        <div class="speaker-role">technical coworking</div>
+        <div class="speaker-topic">hands-on practice</div>
+      </div>
+      <div class="speaker-card">
+        <img class="speaker-photo" src="speakers/eugene-rid.jpg" alt="Eugene Rid">
+        <div class="speaker-name">Eugene Rid</div>
+        <div class="speaker-role">@eugene_rid</div>
+        <div class="speaker-topic">AI x investing</div>
       </div>
     </div>
   </div>
@@ -880,6 +904,12 @@ body.edit-mode #builder-toolbar { display: flex; }
         <div class="timeline-dot" style="background:var(--teal)"></div>
         <div class="timeline-time">25.03 Wed</div>
         <div class="timeline-title">Povaliaev — personal to team: audit, AI Champion</div>
+        <div class="timeline-dur">18:00</div>
+      </div>
+      <div class="timeline-row teal-row">
+        <div class="timeline-dot" style="background:var(--teal)"></div>
+        <div class="timeline-time">26.03 Thu</div>
+        <div class="timeline-title">Lisovskiy — how to build a business factory</div>
         <div class="timeline-dur">18:00</div>
       </div>
       <div class="timeline-row teal-row">
@@ -915,6 +945,18 @@ body.edit-mode #builder-toolbar { display: flex; }
       <div class="timeline-row green-row">
         <div class="timeline-dot" style="background:var(--green)"></div>
         <div class="timeline-time">03.04 Fri</div>
+        <div class="timeline-title">Strakhov — building agent teams</div>
+        <div class="timeline-dur">12:00</div>
+      </div>
+      <div class="timeline-row green-row">
+        <div class="timeline-dot" style="background:var(--green)"></div>
+        <div class="timeline-time">02.04 Thu</div>
+        <div class="timeline-title">Sidora — technical coworking</div>
+        <div class="timeline-dur">12:00</div>
+      </div>
+      <div class="timeline-row green-row">
+        <div class="timeline-dot" style="background:var(--green)"></div>
+        <div class="timeline-time">03.04 Fri</div>
         <div class="timeline-title">Kravtsov — AI-native companies + knowledge graph</div>
         <div class="timeline-dur">18:00</div>
       </div>
@@ -922,6 +964,12 @@ body.edit-mode #builder-toolbar { display: flex; }
         <div class="timeline-dot" style="background:var(--red)"></div>
         <div class="timeline-time">06.04 Mon</div>
         <div class="timeline-title">Gershuni — strategy to 90-day plan</div>
+        <div class="timeline-dur">18:00</div>
+      </div>
+      <div class="timeline-row red-row">
+        <div class="timeline-dot" style="background:var(--red)"></div>
+        <div class="timeline-time">07.04 Tue</div>
+        <div class="timeline-title">Rid — AI x investing and strategy</div>
         <div class="timeline-dur">18:00</div>
       </div>
       <div class="timeline-row red-row">
@@ -1142,8 +1190,20 @@ const GH_FILE = 'index.html';
 const GH_BRANCH = 'main';
 const STORAGE_KEY = 'ainative-deck-state';
 const TOKEN_KEY = 'ainative-deck-gh-token';
-const OR_KEY = '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';
+var OR_KEY = localStorage.getItem('ainative-or-key') || '';
 const OR_BASE = 'https://openrouter.ai/api/v1';
+
+// Key setup helper
+function ensureORKey() {
+  if (OR_KEY) return true;
+  const key = prompt('Enter OpenRouter API key:\n\n→ openrouter.ai/keys');
+  if (key && key.startsWith('sk-or-')) {
+    OR_KEY = key;
+    localStorage.setItem('ainative-or-key', key);
+    return true;
+  }
+  return false;
+}
 
 // ===== STATE =====
 let slides, total, current = 0;
@@ -1735,6 +1795,7 @@ function setAiMode(mode) {
 async function runAiGeneration() {
   const prompt = document.getElementById('ai-prompt').value.trim();
   if (!prompt) return;
+  if (!ensureORKey()) return;
   const statusEl = document.getElementById('ai-status');
   const previewEl = document.getElementById('ai-preview');
   const generateBtn = document.getElementById('ai-generate-btn');

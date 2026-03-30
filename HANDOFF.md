@@ -42,7 +42,7 @@
 - SKU data: `/tmp/sku-data.md`
 - PPTX v2 summary: `/tmp/pptx-v2-summary.md`
 - Text verification: `/tmp/text-verification.md`
-- OpenRouter key: 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
+- OpenRouter key: stored in localStorage ('ainative-or-key') — enter at runtime
 
 ## Prompt for Next Session
 ```

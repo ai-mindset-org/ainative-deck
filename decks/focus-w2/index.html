@@ -3,7 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI-Native Organizations Lab — Focus W2 Workshop</title>
+<title>AI-Native Sprint · Система поверх модели — AI Mindset</title>
+<meta property="og:title" content="AI-Native Sprint: система поверх модели">
+<meta property="og:description" content="интерактивный workshop с pipeline builder, картой автономии и промптами из лекции Степана Гершуни">
+<meta property="og:image" content="https://ai-mindset-org.github.io/ainative-deck/decks/focus-w2/og-cover.png">
+<meta property="og:url" content="https://ai-mindset-org.github.io/ainative-deck/decks/focus-w2/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://ai-mindset-org.github.io/ainative-deck/decks/focus-w2/og-cover.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=IBM+Plex+Mono:wght@400;500&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
@@ -165,10 +172,33 @@ body::before {
   color: var(--text-label); letter-spacing: 1px;
 }
 
-/* Logo */
+/* Logo + Brand */
 .slide-logo-img {
   position: absolute; bottom: 24px; left: 32px;
   height: 32px; opacity: 0.35; pointer-events: none;
+  display: none; /* replaced by slide-brand */
+}
+.slide-brand {
+  position: absolute; bottom: 20px; left: 28px;
+  display: flex; align-items: center; gap: 8px; z-index: 12;
+}
+.slide-brand img { height: 28px; opacity: 0.4; }
+.slide-brand span {
+  font-family: var(--font-body); font-size: 11px;
+  color: rgba(255,255,255,0.3); letter-spacing: 1px;
+}
+/* Cover slide brand — more prominent */
+.slide-cover .slide-brand img { height: 40px; opacity: 0.6; }
+.slide-cover .slide-brand-text {
+  display: flex; flex-direction: column; gap: 2px;
+}
+.slide-cover .slide-brand-text .brand-name {
+  font-family: var(--font-heading); font-size: 14px; font-weight: 600;
+  color: rgba(255,255,255,0.5); letter-spacing: 0.5px;
+}
+.slide-cover .slide-brand-text .brand-sub {
+  font-family: var(--font-body); font-size: 11px;
+  color: rgba(255,255,255,0.3); letter-spacing: 1px;
 }
 
 /* ============================================
@@ -861,7 +891,13 @@ body.presentation-mode .workshop-only { opacity: 0; pointer-events: none; }
      ========================================== -->
 <div class="slide slide-cover active" data-slide="0">
   <div class="slide-counter">01 / 20</div>
-  <img class="slide-logo-img" src="../../logo.png" alt="AI Mindset">
+  <div class="slide-brand">
+    <img src="../../logo.png" alt="">
+    <div class="slide-brand-text">
+      <span class="brand-name">AI Mindset</span>
+      <span class="brand-sub">AI-Native Organizations Lab &middot; Sprint W2</span>
+    </div>
+  </div>
   <div class="cover-week anim-1">Неделя 2</div>
   <h1 class="anim-2">Система поверх модели:<br>архитектура AI-Native</h1>
   <div class="cover-meta anim-3">
@@ -876,7 +912,7 @@ body.presentation-mode .workshop-only { opacity: 0; pointer-events: none; }
      ========================================== -->
 <div class="slide" data-slide="1">
   <div class="slide-counter">02 / 20</div>
-  <img class="slide-logo-img" src="../../logo.png" alt="AI Mindset">
+  <div class="slide-brand"><img src="../../logo.png" alt="" style="height:28px;opacity:0.4;"><span style="font-family:var(--font-body);font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:1px;">AI-NATIVE SPRINT</span></div>
   <div class="section-label anim-1">Архитектура</div>
   <h2 class="anim-2" style="margin-bottom:8px">6 слоёв AI-Native стека</h2>
   <p class="text-dim anim-3" style="font-size:13px;margin-bottom:8px">Кликните на слой, чтобы раскрыть детали, инструменты и промпт</p>
@@ -903,7 +939,7 @@ body.presentation-mode .workshop-only { opacity: 0; pointer-events: none; }
      ========================================== -->
 <div class="slide" data-slide="2">
   <div class="slide-counter">03 / 20</div>
-  <img class="slide-logo-img" src="../../logo.png" alt="AI Mindset">
+  <div class="slide-brand"><img src="../../logo.png" alt="" style="height:28px;opacity:0.4;"><span style="font-family:var(--font-body);font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:1px;">AI-NATIVE SPRINT</span></div>
   <div class="section-label anim-1">Токен-экономика</div>
   <h2 class="anim-2">Каждый процесс — это поток токенов</h2>
   <div class="card-grid cols-2 anim-3">
@@ -940,7 +976,7 @@ body.presentation-mode .workshop-only { opacity: 0; pointer-events: none; }
      ========================================== -->
 <div class="slide" data-slide="3" style="padding-bottom:20px">
   <div class="slide-counter">04 / 20</div>
-  <img class="slide-logo-img" src="../../logo.png" alt="AI Mindset">
+  <div class="slide-brand"><img src="../../logo.png" alt="" style="height:28px;opacity:0.4;"><span style="font-family:var(--font-body);font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:1px;">AI-NATIVE SPRINT</span></div>
   <div class="section-label anim-1">Практика</div>
   <h2 class="anim-2" style="margin-bottom:4px">Конструктор пайплайна</h2>
   <p class="text-dim anim-3" style="font-size:13px;margin-bottom:4px">Перетащите блоки на холст. Shift+клик для стрелок. Двойной клик — редактировать. Или загрузите шаблон:</p>
@@ -981,7 +1017,7 @@ body.presentation-mode .workshop-only { opacity: 0; pointer-events: none; }
      ========================================== -->
 <div class="slide" data-slide="4">
   <div class="slide-counter">05 / 20</div>
-  <img class="slide-logo-img" src="../../logo.png" alt="AI Mindset">
+  <div class="slide-brand"><img src="../../logo.png" alt="" style="height:28px;opacity:0.4;"><span style="font-family:var(--font-body);font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:1px;">AI-NATIVE SPRINT</span></div>
   <div class="section-label anim-1">Примеры</div>
   <h2 class="anim-2">Паттерны пайплайнов</h2>
   <div class="card-grid anim-3">
@@ -1026,7 +1062,7 @@ body.presentation-mode .workshop-only { opacity: 0; pointer-events: none; }
      ========================================== -->
 <div class="slide" data-slide="5" style="justify-content:flex-start;padding-top:60px">
   <div class="slide-counter">06 / 20</div>
-  <img class="slide-logo-img" src="../../logo.png" alt="AI Mindset">
+  <div class="slide-brand"><img src="../../logo.png" alt="" style="height:28px;opacity:0.4;"><span style="font-family:var(--font-body);font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:1px;">AI-NATIVE SPRINT</span></div>
   <div class="section-label anim-1">Карта автономности</div>
   <h2 class="anim-2" style="margin-bottom:4px">Ваша компания: что автоматизировать</h2>
   <p class="text-dim anim-3" style="font-size:13px;margin-bottom:6px">Кликните на ячейку, чтобы вписать задачу. Кликните на уровень слева — описание.</p>
@@ -1046,7 +1082,7 @@ body.presentation-mode .workshop-only { opacity: 0; pointer-events: none; }
      ========================================== -->
 <div class="slide" data-slide="6">
   <div class="slide-counter">07 / 20</div>
-  <img class="slide-logo-img" src="../../logo.png" alt="AI Mindset">
+  <div class="slide-brand"><img src="../../logo.png" alt="" style="height:28px;opacity:0.4;"><span style="font-family:var(--font-body);font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:1px;">AI-NATIVE SPRINT</span></div>
   <div class="section-label anim-1">Value Stream Mapping</div>
   <h2 class="anim-2" style="margin-bottom:4px">Токен-пайплайн: 5 стадий</h2>
   <p class="text-dim anim-3" style="font-size:13px;margin-bottom:8px">Кликните на стадию для деталей. Наблюдайте за потоком токенов.</p>
@@ -1086,7 +1122,7 @@ body.presentation-mode .workshop-only { opacity: 0; pointer-events: none; }
      ========================================== -->
 <div class="slide" data-slide="7">
   <div class="slide-counter">08 / 20</div>
-  <img class="slide-logo-img" src="../../logo.png" alt="AI Mindset">
+  <div class="slide-brand"><img src="../../logo.png" alt="" style="height:28px;opacity:0.4;"><span style="font-family:var(--font-body);font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:1px;">AI-NATIVE SPRINT</span></div>
   <div class="section-label anim-1">Формат</div>
   <h2 class="anim-2">declare — build — debrief</h2>
   <div class="anim-3" style="padding:20px 24px;background:var(--bg-terminal);border-radius:8px;border:1px solid var(--border);font-family:var(--font-code);font-size:13px;line-height:1.8;color:rgba(255,255,255,0.8)">
@@ -1118,7 +1154,7 @@ body.presentation-mode .workshop-only { opacity: 0; pointer-events: none; }
      ========================================== -->
 <div class="slide" data-slide="8" style="justify-content:flex-start;padding-top:60px">
   <div class="slide-counter">09 / 20</div>
-  <img class="slide-logo-img" src="../../logo.png" alt="AI Mindset">
+  <div class="slide-brand"><img src="../../logo.png" alt="" style="height:28px;opacity:0.4;"><span style="font-family:var(--font-body);font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:1px;">AI-NATIVE SPRINT</span></div>
   <div class="section-label anim-1">Практические треки</div>
   <h2 class="anim-2" style="margin-bottom:6px">6 треков для сессии Build</h2>
   <div class="prompt-grid anim-3" id="promptGrid">
@@ -1131,7 +1167,7 @@ body.presentation-mode .workshop-only { opacity: 0; pointer-events: none; }
      ========================================== -->
 <div class="slide" data-slide="9">
   <div class="slide-counter">10 / 20</div>
-  <img class="slide-logo-img" src="../../logo.png" alt="AI Mindset">
+  <div class="slide-brand"><img src="../../logo.png" alt="" style="height:28px;opacity:0.4;"><span style="font-family:var(--font-body);font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:1px;">AI-NATIVE SPRINT</span></div>
   <div class="section-label anim-1">Память AI</div>
   <h2 class="anim-2">3 типа памяти</h2>
   <div class="card-grid anim-3">
@@ -1158,7 +1194,7 @@ body.presentation-mode .workshop-only { opacity: 0; pointer-events: none; }
      ========================================== -->
 <div class="slide" data-slide="10">
   <div class="slide-counter">11 / 20</div>
-  <img class="slide-logo-img" src="../../logo.png" alt="AI Mindset">
+  <div class="slide-brand"><img src="../../logo.png" alt="" style="height:28px;opacity:0.4;"><span style="font-family:var(--font-body);font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:1px;">AI-NATIVE SPRINT</span></div>
   <div class="section-label anim-1">Качество</div>
   <h2 class="anim-2">"Evals are the new PRD"</h2>
   <div class="card-grid cols-2 anim-3">
@@ -1192,7 +1228,7 @@ body.presentation-mode .workshop-only { opacity: 0; pointer-events: none; }
      ========================================== -->
 <div class="slide" data-slide="11" style="justify-content:flex-start;padding-top:60px">
   <div class="slide-counter">12 / 20</div>
-  <img class="slide-logo-img" src="../../logo.png" alt="AI Mindset">
+  <div class="slide-brand"><img src="../../logo.png" alt="" style="height:28px;opacity:0.4;"><span style="font-family:var(--font-body);font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:1px;">AI-NATIVE SPRINT</span></div>
   <div class="section-label anim-1">Кейс</div>
   <h2 class="anim-2" style="margin-bottom:8px">Архитектура Степана — живой пример</h2>
   <p class="text-dim anim-3" style="font-size:13px;margin-bottom:8px">Система, построенная на 200 портфельных компаниях + интервью с Y Combinator и Linux Foundation AI</p>
@@ -1232,7 +1268,7 @@ deals/            ← инвестиционные сделки</div>
      ========================================== -->
 <div class="slide" data-slide="12" style="justify-content:flex-start;padding-top:60px">
   <div class="slide-counter">13 / 20</div>
-  <img class="slide-logo-img" src="../../logo.png" alt="AI Mindset">
+  <div class="slide-brand"><img src="../../logo.png" alt="" style="height:28px;opacity:0.4;"><span style="font-family:var(--font-body);font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:1px;">AI-NATIVE SPRINT</span></div>
   <div class="section-label anim-1">Данные</div>
   <h2 class="anim-2" style="margin-bottom:8px">Карта данных компании</h2>
   <p class="text-dim anim-3" style="font-size:13px;margin-bottom:8px">Три типа данных → единая шина → агенты. Вместо прямого подключения каждого агента к каждому источнику.</p>
@@ -1277,7 +1313,7 @@ deals/            ← инвестиционные сделки</div>
      ========================================== -->
 <div class="slide" data-slide="13" style="justify-content:flex-start;padding-top:60px">
   <div class="slide-counter">14 / 20</div>
-  <img class="slide-logo-img" src="../../logo.png" alt="AI Mindset">
+  <div class="slide-brand"><img src="../../logo.png" alt="" style="height:28px;opacity:0.4;"><span style="font-family:var(--font-body);font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:1px;">AI-NATIVE SPRINT</span></div>
   <div class="section-label anim-1">Безопасность</div>
   <h2 class="anim-2" style="margin-bottom:8px">Реальные атаки и инциденты</h2>
   <p class="text-dim anim-3" style="font-size:13px;margin-bottom:8px">88% организаций подтвердили или подозревали инциденты с AI-агентами. Антивируса от агентов не существует.</p>
@@ -1317,7 +1353,7 @@ deals/            ← инвестиционные сделки</div>
      ========================================== -->
 <div class="slide" data-slide="14">
   <div class="slide-counter">15 / 20</div>
-  <img class="slide-logo-img" src="../../logo.png" alt="AI Mindset">
+  <div class="slide-brand"><img src="../../logo.png" alt="" style="height:28px;opacity:0.4;"><span style="font-family:var(--font-body);font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:1px;">AI-NATIVE SPRINT</span></div>
   <div class="section-label anim-1">Люди и AI</div>
   <h2 class="anim-2">4 роли, которые остаются за человеком</h2>
   <div class="roles-grid anim-3">
@@ -1355,7 +1391,7 @@ deals/            ← инвестиционные сделки</div>
      ========================================== -->
 <div class="slide" data-slide="15" style="justify-content:flex-start;padding-top:60px">
   <div class="slide-counter">16 / 20</div>
-  <img class="slide-logo-img" src="../../logo.png" alt="AI Mindset">
+  <div class="slide-brand"><img src="../../logo.png" alt="" style="height:28px;opacity:0.4;"><span style="font-family:var(--font-body);font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:1px;">AI-NATIVE SPRINT</span></div>
   <div class="section-label anim-1">Промпт-старт</div>
   <h2 class="anim-2" style="margin-bottom:4px">Полный промпт: мой первый AI-native стек</h2>
   <p class="text-dim anim-3" style="font-size:13px;margin-bottom:4px">Скопируйте и вставьте в Claude Code. Замените [опиши] и [список] на свои данные.</p>
@@ -1404,7 +1440,7 @@ deals/            ← инвестиционные сделки</div>
      ========================================== -->
 <div class="slide" data-slide="16">
   <div class="slide-counter">17 / 20</div>
-  <img class="slide-logo-img" src="../../logo.png" alt="AI Mindset">
+  <div class="slide-brand"><img src="../../logo.png" alt="" style="height:28px;opacity:0.4;"><span style="font-family:var(--font-body);font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:1px;">AI-NATIVE SPRINT</span></div>
   <div class="section-label anim-1">Расписание</div>
   <h2 class="anim-2">Неделя 2 — план</h2>
   <div class="timeline anim-3">
@@ -1436,7 +1472,7 @@ deals/            ← инвестиционные сделки</div>
      ========================================== -->
 <div class="slide" data-slide="17">
   <div class="slide-counter">18 / 20</div>
-  <img class="slide-logo-img" src="../../logo.png" alt="AI Mindset">
+  <div class="slide-brand"><img src="../../logo.png" alt="" style="height:28px;opacity:0.4;"><span style="font-family:var(--font-body);font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:1px;">AI-NATIVE SPRINT</span></div>
   <div class="section-label anim-1">Домашнее задание</div>
   <h2 class="anim-2">До следующей встречи</h2>
   <div class="anim-3" id="goalsList">
@@ -1469,7 +1505,7 @@ deals/            ← инвестиционные сделки</div>
      ========================================== -->
 <div class="slide" data-slide="18">
   <div class="slide-counter">19 / 20</div>
-  <img class="slide-logo-img" src="../../logo.png" alt="AI Mindset">
+  <div class="slide-brand"><img src="../../logo.png" alt="" style="height:28px;opacity:0.4;"><span style="font-family:var(--font-body);font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:1px;">AI-NATIVE SPRINT</span></div>
   <div class="section-label anim-1">Ключевые мысли</div>
   <h2 class="anim-2" style="margin-bottom:12px">Цитаты из лекции</h2>
   <div style="display:flex;flex-direction:column;gap:12px" class="anim-3">
@@ -1501,7 +1537,7 @@ deals/            ← инвестиционные сделки</div>
      ========================================== -->
 <div class="slide" data-slide="19">
   <div class="slide-counter">20 / 20</div>
-  <img class="slide-logo-img" src="../../logo.png" alt="AI Mindset">
+  <div class="slide-brand"><img src="../../logo.png" alt="" style="height:28px;opacity:0.4;"><span style="font-family:var(--font-body);font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:1px;">AI-NATIVE SPRINT</span></div>
   <div style="text-align:center;width:100%">
     <div class="section-label anim-1">Конец сессии</div>
     <h1 class="anim-2" style="text-align:center">Система поверх модели,<br>а не промпт поверх модели</h1>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+html, body {
+  margin: 0; padding: 0;
+  width: 1200px; height: 630px;
+  overflow: hidden;
+  background: #161620;
+  font-family: 'IBM Plex Mono', monospace;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Grid */
+body::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(77,201,212,1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(77,201,212,1) 1px, transparent 1px);
+  background-size: 60px 60px;
+  opacity: 0.05;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Top accent line */
+.top-line {
+  position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, #4dc9d4, #3b82f6, #4dc9d4, transparent);
+  z-index: 10;
+}
+
+/* Mesh gradients */
+.mesh-g1 {
+  position: absolute; width: 900px; height: 900px; top: -300px; left: -200px;
+  background: radial-gradient(circle, rgba(77,201,212,0.10) 0%, transparent 70%);
+  z-index: 0;
+}
+.mesh-g2 {
+  position: absolute; width: 700px; height: 700px; bottom: -200px; right: -150px;
+  background: radial-gradient(circle, rgba(59,130,246,0.08) 0%, transparent 70%);
+  z-index: 0;
+}
+.mesh-g3 {
+  position: absolute; width: 500px; height: 500px; top: 40%; left: 55%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(56,217,169,0.05) 0%, transparent 70%);
+  z-index: 0;
+}
+
+/* Vignette */
+.vignette {
+  position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(10,10,15,0.6) 100%);
+}
+
+/* Content */
+.content {
+  position: absolute; inset: 0; z-index: 5;
+  display: flex; flex-direction: column; justify-content: center; align-items: center;
+  text-align: center; padding: 60px 80px;
+}
+
+/* Logo top-left */
+.logo-tl {
+  position: absolute; top: 36px; left: 44px; z-index: 10;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 16px; font-weight: 500;
+  color: rgba(255,255,255,0.4);
+  letter-spacing: 1px;
+}
+
+/* Bottom-right credits */
+.credits-br {
+  position: absolute; bottom: 32px; right: 44px; z-index: 10;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px; color: rgba(255,255,255,0.25);
+  letter-spacing: 0.5px;
+}
+
+/* Label */
+.label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 14px; font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: #4dc9d4;
+  margin-bottom: 20px;
+}
+
+/* Title */
+.title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 52px; font-weight: 700;
+  color: #e6edf3;
+  line-height: 1.2;
+  margin-bottom: 20px;
+}
+
+/* Subtitle */
+.subtitle {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 20px; font-weight: 400;
+  color: rgba(255,255,255,0.5);
+  letter-spacing: 0.5px;
+}
+
+/* Corner brackets */
+.corner-tl, .corner-br {
+  position: absolute; width: 28px; height: 28px;
+  border-color: rgba(77,201,212,0.15); border-style: solid;
+  z-index: 10;
+}
+.corner-tl { top: 30px; left: 30px; border-width: 1px 0 0 1px; }
+.corner-br { bottom: 30px; right: 30px; border-width: 0 1px 1px 0; }
+
+/* Glow dots */
+.glow-dot {
+  position: absolute; width: 4px; height: 4px; border-radius: 50%;
+  background: #4dc9d4; z-index: 3; opacity: 0.4;
+}
+</style>
+</head>
+<body>
+  <div class="top-line"></div>
+  <div class="mesh-g1"></div>
+  <div class="mesh-g2"></div>
+  <div class="mesh-g3"></div>
+  <div class="vignette"></div>
+  <div class="corner-tl"></div>
+  <div class="corner-br"></div>
+
+  <!-- Glow dots -->
+  <div class="glow-dot" style="top:120px;left:180px;opacity:0.3;width:3px;height:3px;"></div>
+  <div class="glow-dot" style="top:480px;right:220px;opacity:0.5;width:5px;height:5px;"></div>
+  <div class="glow-dot" style="top:300px;left:900px;opacity:0.25;width:3px;height:3px;"></div>
+  <div class="glow-dot" style="bottom:180px;left:120px;opacity:0.35;width:4px;height:4px;"></div>
+
+  <div class="logo-tl">AI Mindset</div>
+  <div class="credits-br">AI Mindset &times; CybOS &middot; 2026</div>
+
+  <div class="content">
+    <div class="label">// AI-NATIVE ORGANIZATIONS LAB</div>
+    <div class="title">система поверх модели</div>
+    <div class="subtitle">интерактивный workshop &middot; неделя 2</div>
+  </div>
+</body>
+</html>

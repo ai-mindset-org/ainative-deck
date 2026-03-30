@@ -1,0 +1,2619 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI-Native Organizations Lab — Focus W2 Workshop</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=IBM+Plex+Mono:wght@400;500&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+/* ============================================
+   CSS VARIABLES & PALETTE
+   ============================================ */
+:root {
+  --bg: #161620;
+  --bg-deep: #0a0a0f;
+  --bg-card: #1c1c2e;
+  --bg-terminal: #141419;
+  --text: #e6edf3;
+  --text-dim: rgba(255,255,255,0.5);
+  --text-label: rgba(255,255,255,0.45);
+  --teal: #4dc9d4;
+  --teal-dim: rgba(77,201,212,0.15);
+  --teal-glow: rgba(77,201,212,0.3);
+  --green: #38d9a9;
+  --green-dim: rgba(56,217,169,0.12);
+  --blue: #3b82f6;
+  --blue-dim: rgba(59,130,246,0.12);
+  --amber: #c89200;
+  --amber-dim: rgba(200,146,0,0.15);
+  --red: #ff6b6b;
+  --red-dim: rgba(255,107,107,0.15);
+  --cyan: #22d3ee;
+  --border: rgba(77,201,212,0.12);
+  --border-hover: rgba(77,201,212,0.3);
+  --grid-size: 60px;
+  --font-heading: 'Space Grotesk', sans-serif;
+  --font-body: 'IBM Plex Mono', monospace;
+  --font-code: 'JetBrains Mono', monospace;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ============================================
+   VISUAL LAYERS
+   ============================================ */
+
+/* Layer 1: Grid */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--teal) 1px, transparent 1px),
+    linear-gradient(90deg, var(--teal) 1px, transparent 1px);
+  background-size: var(--grid-size) var(--grid-size);
+  opacity: 0.03;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Layer 2: Mesh gradients */
+.mesh { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+.mesh .g1 {
+  position: absolute; width: 800px; height: 800px; top: -200px; left: -200px;
+  background: radial-gradient(circle, rgba(77,201,212,0.08) 0%, transparent 70%);
+}
+.mesh .g2 {
+  position: absolute; width: 600px; height: 600px; bottom: -100px; right: -100px;
+  background: radial-gradient(circle, rgba(59,130,246,0.06) 0%, transparent 70%);
+}
+.mesh .g3 {
+  position: absolute; width: 500px; height: 500px; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(56,217,169,0.04) 0%, transparent 70%);
+}
+
+/* Layer 3: Grain */
+.grain {
+  position: fixed; inset: 0; z-index: 1; pointer-events: none; opacity: 0.14;
+}
+.grain svg { width: 100%; height: 100%; }
+
+/* Layer 4: Vignette */
+.vignette {
+  position: fixed; inset: 0; z-index: 1; pointer-events: none;
+  background: radial-gradient(ellipse at center, transparent 50%, rgba(10,10,15,0.6) 100%);
+}
+
+/* Layer 5: Top accent line */
+.top-line {
+  position: fixed; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--teal), var(--blue), var(--teal), transparent);
+  z-index: 100; pointer-events: none;
+}
+
+/* ============================================
+   PROGRESS BAR
+   ============================================ */
+.progress-bar {
+  position: fixed; bottom: 0; left: 0; height: 2px;
+  background: linear-gradient(90deg, var(--teal), var(--blue));
+  z-index: 100; transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+
+/* ============================================
+   MODE INDICATOR
+   ============================================ */
+.mode-indicator {
+  position: fixed; top: 14px; left: 50%; transform: translateX(-50%);
+  font-family: var(--font-code); font-size: 11px; letter-spacing: 2px;
+  text-transform: uppercase; z-index: 200; padding: 4px 16px;
+  border-radius: 4px; transition: all 0.3s ease; pointer-events: none;
+}
+.mode-indicator.presentation {
+  color: var(--text-label); background: transparent;
+}
+.mode-indicator.workshop {
+  color: var(--teal); background: var(--teal-dim);
+  border: 1px solid var(--border);
+}
+
+/* ============================================
+   SLIDES ENGINE
+   ============================================ */
+.deck {
+  position: relative; width: 100vw; height: 100vh; z-index: 2;
+}
+.slide {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 60px 80px;
+  opacity: 0; visibility: hidden;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+  overflow-y: auto;
+}
+.slide.active { opacity: 1; visibility: visible; }
+
+/* Corner brackets */
+.slide::before, .slide::after {
+  content: ''; position: absolute; width: 24px; height: 24px;
+  border-color: var(--border); border-style: solid; pointer-events: none;
+}
+.slide::before { top: 40px; left: 40px; border-width: 1px 0 0 1px; }
+.slide::after { bottom: 40px; right: 40px; border-width: 0 1px 1px 0; }
+
+/* Slide counter */
+.slide-counter {
+  position: absolute; top: 44px; right: 50px;
+  font-family: var(--font-code); font-size: 12px;
+  color: var(--text-label); letter-spacing: 1px;
+}
+
+/* Logo */
+.slide-logo-img {
+  position: absolute; bottom: 24px; left: 32px;
+  height: 32px; opacity: 0.35; pointer-events: none;
+}
+
+/* ============================================
+   TYPOGRAPHY
+   ============================================ */
+h1 {
+  font-family: var(--font-heading); font-size: 48px; font-weight: 700;
+  line-height: 1.2; color: var(--text); margin-bottom: 20px;
+}
+.slide-cover h1 { font-size: 54px; }
+h2 {
+  font-family: var(--font-heading); font-size: 32px; font-weight: 600;
+  line-height: 1.3; color: var(--text); margin-bottom: 24px;
+}
+h3 {
+  font-family: var(--font-heading); font-size: 22px; font-weight: 600;
+  line-height: 1.4; color: var(--text); margin-bottom: 12px;
+}
+.section-label {
+  font-family: var(--font-body); font-size: 12px; font-weight: 500;
+  text-transform: uppercase; letter-spacing: 3px;
+  color: var(--teal); margin-bottom: 12px; opacity: 0.8;
+}
+p, li {
+  font-family: var(--font-body); font-size: 16px;
+  line-height: 1.7; color: rgba(255,255,255,0.8);
+}
+.text-teal { color: var(--teal); }
+.text-green { color: var(--green); }
+.text-amber { color: var(--amber); }
+.text-red { color: var(--red); }
+.text-blue { color: var(--blue); }
+.text-dim { color: var(--text-dim); }
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes pulse { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
+@keyframes flowDot {
+  0% { left: 0; } 100% { left: calc(100% - 10px); }
+}
+
+.slide.active .anim-1 { animation: fadeUp 0.6s 0.1s ease both; }
+.slide.active .anim-2 { animation: fadeUp 0.6s 0.2s ease both; }
+.slide.active .anim-3 { animation: fadeUp 0.6s 0.3s ease both; }
+.slide.active .anim-4 { animation: fadeUp 0.6s 0.4s ease both; }
+.slide.active .anim-5 { animation: fadeUp 0.6s 0.5s ease both; }
+.slide.active .anim-6 { animation: fadeUp 0.6s 0.6s ease both; }
+
+/* ============================================
+   COVER SLIDE
+   ============================================ */
+.slide-cover { justify-content: center; align-items: flex-start; }
+.cover-meta {
+  font-family: var(--font-body); font-size: 15px;
+  color: var(--text-dim); margin-top: 10px; line-height: 1.8;
+}
+.cover-meta span { color: var(--teal); opacity: 0.7; }
+.cover-week {
+  display: inline-block; padding: 6px 18px; margin-bottom: 20px;
+  background: var(--teal-dim); border: 1px solid var(--border);
+  border-radius: 4px; font-family: var(--font-code); font-size: 13px;
+  color: var(--teal); letter-spacing: 2px; text-transform: uppercase;
+}
+
+/* ============================================
+   ARCHITECTURE DIAGRAM (Slide 2)
+   ============================================ */
+.arch-container {
+  display: flex; gap: 0; width: 100%; height: calc(100vh - 160px);
+  margin-top: 10px;
+}
+.arch-stack {
+  flex: 0 0 380px; display: flex; flex-direction: column;
+  gap: 4px; height: 100%;
+}
+.arch-layer {
+  flex: 1; display: flex; align-items: center; gap: 14px;
+  padding: 12px 20px; border-radius: 6px; cursor: pointer;
+  border: 1px solid transparent; transition: all 0.3s ease;
+  position: relative; min-height: 0;
+}
+.arch-layer:hover {
+  border-color: var(--border-hover);
+  transform: translateX(4px);
+}
+.arch-layer.active-layer {
+  border-color: var(--border-hover);
+  transform: translateX(4px);
+}
+.arch-layer .layer-num {
+  font-family: var(--font-code); font-size: 11px;
+  opacity: 0.5; flex-shrink: 0; width: 22px;
+}
+.arch-layer .layer-name {
+  font-family: var(--font-heading); font-size: 14px;
+  font-weight: 600; white-space: nowrap;
+}
+.arch-layer .layer-icon {
+  font-size: 18px; flex-shrink: 0; width: 28px; text-align: center;
+}
+
+.arch-detail {
+  flex: 1; margin-left: 16px; padding: 24px 28px;
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 8px; overflow-y: auto;
+  display: none; flex-direction: column; gap: 16px;
+}
+.arch-detail.visible { display: flex; }
+.arch-detail-empty {
+  flex: 1; margin-left: 16px; display: flex;
+  align-items: center; justify-content: center;
+  color: var(--text-label); font-size: 14px;
+  border: 1px dashed var(--border); border-radius: 8px;
+}
+.arch-detail h3 { margin-bottom: 4px; }
+.arch-detail .detail-desc {
+  font-size: 14px; color: rgba(255,255,255,0.7); line-height: 1.6;
+}
+.arch-detail .detail-tools {
+  display: flex; flex-wrap: wrap; gap: 8px;
+}
+.arch-detail .tool-tag {
+  padding: 4px 12px; border-radius: 4px; font-family: var(--font-code);
+  font-size: 12px; border: 1px solid var(--border);
+  background: var(--bg-terminal);
+}
+.arch-detail .detail-prompt {
+  padding: 14px 18px; background: var(--bg-terminal);
+  border-radius: 6px; border-left: 3px solid var(--teal);
+  font-family: var(--font-code); font-size: 11px;
+  line-height: 1.6; color: rgba(255,255,255,0.75);
+  cursor: pointer; position: relative; transition: border-color 0.3s;
+  white-space: pre-wrap;
+}
+.arch-detail .detail-prompt:hover { border-left-color: var(--green); }
+.arch-detail .detail-prompt::after {
+  content: 'click to copy'; position: absolute; top: 8px; right: 12px;
+  font-size: 10px; color: var(--text-label); text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.arch-detail .detail-prompt.copied { border-left-color: var(--green); }
+.arch-detail .detail-prompt.copied::after {
+  content: 'copied!'; color: var(--green);
+}
+
+/* ============================================
+   PIPELINE BUILDER (Slides 4-5)
+   ============================================ */
+.builder-container {
+  display: flex; width: 100%; height: calc(100vh - 150px);
+  gap: 0; margin-top: 8px;
+}
+.builder-palette {
+  width: 180px; flex-shrink: 0; padding: 16px;
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 8px 0 0 8px; display: flex;
+  flex-direction: column; gap: 10px;
+}
+.builder-palette h4 {
+  font-family: var(--font-heading); font-size: 13px;
+  color: var(--text-dim); margin-bottom: 4px; text-transform: uppercase;
+  letter-spacing: 2px;
+}
+.palette-block {
+  padding: 10px 14px; border-radius: 10px; cursor: grab;
+  font-family: var(--font-code); font-size: 14px;
+  border: 1px solid var(--border); text-align: center;
+  user-select: none; transition: transform 0.2s, border-color 0.2s;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.3);
+}
+.palette-block:hover { transform: scale(1.05); border-color: var(--border-hover); }
+.palette-block:active { cursor: grabbing; }
+.palette-block.type-auto { background: var(--bg-terminal); color: var(--teal); border-left: 3px solid var(--teal); }
+.palette-block.type-review { background: var(--bg-terminal); color: var(--amber); border-left: 3px solid var(--amber); }
+.palette-block.type-human { background: var(--bg-terminal); color: var(--red); border-left: 3px solid var(--red); }
+.palette-block.type-text { background: var(--bg-terminal); color: var(--text-dim); border-left: 3px solid var(--text-dim); }
+
+.builder-canvas {
+  flex: 1; position: relative; background: var(--bg-terminal);
+  border: 1px solid var(--border); border-radius: 0 8px 8px 0;
+  overflow: hidden;
+}
+.builder-canvas-grid {
+  position: absolute; inset: 0; pointer-events: none;
+  background-image:
+    linear-gradient(rgba(77,201,212,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(77,201,212,0.04) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+.canvas-block {
+  position: absolute; min-width: 120px; padding: 10px 16px;
+  border-radius: 10px; cursor: move; font-family: var(--font-code);
+  font-size: 14px; text-align: center; user-select: none;
+  border: 1px solid; z-index: 10; transition: box-shadow 0.2s;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.3);
+}
+.canvas-block:hover { box-shadow: 0 0 20px rgba(77,201,212,0.15), inset 0 1px 2px rgba(0,0,0,0.3); }
+.canvas-block.type-auto { background: var(--bg-terminal); color: var(--teal); border-color: rgba(77,201,212,0.25); border-left: 3px solid var(--teal); }
+.canvas-block.type-review { background: var(--bg-terminal); color: var(--amber); border-color: rgba(200,146,0,0.25); border-left: 3px solid var(--amber); }
+.canvas-block.type-human { background: var(--bg-terminal); color: var(--red); border-color: rgba(255,107,107,0.25); border-left: 3px solid var(--red); }
+.canvas-block.type-text { background: transparent; color: var(--text-dim); border-color: transparent; font-size: 12px; border-left: none; }
+.canvas-block .block-delete {
+  position: absolute; top: -8px; right: -8px; width: 20px; height: 20px;
+  background: var(--red); color: #fff; border-radius: 50%; font-size: 12px;
+  display: none; align-items: center; justify-content: center; cursor: pointer;
+  border: none; z-index: 20;
+}
+.canvas-block:hover .block-delete { display: flex; }
+
+.canvas-arrow {
+  position: absolute; pointer-events: none; z-index: 5;
+}
+
+.builder-toolbar {
+  position: absolute; bottom: 16px; left: 50%;
+  transform: translateX(-50%); display: flex; gap: 8px; z-index: 20;
+}
+.builder-btn {
+  padding: 8px 18px; border-radius: 4px; border: 1px solid var(--border);
+  background: var(--bg-card); color: var(--text-dim);
+  font-family: var(--font-code); font-size: 12px; cursor: pointer;
+  transition: all 0.2s; text-transform: uppercase; letter-spacing: 1px;
+}
+.builder-btn:hover { background: var(--teal-dim); color: var(--teal); border-color: var(--border-hover); }
+
+/* ============================================
+   TEMPLATE GALLERY
+   ============================================ */
+.template-gallery {
+  display: flex; gap: 6px; margin-bottom: 6px;
+  overflow-x: auto; padding-bottom: 4px;
+  scrollbar-width: thin;
+}
+.template-gallery::-webkit-scrollbar { height: 3px; }
+.template-gallery::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+.template-btn {
+  padding: 4px 12px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--bg-card);
+  color: var(--text-dim);
+  font-size: 11px;
+  font-family: var(--font-body);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+.template-btn:hover { border-color: var(--teal); color: var(--teal); }
+.template-btn.active { background: var(--teal-dim); border-color: var(--teal); color: var(--teal); }
+
+/* ============================================
+   PIPELINE TITLE & ZOOM INDICATOR
+   ============================================ */
+.pipeline-title-row {
+  display: flex; align-items: center; gap: 12px; margin-bottom: 4px;
+}
+.pipeline-title-input {
+  background: transparent; border: none; border-bottom: 1px solid var(--border);
+  color: var(--text); font-family: var(--font-heading); font-size: 16px;
+  font-weight: 600; padding: 2px 4px; outline: none; width: 220px;
+  transition: border-color 0.2s;
+}
+.pipeline-title-input:focus { border-bottom-color: var(--teal); }
+.pipeline-title-input::placeholder { color: var(--text-label); }
+.zoom-indicator {
+  font-family: var(--font-code); font-size: 11px;
+  color: var(--text-label); margin-left: auto;
+}
+
+/* ============================================
+   PIPELINE STATS BAR
+   ============================================ */
+.pipeline-stats-bar {
+  display: flex; align-items: center; gap: 16px;
+  padding: 8px 16px; margin-top: 8px;
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 6px; font-family: var(--font-code); font-size: 12px;
+  color: var(--text-dim);
+}
+.pipeline-stats-bar .stat-label { color: var(--text-label); }
+.pipeline-stats-bar .stat-value { font-weight: 500; }
+.pipeline-stats-bar .stat-auto { color: var(--teal); }
+.pipeline-stats-bar .stat-review { color: var(--amber); }
+.pipeline-stats-bar .stat-human { color: var(--red); }
+.pipeline-stats-bar .stat-bar {
+  flex: 1; height: 6px; background: var(--bg-terminal);
+  border-radius: 3px; overflow: hidden; display: flex;
+}
+.pipeline-stats-bar .stat-bar-auto { background: var(--teal); height: 100%; }
+.pipeline-stats-bar .stat-bar-review { background: var(--amber); height: 100%; }
+.pipeline-stats-bar .stat-bar-human { background: var(--red); height: 100%; }
+
+/* ============================================
+   AUTONOMY MAP (Slide 6)
+   ============================================ */
+.autonomy-grid-wrapper {
+  width: 100%; overflow-x: auto; margin-top: 8px;
+}
+.autonomy-grid {
+  display: grid; grid-template-columns: 120px repeat(5, 1fr);
+  gap: 3px; width: 100%;
+}
+.auto-header {
+  padding: 12px 10px; text-align: center; font-family: var(--font-heading);
+  font-size: 13px; font-weight: 600; background: var(--bg-card);
+  border-radius: 4px; color: var(--text); letter-spacing: 1px;
+}
+.auto-header.corner { background: transparent; }
+.auto-level {
+  padding: 12px 10px; font-family: var(--font-code); font-size: 12px;
+  background: var(--bg-card); border-radius: 4px; display: flex;
+  align-items: center; gap: 6px; cursor: pointer;
+  transition: background 0.2s; position: relative;
+}
+.auto-level:hover { background: rgba(77,201,212,0.08); }
+.auto-level .level-badge {
+  display: inline-block; padding: 2px 8px; border-radius: 3px;
+  font-size: 11px; font-weight: 600;
+}
+.auto-level .level-name { font-size: 11px; color: var(--text-dim); }
+.level-L0 .level-badge { background: var(--red-dim); color: var(--red); }
+.level-L1 .level-badge { background: var(--amber-dim); color: var(--amber); }
+.level-L2 .level-badge { background: var(--teal-dim); color: var(--teal); }
+.level-L3 .level-badge { background: var(--green-dim); color: var(--green); }
+
+.auto-cell {
+  padding: 8px 10px; background: var(--bg-terminal); border-radius: 4px;
+  min-height: 52px; cursor: pointer; font-family: var(--font-code);
+  font-size: 12px; color: rgba(255,255,255,0.7);
+  border: 1px solid transparent; transition: all 0.2s;
+  display: flex; align-items: center; justify-content: center;
+  text-align: center; line-height: 1.3;
+}
+.auto-cell:hover { border-color: var(--border-hover); }
+.auto-cell.has-content { border-color: var(--border); }
+.auto-cell.editing {
+  border-color: var(--teal); background: rgba(77,201,212,0.05);
+}
+.auto-cell input {
+  width: 100%; background: transparent; border: none; outline: none;
+  color: var(--text); font-family: var(--font-code); font-size: 12px;
+  text-align: center;
+}
+.auto-cell.level-colored-0 { border-left: 3px solid var(--red); }
+.auto-cell.level-colored-1 { border-left: 3px solid var(--amber); }
+.auto-cell.level-colored-2 { border-left: 3px solid var(--teal); }
+.auto-cell.level-colored-3 { border-left: 3px solid var(--green); }
+
+/* Level tooltip */
+.level-tooltip {
+  display: none; position: absolute; left: 130px; top: 0;
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 6px; padding: 12px 16px; min-width: 260px;
+  z-index: 50; font-size: 12px; color: rgba(255,255,255,0.75);
+  line-height: 1.5;
+}
+.level-tooltip.visible { display: block; }
+
+/* ============================================
+   VSM DIAGRAM (Slide 7)
+   ============================================ */
+.vsm-container {
+  width: 100%; margin-top: 16px;
+}
+.vsm-pipeline {
+  display: flex; align-items: stretch; gap: 0;
+  width: 100%; position: relative;
+}
+.vsm-stage {
+  flex: 1; padding: 20px 16px; text-align: center; cursor: pointer;
+  border: 1px solid var(--border); transition: all 0.3s;
+  position: relative; background: var(--bg-card);
+}
+.vsm-stage:first-child { border-radius: 8px 0 0 8px; }
+.vsm-stage:last-child { border-radius: 0 8px 8px 0; }
+.vsm-stage:hover { background: rgba(77,201,212,0.06); border-color: var(--border-hover); }
+.vsm-stage.active-stage { background: rgba(77,201,212,0.08); border-color: var(--teal); }
+.vsm-stage .stage-name {
+  font-family: var(--font-heading); font-size: 15px; font-weight: 600;
+  margin-bottom: 4px;
+}
+.vsm-stage .stage-sub {
+  font-family: var(--font-code); font-size: 11px; color: var(--text-label);
+}
+.vsm-arrow {
+  display: flex; align-items: center; color: var(--teal); font-size: 20px;
+  padding: 0 2px; opacity: 0.4;
+}
+.vsm-flow-track {
+  width: 100%; height: 4px; margin-top: 12px; background: var(--bg-terminal);
+  border-radius: 2px; position: relative; overflow: hidden;
+}
+.vsm-flow-dot {
+  width: 30px; height: 4px; border-radius: 2px; background: var(--teal);
+  position: absolute; top: 0; animation: flowDot 3s linear infinite;
+}
+.vsm-detail {
+  margin-top: 16px; padding: 20px 24px; background: var(--bg-card);
+  border: 1px solid var(--border); border-radius: 8px;
+  display: none; flex-direction: column; gap: 12px;
+}
+.vsm-detail.visible { display: flex; }
+.vsm-detail .detail-row {
+  display: flex; gap: 24px;
+}
+.vsm-detail .detail-col { flex: 1; }
+.vsm-detail .detail-label {
+  font-family: var(--font-code); font-size: 11px;
+  color: var(--teal); text-transform: uppercase;
+  letter-spacing: 1px; margin-bottom: 6px;
+}
+.vsm-detail .detail-value {
+  font-size: 14px; color: rgba(255,255,255,0.75); line-height: 1.5;
+}
+
+/* ============================================
+   PROMPT CARDS (Slide 9)
+   ============================================ */
+.prompt-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: 12px; margin-top: 8px;
+}
+.prompt-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 8px; padding: 18px 20px; display: flex;
+  flex-direction: column; gap: 10px;
+}
+.prompt-card .card-track {
+  font-family: var(--font-heading); font-size: 15px;
+  font-weight: 600; display: flex; align-items: center; gap: 8px;
+}
+.prompt-card .card-track .track-dot {
+  width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+}
+.prompt-card .card-desc {
+  font-size: 13px; color: var(--text-dim); line-height: 1.5;
+}
+.prompt-box {
+  padding: 12px 14px; background: var(--bg-terminal);
+  border-radius: 4px; border-left: 3px solid var(--teal);
+  font-family: var(--font-code); font-size: 11px;
+  line-height: 1.5; color: rgba(255,255,255,0.7);
+  cursor: pointer; position: relative; transition: all 0.3s;
+  white-space: pre-wrap;
+}
+.prompt-box:hover { border-left-color: var(--green); }
+.prompt-box::after {
+  content: 'click to copy'; position: absolute; top: 6px; right: 10px;
+  font-size: 9px; color: var(--text-label); text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.prompt-box.copied { border-left-color: var(--green); }
+.prompt-box.copied::after { content: 'copied!'; color: var(--green); }
+
+/* ============================================
+   TIMELINE ROWS
+   ============================================ */
+.timeline { display: flex; flex-direction: column; gap: 6px; }
+.timeline-row {
+  display: flex; align-items: center; gap: 14px;
+  padding: 14px 20px; border-radius: 6px; border-left: 3px solid;
+}
+.timeline-row .time {
+  font-family: var(--font-code); font-size: 13px;
+  color: var(--text-dim); flex-shrink: 0; width: 80px;
+}
+.timeline-row .desc { font-size: 15px; }
+.teal-row { border-color: var(--teal); background: var(--teal-dim); }
+.green-row { border-color: var(--green); background: var(--green-dim); }
+.amber-row { border-color: var(--amber); background: var(--amber-dim); }
+.blue-row { border-color: var(--blue); background: var(--blue-dim); }
+
+/* ============================================
+   INFO CARDS & LISTS
+   ============================================ */
+.card-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 12px; margin-top: 8px;
+}
+.card-grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
+.info-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 8px; padding: 20px; display: flex;
+  flex-direction: column; gap: 8px;
+}
+.info-card h3 { font-size: 18px; margin-bottom: 4px; }
+.info-card p, .info-card li { font-size: 14px; line-height: 1.6; }
+.info-card ul { list-style: none; padding: 0; }
+.info-card ul li { padding: 3px 0; }
+.info-card ul li::before {
+  content: ''; display: inline-block; width: 6px; height: 6px;
+  background: var(--teal); border-radius: 50%; margin-right: 8px;
+  vertical-align: middle; opacity: 0.6;
+}
+
+.compact-list { list-style: none; padding: 0; }
+.compact-list li {
+  padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05);
+  font-size: 15px; display: flex; align-items: baseline; gap: 10px;
+}
+.compact-list li:last-child { border-bottom: none; }
+.compact-list .li-num {
+  font-family: var(--font-code); font-size: 12px; color: var(--teal);
+  flex-shrink: 0; width: 24px;
+}
+
+/* ============================================
+   HOMEWORK / GOALS
+   ============================================ */
+.goal-item {
+  padding: 14px 20px; background: var(--bg-card);
+  border: 1px solid var(--border); border-radius: 6px;
+  margin-bottom: 8px; font-size: 15px; display: flex;
+  align-items: center; gap: 12px;
+}
+.goal-item .goal-check {
+  width: 20px; height: 20px; border: 2px solid var(--border);
+  border-radius: 4px; flex-shrink: 0; cursor: pointer;
+  transition: all 0.2s; display: flex; align-items: center;
+  justify-content: center; font-size: 12px;
+}
+.goal-item .goal-check.checked {
+  background: var(--teal); border-color: var(--teal); color: var(--bg);
+}
+
+/* ============================================
+   EXPORT BUTTON
+   ============================================ */
+.export-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 8px 20px; border-radius: 4px;
+  border: 1px solid var(--border); background: var(--bg-card);
+  color: var(--teal); font-family: var(--font-code); font-size: 12px;
+  cursor: pointer; transition: all 0.2s; text-transform: uppercase;
+  letter-spacing: 1px; margin-top: 10px;
+}
+.export-btn:hover { background: var(--teal-dim); border-color: var(--border-hover); }
+
+/* ============================================
+   WORKSHOP-ONLY ELEMENTS
+   ============================================ */
+.workshop-only { transition: opacity 0.3s ease; }
+body.presentation-mode .workshop-only { opacity: 0; pointer-events: none; }
+
+/* ============================================
+   SCROLLBAR
+   ============================================ */
+.slide::-webkit-scrollbar { width: 4px; }
+.slide::-webkit-scrollbar-track { background: transparent; }
+.slide::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+/* ============================================
+   NEW SLIDES STYLES
+   ============================================ */
+
+/* Stepan's architecture diagram */
+.stepan-diagram {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 12px;
+}
+.stepan-block {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 8px; padding: 16px 20px;
+}
+.stepan-block h4 {
+  font-family: var(--font-heading); font-size: 15px; font-weight: 600;
+  margin-bottom: 8px; color: var(--teal);
+}
+.stepan-block .mono-tree {
+  font-family: var(--font-code); font-size: 12px;
+  color: rgba(255,255,255,0.65); line-height: 1.6;
+  white-space: pre;
+}
+
+/* Data map columns */
+.data-map {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 12px;
+}
+.data-col {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 8px; padding: 16px 20px;
+}
+.data-col h4 {
+  font-family: var(--font-heading); font-size: 14px; font-weight: 600;
+  margin-bottom: 10px;
+}
+.data-col ul { list-style: none; padding: 0; }
+.data-col ul li {
+  font-family: var(--font-code); font-size: 12px;
+  padding: 4px 0; color: rgba(255,255,255,0.7);
+}
+.data-col ul li::before {
+  content: ''; display: inline-block; width: 5px; height: 5px;
+  border-radius: 50%; margin-right: 8px; vertical-align: middle; opacity: 0.6;
+}
+.data-bus {
+  margin-top: 16px; padding: 12px 20px; background: var(--bg-card);
+  border: 1px solid var(--teal); border-radius: 8px; text-align: center;
+  font-family: var(--font-code); font-size: 13px; color: var(--teal);
+  position: relative;
+}
+
+/* Security incidents */
+.incident-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 12px;
+}
+.incident-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 8px; padding: 14px 18px; border-left: 3px solid var(--red);
+}
+.incident-card h4 {
+  font-family: var(--font-heading); font-size: 14px; font-weight: 600;
+  margin-bottom: 6px; color: var(--red);
+}
+.incident-card p {
+  font-size: 12px; color: rgba(255,255,255,0.65); line-height: 1.5;
+}
+
+/* Roles grid */
+.roles-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 12px;
+}
+.role-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 8px; padding: 20px; text-align: center;
+}
+.role-card .role-icon {
+  font-size: 28px; margin-bottom: 10px;
+}
+.role-card h4 {
+  font-family: var(--font-heading); font-size: 16px; font-weight: 600;
+  margin-bottom: 6px;
+}
+.role-card p {
+  font-size: 12px; color: var(--text-dim); line-height: 1.5;
+}
+
+/* Full prompt slide */
+.full-prompt-box {
+  padding: 20px 24px; background: var(--bg-terminal);
+  border-radius: 8px; border: 1px solid var(--border);
+  font-family: var(--font-code); font-size: 12px;
+  line-height: 1.7; color: rgba(255,255,255,0.8);
+  cursor: pointer; position: relative; transition: all 0.3s;
+  white-space: pre-wrap; margin-top: 12px;
+  max-height: calc(100vh - 240px); overflow-y: auto;
+}
+.full-prompt-box:hover { border-color: var(--teal); }
+.full-prompt-box::after {
+  content: 'click to copy'; position: absolute; top: 10px; right: 14px;
+  font-size: 10px; color: var(--text-label); text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.full-prompt-box.copied { border-color: var(--green); }
+.full-prompt-box.copied::after { content: 'copied!'; color: var(--green); }
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 1400px) {
+  .slide { padding: 50px 60px; }
+  h1 { font-size: 42px; }
+  h2 { font-size: 28px; }
+  .arch-stack { flex: 0 0 320px; }
+  .prompt-grid { gap: 10px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Visual layers -->
+<div class="mesh"><div class="g1"></div><div class="g2"></div><div class="g3"></div></div>
+<div class="grain"><svg><filter id="grain"><feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(#grain)"/></svg></div>
+<div class="vignette"></div>
+<div class="top-line"></div>
+<div class="progress-bar" id="progressBar"></div>
+<div class="mode-indicator presentation" id="modeIndicator">Presentation</div>
+
+<!-- ============================================
+     DECK
+     ============================================ -->
+<div class="deck" id="deck">
+
+<!-- ==========================================
+     SLIDE 1: COVER
+     ========================================== -->
+<div class="slide slide-cover active" data-slide="0">
+  <div class="slide-counter">01 / 20</div>
+  <img class="slide-logo-img" src="../../logo.png" alt="AI Mindset">
+  <div class="cover-week anim-1">Неделя 2</div>
+  <h1 class="anim-2">Система поверх модели:<br>архитектура AI-Native</h1>
+  <div class="cover-meta anim-3">
+    <span>focus session</span> — от стека к системе<br>
+    <span>формат</span> — declare / build / debrief<br>
+    <span>цель</span> — собрать свой стек и токен-пайплайн
+  </div>
+</div>
+
+<!-- ==========================================
+     SLIDE 2: 6-LAYER ARCHITECTURE
+     ========================================== -->
+<div class="slide" data-slide="1">
+  <div class="slide-counter">02 / 20</div>
+  <img class="slide-logo-img" src="../../logo.png" alt="AI Mindset">
+  <div class="section-label anim-1">Архитектура</div>
+  <h2 class="anim-2" style="margin-bottom:8px">6 слоёв AI-Native стека</h2>
+  <p class="text-dim anim-3" style="font-size:13px;margin-bottom:8px">Кликните на слой, чтобы раскрыть детали, инструменты и промпт</p>
+  <div class="arch-container anim-4">
+    <div class="arch-stack" id="archStack">
+      <!-- Layers rendered by JS -->
+    </div>
+    <div class="arch-detail-empty" id="archEmpty">
+      ← выберите слой
+    </div>
+    <div class="arch-detail" id="archDetail">
+      <h3 id="archDetailTitle"></h3>
+      <div class="detail-desc" id="archDetailDesc"></div>
+      <div style="font-family:var(--font-code);font-size:11px;color:var(--teal);text-transform:uppercase;letter-spacing:1px">Инструменты</div>
+      <div class="detail-tools" id="archDetailTools"></div>
+      <div style="font-family:var(--font-code);font-size:11px;color:var(--teal);text-transform:uppercase;letter-spacing:1px">Промпт для практики</div>
+      <div class="detail-prompt" id="archDetailPrompt"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ==========================================
+     SLIDE 3: TOKEN ECONOMY INTRO
+     ========================================== -->
+<div class="slide" data-slide="2">
+  <div class="slide-counter">03 / 20</div>
+  <img class="slide-logo-img" src="../../logo.png" alt="AI Mindset">
+  <div class="section-label anim-1">Токен-экономика</div>
+  <h2 class="anim-2">Каждый процесс — это поток токенов</h2>
+  <div class="card-grid cols-2 anim-3">
+    <div class="info-card">
+      <h3 class="text-teal">Три типа блоков</h3>
+      <ul>
+        <li><span class="text-teal">Автомат</span> — AI делает без участия человека</li>
+        <li><span class="text-amber">Ревью</span> — AI делает, человек проверяет</li>
+        <li><span class="text-red">Человек</span> — только человек</li>
+      </ul>
+    </div>
+    <div class="info-card">
+      <h3 class="text-green">Зачем это нужно</h3>
+      <ul>
+        <li>Видеть узкие места — где человек тормозит</li>
+        <li>Считать стоимость — токены vs часы</li>
+        <li>Планировать автоматизацию — что делегировать первым</li>
+        <li>Измерять прогресс — % автономности</li>
+      </ul>
+    </div>
+  </div>
+  <div class="anim-4" style="margin-top:16px;padding:16px 20px;background:var(--bg-card);border:1px solid var(--border);border-radius:8px">
+    <p style="font-size:14px;color:var(--text-dim)">
+      <span class="text-teal">Формула:</span> стоимость процесса = <span class="text-amber">(токены × цена модели)</span> + <span class="text-red">(часы человека × ставка)</span>
+    </p>
+    <p style="font-size:14px;color:var(--text-dim);margin-top:6px">
+      <span class="text-teal">Цель:</span> переводить <span class="text-red">красные</span> блоки в <span class="text-amber">жёлтые</span>, а жёлтые в <span class="text-teal">бирюзовые</span>
+    </p>
+  </div>
+</div>
+
+<!-- ==========================================
+     SLIDE 4: PIPELINE BUILDER (INTERACTIVE)
+     ========================================== -->
+<div class="slide" data-slide="3" style="padding-bottom:20px">
+  <div class="slide-counter">04 / 20</div>
+  <img class="slide-logo-img" src="../../logo.png" alt="AI Mindset">
+  <div class="section-label anim-1">Практика</div>
+  <h2 class="anim-2" style="margin-bottom:4px">Конструктор пайплайна</h2>
+  <p class="text-dim anim-3" style="font-size:13px;margin-bottom:4px">Перетащите блоки на холст. Shift+клик для стрелок. Двойной клик — редактировать. Или загрузите шаблон:</p>
+  <div class="template-gallery anim-3" id="templateGallery">
+    <!-- Rendered by JS -->
+  </div>
+  <div class="pipeline-title-row anim-4">
+    <input class="pipeline-title-input" id="pipelineTitle" placeholder="Мой процесс" maxlength="60">
+    <span class="zoom-indicator" id="zoomIndicator">0 блоков, 0 связей</span>
+  </div>
+  <div class="builder-container anim-4" style="height:calc(100vh - 210px)">
+    <div class="builder-palette" id="builderPalette">
+      <h4>Блоки</h4>
+      <div class="palette-block type-auto" draggable="true" data-type="auto">Автомат</div>
+      <div class="palette-block type-review" draggable="true" data-type="review">Ревью</div>
+      <div class="palette-block type-human" draggable="true" data-type="human">Человек</div>
+      <div class="palette-block type-text" draggable="true" data-type="text">Текст</div>
+      <div style="flex:1"></div>
+      <h4>Связи</h4>
+      <p style="font-size:11px;color:var(--text-label);line-height:1.4">Shift+клик на первый блок, потом на второй — создать стрелку</p>
+      <div style="flex:1"></div>
+      <h4 class="workshop-only">Действия</h4>
+      <button class="builder-btn workshop-only" onclick="clearCanvas()" style="width:100%">Очистить</button>
+      <button class="builder-btn workshop-only" onclick="exportPipeline()" style="width:100%">Экспорт MD</button>
+    </div>
+    <div class="builder-canvas" id="builderCanvas">
+      <div class="builder-canvas-grid"></div>
+      <svg id="arrowsSvg" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:5"></svg>
+    </div>
+  </div>
+</div>
+
+<!-- ==========================================
+     SLIDE 5: PIPELINE EXAMPLES
+     ========================================== -->
+<div class="slide" data-slide="4">
+  <div class="slide-counter">05 / 20</div>
+  <img class="slide-logo-img" src="../../logo.png" alt="AI Mindset">
+  <div class="section-label anim-1">Примеры</div>
+  <h2 class="anim-2">Паттерны пайплайнов</h2>
+  <div class="card-grid anim-3">
+    <div class="info-card">
+      <h3 class="text-teal">Sequential</h3>
+      <p style="font-size:13px;color:var(--text-dim)">A → B → C<br>Контент: research → draft → edit → publish</p>
+      <div style="display:flex;gap:6px;margin-top:10px;align-items:center">
+        <span style="padding:4px 10px;background:var(--teal-dim);color:var(--teal);border-radius:4px;font-size:11px;font-family:var(--font-code)">Research</span>
+        <span style="color:var(--teal);opacity:0.5">→</span>
+        <span style="padding:4px 10px;background:var(--teal-dim);color:var(--teal);border-radius:4px;font-size:11px;font-family:var(--font-code)">Draft</span>
+        <span style="color:var(--teal);opacity:0.5">→</span>
+        <span style="padding:4px 10px;background:var(--amber-dim);color:var(--amber);border-radius:4px;font-size:11px;font-family:var(--font-code)">Review</span>
+      </div>
+    </div>
+    <div class="info-card">
+      <h3 class="text-amber">Parallel</h3>
+      <p style="font-size:13px;color:var(--text-dim)">A → [B, C, D] → E<br>Research: 3 агента параллельно → синтез</p>
+      <div style="display:flex;gap:6px;margin-top:10px;align-items:center;flex-wrap:wrap">
+        <span style="padding:4px 10px;background:var(--teal-dim);color:var(--teal);border-radius:4px;font-size:11px;font-family:var(--font-code)">Trigger</span>
+        <span style="color:var(--teal);opacity:0.5">→</span>
+        <span style="padding:4px 10px;background:var(--teal-dim);color:var(--teal);border-radius:4px;font-size:11px;font-family:var(--font-code)">Agent×3</span>
+        <span style="color:var(--teal);opacity:0.5">→</span>
+        <span style="padding:4px 10px;background:var(--amber-dim);color:var(--amber);border-radius:4px;font-size:11px;font-family:var(--font-code)">Merge</span>
+      </div>
+    </div>
+    <div class="info-card">
+      <h3 class="text-green">Gen-Discriminator</h3>
+      <p style="font-size:13px;color:var(--text-dim)">Generate → Judge × 5 → Iterate × 3<br>Качество через итерации</p>
+      <div style="display:flex;gap:6px;margin-top:10px;align-items:center;flex-wrap:wrap">
+        <span style="padding:4px 10px;background:var(--teal-dim);color:var(--teal);border-radius:4px;font-size:11px;font-family:var(--font-code)">Gen</span>
+        <span style="color:var(--teal);opacity:0.5">→</span>
+        <span style="padding:4px 10px;background:var(--amber-dim);color:var(--amber);border-radius:4px;font-size:11px;font-family:var(--font-code)">Judge×5</span>
+        <span style="color:var(--teal);opacity:0.5">↺</span>
+        <span style="padding:4px 10px;background:var(--green-dim);color:var(--green);border-radius:4px;font-size:11px;font-family:var(--font-code)">×3</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==========================================
+     SLIDE 6: AUTONOMY MAP
+     ========================================== -->
+<div class="slide" data-slide="5" style="justify-content:flex-start;padding-top:60px">
+  <div class="slide-counter">06 / 20</div>
+  <img class="slide-logo-img" src="../../logo.png" alt="AI Mindset">
+  <div class="section-label anim-1">Карта автономности</div>
+  <h2 class="anim-2" style="margin-bottom:4px">Ваша компания: что автоматизировать</h2>
+  <p class="text-dim anim-3" style="font-size:13px;margin-bottom:6px">Кликните на ячейку, чтобы вписать задачу. Кликните на уровень слева — описание.</p>
+  <div class="autonomy-grid-wrapper anim-4">
+    <div class="autonomy-grid" id="autonomyGrid">
+      <!-- Rendered by JS -->
+    </div>
+  </div>
+  <div class="pipeline-stats-bar" id="pipelineStatsBar" style="display:none">
+    <!-- Rendered by JS: shows pipeline stats from builder -->
+  </div>
+  <div style="display:flex;gap:10px;margin-top:10px" class="workshop-only">
+    <button class="export-btn" onclick="exportAutonomy()">Экспорт в Markdown</button>
+    <button class="export-btn" onclick="resetAutonomy()">Сбросить</button>
+  </div>
+</div>
+
+<!-- ==========================================
+     SLIDE 7: VSM DIAGRAM
+     ========================================== -->
+<div class="slide" data-slide="6">
+  <div class="slide-counter">07 / 20</div>
+  <img class="slide-logo-img" src="../../logo.png" alt="AI Mindset">
+  <div class="section-label anim-1">Value Stream Mapping</div>
+  <h2 class="anim-2" style="margin-bottom:4px">Токен-пайплайн: 5 стадий</h2>
+  <p class="text-dim anim-3" style="font-size:13px;margin-bottom:8px">Кликните на стадию для деталей. Наблюдайте за потоком токенов.</p>
+  <div class="vsm-container anim-4">
+    <div class="vsm-pipeline" id="vsmPipeline">
+      <!-- Rendered by JS -->
+    </div>
+    <div class="vsm-flow-track">
+      <div class="vsm-flow-dot"></div>
+    </div>
+    <div class="vsm-detail" id="vsmDetail">
+      <h3 id="vsmDetailTitle"></h3>
+      <div class="detail-row">
+        <div class="detail-col">
+          <div class="detail-label">Что происходит</div>
+          <div class="detail-value" id="vsmDetailWhat"></div>
+        </div>
+        <div class="detail-col">
+          <div class="detail-label">Время / стоимость</div>
+          <div class="detail-value" id="vsmDetailCost"></div>
+        </div>
+        <div class="detail-col">
+          <div class="detail-label">Инструменты</div>
+          <div class="detail-value" id="vsmDetailTools"></div>
+        </div>
+      </div>
+      <div>
+        <div class="detail-label">Промпт</div>
+        <div class="prompt-box" id="vsmDetailPrompt" onclick="copyText(this)"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==========================================
+     SLIDE 8: SESSION FORMAT
+     ========================================== -->
+<div class="slide" data-slide="7">
+  <div class="slide-counter">08 / 20</div>
+  <img class="slide-logo-img" src="../../logo.png" alt="AI Mindset">
+  <div class="section-label anim-1">Формат</div>
+  <h2 class="anim-2">Declare → Build → Debrief</h2>
+  <div class="timeline anim-3">
+    <div class="timeline-row teal-row">
+      <span class="time">0:00–0:10</span>
+      <span class="desc"><strong>Declare</strong> — каждый объявляет, что будет строить на сессии</span>
+    </div>
+    <div class="timeline-row green-row">
+      <span class="time">0:10–0:45</span>
+      <span class="desc"><strong>Build</strong> — работа руками: собираем стек, пишем пайплайны</span>
+    </div>
+    <div class="timeline-row amber-row">
+      <span class="time">0:45–0:55</span>
+      <span class="desc"><strong>Debrief</strong> — показываем результат, обратная связь, фиксация</span>
+    </div>
+    <div class="timeline-row blue-row">
+      <span class="time">0:55–1:00</span>
+      <span class="desc"><strong>Commit</strong> — записываем, что делаем до следующей встречи</span>
+    </div>
+  </div>
+  <div class="anim-4" style="margin-top:16px;padding:14px 20px;background:var(--bg-card);border:1px solid var(--border);border-radius:8px">
+    <p style="font-size:14px;color:var(--text-dim)">
+      <span class="text-teal">Правило:</span> никаких лекций. 80% времени — практика. Ведущий — фасилитатор, не лектор.
+    </p>
+  </div>
+</div>
+
+<!-- ==========================================
+     SLIDE 9: PROMPT CARDS
+     ========================================== -->
+<div class="slide" data-slide="8" style="justify-content:flex-start;padding-top:60px">
+  <div class="slide-counter">09 / 20</div>
+  <img class="slide-logo-img" src="../../logo.png" alt="AI Mindset">
+  <div class="section-label anim-1">Практические треки</div>
+  <h2 class="anim-2" style="margin-bottom:6px">6 треков для сессии Build</h2>
+  <div class="prompt-grid anim-3" id="promptGrid">
+    <!-- Rendered by JS -->
+  </div>
+</div>
+
+<!-- ==========================================
+     SLIDE 10: MEMORY TYPES
+     ========================================== -->
+<div class="slide" data-slide="9">
+  <div class="slide-counter">10 / 20</div>
+  <img class="slide-logo-img" src="../../logo.png" alt="AI Mindset">
+  <div class="section-label anim-1">Память AI</div>
+  <h2 class="anim-2">3 типа памяти</h2>
+  <div class="card-grid anim-3">
+    <div class="info-card">
+      <h3><span class="text-teal">Эпизодическая</span></h3>
+      <p>Что происходило — звонки, встречи, сообщения. Причинно-следственные события с хронологией. Важен период полураспада: данные из звонка двухлетней давности менее актуальны, чем вчерашние.</p>
+      <div class="prompt-box" onclick="copyText(this)" style="margin-top:auto">создай context/calls/ и напиши скрипт ежедневной индексации: из новых звонков извлечь решения, action items, коммитменты, метрики. каждый факт с прямой цитатой и ссылкой на источник. факты старше 90 дней — confidence score &lt; 0.5</div>
+    </div>
+    <div class="info-card">
+      <h3><span class="text-amber">Семантическая</span></h3>
+      <p>Факты и знания — LLM силён в этом по умолчанию (pre-train). CLAUDE.md, skills, стандарты команды. Внутренние знания модели + контекст компании.</p>
+      <div class="prompt-box" onclick="copyText(this)" style="margin-top:auto">проанализируй мои последние 20 чатов и извлеки повторяющиеся инструкции. оформи как правила в CLAUDE.md. группируй по: форматирование, процессы, инструменты, запреты</div>
+    </div>
+    <div class="info-card">
+      <h3><span class="text-green">Процедурная</span></h3>
+      <p>Навыки и процедуры — skills, workflows, шаблоны. Должностные инструкции агента. Не жёсткие инструкции, а пространство для принятия решений.</p>
+      <div class="prompt-box" onclick="copyText(this)" style="margin-top:auto">проведи со мной интервью о процессе [задача]. задай 15 вопросов: что делаешь каждый день, какие задачи повторяются, где тратишь время, какие решения принимаешь. по ответам сгенерируй skill.md с eval-критериями</div>
+    </div>
+  </div>
+</div>
+
+<!-- ==========================================
+     SLIDE 11: EVALS FRAMEWORK
+     ========================================== -->
+<div class="slide" data-slide="10">
+  <div class="slide-counter">11 / 20</div>
+  <img class="slide-logo-img" src="../../logo.png" alt="AI Mindset">
+  <div class="section-label anim-1">Качество</div>
+  <h2 class="anim-2">"Evals are the new PRD"</h2>
+  <div class="card-grid cols-2 anim-3">
+    <div class="info-card">
+      <h3 class="text-teal">Принцип TDD для скиллов</h3>
+      <ul>
+        <li>Сначала eval (что хочу получить), потом skill</li>
+        <li>Binary pass/fail — никаких шкал 1–5</li>
+        <li>5 параметров: свежесть данных, практичность, релевантность, язык, полнота</li>
+        <li>Три круга итераций generator-discriminator</li>
+      </ul>
+    </div>
+    <div class="info-card">
+      <h3 class="text-amber">Операционные метрики</h3>
+      <ul>
+        <li>Adoption rate — сколько сотрудников используют</li>
+        <li>Глубина сессии — сколько правок требует агент</li>
+        <li>NPS — спрашивать в конце скилла (1–9)</li>
+        <li>Стоимость — цена workflow vs экономия времени</li>
+        <li>AB-тестирование: 2 версии скилла через eval</li>
+      </ul>
+    </div>
+  </div>
+  <div class="prompt-box anim-4" onclick="copyText(this)" style="margin-top:16px">
+напиши eval для [skill]. критерии: 1) релевантность моему контексту, 2) свежесть данных (&lt;6 мес), 3) наличие цифр и источников, 4) actionable выводы, 5) длина ответа. формат: pass/fail по каждому. если fail — объясни почему и переделай. в конце спроси NPS 1–9, запиши в лог.
+  </div>
+</div>
+
+<!-- ==========================================
+     SLIDE 12: STEPAN'S LIVE SETUP
+     ========================================== -->
+<div class="slide" data-slide="11" style="justify-content:flex-start;padding-top:60px">
+  <div class="slide-counter">12 / 20</div>
+  <img class="slide-logo-img" src="../../logo.png" alt="AI Mindset">
+  <div class="section-label anim-1">Кейс</div>
+  <h2 class="anim-2" style="margin-bottom:8px">Архитектура Степана — живой пример</h2>
+  <p class="text-dim anim-3" style="font-size:13px;margin-bottom:8px">Система, построенная на 200 портфельных компаниях + интервью с Y Combinator и Linux Foundation AI</p>
+  <div class="stepan-diagram anim-4">
+    <div class="stepan-block">
+      <h4>Структура папок</h4>
+      <div class="mono-tree">context/
+  calls/          ← ~600 звонков + index.md
+  emails/
+  telegram/
+  sessions/       ← логи каждой сессии Claude
+  styles/         ← стили письма, изображений
+content/          ← артефакты агентов
+projects/
+  aim-lab/        ← лаборатория как проект
+deals/            ← инвестиционные сделки</div>
+    </div>
+    <div class="stepan-block">
+      <h4>SQLite граф контекста</h4>
+      <p style="font-size:12px;color:rgba(255,255,255,0.65);line-height:1.6">Запускается ежедневно. Читает все новые звонки, Telegram, имейлы. Извлекает: решения, действия, сделки, коммитменты, метрики. Каждый факт — с прямой цитатой и ссылкой на источник. Контролирует галлюцинации: агент не может придумать факт без цитаты.</p>
+      <p style="font-size:12px;color:var(--teal);margin-top:8px">Формат: entity, type, value, source, timestamp, confidence</p>
+    </div>
+    <div class="stepan-block">
+      <h4>Research-агент с 5 судьями</h4>
+      <p style="font-size:12px;color:rgba(255,255,255,0.65);line-height:1.6">Файл research/skill.md. При запросе: быстрый ресёрч → 1 агент, стандартный → 2–3 субагента, глубокий → 3–5 + Quality Reviewer. 5 судей критикуют по: свежесть данных, практичность, релевантность, язык, полнота. 3 круга итераций. ~40 минут, результат лучше дня ручной работы.</p>
+    </div>
+    <div class="stepan-block">
+      <h4>Регулярные агенты</h4>
+      <p style="font-size:12px;color:rgba(255,255,255,0.65);line-height:1.6"><span class="text-teal">OpenClaw ночной дайджест:</span> всю ночь читает Twitter по заданным темам. В 9 утра отправляет дайджест в Telegram.</p>
+      <p style="font-size:12px;color:rgba(255,255,255,0.65);line-height:1.6;margin-top:6px"><span class="text-teal">Calls indexing:</span> index.md в папке со звонками. Правило в skill: «при добавлении звонка обнови индекс». 600 звонков — работает.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ==========================================
+     SLIDE 13: DATA MAP
+     ========================================== -->
+<div class="slide" data-slide="12" style="justify-content:flex-start;padding-top:60px">
+  <div class="slide-counter">13 / 20</div>
+  <img class="slide-logo-img" src="../../logo.png" alt="AI Mindset">
+  <div class="section-label anim-1">Данные</div>
+  <h2 class="anim-2" style="margin-bottom:8px">Карта данных компании</h2>
+  <p class="text-dim anim-3" style="font-size:13px;margin-bottom:8px">Три типа данных → единая шина → агенты. Вместо прямого подключения каждого агента к каждому источнику.</p>
+  <div class="data-map anim-4">
+    <div class="data-col">
+      <h4 class="text-teal">Внутренние БД</h4>
+      <ul>
+        <li style="color:var(--teal)">Postgres — основная БД продукта</li>
+        <li style="color:var(--teal)">ClickHouse — аналитика, метрики</li>
+        <li style="color:var(--teal)">SQLite — контекст-граф, локальные данные</li>
+        <li style="color:var(--teal)">Файлы — markdown, документация, онтология</li>
+      </ul>
+    </div>
+    <div class="data-col">
+      <h4 class="text-blue">SaaS-системы</h4>
+      <ul>
+        <li style="color:var(--blue)">Gmail — переписка, треды</li>
+        <li style="color:var(--blue)">Slack — командное общение</li>
+        <li style="color:var(--blue)">Notion — документация, вики</li>
+        <li style="color:var(--blue)">CRM — сделки, контакты</li>
+        <li style="color:var(--blue)">Calendar — встречи, расписание</li>
+      </ul>
+    </div>
+    <div class="data-col">
+      <h4 class="text-amber">Потоковые данные</h4>
+      <ul>
+        <li style="color:var(--amber)">Метрики продукта — клики, конверсии</li>
+        <li style="color:var(--amber)">Звонки — транскрипты в реальном времени</li>
+        <li style="color:var(--amber)">Сообщения — Telegram, чаты</li>
+        <li style="color:var(--amber)">Алерты — мониторинг, инциденты</li>
+      </ul>
+    </div>
+  </div>
+  <div class="data-bus anim-5">
+    единая шина (MCP + Gateway + Policy Engine) → агенты получают данные через одну точку с политикой и аутентификацией
+  </div>
+  <p class="text-dim anim-6" style="font-size:12px;margin-top:8px">Инструменты: SuperMemory, ZEP (bi-temporal), QMD (гибридный поиск), Glean Enterprise Graph</p>
+</div>
+
+<!-- ==========================================
+     SLIDE 14: SECURITY — REAL ATTACKS
+     ========================================== -->
+<div class="slide" data-slide="13" style="justify-content:flex-start;padding-top:60px">
+  <div class="slide-counter">14 / 20</div>
+  <img class="slide-logo-img" src="../../logo.png" alt="AI Mindset">
+  <div class="section-label anim-1">Безопасность</div>
+  <h2 class="anim-2" style="margin-bottom:8px">Реальные атаки и инциденты</h2>
+  <p class="text-dim anim-3" style="font-size:13px;margin-bottom:8px">88% организаций подтвердили или подозревали инциденты с AI-агентами. Антивируса от агентов не существует.</p>
+  <div class="incident-grid anim-4">
+    <div class="incident-card">
+      <h4>7000 открытых MCP серверов</h4>
+      <p>Корпоративные MCP-серверы без аутентификации. В стандарте MCP изначально не было авторизации — запустили и забыли добавить.</p>
+    </div>
+    <div class="incident-card">
+      <h4>Unicode injection</h4>
+      <p>Невидимые Unicode-символы в тексте. LLM видит скрытые инструкции, пользователь — нет. Опасно в Telegram, в браузерах.</p>
+    </div>
+    <div class="incident-card">
+      <h4>Вредоносный плагин #1 в OpenClaw Hub</h4>
+      <p>Топ-1 плагин в App Store был вредоносным. Скилл = инструкция для агента делать что угодно на компьютере. Может слить пароли.</p>
+    </div>
+    <div class="incident-card">
+      <h4>Ramp MCP — copy-paste атака</h4>
+      <p>Компания опубликовала «скачай и запусти эту строчку» в Twitter. При взломе DNS или фишинге — запускается произвольный код.</p>
+    </div>
+    <div class="incident-card">
+      <h4>$80K токенов за ночь</h4>
+      <p>Маркетолог оставила агента работать ночью с неограниченным бюджетом. Агент «делал, делал, делал» — без лимита и алерта.</p>
+    </div>
+    <div class="incident-card">
+      <h4>Системный промпт утекает за часы</h4>
+      <p>Системный промпт любого продукта появляется в открытом доступе в течение пары часов после запуска. Не хранить секреты в промпте.</p>
+    </div>
+  </div>
+  <div class="anim-5" style="margin-top:12px;padding:12px 20px;background:var(--bg-card);border:1px solid var(--border);border-radius:8px">
+    <p style="font-size:13px;color:var(--text-dim)"><span class="text-red">Принцип:</span> лучшая защита — не давать агентам делать то, для чего они не созданы. «Запрещено всё, что не разрешено» (корпоративная среда).</p>
+  </div>
+</div>
+
+<!-- ==========================================
+     SLIDE 15: 4 ROLES OF HUMANS
+     ========================================== -->
+<div class="slide" data-slide="14">
+  <div class="slide-counter">15 / 20</div>
+  <img class="slide-logo-img" src="../../logo.png" alt="AI Mindset">
+  <div class="section-label anim-1">Люди и AI</div>
+  <h2 class="anim-2">4 роли, которые остаются за человеком</h2>
+  <div class="roles-grid anim-3">
+    <div class="role-card" style="border-top:3px solid var(--teal)">
+      <div class="role-icon" style="color:var(--teal)">&#9635;</div>
+      <h4 class="text-teal">Архитектура</h4>
+      <p>Проектирование системы. Какие агенты, какие данные, какие связи. Человек решает «что строить».</p>
+    </div>
+    <div class="role-card" style="border-top:3px solid var(--blue)">
+      <div class="role-icon" style="color:var(--blue)">&#9672;</div>
+      <h4 class="text-blue">Отношения</h4>
+      <p>Эмпатия, переговоры, мотивация. AI не заменяет субъективные ощущения и человеческий контакт.</p>
+    </div>
+    <div class="role-card" style="border-top:3px solid var(--amber)">
+      <div class="role-icon" style="color:var(--amber)">&#9671;</div>
+      <h4 class="text-amber">Валидация</h4>
+      <p>Проверка результатов. Человек определяет, правильно ли агент выполнил задачу. Eval — это человеческая функция.</p>
+    </div>
+    <div class="role-card" style="border-top:3px solid var(--red)">
+      <div class="role-icon" style="color:var(--red)">&#9670;</div>
+      <h4 class="text-red">Ответственность</h4>
+      <p>Принятие решений. AI не несёт ответственности — это делает человек. Chain-of-thought как документация.</p>
+    </div>
+  </div>
+  <div class="anim-4" style="margin-top:16px;padding:16px 20px;background:var(--bg-card);border:1px solid var(--border);border-radius:8px;border-left:3px solid var(--teal)">
+    <p style="font-size:14px;color:rgba(255,255,255,0.8);font-style:italic">
+      «AI-агент — это не софт и не сотрудник. AI-трансформация — это не киберпанк. Мы не пытаемся всех уволить и поставить роботов. Задача лидера — показать, что это путь к победе, а не угроза.»
+    </p>
+  </div>
+</div>
+
+<!-- ==========================================
+     SLIDE 16: FULL PROMPT — FIRST AI-NATIVE STACK
+     ========================================== -->
+<div class="slide" data-slide="15" style="justify-content:flex-start;padding-top:60px">
+  <div class="slide-counter">16 / 20</div>
+  <img class="slide-logo-img" src="../../logo.png" alt="AI Mindset">
+  <div class="section-label anim-1">Промпт-старт</div>
+  <h2 class="anim-2" style="margin-bottom:4px">Полный промпт: мой первый AI-native стек</h2>
+  <p class="text-dim anim-3" style="font-size:13px;margin-bottom:4px">Скопируйте и вставьте в Claude Code. Замените [опиши] и [список] на свои данные.</p>
+  <div class="full-prompt-box anim-4" onclick="copyText(this)">я хочу построить AI-native стек для моей компании [опиши: отрасль, размер, основные процессы].
+
+шаг 1 — инфраструктура:
+подключи MCP к моим сервисам: [список: Gmail, Slack, Notion, CRM, Calendar].
+настрой settings.json с правилами доступа: читать — всегда, писать — спрашивать, удалять — никогда.
+настрой роутинг моделей: грамматика → Haiku, ресёрч → Opus.
+
+шаг 2 — данные:
+создай структуру папок: context/ (calls/, emails/, telegram/, sessions/), content/ (артефакты), projects/ (по проекту).
+в каждой папке — index.md, который обновляется при добавлении файла.
+напиши правило индексации для CLAUDE.md.
+
+шаг 3 — первый агент:
+создай research skill.md с 3 параллельными субагентами (компания, технология, рынок) + quality reviewer.
+quality reviewer оценивает по 5 параметрам: свежесть, практичность, релевантность, язык, полнота.
+3 круга итераций generator-discriminator.
+
+шаг 4 — eval:
+напиши eval для этого скилла: 3 критерия pass/fail + NPS в конце.
+формат: binary pass/fail по каждому критерию, если fail — объясни и переделай.
+
+шаг 5 — governance:
+настрой логирование всех сессий: время, задача, ошибки, какие MCP вызывались.
+последний шаг каждого скилла — сохранить лог сессии.
+
+начни с шага 1 и показывай результат каждого шага.</div>
+</div>
+
+<!-- ==========================================
+     SLIDE 17: WEEK 2 SCHEDULE
+     ========================================== -->
+<div class="slide" data-slide="16">
+  <div class="slide-counter">17 / 20</div>
+  <img class="slide-logo-img" src="../../logo.png" alt="AI Mindset">
+  <div class="section-label anim-1">Расписание</div>
+  <h2 class="anim-2">Неделя 2 — план</h2>
+  <div class="timeline anim-3">
+    <div class="timeline-row teal-row">
+      <span class="time">Пн</span>
+      <span class="desc">Разбор 6-слойного стека — какие слои у вас уже есть</span>
+    </div>
+    <div class="timeline-row green-row">
+      <span class="time">Вт</span>
+      <span class="desc">Токен-пайплайн: выбрать процесс, нарисовать VSM</span>
+    </div>
+    <div class="timeline-row amber-row">
+      <span class="time">Ср</span>
+      <span class="desc">Focus session — build: конструктор пайплайна (эта сессия)</span>
+    </div>
+    <div class="timeline-row blue-row">
+      <span class="time">Чт</span>
+      <span class="desc">Карта автономности — заполнить по отделам</span>
+    </div>
+    <div class="timeline-row teal-row">
+      <span class="time">Пт</span>
+      <span class="desc">Evals и память — настроить eval для одного skill</span>
+    </div>
+  </div>
+</div>
+
+<!-- ==========================================
+     SLIDE 18: GOALS + HOMEWORK
+     ========================================== -->
+<div class="slide" data-slide="17">
+  <div class="slide-counter">18 / 20</div>
+  <img class="slide-logo-img" src="../../logo.png" alt="AI Mindset">
+  <div class="section-label anim-1">Домашнее задание</div>
+  <h2 class="anim-2">До следующей встречи</h2>
+  <div class="anim-3" id="goalsList">
+    <div class="goal-item">
+      <div class="goal-check" onclick="toggleGoal(this)"></div>
+      <span>Заполнить карту автономности для своей компании (минимум 3 отдела)</span>
+    </div>
+    <div class="goal-item">
+      <div class="goal-check" onclick="toggleGoal(this)"></div>
+      <span>Нарисовать токен-пайплайн для одного реального процесса</span>
+    </div>
+    <div class="goal-item">
+      <div class="goal-check" onclick="toggleGoal(this)"></div>
+      <span>Написать eval для одного skill (3+ критерия, pass/fail)</span>
+    </div>
+    <div class="goal-item">
+      <div class="goal-check" onclick="toggleGoal(this)"></div>
+      <span>Настроить context/ — структура папок для памяти агентов</span>
+    </div>
+    <div class="goal-item">
+      <div class="goal-check" onclick="toggleGoal(this)"></div>
+      <span>Попробовать один промпт из треков (слайд 9) — записать результат</span>
+    </div>
+  </div>
+  <button class="export-btn anim-4 workshop-only" onclick="exportGoals()" style="margin-top:14px">Экспорт прогресса</button>
+</div>
+
+<!-- ==========================================
+     SLIDE 19: KEY QUOTES
+     ========================================== -->
+<div class="slide" data-slide="18">
+  <div class="slide-counter">19 / 20</div>
+  <img class="slide-logo-img" src="../../logo.png" alt="AI Mindset">
+  <div class="section-label anim-1">Ключевые мысли</div>
+  <h2 class="anim-2" style="margin-bottom:12px">Цитаты из лекции</h2>
+  <div style="display:flex;flex-direction:column;gap:12px" class="anim-3">
+    <div style="padding:14px 20px;background:var(--bg-card);border:1px solid var(--border);border-radius:8px;border-left:3px solid var(--teal)">
+      <p style="font-size:14px;color:rgba(255,255,255,0.8);font-style:italic">«Мы не инженерим, мы не дизайним, мы не интегрируем AI — мы его открываем. Это процесс первооткрывания, как физика.»</p>
+    </div>
+    <div style="padding:14px 20px;background:var(--bg-card);border:1px solid var(--border);border-radius:8px;border-left:3px solid var(--amber)">
+      <p style="font-size:14px;color:rgba(255,255,255,0.8);font-style:italic">«Задизайнить идеальную систему невозможно. Единственный способ добиться хорошего результата — это оценка. Пока мы не измеряем результаты, мы не получим результат.»</p>
+    </div>
+    <div style="padding:14px 20px;background:var(--bg-card);border:1px solid var(--border);border-radius:8px;border-left:3px solid var(--blue)">
+      <p style="font-size:14px;color:rgba(255,255,255,0.8);font-style:italic">«Если у вас политика "нельзя использовать ChatGPT" — все его используют, просто никому не говорят. У вас все риски и никакого апсайда.»</p>
+    </div>
+    <div style="padding:14px 20px;background:var(--bg-card);border:1px solid var(--border);border-radius:8px;border-left:3px solid var(--green)">
+      <p style="font-size:14px;color:rgba(255,255,255,0.8);font-style:italic">«There is no product that you can buy for any money that would give you the best agent for marketing or sales.»</p>
+    </div>
+    <div style="padding:14px 20px;background:var(--bg-card);border:1px solid var(--border);border-radius:8px;border-left:3px solid var(--red)">
+      <p style="font-size:14px;color:rgba(255,255,255,0.8);font-style:italic">«Каждое слово, сказанное на звонке, должно автоматически попадать в граф контекста. Компания как граф токенов.»</p>
+    </div>
+  </div>
+</div>
+
+<!-- ==========================================
+     SLIDE 20: CLOSING
+     ========================================== -->
+<div class="slide" data-slide="19">
+  <div class="slide-counter">20 / 20</div>
+  <img class="slide-logo-img" src="../../logo.png" alt="AI Mindset">
+  <div style="text-align:center;width:100%">
+    <div class="section-label anim-1">Конец сессии</div>
+    <h1 class="anim-2" style="text-align:center">Система поверх модели,<br>а не промпт поверх модели</h1>
+    <p class="anim-3" style="font-size:16px;color:var(--text-dim);margin-top:12px">
+      AI-Native — это архитектура из 6 слоёв, не инструмент.<br>
+      Каждый токен должен работать на систему.
+    </p>
+    <div class="anim-4" style="margin-top:32px;display:flex;justify-content:center;gap:24px">
+      <div style="text-align:center">
+        <div style="font-family:var(--font-code);font-size:11px;color:var(--teal);text-transform:uppercase;letter-spacing:2px;margin-bottom:6px">Неделя 2</div>
+        <div style="font-family:var(--font-heading);font-size:28px;color:var(--text)">Архитектура</div>
+      </div>
+      <div style="color:var(--border);font-size:28px;display:flex;align-items:center">→</div>
+      <div style="text-align:center">
+        <div style="font-family:var(--font-code);font-size:11px;color:var(--text-label);text-transform:uppercase;letter-spacing:2px;margin-bottom:6px">Неделя 3</div>
+        <div style="font-family:var(--font-heading);font-size:28px;color:var(--text-dim)">Имплементация</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- end .deck -->
+
+<!-- ============================================
+     JAVASCRIPT
+     ============================================ -->
+<script>
+// ============================================
+// DATA
+// ============================================
+
+const LAYERS = [
+  {
+    id: 'infra',
+    num: '01',
+    name: 'Infrastructure',
+    icon: '\u2699',
+    color: 'var(--teal)',
+    bg: 'var(--teal-dim)',
+    title: 'Infrastructure — коннекторы и безопасность',
+    desc: 'Базовый слой: как AI подключается к вашим системам, какие ограничения работают, как маршрутизируются запросы между моделями. Единая шина вместо прямого подключения каждого агента к каждому источнику. Gateway решает 6 задач: аутентификация, ролевой доступ, бюджетирование токенов, DLP (маскировка PII), Policy Engine, аудит.',
+    tools: ['MCP серверы (Gmail, Slack, Notion, CRM, Calendar)', 'NemoGuardrails (NVIDIA)', 'settings.json (Claude Code)', 'OpenRouter (роутинг, 60x разница в цене)', 'LangFuse (трейсинг)', 'Citadel (policy engine)'],
+    prompt: 'у меня компания [опиши]. мне нужно:\n1. настроить MCP-серверы: подключить [Notion/Slack/Gmail/Calendar] к Claude Code\n2. написать settings.json с правами: читать — всегда, писать — спрашивать, удалять — никогда\n3. настроить guardrails: запретить отправку PII в API (замена на placeholder)\n4. настроить роутинг моделей: грамматика → Haiku, ресёрч → Opus\n5. добавить логирование: каждый вызов MCP записывать в лог с timestamp\nпокажи конфигурацию и объясни каждый шаг'
+  },
+  {
+    id: 'data',
+    num: '02',
+    name: 'Data & Context',
+    icon: '\u25C6',
+    color: 'var(--blue)',
+    bg: 'var(--blue-dim)',
+    title: 'Data & Context — память и контекст',
+    desc: 'Контекст-инжиниринг — это то, над чем реально работает лаборатория. Не промпт-инжиниринг, а создание правильного контекста. Граф контекста: вместо загрузки 15k+ токенов из сырых звонков — извлекать сущности в момент получения и хранить в БД. При запросе агент обращается к БД (5ms, 0 LLM-токенов).',
+    tools: ['SQLite (ежедневная индексация)', 'SuperMemory (17k GitHub stars)', 'ZEP (bi-temporal memory)', 'QMD (гибридный BM25+vector поиск)', 'context/ структура папок', 'Glean Enterprise Graph'],
+    prompt: 'создай систему контекста для моей работы:\n1. структура папок: context/ (calls/, emails/, telegram/, sessions/), content/ (артефакты), projects/ (по проекту)\n2. в каждой папке — index.md, который обновляется при добавлении файла\n3. напиши скрипт ежедневной индексации: из новых звонков извлечь решения, action items, коммитменты, метрики\n4. каждый факт сохранять с прямой цитатой и ссылкой на источник\n5. добавить decay: факты старше 90 дней получают confidence score < 0.5\nформат хранения: SQLite с полями entity, type, value, source, timestamp, confidence'
+  },
+  {
+    id: 'orch',
+    num: '03',
+    name: 'Orchestration',
+    icon: '\u25CE',
+    color: 'var(--green)',
+    bg: 'var(--green-dim)',
+    title: 'Orchestration — оркестрация агентов',
+    desc: '4 типа агентов: cron (по расписанию), on-demand (по запросу), event-driven (по триггеру), mirror (зеркало человека). 5 топологий координации: sequential, parallel, group chat, business process, hybrid. Multi-agent создаётся тремя строчками текста в skill.md.',
+    tools: ['Sequential pipeline', 'Parallel fan-out', 'Group chat (AutoGen)', 'Business process (Temporal/Moti/Inngest)', 'Hybrid topology', 'Playwright (браузер)'],
+    prompt: 'создай research-агент с параллельными субагентами:\n1. при запросе "исследуй [тему]" запусти 4 субагента параллельно:\n   - агент компании: финансы, команда, продукт, рынок\n   - агент технологии: стек, архитектура, бенчмарки\n   - агент рынка: конкуренты, тренды, размер рынка\n   - агент контекста: как это связано с моей работой\n2. после сбора — quality reviewer оценивает каждую секцию по 5 параметрам:\n   свежесть данных, практичность, релевантность, язык, полнота\n3. три круга итераций generator-discriminator\n4. финальный результат: markdown с executive summary, детали по секциям, источники\nнапиши skill.md файл целиком'
+  },
+  {
+    id: 'skills',
+    num: '04',
+    name: 'Skills & Workflows',
+    icon: '\u25A3',
+    color: 'var(--amber)',
+    bg: 'var(--amber-dim)',
+    title: 'Skills & Workflows — навыки и процессы',
+    desc: 'TDD для AI: сначала eval, потом skill. Маркетплейс навыков — приватный GitHub для команды: версии, fork, дистрибуция. Автор скилла — эксперт в своей области, не CEO. Логирование каждой сессии: время, задача, ошибки, какие MCP вызывались.',
+    tools: ['skill.md (декларативные навыки)', 'eval.md (критерии качества)', 'Приватный GitHub (маркетплейс)', 'Moti / Inngest / Temporal (production)', 'Generator-Discriminator (5 судей \u00D7 3 круга)', 'Eris.com / LangFuse (трейсинг)'],
+    prompt: 'помоги мне создать систему evals для моих скиллов:\n1. unit test: для каждого шага агента — что он должен вернуть, критерии pass/fail\n2. integration test: полный процесс от запроса до результата\n3. business metric: как измерить реальный эффект (время, стоимость, качество)\n4. NPS: в конце каждого скилла спрашивать оценку 1-9, записывать в лог\n5. AB-тест: хранить 2 версии скилла, прогонять обе через eval, сравнивать\nнапиши eval.md для моего [research/support/content] скилла'
+  },
+  {
+    id: 'people',
+    num: '05',
+    name: 'People & Org',
+    icon: '\u25C8',
+    color: 'var(--cyan)',
+    bg: 'rgba(34,211,238,0.12)',
+    title: 'People & Organization — люди и роли',
+    desc: 'AI Champion: обычный сотрудник, не консультант. Citibank — 4000 человек. Компилятор людей: скилл-интервью → skill.md. 4 роли человека: архитектура, отношения, валидация, ответственность. Найм: до открытия вакансии — «докажи, что нельзя сделать с AI».',
+    tools: ['Скилл-интервью \u2192 skill.md', 'AI Champion (внутренний амбассадор)', '4 роли человека в AI-Native', 'Принцип найма: "докажи что нельзя с AI"', 'Компетенции: 4 уровня (Ramp)'],
+    prompt: 'проведи со мной "компилятор людей" — интервью из 15 вопросов:\n1. чем ты занимаешься каждый день?\n2. какие задачи повторяются каждую неделю?\n3. где ты тратишь больше всего времени?\n4. какие решения ты принимаешь? на основе чего?\n5. какие данные тебе нужны для работы? где они лежат?\n6. с кем ты коммуницируешь? как часто? о чём?\n7. что ты делаешь, когда что-то идёт не так?\n8. какие инструменты ты используешь?\n9. что бы ты делегировал, если мог?\n10. какой идеальный результат твоей работы?\nна основе ответов сгенерируй skill.md — должностную инструкцию для агента'
+  },
+  {
+    id: 'gov',
+    num: '06',
+    name: 'Governance',
+    icon: '\u25C7',
+    color: 'var(--red)',
+    bg: 'var(--red-dim)',
+    title: 'Governance — управление и контроль',
+    desc: 'Вертикальный слой, пронизывающий всё. Бюджет AI конкурирует с ФОТ, не ПО. Токены по сотрудникам = метрика внедрения. Chain-of-thought как документация для compliance (FINRA). 4 уровня компетенций: не-пользователь → пользователь → нетехнический билдер → AI builder.',
+    tools: ['Токен-трекинг по сотрудникам', 'ROI калькулятор (токены vs часы)', 'Chain-of-thought аудит (FINRA)', '4 уровня: не-пользователь \u2192 AI builder', 'Еженедельный AI-отчёт', 'DLP маскировка PII'],
+    prompt: 'создай систему governance для AI в моей компании:\n1. бюджет: лимиты токенов по сотрудникам/отделам, алерты при превышении\n2. аудит: логирование всех LLM-вызовов (кто, когда, какая модель, сколько токенов)\n3. DLP: маскировка PII перед отправкой в API (имена → placeholder, документы → хэш)\n4. метрики внедрения: adoption rate, частота использования, глубина сессий\n5. compliance: сохранять chain-of-thought как документацию решений\n6. еженедельный отчёт: кто сколько использует, ROI по задачам\nнапиши шаблон governance-policy.md'
+  }
+];
+
+const VSM_STAGES = [
+  {
+    name: '\u041F\u0440\u0438\u0451\u043C',
+    sub: 'intake',
+    title: '\u041F\u0440\u0438\u0451\u043C — сбор входных данных',
+    what: 'Сбор запроса, контекста, ограничений. Классификация типа задачи. Маршрутизация к нужному агенту/модели.',
+    cost: '~0.5 сек / ~500 токенов. Стоимость: $0.001\u20130.01',
+    tools: 'MCP коннекторы, классификатор (haiku/flash), router',
+    prompt: 'создай classifier.md: входящий запрос \u2192 определи тип (research/action/question/creative) \u2192 направь на нужную модель (haiku для простых, opus для сложных)'
+  },
+  {
+    name: '\u0420\u0435\u0448\u0435\u043D\u0438\u0435',
+    sub: 'routing',
+    title: '\u0420\u0435\u0448\u0435\u043D\u0438\u0435 — выбор стратегии',
+    what: 'Выбор модели, агента, топологии. Определение нужного контекста. Планирование шагов.',
+    cost: '~1\u20133 сек / ~2K токенов. Стоимость: $0.01\u20130.05',
+    tools: 'OpenRouter, orchestrator, context retrieval (QMD/RAG)',
+    prompt: 'напиши orchestrator.md: для research-запроса подбери 3 источника контекста, выбери топологию (parallel если >2 аспектов, sequential если линейно), запланируй шаги'
+  },
+  {
+    name: '\u041E\u0431\u0440\u0430\u0431\u043E\u0442\u043A\u0430',
+    sub: 'processing',
+    title: '\u041E\u0431\u0440\u0430\u0431\u043E\u0442\u043A\u0430 — основная работа',
+    what: 'Генерация артефакта. Основная трата токенов. Возможны параллельные потоки и итерации.',
+    cost: '~10\u201360 сек / ~10\u201350K токенов. Стоимость: $0.05\u20130.50',
+    tools: 'Claude/GPT, субагенты, generator-discriminator loop',
+    prompt: 'для задачи [X] запусти generator (opus) \u2192 5 discriminators (haiku) проверяют по критериям \u2192 итерируй 3 раза \u2192 финальный артефакт'
+  },
+  {
+    name: '\u0414\u0435\u0439\u0441\u0442\u0432\u0438\u0435',
+    sub: 'action',
+    title: '\u0414\u0435\u0439\u0441\u0442\u0432\u0438\u0435 — применение результата',
+    what: 'Запись в систему, отправка сообщения, создание файла. Guardrails перед action.',
+    cost: '~1\u20135 сек / ~1K токенов. Стоимость: $0.001\u20130.01',
+    tools: 'MCP write, guardrails, approval flow, webhooks',
+    prompt: 'добавь guardrail: перед отправкой email — показать мне превью и спросить подтверждение. перед записью в CRM — показать diff изменений'
+  },
+  {
+    name: '\u041F\u0440\u043E\u0432\u0435\u0440\u043A\u0430',
+    sub: 'verify',
+    title: '\u041F\u0440\u043E\u0432\u0435\u0440\u043A\u0430 — контроль качества',
+    what: 'Eval результата. Логирование в LangFuse. Обновление памяти. Обратная связь для улучшения.',
+    cost: '~2\u20135 сек / ~2K токенов. Стоимость: $0.01\u20130.03',
+    tools: 'eval.md, LangFuse, memory update, feedback loop',
+    prompt: 'после каждого выполненного skill — запусти eval, залогируй результат (pass/fail + причина), обнови memory если нашёл новый паттерн'
+  }
+];
+
+const PROMPT_TRACKS = [
+  {
+    name: 'Инфраструктура',
+    desc: 'Настройка MCP коннекторов, guardrails, роутинг моделей',
+    color: 'var(--teal)',
+    prompt: 'у меня компания [опиши]. мне нужно:\n1. настроить MCP-серверы: подключить [Notion/Slack/Gmail/Calendar] к Claude Code\n2. написать settings.json с правами: читать — всегда, писать — спрашивать, удалять — никогда\n3. настроить guardrails: запретить отправку PII в API\n4. настроить роутинг моделей: грамматика → Haiku, ресёрч → Opus\n5. добавить логирование: каждый вызов MCP в лог с timestamp\nпокажи конфигурацию и объясни каждый шаг'
+  },
+  {
+    name: 'Контекст',
+    desc: 'Организация данных, индексация, граф контекста',
+    color: 'var(--blue)',
+    prompt: 'создай систему контекста для моей работы:\n1. структура папок: context/ (calls/, emails/, telegram/, sessions/), content/, projects/\n2. в каждой папке — index.md, обновляется при добавлении файла\n3. скрипт ежедневной индексации: из звонков извлечь решения, action items, метрики\n4. каждый факт с цитатой и ссылкой на источник\n5. decay: факты старше 90 дней — confidence < 0.5\nформат: SQLite с полями entity, type, value, source, timestamp, confidence'
+  },
+  {
+    name: 'Оркестрация',
+    desc: 'Параллельные субагенты, quality reviewer, итерации',
+    color: 'var(--green)',
+    prompt: 'создай research-агент с параллельными субагентами:\n1. при запросе "исследуй [тему]" запусти 4 субагента параллельно:\n   - компания: финансы, команда, продукт\n   - технология: стек, архитектура, бенчмарки\n   - рынок: конкуренты, тренды, размер\n   - контекст: связь с моей работой\n2. quality reviewer оценивает по 5 параметрам\n3. три круга итераций\n4. финальный markdown с executive summary\nнапиши skill.md файл целиком'
+  },
+  {
+    name: 'Skills',
+    desc: 'Evals, unit/integration тесты, AB-тестирование',
+    color: 'var(--amber)',
+    prompt: 'помоги мне создать систему evals для скиллов:\n1. unit test: для каждого шага агента — критерии pass/fail\n2. integration test: полный процесс от запроса до результата\n3. business metric: время, стоимость, качество\n4. NPS: в конце скилла спрашивать оценку 1-9, записывать в лог\n5. AB-тест: 2 версии скилла, прогнать обе через eval, сравнить\nнапиши eval.md для моего [research/support/content] скилла'
+  },
+  {
+    name: 'Люди',
+    desc: 'Компилятор людей, роли, AI Champion',
+    color: 'var(--cyan)',
+    prompt: 'проведи со мной "компилятор людей" — интервью из 15 вопросов:\n1. чем ты занимаешься каждый день?\n2. какие задачи повторяются каждую неделю?\n3. где ты тратишь больше всего времени?\n4. какие решения ты принимаешь? на основе чего?\n5. какие данные тебе нужны? где лежат?\n6. с кем коммуницируешь? как часто? о чём?\n7. что делаешь, когда что-то идёт не так?\n8. какие инструменты используешь?\n9. что бы делегировал?\n10. какой идеальный результат твоей работы?\nпо ответам сгенерируй skill.md — инструкцию для агента'
+  },
+  {
+    name: 'Governance',
+    desc: 'Бюджет токенов, аудит, DLP, метрики внедрения',
+    color: 'var(--red)',
+    prompt: 'создай систему governance для AI в моей компании:\n1. бюджет: лимиты токенов по сотрудникам/отделам, алерты при превышении\n2. аудит: логирование всех LLM-вызовов (кто, когда, модель, токены)\n3. DLP: маскировка PII перед отправкой в API\n4. метрики: adoption rate, частота, глубина сессий\n5. compliance: chain-of-thought как документация решений\n6. еженедельный отчёт: кто сколько, ROI по задачам\nнапиши шаблон governance-policy.md'
+  }
+];
+
+// ============================================
+// PIPELINE TEMPLATES
+// ============================================
+const TEMPLATES = {
+  hiring: {
+    name: 'найм',
+    title: 'Процесс найма',
+    blocks: [
+      { id: 't-h1', label: 'Заявка', type: 'human', x: 30, y: 120 },
+      { id: 't-h2', label: 'Согласование', type: 'review', x: 170, y: 120 },
+      { id: 't-h3', label: 'JD', type: 'auto', x: 330, y: 120 },
+      { id: 't-h4', label: 'Публикация', type: 'auto', x: 460, y: 120 },
+      { id: 't-h5', label: 'Скрининг', type: 'auto', x: 600, y: 120 },
+      { id: 't-h6', label: 'Телефон', type: 'review', x: 740, y: 120 },
+      { id: 't-h7', label: 'Техническое', type: 'human', x: 880, y: 120 },
+      { id: 't-h8', label: 'Culture fit', type: 'human', x: 30, y: 220 },
+      { id: 't-h9', label: 'Референсы', type: 'review', x: 170, y: 220 },
+      { id: 't-h10', label: 'Оффер', type: 'auto', x: 330, y: 220 },
+      { id: 't-h11', label: 'Переговоры', type: 'human', x: 460, y: 220 },
+      { id: 't-h12', label: 'Background', type: 'auto', x: 600, y: 220 },
+      { id: 't-h13', label: 'Документы', type: 'auto', x: 740, y: 220 },
+      { id: 't-h14', label: 'Onboarding', type: 'auto', x: 880, y: 220 }
+    ],
+    arrows: [['t-h1','t-h2'],['t-h2','t-h3'],['t-h3','t-h4'],['t-h4','t-h5'],['t-h5','t-h6'],['t-h6','t-h7'],['t-h7','t-h8'],['t-h8','t-h9'],['t-h9','t-h10'],['t-h10','t-h11'],['t-h11','t-h12'],['t-h12','t-h13'],['t-h13','t-h14']]
+  },
+  sales: {
+    name: 'sales',
+    title: 'Воронка продаж',
+    blocks: [
+      { id: 't-s1', label: 'Лид', type: 'auto', x: 100, y: 160 },
+      { id: 't-s2', label: 'Скоринг', type: 'auto', x: 300, y: 160 },
+      { id: 't-s3', label: 'Звонок', type: 'review', x: 500, y: 160 },
+      { id: 't-s4', label: 'CRM', type: 'auto', x: 700, y: 160 }
+    ],
+    arrows: [['t-s1','t-s2'],['t-s2','t-s3'],['t-s3','t-s4']]
+  },
+  engineering: {
+    name: 'engineering',
+    title: 'Инженерный процесс',
+    blocks: [
+      { id: 't-e1', label: 'Тикет', type: 'auto', x: 100, y: 160 },
+      { id: 't-e2', label: 'Код', type: 'auto', x: 300, y: 160 },
+      { id: 't-e3', label: 'Ревью', type: 'review', x: 500, y: 160 },
+      { id: 't-e4', label: 'Deploy', type: 'auto', x: 700, y: 160 }
+    ],
+    arrows: [['t-e1','t-e2'],['t-e2','t-e3'],['t-e3','t-e4']]
+  },
+  finance: {
+    name: 'finance',
+    title: 'Финансовый процесс',
+    blocks: [
+      { id: 't-f1', label: 'Счёт', type: 'auto', x: 100, y: 160 },
+      { id: 't-f2', label: 'Кодировка', type: 'auto', x: 300, y: 160 },
+      { id: 't-f3', label: 'Фрод-детект', type: 'auto', x: 500, y: 160 },
+      { id: 't-f4', label: 'OK', type: 'review', x: 700, y: 160 }
+    ],
+    arrows: [['t-f1','t-f2'],['t-f2','t-f3'],['t-f3','t-f4']]
+  },
+  support: {
+    name: 'support',
+    title: 'Поддержка клиентов',
+    blocks: [
+      { id: 't-cs1', label: 'Запрос клиента', type: 'auto', x: 30, y: 60 },
+      { id: 't-cs2', label: 'Классификация', type: 'auto', x: 200, y: 60 },
+      { id: 't-cs3', label: 'Тех. агент', type: 'auto', x: 400, y: 60 },
+      { id: 't-cs4', label: 'Решил?', type: 'review', x: 600, y: 60 },
+      { id: 't-cs5', label: 'Ответ', type: 'auto', x: 800, y: 60 },
+      { id: 't-cs6', label: 'Фин. агент', type: 'auto', x: 600, y: 180 },
+      { id: 't-cs7', label: 'Рефанд?', type: 'review', x: 600, y: 280 },
+      { id: 't-cs8', label: 'Рефанд', type: 'auto', x: 800, y: 220 },
+      { id: 't-cs9', label: 'Эскалация', type: 'human', x: 800, y: 320 }
+    ],
+    arrows: [['t-cs1','t-cs2'],['t-cs2','t-cs3'],['t-cs3','t-cs4'],['t-cs4','t-cs5'],['t-cs4','t-cs6'],['t-cs6','t-cs7'],['t-cs7','t-cs8'],['t-cs7','t-cs9']]
+  },
+  research: {
+    name: 'research',
+    title: 'Параллельный ресёрч',
+    blocks: [
+      { id: 't-r1', label: 'Задача', type: 'human', x: 30, y: 160 },
+      { id: 't-r2', label: 'Компания', type: 'auto', x: 200, y: 60 },
+      { id: 't-r3', label: 'Технология', type: 'auto', x: 200, y: 140 },
+      { id: 't-r4', label: 'Рынок', type: 'auto', x: 200, y: 220 },
+      { id: 't-r5', label: 'Тренды', type: 'auto', x: 200, y: 300 },
+      { id: 't-r6', label: 'Синтез', type: 'auto', x: 420, y: 160 },
+      { id: 't-r7', label: 'Quality Review', type: 'review', x: 600, y: 160 },
+      { id: 't-r8', label: 'Итерация x3', type: 'auto', x: 800, y: 160 }
+    ],
+    arrows: [['t-r1','t-r2'],['t-r1','t-r3'],['t-r1','t-r4'],['t-r1','t-r5'],['t-r2','t-r6'],['t-r3','t-r6'],['t-r4','t-r6'],['t-r5','t-r6'],['t-r6','t-r7'],['t-r7','t-r8']]
+  },
+  vsm: {
+    name: 'VSM token bus',
+    title: 'VSM токен-бас',
+    blocks: [
+      { id: 't-v1', label: 'Приём', type: 'auto', x: 60, y: 160 },
+      { id: 't-v2', label: 'Решение', type: 'human', x: 240, y: 160 },
+      { id: 't-v3', label: 'Обработка', type: 'auto', x: 420, y: 160 },
+      { id: 't-v4', label: 'Действие', type: 'auto', x: 600, y: 160 },
+      { id: 't-v5', label: 'Проверка', type: 'auto', x: 780, y: 160 }
+    ],
+    arrows: [['t-v1','t-v2'],['t-v2','t-v3'],['t-v3','t-v4'],['t-v4','t-v5'],['t-v5','t-v2']]
+  }
+};
+
+// ============================================
+// STATE
+// ============================================
+let currentSlide = 0;
+const totalSlides = 20;
+let workshopMode = false;
+let arrowStartBlock = null;
+
+// Pipeline builder state
+let canvasBlocks = [];
+let canvasArrows = [];
+let blockIdCounter = 0;
+let draggedType = null;
+let pipelineTitle = '';
+let activeTemplate = null;
+
+// Autonomy grid state
+let autonomyData = {};
+
+// Goals state
+let goalsChecked = {};
+
+// ============================================
+// INIT
+// ============================================
+document.addEventListener('DOMContentLoaded', () => {
+  loadState();
+  renderArchStack();
+  renderVSM();
+  renderPromptCards();
+  renderAutonomyGrid();
+  renderCanvasBlocks();
+  renderGoals();
+  renderTemplateGallery();
+  updateSlide();
+  setupDragDrop();
+  updateZoomIndicator();
+  updatePipelineStats();
+
+  // Pipeline title persistence
+  const titleInput = document.getElementById('pipelineTitle');
+  titleInput.value = pipelineTitle;
+  titleInput.addEventListener('input', () => {
+    pipelineTitle = titleInput.value;
+    saveState();
+  });
+});
+
+// ============================================
+// NAVIGATION
+// ============================================
+document.addEventListener('keydown', (e) => {
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+  switch(e.key) {
+    case 'ArrowRight':
+    case ' ':
+      e.preventDefault();
+      if (currentSlide < totalSlides - 1) { currentSlide++; updateSlide(); }
+      break;
+    case 'ArrowLeft':
+      e.preventDefault();
+      if (currentSlide > 0) { currentSlide--; updateSlide(); }
+      break;
+    case 'f':
+    case 'F':
+      e.preventDefault();
+      if (!document.fullscreenElement) { document.documentElement.requestFullscreen(); }
+      else { document.exitFullscreen(); }
+      break;
+    case 'Tab':
+      e.preventDefault();
+      workshopMode = !workshopMode;
+      document.body.classList.toggle('presentation-mode', !workshopMode);
+      const ind = document.getElementById('modeIndicator');
+      ind.textContent = workshopMode ? 'Workshop' : 'Presentation';
+      ind.className = 'mode-indicator ' + (workshopMode ? 'workshop' : 'presentation');
+      break;
+  }
+});
+
+function updateSlide() {
+  const slides = document.querySelectorAll('.slide');
+  slides.forEach((s, i) => {
+    s.classList.toggle('active', i === currentSlide);
+  });
+  // Update all slide counters
+  document.querySelectorAll('.slide-counter').forEach((el, i) => {
+    el.textContent = String(i + 1).padStart(2, '0') + ' / ' + totalSlides;
+  });
+  document.getElementById('progressBar').style.width =
+    ((currentSlide + 1) / totalSlides * 100) + '%';
+  // Refresh pipeline stats on autonomy map slide (slide 6, index 5)
+  if (currentSlide === 5) updatePipelineStats();
+  saveState();
+}
+
+// ============================================
+// ARCHITECTURE DIAGRAM (Slide 2)
+// ============================================
+function renderArchStack() {
+  const stack = document.getElementById('archStack');
+  stack.innerHTML = '';
+  LAYERS.forEach((layer, i) => {
+    const el = document.createElement('div');
+    el.className = 'arch-layer';
+    el.style.background = layer.bg;
+    el.innerHTML = `
+      <span class="layer-icon">${layer.icon}</span>
+      <span class="layer-num">${layer.num}</span>
+      <span class="layer-name" style="color:${layer.color}">${layer.name}</span>
+    `;
+    el.addEventListener('click', () => expandLayer(i));
+    stack.appendChild(el);
+  });
+}
+
+function expandLayer(idx) {
+  const layer = LAYERS[idx];
+  const detail = document.getElementById('archDetail');
+  const empty = document.getElementById('archEmpty');
+
+  // Toggle active
+  document.querySelectorAll('.arch-layer').forEach((el, i) => {
+    el.classList.toggle('active-layer', i === idx);
+  });
+
+  empty.style.display = 'none';
+  detail.classList.add('visible');
+
+  document.getElementById('archDetailTitle').textContent = layer.title;
+  document.getElementById('archDetailTitle').style.color = layer.color;
+  document.getElementById('archDetailDesc').textContent = layer.desc;
+
+  const toolsContainer = document.getElementById('archDetailTools');
+  toolsContainer.innerHTML = '';
+  layer.tools.forEach(t => {
+    const tag = document.createElement('span');
+    tag.className = 'tool-tag';
+    tag.textContent = t;
+    tag.style.color = layer.color;
+    toolsContainer.appendChild(tag);
+  });
+
+  const promptEl = document.getElementById('archDetailPrompt');
+  promptEl.textContent = layer.prompt;
+  promptEl.className = 'detail-prompt';
+  promptEl.style.borderLeftColor = layer.color;
+  promptEl.onclick = () => copyText(promptEl);
+}
+
+// ============================================
+// PIPELINE BUILDER (Slide 4)
+// ============================================
+function setupDragDrop() {
+  const palette = document.getElementById('builderPalette');
+  const canvas = document.getElementById('builderCanvas');
+
+  palette.querySelectorAll('.palette-block').forEach(block => {
+    block.addEventListener('dragstart', (e) => {
+      draggedType = block.dataset.type;
+      e.dataTransfer.effectAllowed = 'copy';
+    });
+  });
+
+  canvas.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'copy';
+  });
+
+  canvas.addEventListener('drop', (e) => {
+    e.preventDefault();
+    if (!draggedType) return;
+    const rect = canvas.getBoundingClientRect();
+    const rawX = e.clientX - rect.left - 60;
+    const rawY = e.clientY - rect.top - 20;
+    // Snap to 20px grid
+    const x = Math.round(rawX / 20) * 20;
+    const y = Math.round(rawY / 20) * 20;
+    addCanvasBlock(draggedType, x, y, getDefaultLabel(draggedType));
+    draggedType = null;
+  });
+}
+
+function getDefaultLabel(type) {
+  switch(type) {
+    case 'auto': return 'Автомат';
+    case 'review': return 'Ревью';
+    case 'human': return 'Человек';
+    case 'text': return 'Текст';
+    default: return '';
+  }
+}
+
+function addCanvasBlock(type, x, y, label) {
+  const id = 'block-' + (blockIdCounter++);
+  canvasBlocks.push({ id, type, x, y, label });
+  renderCanvasBlocks();
+  updateZoomIndicator();
+  updatePipelineStats();
+  saveState();
+}
+
+function renderCanvasBlocks() {
+  const canvas = document.getElementById('builderCanvas');
+  // Remove old blocks
+  canvas.querySelectorAll('.canvas-block').forEach(el => el.remove());
+
+  canvasBlocks.forEach(block => {
+    const el = document.createElement('div');
+    el.className = `canvas-block type-${block.type}`;
+    el.id = block.id;
+    el.style.left = block.x + 'px';
+    el.style.top = block.y + 'px';
+    el.textContent = block.label;
+
+    // Delete button
+    const del = document.createElement('button');
+    del.className = 'block-delete';
+    del.textContent = '\u00D7';
+    del.onclick = (e) => { e.stopPropagation(); removeBlock(block.id); };
+    el.appendChild(del);
+
+    // Drag to move
+    let dragging = false, offsetX, offsetY;
+    el.addEventListener('mousedown', (e) => {
+      if (e.target === del) return;
+      if (e.shiftKey) {
+        handleArrowClick(block.id);
+        return;
+      }
+      dragging = true;
+      const rect = el.getBoundingClientRect();
+      offsetX = e.clientX - rect.left;
+      offsetY = e.clientY - rect.top;
+      el.style.zIndex = 50;
+    });
+
+    document.addEventListener('mousemove', (e) => {
+      if (!dragging) return;
+      const canvasRect = canvas.getBoundingClientRect();
+      const rawX = e.clientX - canvasRect.left - offsetX;
+      const rawY = e.clientY - canvasRect.top - offsetY;
+      // Snap to 20px grid
+      block.x = Math.round(rawX / 20) * 20;
+      block.y = Math.round(rawY / 20) * 20;
+      el.style.left = block.x + 'px';
+      el.style.top = block.y + 'px';
+      renderArrows();
+    });
+
+    document.addEventListener('mouseup', () => {
+      if (dragging) {
+        dragging = false;
+        el.style.zIndex = 10;
+        saveState();
+      }
+    });
+
+    // Double-click to edit
+    el.addEventListener('dblclick', (e) => {
+      e.preventDefault();
+      const input = document.createElement('input');
+      input.value = block.label;
+      input.style.cssText = 'width:100%;background:transparent;border:none;outline:none;color:inherit;font:inherit;text-align:center;';
+      el.textContent = '';
+      el.appendChild(input);
+      el.appendChild(del);
+      input.focus();
+      input.select();
+      input.addEventListener('blur', () => {
+        block.label = input.value || getDefaultLabel(block.type);
+        el.textContent = block.label;
+        el.appendChild(del);
+        saveState();
+      });
+      input.addEventListener('keydown', (ev) => {
+        if (ev.key === 'Enter') input.blur();
+      });
+    });
+
+    canvas.appendChild(el);
+  });
+  renderArrows();
+}
+
+function handleArrowClick(blockId) {
+  if (!arrowStartBlock) {
+    arrowStartBlock = blockId;
+    document.getElementById(blockId).style.boxShadow = '0 0 15px var(--teal)';
+  } else {
+    if (arrowStartBlock !== blockId) {
+      canvasArrows.push({ from: arrowStartBlock, to: blockId });
+      renderArrows();
+      updateZoomIndicator();
+      saveState();
+    }
+    document.getElementById(arrowStartBlock).style.boxShadow = '';
+    arrowStartBlock = null;
+  }
+}
+
+function renderArrows() {
+  const svg = document.getElementById('arrowsSvg');
+  const canvas = document.getElementById('builderCanvas');
+  const canvasRect = canvas.getBoundingClientRect();
+  svg.innerHTML = `<defs>
+    <marker id="ah" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="rgba(77,201,212,0.7)"/>
+    </marker>
+    <filter id="arrow-glow">
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>`;
+
+  canvasArrows.forEach(arrow => {
+    const fromEl = document.getElementById(arrow.from);
+    const toEl = document.getElementById(arrow.to);
+    if (!fromEl || !toEl) return;
+
+    const fromRect = fromEl.getBoundingClientRect();
+    const toRect = toEl.getBoundingClientRect();
+
+    const x1 = fromRect.left + fromRect.width / 2 - canvasRect.left;
+    const y1 = fromRect.top + fromRect.height / 2 - canvasRect.top;
+    const x2 = toRect.left + toRect.width / 2 - canvasRect.left;
+    const y2 = toRect.top + toRect.height / 2 - canvasRect.top;
+
+    // Quadratic bezier curve
+    const mx = (x1 + x2) / 2;
+    const my = (y1 + y2) / 2;
+    const dx = x2 - x1;
+    const dy = y2 - y1;
+    // Slight perpendicular offset for curve
+    const offset = Math.min(30, Math.sqrt(dx*dx + dy*dy) * 0.15);
+    const cx = mx - dy * offset / Math.sqrt(dx*dx + dy*dy + 1);
+    const cy = my + dx * offset / Math.sqrt(dx*dx + dy*dy + 1);
+
+    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    path.setAttribute('d', `M ${x1} ${y1} Q ${cx} ${cy} ${x2} ${y2}`);
+    path.setAttribute('stroke', 'rgba(77,201,212,0.5)');
+    path.setAttribute('stroke-width', '2');
+    path.setAttribute('fill', 'none');
+    path.setAttribute('marker-end', 'url(#ah)');
+    path.setAttribute('filter', 'url(#arrow-glow)');
+    svg.appendChild(path);
+  });
+}
+
+function removeBlock(id) {
+  canvasBlocks = canvasBlocks.filter(b => b.id !== id);
+  canvasArrows = canvasArrows.filter(a => a.from !== id && a.to !== id);
+  renderCanvasBlocks();
+  updateZoomIndicator();
+  updatePipelineStats();
+  saveState();
+}
+
+function clearCanvas() {
+  canvasBlocks = [];
+  canvasArrows = [];
+  blockIdCounter = 0;
+  activeTemplate = null;
+  document.querySelectorAll('.template-btn').forEach(b => b.classList.remove('active'));
+  renderCanvasBlocks();
+  updateZoomIndicator();
+  updatePipelineStats();
+  saveState();
+}
+
+function exportPipeline() {
+  const title = pipelineTitle || 'Токен-пайплайн';
+  let md = `## ${title}\n\n`;
+  const typeLabels = { auto: 'АВТОМАТ', review: 'РЕВЬЮ', human: 'ЧЕЛОВЕК', text: '' };
+
+  canvasBlocks.forEach(b => {
+    if (b.type === 'text') {
+      md += `_${b.label}_\n\n`;
+    } else {
+      md += `- [${typeLabels[b.type]}] ${b.label}\n`;
+    }
+  });
+
+  if (canvasArrows.length > 0) {
+    md += '\n### Связи\n';
+    canvasArrows.forEach(a => {
+      const fromB = canvasBlocks.find(b => b.id === a.from);
+      const toB = canvasBlocks.find(b => b.id === a.to);
+      if (fromB && toB) {
+        md += `${fromB.label} \u2192 ${toB.label}\n`;
+      }
+    });
+  }
+
+  copyToClipboard(md, 'Pipeline exported');
+}
+
+// ============================================
+// AUTONOMY MAP (Slide 6)
+// ============================================
+const AUTO_COLS = ['\u041F\u0440\u043E\u0434\u0430\u0436\u0438', '\u0420\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u043A\u0430', '\u0424\u0438\u043D\u0430\u043D\u0441\u044B', '\u042E\u0440\u0438\u0434\u0438\u0447\u0435\u0441\u043A\u0438\u0439', '\u041E\u043F\u0435\u0440\u0430\u0446\u0438\u0438'];
+const AUTO_ROWS = [
+  { level: 'L0', name: '\u0427\u0435\u043B\u043E\u0432\u0435\u043A', color: 'var(--red)', desc: 'Человек делает, AI подсказывает. Переговоры, одобрение бюджета, подписание договора.' },
+  { level: 'L1', name: 'AI черновик', color: 'var(--amber)', desc: 'AI делает черновик, человек утверждает. Код-ревью, черновик договора, драфт письма. Экономия 30\u201350% времени.' },
+  { level: 'L2', name: 'AI исполняет', color: 'var(--teal)', desc: 'AI исполняет, человек контролирует. Аутрич, написание кода, фрод-детект, исследование. Экономия 60\u201380%.' },
+  { level: 'L3', name: 'Автопилот', color: 'var(--green)', desc: 'Автопилот, эскалация по исключению. Скоринг лидов, CI/CD, мониторинг, тикет-триаж. Экономия 90%+.' }
+];
+
+const DEFAULT_AUTONOMY = {
+  '0-0': '\u041F\u0435\u0440\u0435\u0433\u043E\u0432\u043E\u0440\u044B', '0-1': '', '0-2': '\u041E\u0434\u043E\u0431\u0440\u0435\u043D\u0438\u0435 \u0431\u044E\u0434\u0436\u0435\u0442\u0430', '0-3': '\u041F\u043E\u0434\u043F\u0438\u0441\u0430\u043D\u0438\u0435 \u0434\u043E\u0433\u043E\u0432\u043E\u0440\u0430', '0-4': '',
+  '1-0': '\u0414\u0440\u0430\u0444\u0442 \u043F\u0438\u0441\u044C\u043C\u0430', '1-1': '\u041A\u043E\u0434-\u0440\u0435\u0432\u044C\u044E', '1-2': '\u0427\u0435\u0440\u043D\u043E\u0432\u0438\u043A \u043E\u0442\u0447\u0451\u0442\u0430', '1-3': '\u0427\u0435\u0440\u043D\u043E\u0432\u0438\u043A \u0434\u043E\u0433\u043E\u0432\u043E\u0440\u0430', '1-4': '\u0420\u0435\u0433\u043B\u0430\u043C\u0435\u043D\u0442\u044B',
+  '2-0': '\u0410\u0443\u0442\u0440\u0438\u0447', '2-1': '\u041D\u0430\u043F\u0438\u0441\u0430\u043D\u0438\u0435 \u043A\u043E\u0434\u0430', '2-2': '\u0424\u0440\u043E\u0434-\u0434\u0435\u0442\u0435\u043A\u0442', '2-3': '\u0418\u0441\u0441\u043B\u0435\u0434\u043E\u0432\u0430\u043D\u0438\u0435', '2-4': '\u0418\u043D\u0446\u0438\u0434\u0435\u043D\u0442\u044B',
+  '3-0': '\u0421\u043A\u043E\u0440\u0438\u043D\u0433 \u043B\u0438\u0434\u043E\u0432', '3-1': 'CI/CD', '3-2': '\u041A\u043E\u0434\u0438\u0440\u043E\u0432\u043A\u0430', '3-3': '\u041F\u043E\u0434\u0430\u0447\u0430', '3-4': '\u041C\u043E\u043D\u0438\u0442\u043E\u0440\u0438\u043D\u0433'
+};
+
+function renderAutonomyGrid() {
+  const grid = document.getElementById('autonomyGrid');
+  grid.innerHTML = '';
+
+  // Corner
+  const corner = document.createElement('div');
+  corner.className = 'auto-header corner';
+  grid.appendChild(corner);
+
+  // Column headers
+  AUTO_COLS.forEach(col => {
+    const h = document.createElement('div');
+    h.className = 'auto-header';
+    h.textContent = col;
+    grid.appendChild(h);
+  });
+
+  // Rows
+  AUTO_ROWS.forEach((row, ri) => {
+    // Level label
+    const lvl = document.createElement('div');
+    lvl.className = `auto-level level-${row.level}`;
+    lvl.innerHTML = `<span class="level-badge">${row.level}</span><span class="level-name">${row.name}</span>`;
+
+    const tooltip = document.createElement('div');
+    tooltip.className = 'level-tooltip';
+    tooltip.innerHTML = `<strong style="color:${row.color}">${row.level}: ${row.name}</strong><br>${row.desc}`;
+    lvl.appendChild(tooltip);
+
+    lvl.addEventListener('click', () => {
+      document.querySelectorAll('.level-tooltip').forEach(t => t.classList.remove('visible'));
+      tooltip.classList.toggle('visible');
+      setTimeout(() => tooltip.classList.remove('visible'), 4000);
+    });
+    grid.appendChild(lvl);
+
+    // Cells
+    AUTO_COLS.forEach((col, ci) => {
+      const key = `${ri}-${ci}`;
+      const val = autonomyData[key] !== undefined ? autonomyData[key] : (DEFAULT_AUTONOMY[key] || '');
+      if (autonomyData[key] === undefined) autonomyData[key] = val;
+
+      const cell = document.createElement('div');
+      cell.className = `auto-cell level-colored-${ri}` + (val ? ' has-content' : '');
+      cell.textContent = val || '';
+      cell.dataset.key = key;
+
+      cell.addEventListener('click', () => {
+        if (cell.classList.contains('editing')) return;
+        cell.classList.add('editing');
+        const input = document.createElement('input');
+        input.value = autonomyData[key] || '';
+        input.placeholder = 'задача...';
+        cell.textContent = '';
+        cell.appendChild(input);
+        input.focus();
+
+        const finish = () => {
+          autonomyData[key] = input.value;
+          cell.classList.remove('editing');
+          cell.classList.toggle('has-content', !!input.value);
+          cell.textContent = input.value || '';
+          saveState();
+        };
+        input.addEventListener('blur', finish);
+        input.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter') input.blur();
+          if (e.key === 'Escape') { input.value = autonomyData[key] || ''; input.blur(); }
+          e.stopPropagation();
+        });
+      });
+
+      grid.appendChild(cell);
+    });
+  });
+}
+
+function exportAutonomy() {
+  let md = '## Карта автономности\n\n';
+  md += '| Уровень | ' + AUTO_COLS.join(' | ') + ' |\n';
+  md += '|---------|' + AUTO_COLS.map(() => '---').join('|') + '|\n';
+
+  AUTO_ROWS.forEach((row, ri) => {
+    const cells = AUTO_COLS.map((_, ci) => autonomyData[`${ri}-${ci}`] || '\u2014');
+    md += `| ${row.level} ${row.name} | ${cells.join(' | ')} |\n`;
+  });
+
+  copyToClipboard(md, 'Autonomy map exported');
+}
+
+function resetAutonomy() {
+  autonomyData = {};
+  renderAutonomyGrid();
+  saveState();
+}
+
+// ============================================
+// VSM DIAGRAM (Slide 7)
+// ============================================
+function renderVSM() {
+  const pipeline = document.getElementById('vsmPipeline');
+  pipeline.innerHTML = '';
+
+  VSM_STAGES.forEach((stage, i) => {
+    if (i > 0) {
+      const arrow = document.createElement('div');
+      arrow.className = 'vsm-arrow';
+      arrow.textContent = '\u2192';
+      pipeline.appendChild(arrow);
+    }
+
+    const el = document.createElement('div');
+    el.className = 'vsm-stage';
+    el.innerHTML = `
+      <div class="stage-name">${stage.name}</div>
+      <div class="stage-sub">${stage.sub}</div>
+    `;
+    el.addEventListener('click', () => expandVSM(i));
+    pipeline.appendChild(el);
+  });
+}
+
+function expandVSM(idx) {
+  const stage = VSM_STAGES[idx];
+  const detail = document.getElementById('vsmDetail');
+
+  document.querySelectorAll('.vsm-stage').forEach((el, i) => {
+    el.classList.toggle('active-stage', i === idx);
+  });
+
+  detail.classList.add('visible');
+  document.getElementById('vsmDetailTitle').textContent = stage.title;
+  document.getElementById('vsmDetailWhat').textContent = stage.what;
+  document.getElementById('vsmDetailCost').textContent = stage.cost;
+  document.getElementById('vsmDetailTools').textContent = stage.tools;
+  const promptEl = document.getElementById('vsmDetailPrompt');
+  promptEl.textContent = stage.prompt;
+  promptEl.className = 'prompt-box';
+}
+
+// ============================================
+// PROMPT CARDS (Slide 9)
+// ============================================
+function renderPromptCards() {
+  const grid = document.getElementById('promptGrid');
+  grid.innerHTML = '';
+  PROMPT_TRACKS.forEach(track => {
+    const card = document.createElement('div');
+    card.className = 'prompt-card';
+    card.innerHTML = `
+      <div class="card-track">
+        <span class="track-dot" style="background:${track.color}"></span>
+        ${track.name}
+      </div>
+      <div class="card-desc">${track.desc}</div>
+      <div class="prompt-box" onclick="copyText(this)">${track.prompt}</div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+// ============================================
+// GOALS (Slide 18)
+// ============================================
+function renderGoals() {
+  const checks = document.querySelectorAll('.goal-check');
+  checks.forEach((el, i) => {
+    if (goalsChecked[i]) {
+      el.classList.add('checked');
+      el.textContent = '\u2713';
+    }
+  });
+}
+
+function toggleGoal(el) {
+  const items = document.querySelectorAll('.goal-check');
+  const idx = Array.from(items).indexOf(el);
+  goalsChecked[idx] = !goalsChecked[idx];
+  el.classList.toggle('checked');
+  el.textContent = goalsChecked[idx] ? '\u2713' : '';
+  saveState();
+}
+
+function exportGoals() {
+  let md = '## Домашнее задание \u2014 Неделя 2\n\n';
+  const items = document.querySelectorAll('.goal-item');
+  items.forEach((item, i) => {
+    const text = item.querySelector('span').textContent;
+    const checked = goalsChecked[i] ? 'x' : ' ';
+    md += `- [${checked}] ${text}\n`;
+  });
+  copyToClipboard(md, 'Goals exported');
+}
+
+// ============================================
+// COPY UTILITY
+// ============================================
+function copyText(el) {
+  const text = el.textContent.replace('click to copy', '').replace('copied!', '').trim();
+  copyToClipboard(text);
+  el.classList.add('copied');
+  setTimeout(() => el.classList.remove('copied'), 2000);
+}
+
+function copyToClipboard(text, msg) {
+  navigator.clipboard.writeText(text).then(() => {
+    if (msg) showToast(msg);
+  }).catch(() => {
+    // Fallback
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    if (msg) showToast(msg);
+  });
+}
+
+function showToast(msg) {
+  let toast = document.getElementById('toast');
+  if (!toast) {
+    toast = document.createElement('div');
+    toast.id = 'toast';
+    toast.style.cssText = `
+      position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%);
+      padding: 10px 24px; background: var(--bg-card); border: 1px solid var(--green);
+      border-radius: 6px; font-family: var(--font-code); font-size: 12px;
+      color: var(--green); z-index: 300; opacity: 0; transition: opacity 0.3s;
+      pointer-events: none;
+    `;
+    document.body.appendChild(toast);
+  }
+  toast.textContent = msg;
+  toast.style.opacity = '1';
+  setTimeout(() => { toast.style.opacity = '0'; }, 2000);
+}
+
+// ============================================
+// LOCAL STORAGE
+// ============================================
+const STORAGE_KEY = 'ainative-focus-w2';
+
+function saveState() {
+  const state = {
+    currentSlide,
+    canvasBlocks,
+    canvasArrows,
+    blockIdCounter,
+    autonomyData,
+    goalsChecked,
+    workshopMode,
+    pipelineTitle,
+    activeTemplate,
+    savedAt: Date.now()
+  };
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  } catch(e) {}
+}
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return;
+    const state = JSON.parse(raw);
+    if (state.currentSlide !== undefined) currentSlide = state.currentSlide;
+    if (state.canvasBlocks) canvasBlocks = state.canvasBlocks;
+    if (state.canvasArrows) canvasArrows = state.canvasArrows;
+    if (state.blockIdCounter) blockIdCounter = state.blockIdCounter;
+    if (state.autonomyData) autonomyData = state.autonomyData;
+    if (state.goalsChecked) goalsChecked = state.goalsChecked;
+    if (state.pipelineTitle) pipelineTitle = state.pipelineTitle;
+    if (state.activeTemplate) activeTemplate = state.activeTemplate;
+    if (state.workshopMode) {
+      workshopMode = state.workshopMode;
+      document.body.classList.toggle('presentation-mode', !workshopMode);
+      const ind = document.getElementById('modeIndicator');
+      ind.textContent = workshopMode ? 'Workshop' : 'Presentation';
+      ind.className = 'mode-indicator ' + (workshopMode ? 'workshop' : 'presentation');
+    }
+  } catch(e) {}
+}
+
+// ============================================
+// TEMPLATE GALLERY
+// ============================================
+function renderTemplateGallery() {
+  const gallery = document.getElementById('templateGallery');
+  gallery.innerHTML = '';
+  Object.keys(TEMPLATES).forEach(key => {
+    const tmpl = TEMPLATES[key];
+    const btn = document.createElement('button');
+    btn.className = 'template-btn' + (activeTemplate === key ? ' active' : '');
+    btn.textContent = tmpl.name;
+    btn.addEventListener('click', () => loadTemplate(key));
+    gallery.appendChild(btn);
+  });
+}
+
+function loadTemplate(key) {
+  const tmpl = TEMPLATES[key];
+  if (!tmpl) return;
+
+  // Clear current canvas
+  canvasBlocks = [];
+  canvasArrows = [];
+  blockIdCounter = 0;
+  activeTemplate = key;
+
+  // Deep-copy blocks
+  tmpl.blocks.forEach(b => {
+    canvasBlocks.push({ id: b.id, label: b.label, type: b.type, x: b.x, y: b.y });
+    blockIdCounter++;
+  });
+
+  // Copy arrows
+  tmpl.arrows.forEach(a => {
+    canvasArrows.push({ from: a[0], to: a[1] });
+  });
+
+  // Set title
+  pipelineTitle = tmpl.title;
+  const titleInput = document.getElementById('pipelineTitle');
+  if (titleInput) titleInput.value = pipelineTitle;
+
+  // Highlight active button
+  document.querySelectorAll('.template-btn').forEach(b => b.classList.remove('active'));
+  const btns = document.querySelectorAll('.template-btn');
+  const keys = Object.keys(TEMPLATES);
+  const idx = keys.indexOf(key);
+  if (btns[idx]) btns[idx].classList.add('active');
+
+  renderCanvasBlocks();
+  updateZoomIndicator();
+  updatePipelineStats();
+  saveState();
+}
+
+// ============================================
+// ZOOM INDICATOR
+// ============================================
+function updateZoomIndicator() {
+  const el = document.getElementById('zoomIndicator');
+  if (!el) return;
+  const blocks = canvasBlocks.filter(b => b.type !== 'text').length;
+  const textBlocks = canvasBlocks.filter(b => b.type === 'text').length;
+  const arrows = canvasArrows.length;
+  let parts = [];
+  parts.push(blocks + ' ' + pluralRu(blocks, '\u0431\u043B\u043E\u043A', '\u0431\u043B\u043E\u043A\u0430', '\u0431\u043B\u043E\u043A\u043E\u0432'));
+  parts.push(arrows + ' ' + pluralRu(arrows, '\u0441\u0432\u044F\u0437\u044C', '\u0441\u0432\u044F\u0437\u0438', '\u0441\u0432\u044F\u0437\u0435\u0439'));
+  if (textBlocks > 0) parts.push(textBlocks + ' \u0442\u0435\u043A\u0441\u0442');
+  el.textContent = parts.join(', ');
+}
+
+function pluralRu(n, one, few, many) {
+  const abs = Math.abs(n) % 100;
+  const n1 = abs % 10;
+  if (abs > 10 && abs < 20) return many;
+  if (n1 > 1 && n1 < 5) return few;
+  if (n1 === 1) return one;
+  return many;
+}
+
+// ============================================
+// PIPELINE STATS (cross-slide)
+// ============================================
+function getPipelineStats() {
+  const blocks = canvasBlocks.filter(b => b.type !== 'text');
+  const total = blocks.length;
+  const auto = blocks.filter(b => b.type === 'auto').length;
+  const review = blocks.filter(b => b.type === 'review').length;
+  const human = blocks.filter(b => b.type === 'human').length;
+  return { total, auto, review, human };
+}
+
+function updatePipelineStats() {
+  const bar = document.getElementById('pipelineStatsBar');
+  if (!bar) return;
+  const stats = getPipelineStats();
+  if (stats.total === 0) {
+    bar.style.display = 'none';
+    return;
+  }
+  bar.style.display = 'flex';
+  const pctAuto = Math.round(stats.auto / stats.total * 100);
+  const pctReview = Math.round(stats.review / stats.total * 100);
+  const pctHuman = Math.round(stats.human / stats.total * 100);
+  const title = pipelineTitle || '\u043A\u043E\u043D\u0432\u0435\u0439\u0435\u0440';
+  bar.innerHTML = `
+    <span class="stat-label">\u0432\u0430\u0448 ${title}:</span>
+    <span class="stat-value">${stats.total} \u0448\u0430\u0433\u043E\u0432</span>
+    <span class="stat-auto">${pctAuto}% \u0430\u0432\u0442\u043E</span>
+    <span class="stat-review">${pctReview}% \u0440\u0435\u0432\u044C\u044E</span>
+    <span class="stat-human">${pctHuman}% \u0447\u0435\u043B\u043E\u0432\u0435\u043A</span>
+    <div class="stat-bar">
+      <div class="stat-bar-auto" style="width:${pctAuto}%"></div>
+      <div class="stat-bar-review" style="width:${pctReview}%"></div>
+      <div class="stat-bar-human" style="width:${pctHuman}%"></div>
+    </div>
+  `;
+}
+
+// ============================================
+// TOUCH SUPPORT
+// ============================================
+let touchStartX = 0;
+document.addEventListener('touchstart', (e) => {
+  touchStartX = e.changedTouches[0].screenX;
+});
+document.addEventListener('touchend', (e) => {
+  const diff = e.changedTouches[0].screenX - touchStartX;
+  if (Math.abs(diff) > 50) {
+    if (diff < 0 && currentSlide < totalSlides - 1) { currentSlide++; updateSlide(); }
+    if (diff > 0 && currentSlide > 0) { currentSlide--; updateSlide(); }
+  }
+});
+</script>
+</body>
+</html>

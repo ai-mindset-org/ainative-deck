@@ -62,9 +62,9 @@ body::before {
 
 /* Content */
 .content {
-  position: absolute; inset: 0; z-index: 5;
-  display: flex; flex-direction: column; justify-content: center; align-items: center;
-  text-align: center; padding: 60px 80px;
+  position: absolute; top: 0; left: 0; bottom: 0; width: 700px; z-index: 5;
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 60px 60px 60px 80px;
 }
 
 /* Logo top-left */
@@ -73,6 +73,14 @@ body::before {
   font-family: 'IBM Plex Mono', monospace;
   font-size: 16px; font-weight: 500;
   color: rgba(255,255,255,0.4);
+  letter-spacing: 1px;
+}
+
+/* Date top-right */
+.date-tr {
+  position: absolute; top: 36px; right: 44px; z-index: 10;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 14px; color: rgba(77,201,212,0.6);
   letter-spacing: 1px;
 }
 
@@ -97,18 +105,19 @@ body::before {
 /* Title */
 .title {
   font-family: 'Space Grotesk', sans-serif;
-  font-size: 52px; font-weight: 700;
+  font-size: 48px; font-weight: 700;
   color: #e6edf3;
   line-height: 1.2;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
 
 /* Subtitle */
 .subtitle {
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 20px; font-weight: 400;
+  font-size: 18px; font-weight: 400;
   color: rgba(255,255,255,0.5);
   letter-spacing: 0.5px;
+  line-height: 1.6;
 }
 
 /* Corner brackets */
@@ -125,6 +134,35 @@ body::before {
   position: absolute; width: 4px; height: 4px; border-radius: 50%;
   background: #4dc9d4; z-index: 3; opacity: 0.4;
 }
+
+/* 6-layer stack diagram */
+.layer-stack {
+  position: absolute; right: 60px; top: 50%; transform: translateY(-50%);
+  z-index: 5; display: flex; flex-direction: column; gap: 4px;
+  width: 400px;
+}
+.layer-bar {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 16px; border-radius: 6px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px; font-weight: 500;
+  letter-spacing: 0.5px;
+}
+.layer-num {
+  font-size: 11px; opacity: 0.5; width: 20px; flex-shrink: 0;
+}
+.layer-name {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 14px; font-weight: 600;
+}
+.gov-bar {
+  position: absolute; right: 20px; top: 50%; transform: translateY(-50%);
+  z-index: 6; width: 36px; height: 260px;
+  border-radius: 6px; display: flex; align-items: center; justify-content: center;
+  writing-mode: vertical-rl; text-orientation: mixed;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 13px; font-weight: 600; letter-spacing: 2px;
+}
 </style>
 </head>
 <body>
@@ -138,17 +176,48 @@ body::before {
 
   <!-- Glow dots -->
   <div class="glow-dot" style="top:120px;left:180px;opacity:0.3;width:3px;height:3px;"></div>
-  <div class="glow-dot" style="top:480px;right:220px;opacity:0.5;width:5px;height:5px;"></div>
-  <div class="glow-dot" style="top:300px;left:900px;opacity:0.25;width:3px;height:3px;"></div>
+  <div class="glow-dot" style="top:480px;right:520px;opacity:0.5;width:5px;height:5px;"></div>
+  <div class="glow-dot" style="top:300px;left:600px;opacity:0.25;width:3px;height:3px;"></div>
   <div class="glow-dot" style="bottom:180px;left:120px;opacity:0.35;width:4px;height:4px;"></div>
+  <div class="glow-dot" style="top:200px;right:200px;opacity:0.2;width:3px;height:3px;"></div>
+  <div class="glow-dot" style="bottom:120px;right:300px;opacity:0.3;width:4px;height:4px;"></div>
 
   <div class="logo-tl">AI Mindset</div>
-  <div class="credits-br">AI Mindset &times; CybOS &middot; 2026</div>
+  <div class="date-tr">31 марта 2026</div>
+  <div class="credits-br">AI Mindset &times; CybOS &middot; @sgershuni</div>
 
   <div class="content">
-    <div class="label">// AI-NATIVE ORGANIZATIONS LAB</div>
-    <div class="title">система поверх модели</div>
-    <div class="subtitle">интерактивный workshop &middot; неделя 2</div>
+    <div class="label">// AI-NATIVE ORGANIZATIONS LAB &middot; НЕДЕЛЯ 2</div>
+    <div class="title">система поверх модели: архитектура</div>
+    <div class="subtitle">6 слоёв &middot; pipeline builder &middot; карта автономности &middot; VSM &middot; инструменты</div>
+  </div>
+
+  <!-- 6-layer stack -->
+  <div class="layer-stack">
+    <div class="layer-bar" style="background:rgba(255,182,193,0.12);">
+      <span class="layer-num">05</span>
+      <span class="layer-name" style="color:#f0a0a8;">People & organization</span>
+    </div>
+    <div class="layer-bar" style="background:rgba(255,223,130,0.12);">
+      <span class="layer-num">04</span>
+      <span class="layer-name" style="color:#e8c555;">Skills & workflows</span>
+    </div>
+    <div class="layer-bar" style="background:rgba(255,195,0,0.12);">
+      <span class="layer-num">03</span>
+      <span class="layer-name" style="color:#f0b030;">Orchestration</span>
+    </div>
+    <div class="layer-bar" style="background:rgba(100,210,180,0.12);">
+      <span class="layer-num">02</span>
+      <span class="layer-name" style="color:#64d2b4;">Data & context</span>
+    </div>
+    <div class="layer-bar" style="background:rgba(180,170,220,0.12);">
+      <span class="layer-num">01</span>
+      <span class="layer-name" style="color:#b4aade;">Infrastructure</span>
+    </div>
+  </div>
+
+  <div class="gov-bar" style="background:rgba(140,170,230,0.12);color:rgba(140,170,230,0.7);">
+    GOVERNANCE
   </div>
 </body>
 </html>

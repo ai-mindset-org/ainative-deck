@@ -1794,6 +1794,67 @@ deals/            &larr; инвестиционные сделки</div>
 </div>
 
 <!-- ==========================================
+     SLIDE 22b: AIM-SPRINT PLUGIN
+     ========================================== -->
+<div class="slide" id="sPlugin" style="justify-content:flex-start;padding-top:50px">
+  <div class="slide-counter"><span class="current"></span> / <span class="total"></span></div>
+  <div class="slide-brand"><img src="../../logo.png" alt="" style="height:28px;opacity:0.4;"><span style="font-family:var(--font-body);font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:1px;">AI-NATIVE SPRINT</span></div>
+
+  <div class="slide-inner">
+    <div class="section-label anim-1">// Плагин</div>
+    <h2 class="anim-2" style="font-size:32px;">aim-sprint: 90-дневный план трансформации</h2>
+    <p class="anim-3" style="font-size:16px;color:rgba(255,255,255,0.7);margin-bottom:20px;">
+      Плагин Степана Гершуни для Claude Code. 3 недели × 20 минут = полный план AI-трансформации вашей компании.
+    </p>
+
+    <!-- 3 week cards -->
+    <div class="anim-3" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:24px;">
+      <div style="background:var(--bg-card);border:1px solid var(--border);border-top:3px solid var(--teal);border-radius:10px;padding:20px;">
+        <div style="font-family:var(--font-heading);font-size:18px;color:var(--teal);margin-bottom:8px;">Неделя 1</div>
+        <div style="font-size:13px;color:rgba(255,255,255,0.6);margin-bottom:12px;">~25 мин · Диагностика</div>
+        <div style="font-size:14px;color:rgba(255,255,255,0.8);line-height:1.6;">
+          квиз codos.ai → уровень L0-L3 → контекст компании → аудит процессов → топ-3 приоритета → AI-чемпионы
+        </div>
+        <div style="margin-top:12px;font-size:12px;color:var(--text-dim);">→ ~/aim-sprint/week1.md</div>
+      </div>
+      <div style="background:var(--bg-card);border:1px solid var(--border);border-top:3px solid var(--green);border-radius:10px;padding:20px;">
+        <div style="font-family:var(--font-heading);font-size:18px;color:var(--green);margin-bottom:8px;">Неделя 2</div>
+        <div style="font-size:13px;color:rgba(255,255,255,0.6);margin-bottom:12px;">~25 мин · Архитектура</div>
+        <div style="font-size:14px;color:rgba(255,255,255,0.8);line-height:1.6;">
+          6 слоёв (оценка 1-5) → карта данных → стратегия evals → архитект. решения → первый SKILL.md
+        </div>
+        <div style="margin-top:12px;font-size:12px;color:var(--text-dim);">→ ~/aim-sprint/week2.md</div>
+      </div>
+      <div style="background:var(--bg-card);border:1px solid var(--border);border-top:3px solid var(--amber);border-radius:10px;padding:20px;">
+        <div style="font-family:var(--font-heading);font-size:18px;color:var(--amber);margin-bottom:8px;">Неделя 3</div>
+        <div style="font-size:13px;color:rgba(255,255,255,0.6);margin-bottom:12px;">~25 мин · План</div>
+        <div style="font-size:14px;color:rgba(255,255,255,0.8);line-height:1.6;">
+          карта инициатив → принудит. вопрос → 90-дневный план → ops/R&D задачи → метрики + Demo Day
+        </div>
+        <div style="margin-top:12px;font-size:12px;color:var(--text-dim);">→ ~/aim-sprint/week3.md + dashboard.html</div>
+      </div>
+    </div>
+
+    <!-- Install + run -->
+    <div class="anim-4" style="background:var(--bg-terminal);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:16px;">
+      <div style="font-size:11px;color:var(--teal);letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;">// установка и запуск</div>
+      <div style="font-family:var(--font-code);font-size:14px;color:rgba(255,255,255,0.8);line-height:1.8;">
+        <span style="color:var(--text-dim);"># в Claude Code:</span><br>
+        <span style="color:var(--green);">/ai-native:aim-sprint</span><br><br>
+        <span style="color:var(--text-dim);"># или напишите:</span><br>
+        запусти aim sprint, неделя 2<br><br>
+        <span style="color:var(--text-dim);"># GitHub:</span><br>
+        <a href="https://github.com/Gerstep/ai-native-plugin" target="_blank" style="color:var(--teal);text-decoration:none;border-bottom:1px dashed var(--teal);">github.com/Gerstep/ai-native-plugin</a>
+      </div>
+    </div>
+
+    <p class="anim-5" style="font-size:14px;color:rgba(255,255,255,0.5);">
+      неделя 2 плагина = то, что мы делаем на этой сессии. запустите его после — он структурирует всё в 90-дневный план.
+    </p>
+  </div>
+</div>
+
+<!-- ==========================================
      SLIDE 23: KEY QUOTES (all 6)
      ========================================== -->
 <div class="slide" data-slide="21" style="justify-content:flex-start;padding-top:50px">
@@ -1860,7 +1921,10 @@ deals/            &larr; инвестиционные сделки</div>
 добавь лимит бюджета: алерт при >$5 за сессию.
 покажи как читать и анализировать эти логи.
 
-начни с шага 1.</div>
+начни с шага 1.
+
+после выполнения всех шагов — запусти /ai-native:aim-sprint для структурирования результатов в 90-дневный план.
+github.com/Gerstep/ai-native-plugin</div>
 </div>
 
 <!-- ==========================================
@@ -2293,7 +2357,7 @@ const TEMPLATES = {
 // STATE
 // ============================================
 let currentSlide = 0;
-const totalSlides = 27;
+const totalSlides = 28;
 let workshopMode = false;
 let arrowStartBlock = null;
 let canvasBlocks = [];
@@ -2835,8 +2899,37 @@ const TOOLS_DATA = [
   { name: 'Claude Code', cat: 'Агент-харнес', color: 'var(--cyan)', desc: 'основной инструмент. скиллы, MCP, CLAUDE.md, multi-agent' },
   { name: 'OpenCode', cat: 'Агент-харнес', color: 'var(--cyan)', desc: 'open-source аналог. 75 моделей из коробки' },
   { name: 'N8N', cat: 'Прототипирование', color: 'var(--text-dim)', desc: 'визуальный конструктор workflow. drag-and-drop API-связи' },
-  { name: 'Playwright', cat: 'Прототипирование', color: 'var(--text-dim)', desc: 'браузерная автоматизация. скриншоты в пайплайнах агентов' }
+  { name: 'Playwright', cat: 'Прототипирование', color: 'var(--text-dim)', desc: 'браузерная автоматизация. скриншоты в пайплайнах агентов' },
+  { name: 'aider', cat: 'Агент-харнес', color: 'var(--cyan)', desc: 'open-source AI pair programming. терминальный интерфейс, git-интеграция' },
+  { name: 'Make', cat: 'Прототипирование', color: 'var(--text-dim)', desc: 'визуальная автоматизация. 1500+ интеграций, no-code сценарии' },
+  { name: 'Zapier', cat: 'Прототипирование', color: 'var(--text-dim)', desc: 'автоматизация между приложениями. 7000+ коннекторов, простые Zaps' },
+  { name: 'aim-sprint', cat: 'Плагин', color: 'var(--green)', desc: '90-дневный план AI-трансформации. 3 недели × 20 минут в Claude Code' }
 ];
+
+const TOOL_LINKS = {
+  'ClickHouse': 'https://clickhouse.com/',
+  'Postgres': 'https://www.postgresql.org/',
+  'SQLite': 'https://sqlite.org/',
+  'SuperMemory': 'https://github.com/supermemoryai/supermemory',
+  'ZEP': 'https://www.getzep.com/',
+  'QMD': 'https://github.com/nickarino/qmd',
+  'Moti': 'https://www.moti.sh/',
+  'Inngest': 'https://www.inngest.com/',
+  'Temporal': 'https://temporal.io/',
+  'NemoGuardrails': 'https://github.com/NVIDIA/NeMo-Guardrails',
+  'Citadel': 'https://github.com/citadel-ai/citadel',
+  'LangFuse': 'https://langfuse.com/',
+  'Eris.com': 'https://www.eris.ai/',
+  'OpenRouter': 'https://openrouter.ai/',
+  'Claude Code': 'https://claude.ai/code',
+  'OpenCode': 'https://github.com/nicepkg/opencode',
+  'aider': 'https://aider.chat/',
+  'N8N': 'https://n8n.io/',
+  'Make': 'https://www.make.com/',
+  'Zapier': 'https://zapier.com/',
+  'Playwright': 'https://playwright.dev/',
+  'aim-sprint': 'https://github.com/Gerstep/ai-native-plugin'
+};
 
 function renderToolsGrid() {
   const grid = document.getElementById('toolsGrid'); if (!grid) return;
@@ -2849,7 +2942,11 @@ function renderToolsGrid() {
     catEl.style.borderTop = '2px solid ' + tools[0].color;
     let html = '<h4 style="color:' + tools[0].color + '">' + cat + '</h4>';
     tools.forEach(t => {
-      html += '<div class="tool-item" style="cursor:pointer;padding:4px 0;transition:all 0.2s" onclick="this.querySelector(\'.tool-desc\').style.display=this.querySelector(\'.tool-desc\').style.display===\'block\'?\'none\':\'block\'"><strong style="color:' + t.color + '">' + t.name + '</strong><div class="tool-desc" style="display:none;font-size:10px;color:rgba(255,255,255,0.6);margin-top:2px;padding-left:8px;border-left:2px solid ' + t.color + '">' + t.desc + '</div></div>';
+      const link = TOOL_LINKS[t.name];
+      const nameHtml = link
+        ? '<a href="' + link + '" target="_blank" style="color:' + t.color + ';text-decoration:none;border-bottom:1px dashed rgba(77,201,212,0.3);transition:border-color 0.2s;" onmouseover="this.style.borderColor=\'' + t.color + '\'" onmouseout="this.style.borderColor=\'rgba(77,201,212,0.3)\'">' + t.name + '</a>'
+        : '<strong style="color:' + t.color + '">' + t.name + '</strong>';
+      html += '<div class="tool-item" style="cursor:pointer;padding:4px 0;transition:all 0.2s" onclick="this.querySelector(\'.tool-desc\').style.display=this.querySelector(\'.tool-desc\').style.display===\'block\'?\'none\':\'block\'">' + nameHtml + '<div class="tool-desc" style="display:none;font-size:10px;color:rgba(255,255,255,0.6);margin-top:2px;padding-left:8px;border-left:2px solid ' + t.color + '">' + t.desc + '</div></div>';
     });
     catEl.innerHTML = html;
     grid.appendChild(catEl);

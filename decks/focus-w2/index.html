@@ -345,7 +345,7 @@ p, li {
 }
 .palette-block {
   padding: 10px 14px; border-radius: 10px; cursor: grab;
-  font-family: var(--font-code); font-size: 14px;
+  font-family: var(--font-code); font-size: 15px;
   border: 1px solid var(--border); text-align: center;
   user-select: none; transition: transform 0.2s, border-color 0.2s;
   box-shadow: inset 0 1px 2px rgba(0,0,0,0.3);
@@ -371,7 +371,7 @@ p, li {
 .canvas-block {
   position: absolute; min-width: 120px; padding: 10px 16px;
   border-radius: 10px; cursor: move; font-family: var(--font-code);
-  font-size: 14px; text-align: center; user-select: none;
+  font-size: 15px; text-align: center; user-select: none;
   border: 1px solid; z-index: 10; transition: box-shadow 0.2s;
   box-shadow: inset 0 1px 2px rgba(0,0,0,0.3);
 }
@@ -504,7 +504,7 @@ p, li {
 .auto-cell {
   padding: 8px 10px; background: var(--bg-terminal); border-radius: 4px;
   min-height: 52px; cursor: pointer; font-family: var(--font-code);
-  font-size: 12px; color: rgba(255,255,255,0.7);
+  font-size: 14px; color: rgba(255,255,255,0.7);
   border: 1px solid transparent; transition: all 0.2s;
   display: flex; align-items: center; justify-content: center;
   text-align: center; line-height: 1.3;
@@ -920,6 +920,13 @@ body.presentation-mode .workshop-only { opacity: 0; pointer-events: none; }
     <span>формат</span> — declare / build / debrief<br>
     <span>цель</span> — собрать свой стек и токен-пайплайн
   </div>
+  <div class="anim-4" style="display:flex;align-items:center;gap:12px;margin-top:24px;">
+    <img src="../../speakers/alexander-povaliaev.jpg" style="width:48px;height:48px;border-radius:50%;border:2px solid var(--border);object-fit:cover;">
+    <div>
+      <div style="font-size:15px;color:var(--text);">Саша Повалиев</div>
+      <div style="font-size:12px;color:var(--text-dim);">фокус-сессия &middot; AI Mindset</div>
+    </div>
+  </div>
 </div>
 
 <!-- ==========================================
@@ -987,8 +994,23 @@ body.presentation-mode .workshop-only { opacity: 0; pointer-events: none; }
       <p style="margin-top:6px;font-size:12px;color:var(--text-dim)">70-80% запросов → Flash/Haiku/GPT-4o mini ($0.25/1M tokens)<br>20-30% → Opus/Sonnet/GPT-4.5 ($15/1M tokens)</p>
     </div>
   </div>
-  <div class="quote-card anim-4" style="margin-top:10px;border-left-color:var(--red)">
-    <p style="font-size:12px">«88% организаций подтвердили или подозревали инциденты с AI-агентами. Антивируса от агентов не существует. Лучшая защита — не давать агентам делать то, для чего они не созданы.»</p>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px" class="anim-4">
+    <div>
+      <div style="font-family:var(--font-code);font-size:11px;color:var(--teal);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Простой промпт</div>
+      <div class="prompt-box" onclick="copyText(this)" style="font-size:12px">подключи MCP для Notion к Claude Code. покажи settings.json с правами: читать — всегда, писать — спрашивать</div>
+    </div>
+    <div>
+      <div style="font-family:var(--font-code);font-size:11px;color:var(--amber);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Продвинутый промпт</div>
+      <div class="prompt-box" onclick="copyText(this)" style="font-size:12px;border-left-color:var(--amber)">у меня компания [опиши]. настрой:
+1. MCP-серверы: Notion/Slack/Gmail/Calendar
+2. settings.json: читать — всегда, писать — спрашивать, удалять — никогда
+3. guardrails: запретить PII в API (маскировка)
+4. роутинг: грамматика → Haiku, ресёрч → Opus
+5. DLP: маскировка имён, номеров, сумм
+6. аудит: event_time, user_id, model, cost
+7. лимиты: квоты токенов по сотрудникам
+8. policy: Allow / Redact / Reroute / Block</div>
+    </div>
   </div>
 </div>
 
@@ -1028,6 +1050,24 @@ deals/            ← инвестиционные сделки</div>
       <h4 class="text-green">QMD vs RAG</h4>
       <p>QMD — open-source, гибридный поиск (BM25 + векторный + LLM). Точнее, чем чистый RAG.</p>
       <p style="margin-top:6px;font-size:12px;color:var(--text-dim)"><strong>Для компании 1-50:</strong> Entity resolution, context directory в Git, CLAUDE.md, SuperMemory/ZEP<br><strong>50-300:</strong> + Glean Enterprise Graph, Neo4j/FalkorDB, Zep bi-temporal tracking</p>
+    </div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px" class="anim-4">
+    <div>
+      <div style="font-family:var(--font-code);font-size:11px;color:var(--teal);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Простой промпт</div>
+      <div class="prompt-box" onclick="copyText(this)" style="font-size:12px">создай структуру папок для моих данных: context/ (calls/, emails/, sessions/), content/, projects/. напиши CLAUDE.md с описанием что где лежит</div>
+    </div>
+    <div>
+      <div style="font-family:var(--font-code);font-size:11px;color:var(--amber);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Продвинутый промпт</div>
+      <div class="prompt-box" onclick="copyText(this)" style="font-size:12px;border-left-color:var(--amber)">создай систему контекста:
+1. структура: context/ (calls/, emails/, telegram/, sessions/), content/, projects/
+2. index.md в каждой папке — обновляется автоматически
+3. скрипт индексации: извлечь решения, action items, метрики
+4. каждый факт с цитатой и ссылкой на источник
+5. decay: факты > 90 дней — confidence &lt; 0.5
+6. entity resolution: связать людей из разных систем
+7. формат: SQLite (entity, type, value, source, timestamp, confidence)
+8. CLAUDE.md как точка входа для всех агентов</div>
     </div>
   </div>
 </div>
@@ -1070,6 +1110,23 @@ deals/            ← инвестиционные сделки</div>
       <p style="margin-top:4px;font-size:12px;color:var(--text-dim)"><strong>Production:</strong> Moti / Inngest / Temporal — retry, checkpoint, дедупликация</p>
     </div>
   </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px" class="anim-4">
+    <div>
+      <div style="font-family:var(--font-code);font-size:11px;color:var(--teal);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Простой промпт</div>
+      <div class="prompt-box" onclick="copyText(this)" style="font-size:12px">напиши skill.md для research-агента: при запросе «исследуй [тему]» запусти 3 субагента параллельно (компания, технология, рынок), собери результаты в один отчёт</div>
+    </div>
+    <div>
+      <div style="font-family:var(--font-code);font-size:11px;color:var(--amber);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Продвинутый промпт</div>
+      <div class="prompt-box" onclick="copyText(this)" style="font-size:12px;border-left-color:var(--amber)">создай research-агент:
+1. 4 субагента параллельно: компания, технология, рынок, контекст
+2. quality reviewer: 5 параметров (свежесть, практичность, релевантность, язык, полнота)
+3. три круга итераций generator-discriminator
+4. финальный markdown с executive summary
+5. лог: время, токены, стоимость каждого субагента
+6. если стоимость > $2 — предупреди
+7. напиши skill.md файл целиком</div>
+    </div>
+  </div>
 </div>
 
 <!-- SLIDE 6: Layer 4 detail -->
@@ -1107,6 +1164,24 @@ deals/            ← инвестиционные сделки</div>
       <p style="margin-top:6px;font-size:12px;color:var(--text-dim)">AB-тестирование скиллов: всегда версионировать, хранить несколько версий, прогонять обе через evals (аналог catastrophic forgetting при fine-tuning)</p>
     </div>
   </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px" class="anim-4">
+    <div>
+      <div style="font-family:var(--font-code);font-size:11px;color:var(--teal);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Простой промпт</div>
+      <div class="prompt-box" onclick="copyText(this)" style="font-size:12px">напиши eval для моего [research] скилла: 3 критерия pass/fail. прогони скилл и покажи результат по каждому критерию</div>
+    </div>
+    <div>
+      <div style="font-family:var(--font-code);font-size:11px;color:var(--amber);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Продвинутый промпт</div>
+      <div class="prompt-box" onclick="copyText(this)" style="font-size:12px;border-left-color:var(--amber)">создай систему evals для скиллов:
+1. unit test: каждый шаг — критерии pass/fail
+2. integration test: полный процесс end-to-end
+3. business metric: время, стоимость, качество
+4. NPS в конце (1-9), запись в лог
+5. AB-тест: 2 версии, прогнать обе через eval
+6. catastrophic forgetting: новая не хуже старой
+7. трассировка: MCP вызовы, ошибки, latency
+8. dashboard: adoption, глубина, стоимость</div>
+    </div>
+  </div>
 </div>
 
 <!-- SLIDE 7: Layer 5 detail -->
@@ -1141,6 +1216,22 @@ deals/            ← инвестиционные сделки</div>
       <p style="margin-top:4px;font-size:12px;color:var(--text-dim)">Парадокс: рабочий день после подключения AI-инструментов увеличивается ~в 2 раза (HBR). Найм: «докажи, что нельзя сделать с AI». Саботаж: 88% организаций сообщали об инцидентах.</p>
     </div>
   </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px" class="anim-4">
+    <div>
+      <div style="font-family:var(--font-code);font-size:11px;color:var(--teal);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Простой промпт</div>
+      <div class="prompt-box" onclick="copyText(this)" style="font-size:12px">проведи со мной интервью о моей работе (10 вопросов) и сгенерируй skill.md на основе ответов. добавь секцию «когда эскалировать человеку»</div>
+    </div>
+    <div>
+      <div style="font-family:var(--font-code);font-size:11px;color:var(--amber);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Продвинутый промпт</div>
+      <div class="prompt-box" onclick="copyText(this)" style="font-size:12px;border-left-color:var(--amber)">проведи «компилятор людей» — 15 вопросов:
+1-5: что делаешь, что повторяется, где время
+6-10: какие данные, с кем коммуницируешь, ошибки
+11-15: как обучаешь новых, метрики, если AI делает — что он должен знать
+по ответам: skill.md + eval (5 критериев pass/fail)
++ секция эскалации + типичные ошибки
++ 4 роли человека: архитектура, отношения, валидация, ответственность</div>
+    </div>
+  </div>
 </div>
 
 <!-- SLIDE 8: Layer 6 detail -->
@@ -1173,6 +1264,24 @@ deals/            ← инвестиционные сделки</div>
       <h4 class="text-blue">Коллегиальность</h4>
       <p style="font-style:italic;color:rgba(255,255,255,0.8)">«Мы не инженерим AI — мы его открываем. Это процесс первооткрывания, как физика. Квантовая теория поля существует, но её нужно открыть.»</p>
       <p style="margin-top:6px;font-size:12px;color:var(--text-dim)">OKR = цели агента, стендапы = статус-чеки, регламенты = спеки и скиллы, peer review = GAN, оргструктура = граф оркестрации, performance review = evals</p>
+    </div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px" class="anim-4">
+    <div>
+      <div style="font-family:var(--font-code);font-size:11px;color:var(--teal);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Простой промпт</div>
+      <div class="prompt-box" onclick="copyText(this)" style="font-size:12px">настрой логирование: каждый скилл в конце записывает лог (время, задача, ошибки, стоимость). добавь алерт при >$5 за сессию</div>
+    </div>
+    <div>
+      <div style="font-family:var(--font-code);font-size:11px;color:var(--amber);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Продвинутый промпт</div>
+      <div class="prompt-box" onclick="copyText(this)" style="font-size:12px;border-left-color:var(--amber)">создай governance для AI в компании:
+1. бюджет: лимиты токенов по сотрудникам/отделам
+2. аудит: все LLM-вызовы (кто, модель, токены, $)
+3. DLP: маскировка PII (имена → [PERSON])
+4. метрики: adoption, частота, ROI по задачам
+5. compliance: chain-of-thought как документация (FINRA)
+6. еженедельный отчёт: использование + аномалии
+7. 4 уровня компетенций: классифицировать сотрудников
+8. emergency: auto-switch на дешёвую модель</div>
     </div>
   </div>
 </div>
@@ -1221,8 +1330,8 @@ deals/            ← инвестиционные сделки</div>
   <div class="slide-counter">10 / 26</div>
   <div class="slide-brand"><img src="../../logo.png" alt="" style="height:28px;opacity:0.4;"><span style="font-family:var(--font-body);font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:1px;">AI-NATIVE SPRINT</span></div>
   <div class="section-label anim-1">Практика</div>
-  <h2 class="anim-2" style="margin-bottom:4px">Конструктор пайплайна</h2>
-  <p class="text-dim anim-3" style="font-size:13px;margin-bottom:4px">Перетащите блоки на холст. Shift+клик для стрелок. Двойной клик — редактировать. Или загрузите шаблон:</p>
+  <h2 class="anim-2" style="margin-bottom:4px;font-size:32px">Конструктор пайплайна</h2>
+  <p class="text-dim anim-3" style="font-size:16px;margin-bottom:4px">Перетащите блоки на холст. Shift+клик для стрелок. Двойной клик — редактировать. Или загрузите шаблон:</p>
   <div class="template-gallery anim-3" id="templateGallery"></div>
   <div class="pipeline-title-row anim-4">
     <input class="pipeline-title-input" id="pipelineTitle" placeholder="Мой процесс" maxlength="60">
@@ -1303,8 +1412,8 @@ deals/            ← инвестиционные сделки</div>
   <div class="slide-counter">12 / 26</div>
   <div class="slide-brand"><img src="../../logo.png" alt="" style="height:28px;opacity:0.4;"><span style="font-family:var(--font-body);font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:1px;">AI-NATIVE SPRINT</span></div>
   <div class="section-label anim-1">Карта автономности</div>
-  <h2 class="anim-2" style="margin-bottom:4px">Ваша компания: что автоматизировать</h2>
-  <p class="text-dim anim-3" style="font-size:13px;margin-bottom:6px">Кликните на ячейку, чтобы вписать задачу. Кликните на уровень слева — описание.</p>
+  <h2 class="anim-2" style="margin-bottom:4px;font-size:32px">Ваша компания: что автоматизировать</h2>
+  <p class="text-dim anim-3" style="font-size:16px;margin-bottom:6px">Кликните на ячейку, чтобы вписать задачу. Кликните на уровень слева — описание.</p>
   <div class="autonomy-grid-wrapper anim-4">
     <div class="autonomy-grid" id="autonomyGrid"></div>
   </div>
@@ -1312,6 +1421,10 @@ deals/            ← инвестиционные сделки</div>
     <button class="export-btn" onclick="exportAutonomy()">Экспорт в Markdown</button>
     <button class="export-btn" onclick="resetAutonomy()">Сбросить</button>
   </div>
+  <div class="prompt-box anim-5" onclick="copyText(this)" style="margin-top:10px;font-size:12px">на основе моей карты автономии (скопируй из экспорта выше):
+1. для каждой задачи на уровне L1-L2 — напиши промпт который начнёт автоматизацию
+2. для L0 задач — объясни почему они остаются за человеком
+3. предложи 3 задачи которые можно перевести на уровень выше</div>
 </div>
 
 <!-- ==========================================
@@ -1351,41 +1464,9 @@ deals/            ← инвестиционные сделки</div>
 </div>
 
 <!-- ==========================================
-     SLIDE 14: SESSION FORMAT
+     SLIDE 14: PROMPT CARDS
      ========================================== -->
-<div class="slide" data-slide="13">
-  <div class="slide-counter">14 / 26</div>
-  <div class="slide-brand"><img src="../../logo.png" alt="" style="height:28px;opacity:0.4;"><span style="font-family:var(--font-body);font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:1px;">AI-NATIVE SPRINT</span></div>
-  <div class="section-label anim-1">Формат</div>
-  <h2 class="anim-2">declare — build — debrief</h2>
-  <div class="anim-3" style="padding:20px 24px;background:var(--bg-terminal);border-radius:8px;border:1px solid var(--border);font-family:var(--font-code);font-size:13px;line-height:1.8;color:rgba(255,255,255,0.8)">
-    <div style="color:var(--text-label);font-size:11px;text-transform:uppercase;letter-spacing:2px;margin-bottom:12px">// формат сессии</div>
-    <div style="font-family:var(--font-heading);font-size:18px;color:var(--text);margin-bottom:16px">declare — build — debrief</div>
-    <div style="margin-bottom:12px">
-      <span class="text-teal">цикл 1:</span><br>
-      <span style="color:var(--text-label)">&rarr;</span> <strong>declare:</strong> напишите в чат что вы построите за 40 минут<br>
-      <span style="color:var(--text-label)">&rarr;</span> <strong>build:</strong> тихая работа, камеры вкл<br>
-      <span style="color:var(--text-label)">&rarr;</span> <strong>debrief:</strong> одно предложение — что сделали, где застряли
-    </div>
-    <div style="padding:8px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin-bottom:12px;color:var(--amber)">
-      перерыв + mob debug (опционально: один шарит экран, группа помогает)
-    </div>
-    <div style="margin-bottom:12px">
-      <span class="text-green">цикл 2:</span><br>
-      <span style="color:var(--text-label)">&rarr;</span> <strong>declare:</strong> уточните задачу на второй блок<br>
-      <span style="color:var(--text-label)">&rarr;</span> <strong>build:</strong> продолжаем<br>
-      <span style="color:var(--text-label)">&rarr;</span> <strong>teach-back:</strong> 2 волонтёра показывают не результат, а процесс мышления
-    </div>
-    <div style="color:var(--text-dim);font-size:12px;border-top:1px solid var(--border);padding-top:8px">
-      камеры включены &middot; два цикла по ~50 минут
-    </div>
-  </div>
-</div>
-
-<!-- ==========================================
-     SLIDE 15: PROMPT CARDS
-     ========================================== -->
-<div class="slide" data-slide="14" style="justify-content:flex-start;padding-top:60px">
+<div class="slide" data-slide="13" style="justify-content:flex-start;padding-top:60px">
   <div class="slide-counter">15 / 26</div>
   <div class="slide-brand"><img src="../../logo.png" alt="" style="height:28px;opacity:0.4;"><span style="font-family:var(--font-body);font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:1px;">AI-NATIVE SPRINT</span></div>
   <div class="section-label anim-1">Практические треки</div>
@@ -1396,7 +1477,7 @@ deals/            ← инвестиционные сделки</div>
 <!-- ==========================================
      SLIDE 16: MEMORY TYPES
      ========================================== -->
-<div class="slide" data-slide="15">
+<div class="slide" data-slide="14">
   <div class="slide-counter">16 / 26</div>
   <div class="slide-brand"><img src="../../logo.png" alt="" style="height:28px;opacity:0.4;"><span style="font-family:var(--font-body);font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:1px;">AI-NATIVE SPRINT</span></div>
   <div class="section-label anim-1">Память AI</div>
@@ -1404,7 +1485,8 @@ deals/            ← инвестиционные сделки</div>
   <div class="card-grid anim-3">
     <div class="info-card">
       <h3><span class="text-teal">Эпизодическая</span></h3>
-      <p>Что происходило — звонки, встречи, сообщения. Причинно-следственные события с хронологией. Важен период полураспада: данные из звонка двухлетней давности менее актуальны, чем вчерашние.</p>
+      <p>Что происходило — звонки, встречи, сообщения. Причинно-следственные события с хронологией.</p>
+      <div style="padding:8px 12px;background:var(--bg-terminal);border-radius:4px;margin-top:6px;font-size:12px;color:rgba(255,255,255,0.7);line-height:1.5">клиент пришёл → попробовал → отказался → дали скидку → купил. порядок важен. ZEP хранит хронологию. без неё агент не поймёт контекст скидки</div>
       <div class="prompt-box" onclick="copyText(this)" style="margin-top:auto">создай context/calls/ и напиши скрипт ежедневной индексации:
 1. из новых звонков извлечь решения, action items, коммитменты, метрики
 2. каждый факт с прямой цитатой и ссылкой на источник
@@ -1417,7 +1499,8 @@ deals/            ← инвестиционные сделки</div>
     </div>
     <div class="info-card">
       <h3><span class="text-amber">Семантическая</span></h3>
-      <p>Факты и знания — LLM силён в этом по умолчанию (pre-train). CLAUDE.md, skills, стандарты команды. Внутренние знания модели + контекст компании.</p>
+      <p>Факты и знания — LLM силён по умолчанию (pre-train). Но: ваши данные он не знает.</p>
+      <div style="padding:8px 12px;background:var(--bg-terminal);border-radius:4px;margin-top:6px;font-size:12px;color:rgba(255,255,255,0.7);line-height:1.5">Claude знает что Python — язык программирования. но НЕ знает что ваш клиент Иванов предпочитает созвоны по вторникам. CLAUDE.md и контекст-граф — это семантическая память компании</div>
       <div class="prompt-box" onclick="copyText(this)" style="margin-top:auto">проанализируй мои последние 20 чатов и извлеки повторяющиеся инструкции:
 1. оформи как правила в CLAUDE.md
 2. группируй по: форматирование, процессы, инструменты, запреты
@@ -1430,7 +1513,8 @@ deals/            ← инвестиционные сделки</div>
     </div>
     <div class="info-card">
       <h3><span class="text-green">Процедурная</span></h3>
-      <p>Навыки и процедуры — skills, workflows, шаблоны. Должностные инструкции агента. Не жёсткие инструкции, а пространство для принятия решений.</p>
+      <p>Навыки и процедуры — skills, workflows. Должностные инструкции агента.</p>
+      <div style="padding:8px 12px;background:var(--bg-terminal);border-radius:4px;margin-top:6px;font-size:12px;color:rgba(255,255,255,0.7);line-height:1.5">skill.md = должностная инструкция. не «ответь на вопрос», а «сначала проверь CRM, потом звонки, потом напиши ответ в формате X». пространство для решений, не жёсткий скрипт</div>
       <div class="prompt-box" onclick="copyText(this)" style="margin-top:auto">проведи со мной интервью о процессе [задача]:
 1. задай 15 вопросов: что делаешь каждый день, какие задачи повторяются
 2. где тратишь время, какие решения принимаешь, на основе чего
@@ -1448,7 +1532,7 @@ deals/            ← инвестиционные сделки</div>
 <!-- ==========================================
      SLIDE 17: EVALS FRAMEWORK
      ========================================== -->
-<div class="slide" data-slide="16">
+<div class="slide" data-slide="15">
   <div class="slide-counter">17 / 26</div>
   <div class="slide-brand"><img src="../../logo.png" alt="" style="height:28px;opacity:0.4;"><span style="font-family:var(--font-body);font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:1px;">AI-NATIVE SPRINT</span></div>
   <div class="section-label anim-1">Качество</div>
@@ -1474,7 +1558,20 @@ deals/            ← инвестиционные сделки</div>
       </ul>
     </div>
   </div>
-  <div class="prompt-box anim-4" onclick="copyText(this)" style="margin-top:16px">напиши eval для [skill]. критерии:
+  <div class="anim-4" style="margin-top:12px;padding:16px 20px;background:var(--bg-card);border:1px solid var(--border);border-radius:8px">
+    <div style="font-family:var(--font-code);font-size:11px;color:var(--teal);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Пример eval: research-skill v1.2</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+      <div>
+        <div style="font-family:var(--font-heading);font-size:13px;color:var(--text);margin-bottom:6px">Критерии (pass/fail):</div>
+        <div style="font-family:var(--font-code);font-size:11px;color:rgba(255,255,255,0.7);line-height:1.7">1. релевантность: результат связан с моим бизнесом, не абстрактный<br>2. свежесть: все данные &lt; 6 месяцев<br>3. источники: каждое утверждение имеет ссылку<br>4. практичность: можно действовать на основе результата<br>5. полнота: покрыты компания, технология, рынок</div>
+      </div>
+      <div>
+        <div style="font-family:var(--font-heading);font-size:13px;color:var(--text);margin-bottom:6px">Тест-кейсы + метрики:</div>
+        <div style="font-family:var(--font-code);font-size:11px;color:rgba(255,255,255,0.7);line-height:1.7">«исследуй [конкурента X]» → ожидаю: финансы, продукт, команда, стратегия<br>«исследуй [технологию Y]» → ожидаю: бенчмарки, альтернативы, стоимость<br><br><span style="color:var(--amber)">NPS:</span> после каждого запуска спросить 1-9<br><span style="color:var(--green)">AB:</span> сравнить v1.1 vs v1.2 на 5 одинаковых запросах</div>
+      </div>
+    </div>
+  </div>
+  <div class="prompt-box anim-5" onclick="copyText(this)" style="margin-top:12px">напиши eval для [skill]. критерии:
 1) релевантность моему контексту — pass если >80% информации про мою отрасль
 2) свежесть данных (&lt;6 мес) — pass если все источники свежие
 3) наличие цифр и источников — pass если >3 ссылки и >5 конкретных цифр
@@ -1488,7 +1585,7 @@ deals/            ← инвестиционные сделки</div>
 <!-- ==========================================
      SLIDE 18: STEPAN'S LIVE SETUP
      ========================================== -->
-<div class="slide" data-slide="17" style="justify-content:flex-start;padding-top:60px">
+<div class="slide" data-slide="16" style="justify-content:flex-start;padding-top:60px">
   <div class="slide-counter">18 / 26</div>
   <div class="slide-brand"><img src="../../logo.png" alt="" style="height:28px;opacity:0.4;"><span style="font-family:var(--font-body);font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:1px;">AI-NATIVE SPRINT</span></div>
   <div class="section-label anim-1">Кейс</div>
@@ -1528,7 +1625,7 @@ deals/            &larr; инвестиционные сделки</div>
 <!-- ==========================================
      SLIDE 19: DATA MAP
      ========================================== -->
-<div class="slide" data-slide="18" style="justify-content:flex-start;padding-top:60px">
+<div class="slide" data-slide="17" style="justify-content:flex-start;padding-top:60px">
   <div class="slide-counter">19 / 26</div>
   <div class="slide-brand"><img src="../../logo.png" alt="" style="height:28px;opacity:0.4;"><span style="font-family:var(--font-body);font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:1px;">AI-NATIVE SPRINT</span></div>
   <div class="section-label anim-1">Данные</div>
@@ -1573,7 +1670,7 @@ deals/            &larr; инвестиционные сделки</div>
 <!-- ==========================================
      SLIDE 20: SECURITY
      ========================================== -->
-<div class="slide" data-slide="19" style="justify-content:flex-start;padding-top:60px">
+<div class="slide" data-slide="18" style="justify-content:flex-start;padding-top:60px">
   <div class="slide-counter">20 / 26</div>
   <div class="slide-brand"><img src="../../logo.png" alt="" style="height:28px;opacity:0.4;"><span style="font-family:var(--font-body);font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:1px;">AI-NATIVE SPRINT</span></div>
   <div class="section-label anim-1">Безопасность</div>
@@ -1593,7 +1690,7 @@ deals/            &larr; инвестиционные сделки</div>
 <!-- ==========================================
      SLIDE 21: 4 ROLES OF HUMANS
      ========================================== -->
-<div class="slide" data-slide="20">
+<div class="slide" data-slide="19">
   <div class="slide-counter">21 / 26</div>
   <div class="slide-brand"><img src="../../logo.png" alt="" style="height:28px;opacity:0.4;"><span style="font-family:var(--font-body);font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:1px;">AI-NATIVE SPRINT</span></div>
   <div class="section-label anim-1">Люди и AI</div>
@@ -1613,85 +1710,37 @@ deals/            &larr; инвестиционные сделки</div>
 <!-- ==========================================
      SLIDE 22: TOOLS REFERENCE
      ========================================== -->
-<div class="slide" data-slide="21" style="justify-content:flex-start;padding-top:50px">
+<div class="slide" data-slide="20" style="justify-content:flex-start;padding-top:50px">
   <div class="slide-counter">22 / 26</div>
   <div class="slide-brand"><img src="../../logo.png" alt="" style="height:28px;opacity:0.4;"><span style="font-family:var(--font-body);font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:1px;">AI-NATIVE SPRINT</span></div>
   <div class="section-label anim-1">Справочник</div>
   <h2 class="anim-2" style="margin-bottom:8px">Инструменты из лекции</h2>
-  <div class="tools-grid anim-3">
-    <div class="tools-category" style="border-top:2px solid var(--teal)">
-      <h4 class="text-teal">Данные</h4>
-      <div class="tool-item"><strong>ClickHouse</strong> — единая аналитическая БД</div>
-      <div class="tool-item"><strong>Postgres</strong> — внутренние БД продукта</div>
-      <div class="tool-item"><strong>SQLite</strong> — личный context graph</div>
-    </div>
-    <div class="tools-category" style="border-top:2px solid var(--blue)">
-      <h4 class="text-blue">Память</h4>
-      <div class="tool-item"><strong>SuperMemory</strong> — хранение + retrieval (17k stars)</div>
-      <div class="tool-item"><strong>ZEP</strong> — bi-temporal память</div>
-      <div class="tool-item"><strong>QMD</strong> — гибридный BM25+vector поиск</div>
-      <div class="tool-item"><strong>Glean</strong> — Enterprise knowledge graph</div>
-    </div>
-    <div class="tools-category" style="border-top:2px solid var(--green)">
-      <h4 class="text-green">Оркестрация</h4>
-      <div class="tool-item"><strong>Moti</strong> — промышленный оркестратор</div>
-      <div class="tool-item"><strong>Inngest</strong> — доказуемое исполнение</div>
-      <div class="tool-item"><strong>Temporal</strong> — retry, checkpoint</div>
-    </div>
-    <div class="tools-category" style="border-top:2px solid var(--red)">
-      <h4 class="text-red">Безопасность</h4>
-      <div class="tool-item"><strong>NemoGuardrails</strong> — NVIDIA, open-source</div>
-      <div class="tool-item"><strong>Citadel</strong> — policy engine</div>
-    </div>
-    <div class="tools-category" style="border-top:2px solid var(--amber)">
-      <h4 class="text-amber">Observability</h4>
-      <div class="tool-item"><strong>LangFuse</strong> — трейсинг + аналитика</div>
-      <div class="tool-item"><strong>Eris.com</strong> — логирование метрик агентов</div>
-      <div class="tool-item"><strong>OpenRouter</strong> — роутинг между моделями</div>
-    </div>
-    <div class="tools-category" style="border-top:2px solid var(--cyan)">
-      <h4 style="color:var(--cyan)">Агент-харнес</h4>
-      <div class="tool-item"><strong>Claude Code</strong> — основной инструмент</div>
-      <div class="tool-item"><strong>OpenCode</strong> — open-source, 75 моделей</div>
-      <div class="tool-item"><strong>buy.dev</strong> — open-source харнес</div>
-    </div>
-    <div class="tools-category" style="border-top:2px solid var(--text-dim)">
-      <h4 style="color:var(--text-dim)">Прототипирование</h4>
-      <div class="tool-item"><strong>N8N</strong> — визуальные workflow</div>
-      <div class="tool-item"><strong>Make / Zapier</strong> — API-связи</div>
-      <div class="tool-item"><strong>Playwright</strong> — браузерная автоматизация</div>
-    </div>
-    <div class="tools-category" style="border-top:2px solid var(--text-dim)">
-      <h4 style="color:var(--text-dim)">Прочее</h4>
-      <div class="tool-item"><strong>Darwin-G&ouml;del Machine</strong> — self-improving agents (Meta)</div>
-      <div class="tool-item"><strong>Linux Foundation AI</strong> — стандарты безопасности</div>
-      <div class="tool-item"><strong>LangChain</strong> — устарел (по мнению Степана)</div>
-    </div>
-  </div>
+  <p class="text-dim anim-3" style="font-size:13px;margin-bottom:8px">Кликните на инструмент, чтобы увидеть описание</p>
+  <div class="tools-grid anim-3" id="toolsGrid"></div>
 </div>
 
 <!-- ==========================================
      SLIDE 23: KEY QUOTES (all 6)
      ========================================== -->
-<div class="slide" data-slide="22" style="justify-content:flex-start;padding-top:50px">
+<div class="slide" data-slide="21" style="justify-content:flex-start;padding-top:50px">
   <div class="slide-counter">23 / 26</div>
   <div class="slide-brand"><img src="../../logo.png" alt="" style="height:28px;opacity:0.4;"><span style="font-family:var(--font-body);font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:1px;">AI-NATIVE SPRINT</span></div>
   <div class="section-label anim-1">Ключевые мысли</div>
   <h2 class="anim-2" style="margin-bottom:8px">Цитаты из лекции</h2>
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px" class="anim-3">
-    <div class="quote-card" style="border-left-color:var(--amber)"><p>&laquo;Задизайнить идеальную систему невозможно. Ни один план битвы не выдержал столкновения с реальностью. Единственный способ добиться хорошего результата — это оценка.&raquo;</p><div class="quote-avatar"><img src="../../speakers/stepan-gershuni.jpg"><span>— Степан Гершуни</span></div></div>
-    <div class="quote-card" style="border-left-color:var(--teal)"><p>&laquo;Мы не инженерим, мы не дизайним, мы не интегрируем AI — мы его открываем. Это процесс первооткрывания, как физика.&raquo;</p><div class="quote-avatar"><img src="../../speakers/stepan-gershuni.jpg"><span>— Степан Гершуни</span></div></div>
-    <div class="quote-card" style="border-left-color:var(--red)"><p>&laquo;AI-трансформация — это не киберпанк. Мы не пытаемся всех уволить и поставить роботов. Задача лидера — показать, что это путь к победе, а не угроза.&raquo;</p><div class="quote-avatar"><img src="../../speakers/stepan-gershuni.jpg"><span>— Степан Гершуни</span></div></div>
-    <div class="quote-card" style="border-left-color:var(--blue)"><p>&laquo;Если у вас политика "нельзя ChatGPT" — все его используют, просто никому не говорят. У вас все риски и никакого апсайда.&raquo;</p><div class="quote-avatar"><img src="../../speakers/stepan-gershuni.jpg"><span>— Степан Гершуни</span></div></div>
-    <div class="quote-card" style="border-left-color:var(--green)"><p>&laquo;Каждое слово, сказанное на звонке, должно автоматически попадать в граф контекста. Компания как граф токенов.&raquo;</p><div class="quote-avatar"><img src="../../speakers/stepan-gershuni.jpg"><span>— Степан Гершуни</span></div></div>
-    <div class="quote-card" style="border-left-color:var(--cyan)"><p>&laquo;There is no product that you can buy for any money that would give you the best agent for marketing or sales.&raquo;</p><div class="quote-avatar"><img src="../../speakers/stepan-gershuni.jpg"><span>— Степан Гершуни</span></div></div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px" class="anim-3">
+    <div class="quote-card" style="border-left-color:var(--teal);padding:18px 22px"><p style="font-size:24px;line-height:1.4">&laquo;Мы не инженерим AI — мы его открываем. Это процесс первооткрывания, как физика.&raquo;</p><div class="quote-avatar"><img src="../../speakers/stepan-gershuni.jpg"><span>— Степан Гершуни</span></div></div>
+    <div class="quote-card" style="border-left-color:var(--red);padding:18px 22px"><p style="font-size:24px;line-height:1.4">&laquo;AI-трансформация — это не киберпанк. Задача лидера — показать что это путь к победе, а не угроза.&raquo;</p><div class="quote-avatar"><img src="../../speakers/stepan-gershuni.jpg"><span>— Степан Гершуни</span></div></div>
+    <div class="quote-card" style="border-left-color:var(--amber);padding:18px 22px"><p style="font-size:24px;line-height:1.4">&laquo;Ограничение AI-native — это организационная структура, не способности моделей.&raquo;</p><div class="quote-avatar"><img src="../../speakers/stepan-gershuni.jpg"><span>— Степан Гершуни</span></div></div>
+    <div class="quote-card" style="border-left-color:var(--blue);padding:18px 22px"><p style="font-size:24px;line-height:1.4">&laquo;Если у вас политика "нельзя ChatGPT" — все его используют, просто никому не говорят. У вас все риски и никакого апсайда.&raquo;</p><div class="quote-avatar"><img src="../../speakers/stepan-gershuni.jpg"><span>— Степан Гершуни</span></div></div>
+    <div class="quote-card" style="border-left-color:var(--green);padding:18px 22px"><p style="font-size:26px;line-height:1.4">&laquo;Задизайнить идеальную систему невозможно. Единственный способ добиться хорошего результата — это оценка.&raquo;</p><div class="quote-avatar"><img src="../../speakers/stepan-gershuni.jpg"><span>— Степан Гершуни</span></div></div>
+    <div class="quote-card" style="border-left-color:var(--cyan);padding:18px 22px"><p style="font-size:24px;line-height:1.4">&laquo;Каждое слово на звонке должно автоматически попадать в граф контекста. Компания как граф токенов.&raquo;</p><div class="quote-avatar"><img src="../../speakers/stepan-gershuni.jpg"><span>— Степан Гершуни</span></div></div>
   </div>
 </div>
 
 <!-- ==========================================
      SLIDE 24: FULL PROMPT
      ========================================== -->
-<div class="slide" data-slide="23" style="justify-content:flex-start;padding-top:60px">
+<div class="slide" data-slide="22" style="justify-content:flex-start;padding-top:60px">
   <div class="slide-counter">24 / 26</div>
   <div class="slide-brand"><img src="../../logo.png" alt="" style="height:28px;opacity:0.4;"><span style="font-family:var(--font-body);font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:1px;">AI-NATIVE SPRINT</span></div>
   <div class="section-label anim-1">Промпт-старт</div>
@@ -1741,9 +1790,101 @@ deals/            &larr; инвестиционные сделки</div>
 </div>
 
 <!-- ==========================================
-     SLIDE 25: GOALS + HOMEWORK
+     SLIDE 25: CASE STUDY — POVALIAEV'S ARCHITECTURE
+     ========================================== -->
+<div class="slide" data-slide="23" style="justify-content:flex-start;padding-top:50px">
+  <div class="slide-counter">25 / 28</div>
+  <div class="slide-brand"><img src="../../logo.png" alt="" style="height:28px;opacity:0.4;"><span style="font-family:var(--font-body);font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:1px;">AI-NATIVE SPRINT</span></div>
+  <div class="section-label anim-1">Кейс</div>
+  <h2 class="anim-2" style="margin-bottom:8px">Персональная ОС + командный стек</h2>
+  <div class="stepan-diagram anim-3">
+    <div class="stepan-block" style="border-top:2px solid var(--teal)">
+      <h4>Персональная ОС</h4>
+      <div class="mono-tree">Obsidian vault (11,000+ заметок)
++ Claude Code + 40 скиллов
++ MCP серверы:
+  Notion, Calendar, Telegram
+  Linear, Krisp, Playwright
+  QMD (семантический поиск)
++ CLAUDE.md как точка входа
++ auto-eval в каждом ответе</div>
+    </div>
+    <div class="stepan-block" style="border-top:2px solid var(--blue)">
+      <h4>Командный стек</h4>
+      <div class="mono-tree">общий vault (Obsidian Sync)
++ командные скиллы (AIM-*)
++ Linear для задач + статусов
++ Telegram MCP для коммуникации
++ symlink: team skills &rarr; personal
++ единый naming convention
++ синхронизация через Git</div>
+    </div>
+    <div class="stepan-block" style="border-top:2px solid var(--amber)">
+      <h4>Evals &amp; логирование</h4>
+      <p style="font-size:12px;color:rgba(255,255,255,0.65);line-height:1.6"><strong style="color:var(--amber)">Auto-eval</strong> в каждом ответе: T (текст) / R (правила) / C (код) — binary pass/fail</p>
+      <p style="font-size:12px;color:rgba(255,255,255,0.65);line-height:1.6;margin-top:4px"><strong style="color:var(--amber)">Context tracking</strong>: использование контекста в footer каждого ответа</p>
+      <p style="font-size:12px;color:rgba(255,255,255,0.65);line-height:1.6;margin-top:4px"><strong style="color:var(--amber)">Linear awareness</strong>: автоматическое связывание сессий с задачами</p>
+      <p style="font-size:12px;color:rgba(255,255,255,0.65);line-height:1.6;margin-top:4px"><strong style="color:var(--amber)">Shepherd</strong>: дневной прогресс + Telegram дайджест</p>
+    </div>
+    <div class="stepan-block" style="border-top:2px solid var(--green)">
+      <h4>Принцип</h4>
+      <p style="font-size:12px;color:rgba(255,255,255,0.65);line-height:1.6">тюнить можно бесконечно — каждый день. это не проект с дедлайном, это операционная система</p>
+      <p style="font-size:12px;color:rgba(255,255,255,0.65);line-height:1.6;margin-top:8px"><strong style="color:var(--green)">Итерации:</strong> 50+ правок CLAUDE.md, 40+ скиллов за 3 месяца. Каждая сессия улучшает систему.</p>
+      <p style="font-size:12px;color:rgba(255,255,255,0.65);line-height:1.6;margin-top:8px"><strong style="color:var(--green)">Результат:</strong> агент знает контекст, стиль, процессы, инструменты. Не начинает с нуля.</p>
+    </div>
+  </div>
+  <div class="anim-4" style="margin-top:12px;display:flex;align-items:center;gap:12px;">
+    <img src="../../speakers/alexander-povaliaev.jpg" style="width:48px;height:48px;border-radius:50%;border:2px solid var(--border);object-fit:cover;">
+    <div>
+      <div style="font-size:15px;color:var(--text);">Саша Повалиев</div>
+      <div style="font-size:12px;color:var(--text-dim);">AI Mindset &middot; founder</div>
+    </div>
+  </div>
+</div>
+
+<!-- ==========================================
+     SLIDE 26: SESSION FORMAT (declare-build-debrief)
      ========================================== -->
 <div class="slide" data-slide="24">
+  <div class="slide-counter">26 / 28</div>
+  <div class="slide-brand"><img src="../../logo.png" alt="" style="height:28px;opacity:0.4;"><span style="font-family:var(--font-body);font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:1px;">AI-NATIVE SPRINT</span></div>
+  <div class="section-label anim-1">Формат</div>
+  <h2 class="anim-2">declare — build — debrief</h2>
+  <div class="anim-3" style="padding:20px 24px;background:var(--bg-terminal);border-radius:8px;border:1px solid var(--border);font-family:var(--font-code);font-size:13px;line-height:1.8;color:rgba(255,255,255,0.8)">
+    <div style="color:var(--text-label);font-size:11px;text-transform:uppercase;letter-spacing:2px;margin-bottom:12px">// формат сессии</div>
+    <div style="font-family:var(--font-heading);font-size:18px;color:var(--text);margin-bottom:16px">declare — build — debrief</div>
+    <div style="margin-bottom:12px">
+      <span class="text-teal">цикл 1:</span><br>
+      <span style="color:var(--text-label)">&rarr;</span> <strong>declare:</strong> напишите в чат что вы построите за 40 минут<br>
+      <span style="color:var(--text-label)">&rarr;</span> <strong>build:</strong> тихая работа, камеры вкл<br>
+      <span style="color:var(--text-label)">&rarr;</span> <strong>debrief:</strong> одно предложение — что сделали, где застряли
+    </div>
+    <div style="padding:8px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin-bottom:12px;color:var(--amber)">
+      перерыв + mob debug (опционально: один шарит экран, группа помогает)
+    </div>
+    <div style="margin-bottom:12px">
+      <span class="text-green">цикл 2:</span><br>
+      <span style="color:var(--text-label)">&rarr;</span> <strong>declare:</strong> уточните задачу на второй блок<br>
+      <span style="color:var(--text-label)">&rarr;</span> <strong>build:</strong> продолжаем<br>
+      <span style="color:var(--text-label)">&rarr;</span> <strong>teach-back:</strong> 2 волонтёра показывают не результат, а процесс мышления
+    </div>
+    <div style="color:var(--text-dim);font-size:12px;border-top:1px solid var(--border);padding-top:8px">
+      камеры включены &middot; два цикла по ~50 минут
+    </div>
+  </div>
+  <div class="anim-4" style="display:flex;align-items:center;gap:12px;margin-top:24px;">
+    <img src="../../speakers/alexander-povaliaev.jpg" style="width:48px;height:48px;border-radius:50%;border:2px solid var(--border);object-fit:cover;">
+    <div>
+      <div style="font-size:15px;color:var(--text);">Саша Повалиев</div>
+      <div style="font-size:12px;color:var(--text-dim);">фокус-сессия &middot; AI Mindset</div>
+    </div>
+  </div>
+</div>
+
+<!-- ==========================================
+     SLIDE 27: GOALS + HOMEWORK
+     ========================================== -->
+<div class="slide" data-slide="25">
   <div class="slide-counter">25 / 26</div>
   <div class="slide-brand"><img src="../../logo.png" alt="" style="height:28px;opacity:0.4;"><span style="font-family:var(--font-body);font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:1px;">AI-NATIVE SPRINT</span></div>
   <div class="section-label anim-1">Домашнее задание</div>
@@ -1753,15 +1894,15 @@ deals/            &larr; инвестиционные сделки</div>
     <div class="goal-item"><div class="goal-check" onclick="toggleGoal(this)"></div><span>Нарисовать токен-пайплайн для одного реального процесса</span></div>
     <div class="goal-item"><div class="goal-check" onclick="toggleGoal(this)"></div><span>Написать eval для одного skill (3+ критерия, pass/fail)</span></div>
     <div class="goal-item"><div class="goal-check" onclick="toggleGoal(this)"></div><span>Настроить context/ — структура папок для памяти агентов</span></div>
-    <div class="goal-item"><div class="goal-check" onclick="toggleGoal(this)"></div><span>Попробовать один промпт из треков (слайд 15) — записать результат</span></div>
+    <div class="goal-item"><div class="goal-check" onclick="toggleGoal(this)"></div><span>Попробовать один промпт из треков (слайд 14) — записать результат</span></div>
   </div>
   <button class="export-btn anim-4 workshop-only" onclick="exportGoals()" style="margin-top:14px">Экспорт прогресса</button>
 </div>
 
 <!-- ==========================================
-     SLIDE 26: CLOSING
+     SLIDE 28: CLOSING
      ========================================== -->
-<div class="slide" data-slide="25">
+<div class="slide" data-slide="26">
   <div class="slide-counter">26 / 26</div>
   <div class="slide-brand"><img src="../../logo.png" alt="" style="height:28px;opacity:0.4;"><span style="font-family:var(--font-body);font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:1px;">AI-NATIVE SPRINT</span></div>
   <div style="text-align:center;width:100%">
@@ -2052,7 +2193,7 @@ const TEMPLATES = {
 // STATE
 // ============================================
 let currentSlide = 0;
-const totalSlides = 26;
+const totalSlides = 27;
 let workshopMode = false;
 let arrowStartBlock = null;
 let canvasBlocks = [];
@@ -2076,6 +2217,7 @@ document.addEventListener('DOMContentLoaded', () => {
   renderCanvasBlocks();
   renderGoals();
   renderTemplateGallery();
+  renderToolsGrid();
   updateSlide();
   setupDragDrop();
   updateZoomIndicator();
@@ -2532,6 +2674,49 @@ function updatePipelineStats() {
   const pctAuto = Math.round(stats.auto/stats.total*100), pctReview = Math.round(stats.review/stats.total*100), pctHuman = Math.round(stats.human/stats.total*100);
   const title = pipelineTitle || '\u043A\u043E\u043D\u0432\u0435\u0439\u0435\u0440';
   bar.innerHTML = `<span class="stat-label">\u0432\u0430\u0448 ${title}:</span><span class="stat-value">${stats.total} \u0448\u0430\u0433\u043E\u0432</span><span class="stat-auto">${pctAuto}% \u0430\u0432\u0442\u043E</span><span class="stat-review">${pctReview}% \u0440\u0435\u0432\u044C\u044E</span><span class="stat-human">${pctHuman}% \u0447\u0435\u043B\u043E\u0432\u0435\u043A</span><div class="stat-bar"><div class="stat-bar-auto" style="width:${pctAuto}%"></div><div class="stat-bar-review" style="width:${pctReview}%"></div><div class="stat-bar-human" style="width:${pctHuman}%"></div></div>`;
+}
+
+// ============================================
+// TOOLS CLICKABLE CARDS
+// ============================================
+const TOOLS_DATA = [
+  { name: 'ClickHouse', cat: 'Данные', color: 'var(--teal)', desc: 'колоночная БД для аналитики. быстрый SQL по миллиардам строк' },
+  { name: 'Postgres', cat: 'Данные', color: 'var(--teal)', desc: 'реляционная БД продукта. стандарт для внутренних данных компании' },
+  { name: 'SQLite', cat: 'Данные', color: 'var(--teal)', desc: 'локальный контекст-граф. ежедневная индексация звонков и переписки' },
+  { name: 'SuperMemory', cat: 'Память', color: 'var(--blue)', desc: 'хранение и retrieval. CEO Shopify сделал, 17k звёзд на GitHub' },
+  { name: 'ZEP', cat: 'Память', color: 'var(--blue)', desc: 'bi-temporal память. хронология событий + период полураспада данных' },
+  { name: 'QMD', cat: 'Память', color: 'var(--blue)', desc: 'гибридный поиск BM25+vector+LLM. точнее чистого RAG' },
+  { name: 'Glean', cat: 'Память', color: 'var(--blue)', desc: 'Enterprise knowledge graph. для компаний 50+ человек' },
+  { name: 'LangFuse', cat: 'Observability', color: 'var(--amber)', desc: 'трейсинг агентов. какой MCP вызван, сколько времени, какой результат' },
+  { name: 'Eris.com', cat: 'Observability', color: 'var(--amber)', desc: 'логирование и трекинг метрик агентов. adoption, стоимость, latency' },
+  { name: 'OpenRouter', cat: 'Observability', color: 'var(--amber)', desc: 'роутинг между моделями. Haiku vs Opus = 60x разница в цене' },
+  { name: 'Moti', cat: 'Оркестрация', color: 'var(--green)', desc: 'промышленный оркестратор с retry, checkpoint, дедупликацией' },
+  { name: 'Inngest', cat: 'Оркестрация', color: 'var(--green)', desc: 'доказуемое исполнение. production-ready orchestration' },
+  { name: 'Temporal', cat: 'Оркестрация', color: 'var(--green)', desc: 'retry, checkpoint, versioning. стандарт для enterprise workflow' },
+  { name: 'NemoGuardrails', cat: 'Безопасность', color: 'var(--red)', desc: 'NVIDIA open-source. анализ команд перед исполнением, не промпт-контроль' },
+  { name: 'Citadel', cat: 'Безопасность', color: 'var(--red)', desc: 'open-source policy engine. Allow / Redact / Reroute / Block' },
+  { name: 'Claude Code', cat: 'Агент-харнес', color: 'var(--cyan)', desc: 'основной инструмент. скиллы, MCP, CLAUDE.md, multi-agent' },
+  { name: 'OpenCode', cat: 'Агент-харнес', color: 'var(--cyan)', desc: 'open-source аналог. 75 моделей из коробки' },
+  { name: 'N8N', cat: 'Прототипирование', color: 'var(--text-dim)', desc: 'визуальный конструктор workflow. drag-and-drop API-связи' },
+  { name: 'Playwright', cat: 'Прототипирование', color: 'var(--text-dim)', desc: 'браузерная автоматизация. скриншоты в пайплайнах агентов' }
+];
+
+function renderToolsGrid() {
+  const grid = document.getElementById('toolsGrid'); if (!grid) return;
+  grid.innerHTML = '';
+  const cats = [...new Set(TOOLS_DATA.map(t => t.cat))];
+  cats.forEach(cat => {
+    const tools = TOOLS_DATA.filter(t => t.cat === cat);
+    const catEl = document.createElement('div');
+    catEl.className = 'tools-category';
+    catEl.style.borderTop = '2px solid ' + tools[0].color;
+    let html = '<h4 style="color:' + tools[0].color + '">' + cat + '</h4>';
+    tools.forEach(t => {
+      html += '<div class="tool-item" style="cursor:pointer;padding:4px 0;transition:all 0.2s" onclick="this.querySelector(\'.tool-desc\').style.display=this.querySelector(\'.tool-desc\').style.display===\'block\'?\'none\':\'block\'"><strong style="color:' + t.color + '">' + t.name + '</strong><div class="tool-desc" style="display:none;font-size:10px;color:rgba(255,255,255,0.6);margin-top:2px;padding-left:8px;border-left:2px solid ' + t.color + '">' + t.desc + '</div></div>';
+    });
+    catEl.innerHTML = html;
+    grid.appendChild(catEl);
+  });
 }
 
 // ============================================

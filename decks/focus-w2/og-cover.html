@@ -1,223 +1,78 @@
 <!DOCTYPE html>
-<html lang="ru">
-<head>
+<html><head>
 <meta charset="UTF-8">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-html, body {
-  margin: 0; padding: 0;
-  width: 1200px; height: 630px;
-  overflow: hidden;
-  background: #161620;
-  font-family: 'IBM Plex Mono', monospace;
-  -webkit-font-smoothing: antialiased;
-}
+html, body { margin:0; padding:0; width:1200px; height:630px; overflow:hidden; background:#161620; font-family:'IBM Plex Mono',monospace; }
 
 /* Grid */
-body::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(77,201,212,1) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(77,201,212,1) 1px, transparent 1px);
-  background-size: 60px 60px;
-  opacity: 0.05;
-  z-index: 0;
-  pointer-events: none;
-}
+body::before { content:''; position:absolute; inset:0; background-image: linear-gradient(rgba(77,201,212,0.04) 1px,transparent 1px), linear-gradient(90deg,rgba(77,201,212,0.04) 1px,transparent 1px); background-size:60px 60px; }
 
-/* Top accent line */
-.top-line {
-  position: absolute; top: 0; left: 0; right: 0; height: 2px;
-  background: linear-gradient(90deg, transparent, #4dc9d4, #3b82f6, #4dc9d4, transparent);
-  z-index: 10;
-}
+/* Mesh */
+.mesh { position:absolute; inset:0; }
+.mesh .g1 { position:absolute; width:600px; height:600px; top:-100px; left:-100px; background:radial-gradient(circle,rgba(77,201,212,0.12) 0%,transparent 60%); }
+.mesh .g2 { position:absolute; width:500px; height:500px; bottom:-50px; right:100px; background:radial-gradient(circle,rgba(59,130,246,0.08) 0%,transparent 60%); }
+.mesh .g3 { position:absolute; width:400px; height:400px; top:200px; right:-50px; background:radial-gradient(circle,rgba(56,217,169,0.06) 0%,transparent 60%); }
 
-/* Mesh gradients */
-.mesh-g1 {
-  position: absolute; width: 900px; height: 900px; top: -300px; left: -200px;
-  background: radial-gradient(circle, rgba(77,201,212,0.10) 0%, transparent 70%);
-  z-index: 0;
-}
-.mesh-g2 {
-  position: absolute; width: 700px; height: 700px; bottom: -200px; right: -150px;
-  background: radial-gradient(circle, rgba(59,130,246,0.08) 0%, transparent 70%);
-  z-index: 0;
-}
-.mesh-g3 {
-  position: absolute; width: 500px; height: 500px; top: 40%; left: 55%;
-  transform: translate(-50%, -50%);
-  background: radial-gradient(circle, rgba(56,217,169,0.05) 0%, transparent 70%);
-  z-index: 0;
-}
-
-/* Vignette */
-.vignette {
-  position: absolute; inset: 0; z-index: 1; pointer-events: none;
-  background: radial-gradient(ellipse at center, transparent 40%, rgba(10,10,15,0.6) 100%);
-}
-
-/* Content */
-.content {
-  position: absolute; top: 0; left: 0; bottom: 0; width: 700px; z-index: 5;
-  display: flex; flex-direction: column; justify-content: center;
-  padding: 60px 60px 60px 80px;
-}
-
-/* Logo top-left */
-.logo-tl {
-  position: absolute; top: 36px; left: 44px; z-index: 10;
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 16px; font-weight: 500;
-  color: rgba(255,255,255,0.4);
-  letter-spacing: 1px;
-}
-
-/* Date top-right */
-.date-tr {
-  position: absolute; top: 36px; right: 44px; z-index: 10;
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 14px; color: rgba(77,201,212,0.6);
-  letter-spacing: 1px;
-}
-
-/* Bottom-right credits */
-.credits-br {
-  position: absolute; bottom: 32px; right: 44px; z-index: 10;
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 13px; color: rgba(255,255,255,0.25);
-  letter-spacing: 0.5px;
-}
-
-/* Label */
-.label {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 14px; font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 3px;
-  color: #4dc9d4;
-  margin-bottom: 20px;
-}
-
-/* Title */
-.title {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 48px; font-weight: 700;
-  color: #e6edf3;
-  line-height: 1.2;
-  margin-bottom: 16px;
-}
-
-/* Subtitle */
-.subtitle {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 18px; font-weight: 400;
-  color: rgba(255,255,255,0.5);
-  letter-spacing: 0.5px;
-  line-height: 1.6;
-}
+/* Top line */
+.top-line { position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg,transparent,#4dc9d4,transparent); }
 
 /* Corner brackets */
-.corner-tl, .corner-br {
-  position: absolute; width: 28px; height: 28px;
-  border-color: rgba(77,201,212,0.15); border-style: solid;
-  z-index: 10;
-}
-.corner-tl { top: 30px; left: 30px; border-width: 1px 0 0 1px; }
-.corner-br { bottom: 30px; right: 30px; border-width: 0 1px 1px 0; }
+.bracket-tl { position:absolute; top:24px; left:24px; width:40px; height:40px; border-left:2px solid rgba(77,201,212,0.2); border-top:2px solid rgba(77,201,212,0.2); }
+.bracket-br { position:absolute; bottom:24px; right:24px; width:40px; height:40px; border-right:2px solid rgba(77,201,212,0.2); border-bottom:2px solid rgba(77,201,212,0.2); }
 
-/* Glow dots */
-.glow-dot {
-  position: absolute; width: 4px; height: 4px; border-radius: 50%;
-  background: #4dc9d4; z-index: 3; opacity: 0.4;
-}
+/* Content */
+.content { position:relative; z-index:10; padding:60px 70px; height:100%; display:flex; flex-direction:column; justify-content:space-between; box-sizing:border-box; }
+.label { font-size:13px; letter-spacing:4px; text-transform:uppercase; color:#4dc9d4; margin-bottom:16px; }
+h1 { font-family:'Space Grotesk',sans-serif; font-size:56px; font-weight:700; color:#fff; line-height:1.15; margin:0 0 12px; max-width:620px; }
+h1 .teal { color:#4dc9d4; }
+.subtitle { font-size:18px; color:rgba(255,255,255,0.5); line-height:1.5; max-width:580px; }
+.bottom { display:flex; justify-content:space-between; align-items:flex-end; }
+.brand { display:flex; align-items:center; gap:10px; }
+.brand img { height:32px; opacity:0.5; }
+.brand span { font-size:12px; color:rgba(255,255,255,0.35); letter-spacing:2px; }
+.date { font-size:13px; color:rgba(255,255,255,0.3); }
 
-/* 6-layer stack diagram */
-.layer-stack {
-  position: absolute; right: 60px; top: 50%; transform: translateY(-50%);
-  z-index: 5; display: flex; flex-direction: column; gap: 4px;
-  width: 400px;
-}
-.layer-bar {
-  display: flex; align-items: center; gap: 10px;
-  padding: 10px 16px; border-radius: 6px;
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 12px; font-weight: 500;
-  letter-spacing: 0.5px;
-}
-.layer-num {
-  font-size: 11px; opacity: 0.5; width: 20px; flex-shrink: 0;
-}
-.layer-name {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 14px; font-weight: 600;
-}
-.gov-bar {
-  position: absolute; right: 20px; top: 50%; transform: translateY(-50%);
-  z-index: 6; width: 36px; height: 260px;
-  border-radius: 6px; display: flex; align-items: center; justify-content: center;
-  writing-mode: vertical-rl; text-orientation: mixed;
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 13px; font-weight: 600; letter-spacing: 2px;
-}
+/* 6-layer mini stack on right */
+.stack { position:absolute; right:70px; top:50%; transform:translateY(-50%); display:flex; flex-direction:column; gap:6px; z-index:10; }
+.stack-layer { width:180px; padding:10px 16px; border-radius:6px; font-size:11px; font-family:'IBM Plex Mono',monospace; color:rgba(255,255,255,0.7); border:1px solid rgba(77,201,212,0.15); }
+.stack-layer.l1 { background:rgba(59,130,246,0.12); border-color:rgba(59,130,246,0.2); }
+.stack-layer.l2 { background:rgba(77,201,212,0.12); border-color:rgba(77,201,212,0.2); }
+.stack-layer.l3 { background:rgba(200,146,0,0.12); border-color:rgba(200,146,0,0.2); }
+.stack-layer.l4 { background:rgba(77,201,212,0.08); border-color:rgba(77,201,212,0.15); }
+.stack-layer.l5 { background:rgba(255,107,107,0.1); border-color:rgba(255,107,107,0.15); }
+.stack-gov { position:absolute; right:-30px; top:0; bottom:0; width:24px; border:1px solid rgba(34,211,238,0.15); border-radius:4px; background:rgba(34,211,238,0.06); display:flex; align-items:center; justify-content:center; }
+.stack-gov span { writing-mode:vertical-rl; font-size:9px; color:rgba(34,211,238,0.5); letter-spacing:2px; }
 </style>
 </head>
 <body>
-  <div class="top-line"></div>
-  <div class="mesh-g1"></div>
-  <div class="mesh-g2"></div>
-  <div class="mesh-g3"></div>
-  <div class="vignette"></div>
-  <div class="corner-tl"></div>
-  <div class="corner-br"></div>
+<div class="mesh"><div class="g1"></div><div class="g2"></div><div class="g3"></div></div>
+<div class="top-line"></div>
+<div class="bracket-tl"></div>
+<div class="bracket-br"></div>
 
-  <!-- Glow dots -->
-  <div class="glow-dot" style="top:120px;left:180px;opacity:0.3;width:3px;height:3px;"></div>
-  <div class="glow-dot" style="top:480px;right:520px;opacity:0.5;width:5px;height:5px;"></div>
-  <div class="glow-dot" style="top:300px;left:600px;opacity:0.25;width:3px;height:3px;"></div>
-  <div class="glow-dot" style="bottom:180px;left:120px;opacity:0.35;width:4px;height:4px;"></div>
-  <div class="glow-dot" style="top:200px;right:200px;opacity:0.2;width:3px;height:3px;"></div>
-  <div class="glow-dot" style="bottom:120px;right:300px;opacity:0.3;width:4px;height:4px;"></div>
-
-  <div class="logo-tl">AI Mindset</div>
-  <div class="date-tr">31 марта 2026</div>
-  <div class="credits-br">AI Mindset &times; CybOS &middot; @sgershuni</div>
-
-  <div class="content">
-    <div class="label">// AI-NATIVE ORGANIZATIONS LAB &middot; НЕДЕЛЯ 2</div>
-    <div class="title">система поверх модели: архитектура</div>
-    <div class="subtitle">6 слоёв &middot; pipeline builder &middot; карта автономности &middot; VSM &middot; инструменты</div>
+<div class="content">
+  <div>
+    <div class="label">// AI-Native Organizations Lab &middot; &nbsp;&#1053;&#1077;&#1076;&#1077;&#1083;&#1103; 2</div>
+    <h1>&#1089;&#1080;&#1089;&#1090;&#1077;&#1084;&#1072; &#1087;&#1086;&#1074;&#1077;&#1088;&#1093;<br>&#1084;&#1086;&#1076;&#1077;&#1083;&#1080;<span class="teal">_</span></h1>
+    <div class="subtitle">&#1080;&#1085;&#1090;&#1077;&#1088;&#1072;&#1082;&#1090;&#1080;&#1074;&#1085;&#1099;&#1081; workshop &middot; pipeline builder &middot; &#1087;&#1088;&#1086;&#1084;&#1087;&#1090;&#1099; &#1080;&#1079; &#1083;&#1077;&#1082;&#1094;&#1080;&#1080;</div>
   </div>
-
-  <!-- 6-layer stack -->
-  <div class="layer-stack">
-    <div class="layer-bar" style="background:rgba(255,182,193,0.12);">
-      <span class="layer-num">05</span>
-      <span class="layer-name" style="color:#f0a0a8;">People & organization</span>
+  <div class="bottom">
+    <div class="brand">
+      <img src="../../logo.png" alt="">
+      <span>AI MINDSET &times; CYBOS</span>
     </div>
-    <div class="layer-bar" style="background:rgba(255,223,130,0.12);">
-      <span class="layer-num">04</span>
-      <span class="layer-name" style="color:#e8c555;">Skills & workflows</span>
-    </div>
-    <div class="layer-bar" style="background:rgba(255,195,0,0.12);">
-      <span class="layer-num">03</span>
-      <span class="layer-name" style="color:#f0b030;">Orchestration</span>
-    </div>
-    <div class="layer-bar" style="background:rgba(100,210,180,0.12);">
-      <span class="layer-num">02</span>
-      <span class="layer-name" style="color:#64d2b4;">Data & context</span>
-    </div>
-    <div class="layer-bar" style="background:rgba(180,170,220,0.12);">
-      <span class="layer-num">01</span>
-      <span class="layer-name" style="color:#b4aade;">Infrastructure</span>
-    </div>
+    <div class="date">31 &#1084;&#1072;&#1088;&#1090;&#1072; 2026</div>
   </div>
+</div>
 
-  <div class="gov-bar" style="background:rgba(140,170,230,0.12);color:rgba(140,170,230,0.7);">
-    GOVERNANCE
-  </div>
-</body>
-</html>
+<div class="stack">
+  <div class="stack-layer l5">People & Org</div>
+  <div class="stack-layer l4">Skills & Workflows</div>
+  <div class="stack-layer l3">Orchestration</div>
+  <div class="stack-layer l2">Data & Context</div>
+  <div class="stack-layer l1">Infrastructure</div>
+  <div class="stack-gov"><span>GOVERNANCE</span></div>
+</div>
+
+</body></html>

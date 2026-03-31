@@ -877,6 +877,60 @@ body.presentation-mode .workshop-only { opacity: 0; pointer-events: none; }
 /* ============================================
    RESPONSIVE
    ============================================ */
+/* Prompt pair in arch detail */
+.prompt-pair { display: flex; flex-direction: column; gap: 10px; }
+.prompt-pair-label {
+  font-family: var(--font-code); font-size: 10px; font-weight: 500;
+  text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 2px;
+}
+.prompt-pair-label.simple { color: var(--teal); }
+.prompt-pair-label.advanced { color: var(--amber); }
+
+/* Layer link note */
+.layer-link-note {
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 14px; margin-top: 6px;
+  background: rgba(77,201,212,0.05); border: 1px dashed var(--border);
+  border-radius: 6px; font-family: var(--font-code); font-size: 11px;
+  color: var(--text-dim); line-height: 1.4;
+}
+.layer-link-note .arrow-icon { color: var(--teal); font-size: 14px; flex-shrink: 0; }
+
+/* Floating export structure button */
+#exportStructureBtn {
+  position: fixed; bottom: 70px; right: 24px; z-index: 200;
+  padding: 10px 20px;
+  background: var(--teal-dim); border: 1px solid var(--teal);
+  border-radius: 8px; color: var(--teal);
+  font-family: var(--font-body); font-size: 12px;
+  cursor: pointer; letter-spacing: 1px;
+  transition: all 0.2s;
+  display: none;
+}
+#exportStructureBtn:hover { background: var(--teal); color: var(--bg); }
+
+/* Team stack grid */
+.team-stack-section {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px;
+}
+.team-stack-block {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 8px; padding: 14px 18px;
+}
+.team-stack-block h4 {
+  font-family: var(--font-heading); font-size: 14px; font-weight: 600;
+  margin-bottom: 8px;
+}
+.team-stack-block ul { list-style: none; padding: 0; }
+.team-stack-block ul li {
+  font-family: var(--font-code); font-size: 12px;
+  padding: 3px 0; color: rgba(255,255,255,0.7); line-height: 1.5;
+}
+.team-stack-block ul li::before {
+  content: ''; display: inline-block; width: 5px; height: 5px;
+  border-radius: 50%; margin-right: 8px; vertical-align: middle; opacity: 0.6;
+}
+
 @media (max-width: 1400px) {
   .slide { padding: 50px 60px; }
   h1 { font-size: 42px; }
@@ -946,8 +1000,8 @@ body.presentation-mode .workshop-only { opacity: 0; pointer-events: none; }
       <div class="detail-desc" id="archDetailDesc"></div>
       <div style="font-family:var(--font-code);font-size:11px;color:var(--teal);text-transform:uppercase;letter-spacing:1px">Инструменты</div>
       <div class="detail-tools" id="archDetailTools"></div>
-      <div style="font-family:var(--font-code);font-size:11px;color:var(--teal);text-transform:uppercase;letter-spacing:1px">Промпт для практики</div>
-      <div class="detail-prompt" id="archDetailPrompt"></div>
+      <div style="font-family:var(--font-code);font-size:11px;color:var(--teal);text-transform:uppercase;letter-spacing:1px">Промпты для практики</div>
+      <div id="archDetailPrompt"></div>
     </div>
   </div>
 </div>
@@ -997,21 +1051,23 @@ body.presentation-mode .workshop-only { opacity: 0; pointer-events: none; }
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px" class="anim-4">
     <div>
       <div style="font-family:var(--font-code);font-size:11px;color:var(--teal);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Простой промпт</div>
-      <div class="prompt-box" onclick="copyText(this)" style="font-size:12px">подключи MCP для Notion к Claude Code. покажи settings.json с правами: читать — всегда, писать — спрашивать</div>
+      <div class="prompt-box" onclick="copyText(this)" style="font-size:12px">подключи MCP-сервер для [Notion/Slack/Calendar] к Claude Code.
+покажи settings.json.
+правила: читать — да, писать — спрашивать.</div>
     </div>
     <div>
       <div style="font-family:var(--font-code);font-size:11px;color:var(--amber);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Продвинутый промпт</div>
-      <div class="prompt-box" onclick="copyText(this)" style="font-size:12px;border-left-color:var(--amber)">у меня компания [опиши]. настрой:
-1. MCP-серверы: Notion/Slack/Gmail/Calendar
-2. settings.json: читать — всегда, писать — спрашивать, удалять — никогда
-3. guardrails: запретить PII в API (маскировка)
-4. роутинг: грамматика → Haiku, ресёрч → Opus
-5. DLP: маскировка имён, номеров, сумм
-6. аудит: event_time, user_id, model, cost
-7. лимиты: квоты токенов по сотрудникам
-8. policy: Allow / Redact / Reroute / Block</div>
+      <div class="prompt-box" onclick="copyText(this)" style="font-size:12px;border-left-color:var(--amber)">настрой полную инфраструктуру:
+1. MCP серверы: Notion (база знаний), Slack (коммуникация), Calendar (расписание), Gmail (почта)
+2. settings.json: для каждого MCP — allow read, ask write, deny delete
+3. guardrails: перед отправкой в API — проверить на PII (имена, номера, адреса). если найдены — заменить на placeholder
+4. model routing: в skill.md указывать модель. грамматика/форматирование &rarr; haiku. ресёрч/стратегия &rarr; opus
+5. аудит: каждый вызов MCP &rarr; лог с timestamp, модель, токены, результат
+6. gateway: если команда > 50 сотрудников — OpenRouter для роутинга + квоты по отделам
+покажи все файлы конфигурации</div>
     </div>
   </div>
+  <div class="layer-link-note anim-5"><span class="arrow-icon">&rarr;</span> результат этого слоя: settings.json, MCP-конфиг, guardrails &rarr; используются в следующем слое</div>
 </div>
 
 <!-- SLIDE 4: Layer 2 detail -->
@@ -1055,21 +1111,23 @@ deals/            ← инвестиционные сделки</div>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px" class="anim-4">
     <div>
       <div style="font-family:var(--font-code);font-size:11px;color:var(--teal);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Простой промпт</div>
-      <div class="prompt-box" onclick="copyText(this)" style="font-size:12px">создай структуру папок для моих данных: context/ (calls/, emails/, sessions/), content/, projects/. напиши CLAUDE.md с описанием что где лежит</div>
+      <div class="prompt-box" onclick="copyText(this)" style="font-size:12px">создай структуру папок для моей работы:
+context/ (звонки, имейлы), content/ (артефакты агентов),
+projects/ (по одной на проект). в каждой — index.md.</div>
     </div>
     <div>
       <div style="font-family:var(--font-code);font-size:11px;color:var(--amber);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Продвинутый промпт</div>
-      <div class="prompt-box" onclick="copyText(this)" style="font-size:12px;border-left-color:var(--amber)">создай систему контекста:
-1. структура: context/ (calls/, emails/, telegram/, sessions/), content/, projects/
-2. index.md в каждой папке — обновляется автоматически
-3. скрипт индексации: извлечь решения, action items, метрики
-4. каждый факт с цитатой и ссылкой на источник
-5. decay: факты > 90 дней — confidence &lt; 0.5
-6. entity resolution: связать людей из разных систем
-7. формат: SQLite (entity, type, value, source, timestamp, confidence)
-8. CLAUDE.md как точка входа для всех агентов</div>
+      <div class="prompt-box" onclick="copyText(this)" style="font-size:12px;border-left-color:var(--amber)">построй систему контекста:
+1. папки: context/calls/, context/emails/, context/telegram/, context/sessions/, content/, projects/[по проекту], deals/
+2. в каждой папке — index.md. правило для агента: при добавлении файла — обнови индекс (с кем, о чём, дата)
+3. daily extraction: каждый день — скрипт читает новые звонки/сообщения, извлекает: решения, action items, коммитменты, метрики, сделки
+4. каждый факт — с прямой цитатой и ссылкой на источник (контроль галлюцинаций)
+5. формат хранения: markdown таблица или SQLite (entity, type, value, source, timestamp, confidence)
+6. decay: факты старше 90 дней &rarr; confidence &lt; 0.5. при поиске — сортировать по confidence
+7. напиши CLAUDE.md: описание где какие данные лежат, куда идти за каждым типом информации</div>
     </div>
   </div>
+  <div class="layer-link-note anim-5"><span class="arrow-icon">&rarr;</span> этот промпт продолжает результат предыдущего слоя: использует MCP из слоя 1 &rarr; результат: структура папок, CLAUDE.md</div>
 </div>
 
 <!-- SLIDE 5: Layer 3 detail -->
@@ -1113,20 +1171,23 @@ deals/            ← инвестиционные сделки</div>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px" class="anim-4">
     <div>
       <div style="font-family:var(--font-code);font-size:11px;color:var(--teal);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Простой промпт</div>
-      <div class="prompt-box" onclick="copyText(this)" style="font-size:12px">напиши skill.md для research-агента: при запросе «исследуй [тему]» запусти 3 субагента параллельно (компания, технология, рынок), собери результаты в один отчёт</div>
+      <div class="prompt-box" onclick="copyText(this)" style="font-size:12px">создай skill.md: при запросе "исследуй [тему]"
+запусти 3 субагента параллельно (компания, технология, рынок).
+собери результаты в один отчёт.</div>
     </div>
     <div>
       <div style="font-family:var(--font-code);font-size:11px;color:var(--amber);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Продвинутый промпт</div>
-      <div class="prompt-box" onclick="copyText(this)" style="font-size:12px;border-left-color:var(--amber)">создай research-агент:
-1. 4 субагента параллельно: компания, технология, рынок, контекст
-2. quality reviewer: 5 параметров (свежесть, практичность, релевантность, язык, полнота)
-3. три круга итераций generator-discriminator
-4. финальный markdown с executive summary
-5. лог: время, токены, стоимость каждого субагента
-6. если стоимость > $2 — предупреди
-7. напиши skill.md файл целиком</div>
+      <div class="prompt-box" onclick="copyText(this)" style="font-size:12px;border-left-color:var(--amber)">создай research-систему с оркестрацией:
+1. skill.md с тремя режимами: быстрый (1 агент), стандартный (3 субагента), глубокий (5 субагентов + quality reviewer)
+2. субагенты: компания (финансы, команда, продукт), технология (стек, бенчмарки), рынок (конкуренты, размер), контекст (связь с моей работой), тренды (что меняется)
+3. quality reviewer: после сбора оценивает каждую секцию по 5 параметрам — свежесть данных, практичность, релевантность, язык, полнота
+4. generator-discriminator: 3 круга итераций. генератор переписывает по замечаниям всех 5 судей
+5. финальный результат: markdown — executive summary (3 предложения), детали по секциям, источники с ссылками
+6. лог: время исполнения, количество токенов, оценки судей, финальный score
+напиши skill.md файл целиком</div>
     </div>
   </div>
+  <div class="layer-link-note anim-5"><span class="arrow-icon">&rarr;</span> этот промпт продолжает результат предыдущего слоя: использует MCP из слоя 1 + контекст из слоя 2 &rarr; результат: skill.md</div>
 </div>
 
 <!-- SLIDE 6: Layer 4 detail -->
@@ -1167,21 +1228,24 @@ deals/            ← инвестиционные сделки</div>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px" class="anim-4">
     <div>
       <div style="font-family:var(--font-code);font-size:11px;color:var(--teal);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Простой промпт</div>
-      <div class="prompt-box" onclick="copyText(this)" style="font-size:12px">напиши eval для моего [research] скилла: 3 критерия pass/fail. прогони скилл и покажи результат по каждому критерию</div>
+      <div class="prompt-box" onclick="copyText(this)" style="font-size:12px">напиши eval для моего [research/content/support] скилла.
+3 критерия pass/fail.
+после каждого запуска — спроси оценку 1-9.</div>
     </div>
     <div>
       <div style="font-family:var(--font-code);font-size:11px;color:var(--amber);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Продвинутый промпт</div>
-      <div class="prompt-box" onclick="copyText(this)" style="font-size:12px;border-left-color:var(--amber)">создай систему evals для скиллов:
-1. unit test: каждый шаг — критерии pass/fail
-2. integration test: полный процесс end-to-end
-3. business metric: время, стоимость, качество
-4. NPS в конце (1-9), запись в лог
-5. AB-тест: 2 версии, прогнать обе через eval
-6. catastrophic forgetting: новая не хуже старой
-7. трассировка: MCP вызовы, ошибки, latency
-8. dashboard: adoption, глубина, стоимость</div>
+      <div class="prompt-box" onclick="copyText(this)" style="font-size:12px;border-left-color:var(--amber)">создай систему evals и версионирования скиллов:
+1. eval.md: для research-скилла — 5 критериев pass/fail (релевантность, свежесть &lt;6 мес, источники, практичность, полнота)
+2. тест-кейсы: 3 конкретных запроса с ожидаемым результатом
+3. NPS: в конце скилла — "оцени результат 1-9", записать в eval-log.jsonl
+4. AB-тест: хранить 2 версии skill.md. прогнать обе через одинаковые тест-кейсы. сравнить scores
+5. трейсинг: какие MCP вызваны, в каком порядке, сколько токенов каждый, где ошибки
+6. последний шаг каждого скилла: сохранить лог сессии (timestamp, задача, шаги, ошибки, результат, токены)
+7. еженедельный анализ: прочитай все логи за неделю, найди паттерны ошибок, предложи улучшения
+покажи eval.md + скрипт анализа логов</div>
     </div>
   </div>
+  <div class="layer-link-note anim-5"><span class="arrow-icon">&rarr;</span> этот промпт продолжает результат предыдущего слоя: использует skill.md из слоя 3 &rarr; результат: eval.md, версионирование</div>
 </div>
 
 <!-- SLIDE 7: Layer 5 detail -->
@@ -1219,19 +1283,26 @@ deals/            ← инвестиционные сделки</div>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px" class="anim-4">
     <div>
       <div style="font-family:var(--font-code);font-size:11px;color:var(--teal);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Простой промпт</div>
-      <div class="prompt-box" onclick="copyText(this)" style="font-size:12px">проведи со мной интервью о моей работе (10 вопросов) и сгенерируй skill.md на основе ответов. добавь секцию «когда эскалировать человеку»</div>
+      <div class="prompt-box" onclick="copyText(this)" style="font-size:12px">проведи со мной интервью о моей работе (10 вопросов).
+на основе ответов сгенерируй skill.md —
+должностную инструкцию для агента.</div>
     </div>
     <div>
       <div style="font-family:var(--font-code);font-size:11px;color:var(--amber);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Продвинутый промпт</div>
-      <div class="prompt-box" onclick="copyText(this)" style="font-size:12px;border-left-color:var(--amber)">проведи «компилятор людей» — 15 вопросов:
-1-5: что делаешь, что повторяется, где время
-6-10: какие данные, с кем коммуницируешь, ошибки
-11-15: как обучаешь новых, метрики, если AI делает — что он должен знать
-по ответам: skill.md + eval (5 критериев pass/fail)
-+ секция эскалации + типичные ошибки
-+ 4 роли человека: архитектура, отношения, валидация, ответственность</div>
+      <div class="prompt-box" onclick="copyText(this)" style="font-size:12px;border-left-color:var(--amber)">запусти "компилятор людей" — полное интервью:
+1. задай 15 вопросов последовательно: ежедневные задачи, повторяющиеся процессы, источники данных, инструменты, коммуникации, принятие решений, обработка ошибок, идеальный результат
+2. после каждого ответа — уточняющий вопрос (не больше 2)
+3. на основе ответов сгенерируй:
+   - skill.md с алгоритмом работы
+   - список MCP серверов которые нужны
+   - структуру данных для контекста
+   - 3 eval-критерия для этого скилла
+4. покажи как этот скилл может работать автономно (cron) vs по запросу
+5. определи: какие шаги остаются за человеком (L0), какие можно делегировать (L2-L3)
+начни интервью</div>
     </div>
   </div>
+  <div class="layer-link-note anim-5"><span class="arrow-icon">&rarr;</span> этот промпт продолжает результат предыдущего слоя: использует eval из слоя 4 &rarr; результат: скомпилированный skill из интервью</div>
 </div>
 
 <!-- SLIDE 8: Layer 6 detail -->
@@ -1269,21 +1340,24 @@ deals/            ← инвестиционные сделки</div>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px" class="anim-4">
     <div>
       <div style="font-family:var(--font-code);font-size:11px;color:var(--teal);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Простой промпт</div>
-      <div class="prompt-box" onclick="copyText(this)" style="font-size:12px">настрой логирование: каждый скилл в конце записывает лог (время, задача, ошибки, стоимость). добавь алерт при >$5 за сессию</div>
+      <div class="prompt-box" onclick="copyText(this)" style="font-size:12px">настрой логирование: последний шаг каждого скилла —
+записать лог. формат: timestamp, задача, шаги,
+токены, результат.</div>
     </div>
     <div>
       <div style="font-family:var(--font-code);font-size:11px;color:var(--amber);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Продвинутый промпт</div>
-      <div class="prompt-box" onclick="copyText(this)" style="font-size:12px;border-left-color:var(--amber)">создай governance для AI в компании:
-1. бюджет: лимиты токенов по сотрудникам/отделам
-2. аудит: все LLM-вызовы (кто, модель, токены, $)
-3. DLP: маскировка PII (имена → [PERSON])
-4. метрики: adoption, частота, ROI по задачам
-5. compliance: chain-of-thought как документация (FINRA)
-6. еженедельный отчёт: использование + аномалии
-7. 4 уровня компетенций: классифицировать сотрудников
-8. emergency: auto-switch на дешёвую модель</div>
+      <div class="prompt-box" onclick="copyText(this)" style="font-size:12px;border-left-color:var(--amber)">создай governance framework для AI в команде:
+1. бюджет: лимит токенов на человека/месяц. алерт при превышении 80%. отдельные квоты по отделам
+2. аудит: логирование всех LLM-вызовов — кто, когда, какая модель, сколько токенов, какой MCP, результат
+3. DLP: перед отправкой в API — маскировать PII (имена&rarr;placeholder_1, документы&rarr;хэш). после получения ответа — демаскировать
+4. метрики внедрения: adoption rate (% сотрудников), частота (сессий/неделю), глубина (правок/сессию), NPS
+5. compliance: сохранять chain-of-thought как документацию решений. для регулируемых отраслей — обязательно
+6. еженедельный отчёт: кто сколько использует, на какие задачи, ROI по типам задач, инциденты
+7. 4 уровня компетенций: не-пользователь &rarr; пользователь &rarr; нетехнический билдер &rarr; AI builder. трекать прогресс
+напиши governance-policy.md + шаблон отчёта</div>
     </div>
   </div>
+  <div class="layer-link-note anim-5"><span class="arrow-icon">&rarr;</span> этот промпт продолжает результат предыдущего слоя: использует все слои 1-5 &rarr; результат: governance-policy.md + дашборд</div>
 </div>
 
 <!-- ==========================================
@@ -1810,14 +1884,19 @@ deals/            &larr; инвестиционные сделки</div>
 + auto-eval в каждом ответе</div>
     </div>
     <div class="stepan-block" style="border-top:2px solid var(--blue)">
-      <h4>Командный стек</h4>
-      <div class="mono-tree">общий vault (Obsidian Sync)
-+ командные скиллы (AIM-*)
-+ Linear для задач + статусов
-+ Telegram MCP для коммуникации
-+ symlink: team skills &rarr; personal
-+ единый naming convention
-+ синхронизация через Git</div>
+      <h4>AI Mindset Team OS</h4>
+      <div style="font-size:12px;color:rgba(255,255,255,0.65);line-height:1.7">
+        <div style="display:grid;grid-template-columns:auto 1fr;gap:4px 10px;">
+          <span style="color:var(--blue)">vault:</span><span>Obsidian Sync (командный vault ai-mindset-2026/)</span>
+          <span style="color:var(--blue)">задачи:</span><span>Linear (проекты, спринты, статусы)</span>
+          <span style="color:var(--blue)">коммуникация:</span><span>Telegram (чаты лабораторий + внутренний)</span>
+          <span style="color:var(--blue)">CRM:</span><span>Notion (партнёры, офферы, участники)</span>
+          <span style="color:var(--blue)">контент:</span><span>Notion + vault (посты, анонсы, материалы)</span>
+          <span style="color:var(--blue)">скиллы:</span><span>командные AIM-* (30+ штук), symlinks</span>
+          <span style="color:var(--blue)">MCP:</span><span>Linear, Notion, Telegram, Calendar, Krisp</span>
+          <span style="color:var(--blue)">evals:</span><span>auto-eval в каждом ответе (T:&#10003; R:&#10003; C:&#10003;)</span>
+        </div>
+      </div>
     </div>
     <div class="stepan-block" style="border-top:2px solid var(--amber)">
       <h4>Evals &amp; логирование</h4>
@@ -1928,6 +2007,9 @@ deals/            &larr; инвестиционные сделки</div>
 
 </div><!-- end .deck -->
 
+<!-- Floating Export Structure Button (workshop mode only) -->
+<button id="exportStructureBtn" onclick="exportCompanyStructure()">ЭКСПОРТ СТРУКТУРЫ</button>
+
 <!-- ============================================
      JAVASCRIPT
      ============================================ -->
@@ -1943,7 +2025,10 @@ const LAYERS = [
     title: 'Infrastructure — коннекторы и безопасность',
     desc: 'Базовый слой: как AI подключается к вашим системам, какие ограничения работают, как маршрутизируются запросы между моделями. Единая шина вместо прямого подключения каждого агента к каждому источнику. Gateway решает 6 задач: аутентификация, ролевой доступ, бюджетирование токенов, DLP (маскировка PII), Policy Engine, аудит.',
     tools: ['MCP серверы (Gmail, Slack, Notion, CRM, Calendar)', 'NemoGuardrails (NVIDIA)', 'settings.json (Claude Code)', 'OpenRouter (роутинг, 60x разница в цене)', 'LangFuse (трейсинг)', 'Citadel (policy engine)'],
-    prompt: 'у меня компания [опиши]. мне нужно:\n1. настроить MCP-серверы: подключить [Notion/Slack/Gmail/Calendar] к Claude Code\n2. написать settings.json с правами: читать — всегда, писать — спрашивать, удалять — никогда\n3. настроить guardrails: запретить отправку PII в API (замена на placeholder)\n4. настроить роутинг моделей: грамматика → Haiku, ресёрч → Opus\n5. добавить логирование: каждый вызов MCP записывать в лог с timestamp\n6. настроить DLP: маскировка имён, номеров договоров, сумм\n7. policy engine: 4 действия — Allow / Redact / Reroute / Block\n8. аудит: event_time, user_id, department, model, policy_decision, cost_estimated\nпокажи конфигурацию и объясни каждый шаг'
+    linkNote: 'результат этого слоя: settings.json, MCP-конфиг, guardrails',
+    simplePrompt: 'подключи MCP-сервер для [Notion/Slack/Calendar] к Claude Code.\nпокажи settings.json.\nправила: читать — да, писать — спрашивать.',
+    advancedPrompt: 'настрой полную инфраструктуру:\n1. MCP серверы: Notion (база знаний), Slack (коммуникация), Calendar (расписание), Gmail (почта)\n2. settings.json: для каждого MCP — allow read, ask write, deny delete\n3. guardrails: перед отправкой в API — проверить на PII (имена, номера, адреса). если найдены — заменить на placeholder\n4. model routing: в skill.md указывать модель. грамматика/форматирование \u2192 haiku. ресёрч/стратегия \u2192 opus\n5. аудит: каждый вызов MCP \u2192 лог с timestamp, модель, токены, результат\n6. gateway: если команда > 50 сотрудников — OpenRouter для роутинга + квоты по отделам\nпокажи все файлы конфигурации',
+    prompt: ''
   },
   {
     id: 'data', num: '02', name: 'Data & Context', icon: '\u25C6',
@@ -1951,7 +2036,10 @@ const LAYERS = [
     title: 'Data & Context — память и контекст',
     desc: 'Контекст-инжиниринг — это то, над чем реально работает лаборатория. Не промпт-инжиниринг, а создание правильного контекста. Граф контекста: вместо загрузки 15k+ токенов из сырых звонков — извлекать сущности в момент получения и хранить в БД. При запросе агент обращается к БД (5ms, 0 LLM-токенов).',
     tools: ['SQLite (ежедневная индексация)', 'SuperMemory (17k GitHub stars)', 'ZEP (bi-temporal memory)', 'QMD (гибридный BM25+vector поиск)', 'context/ структура папок', 'Glean Enterprise Graph'],
-    prompt: 'создай систему контекста для моей работы:\n1. структура папок: context/ (calls/, emails/, telegram/, sessions/), content/ (артефакты), projects/ (по проекту)\n2. в каждой папке — index.md, который обновляется при добавлении файла\n3. напиши скрипт ежедневной индексации: из новых звонков извлечь решения, action items, коммитменты, метрики\n4. каждый факт сохранять с прямой цитатой и ссылкой на источник\n5. добавить decay: факты старше 90 дней получают confidence score < 0.5\n6. Named Entity Recognition: решения, сделки, суммы, дедлайны\n7. entity resolution: account_id ↔ customer_id ↔ user_id\n8. CLAUDE.md: точка входа для агентов — где какие данные\nформат хранения: SQLite с полями entity, type, value, source, timestamp, confidence'
+    linkNote: 'использует settings.json из слоя 1 \u2192 результат: структура папок, CLAUDE.md',
+    simplePrompt: 'создай структуру папок для моей работы:\ncontext/ (звонки, имейлы), content/ (артефакты агентов),\nprojects/ (по одной на проект). в каждой — index.md.',
+    advancedPrompt: 'построй систему контекста:\n1. папки: context/calls/, context/emails/, context/telegram/, context/sessions/, content/, projects/[по проекту], deals/\n2. в каждой папке — index.md. правило для агента: при добавлении файла — обнови индекс (с кем, о чём, дата)\n3. daily extraction: каждый день — скрипт читает новые звонки/сообщения, извлекает: решения, action items, коммитменты, метрики, сделки\n4. каждый факт — с прямой цитатой и ссылкой на источник (контроль галлюцинаций)\n5. формат хранения: markdown таблица или SQLite (entity, type, value, source, timestamp, confidence)\n6. decay: факты старше 90 дней \u2192 confidence < 0.5. при поиске — сортировать по confidence\n7. напиши CLAUDE.md: описание где какие данные лежат, куда идти за каждым типом информации',
+    prompt: ''
   },
   {
     id: 'orch', num: '03', name: 'Orchestration', icon: '\u25CE',
@@ -1959,7 +2047,10 @@ const LAYERS = [
     title: 'Orchestration — оркестрация агентов',
     desc: '4 типа агентов: cron (по расписанию), on-demand (по запросу), event-driven (по триггеру), mirror (зеркало человека). 5 топологий координации: sequential, parallel, group chat, business process, hybrid. Multi-agent создаётся тремя строчками текста в skill.md.',
     tools: ['Sequential pipeline', 'Parallel fan-out', 'Group chat (AutoGen)', 'Business process (Temporal/Moti/Inngest)', 'Hybrid topology', 'Playwright (браузер)'],
-    prompt: 'создай research-агент с параллельными субагентами:\n1. при запросе "исследуй [тему]" запусти 4 субагента параллельно:\n   - агент компании: финансы, команда, продукт, рынок\n   - агент технологии: стек, архитектура, бенчмарки\n   - агент рынка: конкуренты, тренды, размер рынка\n   - агент контекста: как это связано с моей работой\n2. после сбора — quality reviewer оценивает каждую секцию по 5 параметрам:\n   свежесть данных, практичность, релевантность, язык, полнота\n3. три круга итераций generator-discriminator\n4. каждая итерация: генератор улучшает по замечаниям всех 5 судей\n5. финальный результат: markdown с executive summary, детали по секциям, источники\n6. в конце — лог сессии: время, шаги, ошибки, токены\nнапиши skill.md файл целиком'
+    linkNote: 'использует MCP из слоя 1 + контекст из слоя 2 \u2192 результат: skill.md',
+    simplePrompt: 'создай skill.md: при запросе "исследуй [тему]"\nзапусти 3 субагента параллельно (компания, технология, рынок).\nсобери результаты в один отчёт.',
+    advancedPrompt: 'создай research-систему с оркестрацией:\n1. skill.md с тремя режимами: быстрый (1 агент), стандартный (3 субагента), глубокий (5 субагентов + quality reviewer)\n2. субагенты: компания (финансы, команда, продукт), технология (стек, бенчмарки), рынок (конкуренты, размер), контекст (связь с моей работой), тренды (что меняется)\n3. quality reviewer: после сбора оценивает каждую секцию по 5 параметрам — свежесть данных, практичность, релевантность, язык, полнота\n4. generator-discriminator: 3 круга итераций. генератор переписывает по замечаниям всех 5 судей\n5. финальный результат: markdown — executive summary (3 предложения), детали по секциям, источники с ссылками\n6. лог: время исполнения, количество токенов, оценки судей, финальный score\nнапиши skill.md файл целиком',
+    prompt: ''
   },
   {
     id: 'skills', num: '04', name: 'Skills & Workflows', icon: '\u25A3',
@@ -1967,7 +2058,10 @@ const LAYERS = [
     title: 'Skills & Workflows — навыки и процессы',
     desc: 'TDD для AI: сначала eval, потом skill. Маркетплейс навыков — приватный GitHub для команды: версии, fork, дистрибуция. Автор скилла — эксперт в своей области, не CEO. Логирование каждой сессии: время, задача, ошибки, какие MCP вызывались.',
     tools: ['skill.md (декларативные навыки)', 'eval.md (критерии качества)', 'Приватный GitHub (маркетплейс)', 'Moti / Inngest / Temporal (production)', 'Generator-Discriminator (5 судей \u00D7 3 круга)', 'Eris.com / LangFuse (трейсинг)'],
-    prompt: 'помоги мне создать систему evals для моих скиллов:\n1. unit test: для каждого шага агента — что он должен вернуть, критерии pass/fail\n2. integration test: полный процесс от запроса до результата\n3. business metric: как измерить реальный эффект (время, стоимость, качество)\n4. NPS: в конце каждого скилла спрашивать оценку 1-9, записывать в лог\n5. AB-тест: хранить 2 версии скилла, прогонять обе через eval, сравнивать\n6. catastrophic forgetting check: новая версия не хуже старой по всем метрикам\n7. трассировка: какие MCP вызваны, корректность ответа, логи ошибок\n8. dashboard: adoption rate, глубина сессии, стоимость/экономия\nнапиши eval.md для моего [research/support/content] скилла'
+    linkNote: 'использует skill.md из слоя 3 \u2192 результат: eval.md, версионирование',
+    simplePrompt: 'напиши eval для моего [research/content/support] скилла.\n3 критерия pass/fail.\nпосле каждого запуска — спроси оценку 1-9.',
+    advancedPrompt: 'создай систему evals и версионирования скиллов:\n1. eval.md: для research-скилла — 5 критериев pass/fail (релевантность, свежесть <6 мес, источники, практичность, полнота)\n2. тест-кейсы: 3 конкретных запроса с ожидаемым результатом\n3. NPS: в конце скилла — "оцени результат 1-9", записать в eval-log.jsonl\n4. AB-тест: хранить 2 версии skill.md. прогнать обе через одинаковые тест-кейсы. сравнить scores\n5. трейсинг: какие MCP вызваны, в каком порядке, сколько токенов каждый, где ошибки\n6. последний шаг каждого скилла: сохранить лог сессии (timestamp, задача, шаги, ошибки, результат, токены)\n7. еженедельный анализ: прочитай все логи за неделю, найди паттерны ошибок, предложи улучшения\nпокажи eval.md + скрипт анализа логов',
+    prompt: ''
   },
   {
     id: 'people', num: '05', name: 'People & Org', icon: '\u25C8',
@@ -1975,7 +2069,10 @@ const LAYERS = [
     title: 'People & Organization — люди и роли',
     desc: 'AI Champion: обычный сотрудник, не консультант. Citibank — 4000 человек. Компилятор людей: скилл-интервью → skill.md. 4 роли человека: архитектура, отношения, валидация, ответственность. Найм: до открытия вакансии — «докажи, что нельзя сделать с AI».',
     tools: ['Скилл-интервью \u2192 skill.md', 'AI Champion (внутренний амбассадор)', '4 роли человека в AI-Native', 'Принцип найма: "докажи что нельзя с AI"', 'Компетенции: 4 уровня (Ramp)'],
-    prompt: 'проведи со мной "компилятор людей" — интервью из 15 вопросов:\n1. чем ты занимаешься каждый день?\n2. какие задачи повторяются каждую неделю?\n3. где ты тратишь больше всего времени?\n4. какие решения ты принимаешь? на основе чего?\n5. какие данные тебе нужны для работы? где они лежат?\n6. с кем ты коммуницируешь? как часто? о чём?\n7. что ты делаешь, когда что-то идёт не так?\n8. какие инструменты ты используешь?\n9. что бы ты делегировал, если мог?\n10. какой идеальный результат твоей работы?\n11. какие исключения из правил бывают?\n12. как ты обучаешь нового человека?\n13. какие метрики показывают что работа сделана хорошо?\n14. какие ошибки случаются чаще всего?\n15. если бы AI-агент делал твою работу, что он должен знать?\nна основе ответов сгенерируй skill.md с eval-критериями и секцией эскалации'
+    linkNote: 'использует eval из слоя 4 \u2192 результат: скомпилированный skill из интервью',
+    simplePrompt: 'проведи со мной интервью о моей работе (10 вопросов).\nна основе ответов сгенерируй skill.md —\nдолжностную инструкцию для агента.',
+    advancedPrompt: 'запусти "компилятор людей" — полное интервью:\n1. задай 15 вопросов последовательно: ежедневные задачи, повторяющиеся процессы, источники данных, инструменты, коммуникации, принятие решений, обработка ошибок, идеальный результат\n2. после каждого ответа — уточняющий вопрос (не больше 2)\n3. на основе ответов сгенерируй:\n   - skill.md с алгоритмом работы\n   - список MCP серверов которые нужны\n   - структуру данных для контекста\n   - 3 eval-критерия для этого скилла\n4. покажи как этот скилл может работать автономно (cron) vs по запросу\n5. определи: какие шаги остаются за человеком (L0), какие можно делегировать (L2-L3)\nначни интервью',
+    prompt: ''
   },
   {
     id: 'gov', num: '06', name: 'Governance', icon: '\u25C7',
@@ -1983,7 +2080,10 @@ const LAYERS = [
     title: 'Governance — управление и контроль',
     desc: 'Вертикальный слой, пронизывающий всё. Бюджет AI конкурирует с ФОТ, не ПО. Токены по сотрудникам = метрика внедрения. Chain-of-thought как документация для compliance (FINRA). 4 уровня компетенций: не-пользователь → пользователь → нетехнический билдер → AI builder.',
     tools: ['Токен-трекинг по сотрудникам', 'ROI калькулятор (токены vs часы)', 'Chain-of-thought аудит (FINRA)', '4 уровня: не-пользователь \u2192 AI builder', 'Еженедельный AI-отчёт', 'DLP маскировка PII'],
-    prompt: 'создай систему governance для AI в моей компании:\n1. бюджет: лимиты токенов по сотрудникам/отделам, алерты при превышении\n2. аудит: логирование всех LLM-вызовов (кто, когда, какая модель, сколько токенов, стоимость)\n3. DLP: маскировка PII перед отправкой в API (имена → [PERSON], документы → [CONTRACT])\n4. метрики внедрения: adoption rate, частота, глубина сессий, ROI по задачам\n5. compliance: сохранять chain-of-thought как документацию решений (FINRA)\n6. еженедельный отчёт: кто сколько использует, ROI по задачам, аномалии\n7. 4 уровня компетенций: классифицировать сотрудников\n8. emergency: auto-switch на дешёвую модель при превышении бюджета\nнапиши шаблон governance-policy.md'
+    linkNote: 'использует все слои 1-5 \u2192 результат: governance-policy.md + дашборд',
+    simplePrompt: 'настрой логирование: последний шаг каждого скилла —\nзаписать лог. формат: timestamp, задача, шаги,\nтокены, результат.',
+    advancedPrompt: 'создай governance framework для AI в команде:\n1. бюджет: лимит токенов на человека/месяц. алерт при превышении 80%. отдельные квоты по отделам\n2. аудит: логирование всех LLM-вызовов — кто, когда, какая модель, сколько токенов, какой MCP, результат\n3. DLP: перед отправкой в API — маскировать PII (имена\u2192placeholder_1, документы\u2192хэш). после получения ответа — демаскировать\n4. метрики внедрения: adoption rate (% сотрудников), частота (сессий/неделю), глубина (правок/сессию), NPS\n5. compliance: сохранять chain-of-thought как документацию решений. для регулируемых отраслей — обязательно\n6. еженедельный отчёт: кто сколько использует, на какие задачи, ROI по типам задач, инциденты\n7. 4 уровня компетенций: не-пользователь \u2192 пользователь \u2192 нетехнический билдер \u2192 AI builder. трекать прогресс\nнапиши governance-policy.md + шаблон отчёта',
+    prompt: ''
   }
 ];
 
@@ -2228,6 +2328,7 @@ document.addEventListener('DOMContentLoaded', () => {
     pipelineTitle = titleInput.value;
     saveState();
   });
+  updateExportBtnVisibility();
 });
 
 // ============================================
@@ -2256,6 +2357,7 @@ document.addEventListener('keydown', (e) => {
       const ind = document.getElementById('modeIndicator');
       ind.textContent = workshopMode ? 'Workshop' : 'Presentation';
       ind.className = 'mode-indicator ' + (workshopMode ? 'workshop' : 'presentation');
+      updateExportBtnVisibility();
       break;
   }
 });
@@ -2304,11 +2406,46 @@ function expandLayer(idx) {
     tag.className = 'tool-tag'; tag.textContent = t; tag.style.color = layer.color;
     toolsContainer.appendChild(tag);
   });
+  // Render two prompts: simple + advanced
   const promptEl = document.getElementById('archDetailPrompt');
-  promptEl.textContent = layer.prompt;
-  promptEl.className = 'detail-prompt';
-  promptEl.style.borderLeftColor = layer.color;
-  promptEl.onclick = () => copyText(promptEl);
+  promptEl.innerHTML = '';
+  promptEl.className = '';
+  promptEl.style.cssText = '';
+  promptEl.onclick = null;
+  const pair = document.createElement('div');
+  pair.className = 'prompt-pair';
+  // Simple prompt
+  const simpleLabel = document.createElement('div');
+  simpleLabel.className = 'prompt-pair-label simple';
+  simpleLabel.textContent = '\u041F\u0420\u041E\u0421\u0422\u041E\u0419 \u041F\u0420\u041E\u041C\u041F\u0422';
+  const simpleBox = document.createElement('div');
+  simpleBox.className = 'detail-prompt';
+  simpleBox.style.borderLeftColor = 'var(--teal)';
+  simpleBox.style.fontSize = '11px';
+  simpleBox.textContent = layer.simplePrompt;
+  simpleBox.onclick = () => copyText(simpleBox);
+  // Advanced prompt
+  const advLabel = document.createElement('div');
+  advLabel.className = 'prompt-pair-label advanced';
+  advLabel.textContent = '\u041F\u0420\u041E\u0414\u0412\u0418\u041D\u0423\u0422\u042B\u0419 \u041F\u0420\u041E\u041C\u041F\u0422';
+  const advBox = document.createElement('div');
+  advBox.className = 'detail-prompt';
+  advBox.style.borderLeftColor = 'var(--amber)';
+  advBox.style.fontSize = '11px';
+  advBox.textContent = layer.advancedPrompt;
+  advBox.onclick = () => copyText(advBox);
+  pair.appendChild(simpleLabel);
+  pair.appendChild(simpleBox);
+  pair.appendChild(advLabel);
+  pair.appendChild(advBox);
+  // Link note
+  if (layer.linkNote) {
+    const linkNote = document.createElement('div');
+    linkNote.className = 'layer-link-note';
+    linkNote.innerHTML = '<span class="arrow-icon">\u2192</span> \u044D\u0442\u043E\u0442 \u043F\u0440\u043E\u043C\u043F\u0442 \u043F\u0440\u043E\u0434\u043E\u043B\u0436\u0430\u0435\u0442 \u0440\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442 \u043F\u0440\u0435\u0434\u044B\u0434\u0443\u0449\u0435\u0433\u043E \u0441\u043B\u043E\u044F: ' + layer.linkNote;
+    pair.appendChild(linkNote);
+  }
+  promptEl.appendChild(pair);
 }
 
 // ============================================
@@ -2625,7 +2762,7 @@ function loadState() {
     if (state.goalsChecked) goalsChecked = state.goalsChecked;
     if (state.pipelineTitle) pipelineTitle = state.pipelineTitle;
     if (state.activeTemplate) activeTemplate = state.activeTemplate;
-    if (state.workshopMode) { workshopMode = state.workshopMode; document.body.classList.toggle('presentation-mode', !workshopMode); const ind = document.getElementById('modeIndicator'); ind.textContent = workshopMode ? 'Workshop' : 'Presentation'; ind.className = 'mode-indicator ' + (workshopMode ? 'workshop' : 'presentation'); }
+    if (state.workshopMode) { workshopMode = state.workshopMode; document.body.classList.toggle('presentation-mode', !workshopMode); const ind = document.getElementById('modeIndicator'); ind.textContent = workshopMode ? 'Workshop' : 'Presentation'; ind.className = 'mode-indicator ' + (workshopMode ? 'workshop' : 'presentation'); updateExportBtnVisibility(); }
   } catch(e) {}
 }
 
@@ -2717,6 +2854,84 @@ function renderToolsGrid() {
     catEl.innerHTML = html;
     grid.appendChild(catEl);
   });
+}
+
+// ============================================
+// EXPORT COMPANY STRUCTURE BUTTON
+// ============================================
+function updateExportBtnVisibility() {
+  const btn = document.getElementById('exportStructureBtn');
+  if (btn) btn.style.display = workshopMode ? 'block' : 'none';
+}
+
+function getPipelineExport() {
+  if (canvasBlocks.length === 0) return '(не заполнен)';
+  const typeLabels = { auto: 'АВТОМАТ', review: 'РЕВЬЮ', human: 'ЧЕЛОВЕК', text: '' };
+  let result = '';
+  canvasBlocks.forEach(b => {
+    if (b.type === 'text') result += b.label + '\n';
+    else result += `- [${typeLabels[b.type]}] ${b.label}\n`;
+  });
+  if (canvasArrows.length > 0) {
+    result += 'связи: ';
+    result += canvasArrows.map(a => {
+      const f = canvasBlocks.find(b => b.id === a.from);
+      const t = canvasBlocks.find(b => b.id === a.to);
+      return f && t ? `${f.label} \u2192 ${t.label}` : '';
+    }).filter(Boolean).join(', ');
+  }
+  return result;
+}
+
+function getAutonomyExport() {
+  let filled = false;
+  let result = '';
+  AUTO_ROWS.forEach((row, ri) => {
+    const cells = AUTO_COLS.map((col, ci) => {
+      const val = autonomyData[`${ri}-${ci}`] || '';
+      if (val) filled = true;
+      return val ? `${col}: ${val}` : '';
+    }).filter(Boolean);
+    if (cells.length > 0) result += `${row.level} (${row.name}): ${cells.join(', ')}\n`;
+  });
+  return filled ? result : '(не заполнена)';
+}
+
+function getGoalsExport() {
+  const items = document.querySelectorAll('.goal-item');
+  let result = '';
+  items.forEach((item, i) => {
+    const text = item.querySelector('span').textContent;
+    result += `${goalsChecked[i] ? '[x]' : '[ ]'} ${text}\n`;
+  });
+  return result;
+}
+
+function exportCompanyStructure() {
+  const pipeline = getPipelineExport();
+  const autonomy = getAutonomyExport();
+  const goals = getGoalsExport();
+
+  const prompt = `на основе моей структуры компании, помоги построить AI-native стек:
+
+## мой конвейер токенов:
+${pipeline}
+
+## карта автономии:
+${autonomy}
+
+## приоритеты на неделю:
+${goals}
+
+для каждого процесса из конвейера:
+1. определи уровень автономии (L0-L3)
+2. предложи конкретный промпт для автоматизации
+3. назови нужные MCP серверы
+4. напиши eval-критерии
+
+начни с процесса, который даст максимальный ROI`;
+
+  copyToClipboard(prompt, '\u042D\u043A\u0441\u043F\u043E\u0440\u0442 \u0441\u043A\u043E\u043F\u0438\u0440\u043E\u0432\u0430\u043D');
 }
 
 // ============================================

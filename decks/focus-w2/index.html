@@ -64,8 +64,6 @@ html, body {
 /* ============================================
    VISUAL LAYERS
    ============================================ */
-
-/* Layer 1: Grid */
 body::before {
   content: '';
   position: fixed;
@@ -78,8 +76,6 @@ body::before {
   z-index: 0;
   pointer-events: none;
 }
-
-/* Layer 2: Mesh gradients */
 .mesh { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
 .mesh .g1 {
   position: absolute; width: 800px; height: 800px; top: -200px; left: -200px;
@@ -94,20 +90,14 @@ body::before {
   transform: translate(-50%, -50%);
   background: radial-gradient(circle, rgba(56,217,169,0.04) 0%, transparent 70%);
 }
-
-/* Layer 3: Grain */
 .grain {
   position: fixed; inset: 0; z-index: 1; pointer-events: none; opacity: 0.14;
 }
 .grain svg { width: 100%; height: 100%; }
-
-/* Layer 4: Vignette */
 .vignette {
   position: fixed; inset: 0; z-index: 1; pointer-events: none;
   background: radial-gradient(ellipse at center, transparent 50%, rgba(10,10,15,0.6) 100%);
 }
-
-/* Layer 5: Top accent line */
 .top-line {
   position: fixed; top: 0; left: 0; right: 0; height: 2px;
   background: linear-gradient(90deg, transparent, var(--teal), var(--blue), var(--teal), transparent);
@@ -156,27 +146,16 @@ body::before {
   overflow-y: auto;
 }
 .slide.active { opacity: 1; visibility: visible; }
-
-/* Corner brackets */
 .slide::before, .slide::after {
   content: ''; position: absolute; width: 24px; height: 24px;
   border-color: var(--border); border-style: solid; pointer-events: none;
 }
 .slide::before { top: 40px; left: 40px; border-width: 1px 0 0 1px; }
 .slide::after { bottom: 40px; right: 40px; border-width: 0 1px 1px 0; }
-
-/* Slide counter */
 .slide-counter {
   position: absolute; top: 44px; right: 50px;
   font-family: var(--font-code); font-size: 12px;
   color: var(--text-label); letter-spacing: 1px;
-}
-
-/* Logo + Brand */
-.slide-logo-img {
-  position: absolute; bottom: 24px; left: 32px;
-  height: 32px; opacity: 0.35; pointer-events: none;
-  display: none; /* replaced by slide-brand */
 }
 .slide-brand {
   position: absolute; bottom: 20px; left: 28px;
@@ -187,7 +166,6 @@ body::before {
   font-family: var(--font-body); font-size: 11px;
   color: rgba(255,255,255,0.3); letter-spacing: 1px;
 }
-/* Cover slide brand — more prominent */
 .slide-cover .slide-brand img { height: 40px; opacity: 0.6; }
 .slide-cover .slide-brand-text {
   display: flex; flex-direction: column; gap: 2px;
@@ -244,7 +222,6 @@ p, li {
 @keyframes flowDot {
   0% { left: 0; } 100% { left: calc(100% - 10px); }
 }
-
 .slide.active .anim-1 { animation: fadeUp 0.6s 0.1s ease both; }
 .slide.active .anim-2 { animation: fadeUp 0.6s 0.2s ease both; }
 .slide.active .anim-3 { animation: fadeUp 0.6s 0.3s ease both; }
@@ -269,7 +246,7 @@ p, li {
 }
 
 /* ============================================
-   ARCHITECTURE DIAGRAM (Slide 2)
+   ARCHITECTURE DIAGRAM
    ============================================ */
 .arch-container {
   display: flex; gap: 0; width: 100%; height: calc(100vh - 160px);
@@ -304,7 +281,6 @@ p, li {
 .arch-layer .layer-icon {
   font-size: 18px; flex-shrink: 0; width: 28px; text-align: center;
 }
-
 .arch-detail {
   flex: 1; margin-left: 16px; padding: 24px 28px;
   background: var(--bg-card); border: 1px solid var(--border);
@@ -350,7 +326,7 @@ p, li {
 }
 
 /* ============================================
-   PIPELINE BUILDER (Slides 4-5)
+   PIPELINE BUILDER
    ============================================ */
 .builder-container {
   display: flex; width: 100%; height: calc(100vh - 150px);
@@ -380,7 +356,6 @@ p, li {
 .palette-block.type-review { background: var(--bg-terminal); color: var(--amber); border-left: 3px solid var(--amber); }
 .palette-block.type-human { background: var(--bg-terminal); color: var(--red); border-left: 3px solid var(--red); }
 .palette-block.type-text { background: var(--bg-terminal); color: var(--text-dim); border-left: 3px solid var(--text-dim); }
-
 .builder-canvas {
   flex: 1; position: relative; background: var(--bg-terminal);
   border: 1px solid var(--border); border-radius: 0 8px 8px 0;
@@ -412,11 +387,9 @@ p, li {
   border: none; z-index: 20;
 }
 .canvas-block:hover .block-delete { display: flex; }
-
 .canvas-arrow {
   position: absolute; pointer-events: none; z-index: 5;
 }
-
 .builder-toolbar {
   position: absolute; bottom: 16px; left: 50%;
   transform: translateX(-50%); display: flex; gap: 8px; z-index: 20;
@@ -497,7 +470,7 @@ p, li {
 .pipeline-stats-bar .stat-bar-human { background: var(--red); height: 100%; }
 
 /* ============================================
-   AUTONOMY MAP (Slide 6)
+   AUTONOMY MAP
    ============================================ */
 .autonomy-grid-wrapper {
   width: 100%; overflow-x: auto; margin-top: 8px;
@@ -528,7 +501,6 @@ p, li {
 .level-L1 .level-badge { background: var(--amber-dim); color: var(--amber); }
 .level-L2 .level-badge { background: var(--teal-dim); color: var(--teal); }
 .level-L3 .level-badge { background: var(--green-dim); color: var(--green); }
-
 .auto-cell {
   padding: 8px 10px; background: var(--bg-terminal); border-radius: 4px;
   min-height: 52px; cursor: pointer; font-family: var(--font-code);
@@ -551,8 +523,6 @@ p, li {
 .auto-cell.level-colored-1 { border-left: 3px solid var(--amber); }
 .auto-cell.level-colored-2 { border-left: 3px solid var(--teal); }
 .auto-cell.level-colored-3 { border-left: 3px solid var(--green); }
-
-/* Level tooltip */
 .level-tooltip {
   display: none; position: absolute; left: 130px; top: 0;
   background: var(--bg-card); border: 1px solid var(--border);
@@ -563,7 +533,7 @@ p, li {
 .level-tooltip.visible { display: block; }
 
 /* ============================================
-   VSM DIAGRAM (Slide 7)
+   VSM DIAGRAM
    ============================================ */
 .vsm-container {
   width: 100%; margin-top: 16px;
@@ -620,7 +590,7 @@ p, li {
 }
 
 /* ============================================
-   PROMPT CARDS (Slide 9)
+   PROMPT CARDS
    ============================================ */
 .prompt-grid {
   display: grid; grid-template-columns: repeat(2, 1fr);
@@ -684,6 +654,7 @@ p, li {
   gap: 12px; margin-top: 8px;
 }
 .card-grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
+.card-grid.cols-4 { grid-template-columns: repeat(4, 1fr); }
 .info-card {
   background: var(--bg-card); border: 1px solid var(--border);
   border-radius: 8px; padding: 20px; display: flex;
@@ -698,7 +669,6 @@ p, li {
   background: var(--teal); border-radius: 50%; margin-right: 8px;
   vertical-align: middle; opacity: 0.6;
 }
-
 .compact-list { list-style: none; padding: 0; }
 .compact-list li {
   padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05);
@@ -756,10 +726,8 @@ body.presentation-mode .workshop-only { opacity: 0; pointer-events: none; }
 .slide::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
 
 /* ============================================
-   NEW SLIDES STYLES
+   NEW STYLES
    ============================================ */
-
-/* Stepan's architecture diagram */
 .stepan-diagram {
   display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 12px;
 }
@@ -776,8 +744,6 @@ body.presentation-mode .workshop-only { opacity: 0; pointer-events: none; }
   color: rgba(255,255,255,0.65); line-height: 1.6;
   white-space: pre;
 }
-
-/* Data map columns */
 .data-map {
   display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 12px;
 }
@@ -804,8 +770,6 @@ body.presentation-mode .workshop-only { opacity: 0; pointer-events: none; }
   font-family: var(--font-code); font-size: 13px; color: var(--teal);
   position: relative;
 }
-
-/* Security incidents */
 .incident-grid {
   display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 12px;
 }
@@ -820,8 +784,6 @@ body.presentation-mode .workshop-only { opacity: 0; pointer-events: none; }
 .incident-card p {
   font-size: 12px; color: rgba(255,255,255,0.65); line-height: 1.5;
 }
-
-/* Roles grid */
 .roles-grid {
   display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 12px;
 }
@@ -839,8 +801,6 @@ body.presentation-mode .workshop-only { opacity: 0; pointer-events: none; }
 .role-card p {
   font-size: 12px; color: var(--text-dim); line-height: 1.5;
 }
-
-/* Full prompt slide */
 .full-prompt-box {
   padding: 20px 24px; background: var(--bg-terminal);
   border-radius: 8px; border: 1px solid var(--border);
@@ -858,6 +818,61 @@ body.presentation-mode .workshop-only { opacity: 0; pointer-events: none; }
 }
 .full-prompt-box.copied { border-color: var(--green); }
 .full-prompt-box.copied::after { content: 'copied!'; color: var(--green); }
+
+/* Tools reference grid */
+.tools-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 12px;
+}
+.tools-category {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 8px; padding: 14px 18px;
+}
+.tools-category h4 {
+  font-family: var(--font-heading); font-size: 13px; font-weight: 600;
+  margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px;
+}
+.tools-category .tool-item {
+  font-family: var(--font-code); font-size: 11px;
+  padding: 3px 0; color: rgba(255,255,255,0.7); line-height: 1.5;
+}
+
+/* Layer detail slides */
+.layer-detail-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 12px;
+}
+.layer-detail-block {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 8px; padding: 16px 20px;
+}
+.layer-detail-block h4 {
+  font-family: var(--font-heading); font-size: 14px; font-weight: 600;
+  margin-bottom: 8px;
+}
+.layer-detail-block p, .layer-detail-block li {
+  font-size: 13px; color: rgba(255,255,255,0.7); line-height: 1.6;
+}
+.layer-detail-block ul { list-style: none; padding: 0; }
+.layer-detail-block ul li { padding: 2px 0; }
+.layer-detail-block ul li::before {
+  content: ''; display: inline-block; width: 5px; height: 5px;
+  border-radius: 50%; margin-right: 8px; vertical-align: middle; opacity: 0.6;
+}
+
+/* Quote card */
+.quote-card {
+  padding: 12px 18px; background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 8px; border-left: 3px solid var(--teal);
+}
+.quote-card p {
+  font-size: 13px; color: rgba(255,255,255,0.8); font-style: italic; line-height: 1.6;
+}
+.quote-avatar {
+  display: flex; align-items: center; gap: 10px; margin-top: 8px;
+}
+.quote-avatar img {
+  width: 36px; height: 36px; border-radius: 50%; border: 2px solid var(--border); object-fit: cover;
+}
+.quote-avatar span { color: var(--text-dim); font-size: 12px; }
 
 /* ============================================
    RESPONSIVE
@@ -890,7 +905,7 @@ body.presentation-mode .workshop-only { opacity: 0; pointer-events: none; }
      SLIDE 1: COVER
      ========================================== -->
 <div class="slide slide-cover active" data-slide="0">
-  <div class="slide-counter">01 / 20</div>
+  <div class="slide-counter">01 / 26</div>
   <div class="slide-brand">
     <img src="../../logo.png" alt="">
     <div class="slide-brand-text">
@@ -908,21 +923,17 @@ body.presentation-mode .workshop-only { opacity: 0; pointer-events: none; }
 </div>
 
 <!-- ==========================================
-     SLIDE 2: 6-LAYER ARCHITECTURE
+     SLIDE 2: 6-LAYER ARCHITECTURE (interactive)
      ========================================== -->
 <div class="slide" data-slide="1">
-  <div class="slide-counter">02 / 20</div>
+  <div class="slide-counter">02 / 26</div>
   <div class="slide-brand"><img src="../../logo.png" alt="" style="height:28px;opacity:0.4;"><span style="font-family:var(--font-body);font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:1px;">AI-NATIVE SPRINT</span></div>
   <div class="section-label anim-1">Архитектура</div>
   <h2 class="anim-2" style="margin-bottom:8px">6 слоёв AI-Native стека</h2>
   <p class="text-dim anim-3" style="font-size:13px;margin-bottom:8px">Кликните на слой, чтобы раскрыть детали, инструменты и промпт</p>
   <div class="arch-container anim-4">
-    <div class="arch-stack" id="archStack">
-      <!-- Layers rendered by JS -->
-    </div>
-    <div class="arch-detail-empty" id="archEmpty">
-      ← выберите слой
-    </div>
+    <div class="arch-stack" id="archStack"></div>
+    <div class="arch-detail-empty" id="archEmpty">&#8592; выберите слой</div>
     <div class="arch-detail" id="archDetail">
       <h3 id="archDetailTitle"></h3>
       <div class="detail-desc" id="archDetailDesc"></div>
@@ -935,10 +946,242 @@ body.presentation-mode .workshop-only { opacity: 0; pointer-events: none; }
 </div>
 
 <!-- ==========================================
-     SLIDE 3: TOKEN ECONOMY INTRO
+     SLIDES 3-8: LAYER DETAIL SLIDES
      ========================================== -->
-<div class="slide" data-slide="2">
-  <div class="slide-counter">03 / 20</div>
+<!-- SLIDE 3: Layer 1 detail -->
+<div class="slide" data-slide="2" style="justify-content:flex-start;padding-top:50px">
+  <div class="slide-counter">03 / 26</div>
+  <div class="slide-brand"><img src="../../logo.png" alt="" style="height:28px;opacity:0.4;"><span style="font-family:var(--font-body);font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:1px;">AI-NATIVE SPRINT</span></div>
+  <div class="section-label anim-1">Слой 1 — детали</div>
+  <h2 class="anim-2" style="margin-bottom:8px">Инфраструктура</h2>
+  <div class="layer-detail-grid anim-3">
+    <div class="layer-detail-block">
+      <h4 class="text-teal">3 типа данных</h4>
+      <ul>
+        <li style="color:var(--teal)">Внутренние БД — Postgres, ClickHouse, SQLite</li>
+        <li style="color:var(--blue)">SaaS-системы — Gmail, Slack, Notion, CRM</li>
+        <li style="color:var(--amber)">Потоковые — метрики, клики, звонки, Telegram</li>
+      </ul>
+      <p style="margin-top:8px;font-size:12px;color:var(--text-dim)">Единая шина вместо прямого подключения каждого агента к каждому источнику. Один клиент может быть в 10 несвязанных системах.</p>
+    </div>
+    <div class="layer-detail-block">
+      <h4 class="text-amber">Gateway — 6 функций</h4>
+      <ul>
+        <li style="color:var(--text)">Аутентификация и авторизация (SSO, corp tokens)</li>
+        <li style="color:var(--text)">Ролевой доступ (RBAC по моделям и инструментам)</li>
+        <li style="color:var(--text)">Бюджетирование (квоты TPS/RPM, soft/hard limit)</li>
+        <li style="color:var(--text)">DLP — маскировка PII перед отправкой в API</li>
+        <li style="color:var(--text)">Policy Engine — Allow / Redact / Reroute / Block</li>
+        <li style="color:var(--text)">Аудит — полное логирование для compliance</li>
+      </ul>
+    </div>
+    <div class="layer-detail-block">
+      <h4 class="text-red">Guardrails</h4>
+      <p>Не промпт-контроль, а анализ команд перед исполнением. Проверяет: соответствие политике, промпт-инжекшн, секреты/PII, разрешённость инструментов.</p>
+      <p style="margin-top:6px;color:var(--teal);font-size:12px">Принцип: «запрещено всё, что не разрешено» (корпоративная среда) vs «разрешено всё, спрашивай в сомнительных» (личная)</p>
+      <p style="margin-top:4px;font-size:12px;color:var(--text-dim)">NemoGuardrails (NVIDIA), Claude Code settings.json (allow/deny per MCP)</p>
+    </div>
+    <div class="layer-detail-block">
+      <h4 class="text-blue">Model routing</h4>
+      <p>Haiku vs Opus = <strong style="color:var(--teal)">60x</strong> разница в цене. Роутинг на уровне скилла: поле model в skill.md, не динамическая классификация запроса.</p>
+      <p style="margin-top:6px;font-size:12px;color:var(--text-dim)">70-80% запросов → Flash/Haiku/GPT-4o mini ($0.25/1M tokens)<br>20-30% → Opus/Sonnet/GPT-4.5 ($15/1M tokens)</p>
+    </div>
+  </div>
+  <div class="quote-card anim-4" style="margin-top:10px;border-left-color:var(--red)">
+    <p style="font-size:12px">«88% организаций подтвердили или подозревали инциденты с AI-агентами. Антивируса от агентов не существует. Лучшая защита — не давать агентам делать то, для чего они не созданы.»</p>
+  </div>
+</div>
+
+<!-- SLIDE 4: Layer 2 detail -->
+<div class="slide" data-slide="3" style="justify-content:flex-start;padding-top:50px">
+  <div class="slide-counter">04 / 26</div>
+  <div class="slide-brand"><img src="../../logo.png" alt="" style="height:28px;opacity:0.4;"><span style="font-family:var(--font-body);font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:1px;">AI-NATIVE SPRINT</span></div>
+  <div class="section-label anim-1">Слой 2 — детали</div>
+  <h2 class="anim-2" style="margin-bottom:8px">Данные, онтология и контекст</h2>
+  <div class="layer-detail-grid anim-3">
+    <div class="layer-detail-block">
+      <h4 class="text-teal">Контекст-инжиниринг vs промпт-инжиниринг</h4>
+      <p>Промпт-инжиниринг — что вы говорите модели. Одна инструкция, влияет на задачу.</p>
+      <p style="margin-top:4px"><strong style="color:var(--teal)">Контекст-инжиниринг</strong> — что модель видит при принятии решения. Данные, память, context window. Влияет на процесс.</p>
+      <p style="margin-top:6px;font-size:12px;color:var(--text-dim)">90-мин транскрипт = 15,000 токенов каждый раз, когда агенту нужен один факт. Граф контекста парсит один раз, хранит структурно, отвечает за ~5ms.</p>
+    </div>
+    <div class="layer-detail-block">
+      <h4 class="text-blue">Структура папок Степана</h4>
+      <div style="font-family:var(--font-code);font-size:12px;color:rgba(255,255,255,0.65);line-height:1.6;white-space:pre">context/
+  calls/          ← ~600 звонков + index.md
+  emails/
+  telegram/
+  sessions/       ← логи каждой сессии Claude
+  styles/
+content/          ← артефакты агентов
+projects/
+  aim-lab/
+deals/            ← инвестиционные сделки</div>
+    </div>
+    <div class="layer-detail-block">
+      <h4 class="text-amber">SQLite граф контекста</h4>
+      <p>Ежедневный скрипт: читает все новые звонки/Telegram/имейлы. Извлекает: решения, действия, сделки, коммитменты, метрики. Каждый факт — с прямой цитатой и ссылкой.</p>
+      <p style="margin-top:6px;font-size:12px;color:var(--teal)">entity, type, value, source, timestamp, confidence</p>
+      <p style="margin-top:4px;font-size:12px;color:var(--text-dim)">Финальная цель: компания как граф токенов. Каждое слово на звонке → автоматически в граф контекста в реальном времени.</p>
+    </div>
+    <div class="layer-detail-block">
+      <h4 class="text-green">QMD vs RAG</h4>
+      <p>QMD — open-source, гибридный поиск (BM25 + векторный + LLM). Точнее, чем чистый RAG.</p>
+      <p style="margin-top:6px;font-size:12px;color:var(--text-dim)"><strong>Для компании 1-50:</strong> Entity resolution, context directory в Git, CLAUDE.md, SuperMemory/ZEP<br><strong>50-300:</strong> + Glean Enterprise Graph, Neo4j/FalkorDB, Zep bi-temporal tracking</p>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 5: Layer 3 detail -->
+<div class="slide" data-slide="4" style="justify-content:flex-start;padding-top:50px">
+  <div class="slide-counter">05 / 26</div>
+  <div class="slide-brand"><img src="../../logo.png" alt="" style="height:28px;opacity:0.4;"><span style="font-family:var(--font-body);font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:1px;">AI-NATIVE SPRINT</span></div>
+  <div class="section-label anim-1">Слой 3 — детали</div>
+  <h2 class="anim-2" style="margin-bottom:8px">Оркестрация</h2>
+  <div class="layer-detail-grid anim-3">
+    <div class="layer-detail-block">
+      <h4 class="text-teal">4 типа агентов</h4>
+      <ul>
+        <li><strong style="color:var(--teal)">Регулярный (cron)</strong> — живёт на сервере, просыпается по расписанию. OpenClaw: ночью читает Twitter, в 9 утра дайджест в Telegram</li>
+        <li><strong style="color:var(--blue)">По запросу (on-demand)</strong> — по команде: «сделай презентацию», «напиши мемо»</li>
+        <li><strong style="color:var(--amber)">Событийный (event-driven)</strong> — включается по триггеру. Трамп объявил — workflow запустился</li>
+        <li><strong style="color:var(--green)">Зеркальный (mirror)</strong> — агент Алисы общается с агентом Бориса, эскалируют только важное</li>
+      </ul>
+    </div>
+    <div class="layer-detail-block">
+      <h4 class="text-amber">5 топологий оркестрации</h4>
+      <ul>
+        <li><strong style="color:var(--teal)">Sequential</strong> — A → B → C. Линейные задачи</li>
+        <li><strong style="color:var(--blue)">Parallel</strong> — A → [B,C,D] → E. Ресёрч по акции: 4 агента параллельно</li>
+        <li><strong style="color:var(--green)">Group Chat</strong> — агенты пишут в общий контекст. Диалектика: тезис-антитезис-синтез</li>
+        <li><strong style="color:var(--amber)">Business Process</strong> — граф с ветвлением и условиями. Customer support</li>
+        <li><strong style="color:var(--red)">Hybrid</strong> — скрипты, внешние сервисы, human-in-the-loop</li>
+      </ul>
+    </div>
+    <div class="layer-detail-block">
+      <h4 class="text-green">Research agent — 3 уровня</h4>
+      <p><strong>Быстрый</strong> → 1 агент<br><strong>Стандартный</strong> → 2-3 субагента<br><strong>Глубокий</strong> → 3-5 + Quality Reviewer</p>
+      <p style="margin-top:6px;font-size:12px;color:var(--text-dim)">Multi-agent создаётся тремя строчками текста в skill.md. Проблема не в создании, а в том, чтобы работало в масштабе — это требует 50+ итераций.</p>
+    </div>
+    <div class="layer-detail-block">
+      <h4 class="text-blue">Generator-Discriminator</h4>
+      <p><strong style="color:var(--teal)">5 судей</strong> × <strong style="color:var(--amber)">3 круга</strong> × <strong style="color:var(--red)">~40 мин</strong></p>
+      <p style="margin-top:4px;font-size:12px;color:var(--text-dim)">Параметры: свежесть данных, практичность, релевантность фокусу, язык, полнота. Цена: дорого по токенам. Результат: значительно лучше ручной работы.</p>
+      <p style="margin-top:4px;font-size:12px;color:var(--text-dim)"><strong>Production:</strong> Moti / Inngest / Temporal — retry, checkpoint, дедупликация</p>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 6: Layer 4 detail -->
+<div class="slide" data-slide="5" style="justify-content:flex-start;padding-top:50px">
+  <div class="slide-counter">06 / 26</div>
+  <div class="slide-brand"><img src="../../logo.png" alt="" style="height:28px;opacity:0.4;"><span style="font-family:var(--font-body);font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:1px;">AI-NATIVE SPRINT</span></div>
+  <div class="section-label anim-1">Слой 4 — детали</div>
+  <h2 class="anim-2" style="margin-bottom:8px">Скиллы и Workflow</h2>
+  <div class="layer-detail-grid anim-3">
+    <div class="layer-detail-block">
+      <h4 class="text-teal">Скиллы = процедурная память</h4>
+      <p>Не жёсткие инструкции, а пространство для принятия решений. Описывают «как делать работу», не факты.</p>
+      <p style="margin-top:6px;font-size:12px;color:var(--text-dim)"><strong>TDD для скиллов:</strong> сначала пишешь eval (что хочу получить), потом делаешь скилл. Eval before skill.</p>
+    </div>
+    <div class="layer-detail-block">
+      <h4 class="text-amber">Marketplace скиллов</h4>
+      <p>Приватный GitHub репозиторий для команды: версии, fork, дистрибуция. Автор скилла — эксперт в своей области (не CEO).</p>
+      <p style="margin-top:6px;font-size:12px;color:var(--text-dim)">Последний шаг каждого скилла у Степана — сохранить лог сессии: время, задача, ошибки, какие MCP вызывались.</p>
+    </div>
+    <div class="layer-detail-block">
+      <h4 class="text-green">Метрики скиллов</h4>
+      <ul>
+        <li>Adoption rate — сколько сотрудников используют, как часто возвращаются</li>
+        <li>Глубина сессии — сколько правок требует агент (меньше = лучше)</li>
+        <li>NPS — в конце скилла: «оцени от 1 до 9»</li>
+        <li>Процент завершённых задач / кол-во рестартов</li>
+        <li>Стоимость — цена workflow vs экономия времени</li>
+        <li>Latency — время от запроса до результата</li>
+      </ul>
+    </div>
+    <div class="layer-detail-block">
+      <h4 class="text-blue">Observability</h4>
+      <p><strong style="color:var(--teal)">LangFuse</strong> — трейсинг, аналитика, время/порядок вызовов MCP</p>
+      <p style="margin-top:4px"><strong style="color:var(--amber)">Eris.com</strong> — платформа для логирования и трекинга метрик агентов</p>
+      <p style="margin-top:6px;font-size:12px;color:var(--text-dim)">AB-тестирование скиллов: всегда версионировать, хранить несколько версий, прогонять обе через evals (аналог catastrophic forgetting при fine-tuning)</p>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 7: Layer 5 detail -->
+<div class="slide" data-slide="6" style="justify-content:flex-start;padding-top:50px">
+  <div class="slide-counter">07 / 26</div>
+  <div class="slide-brand"><img src="../../logo.png" alt="" style="height:28px;opacity:0.4;"><span style="font-family:var(--font-body);font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:1px;">AI-NATIVE SPRINT</span></div>
+  <div class="section-label anim-1">Слой 5 — детали</div>
+  <h2 class="anim-2" style="margin-bottom:8px">Организация и люди</h2>
+  <div class="layer-detail-grid anim-3">
+    <div class="layer-detail-block">
+      <h4 class="text-teal">AI Champion</h4>
+      <p>Обычный сотрудник внутри компании, не нанятый консультант. Citibank — <strong style="color:var(--teal)">4000 человек</strong>.</p>
+      <p style="margin-top:4px;font-size:12px;color:var(--text-dim)">Задачи: находить кейсы, объяснять коллегам, формулировать стратегию по своей функции. Кейсы — только децентрализованно (нужны доменные знания).</p>
+    </div>
+    <div class="layer-detail-block">
+      <h4 class="text-amber">Компилятор людей</h4>
+      <p>Скилл, который берёт глубокое интервью у человека о его работе (15 вопросов) и генерирует skill.md на основе ответов.</p>
+      <p style="margin-top:4px;font-size:12px;color:var(--text-dim)">40-60% операционных эвристик извлекаются только через LLM-интервью, не через документацию (arxiv.org/html/2507.03811v1)</p>
+    </div>
+    <div class="layer-detail-block">
+      <h4 class="text-green">4 роли, которые остаются за человеком</h4>
+      <ul>
+        <li><strong style="color:var(--teal)">Архитектура</strong> — проектирование системы</li>
+        <li><strong style="color:var(--blue)">Отношения</strong> — эмпатия, переговоры, мотивация</li>
+        <li><strong style="color:var(--amber)">Валидация</strong> — проверка результатов агента</li>
+        <li><strong style="color:var(--red)">Ответственность</strong> — принятие решений</li>
+      </ul>
+    </div>
+    <div class="layer-detail-block">
+      <h4 class="text-red">Парадоксы</h4>
+      <p>50% сотрудников норвежского суверенного фонда генерируют код — без обучения программированию.</p>
+      <p style="margin-top:4px;font-size:12px;color:var(--text-dim)">Парадокс: рабочий день после подключения AI-инструментов увеличивается ~в 2 раза (HBR). Найм: «докажи, что нельзя сделать с AI». Саботаж: 88% организаций сообщали об инцидентах.</p>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 8: Layer 6 detail -->
+<div class="slide" data-slide="7" style="justify-content:flex-start;padding-top:50px">
+  <div class="slide-counter">08 / 26</div>
+  <div class="slide-brand"><img src="../../logo.png" alt="" style="height:28px;opacity:0.4;"><span style="font-family:var(--font-body);font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:1px;">AI-NATIVE SPRINT</span></div>
+  <div class="section-label anim-1">Слой 6 — детали</div>
+  <h2 class="anim-2" style="margin-bottom:8px">Governance</h2>
+  <div class="layer-detail-grid anim-3">
+    <div class="layer-detail-block">
+      <h4 class="text-teal">Бюджет конкурирует с ФОТ</h4>
+      <p>AI-бюджет конкурирует с ФОТ, не только с расходами на ПО. $250K/год (Jensen Huang, NVIDIA) — не универсально. Главный совет: начать измерять и искать корреляцию с результатами.</p>
+      <p style="margin-top:6px;font-size:12px;color:var(--text-dim)">Классическая фирма: 70 сотрудников, 5 уровней, $4.2M/год ФОТ → AI-native фирма: 10 сотрудников + агенты, $600K/год ФОТ. ~85% сокращение.</p>
+    </div>
+    <div class="layer-detail-block">
+      <h4 class="text-amber">4 уровня компетенций (Ramp)</h4>
+      <ul>
+        <li><strong style="color:var(--red)">Не-пользователь</strong> — не работает с AI</li>
+        <li><strong style="color:var(--amber)">Пользователь</strong> — ChatGPT, Claude, Codex</li>
+        <li><strong style="color:var(--teal)">Нетехнический билдер</strong> — создаёт скиллы, workflow</li>
+        <li><strong style="color:var(--green)">AI builder</strong> — архитектура, оркестрация, evals</li>
+      </ul>
+    </div>
+    <div class="layer-detail-block">
+      <h4 class="text-green">Трекинг токенов</h4>
+      <p>Трекинг токенов по сотрудникам — метрика внедрения. Еженедельные встречи/канал где люди делятся находками.</p>
+      <p style="margin-top:6px;font-size:12px;color:var(--teal)">FINRA: chain-of-thought как compliance документация. Логика рассуждения LLM — документация для регуляторных целей.</p>
+    </div>
+    <div class="layer-detail-block">
+      <h4 class="text-blue">Коллегиальность</h4>
+      <p style="font-style:italic;color:rgba(255,255,255,0.8)">«Мы не инженерим AI — мы его открываем. Это процесс первооткрывания, как физика. Квантовая теория поля существует, но её нужно открыть.»</p>
+      <p style="margin-top:6px;font-size:12px;color:var(--text-dim)">OKR = цели агента, стендапы = статус-чеки, регламенты = спеки и скиллы, peer review = GAN, оргструктура = граф оркестрации, performance review = evals</p>
+    </div>
+  </div>
+</div>
+
+<!-- ==========================================
+     SLIDE 9: TOKEN ECONOMY INTRO
+     ========================================== -->
+<div class="slide" data-slide="8">
+  <div class="slide-counter">09 / 26</div>
   <div class="slide-brand"><img src="../../logo.png" alt="" style="height:28px;opacity:0.4;"><span style="font-family:var(--font-body);font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:1px;">AI-NATIVE SPRINT</span></div>
   <div class="section-label anim-1">Токен-экономика</div>
   <h2 class="anim-2">Каждый процесс — это поток токенов</h2>
@@ -963,7 +1206,7 @@ body.presentation-mode .workshop-only { opacity: 0; pointer-events: none; }
   </div>
   <div class="anim-4" style="margin-top:16px;padding:16px 20px;background:var(--bg-card);border:1px solid var(--border);border-radius:8px">
     <p style="font-size:14px;color:var(--text-dim)">
-      <span class="text-teal">Формула:</span> стоимость процесса = <span class="text-amber">(токены × цена модели)</span> + <span class="text-red">(часы человека × ставка)</span>
+      <span class="text-teal">Формула:</span> стоимость процесса = <span class="text-amber">(токены &times; цена модели)</span> + <span class="text-red">(часы человека &times; ставка)</span>
     </p>
     <p style="font-size:14px;color:var(--text-dim);margin-top:6px">
       <span class="text-teal">Цель:</span> переводить <span class="text-red">красные</span> блоки в <span class="text-amber">жёлтые</span>, а жёлтые в <span class="text-teal">бирюзовые</span>
@@ -972,17 +1215,15 @@ body.presentation-mode .workshop-only { opacity: 0; pointer-events: none; }
 </div>
 
 <!-- ==========================================
-     SLIDE 4: PIPELINE BUILDER (INTERACTIVE)
+     SLIDE 10: PIPELINE BUILDER (INTERACTIVE)
      ========================================== -->
-<div class="slide" data-slide="3" style="padding-bottom:20px">
-  <div class="slide-counter">04 / 20</div>
+<div class="slide" data-slide="9" style="padding-bottom:20px">
+  <div class="slide-counter">10 / 26</div>
   <div class="slide-brand"><img src="../../logo.png" alt="" style="height:28px;opacity:0.4;"><span style="font-family:var(--font-body);font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:1px;">AI-NATIVE SPRINT</span></div>
   <div class="section-label anim-1">Практика</div>
   <h2 class="anim-2" style="margin-bottom:4px">Конструктор пайплайна</h2>
   <p class="text-dim anim-3" style="font-size:13px;margin-bottom:4px">Перетащите блоки на холст. Shift+клик для стрелок. Двойной клик — редактировать. Или загрузите шаблон:</p>
-  <div class="template-gallery anim-3" id="templateGallery">
-    <!-- Rendered by JS -->
-  </div>
+  <div class="template-gallery anim-3" id="templateGallery"></div>
   <div class="pipeline-title-row anim-4">
     <input class="pipeline-title-input" id="pipelineTitle" placeholder="Мой процесс" maxlength="60">
     <span class="zoom-indicator" id="zoomIndicator">0 блоков, 0 связей</span>
@@ -996,7 +1237,7 @@ body.presentation-mode .workshop-only { opacity: 0; pointer-events: none; }
       <div class="palette-block type-text" draggable="true" data-type="text"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-right:4px"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 1 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>Текст</div>
       <div style="flex:1"></div>
       <h4>Связи</h4>
-      <p style="font-size:11px;color:var(--text-label);line-height:1.4">Shift+клик на первый блок, потом на второй — создать стрелку</p>
+      <p style="font-size:11px;color:var(--text-label);line-height:1.4">Shift+клик на первый блок, потом на второй</p>
       <div style="flex:1"></div>
       <h4 class="workshop-only">Действия</h4>
       <button class="builder-btn workshop-only" onclick="clearCanvas()" style="width:100%">Очистить</button>
@@ -1006,70 +1247,66 @@ body.presentation-mode .workshop-only { opacity: 0; pointer-events: none; }
       <div class="builder-canvas-grid"></div>
       <svg id="arrowsSvg" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:5"></svg>
     </div>
-    <div class="pipeline-stats-bar" id="pipelineStatsBar" style="display:none;position:absolute;bottom:10px;left:190px;right:10px;z-index:20">
-      <!-- Rendered by JS: shows pipeline stats from builder -->
-    </div>
+    <div class="pipeline-stats-bar" id="pipelineStatsBar" style="display:none;position:absolute;bottom:10px;left:190px;right:10px;z-index:20"></div>
   </div>
 </div>
 
 <!-- ==========================================
-     SLIDE 5: PIPELINE EXAMPLES
+     SLIDE 11: PIPELINE EXAMPLES
      ========================================== -->
-<div class="slide" data-slide="4">
-  <div class="slide-counter">05 / 20</div>
+<div class="slide" data-slide="10">
+  <div class="slide-counter">11 / 26</div>
   <div class="slide-brand"><img src="../../logo.png" alt="" style="height:28px;opacity:0.4;"><span style="font-family:var(--font-body);font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:1px;">AI-NATIVE SPRINT</span></div>
   <div class="section-label anim-1">Примеры</div>
   <h2 class="anim-2">Паттерны пайплайнов</h2>
   <div class="card-grid anim-3">
     <div class="info-card">
       <h3 class="text-teal">Sequential</h3>
-      <p style="font-size:13px;color:var(--text-dim)">A → B → C<br>Контент: research → draft → edit → publish</p>
+      <p style="font-size:13px;color:var(--text-dim)">A &rarr; B &rarr; C<br>Контент: research &rarr; draft &rarr; edit &rarr; publish</p>
       <div style="display:flex;gap:6px;margin-top:10px;align-items:center">
         <span style="padding:4px 10px;background:var(--teal-dim);color:var(--teal);border-radius:4px;font-size:11px;font-family:var(--font-code)">Research</span>
-        <span style="color:var(--teal);opacity:0.5">→</span>
+        <span style="color:var(--teal);opacity:0.5">&rarr;</span>
         <span style="padding:4px 10px;background:var(--teal-dim);color:var(--teal);border-radius:4px;font-size:11px;font-family:var(--font-code)">Draft</span>
-        <span style="color:var(--teal);opacity:0.5">→</span>
+        <span style="color:var(--teal);opacity:0.5">&rarr;</span>
         <span style="padding:4px 10px;background:var(--amber-dim);color:var(--amber);border-radius:4px;font-size:11px;font-family:var(--font-code)">Review</span>
       </div>
     </div>
     <div class="info-card">
       <h3 class="text-amber">Parallel</h3>
-      <p style="font-size:13px;color:var(--text-dim)">A → [B, C, D] → E<br>Research: 3 агента параллельно → синтез</p>
+      <p style="font-size:13px;color:var(--text-dim)">A &rarr; [B, C, D] &rarr; E<br>Research: 3 агента параллельно &rarr; синтез</p>
       <div style="display:flex;gap:6px;margin-top:10px;align-items:center;flex-wrap:wrap">
         <span style="padding:4px 10px;background:var(--teal-dim);color:var(--teal);border-radius:4px;font-size:11px;font-family:var(--font-code)">Trigger</span>
-        <span style="color:var(--teal);opacity:0.5">→</span>
-        <span style="padding:4px 10px;background:var(--teal-dim);color:var(--teal);border-radius:4px;font-size:11px;font-family:var(--font-code)">Agent×3</span>
-        <span style="color:var(--teal);opacity:0.5">→</span>
+        <span style="color:var(--teal);opacity:0.5">&rarr;</span>
+        <span style="padding:4px 10px;background:var(--teal-dim);color:var(--teal);border-radius:4px;font-size:11px;font-family:var(--font-code)">Agent&times;3</span>
+        <span style="color:var(--teal);opacity:0.5">&rarr;</span>
         <span style="padding:4px 10px;background:var(--amber-dim);color:var(--amber);border-radius:4px;font-size:11px;font-family:var(--font-code)">Merge</span>
       </div>
     </div>
     <div class="info-card">
       <h3 class="text-green">Gen-Discriminator</h3>
-      <p style="font-size:13px;color:var(--text-dim)">Generate → Judge × 5 → Iterate × 3<br>Качество через итерации</p>
+      <p style="font-size:13px;color:var(--text-dim)">Generate &rarr; Judge &times; 5 &rarr; Iterate &times; 3<br>Качество через итерации</p>
       <div style="display:flex;gap:6px;margin-top:10px;align-items:center;flex-wrap:wrap">
         <span style="padding:4px 10px;background:var(--teal-dim);color:var(--teal);border-radius:4px;font-size:11px;font-family:var(--font-code)">Gen</span>
-        <span style="color:var(--teal);opacity:0.5">→</span>
-        <span style="padding:4px 10px;background:var(--amber-dim);color:var(--amber);border-radius:4px;font-size:11px;font-family:var(--font-code)">Judge×5</span>
-        <span style="color:var(--teal);opacity:0.5">↺</span>
-        <span style="padding:4px 10px;background:var(--green-dim);color:var(--green);border-radius:4px;font-size:11px;font-family:var(--font-code)">×3</span>
+        <span style="color:var(--teal);opacity:0.5">&rarr;</span>
+        <span style="padding:4px 10px;background:var(--amber-dim);color:var(--amber);border-radius:4px;font-size:11px;font-family:var(--font-code)">Judge&times;5</span>
+        <span style="color:var(--teal);opacity:0.5">&circlearrowleft;</span>
+        <span style="padding:4px 10px;background:var(--green-dim);color:var(--green);border-radius:4px;font-size:11px;font-family:var(--font-code)">&times;3</span>
       </div>
     </div>
   </div>
 </div>
 
 <!-- ==========================================
-     SLIDE 6: AUTONOMY MAP
+     SLIDE 12: AUTONOMY MAP
      ========================================== -->
-<div class="slide" data-slide="5" style="justify-content:flex-start;padding-top:60px">
-  <div class="slide-counter">06 / 20</div>
+<div class="slide" data-slide="11" style="justify-content:flex-start;padding-top:60px">
+  <div class="slide-counter">12 / 26</div>
   <div class="slide-brand"><img src="../../logo.png" alt="" style="height:28px;opacity:0.4;"><span style="font-family:var(--font-body);font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:1px;">AI-NATIVE SPRINT</span></div>
   <div class="section-label anim-1">Карта автономности</div>
   <h2 class="anim-2" style="margin-bottom:4px">Ваша компания: что автоматизировать</h2>
   <p class="text-dim anim-3" style="font-size:13px;margin-bottom:6px">Кликните на ячейку, чтобы вписать задачу. Кликните на уровень слева — описание.</p>
   <div class="autonomy-grid-wrapper anim-4">
-    <div class="autonomy-grid" id="autonomyGrid">
-      <!-- Rendered by JS -->
-    </div>
+    <div class="autonomy-grid" id="autonomyGrid"></div>
   </div>
   <div style="display:flex;gap:10px;margin-top:10px" class="workshop-only">
     <button class="export-btn" onclick="exportAutonomy()">Экспорт в Markdown</button>
@@ -1078,21 +1315,17 @@ body.presentation-mode .workshop-only { opacity: 0; pointer-events: none; }
 </div>
 
 <!-- ==========================================
-     SLIDE 7: VSM DIAGRAM
+     SLIDE 13: VSM DIAGRAM
      ========================================== -->
-<div class="slide" data-slide="6">
-  <div class="slide-counter">07 / 20</div>
+<div class="slide" data-slide="12">
+  <div class="slide-counter">13 / 26</div>
   <div class="slide-brand"><img src="../../logo.png" alt="" style="height:28px;opacity:0.4;"><span style="font-family:var(--font-body);font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:1px;">AI-NATIVE SPRINT</span></div>
   <div class="section-label anim-1">Value Stream Mapping</div>
   <h2 class="anim-2" style="margin-bottom:4px">Токен-пайплайн: 5 стадий</h2>
   <p class="text-dim anim-3" style="font-size:13px;margin-bottom:8px">Кликните на стадию для деталей. Наблюдайте за потоком токенов.</p>
   <div class="vsm-container anim-4">
-    <div class="vsm-pipeline" id="vsmPipeline">
-      <!-- Rendered by JS -->
-    </div>
-    <div class="vsm-flow-track">
-      <div class="vsm-flow-dot"></div>
-    </div>
+    <div class="vsm-pipeline" id="vsmPipeline"></div>
+    <div class="vsm-flow-track"><div class="vsm-flow-dot"></div></div>
     <div class="vsm-detail" id="vsmDetail">
       <h3 id="vsmDetailTitle"></h3>
       <div class="detail-row">
@@ -1118,10 +1351,10 @@ body.presentation-mode .workshop-only { opacity: 0; pointer-events: none; }
 </div>
 
 <!-- ==========================================
-     SLIDE 8: SESSION FORMAT
+     SLIDE 14: SESSION FORMAT
      ========================================== -->
-<div class="slide" data-slide="7">
-  <div class="slide-counter">08 / 20</div>
+<div class="slide" data-slide="13">
+  <div class="slide-counter">14 / 26</div>
   <div class="slide-brand"><img src="../../logo.png" alt="" style="height:28px;opacity:0.4;"><span style="font-family:var(--font-body);font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:1px;">AI-NATIVE SPRINT</span></div>
   <div class="section-label anim-1">Формат</div>
   <h2 class="anim-2">declare — build — debrief</h2>
@@ -1130,43 +1363,41 @@ body.presentation-mode .workshop-only { opacity: 0; pointer-events: none; }
     <div style="font-family:var(--font-heading);font-size:18px;color:var(--text);margin-bottom:16px">declare — build — debrief</div>
     <div style="margin-bottom:12px">
       <span class="text-teal">цикл 1:</span><br>
-      <span style="color:var(--text-label)">→</span> <strong>declare:</strong> напишите в чат что вы построите за 40 минут<br>
-      <span style="color:var(--text-label)">→</span> <strong>build:</strong> тихая работа, камеры вкл<br>
-      <span style="color:var(--text-label)">→</span> <strong>debrief:</strong> одно предложение — что сделали, где застряли
+      <span style="color:var(--text-label)">&rarr;</span> <strong>declare:</strong> напишите в чат что вы построите за 40 минут<br>
+      <span style="color:var(--text-label)">&rarr;</span> <strong>build:</strong> тихая работа, камеры вкл<br>
+      <span style="color:var(--text-label)">&rarr;</span> <strong>debrief:</strong> одно предложение — что сделали, где застряли
     </div>
     <div style="padding:8px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin-bottom:12px;color:var(--amber)">
       перерыв + mob debug (опционально: один шарит экран, группа помогает)
     </div>
     <div style="margin-bottom:12px">
       <span class="text-green">цикл 2:</span><br>
-      <span style="color:var(--text-label)">→</span> <strong>declare:</strong> уточните задачу на второй блок<br>
-      <span style="color:var(--text-label)">→</span> <strong>build:</strong> продолжаем<br>
-      <span style="color:var(--text-label)">→</span> <strong>teach-back:</strong> 2 волонтёра показывают не результат, а процесс мышления
+      <span style="color:var(--text-label)">&rarr;</span> <strong>declare:</strong> уточните задачу на второй блок<br>
+      <span style="color:var(--text-label)">&rarr;</span> <strong>build:</strong> продолжаем<br>
+      <span style="color:var(--text-label)">&rarr;</span> <strong>teach-back:</strong> 2 волонтёра показывают не результат, а процесс мышления
     </div>
     <div style="color:var(--text-dim);font-size:12px;border-top:1px solid var(--border);padding-top:8px">
-      камеры включены · два цикла по ~50 минут
+      камеры включены &middot; два цикла по ~50 минут
     </div>
   </div>
 </div>
 
 <!-- ==========================================
-     SLIDE 9: PROMPT CARDS
+     SLIDE 15: PROMPT CARDS
      ========================================== -->
-<div class="slide" data-slide="8" style="justify-content:flex-start;padding-top:60px">
-  <div class="slide-counter">09 / 20</div>
+<div class="slide" data-slide="14" style="justify-content:flex-start;padding-top:60px">
+  <div class="slide-counter">15 / 26</div>
   <div class="slide-brand"><img src="../../logo.png" alt="" style="height:28px;opacity:0.4;"><span style="font-family:var(--font-body);font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:1px;">AI-NATIVE SPRINT</span></div>
   <div class="section-label anim-1">Практические треки</div>
   <h2 class="anim-2" style="margin-bottom:6px">6 треков для сессии Build</h2>
-  <div class="prompt-grid anim-3" id="promptGrid">
-    <!-- Rendered by JS -->
-  </div>
+  <div class="prompt-grid anim-3" id="promptGrid"></div>
 </div>
 
 <!-- ==========================================
-     SLIDE 10: MEMORY TYPES
+     SLIDE 16: MEMORY TYPES
      ========================================== -->
-<div class="slide" data-slide="9">
-  <div class="slide-counter">10 / 20</div>
+<div class="slide" data-slide="15">
+  <div class="slide-counter">16 / 26</div>
   <div class="slide-brand"><img src="../../logo.png" alt="" style="height:28px;opacity:0.4;"><span style="font-family:var(--font-body);font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:1px;">AI-NATIVE SPRINT</span></div>
   <div class="section-label anim-1">Память AI</div>
   <h2 class="anim-2">3 типа памяти</h2>
@@ -1174,26 +1405,51 @@ body.presentation-mode .workshop-only { opacity: 0; pointer-events: none; }
     <div class="info-card">
       <h3><span class="text-teal">Эпизодическая</span></h3>
       <p>Что происходило — звонки, встречи, сообщения. Причинно-следственные события с хронологией. Важен период полураспада: данные из звонка двухлетней давности менее актуальны, чем вчерашние.</p>
-      <div class="prompt-box" onclick="copyText(this)" style="margin-top:auto">создай context/calls/ и напиши скрипт ежедневной индексации: из новых звонков извлечь решения, action items, коммитменты, метрики. каждый факт с прямой цитатой и ссылкой на источник. факты старше 90 дней — confidence score &lt; 0.5</div>
+      <div class="prompt-box" onclick="copyText(this)" style="margin-top:auto">создай context/calls/ и напиши скрипт ежедневной индексации:
+1. из новых звонков извлечь решения, action items, коммитменты, метрики
+2. каждый факт с прямой цитатой и ссылкой на источник
+3. факты старше 90 дней — confidence score &lt; 0.5
+4. формат: entity, type, value, source, timestamp, confidence
+5. при добавлении звонка — обновить index.md
+6. Named Entity Recognition: решения, сделки, суммы, дедлайны
+7. сохранять причинно-следственные связи: "клиент отказался → дали скидку → купил"
+8. ZEP bi-temporal: когда факт стал известен vs когда произошёл</div>
     </div>
     <div class="info-card">
       <h3><span class="text-amber">Семантическая</span></h3>
       <p>Факты и знания — LLM силён в этом по умолчанию (pre-train). CLAUDE.md, skills, стандарты команды. Внутренние знания модели + контекст компании.</p>
-      <div class="prompt-box" onclick="copyText(this)" style="margin-top:auto">проанализируй мои последние 20 чатов и извлеки повторяющиеся инструкции. оформи как правила в CLAUDE.md. группируй по: форматирование, процессы, инструменты, запреты</div>
+      <div class="prompt-box" onclick="copyText(this)" style="margin-top:auto">проанализируй мои последние 20 чатов и извлеки повторяющиеся инструкции:
+1. оформи как правила в CLAUDE.md
+2. группируй по: форматирование, процессы, инструменты, запреты
+3. для каждого правила — укажи источник (из какого чата)
+4. приоритизируй: чаще повторяется = выше
+5. добавь секцию "контекст компании": кто мы, что делаем, какие инструменты
+6. добавь секцию "стиль": как пишем, какие слова используем/не используем
+7. проверь противоречия между правилами
+8. предложи structure для CLAUDE.md (секции, порядок)</div>
     </div>
     <div class="info-card">
       <h3><span class="text-green">Процедурная</span></h3>
       <p>Навыки и процедуры — skills, workflows, шаблоны. Должностные инструкции агента. Не жёсткие инструкции, а пространство для принятия решений.</p>
-      <div class="prompt-box" onclick="copyText(this)" style="margin-top:auto">проведи со мной интервью о процессе [задача]. задай 15 вопросов: что делаешь каждый день, какие задачи повторяются, где тратишь время, какие решения принимаешь. по ответам сгенерируй skill.md с eval-критериями</div>
+      <div class="prompt-box" onclick="copyText(this)" style="margin-top:auto">проведи со мной интервью о процессе [задача]:
+1. задай 15 вопросов: что делаешь каждый день, какие задачи повторяются
+2. где тратишь время, какие решения принимаешь, на основе чего
+3. какие данные нужны, где лежат, с кем коммуницируешь
+4. что бы делегировал, какой идеальный результат
+5. какие исключения бывают, как обрабатываешь ошибки
+6. по ответам сгенерируй skill.md с eval-критериями
+7. добавь секцию "когда эскалировать человеку"
+8. добавь секцию "типичные ошибки и как их избежать"
+9. в конце — eval: 5 критериев pass/fail для этого скилла</div>
     </div>
   </div>
 </div>
 
 <!-- ==========================================
-     SLIDE 11: EVALS FRAMEWORK
+     SLIDE 17: EVALS FRAMEWORK
      ========================================== -->
-<div class="slide" data-slide="10">
-  <div class="slide-counter">11 / 20</div>
+<div class="slide" data-slide="16">
+  <div class="slide-counter">17 / 26</div>
   <div class="slide-brand"><img src="../../logo.png" alt="" style="height:28px;opacity:0.4;"><span style="font-family:var(--font-body);font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:1px;">AI-NATIVE SPRINT</span></div>
   <div class="section-label anim-1">Качество</div>
   <h2 class="anim-2">"Evals are the new PRD"</h2>
@@ -1218,16 +1474,22 @@ body.presentation-mode .workshop-only { opacity: 0; pointer-events: none; }
       </ul>
     </div>
   </div>
-  <div class="prompt-box anim-4" onclick="copyText(this)" style="margin-top:16px">
-напиши eval для [skill]. критерии: 1) релевантность моему контексту, 2) свежесть данных (&lt;6 мес), 3) наличие цифр и источников, 4) actionable выводы, 5) длина ответа. формат: pass/fail по каждому. если fail — объясни почему и переделай. в конце спроси NPS 1–9, запиши в лог.
-  </div>
+  <div class="prompt-box anim-4" onclick="copyText(this)" style="margin-top:16px">напиши eval для [skill]. критерии:
+1) релевантность моему контексту — pass если >80% информации про мою отрасль
+2) свежесть данных (&lt;6 мес) — pass если все источники свежие
+3) наличие цифр и источников — pass если >3 ссылки и >5 конкретных цифр
+4) actionable выводы — pass если можно действовать на основе результата
+5) длина ответа — pass если 800-2000 слов (не короче и не длиннее)
+формат: pass/fail по каждому. если fail — объясни почему и переделай.
+в конце спроси NPS 1–9, запиши в лог.
+прогони 3 итерации generator-discriminator, покажи улучшения между версиями.</div>
 </div>
 
 <!-- ==========================================
-     SLIDE 12: STEPAN'S LIVE SETUP
+     SLIDE 18: STEPAN'S LIVE SETUP
      ========================================== -->
-<div class="slide" data-slide="11" style="justify-content:flex-start;padding-top:60px">
-  <div class="slide-counter">12 / 20</div>
+<div class="slide" data-slide="17" style="justify-content:flex-start;padding-top:60px">
+  <div class="slide-counter">18 / 26</div>
   <div class="slide-brand"><img src="../../logo.png" alt="" style="height:28px;opacity:0.4;"><span style="font-family:var(--font-body);font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:1px;">AI-NATIVE SPRINT</span></div>
   <div class="section-label anim-1">Кейс</div>
   <h2 class="anim-2" style="margin-bottom:8px">Архитектура Степана — живой пример</h2>
@@ -1236,15 +1498,15 @@ body.presentation-mode .workshop-only { opacity: 0; pointer-events: none; }
     <div class="stepan-block">
       <h4>Структура папок</h4>
       <div class="mono-tree">context/
-  calls/          ← ~600 звонков + index.md
+  calls/          &larr; ~600 звонков + index.md
   emails/
   telegram/
-  sessions/       ← логи каждой сессии Claude
-  styles/         ← стили письма, изображений
-content/          ← артефакты агентов
+  sessions/       &larr; логи каждой сессии Claude
+  styles/         &larr; стили письма, изображений
+content/          &larr; артефакты агентов
 projects/
-  aim-lab/        ← лаборатория как проект
-deals/            ← инвестиционные сделки</div>
+  aim-lab/        &larr; лаборатория как проект
+deals/            &larr; инвестиционные сделки</div>
     </div>
     <div class="stepan-block">
       <h4>SQLite граф контекста</h4>
@@ -1253,25 +1515,25 @@ deals/            ← инвестиционные сделки</div>
     </div>
     <div class="stepan-block">
       <h4>Research-агент с 5 судьями</h4>
-      <p style="font-size:12px;color:rgba(255,255,255,0.65);line-height:1.6">Файл research/skill.md. При запросе: быстрый ресёрч → 1 агент, стандартный → 2–3 субагента, глубокий → 3–5 + Quality Reviewer. 5 судей критикуют по: свежесть данных, практичность, релевантность, язык, полнота. 3 круга итераций. ~40 минут, результат лучше дня ручной работы.</p>
+      <p style="font-size:12px;color:rgba(255,255,255,0.65);line-height:1.6">Файл research/skill.md. При запросе: быстрый ресёрч &rarr; 1 агент, стандартный &rarr; 2–3 субагента, глубокий &rarr; 3–5 + Quality Reviewer. 5 судей критикуют по: свежесть данных, практичность, релевантность, язык, полнота. 3 круга итераций. ~40 минут, результат лучше дня ручной работы.</p>
     </div>
     <div class="stepan-block">
       <h4>Регулярные агенты</h4>
       <p style="font-size:12px;color:rgba(255,255,255,0.65);line-height:1.6"><span class="text-teal">OpenClaw ночной дайджест:</span> всю ночь читает Twitter по заданным темам. В 9 утра отправляет дайджест в Telegram.</p>
-      <p style="font-size:12px;color:rgba(255,255,255,0.65);line-height:1.6;margin-top:6px"><span class="text-teal">Calls indexing:</span> index.md в папке со звонками. Правило в skill: «при добавлении звонка обнови индекс». 600 звонков — работает.</p>
+      <p style="font-size:12px;color:rgba(255,255,255,0.65);line-height:1.6;margin-top:6px"><span class="text-teal">Calls indexing:</span> index.md в папке со звонками. Правило в skill: &laquo;при добавлении звонка обнови индекс&raquo;. 600 звонков — работает.</p>
     </div>
   </div>
 </div>
 
 <!-- ==========================================
-     SLIDE 13: DATA MAP
+     SLIDE 19: DATA MAP
      ========================================== -->
-<div class="slide" data-slide="12" style="justify-content:flex-start;padding-top:60px">
-  <div class="slide-counter">13 / 20</div>
+<div class="slide" data-slide="18" style="justify-content:flex-start;padding-top:60px">
+  <div class="slide-counter">19 / 26</div>
   <div class="slide-brand"><img src="../../logo.png" alt="" style="height:28px;opacity:0.4;"><span style="font-family:var(--font-body);font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:1px;">AI-NATIVE SPRINT</span></div>
   <div class="section-label anim-1">Данные</div>
   <h2 class="anim-2" style="margin-bottom:8px">Карта данных компании</h2>
-  <p class="text-dim anim-3" style="font-size:13px;margin-bottom:8px">Три типа данных → единая шина → агенты. Вместо прямого подключения каждого агента к каждому источнику.</p>
+  <p class="text-dim anim-3" style="font-size:13px;margin-bottom:8px">Три типа данных &rarr; единая шина &rarr; агенты. Вместо прямого подключения каждого агента к каждому источнику.</p>
   <div class="data-map anim-4">
     <div class="data-col">
       <h4 class="text-teal">Внутренние БД</h4>
@@ -1303,94 +1565,134 @@ deals/            ← инвестиционные сделки</div>
     </div>
   </div>
   <div class="data-bus anim-5">
-    единая шина (MCP + Gateway + Policy Engine) → агенты получают данные через одну точку с политикой и аутентификацией
+    единая шина (MCP + Gateway + Policy Engine) &rarr; агенты получают данные через одну точку с политикой и аутентификацией
   </div>
   <p class="text-dim anim-6" style="font-size:12px;margin-top:8px">Инструменты: SuperMemory, ZEP (bi-temporal), QMD (гибридный поиск), Glean Enterprise Graph</p>
 </div>
 
 <!-- ==========================================
-     SLIDE 14: SECURITY — REAL ATTACKS
+     SLIDE 20: SECURITY
      ========================================== -->
-<div class="slide" data-slide="13" style="justify-content:flex-start;padding-top:60px">
-  <div class="slide-counter">14 / 20</div>
+<div class="slide" data-slide="19" style="justify-content:flex-start;padding-top:60px">
+  <div class="slide-counter">20 / 26</div>
   <div class="slide-brand"><img src="../../logo.png" alt="" style="height:28px;opacity:0.4;"><span style="font-family:var(--font-body);font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:1px;">AI-NATIVE SPRINT</span></div>
   <div class="section-label anim-1">Безопасность</div>
   <h2 class="anim-2" style="margin-bottom:8px">Реальные атаки и инциденты</h2>
   <p class="text-dim anim-3" style="font-size:13px;margin-bottom:8px">88% организаций подтвердили или подозревали инциденты с AI-агентами. Антивируса от агентов не существует.</p>
   <div class="incident-grid anim-4">
-    <div class="incident-card">
-      <h4>7000 открытых MCP серверов</h4>
-      <p>Корпоративные MCP-серверы без аутентификации. В стандарте MCP изначально не было авторизации — запустили и забыли добавить.</p>
-    </div>
-    <div class="incident-card">
-      <h4>Unicode injection</h4>
-      <p>Невидимые Unicode-символы в тексте. LLM видит скрытые инструкции, пользователь — нет. Опасно в Telegram, в браузерах.</p>
-    </div>
-    <div class="incident-card">
-      <h4>Вредоносный плагин #1 в OpenClaw Hub</h4>
-      <p>Топ-1 плагин в App Store был вредоносным. Скилл = инструкция для агента делать что угодно на компьютере. Может слить пароли.</p>
-    </div>
-    <div class="incident-card">
-      <h4>Ramp MCP — copy-paste атака</h4>
-      <p>Компания опубликовала «скачай и запусти эту строчку» в Twitter. При взломе DNS или фишинге — запускается произвольный код.</p>
-    </div>
-    <div class="incident-card">
-      <h4>$80K токенов за ночь</h4>
-      <p>Маркетолог оставила агента работать ночью с неограниченным бюджетом. Агент «делал, делал, делал» — без лимита и алерта.</p>
-    </div>
-    <div class="incident-card">
-      <h4>Системный промпт утекает за часы</h4>
-      <p>Системный промпт любого продукта появляется в открытом доступе в течение пары часов после запуска. Не хранить секреты в промпте.</p>
-    </div>
+    <div class="incident-card"><h4>7000 открытых MCP серверов</h4><p>Корпоративные MCP-серверы без аутентификации. В стандарте MCP изначально не было авторизации.</p></div>
+    <div class="incident-card"><h4>Unicode injection</h4><p>Невидимые Unicode-символы в тексте. LLM видит скрытые инструкции, пользователь — нет.</p></div>
+    <div class="incident-card"><h4>Вредоносный плагин #1 в OpenClaw Hub</h4><p>Топ-1 плагин был вредоносным. Скилл = инструкция для агента делать что угодно на компьютере.</p></div>
+    <div class="incident-card"><h4>$80K токенов за ночь</h4><p>Маркетолог оставила агента работать ночью с неограниченным бюджетом.</p></div>
   </div>
   <div class="anim-5" style="margin-top:12px;padding:12px 20px;background:var(--bg-card);border:1px solid var(--border);border-radius:8px">
-    <p style="font-size:13px;color:var(--text-dim)"><span class="text-red">Принцип:</span> лучшая защита — не давать агентам делать то, для чего они не созданы. «Запрещено всё, что не разрешено» (корпоративная среда).</p>
+    <p style="font-size:13px;color:var(--text-dim)"><span class="text-red">Принцип:</span> лучшая защита — не давать агентам делать то, для чего они не созданы. &laquo;Запрещено всё, что не разрешено&raquo;.</p>
   </div>
 </div>
 
 <!-- ==========================================
-     SLIDE 15: 4 ROLES OF HUMANS
+     SLIDE 21: 4 ROLES OF HUMANS
      ========================================== -->
-<div class="slide" data-slide="14">
-  <div class="slide-counter">15 / 20</div>
+<div class="slide" data-slide="20">
+  <div class="slide-counter">21 / 26</div>
   <div class="slide-brand"><img src="../../logo.png" alt="" style="height:28px;opacity:0.4;"><span style="font-family:var(--font-body);font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:1px;">AI-NATIVE SPRINT</span></div>
   <div class="section-label anim-1">Люди и AI</div>
   <h2 class="anim-2">4 роли, которые остаются за человеком</h2>
   <div class="roles-grid anim-3">
-    <div class="role-card" style="border-top:3px solid var(--teal)">
-      <div class="role-icon" style="color:var(--teal)">&#9635;</div>
-      <h4 class="text-teal">Архитектура</h4>
-      <p>Проектирование системы. Какие агенты, какие данные, какие связи. Человек решает «что строить».</p>
-    </div>
-    <div class="role-card" style="border-top:3px solid var(--blue)">
-      <div class="role-icon" style="color:var(--blue)">&#9672;</div>
-      <h4 class="text-blue">Отношения</h4>
-      <p>Эмпатия, переговоры, мотивация. AI не заменяет субъективные ощущения и человеческий контакт.</p>
-    </div>
-    <div class="role-card" style="border-top:3px solid var(--amber)">
-      <div class="role-icon" style="color:var(--amber)">&#9671;</div>
-      <h4 class="text-amber">Валидация</h4>
-      <p>Проверка результатов. Человек определяет, правильно ли агент выполнил задачу. Eval — это человеческая функция.</p>
-    </div>
-    <div class="role-card" style="border-top:3px solid var(--red)">
-      <div class="role-icon" style="color:var(--red)">&#9670;</div>
-      <h4 class="text-red">Ответственность</h4>
-      <p>Принятие решений. AI не несёт ответственности — это делает человек. Chain-of-thought как документация.</p>
-    </div>
+    <div class="role-card" style="border-top:3px solid var(--teal)"><div class="role-icon" style="color:var(--teal)">&#9635;</div><h4 class="text-teal">Архитектура</h4><p>Проектирование системы. Какие агенты, какие данные, какие связи. Человек решает &laquo;что строить&raquo;.</p></div>
+    <div class="role-card" style="border-top:3px solid var(--blue)"><div class="role-icon" style="color:var(--blue)">&#9672;</div><h4 class="text-blue">Отношения</h4><p>Эмпатия, переговоры, мотивация. AI не заменяет субъективные ощущения и человеческий контакт.</p></div>
+    <div class="role-card" style="border-top:3px solid var(--amber)"><div class="role-icon" style="color:var(--amber)">&#9671;</div><h4 class="text-amber">Валидация</h4><p>Проверка результатов. Человек определяет, правильно ли агент выполнил задачу.</p></div>
+    <div class="role-card" style="border-top:3px solid var(--red)"><div class="role-icon" style="color:var(--red)">&#9670;</div><h4 class="text-red">Ответственность</h4><p>Принятие решений. AI не несёт ответственности — это делает человек.</p></div>
   </div>
   <div class="anim-4" style="margin-top:16px;padding:16px 20px;background:var(--bg-card);border:1px solid var(--border);border-radius:8px;border-left:3px solid var(--teal)">
-    <p style="font-size:14px;color:rgba(255,255,255,0.8);font-style:italic">
-      «AI-агент — это не софт и не сотрудник. AI-трансформация — это не киберпанк. Мы не пытаемся всех уволить и поставить роботов. Задача лидера — показать, что это путь к победе, а не угроза.»
-    </p>
-    <div style="display:flex;align-items:center;gap:12px;margin-top:10px"><img src="../../speakers/stepan-gershuni.jpg" style="width:48px;height:48px;border-radius:50%;border:2px solid var(--border);object-fit:cover"><span style="color:var(--text-dim);font-size:14px;">— Степан Гершуни</span></div>
+    <p style="font-size:14px;color:rgba(255,255,255,0.8);font-style:italic">&laquo;AI-трансформация — это не киберпанк. Мы не пытаемся всех уволить и поставить роботов. Задача лидера — показать, что это путь к победе, а не угроза.&raquo;</p>
+    <div class="quote-avatar"><img src="../../speakers/stepan-gershuni.jpg"><span>— Степан Гершуни</span></div>
   </div>
 </div>
 
 <!-- ==========================================
-     SLIDE 16: FULL PROMPT — FIRST AI-NATIVE STACK
+     SLIDE 22: TOOLS REFERENCE
      ========================================== -->
-<div class="slide" data-slide="15" style="justify-content:flex-start;padding-top:60px">
-  <div class="slide-counter">16 / 20</div>
+<div class="slide" data-slide="21" style="justify-content:flex-start;padding-top:50px">
+  <div class="slide-counter">22 / 26</div>
+  <div class="slide-brand"><img src="../../logo.png" alt="" style="height:28px;opacity:0.4;"><span style="font-family:var(--font-body);font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:1px;">AI-NATIVE SPRINT</span></div>
+  <div class="section-label anim-1">Справочник</div>
+  <h2 class="anim-2" style="margin-bottom:8px">Инструменты из лекции</h2>
+  <div class="tools-grid anim-3">
+    <div class="tools-category" style="border-top:2px solid var(--teal)">
+      <h4 class="text-teal">Данные</h4>
+      <div class="tool-item"><strong>ClickHouse</strong> — единая аналитическая БД</div>
+      <div class="tool-item"><strong>Postgres</strong> — внутренние БД продукта</div>
+      <div class="tool-item"><strong>SQLite</strong> — личный context graph</div>
+    </div>
+    <div class="tools-category" style="border-top:2px solid var(--blue)">
+      <h4 class="text-blue">Память</h4>
+      <div class="tool-item"><strong>SuperMemory</strong> — хранение + retrieval (17k stars)</div>
+      <div class="tool-item"><strong>ZEP</strong> — bi-temporal память</div>
+      <div class="tool-item"><strong>QMD</strong> — гибридный BM25+vector поиск</div>
+      <div class="tool-item"><strong>Glean</strong> — Enterprise knowledge graph</div>
+    </div>
+    <div class="tools-category" style="border-top:2px solid var(--green)">
+      <h4 class="text-green">Оркестрация</h4>
+      <div class="tool-item"><strong>Moti</strong> — промышленный оркестратор</div>
+      <div class="tool-item"><strong>Inngest</strong> — доказуемое исполнение</div>
+      <div class="tool-item"><strong>Temporal</strong> — retry, checkpoint</div>
+    </div>
+    <div class="tools-category" style="border-top:2px solid var(--red)">
+      <h4 class="text-red">Безопасность</h4>
+      <div class="tool-item"><strong>NemoGuardrails</strong> — NVIDIA, open-source</div>
+      <div class="tool-item"><strong>Citadel</strong> — policy engine</div>
+    </div>
+    <div class="tools-category" style="border-top:2px solid var(--amber)">
+      <h4 class="text-amber">Observability</h4>
+      <div class="tool-item"><strong>LangFuse</strong> — трейсинг + аналитика</div>
+      <div class="tool-item"><strong>Eris.com</strong> — логирование метрик агентов</div>
+      <div class="tool-item"><strong>OpenRouter</strong> — роутинг между моделями</div>
+    </div>
+    <div class="tools-category" style="border-top:2px solid var(--cyan)">
+      <h4 style="color:var(--cyan)">Агент-харнес</h4>
+      <div class="tool-item"><strong>Claude Code</strong> — основной инструмент</div>
+      <div class="tool-item"><strong>OpenCode</strong> — open-source, 75 моделей</div>
+      <div class="tool-item"><strong>buy.dev</strong> — open-source харнес</div>
+    </div>
+    <div class="tools-category" style="border-top:2px solid var(--text-dim)">
+      <h4 style="color:var(--text-dim)">Прототипирование</h4>
+      <div class="tool-item"><strong>N8N</strong> — визуальные workflow</div>
+      <div class="tool-item"><strong>Make / Zapier</strong> — API-связи</div>
+      <div class="tool-item"><strong>Playwright</strong> — браузерная автоматизация</div>
+    </div>
+    <div class="tools-category" style="border-top:2px solid var(--text-dim)">
+      <h4 style="color:var(--text-dim)">Прочее</h4>
+      <div class="tool-item"><strong>Darwin-G&ouml;del Machine</strong> — self-improving agents (Meta)</div>
+      <div class="tool-item"><strong>Linux Foundation AI</strong> — стандарты безопасности</div>
+      <div class="tool-item"><strong>LangChain</strong> — устарел (по мнению Степана)</div>
+    </div>
+  </div>
+</div>
+
+<!-- ==========================================
+     SLIDE 23: KEY QUOTES (all 6)
+     ========================================== -->
+<div class="slide" data-slide="22" style="justify-content:flex-start;padding-top:50px">
+  <div class="slide-counter">23 / 26</div>
+  <div class="slide-brand"><img src="../../logo.png" alt="" style="height:28px;opacity:0.4;"><span style="font-family:var(--font-body);font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:1px;">AI-NATIVE SPRINT</span></div>
+  <div class="section-label anim-1">Ключевые мысли</div>
+  <h2 class="anim-2" style="margin-bottom:8px">Цитаты из лекции</h2>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px" class="anim-3">
+    <div class="quote-card" style="border-left-color:var(--amber)"><p>&laquo;Задизайнить идеальную систему невозможно. Ни один план битвы не выдержал столкновения с реальностью. Единственный способ добиться хорошего результата — это оценка.&raquo;</p><div class="quote-avatar"><img src="../../speakers/stepan-gershuni.jpg"><span>— Степан Гершуни</span></div></div>
+    <div class="quote-card" style="border-left-color:var(--teal)"><p>&laquo;Мы не инженерим, мы не дизайним, мы не интегрируем AI — мы его открываем. Это процесс первооткрывания, как физика.&raquo;</p><div class="quote-avatar"><img src="../../speakers/stepan-gershuni.jpg"><span>— Степан Гершуни</span></div></div>
+    <div class="quote-card" style="border-left-color:var(--red)"><p>&laquo;AI-трансформация — это не киберпанк. Мы не пытаемся всех уволить и поставить роботов. Задача лидера — показать, что это путь к победе, а не угроза.&raquo;</p><div class="quote-avatar"><img src="../../speakers/stepan-gershuni.jpg"><span>— Степан Гершуни</span></div></div>
+    <div class="quote-card" style="border-left-color:var(--blue)"><p>&laquo;Если у вас политика "нельзя ChatGPT" — все его используют, просто никому не говорят. У вас все риски и никакого апсайда.&raquo;</p><div class="quote-avatar"><img src="../../speakers/stepan-gershuni.jpg"><span>— Степан Гершуни</span></div></div>
+    <div class="quote-card" style="border-left-color:var(--green)"><p>&laquo;Каждое слово, сказанное на звонке, должно автоматически попадать в граф контекста. Компания как граф токенов.&raquo;</p><div class="quote-avatar"><img src="../../speakers/stepan-gershuni.jpg"><span>— Степан Гершуни</span></div></div>
+    <div class="quote-card" style="border-left-color:var(--cyan)"><p>&laquo;There is no product that you can buy for any money that would give you the best agent for marketing or sales.&raquo;</p><div class="quote-avatar"><img src="../../speakers/stepan-gershuni.jpg"><span>— Степан Гершуни</span></div></div>
+  </div>
+</div>
+
+<!-- ==========================================
+     SLIDE 24: FULL PROMPT
+     ========================================== -->
+<div class="slide" data-slide="23" style="justify-content:flex-start;padding-top:60px">
+  <div class="slide-counter">24 / 26</div>
   <div class="slide-brand"><img src="../../logo.png" alt="" style="height:28px;opacity:0.4;"><span style="font-family:var(--font-body);font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:1px;">AI-NATIVE SPRINT</span></div>
   <div class="section-label anim-1">Промпт-старт</div>
   <h2 class="anim-2" style="margin-bottom:4px">Полный промпт: мой первый AI-native стек</h2>
@@ -1405,11 +1707,13 @@ deals/            ← инвестиционные сделки</div>
 напиши settings.json для Claude Code. подключи MCP серверы к [моим инструментам].
 правила: читать — всегда, писать — спрашивать, удалять — никогда.
 для каждого MCP — покажи пример команды и что агент сможет делать.
+настрой guardrails: запрещена отправка PII в API без маскировки.
 
 шаг 2 — контекст:
 создай структуру папок: context/ (звонки, имейлы, сессии), content/ (артефакты), projects/.
 напиши CLAUDE.md с описанием: какие данные где лежат, куда идти за [типом информации].
 добавь правило: при добавлении файла — обновить index.md.
+настрой decay: факты старше 90 дней — confidence &lt; 0.5.
 
 шаг 3 — первый агент:
 создай research skill.md. при запросе "исследуй [тему]":
@@ -1430,113 +1734,35 @@ deals/            ← инвестиционные сделки</div>
 шаг 5 — governance:
 настрой логирование: последний шаг каждого скилла — записать лог сессии.
 формат лога: timestamp, задача, шаги, ошибки, какие MCP вызывались, результат.
+добавь лимит бюджета: алерт при >$5 за сессию.
 покажи как читать и анализировать эти логи.
 
 начни с шага 1.</div>
 </div>
 
 <!-- ==========================================
-     SLIDE 17: WEEK 2 SCHEDULE
+     SLIDE 25: GOALS + HOMEWORK
      ========================================== -->
-<div class="slide" data-slide="16">
-  <div class="slide-counter">17 / 20</div>
-  <div class="slide-brand"><img src="../../logo.png" alt="" style="height:28px;opacity:0.4;"><span style="font-family:var(--font-body);font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:1px;">AI-NATIVE SPRINT</span></div>
-  <div class="section-label anim-1">Расписание</div>
-  <h2 class="anim-2">Неделя 2 — план</h2>
-  <div class="timeline anim-3">
-    <div class="timeline-row teal-row">
-      <span class="time">Пн</span>
-      <span class="desc">Разбор 6-слойного стека — какие слои у вас уже есть</span>
-    </div>
-    <div class="timeline-row green-row">
-      <span class="time">Вт</span>
-      <span class="desc">Токен-пайплайн: выбрать процесс, нарисовать VSM</span>
-    </div>
-    <div class="timeline-row amber-row">
-      <span class="time">Ср</span>
-      <span class="desc">Focus session — build: конструктор пайплайна (эта сессия)</span>
-    </div>
-    <div class="timeline-row blue-row">
-      <span class="time">Чт</span>
-      <span class="desc">Карта автономности — заполнить по отделам</span>
-    </div>
-    <div class="timeline-row teal-row">
-      <span class="time">Пт</span>
-      <span class="desc">Evals и память — настроить eval для одного skill</span>
-    </div>
-  </div>
-</div>
-
-<!-- ==========================================
-     SLIDE 18: GOALS + HOMEWORK
-     ========================================== -->
-<div class="slide" data-slide="17">
-  <div class="slide-counter">18 / 20</div>
+<div class="slide" data-slide="24">
+  <div class="slide-counter">25 / 26</div>
   <div class="slide-brand"><img src="../../logo.png" alt="" style="height:28px;opacity:0.4;"><span style="font-family:var(--font-body);font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:1px;">AI-NATIVE SPRINT</span></div>
   <div class="section-label anim-1">Домашнее задание</div>
   <h2 class="anim-2">До следующей встречи</h2>
   <div class="anim-3" id="goalsList">
-    <div class="goal-item">
-      <div class="goal-check" onclick="toggleGoal(this)"></div>
-      <span>Заполнить карту автономности для своей компании (минимум 3 отдела)</span>
-    </div>
-    <div class="goal-item">
-      <div class="goal-check" onclick="toggleGoal(this)"></div>
-      <span>Нарисовать токен-пайплайн для одного реального процесса</span>
-    </div>
-    <div class="goal-item">
-      <div class="goal-check" onclick="toggleGoal(this)"></div>
-      <span>Написать eval для одного skill (3+ критерия, pass/fail)</span>
-    </div>
-    <div class="goal-item">
-      <div class="goal-check" onclick="toggleGoal(this)"></div>
-      <span>Настроить context/ — структура папок для памяти агентов</span>
-    </div>
-    <div class="goal-item">
-      <div class="goal-check" onclick="toggleGoal(this)"></div>
-      <span>Попробовать один промпт из треков (слайд 9) — записать результат</span>
-    </div>
+    <div class="goal-item"><div class="goal-check" onclick="toggleGoal(this)"></div><span>Заполнить карту автономности для своей компании (минимум 3 отдела)</span></div>
+    <div class="goal-item"><div class="goal-check" onclick="toggleGoal(this)"></div><span>Нарисовать токен-пайплайн для одного реального процесса</span></div>
+    <div class="goal-item"><div class="goal-check" onclick="toggleGoal(this)"></div><span>Написать eval для одного skill (3+ критерия, pass/fail)</span></div>
+    <div class="goal-item"><div class="goal-check" onclick="toggleGoal(this)"></div><span>Настроить context/ — структура папок для памяти агентов</span></div>
+    <div class="goal-item"><div class="goal-check" onclick="toggleGoal(this)"></div><span>Попробовать один промпт из треков (слайд 15) — записать результат</span></div>
   </div>
   <button class="export-btn anim-4 workshop-only" onclick="exportGoals()" style="margin-top:14px">Экспорт прогресса</button>
 </div>
 
 <!-- ==========================================
-     SLIDE 19: KEY QUOTES
+     SLIDE 26: CLOSING
      ========================================== -->
-<div class="slide" data-slide="18">
-  <div class="slide-counter">19 / 20</div>
-  <div class="slide-brand"><img src="../../logo.png" alt="" style="height:28px;opacity:0.4;"><span style="font-family:var(--font-body);font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:1px;">AI-NATIVE SPRINT</span></div>
-  <div class="section-label anim-1">Ключевые мысли</div>
-  <h2 class="anim-2" style="margin-bottom:12px">Цитаты из лекции</h2>
-  <div style="display:flex;flex-direction:column;gap:12px" class="anim-3">
-    <div style="padding:14px 20px;background:var(--bg-card);border:1px solid var(--border);border-radius:8px;border-left:3px solid var(--teal)">
-      <p style="font-size:14px;color:rgba(255,255,255,0.8);font-style:italic">«Мы не инженерим, мы не дизайним, мы не интегрируем AI — мы его открываем. Это процесс первооткрывания, как физика.»</p>
-      <div style="display:flex;align-items:center;gap:12px;margin-top:10px"><img src="../../speakers/stepan-gershuni.jpg" style="width:48px;height:48px;border-radius:50%;border:2px solid var(--border);object-fit:cover"><span style="color:var(--text-dim);font-size:14px;">— Степан Гершуни</span></div>
-    </div>
-    <div style="padding:14px 20px;background:var(--bg-card);border:1px solid var(--border);border-radius:8px;border-left:3px solid var(--amber)">
-      <p style="font-size:14px;color:rgba(255,255,255,0.8);font-style:italic">«Задизайнить идеальную систему невозможно. Единственный способ добиться хорошего результата — это оценка. Пока мы не измеряем результаты, мы не получим результат.»</p>
-      <div style="display:flex;align-items:center;gap:12px;margin-top:10px"><img src="../../speakers/stepan-gershuni.jpg" style="width:48px;height:48px;border-radius:50%;border:2px solid var(--border);object-fit:cover"><span style="color:var(--text-dim);font-size:14px;">— Степан Гершуни</span></div>
-    </div>
-    <div style="padding:14px 20px;background:var(--bg-card);border:1px solid var(--border);border-radius:8px;border-left:3px solid var(--blue)">
-      <p style="font-size:14px;color:rgba(255,255,255,0.8);font-style:italic">«Если у вас политика "нельзя использовать ChatGPT" — все его используют, просто никому не говорят. У вас все риски и никакого апсайда.»</p>
-      <div style="display:flex;align-items:center;gap:12px;margin-top:10px"><img src="../../speakers/stepan-gershuni.jpg" style="width:48px;height:48px;border-radius:50%;border:2px solid var(--border);object-fit:cover"><span style="color:var(--text-dim);font-size:14px;">— Степан Гершуни</span></div>
-    </div>
-    <div style="padding:14px 20px;background:var(--bg-card);border:1px solid var(--border);border-radius:8px;border-left:3px solid var(--green)">
-      <p style="font-size:14px;color:rgba(255,255,255,0.8);font-style:italic">«There is no product that you can buy for any money that would give you the best agent for marketing or sales.»</p>
-      <div style="display:flex;align-items:center;gap:12px;margin-top:10px"><img src="../../speakers/stepan-gershuni.jpg" style="width:48px;height:48px;border-radius:50%;border:2px solid var(--border);object-fit:cover"><span style="color:var(--text-dim);font-size:14px;">— Степан Гершуни</span></div>
-    </div>
-    <div style="padding:14px 20px;background:var(--bg-card);border:1px solid var(--border);border-radius:8px;border-left:3px solid var(--red)">
-      <p style="font-size:14px;color:rgba(255,255,255,0.8);font-style:italic">«Каждое слово, сказанное на звонке, должно автоматически попадать в граф контекста. Компания как граф токенов.»</p>
-      <div style="display:flex;align-items:center;gap:12px;margin-top:10px"><img src="../../speakers/stepan-gershuni.jpg" style="width:48px;height:48px;border-radius:50%;border:2px solid var(--border);object-fit:cover"><span style="color:var(--text-dim);font-size:14px;">— Степан Гершуни</span></div>
-    </div>
-  </div>
-</div>
-
-<!-- ==========================================
-     SLIDE 20: CLOSING
-     ========================================== -->
-<div class="slide" data-slide="19">
-  <div class="slide-counter">20 / 20</div>
+<div class="slide" data-slide="25">
+  <div class="slide-counter">26 / 26</div>
   <div class="slide-brand"><img src="../../logo.png" alt="" style="height:28px;opacity:0.4;"><span style="font-family:var(--font-body);font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:1px;">AI-NATIVE SPRINT</span></div>
   <div style="text-align:center;width:100%">
     <div class="section-label anim-1">Конец сессии</div>
@@ -1550,7 +1776,7 @@ deals/            ← инвестиционные сделки</div>
         <div style="font-family:var(--font-code);font-size:11px;color:var(--teal);text-transform:uppercase;letter-spacing:2px;margin-bottom:6px">Неделя 2</div>
         <div style="font-family:var(--font-heading);font-size:28px;color:var(--text)">Архитектура</div>
       </div>
-      <div style="color:var(--border);font-size:28px;display:flex;align-items:center">→</div>
+      <div style="color:var(--border);font-size:28px;display:flex;align-items:center">&rarr;</div>
       <div style="text-align:center">
         <div style="font-family:var(--font-code);font-size:11px;color:var(--text-label);text-transform:uppercase;letter-spacing:2px;margin-bottom:6px">Неделя 3</div>
         <div style="font-family:var(--font-heading);font-size:28px;color:var(--text-dim)">Имплементация</div>
@@ -1571,125 +1797,81 @@ deals/            ← инвестиционные сделки</div>
 
 const LAYERS = [
   {
-    id: 'infra',
-    num: '01',
-    name: 'Infrastructure',
-    icon: '\u2699',
-    color: 'var(--teal)',
-    bg: 'var(--teal-dim)',
+    id: 'infra', num: '01', name: 'Infrastructure', icon: '\u2699',
+    color: 'var(--teal)', bg: 'var(--teal-dim)',
     title: 'Infrastructure — коннекторы и безопасность',
     desc: 'Базовый слой: как AI подключается к вашим системам, какие ограничения работают, как маршрутизируются запросы между моделями. Единая шина вместо прямого подключения каждого агента к каждому источнику. Gateway решает 6 задач: аутентификация, ролевой доступ, бюджетирование токенов, DLP (маскировка PII), Policy Engine, аудит.',
     tools: ['MCP серверы (Gmail, Slack, Notion, CRM, Calendar)', 'NemoGuardrails (NVIDIA)', 'settings.json (Claude Code)', 'OpenRouter (роутинг, 60x разница в цене)', 'LangFuse (трейсинг)', 'Citadel (policy engine)'],
-    prompt: 'у меня компания [опиши]. мне нужно:\n1. настроить MCP-серверы: подключить [Notion/Slack/Gmail/Calendar] к Claude Code\n2. написать settings.json с правами: читать — всегда, писать — спрашивать, удалять — никогда\n3. настроить guardrails: запретить отправку PII в API (замена на placeholder)\n4. настроить роутинг моделей: грамматика → Haiku, ресёрч → Opus\n5. добавить логирование: каждый вызов MCP записывать в лог с timestamp\nпокажи конфигурацию и объясни каждый шаг'
+    prompt: 'у меня компания [опиши]. мне нужно:\n1. настроить MCP-серверы: подключить [Notion/Slack/Gmail/Calendar] к Claude Code\n2. написать settings.json с правами: читать — всегда, писать — спрашивать, удалять — никогда\n3. настроить guardrails: запретить отправку PII в API (замена на placeholder)\n4. настроить роутинг моделей: грамматика → Haiku, ресёрч → Opus\n5. добавить логирование: каждый вызов MCP записывать в лог с timestamp\n6. настроить DLP: маскировка имён, номеров договоров, сумм\n7. policy engine: 4 действия — Allow / Redact / Reroute / Block\n8. аудит: event_time, user_id, department, model, policy_decision, cost_estimated\nпокажи конфигурацию и объясни каждый шаг'
   },
   {
-    id: 'data',
-    num: '02',
-    name: 'Data & Context',
-    icon: '\u25C6',
-    color: 'var(--blue)',
-    bg: 'var(--blue-dim)',
+    id: 'data', num: '02', name: 'Data & Context', icon: '\u25C6',
+    color: 'var(--blue)', bg: 'var(--blue-dim)',
     title: 'Data & Context — память и контекст',
     desc: 'Контекст-инжиниринг — это то, над чем реально работает лаборатория. Не промпт-инжиниринг, а создание правильного контекста. Граф контекста: вместо загрузки 15k+ токенов из сырых звонков — извлекать сущности в момент получения и хранить в БД. При запросе агент обращается к БД (5ms, 0 LLM-токенов).',
     tools: ['SQLite (ежедневная индексация)', 'SuperMemory (17k GitHub stars)', 'ZEP (bi-temporal memory)', 'QMD (гибридный BM25+vector поиск)', 'context/ структура папок', 'Glean Enterprise Graph'],
-    prompt: 'создай систему контекста для моей работы:\n1. структура папок: context/ (calls/, emails/, telegram/, sessions/), content/ (артефакты), projects/ (по проекту)\n2. в каждой папке — index.md, который обновляется при добавлении файла\n3. напиши скрипт ежедневной индексации: из новых звонков извлечь решения, action items, коммитменты, метрики\n4. каждый факт сохранять с прямой цитатой и ссылкой на источник\n5. добавить decay: факты старше 90 дней получают confidence score < 0.5\nформат хранения: SQLite с полями entity, type, value, source, timestamp, confidence'
+    prompt: 'создай систему контекста для моей работы:\n1. структура папок: context/ (calls/, emails/, telegram/, sessions/), content/ (артефакты), projects/ (по проекту)\n2. в каждой папке — index.md, который обновляется при добавлении файла\n3. напиши скрипт ежедневной индексации: из новых звонков извлечь решения, action items, коммитменты, метрики\n4. каждый факт сохранять с прямой цитатой и ссылкой на источник\n5. добавить decay: факты старше 90 дней получают confidence score < 0.5\n6. Named Entity Recognition: решения, сделки, суммы, дедлайны\n7. entity resolution: account_id ↔ customer_id ↔ user_id\n8. CLAUDE.md: точка входа для агентов — где какие данные\nформат хранения: SQLite с полями entity, type, value, source, timestamp, confidence'
   },
   {
-    id: 'orch',
-    num: '03',
-    name: 'Orchestration',
-    icon: '\u25CE',
-    color: 'var(--green)',
-    bg: 'var(--green-dim)',
+    id: 'orch', num: '03', name: 'Orchestration', icon: '\u25CE',
+    color: 'var(--green)', bg: 'var(--green-dim)',
     title: 'Orchestration — оркестрация агентов',
     desc: '4 типа агентов: cron (по расписанию), on-demand (по запросу), event-driven (по триггеру), mirror (зеркало человека). 5 топологий координации: sequential, parallel, group chat, business process, hybrid. Multi-agent создаётся тремя строчками текста в skill.md.',
     tools: ['Sequential pipeline', 'Parallel fan-out', 'Group chat (AutoGen)', 'Business process (Temporal/Moti/Inngest)', 'Hybrid topology', 'Playwright (браузер)'],
-    prompt: 'создай research-агент с параллельными субагентами:\n1. при запросе "исследуй [тему]" запусти 4 субагента параллельно:\n   - агент компании: финансы, команда, продукт, рынок\n   - агент технологии: стек, архитектура, бенчмарки\n   - агент рынка: конкуренты, тренды, размер рынка\n   - агент контекста: как это связано с моей работой\n2. после сбора — quality reviewer оценивает каждую секцию по 5 параметрам:\n   свежесть данных, практичность, релевантность, язык, полнота\n3. три круга итераций generator-discriminator\n4. финальный результат: markdown с executive summary, детали по секциям, источники\nнапиши skill.md файл целиком'
+    prompt: 'создай research-агент с параллельными субагентами:\n1. при запросе "исследуй [тему]" запусти 4 субагента параллельно:\n   - агент компании: финансы, команда, продукт, рынок\n   - агент технологии: стек, архитектура, бенчмарки\n   - агент рынка: конкуренты, тренды, размер рынка\n   - агент контекста: как это связано с моей работой\n2. после сбора — quality reviewer оценивает каждую секцию по 5 параметрам:\n   свежесть данных, практичность, релевантность, язык, полнота\n3. три круга итераций generator-discriminator\n4. каждая итерация: генератор улучшает по замечаниям всех 5 судей\n5. финальный результат: markdown с executive summary, детали по секциям, источники\n6. в конце — лог сессии: время, шаги, ошибки, токены\nнапиши skill.md файл целиком'
   },
   {
-    id: 'skills',
-    num: '04',
-    name: 'Skills & Workflows',
-    icon: '\u25A3',
-    color: 'var(--amber)',
-    bg: 'var(--amber-dim)',
+    id: 'skills', num: '04', name: 'Skills & Workflows', icon: '\u25A3',
+    color: 'var(--amber)', bg: 'var(--amber-dim)',
     title: 'Skills & Workflows — навыки и процессы',
     desc: 'TDD для AI: сначала eval, потом skill. Маркетплейс навыков — приватный GitHub для команды: версии, fork, дистрибуция. Автор скилла — эксперт в своей области, не CEO. Логирование каждой сессии: время, задача, ошибки, какие MCP вызывались.',
     tools: ['skill.md (декларативные навыки)', 'eval.md (критерии качества)', 'Приватный GitHub (маркетплейс)', 'Moti / Inngest / Temporal (production)', 'Generator-Discriminator (5 судей \u00D7 3 круга)', 'Eris.com / LangFuse (трейсинг)'],
-    prompt: 'помоги мне создать систему evals для моих скиллов:\n1. unit test: для каждого шага агента — что он должен вернуть, критерии pass/fail\n2. integration test: полный процесс от запроса до результата\n3. business metric: как измерить реальный эффект (время, стоимость, качество)\n4. NPS: в конце каждого скилла спрашивать оценку 1-9, записывать в лог\n5. AB-тест: хранить 2 версии скилла, прогонять обе через eval, сравнивать\nнапиши eval.md для моего [research/support/content] скилла'
+    prompt: 'помоги мне создать систему evals для моих скиллов:\n1. unit test: для каждого шага агента — что он должен вернуть, критерии pass/fail\n2. integration test: полный процесс от запроса до результата\n3. business metric: как измерить реальный эффект (время, стоимость, качество)\n4. NPS: в конце каждого скилла спрашивать оценку 1-9, записывать в лог\n5. AB-тест: хранить 2 версии скилла, прогонять обе через eval, сравнивать\n6. catastrophic forgetting check: новая версия не хуже старой по всем метрикам\n7. трассировка: какие MCP вызваны, корректность ответа, логи ошибок\n8. dashboard: adoption rate, глубина сессии, стоимость/экономия\nнапиши eval.md для моего [research/support/content] скилла'
   },
   {
-    id: 'people',
-    num: '05',
-    name: 'People & Org',
-    icon: '\u25C8',
-    color: 'var(--cyan)',
-    bg: 'rgba(34,211,238,0.12)',
+    id: 'people', num: '05', name: 'People & Org', icon: '\u25C8',
+    color: 'var(--cyan)', bg: 'rgba(34,211,238,0.12)',
     title: 'People & Organization — люди и роли',
     desc: 'AI Champion: обычный сотрудник, не консультант. Citibank — 4000 человек. Компилятор людей: скилл-интервью → skill.md. 4 роли человека: архитектура, отношения, валидация, ответственность. Найм: до открытия вакансии — «докажи, что нельзя сделать с AI».',
     tools: ['Скилл-интервью \u2192 skill.md', 'AI Champion (внутренний амбассадор)', '4 роли человека в AI-Native', 'Принцип найма: "докажи что нельзя с AI"', 'Компетенции: 4 уровня (Ramp)'],
-    prompt: 'проведи со мной "компилятор людей" — интервью из 15 вопросов:\n1. чем ты занимаешься каждый день?\n2. какие задачи повторяются каждую неделю?\n3. где ты тратишь больше всего времени?\n4. какие решения ты принимаешь? на основе чего?\n5. какие данные тебе нужны для работы? где они лежат?\n6. с кем ты коммуницируешь? как часто? о чём?\n7. что ты делаешь, когда что-то идёт не так?\n8. какие инструменты ты используешь?\n9. что бы ты делегировал, если мог?\n10. какой идеальный результат твоей работы?\nна основе ответов сгенерируй skill.md — должностную инструкцию для агента'
+    prompt: 'проведи со мной "компилятор людей" — интервью из 15 вопросов:\n1. чем ты занимаешься каждый день?\n2. какие задачи повторяются каждую неделю?\n3. где ты тратишь больше всего времени?\n4. какие решения ты принимаешь? на основе чего?\n5. какие данные тебе нужны для работы? где они лежат?\n6. с кем ты коммуницируешь? как часто? о чём?\n7. что ты делаешь, когда что-то идёт не так?\n8. какие инструменты ты используешь?\n9. что бы ты делегировал, если мог?\n10. какой идеальный результат твоей работы?\n11. какие исключения из правил бывают?\n12. как ты обучаешь нового человека?\n13. какие метрики показывают что работа сделана хорошо?\n14. какие ошибки случаются чаще всего?\n15. если бы AI-агент делал твою работу, что он должен знать?\nна основе ответов сгенерируй skill.md с eval-критериями и секцией эскалации'
   },
   {
-    id: 'gov',
-    num: '06',
-    name: 'Governance',
-    icon: '\u25C7',
-    color: 'var(--red)',
-    bg: 'var(--red-dim)',
+    id: 'gov', num: '06', name: 'Governance', icon: '\u25C7',
+    color: 'var(--red)', bg: 'var(--red-dim)',
     title: 'Governance — управление и контроль',
     desc: 'Вертикальный слой, пронизывающий всё. Бюджет AI конкурирует с ФОТ, не ПО. Токены по сотрудникам = метрика внедрения. Chain-of-thought как документация для compliance (FINRA). 4 уровня компетенций: не-пользователь → пользователь → нетехнический билдер → AI builder.',
     tools: ['Токен-трекинг по сотрудникам', 'ROI калькулятор (токены vs часы)', 'Chain-of-thought аудит (FINRA)', '4 уровня: не-пользователь \u2192 AI builder', 'Еженедельный AI-отчёт', 'DLP маскировка PII'],
-    prompt: 'создай систему governance для AI в моей компании:\n1. бюджет: лимиты токенов по сотрудникам/отделам, алерты при превышении\n2. аудит: логирование всех LLM-вызовов (кто, когда, какая модель, сколько токенов)\n3. DLP: маскировка PII перед отправкой в API (имена → placeholder, документы → хэш)\n4. метрики внедрения: adoption rate, частота использования, глубина сессий\n5. compliance: сохранять chain-of-thought как документацию решений\n6. еженедельный отчёт: кто сколько использует, ROI по задачам\nнапиши шаблон governance-policy.md'
+    prompt: 'создай систему governance для AI в моей компании:\n1. бюджет: лимиты токенов по сотрудникам/отделам, алерты при превышении\n2. аудит: логирование всех LLM-вызовов (кто, когда, какая модель, сколько токенов, стоимость)\n3. DLP: маскировка PII перед отправкой в API (имена → [PERSON], документы → [CONTRACT])\n4. метрики внедрения: adoption rate, частота, глубина сессий, ROI по задачам\n5. compliance: сохранять chain-of-thought как документацию решений (FINRA)\n6. еженедельный отчёт: кто сколько использует, ROI по задачам, аномалии\n7. 4 уровня компетенций: классифицировать сотрудников\n8. emergency: auto-switch на дешёвую модель при превышении бюджета\nнапиши шаблон governance-policy.md'
   }
 ];
 
 const VSM_STAGES = [
-  {
-    name: '\u041F\u0440\u0438\u0451\u043C',
-    sub: 'intake',
-    title: '\u041F\u0440\u0438\u0451\u043C — сбор входных данных',
+  { name: 'Приём', sub: 'intake', title: 'Приём — сбор входных данных',
     what: 'Сбор запроса, контекста, ограничений. Классификация типа задачи. Маршрутизация к нужному агенту/модели.',
-    cost: '~0.5 сек / ~500 токенов. Стоимость: $0.001\u20130.01',
+    cost: '~200мс / ~500 токенов. Стоимость: $0.001\u20130.01',
     tools: 'MCP коннекторы, классификатор (haiku/flash), router',
-    prompt: 'создай classifier.md: входящий запрос \u2192 определи тип (research/action/question/creative) \u2192 направь на нужную модель (haiku для простых, opus для сложных)'
-  },
-  {
-    name: '\u0420\u0435\u0448\u0435\u043D\u0438\u0435',
-    sub: 'routing',
-    title: '\u0420\u0435\u0448\u0435\u043D\u0438\u0435 — выбор стратегии',
-    what: 'Выбор модели, агента, топологии. Определение нужного контекста. Планирование шагов.',
-    cost: '~1\u20133 сек / ~2K токенов. Стоимость: $0.01\u20130.05',
+    prompt: 'создай classifier.md: входящий запрос \u2192 определи тип (research/action/question/creative) \u2192 направь на нужную модель (haiku для простых, opus для сложных). добавь парсинг и OCR для документов.' },
+  { name: 'Решение', sub: 'routing', title: 'Решение — выбор стратегии',
+    what: 'Выбор модели, агента, топологии. Определение нужного контекста. Планирование шагов. Суждение и стратегия — узел где нужен человек.',
+    cost: '~минуты (высокие ставки) / ~2K токенов. Стоимость: $0.01\u20130.05',
     tools: 'OpenRouter, orchestrator, context retrieval (QMD/RAG)',
-    prompt: 'напиши orchestrator.md: для research-запроса подбери 3 источника контекста, выбери топологию (parallel если >2 аспектов, sequential если линейно), запланируй шаги'
-  },
-  {
-    name: '\u041E\u0431\u0440\u0430\u0431\u043E\u0442\u043A\u0430',
-    sub: 'processing',
-    title: '\u041E\u0431\u0440\u0430\u0431\u043E\u0442\u043A\u0430 — основная работа',
-    what: 'Генерация артефакта. Основная трата токенов. Возможны параллельные потоки и итерации.',
-    cost: '~10\u201360 сек / ~10\u201350K токенов. Стоимость: $0.05\u20130.50',
+    prompt: 'напиши orchestrator.md: для research-запроса подбери 3 источника контекста, выбери топологию (parallel если >2 аспектов, sequential если линейно), запланируй шаги' },
+  { name: 'Обработка', sub: 'processing', title: 'Обработка — основная работа',
+    what: 'Генерация артефакта. RAG, анализ, генерация. Основная трата токенов. Возможны параллельные потоки и итерации.',
+    cost: '~2с / ~10\u201350K токенов. Стоимость: $0.05\u20130.50',
     tools: 'Claude/GPT, субагенты, generator-discriminator loop',
-    prompt: 'для задачи [X] запусти generator (opus) \u2192 5 discriminators (haiku) проверяют по критериям \u2192 итерируй 3 раза \u2192 финальный артефакт'
-  },
-  {
-    name: '\u0414\u0435\u0439\u0441\u0442\u0432\u0438\u0435',
-    sub: 'action',
-    title: '\u0414\u0435\u0439\u0441\u0442\u0432\u0438\u0435 — применение результата',
-    what: 'Запись в систему, отправка сообщения, создание файла. Guardrails перед action.',
-    cost: '~1\u20135 сек / ~1K токенов. Стоимость: $0.001\u20130.01',
+    prompt: 'для задачи [X] запусти generator (opus) \u2192 5 discriminators (haiku) проверяют по критериям \u2192 итерируй 3 раза \u2192 финальный артефакт' },
+  { name: 'Действие', sub: 'action', title: 'Действие — применение результата',
+    what: 'API, коммит, отгрузка. Запись в систему, отправка сообщения, создание файла. Guardrails перед action.',
+    cost: '~500мс / ~1K токенов. Стоимость: $0.001\u20130.01',
     tools: 'MCP write, guardrails, approval flow, webhooks',
-    prompt: 'добавь guardrail: перед отправкой email — показать мне превью и спросить подтверждение. перед записью в CRM — показать diff изменений'
-  },
-  {
-    name: '\u041F\u0440\u043E\u0432\u0435\u0440\u043A\u0430',
-    sub: 'verify',
-    title: '\u041F\u0440\u043E\u0432\u0435\u0440\u043A\u0430 — контроль качества',
-    what: 'Eval результата. Логирование в LangFuse. Обновление памяти. Обратная связь для улучшения.',
-    cost: '~2\u20135 сек / ~2K токенов. Стоимость: $0.01\u20130.03',
+    prompt: 'добавь guardrail: перед отправкой email — превью и подтверждение. перед записью в CRM — diff изменений. перед деструктивными операциями — двойное подтверждение' },
+  { name: 'Проверка', sub: 'verify', title: 'Проверка — контроль качества',
+    what: 'Eval, логи, мониторинг. Eval результата. Логирование в LangFuse. Обновление памяти. Обратная связь для улучшения.',
+    cost: '~100мс / ~2K токенов. Стоимость: $0.005\u20130.03',
     tools: 'eval.md, LangFuse, memory update, feedback loop',
-    prompt: 'после каждого выполненного skill — запусти eval, залогируй результат (pass/fail + причина), обнови memory если нашёл новый паттерн'
-  }
+    prompt: 'после каждого выполненного skill — запусти eval, залогируй результат (pass/fail + причина), обнови memory если нашёл новый паттерн, обнови метрики ($/токен)' }
 ];
 
 const PROMPT_TRACKS = [
@@ -1697,37 +1879,37 @@ const PROMPT_TRACKS = [
     name: 'Инфраструктура',
     desc: '<strong>что:</strong> подключить 3 MCP-сервера к Claude Code<br><strong>как:</strong> settings.json + MCP конфиг для Notion/Calendar/Slack<br><strong>результат:</strong> агент видит ваши данные и может с ними работать',
     color: 'var(--teal)',
-    prompt: 'у меня компания [опиши]. мне нужно:\n1. настроить MCP-серверы: подключить [Notion/Slack/Gmail/Calendar] к Claude Code\n2. написать settings.json с правами: читать — всегда, писать — спрашивать, удалять — никогда\n3. настроить guardrails: запретить отправку PII в API\n4. настроить роутинг моделей: грамматика → Haiku, ресёрч → Opus\n5. добавить логирование: каждый вызов MCP в лог с timestamp\nпокажи конфигурацию и объясни каждый шаг'
+    prompt: 'у меня компания [опиши]. мне нужно:\n1. настроить MCP-серверы: подключить [Notion/Slack/Gmail/Calendar] к Claude Code\n2. написать settings.json с правами: читать — всегда, писать — спрашивать, удалять — никогда\n3. настроить guardrails: запретить отправку PII в API\n4. настроить роутинг моделей: грамматика → Haiku, ресёрч → Opus\n5. добавить логирование: каждый вызов MCP в лог с timestamp\n6. DLP: маскировка имён и номеров до отправки\n7. показать пример запроса для каждого MCP\n8. проверить что всё работает: тест чтения + тест записи\nпокажи конфигурацию и объясни каждый шаг'
   },
   {
     name: 'Контекст',
     desc: '<strong>что:</strong> создать структуру папок + правило индексации в CLAUDE.md<br><strong>как:</strong> context/content/projects/ + index.md в каждой папке<br><strong>результат:</strong> агент знает где искать информацию для каждого типа задачи',
     color: 'var(--blue)',
-    prompt: 'создай систему контекста для моей работы:\n1. структура папок: context/ (calls/, emails/, telegram/, sessions/), content/, projects/\n2. в каждой папке — index.md, обновляется при добавлении файла\n3. скрипт ежедневной индексации: из звонков извлечь решения, action items, метрики\n4. каждый факт с цитатой и ссылкой на источник\n5. decay: факты старше 90 дней — confidence < 0.5\nформат: SQLite с полями entity, type, value, source, timestamp, confidence'
+    prompt: 'создай систему контекста для моей работы:\n1. структура папок: context/ (calls/, emails/, telegram/, sessions/), content/, projects/\n2. в каждой папке — index.md, обновляется при добавлении файла\n3. скрипт ежедневной индексации: из звонков извлечь решения, action items, метрики\n4. каждый факт с цитатой и ссылкой на источник\n5. decay: факты старше 90 дней — confidence < 0.5\n6. entity resolution: связать людей/компании из разных источников\n7. CLAUDE.md: точка входа для агентов\n8. тест: запроси факт из проиндексированных данных\nформат: SQLite с полями entity, type, value, source, timestamp, confidence'
   },
   {
     name: 'Оркестрация',
     desc: '<strong>что:</strong> написать skill.md с параллельными субагентами<br><strong>как:</strong> в skill файле — "запусти 3 субагента, каждый исследует..."<br><strong>результат:</strong> ресёрч за 5 минут вместо часа',
     color: 'var(--green)',
-    prompt: 'создай research-агент с параллельными субагентами:\n1. при запросе "исследуй [тему]" запусти 4 субагента параллельно:\n   - компания: финансы, команда, продукт\n   - технология: стек, архитектура, бенчмарки\n   - рынок: конкуренты, тренды, размер\n   - контекст: связь с моей работой\n2. quality reviewer оценивает по 5 параметрам\n3. три круга итераций\n4. финальный markdown с executive summary\nнапиши skill.md файл целиком'
+    prompt: 'создай research-агент с параллельными субагентами:\n1. при запросе "исследуй [тему]" запусти 4 субагента параллельно:\n   - компания: финансы, команда, продукт\n   - технология: стек, архитектура, бенчмарки\n   - рынок: конкуренты, тренды, размер\n   - контекст: связь с моей работой\n2. quality reviewer оценивает по 5 параметрам\n3. три круга итераций, каждая улучшает по замечаниям\n4. финальный markdown с executive summary\n5. лог: время, токены, стоимость каждого субагента\n6. если стоимость > $2 — предупреди и предложи сократить\nнапиши skill.md файл целиком'
   },
   {
     name: 'Память',
     desc: '<strong>что:</strong> настроить извлечение фактов из звонков/переписки<br><strong>как:</strong> промпт для daily extraction → SQLite/markdown<br><strong>результат:</strong> агент помнит решения, коммитменты, метрики',
     color: 'var(--amber)',
-    prompt: 'создай систему памяти для моего агента:\n1. ежедневная индексация: из новых звонков/переписки извлечь решения, action items, коммитменты, метрики\n2. каждый факт с прямой цитатой и ссылкой на источник\n3. decay: факты старше 90 дней — confidence < 0.5\n4. формат: SQLite с полями entity, type, value, source, timestamp, confidence\n5. при запросе — агент ищет по БД (5ms, 0 LLM-токенов), а не грузит сырые данные\nнапиши скрипт индексации и правило для CLAUDE.md'
+    prompt: 'создай систему памяти для моего агента:\n1. ежедневная индексация: из новых звонков/переписки извлечь решения, action items, коммитменты, метрики\n2. каждый факт с прямой цитатой и ссылкой на источник\n3. decay: факты старше 90 дней — confidence < 0.5\n4. формат: SQLite с полями entity, type, value, source, timestamp, confidence\n5. при запросе — агент ищет по БД (5ms, 0 LLM-токенов), а не грузит сырые данные\n6. хранить причинно-следственные связи между событиями\n7. TTL политика: возможность удалить/перезаписать неверный контекст\n8. покажи пример запроса: "что мы решили на звонке с X?"\nнапиши скрипт индексации и правило для CLAUDE.md'
   },
   {
     name: 'Evals',
     desc: '<strong>что:</strong> написать eval ДО скилла (TDD)<br><strong>как:</strong> критерии pass/fail, NPS в конце, AB-тест версий<br><strong>результат:</strong> измеряемое качество вместо "вроде работает"',
     color: 'var(--cyan)',
-    prompt: 'помоги мне создать систему evals для скиллов:\n1. unit test: для каждого шага агента — критерии pass/fail\n2. integration test: полный процесс от запроса до результата\n3. business metric: время, стоимость, качество\n4. NPS: в конце скилла спрашивать оценку 1-9, записывать в лог\n5. AB-тест: 2 версии скилла, прогнать обе через eval, сравнить\nнапиши eval.md для моего [research/support/content] скилла'
+    prompt: 'помоги мне создать систему evals для скиллов:\n1. unit test: для каждого шага агента — критерии pass/fail\n2. integration test: полный процесс от запроса до результата\n3. business metric: время, стоимость, качество\n4. NPS: в конце скилла спрашивать оценку 1-9, записывать в лог\n5. AB-тест: 2 версии скилла, прогнать обе через eval, сравнить\n6. catastrophic forgetting: проверить что новая версия не хуже\n7. трассировка: какие MCP вызваны, ошибки, latency\n8. dashboard: adoption, глубина сессии, стоимость, NPS\nнапиши eval.md для моего [research/support/content] скилла'
   },
   {
     name: 'Свой проект',
     desc: '<strong>что:</strong> приходите с идеей которую давно хотели сделать<br><strong>как:</strong> опишите задачу, мы поможем разбить на шаги<br><strong>результат:</strong> первый рабочий прототип',
     color: 'var(--red)',
-    prompt: 'я хочу автоматизировать [опиши процесс или задачу]. сейчас это занимает [время]. инструменты: [какие].\n\n1. разбей задачу на шаги: что делает человек, что может делать AI\n2. определи тип блоков для каждого шага: auto / review / human\n3. напиши skill.md для первого шага\n4. добавь eval: 3 критерия pass/fail\n5. покажи результат и предложи следующий шаг автоматизации'
+    prompt: 'я хочу автоматизировать [опиши процесс или задачу]. сейчас это занимает [время]. инструменты: [какие].\n\n1. разбей задачу на шаги: что делает человек, что может делать AI\n2. определи тип блоков для каждого шага: auto / review / human\n3. напиши skill.md для первого шага\n4. добавь eval: 3 критерия pass/fail\n5. добавь guardrail: что агент НЕ должен делать\n6. добавь логирование: последний шаг = сохранить лог\n7. покажи результат и предложи следующий шаг автоматизации\n8. оцени экономию: сколько минут/$ экономит на каждое выполнение'
   }
 ];
 
@@ -1735,6 +1917,63 @@ const PROMPT_TRACKS = [
 // PIPELINE TEMPLATES
 // ============================================
 const TEMPLATES = {
+  support: {
+    name: 'поддержка',
+    title: 'Customer Support',
+    blocks: [
+      { id: 't-cs1', label: 'Запрос клиента', type: 'auto', x: 30, y: 60 },
+      { id: 't-cs2', label: 'Классификация', type: 'auto', x: 200, y: 60 },
+      { id: 't-cs3', label: 'Тех. агент', type: 'auto', x: 400, y: 60 },
+      { id: 't-cs4', label: 'Решил?', type: 'review', x: 600, y: 60 },
+      { id: 't-cs5', label: 'Ответ', type: 'auto', x: 800, y: 60 },
+      { id: 't-cs6', label: 'Фин. агент', type: 'auto', x: 600, y: 180 },
+      { id: 't-cs7', label: 'Рефанд?', type: 'review', x: 600, y: 280 },
+      { id: 't-cs8', label: 'Рефанд', type: 'auto', x: 800, y: 220 },
+      { id: 't-cs9', label: 'Эскалация', type: 'human', x: 800, y: 320 }
+    ],
+    arrows: [['t-cs1','t-cs2'],['t-cs2','t-cs3'],['t-cs3','t-cs4'],['t-cs4','t-cs5'],['t-cs4','t-cs6'],['t-cs6','t-cs7'],['t-cs7','t-cs8'],['t-cs7','t-cs9']]
+  },
+  contentMarketing: {
+    name: 'контент',
+    title: 'Контент-маркетинг',
+    blocks: [
+      { id: 't-cm1', label: 'Идея', type: 'human', x: 30, y: 140 },
+      { id: 't-cm2', label: 'Ресёрч', type: 'auto', x: 170, y: 140 },
+      { id: 't-cm3', label: 'Драфт', type: 'auto', x: 310, y: 140 },
+      { id: 't-cm4', label: 'Ревью', type: 'review', x: 450, y: 140 },
+      { id: 't-cm5', label: 'Дизайн', type: 'auto', x: 590, y: 140 },
+      { id: 't-cm6', label: 'Публикация', type: 'auto', x: 730, y: 140 },
+      { id: 't-cm7', label: 'Аналитика', type: 'auto', x: 870, y: 140 }
+    ],
+    arrows: [['t-cm1','t-cm2'],['t-cm2','t-cm3'],['t-cm3','t-cm4'],['t-cm4','t-cm5'],['t-cm5','t-cm6'],['t-cm6','t-cm7']]
+  },
+  investDeal: {
+    name: 'инвест. сделка',
+    title: 'Инвестиционная сделка',
+    blocks: [
+      { id: 't-id1', label: 'Скрининг', type: 'auto', x: 30, y: 100 },
+      { id: 't-id2', label: 'Ресёрч', type: 'auto', x: 170, y: 100 },
+      { id: 't-id3', label: 'Мемо', type: 'auto', x: 310, y: 100 },
+      { id: 't-id4', label: 'IC call', type: 'human', x: 450, y: 100 },
+      { id: 't-id5', label: 'Due Diligence', type: 'review', x: 590, y: 100 },
+      { id: 't-id6', label: 'Term Sheet', type: 'review', x: 730, y: 100 },
+      { id: 't-id7', label: 'Closing', type: 'human', x: 870, y: 100 }
+    ],
+    arrows: [['t-id1','t-id2'],['t-id2','t-id3'],['t-id3','t-id4'],['t-id4','t-id5'],['t-id5','t-id6'],['t-id6','t-id7']]
+  },
+  onboarding: {
+    name: 'онбординг',
+    title: 'Онбординг сотрудника',
+    blocks: [
+      { id: 't-ob1', label: 'Оффер', type: 'review', x: 30, y: 140 },
+      { id: 't-ob2', label: 'Документы', type: 'auto', x: 170, y: 140 },
+      { id: 't-ob3', label: 'Доступы', type: 'auto', x: 310, y: 140 },
+      { id: 't-ob4', label: 'Обучение', type: 'auto', x: 450, y: 140 },
+      { id: 't-ob5', label: 'Ментор', type: 'human', x: 590, y: 140 },
+      { id: 't-ob6', label: '30-day check', type: 'review', x: 730, y: 140 }
+    ],
+    arrows: [['t-ob1','t-ob2'],['t-ob2','t-ob3'],['t-ob3','t-ob4'],['t-ob4','t-ob5'],['t-ob5','t-ob6']]
+  },
   hiring: {
     name: 'найм',
     title: 'Процесс найма',
@@ -1746,15 +1985,11 @@ const TEMPLATES = {
       { id: 't-h5', label: 'Скрининг', type: 'auto', x: 600, y: 120 },
       { id: 't-h6', label: 'Телефон', type: 'review', x: 740, y: 120 },
       { id: 't-h7', label: 'Техническое', type: 'human', x: 880, y: 120 },
-      { id: 't-h8', label: 'Culture fit', type: 'human', x: 30, y: 220 },
-      { id: 't-h9', label: 'Референсы', type: 'review', x: 170, y: 220 },
-      { id: 't-h10', label: 'Оффер', type: 'auto', x: 330, y: 220 },
-      { id: 't-h11', label: 'Переговоры', type: 'human', x: 460, y: 220 },
-      { id: 't-h12', label: 'Background', type: 'auto', x: 600, y: 220 },
-      { id: 't-h13', label: 'Документы', type: 'auto', x: 740, y: 220 },
-      { id: 't-h14', label: 'Onboarding', type: 'auto', x: 880, y: 220 }
+      { id: 't-h8', label: 'Оффер', type: 'auto', x: 30, y: 240 },
+      { id: 't-h9', label: 'Переговоры', type: 'human', x: 170, y: 240 },
+      { id: 't-h10', label: 'Onboarding', type: 'auto', x: 330, y: 240 }
     ],
-    arrows: [['t-h1','t-h2'],['t-h2','t-h3'],['t-h3','t-h4'],['t-h4','t-h5'],['t-h5','t-h6'],['t-h6','t-h7'],['t-h7','t-h8'],['t-h8','t-h9'],['t-h9','t-h10'],['t-h10','t-h11'],['t-h11','t-h12'],['t-h12','t-h13'],['t-h13','t-h14']]
+    arrows: [['t-h1','t-h2'],['t-h2','t-h3'],['t-h3','t-h4'],['t-h4','t-h5'],['t-h5','t-h6'],['t-h6','t-h7'],['t-h7','t-h8'],['t-h8','t-h9'],['t-h9','t-h10']]
   },
   sales: {
     name: 'sales',
@@ -1778,63 +2013,9 @@ const TEMPLATES = {
     ],
     arrows: [['t-e1','t-e2'],['t-e2','t-e3'],['t-e3','t-e4']]
   },
-  finance: {
-    name: 'finance',
-    title: 'Финансовый процесс',
-    blocks: [
-      { id: 't-f1', label: 'Счёт', type: 'auto', x: 100, y: 160 },
-      { id: 't-f2', label: 'Кодировка', type: 'auto', x: 300, y: 160 },
-      { id: 't-f3', label: 'Фрод-детект', type: 'auto', x: 500, y: 160 },
-      { id: 't-f4', label: 'OK', type: 'review', x: 700, y: 160 }
-    ],
-    arrows: [['t-f1','t-f2'],['t-f2','t-f3'],['t-f3','t-f4']]
-  },
-  support: {
-    name: 'support',
-    title: 'Поддержка клиентов',
-    blocks: [
-      { id: 't-cs1', label: 'Запрос клиента', type: 'auto', x: 30, y: 60 },
-      { id: 't-cs2', label: 'Классификация', type: 'auto', x: 200, y: 60 },
-      { id: 't-cs3', label: 'Тех. агент', type: 'auto', x: 400, y: 60 },
-      { id: 't-cs4', label: 'Решил?', type: 'review', x: 600, y: 60 },
-      { id: 't-cs5', label: 'Ответ', type: 'auto', x: 800, y: 60 },
-      { id: 't-cs6', label: 'Фин. агент', type: 'auto', x: 600, y: 180 },
-      { id: 't-cs7', label: 'Рефанд?', type: 'review', x: 600, y: 280 },
-      { id: 't-cs8', label: 'Рефанд', type: 'auto', x: 800, y: 220 },
-      { id: 't-cs9', label: 'Эскалация', type: 'human', x: 800, y: 320 }
-    ],
-    arrows: [['t-cs1','t-cs2'],['t-cs2','t-cs3'],['t-cs3','t-cs4'],['t-cs4','t-cs5'],['t-cs4','t-cs6'],['t-cs6','t-cs7'],['t-cs7','t-cs8'],['t-cs7','t-cs9']]
-  },
-  research: {
-    name: 'research',
-    title: 'Параллельный ресёрч',
-    blocks: [
-      { id: 't-r1', label: 'Задача', type: 'human', x: 30, y: 160 },
-      { id: 't-r2', label: 'Компания', type: 'auto', x: 200, y: 60 },
-      { id: 't-r3', label: 'Технология', type: 'auto', x: 200, y: 140 },
-      { id: 't-r4', label: 'Рынок', type: 'auto', x: 200, y: 220 },
-      { id: 't-r5', label: 'Тренды', type: 'auto', x: 200, y: 300 },
-      { id: 't-r6', label: 'Синтез', type: 'auto', x: 420, y: 160 },
-      { id: 't-r7', label: 'Quality Review', type: 'review', x: 600, y: 160 },
-      { id: 't-r8', label: 'Итерация x3', type: 'auto', x: 800, y: 160 }
-    ],
-    arrows: [['t-r1','t-r2'],['t-r1','t-r3'],['t-r1','t-r4'],['t-r1','t-r5'],['t-r2','t-r6'],['t-r3','t-r6'],['t-r4','t-r6'],['t-r5','t-r6'],['t-r6','t-r7'],['t-r7','t-r8']]
-  },
-  vsm: {
-    name: 'VSM token bus',
-    title: 'VSM токен-бас',
-    blocks: [
-      { id: 't-v1', label: 'Приём', type: 'auto', x: 60, y: 160 },
-      { id: 't-v2', label: 'Решение', type: 'human', x: 240, y: 160 },
-      { id: 't-v3', label: 'Обработка', type: 'auto', x: 420, y: 160 },
-      { id: 't-v4', label: 'Действие', type: 'auto', x: 600, y: 160 },
-      { id: 't-v5', label: 'Проверка', type: 'auto', x: 780, y: 160 }
-    ],
-    arrows: [['t-v1','t-v2'],['t-v2','t-v3'],['t-v3','t-v4'],['t-v4','t-v5'],['t-v5','t-v2']]
-  },
   researchGershuni: {
     name: 'research (Gershuni)',
-    title: 'Research с 5 судьями (Степан Гершуни)',
+    title: 'Research с 5 судьями',
     blocks: [
       { id: 't-rg1', label: 'Задача', type: 'text', x: 20, y: 160 },
       { id: 't-rg2', label: 'Компания', type: 'auto', x: 130, y: 80 },
@@ -1853,22 +2034,17 @@ const TEMPLATES = {
     ],
     arrows: [['t-rg1','t-rg2'],['t-rg1','t-rg3'],['t-rg1','t-rg4'],['t-rg1','t-rg5'],['t-rg2','t-rg6'],['t-rg3','t-rg6'],['t-rg4','t-rg6'],['t-rg5','t-rg6'],['t-rg6','t-rg7'],['t-rg6','t-rg8'],['t-rg6','t-rg9'],['t-rg6','t-rg10'],['t-rg6','t-rg11'],['t-rg7','t-rg12'],['t-rg8','t-rg12'],['t-rg9','t-rg12'],['t-rg10','t-rg12'],['t-rg11','t-rg12'],['t-rg12','t-rg14']]
   },
-  mcpSetup: {
-    name: 'MCP setup',
-    title: 'Настройка MCP стека',
+  vsm: {
+    name: 'VSM token bus',
+    title: 'VSM токен-бас',
     blocks: [
-      { id: 't-m1', label: 'Подписка Claude', type: 'text', x: 20, y: 160 },
-      { id: 't-m2', label: 'Установка CC', type: 'auto', x: 160, y: 160 },
-      { id: 't-m3', label: 'settings.json', type: 'auto', x: 300, y: 160 },
-      { id: 't-m4', label: 'MCP Notion', type: 'auto', x: 440, y: 80 },
-      { id: 't-m5', label: 'MCP Slack', type: 'auto', x: 440, y: 160 },
-      { id: 't-m6', label: 'MCP Calendar', type: 'auto', x: 440, y: 240 },
-      { id: 't-m7', label: 'Тест чтения', type: 'review', x: 600, y: 100 },
-      { id: 't-m8', label: 'Тест записи', type: 'review', x: 600, y: 200 },
-      { id: 't-m9', label: 'CLAUDE.md', type: 'human', x: 740, y: 100 },
-      { id: 't-m10', label: 'Первый скилл', type: 'human', x: 740, y: 200 }
+      { id: 't-v1', label: 'Приём', type: 'auto', x: 60, y: 160 },
+      { id: 't-v2', label: 'Решение', type: 'human', x: 240, y: 160 },
+      { id: 't-v3', label: 'Обработка', type: 'auto', x: 420, y: 160 },
+      { id: 't-v4', label: 'Действие', type: 'auto', x: 600, y: 160 },
+      { id: 't-v5', label: 'Проверка', type: 'auto', x: 780, y: 160 }
     ],
-    arrows: [['t-m1','t-m2'],['t-m2','t-m3'],['t-m3','t-m4'],['t-m3','t-m5'],['t-m3','t-m6'],['t-m4','t-m7'],['t-m5','t-m7'],['t-m6','t-m8'],['t-m7','t-m9'],['t-m8','t-m9'],['t-m9','t-m10']]
+    arrows: [['t-v1','t-v2'],['t-v2','t-v3'],['t-v3','t-v4'],['t-v4','t-v5'],['t-v5','t-v2']]
   }
 };
 
@@ -1876,22 +2052,16 @@ const TEMPLATES = {
 // STATE
 // ============================================
 let currentSlide = 0;
-const totalSlides = 20;
+const totalSlides = 26;
 let workshopMode = false;
 let arrowStartBlock = null;
-
-// Pipeline builder state
 let canvasBlocks = [];
 let canvasArrows = [];
 let blockIdCounter = 0;
 let draggedType = null;
 let pipelineTitle = '';
 let activeTemplate = null;
-
-// Autonomy grid state
 let autonomyData = {};
-
-// Goals state
 let goalsChecked = {};
 
 // ============================================
@@ -1910,8 +2080,6 @@ document.addEventListener('DOMContentLoaded', () => {
   setupDragDrop();
   updateZoomIndicator();
   updatePipelineStats();
-
-  // Pipeline title persistence
   const titleInput = document.getElementById('pipelineTitle');
   titleInput.value = pipelineTitle;
   titleInput.addEventListener('input', () => {
@@ -1925,10 +2093,8 @@ document.addEventListener('DOMContentLoaded', () => {
 // ============================================
 document.addEventListener('keydown', (e) => {
   if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
-
   switch(e.key) {
-    case 'ArrowRight':
-    case ' ':
+    case 'ArrowRight': case ' ':
       e.preventDefault();
       if (currentSlide < totalSlides - 1) { currentSlide++; updateSlide(); }
       break;
@@ -1936,8 +2102,7 @@ document.addEventListener('keydown', (e) => {
       e.preventDefault();
       if (currentSlide > 0) { currentSlide--; updateSlide(); }
       break;
-    case 'f':
-    case 'F':
+    case 'f': case 'F':
       e.preventDefault();
       if (!document.fullscreenElement) { document.documentElement.requestFullscreen(); }
       else { document.exitFullscreen(); }
@@ -1955,22 +2120,17 @@ document.addEventListener('keydown', (e) => {
 
 function updateSlide() {
   const slides = document.querySelectorAll('.slide');
-  slides.forEach((s, i) => {
-    s.classList.toggle('active', i === currentSlide);
-  });
-  // Update all slide counters
+  slides.forEach((s, i) => { s.classList.toggle('active', i === currentSlide); });
   document.querySelectorAll('.slide-counter').forEach((el, i) => {
     el.textContent = String(i + 1).padStart(2, '0') + ' / ' + totalSlides;
   });
-  document.getElementById('progressBar').style.width =
-    ((currentSlide + 1) / totalSlides * 100) + '%';
-  // Refresh pipeline stats on pipeline builder slide (slide 4, index 3)
-  if (currentSlide === 3) updatePipelineStats();
+  document.getElementById('progressBar').style.width = ((currentSlide + 1) / totalSlides * 100) + '%';
+  if (currentSlide === 9) updatePipelineStats();
   saveState();
 }
 
 // ============================================
-// ARCHITECTURE DIAGRAM (Slide 2)
+// ARCHITECTURE DIAGRAM
 // ============================================
 function renderArchStack() {
   const stack = document.getElementById('archStack');
@@ -1979,11 +2139,7 @@ function renderArchStack() {
     const el = document.createElement('div');
     el.className = 'arch-layer';
     el.style.background = layer.bg;
-    el.innerHTML = `
-      <span class="layer-icon">${layer.icon}</span>
-      <span class="layer-num">${layer.num}</span>
-      <span class="layer-name" style="color:${layer.color}">${layer.name}</span>
-    `;
+    el.innerHTML = `<span class="layer-icon">${layer.icon}</span><span class="layer-num">${layer.num}</span><span class="layer-name" style="color:${layer.color}">${layer.name}</span>`;
     el.addEventListener('click', () => expandLayer(i));
     stack.appendChild(el);
   });
@@ -1993,29 +2149,19 @@ function expandLayer(idx) {
   const layer = LAYERS[idx];
   const detail = document.getElementById('archDetail');
   const empty = document.getElementById('archEmpty');
-
-  // Toggle active
-  document.querySelectorAll('.arch-layer').forEach((el, i) => {
-    el.classList.toggle('active-layer', i === idx);
-  });
-
+  document.querySelectorAll('.arch-layer').forEach((el, i) => { el.classList.toggle('active-layer', i === idx); });
   empty.style.display = 'none';
   detail.classList.add('visible');
-
   document.getElementById('archDetailTitle').textContent = layer.title;
   document.getElementById('archDetailTitle').style.color = layer.color;
   document.getElementById('archDetailDesc').textContent = layer.desc;
-
   const toolsContainer = document.getElementById('archDetailTools');
   toolsContainer.innerHTML = '';
   layer.tools.forEach(t => {
     const tag = document.createElement('span');
-    tag.className = 'tool-tag';
-    tag.textContent = t;
-    tag.style.color = layer.color;
+    tag.className = 'tool-tag'; tag.textContent = t; tag.style.color = layer.color;
     toolsContainer.appendChild(tag);
   });
-
   const promptEl = document.getElementById('archDetailPrompt');
   promptEl.textContent = layer.prompt;
   promptEl.className = 'detail-prompt';
@@ -2024,46 +2170,28 @@ function expandLayer(idx) {
 }
 
 // ============================================
-// PIPELINE BUILDER (Slide 4)
+// PIPELINE BUILDER
 // ============================================
 function setupDragDrop() {
   const palette = document.getElementById('builderPalette');
   const canvas = document.getElementById('builderCanvas');
-
   palette.querySelectorAll('.palette-block').forEach(block => {
-    block.addEventListener('dragstart', (e) => {
-      draggedType = block.dataset.type;
-      e.dataTransfer.effectAllowed = 'copy';
-    });
+    block.addEventListener('dragstart', (e) => { draggedType = block.dataset.type; e.dataTransfer.effectAllowed = 'copy'; });
   });
-
-  canvas.addEventListener('dragover', (e) => {
-    e.preventDefault();
-    e.dataTransfer.dropEffect = 'copy';
-  });
-
+  canvas.addEventListener('dragover', (e) => { e.preventDefault(); e.dataTransfer.dropEffect = 'copy'; });
   canvas.addEventListener('drop', (e) => {
     e.preventDefault();
     if (!draggedType) return;
     const rect = canvas.getBoundingClientRect();
-    const rawX = e.clientX - rect.left - 60;
-    const rawY = e.clientY - rect.top - 20;
-    // Snap to 20px grid
-    const x = Math.round(rawX / 20) * 20;
-    const y = Math.round(rawY / 20) * 20;
+    const x = Math.round((e.clientX - rect.left - 60) / 20) * 20;
+    const y = Math.round((e.clientY - rect.top - 20) / 20) * 20;
     addCanvasBlock(draggedType, x, y, getDefaultLabel(draggedType));
     draggedType = null;
   });
 }
 
 function getDefaultLabel(type) {
-  switch(type) {
-    case 'auto': return 'Автомат';
-    case 'review': return 'Ревью';
-    case 'human': return 'Человек';
-    case 'text': return 'Текст';
-    default: return '';
-  }
+  switch(type) { case 'auto': return 'Автомат'; case 'review': return 'Ревью'; case 'human': return 'Человек'; case 'text': return 'Текст'; default: return ''; }
 }
 
 function getBlockIcon(type) {
@@ -2080,93 +2208,55 @@ function getBlockIcon(type) {
 function addCanvasBlock(type, x, y, label) {
   const id = 'block-' + (blockIdCounter++);
   canvasBlocks.push({ id, type, x, y, label });
-  renderCanvasBlocks();
-  updateZoomIndicator();
-  updatePipelineStats();
-  saveState();
+  renderCanvasBlocks(); updateZoomIndicator(); updatePipelineStats(); saveState();
 }
 
 function renderCanvasBlocks() {
   const canvas = document.getElementById('builderCanvas');
-  // Remove old blocks
   canvas.querySelectorAll('.canvas-block').forEach(el => el.remove());
-
   canvasBlocks.forEach(block => {
     const el = document.createElement('div');
     el.className = `canvas-block type-${block.type}`;
     el.id = block.id;
-    el.style.left = block.x + 'px';
-    el.style.top = block.y + 'px';
-    el.style.display = 'flex';
-    el.style.alignItems = 'center';
-    el.style.justifyContent = 'center';
+    el.style.left = block.x + 'px'; el.style.top = block.y + 'px';
+    el.style.display = 'flex'; el.style.alignItems = 'center'; el.style.justifyContent = 'center';
     el.innerHTML = getBlockIcon(block.type) + '<span>' + block.label + '</span>';
-
-    // Delete button
     const del = document.createElement('button');
-    del.className = 'block-delete';
-    del.textContent = '\u00D7';
+    del.className = 'block-delete'; del.textContent = '\u00D7';
     del.onclick = (e) => { e.stopPropagation(); removeBlock(block.id); };
     el.appendChild(del);
-
-    // Drag to move
     let dragging = false, offsetX, offsetY;
     el.addEventListener('mousedown', (e) => {
       if (e.target === del) return;
-      if (e.shiftKey) {
-        handleArrowClick(block.id);
-        return;
-      }
+      if (e.shiftKey) { handleArrowClick(block.id); return; }
       dragging = true;
       const rect = el.getBoundingClientRect();
-      offsetX = e.clientX - rect.left;
-      offsetY = e.clientY - rect.top;
+      offsetX = e.clientX - rect.left; offsetY = e.clientY - rect.top;
       el.style.zIndex = 50;
     });
-
     document.addEventListener('mousemove', (e) => {
       if (!dragging) return;
       const canvasRect = canvas.getBoundingClientRect();
-      const rawX = e.clientX - canvasRect.left - offsetX;
-      const rawY = e.clientY - canvasRect.top - offsetY;
-      // Snap to 20px grid
-      block.x = Math.round(rawX / 20) * 20;
-      block.y = Math.round(rawY / 20) * 20;
-      el.style.left = block.x + 'px';
-      el.style.top = block.y + 'px';
+      block.x = Math.round((e.clientX - canvasRect.left - offsetX) / 20) * 20;
+      block.y = Math.round((e.clientY - canvasRect.top - offsetY) / 20) * 20;
+      el.style.left = block.x + 'px'; el.style.top = block.y + 'px';
       renderArrows();
     });
-
-    document.addEventListener('mouseup', () => {
-      if (dragging) {
-        dragging = false;
-        el.style.zIndex = 10;
-        saveState();
-      }
-    });
-
-    // Double-click to edit
+    document.addEventListener('mouseup', () => { if (dragging) { dragging = false; el.style.zIndex = 10; saveState(); } });
     el.addEventListener('dblclick', (e) => {
       e.preventDefault();
       const input = document.createElement('input');
       input.value = block.label;
       input.style.cssText = 'width:100%;background:transparent;border:none;outline:none;color:inherit;font:inherit;text-align:center;';
-      el.textContent = '';
-      el.appendChild(input);
-      el.appendChild(del);
-      input.focus();
-      input.select();
+      el.textContent = ''; el.appendChild(input); el.appendChild(del);
+      input.focus(); input.select();
       input.addEventListener('blur', () => {
         block.label = input.value || getDefaultLabel(block.type);
         el.innerHTML = getBlockIcon(block.type) + '<span>' + block.label + '</span>';
-        el.appendChild(del);
-        saveState();
+        el.appendChild(del); saveState();
       });
-      input.addEventListener('keydown', (ev) => {
-        if (ev.key === 'Enter') input.blur();
-      });
+      input.addEventListener('keydown', (ev) => { if (ev.key === 'Enter') input.blur(); });
     });
-
     canvas.appendChild(el);
   });
   renderArrows();
@@ -2179,9 +2269,7 @@ function handleArrowClick(blockId) {
   } else {
     if (arrowStartBlock !== blockId) {
       canvasArrows.push({ from: arrowStartBlock, to: blockId });
-      renderArrows();
-      updateZoomIndicator();
-      saveState();
+      renderArrows(); updateZoomIndicator(); saveState();
     }
     document.getElementById(arrowStartBlock).style.boxShadow = '';
     arrowStartBlock = null;
@@ -2192,46 +2280,25 @@ function renderArrows() {
   const svg = document.getElementById('arrowsSvg');
   const canvas = document.getElementById('builderCanvas');
   const canvasRect = canvas.getBoundingClientRect();
-  svg.innerHTML = `<defs>
-    <marker id="ah" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
-      <polygon points="0 0, 10 3.5, 0 7" fill="rgba(77,201,212,0.7)"/>
-    </marker>
-    <filter id="arrow-glow">
-      <feGaussianBlur stdDeviation="2" result="blur"/>
-      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-    </filter>
-  </defs>`;
-
+  svg.innerHTML = `<defs><marker id="ah" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="rgba(77,201,212,0.7)"/></marker><filter id="arrow-glow"><feGaussianBlur stdDeviation="2" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>`;
   canvasArrows.forEach(arrow => {
     const fromEl = document.getElementById(arrow.from);
     const toEl = document.getElementById(arrow.to);
     if (!fromEl || !toEl) return;
-
     const fromRect = fromEl.getBoundingClientRect();
     const toRect = toEl.getBoundingClientRect();
-
     const x1 = fromRect.left + fromRect.width / 2 - canvasRect.left;
     const y1 = fromRect.top + fromRect.height / 2 - canvasRect.top;
     const x2 = toRect.left + toRect.width / 2 - canvasRect.left;
     const y2 = toRect.top + toRect.height / 2 - canvasRect.top;
-
-    // Quadratic bezier curve
-    const mx = (x1 + x2) / 2;
-    const my = (y1 + y2) / 2;
-    const dx = x2 - x1;
-    const dy = y2 - y1;
-    // Slight perpendicular offset for curve
-    const offset = Math.min(30, Math.sqrt(dx*dx + dy*dy) * 0.15);
-    const cx = mx - dy * offset / Math.sqrt(dx*dx + dy*dy + 1);
-    const cy = my + dx * offset / Math.sqrt(dx*dx + dy*dy + 1);
-
-    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-    path.setAttribute('d', `M ${x1} ${y1} Q ${cx} ${cy} ${x2} ${y2}`);
-    path.setAttribute('stroke', 'rgba(77,201,212,0.5)');
-    path.setAttribute('stroke-width', '2');
-    path.setAttribute('fill', 'none');
-    path.setAttribute('marker-end', 'url(#ah)');
-    path.setAttribute('filter', 'url(#arrow-glow)');
+    const mx = (x1+x2)/2, my = (y1+y2)/2, dx = x2-x1, dy = y2-y1;
+    const offset = Math.min(30, Math.sqrt(dx*dx+dy*dy)*0.15);
+    const cx = mx - dy*offset/Math.sqrt(dx*dx+dy*dy+1);
+    const cy = my + dx*offset/Math.sqrt(dx*dx+dy*dy+1);
+    const path = document.createElementNS('http://www.w3.org/2000/svg','path');
+    path.setAttribute('d',`M ${x1} ${y1} Q ${cx} ${cy} ${x2} ${y2}`);
+    path.setAttribute('stroke','rgba(77,201,212,0.5)'); path.setAttribute('stroke-width','2');
+    path.setAttribute('fill','none'); path.setAttribute('marker-end','url(#ah)'); path.setAttribute('filter','url(#arrow-glow)');
     svg.appendChild(path);
   });
 }
@@ -2239,53 +2306,29 @@ function renderArrows() {
 function removeBlock(id) {
   canvasBlocks = canvasBlocks.filter(b => b.id !== id);
   canvasArrows = canvasArrows.filter(a => a.from !== id && a.to !== id);
-  renderCanvasBlocks();
-  updateZoomIndicator();
-  updatePipelineStats();
-  saveState();
+  renderCanvasBlocks(); updateZoomIndicator(); updatePipelineStats(); saveState();
 }
 
 function clearCanvas() {
-  canvasBlocks = [];
-  canvasArrows = [];
-  blockIdCounter = 0;
-  activeTemplate = null;
+  canvasBlocks = []; canvasArrows = []; blockIdCounter = 0; activeTemplate = null;
   document.querySelectorAll('.template-btn').forEach(b => b.classList.remove('active'));
-  renderCanvasBlocks();
-  updateZoomIndicator();
-  updatePipelineStats();
-  saveState();
+  renderCanvasBlocks(); updateZoomIndicator(); updatePipelineStats(); saveState();
 }
 
 function exportPipeline() {
   const title = pipelineTitle || 'Токен-пайплайн';
   let md = `## ${title}\n\n`;
   const typeLabels = { auto: 'АВТОМАТ', review: 'РЕВЬЮ', human: 'ЧЕЛОВЕК', text: '' };
-
-  canvasBlocks.forEach(b => {
-    if (b.type === 'text') {
-      md += `_${b.label}_\n\n`;
-    } else {
-      md += `- [${typeLabels[b.type]}] ${b.label}\n`;
-    }
-  });
-
+  canvasBlocks.forEach(b => { if (b.type === 'text') md += `_${b.label}_\n\n`; else md += `- [${typeLabels[b.type]}] ${b.label}\n`; });
   if (canvasArrows.length > 0) {
     md += '\n### Связи\n';
-    canvasArrows.forEach(a => {
-      const fromB = canvasBlocks.find(b => b.id === a.from);
-      const toB = canvasBlocks.find(b => b.id === a.to);
-      if (fromB && toB) {
-        md += `${fromB.label} \u2192 ${toB.label}\n`;
-      }
-    });
+    canvasArrows.forEach(a => { const f = canvasBlocks.find(b => b.id === a.from); const t = canvasBlocks.find(b => b.id === a.to); if (f && t) md += `${f.label} \u2192 ${t.label}\n`; });
   }
-
   copyToClipboard(md, 'Pipeline exported');
 }
 
 // ============================================
-// AUTONOMY MAP (Slide 6)
+// AUTONOMY MAP
 // ============================================
 const AUTO_COLS = ['\u041F\u0440\u043E\u0434\u0430\u0436\u0438', '\u0420\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u043A\u0430', '\u0424\u0438\u043D\u0430\u043D\u0441\u044B', '\u042E\u0440\u0438\u0434\u0438\u0447\u0435\u0441\u043A\u0438\u0439', '\u041E\u043F\u0435\u0440\u0430\u0446\u0438\u0438'];
 const AUTO_ROWS = [
@@ -2294,7 +2337,6 @@ const AUTO_ROWS = [
   { level: 'L2', name: 'AI исполняет', color: 'var(--teal)', desc: 'AI исполняет, человек контролирует. Аутрич, написание кода, фрод-детект, исследование. Экономия 60\u201380%.' },
   { level: 'L3', name: 'Автопилот', color: 'var(--green)', desc: 'Автопилот, эскалация по исключению. Скоринг лидов, CI/CD, мониторинг, тикет-триаж. Экономия 90%+.' }
 ];
-
 const DEFAULT_AUTONOMY = {
   '0-0': 'Переговоры', '0-1': '', '0-2': 'Бюджетирование', '0-3': 'Договоры', '0-4': '',
   '1-0': 'Драфт письма', '1-1': 'Код-ревью', '1-2': 'Черновик отчёта', '1-3': 'Черновик договора', '1-4': 'Регламенты',
@@ -2305,194 +2347,100 @@ const DEFAULT_AUTONOMY = {
 function renderAutonomyGrid() {
   const grid = document.getElementById('autonomyGrid');
   grid.innerHTML = '';
-
-  // Corner
-  const corner = document.createElement('div');
-  corner.className = 'auto-header corner';
-  grid.appendChild(corner);
-
-  // Column headers
-  AUTO_COLS.forEach(col => {
-    const h = document.createElement('div');
-    h.className = 'auto-header';
-    h.textContent = col;
-    grid.appendChild(h);
-  });
-
-  // Rows
+  const corner = document.createElement('div'); corner.className = 'auto-header corner'; grid.appendChild(corner);
+  AUTO_COLS.forEach(col => { const h = document.createElement('div'); h.className = 'auto-header'; h.textContent = col; grid.appendChild(h); });
   AUTO_ROWS.forEach((row, ri) => {
-    // Level label
-    const lvl = document.createElement('div');
-    lvl.className = `auto-level level-${row.level}`;
+    const lvl = document.createElement('div'); lvl.className = `auto-level level-${row.level}`;
     lvl.innerHTML = `<span class="level-badge">${row.level}</span><span class="level-name">${row.name}</span>`;
-
-    const tooltip = document.createElement('div');
-    tooltip.className = 'level-tooltip';
+    const tooltip = document.createElement('div'); tooltip.className = 'level-tooltip';
     tooltip.innerHTML = `<strong style="color:${row.color}">${row.level}: ${row.name}</strong><br>${row.desc}`;
     lvl.appendChild(tooltip);
-
-    lvl.addEventListener('click', () => {
-      document.querySelectorAll('.level-tooltip').forEach(t => t.classList.remove('visible'));
-      tooltip.classList.toggle('visible');
-      setTimeout(() => tooltip.classList.remove('visible'), 4000);
-    });
+    lvl.addEventListener('click', () => { document.querySelectorAll('.level-tooltip').forEach(t => t.classList.remove('visible')); tooltip.classList.toggle('visible'); setTimeout(() => tooltip.classList.remove('visible'), 4000); });
     grid.appendChild(lvl);
-
-    // Cells
     AUTO_COLS.forEach((col, ci) => {
       const key = `${ri}-${ci}`;
       const val = autonomyData[key] !== undefined ? autonomyData[key] : (DEFAULT_AUTONOMY[key] || '');
       if (autonomyData[key] === undefined) autonomyData[key] = val;
-
       const cell = document.createElement('div');
       cell.className = `auto-cell level-colored-${ri}` + (val ? ' has-content' : '');
-      cell.textContent = val || '';
-      cell.dataset.key = key;
-
+      cell.textContent = val || ''; cell.dataset.key = key;
       cell.addEventListener('click', () => {
         if (cell.classList.contains('editing')) return;
         cell.classList.add('editing');
-        const input = document.createElement('input');
-        input.value = autonomyData[key] || '';
-        input.placeholder = 'задача...';
-        cell.textContent = '';
-        cell.appendChild(input);
-        input.focus();
-
-        const finish = () => {
-          autonomyData[key] = input.value;
-          cell.classList.remove('editing');
-          cell.classList.toggle('has-content', !!input.value);
-          cell.textContent = input.value || '';
-          saveState();
-        };
+        const input = document.createElement('input'); input.value = autonomyData[key] || ''; input.placeholder = 'задача...';
+        cell.textContent = ''; cell.appendChild(input); input.focus();
+        const finish = () => { autonomyData[key] = input.value; cell.classList.remove('editing'); cell.classList.toggle('has-content', !!input.value); cell.textContent = input.value || ''; saveState(); };
         input.addEventListener('blur', finish);
-        input.addEventListener('keydown', (e) => {
-          if (e.key === 'Enter') input.blur();
-          if (e.key === 'Escape') { input.value = autonomyData[key] || ''; input.blur(); }
-          e.stopPropagation();
-        });
+        input.addEventListener('keydown', (e) => { if (e.key === 'Enter') input.blur(); if (e.key === 'Escape') { input.value = autonomyData[key] || ''; input.blur(); } e.stopPropagation(); });
       });
-
       grid.appendChild(cell);
     });
   });
 }
 
 function exportAutonomy() {
-  let md = '## Карта автономности\n\n';
-  md += '| Уровень | ' + AUTO_COLS.join(' | ') + ' |\n';
-  md += '|---------|' + AUTO_COLS.map(() => '---').join('|') + '|\n';
-
-  AUTO_ROWS.forEach((row, ri) => {
-    const cells = AUTO_COLS.map((_, ci) => autonomyData[`${ri}-${ci}`] || '\u2014');
-    md += `| ${row.level} ${row.name} | ${cells.join(' | ')} |\n`;
-  });
-
+  let md = '## Карта автономности\n\n| Уровень | ' + AUTO_COLS.join(' | ') + ' |\n|---------|' + AUTO_COLS.map(() => '---').join('|') + '|\n';
+  AUTO_ROWS.forEach((row, ri) => { const cells = AUTO_COLS.map((_, ci) => autonomyData[`${ri}-${ci}`] || '\u2014'); md += `| ${row.level} ${row.name} | ${cells.join(' | ')} |\n`; });
   copyToClipboard(md, 'Autonomy map exported');
 }
-
-function resetAutonomy() {
-  autonomyData = {};
-  renderAutonomyGrid();
-  saveState();
-}
+function resetAutonomy() { autonomyData = {}; renderAutonomyGrid(); saveState(); }
 
 // ============================================
-// VSM DIAGRAM (Slide 7)
+// VSM DIAGRAM
 // ============================================
 function renderVSM() {
   const pipeline = document.getElementById('vsmPipeline');
   pipeline.innerHTML = '';
-
   VSM_STAGES.forEach((stage, i) => {
-    if (i > 0) {
-      const arrow = document.createElement('div');
-      arrow.className = 'vsm-arrow';
-      arrow.textContent = '\u2192';
-      pipeline.appendChild(arrow);
-    }
-
-    const el = document.createElement('div');
-    el.className = 'vsm-stage';
-    el.innerHTML = `
-      <div class="stage-name">${stage.name}</div>
-      <div class="stage-sub">${stage.sub}</div>
-    `;
-    el.addEventListener('click', () => expandVSM(i));
-    pipeline.appendChild(el);
+    if (i > 0) { const arrow = document.createElement('div'); arrow.className = 'vsm-arrow'; arrow.textContent = '\u2192'; pipeline.appendChild(arrow); }
+    const el = document.createElement('div'); el.className = 'vsm-stage';
+    el.innerHTML = `<div class="stage-name">${stage.name}</div><div class="stage-sub">${stage.sub}</div>`;
+    el.addEventListener('click', () => expandVSM(i)); pipeline.appendChild(el);
   });
 }
 
 function expandVSM(idx) {
   const stage = VSM_STAGES[idx];
   const detail = document.getElementById('vsmDetail');
-
-  document.querySelectorAll('.vsm-stage').forEach((el, i) => {
-    el.classList.toggle('active-stage', i === idx);
-  });
-
+  document.querySelectorAll('.vsm-stage').forEach((el, i) => { el.classList.toggle('active-stage', i === idx); });
   detail.classList.add('visible');
   document.getElementById('vsmDetailTitle').textContent = stage.title;
   document.getElementById('vsmDetailWhat').textContent = stage.what;
   document.getElementById('vsmDetailCost').textContent = stage.cost;
   document.getElementById('vsmDetailTools').textContent = stage.tools;
   const promptEl = document.getElementById('vsmDetailPrompt');
-  promptEl.textContent = stage.prompt;
-  promptEl.className = 'prompt-box';
+  promptEl.textContent = stage.prompt; promptEl.className = 'prompt-box';
 }
 
 // ============================================
-// PROMPT CARDS (Slide 9)
+// PROMPT CARDS
 // ============================================
 function renderPromptCards() {
   const grid = document.getElementById('promptGrid');
   grid.innerHTML = '';
   PROMPT_TRACKS.forEach(track => {
-    const card = document.createElement('div');
-    card.className = 'prompt-card';
-    card.innerHTML = `
-      <div class="card-track">
-        <span class="track-dot" style="background:${track.color}"></span>
-        ${track.name}
-      </div>
-      <div class="card-desc" style="font-size:12px;line-height:1.5">${track.desc}</div>
-      <div class="prompt-box" onclick="copyText(this)">${track.prompt}</div>
-    `;
+    const card = document.createElement('div'); card.className = 'prompt-card';
+    card.innerHTML = `<div class="card-track"><span class="track-dot" style="background:${track.color}"></span>${track.name}</div><div class="card-desc" style="font-size:12px;line-height:1.5">${track.desc}</div><div class="prompt-box" onclick="copyText(this)">${track.prompt}</div>`;
     grid.appendChild(card);
   });
 }
 
 // ============================================
-// GOALS (Slide 18)
+// GOALS
 // ============================================
 function renderGoals() {
-  const checks = document.querySelectorAll('.goal-check');
-  checks.forEach((el, i) => {
-    if (goalsChecked[i]) {
-      el.classList.add('checked');
-      el.textContent = '\u2713';
-    }
-  });
+  document.querySelectorAll('.goal-check').forEach((el, i) => { if (goalsChecked[i]) { el.classList.add('checked'); el.textContent = '\u2713'; } });
 }
-
 function toggleGoal(el) {
   const items = document.querySelectorAll('.goal-check');
   const idx = Array.from(items).indexOf(el);
   goalsChecked[idx] = !goalsChecked[idx];
-  el.classList.toggle('checked');
-  el.textContent = goalsChecked[idx] ? '\u2713' : '';
+  el.classList.toggle('checked'); el.textContent = goalsChecked[idx] ? '\u2713' : '';
   saveState();
 }
-
 function exportGoals() {
   let md = '## Домашнее задание \u2014 Неделя 2\n\n';
-  const items = document.querySelectorAll('.goal-item');
-  items.forEach((item, i) => {
-    const text = item.querySelector('span').textContent;
-    const checked = goalsChecked[i] ? 'x' : ' ';
-    md += `- [${checked}] ${text}\n`;
-  });
+  document.querySelectorAll('.goal-item').forEach((item, i) => { const text = item.querySelector('span').textContent; md += `- [${goalsChecked[i] ? 'x' : ' '}] ${text}\n`; });
   copyToClipboard(md, 'Goals exported');
 }
 
@@ -2502,94 +2450,40 @@ function exportGoals() {
 function copyText(el) {
   const text = el.textContent.replace('click to copy', '').replace('copied!', '').trim();
   copyToClipboard(text);
-  el.classList.add('copied');
-  setTimeout(() => el.classList.remove('copied'), 2000);
+  el.classList.add('copied'); setTimeout(() => el.classList.remove('copied'), 2000);
 }
-
 function copyToClipboard(text, msg) {
-  navigator.clipboard.writeText(text).then(() => {
-    if (msg) showToast(msg);
-  }).catch(() => {
-    // Fallback
-    const ta = document.createElement('textarea');
-    ta.value = text;
-    document.body.appendChild(ta);
-    ta.select();
-    document.execCommand('copy');
-    document.body.removeChild(ta);
+  navigator.clipboard.writeText(text).then(() => { if (msg) showToast(msg); }).catch(() => {
+    const ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta);
     if (msg) showToast(msg);
   });
 }
-
 function showToast(msg) {
   let toast = document.getElementById('toast');
-  if (!toast) {
-    toast = document.createElement('div');
-    toast.id = 'toast';
-    toast.style.cssText = `
-      position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%);
-      padding: 10px 24px; background: var(--bg-card); border: 1px solid var(--green);
-      border-radius: 6px; font-family: var(--font-code); font-size: 12px;
-      color: var(--green); z-index: 300; opacity: 0; transition: opacity 0.3s;
-      pointer-events: none;
-    `;
-    document.body.appendChild(toast);
-  }
-  toast.textContent = msg;
-  toast.style.opacity = '1';
-  setTimeout(() => { toast.style.opacity = '0'; }, 2000);
+  if (!toast) { toast = document.createElement('div'); toast.id = 'toast'; toast.style.cssText = 'position:fixed;bottom:40px;left:50%;transform:translateX(-50%);padding:10px 24px;background:var(--bg-card);border:1px solid var(--green);border-radius:6px;font-family:var(--font-code);font-size:12px;color:var(--green);z-index:300;opacity:0;transition:opacity 0.3s;pointer-events:none;'; document.body.appendChild(toast); }
+  toast.textContent = msg; toast.style.opacity = '1'; setTimeout(() => { toast.style.opacity = '0'; }, 2000);
 }
 
 // ============================================
 // LOCAL STORAGE
 // ============================================
-const STORAGE_KEY = 'ainative-focus-w2';
-
+const STORAGE_KEY = 'ainative-focus-w2-v2';
 function saveState() {
-  const state = {
-    currentSlide,
-    canvasBlocks,
-    canvasArrows,
-    blockIdCounter,
-    autonomyData,
-    goalsChecked,
-    workshopMode,
-    pipelineTitle,
-    activeTemplate,
-    savedAt: Date.now()
-  };
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-  } catch(e) {}
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify({ currentSlide, canvasBlocks, canvasArrows, blockIdCounter, autonomyData, goalsChecked, workshopMode, pipelineTitle, activeTemplate, savedAt: Date.now() })); } catch(e) {}
 }
-
 function loadState() {
   try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return;
+    const raw = localStorage.getItem(STORAGE_KEY); if (!raw) return;
     const state = JSON.parse(raw);
     if (state.currentSlide !== undefined) currentSlide = state.currentSlide;
     if (state.canvasBlocks) canvasBlocks = state.canvasBlocks;
     if (state.canvasArrows) canvasArrows = state.canvasArrows;
     if (state.blockIdCounter) blockIdCounter = state.blockIdCounter;
-    // Only restore autonomy data if it looks valid (not corrupted)
-    if (state.autonomyData) {
-      const vals = Object.values(state.autonomyData);
-      const hasCorruption = vals.some(v => v && typeof v === 'string' && /^[a-zа-яё]{1,2}$/i.test(v) && !['CI/CD'].includes(v));
-      if (!hasCorruption) {
-        autonomyData = state.autonomyData;
-      }
-    }
+    if (state.autonomyData) { const vals = Object.values(state.autonomyData); const hasCorruption = vals.some(v => v && typeof v === 'string' && /^[a-zа-яё]{1,2}$/i.test(v) && !['CI/CD'].includes(v)); if (!hasCorruption) autonomyData = state.autonomyData; }
     if (state.goalsChecked) goalsChecked = state.goalsChecked;
     if (state.pipelineTitle) pipelineTitle = state.pipelineTitle;
     if (state.activeTemplate) activeTemplate = state.activeTemplate;
-    if (state.workshopMode) {
-      workshopMode = state.workshopMode;
-      document.body.classList.toggle('presentation-mode', !workshopMode);
-      const ind = document.getElementById('modeIndicator');
-      ind.textContent = workshopMode ? 'Workshop' : 'Presentation';
-      ind.className = 'mode-indicator ' + (workshopMode ? 'workshop' : 'presentation');
-    }
+    if (state.workshopMode) { workshopMode = state.workshopMode; document.body.classList.toggle('presentation-mode', !workshopMode); const ind = document.getElementById('modeIndicator'); ind.textContent = workshopMode ? 'Workshop' : 'Presentation'; ind.className = 'mode-indicator ' + (workshopMode ? 'workshop' : 'presentation'); }
   } catch(e) {}
 }
 
@@ -2597,134 +2491,57 @@ function loadState() {
 // TEMPLATE GALLERY
 // ============================================
 function renderTemplateGallery() {
-  const gallery = document.getElementById('templateGallery');
-  gallery.innerHTML = '';
+  const gallery = document.getElementById('templateGallery'); gallery.innerHTML = '';
   Object.keys(TEMPLATES).forEach(key => {
     const tmpl = TEMPLATES[key];
-    const btn = document.createElement('button');
-    btn.className = 'template-btn' + (activeTemplate === key ? ' active' : '');
-    btn.textContent = tmpl.name;
-    btn.addEventListener('click', () => loadTemplate(key));
-    gallery.appendChild(btn);
+    const btn = document.createElement('button'); btn.className = 'template-btn' + (activeTemplate === key ? ' active' : '');
+    btn.textContent = tmpl.name; btn.addEventListener('click', () => loadTemplate(key)); gallery.appendChild(btn);
   });
 }
-
 function loadTemplate(key) {
-  const tmpl = TEMPLATES[key];
-  if (!tmpl) return;
-
-  // Clear current canvas
-  canvasBlocks = [];
-  canvasArrows = [];
-  blockIdCounter = 0;
-  activeTemplate = key;
-
-  // Deep-copy blocks
-  tmpl.blocks.forEach(b => {
-    canvasBlocks.push({ id: b.id, label: b.label, type: b.type, x: b.x, y: b.y });
-    blockIdCounter++;
-  });
-
-  // Copy arrows
-  tmpl.arrows.forEach(a => {
-    canvasArrows.push({ from: a[0], to: a[1] });
-  });
-
-  // Set title
+  const tmpl = TEMPLATES[key]; if (!tmpl) return;
+  canvasBlocks = []; canvasArrows = []; blockIdCounter = 0; activeTemplate = key;
+  tmpl.blocks.forEach(b => { canvasBlocks.push({ id: b.id, label: b.label, type: b.type, x: b.x, y: b.y }); blockIdCounter++; });
+  tmpl.arrows.forEach(a => { canvasArrows.push({ from: a[0], to: a[1] }); });
   pipelineTitle = tmpl.title;
-  const titleInput = document.getElementById('pipelineTitle');
-  if (titleInput) titleInput.value = pipelineTitle;
-
-  // Highlight active button
+  const titleInput = document.getElementById('pipelineTitle'); if (titleInput) titleInput.value = pipelineTitle;
   document.querySelectorAll('.template-btn').forEach(b => b.classList.remove('active'));
-  const btns = document.querySelectorAll('.template-btn');
-  const keys = Object.keys(TEMPLATES);
-  const idx = keys.indexOf(key);
-  if (btns[idx]) btns[idx].classList.add('active');
-
-  renderCanvasBlocks();
-  updateZoomIndicator();
-  updatePipelineStats();
-  saveState();
+  const btns = document.querySelectorAll('.template-btn'); const keys = Object.keys(TEMPLATES); const idx = keys.indexOf(key); if (btns[idx]) btns[idx].classList.add('active');
+  renderCanvasBlocks(); updateZoomIndicator(); updatePipelineStats(); saveState();
 }
 
 // ============================================
-// ZOOM INDICATOR
+// ZOOM INDICATOR & STATS
 // ============================================
 function updateZoomIndicator() {
-  const el = document.getElementById('zoomIndicator');
-  if (!el) return;
+  const el = document.getElementById('zoomIndicator'); if (!el) return;
   const blocks = canvasBlocks.filter(b => b.type !== 'text').length;
   const textBlocks = canvasBlocks.filter(b => b.type === 'text').length;
   const arrows = canvasArrows.length;
-  let parts = [];
-  parts.push(blocks + ' ' + pluralRu(blocks, '\u0431\u043B\u043E\u043A', '\u0431\u043B\u043E\u043A\u0430', '\u0431\u043B\u043E\u043A\u043E\u0432'));
-  parts.push(arrows + ' ' + pluralRu(arrows, '\u0441\u0432\u044F\u0437\u044C', '\u0441\u0432\u044F\u0437\u0438', '\u0441\u0432\u044F\u0437\u0435\u0439'));
+  let parts = [blocks + ' ' + pluralRu(blocks, '\u0431\u043B\u043E\u043A', '\u0431\u043B\u043E\u043A\u0430', '\u0431\u043B\u043E\u043A\u043E\u0432'), arrows + ' ' + pluralRu(arrows, '\u0441\u0432\u044F\u0437\u044C', '\u0441\u0432\u044F\u0437\u0438', '\u0441\u0432\u044F\u0437\u0435\u0439')];
   if (textBlocks > 0) parts.push(textBlocks + ' \u0442\u0435\u043A\u0441\u0442');
   el.textContent = parts.join(', ');
 }
-
-function pluralRu(n, one, few, many) {
-  const abs = Math.abs(n) % 100;
-  const n1 = abs % 10;
-  if (abs > 10 && abs < 20) return many;
-  if (n1 > 1 && n1 < 5) return few;
-  if (n1 === 1) return one;
-  return many;
-}
-
-// ============================================
-// PIPELINE STATS (cross-slide)
-// ============================================
-function getPipelineStats() {
-  const blocks = canvasBlocks.filter(b => b.type !== 'text');
-  const total = blocks.length;
-  const auto = blocks.filter(b => b.type === 'auto').length;
-  const review = blocks.filter(b => b.type === 'review').length;
-  const human = blocks.filter(b => b.type === 'human').length;
-  return { total, auto, review, human };
-}
-
+function pluralRu(n, one, few, many) { const abs = Math.abs(n) % 100; const n1 = abs % 10; if (abs > 10 && abs < 20) return many; if (n1 > 1 && n1 < 5) return few; if (n1 === 1) return one; return many; }
+function getPipelineStats() { const blocks = canvasBlocks.filter(b => b.type !== 'text'); return { total: blocks.length, auto: blocks.filter(b => b.type === 'auto').length, review: blocks.filter(b => b.type === 'review').length, human: blocks.filter(b => b.type === 'human').length }; }
 function updatePipelineStats() {
-  const bar = document.getElementById('pipelineStatsBar');
-  if (!bar) return;
+  const bar = document.getElementById('pipelineStatsBar'); if (!bar) return;
   const stats = getPipelineStats();
-  if (stats.total === 0) {
-    bar.style.display = 'none';
-    return;
-  }
+  if (stats.total === 0) { bar.style.display = 'none'; return; }
   bar.style.display = 'flex';
-  const pctAuto = Math.round(stats.auto / stats.total * 100);
-  const pctReview = Math.round(stats.review / stats.total * 100);
-  const pctHuman = Math.round(stats.human / stats.total * 100);
+  const pctAuto = Math.round(stats.auto/stats.total*100), pctReview = Math.round(stats.review/stats.total*100), pctHuman = Math.round(stats.human/stats.total*100);
   const title = pipelineTitle || '\u043A\u043E\u043D\u0432\u0435\u0439\u0435\u0440';
-  bar.innerHTML = `
-    <span class="stat-label">\u0432\u0430\u0448 ${title}:</span>
-    <span class="stat-value">${stats.total} \u0448\u0430\u0433\u043E\u0432</span>
-    <span class="stat-auto">${pctAuto}% \u0430\u0432\u0442\u043E</span>
-    <span class="stat-review">${pctReview}% \u0440\u0435\u0432\u044C\u044E</span>
-    <span class="stat-human">${pctHuman}% \u0447\u0435\u043B\u043E\u0432\u0435\u043A</span>
-    <div class="stat-bar">
-      <div class="stat-bar-auto" style="width:${pctAuto}%"></div>
-      <div class="stat-bar-review" style="width:${pctReview}%"></div>
-      <div class="stat-bar-human" style="width:${pctHuman}%"></div>
-    </div>
-  `;
+  bar.innerHTML = `<span class="stat-label">\u0432\u0430\u0448 ${title}:</span><span class="stat-value">${stats.total} \u0448\u0430\u0433\u043E\u0432</span><span class="stat-auto">${pctAuto}% \u0430\u0432\u0442\u043E</span><span class="stat-review">${pctReview}% \u0440\u0435\u0432\u044C\u044E</span><span class="stat-human">${pctHuman}% \u0447\u0435\u043B\u043E\u0432\u0435\u043A</span><div class="stat-bar"><div class="stat-bar-auto" style="width:${pctAuto}%"></div><div class="stat-bar-review" style="width:${pctReview}%"></div><div class="stat-bar-human" style="width:${pctHuman}%"></div></div>`;
 }
 
 // ============================================
 // TOUCH SUPPORT
 // ============================================
 let touchStartX = 0;
-document.addEventListener('touchstart', (e) => {
-  touchStartX = e.changedTouches[0].screenX;
-});
+document.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].screenX; });
 document.addEventListener('touchend', (e) => {
   const diff = e.changedTouches[0].screenX - touchStartX;
-  if (Math.abs(diff) > 50) {
-    if (diff < 0 && currentSlide < totalSlides - 1) { currentSlide++; updateSlide(); }
-    if (diff > 0 && currentSlide > 0) { currentSlide--; updateSlide(); }
-  }
+  if (Math.abs(diff) > 50) { if (diff < 0 && currentSlide < totalSlides - 1) { currentSlide++; updateSlide(); } if (diff > 0 && currentSlide > 0) { currentSlide--; updateSlide(); } }
 });
 </script>
 </body>

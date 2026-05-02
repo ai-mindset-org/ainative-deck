@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AI-Native Organizations Sprint - Batch 2 Intro Call</title>
 <meta property="og:title" content="AI-Native Organizations Sprint - Batch 2 Intro Call">
-<meta property="og:description" content="Batch 2 · 4–25 May 2026 · 134 registered · POS → MOS → Company Functions">
+<meta property="og:description" content="Batch 2 · 2–25 May 2026 · 132 unique · POS → MOS → Company Functions">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://ai-mindset-org.github.io/ainative-deck/assets/og-intro-call.png">
 <meta property="og:url" content="https://ai-mindset-org.github.io/ainative-deck/intro-call.html">
@@ -42,7 +42,7 @@ h2 { font-family: var(--font-heading); font-size: 38px; font-weight: 600; margin
 h3 { font-family: var(--font-body); font-size: 20px; font-weight: 500; color: var(--text-dim); margin-bottom: 12px; }
 p, li { font-size: 17px; line-height: 1.7; color: rgba(255,255,255,0.8); }
 .label { font-family: var(--font-body); font-size: 13px; font-weight: 500; text-transform: uppercase; letter-spacing: 3px; color: var(--text-label); margin-bottom: 16px; }
-.teal { color: var(--teal); } .green { color: var(--green); } .blue { color: var(--blue); } .amber { color: var(--amber); } .red { color: var(--red); } .cyan { color: var(--cyan); } .dim { color: var(--text-dim); }
+.teal { color: var(--teal); } .green { color: var(--green); } .blue { color: var(--blue); } .amber { color: var(--amber); } .red { color: var(--red); } .pink { color: var(--pink); } .cyan { color: var(--cyan); } .dim { color: var(--text-dim); }
 .cover { align-items: center; text-align: center; }
 .cover h1 { font-size: 52px; margin-bottom: 12px; }
 .subtitle { font-size: 18px; color: var(--text-dim); margin-bottom: 24px; max-width: 700px; }
@@ -83,6 +83,23 @@ p, li { font-size: 17px; line-height: 1.7; color: rgba(255,255,255,0.8); }
 .speaker-name { font-family: var(--font-heading); font-size: 15px; font-weight: 600; color: #fff; margin-bottom: 4px; }
 .speaker-role { font-size: 11px; color: var(--text-dim); line-height: 1.4; }
 .speaker-topic { font-size: 11px; color: var(--teal); margin-top: 6px; font-style: italic; }
+.speaker-grid.compact { grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 14px; }
+.speaker-grid.compact .speaker-card { padding: 11px 12px; min-height: 150px; }
+.speaker-grid.compact .speaker-photo, .initial-avatar { width: 54px; height: 54px; border-radius: 50%; margin: 0 auto 8px; border: 2px solid var(--border); display: flex; align-items: center; justify-content: center; object-fit: cover; font-family: var(--font-heading); font-size: 17px; font-weight: 700; color: #fff; background: linear-gradient(135deg, rgba(77,201,212,0.28), rgba(59,130,246,0.18)); }
+.speaker-grid.compact .speaker-name { font-size: 13px; }
+.speaker-grid.compact .speaker-role, .speaker-grid.compact .speaker-topic { font-size: 10px; }
+.track-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 14px; }
+.track-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; }
+.track-card h3 { font-size: 15px; margin-bottom: 8px; color: #fff; }
+.track-card p { font-size: 12px; line-height: 1.5; }
+.mini-avatars { display: flex; gap: 6px; margin-bottom: 10px; align-items: center; }
+.mini-avatars img, .mini-avatars .initial-avatar { width: 34px; height: 34px; font-size: 11px; margin: 0; border-width: 1.5px; }
+.alumni-strip { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-top: 12px; }
+.alumni-pill { display: inline-flex; align-items: center; gap: 6px; padding: 6px 10px; border: 1px solid var(--border); border-radius: 999px; background: rgba(28,28,46,0.65); font-size: 10px; color: var(--text-dim); }
+.alumni-pill img { width: 22px; height: 22px; border-radius: 50%; object-fit: cover; }
+.roster-note { margin-top: 10px; text-align: center; font-size: 11px; color: var(--text-label); }
+#s10 .layer { padding: 10px 16px; }
+#s10 .quote-enhanced { padding: 16px 24px; }
 .speaker-detail { display: flex; gap: 20px; align-items: flex-start; padding: 20px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; margin-bottom: 12px; transition: all 0.3s; }
 .speaker-detail:hover { border-color: var(--border-hover); }
 .speaker-detail img { width: 64px; height: 64px; border-radius: 50%; object-fit: cover; border: 2px solid var(--border); flex-shrink: 0; }
@@ -233,7 +250,7 @@ body.presenter-mode #presenter-panel { display: block; }
 
 /* === VOX BOT === */
 /* ============================================================
-   VOX BOT — AI Assistant Panel
+   VOX BOT – AI Assistant Panel
    CSS for ainative-deck presentation system
    ============================================================ */
 
@@ -568,9 +585,9 @@ body.vox-open #vox-panel {
     <div style="position:relative"><img src="speakers/stepan-gershuni.jpg" style="width:80px;height:80px;border-radius:50%;border:2px solid var(--blue);object-fit:cover;position:relative;z-index:2" alt=""><div style="position:absolute;inset:-4px;border-radius:50%;border:1px solid rgba(59,130,246,0.3);animation:pulseSlow 4s ease-in-out infinite"></div></div>
   </div>
   <h1>AI-Native Organizations<br><span class="teal">Batch 2</span></h1>
-  <p class="subtitle">3 недели: personal OS &rarr; management OS &rarr; company functions</p>
-  <p style="font-size:14px;color:var(--text-label);margin-bottom:20px;letter-spacing:2px">INTRO CALL &middot; 4 MAY 2026</p>
-  <div class="meta"><span class="tag">batch 2</span><span class="dot">&middot;</span><span class="tag">4&ndash;25 may 2026</span><span class="dot">&middot;</span><span class="tag">134 registered</span><span class="dot">&middot;</span><span class="tag green-tag">95 анкеты</span></div>
+  <p class="subtitle">kickoff + 3 недели: setup &rarr; systems &rarr; company functions</p>
+  <p style="font-size:14px;color:var(--text-label);margin-bottom:20px;letter-spacing:2px">INTRO CALL &middot; 2 MAY 2026</p>
+  <div class="meta"><span class="tag">batch 2</span><span class="dot">&middot;</span><span class="tag">2&ndash;25 may 2026</span><span class="dot">&middot;</span><span class="tag">132 unique</span><span class="dot">&middot;</span><span class="tag green-tag">95 submitted</span></div>
   <svg style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:5;opacity:0.12" viewBox="0 0 1920 1080"><circle class="constellation-node" cx="120" cy="140" r="3" fill="#4dc9d4"/><circle class="constellation-node" cx="280" cy="100" r="2.5" fill="#4dc9d4"/><circle class="constellation-node" cx="200" cy="240" r="2" fill="#3b82f6"/><circle class="constellation-node" cx="380" cy="180" r="3" fill="#38d9a9"/><line x1="120" y1="140" x2="280" y2="100" stroke="#4dc9d4" stroke-width="0.6" opacity="0.35"/><line x1="280" y1="100" x2="380" y2="180" stroke="#4dc9d4" stroke-width="0.5" opacity="0.25"/><line x1="120" y1="140" x2="200" y2="240" stroke="#3b82f6" stroke-width="0.5" opacity="0.25"/><circle class="constellation-node" cx="1600" cy="120" r="2.5" fill="#4dc9d4"/><circle class="constellation-node" cx="1750" cy="180" r="3" fill="#38d9a9"/><line x1="1600" y1="120" x2="1750" y2="180" stroke="#4dc9d4" stroke-width="0.5" opacity="0.3"/><circle class="constellation-node" cx="150" cy="880" r="2" fill="#3b82f6"/><circle class="constellation-node" cx="300" cy="920" r="2.5" fill="#4dc9d4"/><line x1="150" y1="880" x2="300" y2="920" stroke="#3b82f6" stroke-width="0.4" opacity="0.2"/></svg>
 </div></div>
 
@@ -580,32 +597,32 @@ body.vox-open #vox-panel {
   <h2>Сегодня: <span class="teal">старт Batch 2</span></h2>
   <p style="font-size:15px;color:var(--text-dim);margin-bottom:16px">Это не лекция-гонка. Синхронизируем контекст, смотрим на аудиторию и фиксируем, что каждый будет строить.</p>
   <div class="layers" style="gap:6px">
-    <div class="layer" style="border-left:3px solid var(--teal)"><div class="layer-num teal" style="min-width:36px">01</div><div class="layer-name">Кто участвует</div><div class="layer-desc">134 регистрации, 95 анкет, новая когорта S3</div></div>
+    <div class="layer" style="border-left:3px solid var(--teal)"><div class="layer-num teal" style="min-width:36px">01</div><div class="layer-name">Кто участвует</div><div class="layer-desc">132 unique, 95 submitted forms, Batch 2 / AIN02</div></div>
     <div class="layer" style="border-left:3px solid var(--blue)"><div class="layer-num blue" style="min-width:36px">02</div><div class="layer-name">С каким стеком пришли</div><div class="layer-desc">Claude, GPT, Codex, Cursor, агенты, автоматизации</div></div>
     <div class="layer" style="border-left:3px solid var(--green)"><div class="layer-num green" style="min-width:36px">03</div><div class="layer-name">Что хотят построить</div><div class="layer-desc">агенты, операционные контуры, team adoption</div></div>
     <div class="layer" style="border-left:3px solid var(--amber)"><div class="layer-num amber" style="min-width:36px">04</div><div class="layer-name">Новый подход</div><div class="layer-desc">POS &rarr; MOS &rarr; Company Functions</div></div>
     <div class="layer" style="border-left:3px solid var(--cyan)"><div class="layer-num cyan" style="min-width:36px">05</div><div class="layer-name">Как работает лаба</div><div class="layer-desc">сессии, кураторы, практика, Demo Day</div></div>
     <div class="layer" style="border-left:3px solid var(--red)"><div class="layer-num red" style="min-width:36px">06</div><div class="layer-name">Intro round</div><div class="layer-desc">60 секунд: кто вы, что строите, что принесёте на Demo Day</div></div>
   </div>
-  <div style="margin-top:16px;padding:12px 24px;background:rgba(77,201,212,0.06);border:1px solid rgba(77,201,212,0.18);border-radius:8px;text-align:center"><span style="font-size:14px;color:rgba(255,255,255,0.85)">Лаба идёт <span class="teal" style="font-weight:600">4&ndash;25 мая</span>. На выходе &ndash; работающий контур, а не список инструментов.</span></div>
+  <div style="margin-top:16px;padding:12px 24px;background:rgba(77,201,212,0.06);border:1px solid rgba(77,201,212,0.18);border-radius:8px;text-align:center"><span style="font-size:14px;color:rgba(255,255,255,0.85)">Лаба идёт <span class="teal" style="font-weight:600">2&ndash;25 мая</span>. На выходе &ndash; работающий контур, а не список инструментов.</span></div>
 </div></div>
 
 <!-- S3: PARTICIPANTS OVERVIEW -->
 <div class="slide" id="s3"><div class="slide-counter"><span class="current">3</span>/<span class="total"></span></div><img class="slide-logo" src="logo.png" alt=""><div class="slide-inner">
-  <div class="label">// participants &middot; 134 registered</div>
+  <div class="label">// participants &middot; 132 unique</div>
   <h2>Кто участвует</h2>
   <div class="stat-grid cols-5">
-    <div class="stat-box"><div class="num teal">134</div><div class="stat-label">registered</div></div>
+    <div class="stat-box"><div class="num teal">132</div><div class="stat-label">unique participants</div></div>
     <div class="stat-box"><div class="num blue">95</div><div class="stat-label">submitted profiles</div></div>
-    <div class="stat-box"><div class="num green">71%</div><div class="stat-label">анкета completion</div></div>
+    <div class="stat-box"><div class="num green">72%</div><div class="stat-label">анкета completion</div></div>
     <div class="stat-box"><div class="num amber">97</div><div class="stat-label">AI-stack answers</div></div>
-    <div class="stat-box"><div class="num cyan">95</div><div class="stat-label">locations filled</div></div>
+    <div class="stat-box"><div class="num cyan">98</div><div class="stat-label">questionnaire answers</div></div>
   </div>
   <div class="cards" style="grid-template-columns:repeat(4,1fr);margin-top:16px">
-    <div class="card" style="padding:16px;text-align:center;border-top:2px solid var(--teal)"><p style="font-size:28px;font-weight:700;color:var(--teal);font-family:var(--font-heading)">64%</p><p style="font-size:12px;color:var(--text-dim);margin-top:4px">own business / company context</p></div>
-    <div class="card" style="padding:16px;text-align:center;border-top:2px solid var(--blue)"><p style="font-size:28px;font-weight:700;color:var(--blue);font-family:var(--font-heading)">39%</p><p style="font-size:12px;color:var(--text-dim);margin-top:4px">large org / department context</p></div>
-    <div class="card" style="padding:16px;text-align:center;border-top:2px solid var(--green)"><p style="font-size:28px;font-weight:700;color:var(--green);font-family:var(--font-heading)">37%</p><p style="font-size:12px;color:var(--text-dim);margin-top:4px">software / development</p></div>
-    <div class="card" style="padding:16px;text-align:center;border-top:2px solid var(--amber)"><p style="font-size:28px;font-weight:700;color:var(--amber);font-family:var(--font-heading)">33%</p><p style="font-size:12px;color:var(--text-dim);margin-top:4px">personal OS layer</p></div>
+    <div class="card" style="padding:16px;text-align:center;border-top:2px solid var(--teal)"><p style="font-size:28px;font-weight:700;color:var(--teal);font-family:var(--font-heading)">80%</p><p style="font-size:12px;color:var(--text-dim);margin-top:4px">company / team context</p></div>
+    <div class="card" style="padding:16px;text-align:center;border-top:2px solid var(--blue)"><p style="font-size:28px;font-weight:700;color:var(--blue);font-family:var(--font-heading)">60%</p><p style="font-size:12px;color:var(--text-dim);margin-top:4px">ops / process context</p></div>
+    <div class="card" style="padding:16px;text-align:center;border-top:2px solid var(--green)"><p style="font-size:28px;font-weight:700;color:var(--green);font-family:var(--font-heading)">46%</p><p style="font-size:12px;color:var(--text-dim);margin-top:4px">product / IT / dev</p></div>
+    <div class="card" style="padding:16px;text-align:center;border-top:2px solid var(--amber)"><p style="font-size:28px;font-weight:700;color:var(--amber);font-family:var(--font-heading)">41%</p><p style="font-size:12px;color:var(--text-dim);margin-top:4px">team adoption context</p></div>
   </div>
   <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;justify-content:center">
     <span class="tag">software</span><span class="tag blue-tag">consulting</span><span class="tag green-tag">education</span><span class="tag amber-tag">finance</span><span class="tag red-tag">legal</span><span class="tag">games</span><span class="tag blue-tag">media</span><span class="tag green-tag">health</span><span class="tag amber-tag">commerce</span>
@@ -619,14 +636,14 @@ body.vox-open #vox-panel {
   <h2>AI-стек участников</h2>
   <div class="split" style="gap:32px">
     <div>
-      <div class="code-block" style="font-size:13px"><span class="comment"># open survey, n=97</span><br><br><span style="color:var(--teal)">claude</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--green)">||||||||||||||||||||||||</span> <span style="color:rgba(255,255,255,0.7)">55%</span><br><span style="color:var(--blue)">chatgpt / gpt</span>&nbsp;<span style="color:var(--green)">||||||||||||||||||||||</span> <span style="color:rgba(255,255,255,0.7)">49%</span><br><span style="color:var(--green)">agents</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--green)">||||||||||||||||||||||</span> <span style="color:rgba(255,255,255,0.7)">49%</span><br><span style="color:var(--amber)">claude code</span>&nbsp;&nbsp;&nbsp;<span style="color:var(--green)">||||||||||||</span> <span style="color:rgba(255,255,255,0.7)">26%</span><br><span style="color:var(--cyan)">cursor</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--green)">|||||||||</span> <span style="color:rgba(255,255,255,0.7)">20%</span><br><span style="color:var(--pink)">perplexity</span>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--green)">||||||||</span> <span style="color:rgba(255,255,255,0.7)">18%</span><br><span style="color:var(--red)">codex</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--green)">|||||||</span> <span style="color:rgba(255,255,255,0.7)">16%</span><br><span style="color:var(--blue)">gemini</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--green)">||||||</span> <span style="color:rgba(255,255,255,0.7)">14%</span></div>
+      <div class="code-block" style="font-size:13px"><span class="comment"># open survey, n=97</span><br><br><span style="color:var(--teal)">claude</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--green)">|||||||||||||||||||||||</span> <span style="color:rgba(255,255,255,0.7)">54%</span><br><span style="color:var(--blue)">chatgpt / gpt</span>&nbsp;<span style="color:var(--green)">||||||||||||||||||||</span> <span style="color:rgba(255,255,255,0.7)">46%</span><br><span style="color:var(--amber)">claude code</span>&nbsp;&nbsp;&nbsp;<span style="color:var(--green)">||||||||||||</span> <span style="color:rgba(255,255,255,0.7)">26%</span><br><span style="color:var(--cyan)">cursor</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--green)">|||||||||</span> <span style="color:rgba(255,255,255,0.7)">20%</span><br><span style="color:var(--red)">codex</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--green)">|||||||</span> <span style="color:rgba(255,255,255,0.7)">16%</span><br><span style="color:var(--blue)">gemini</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--green)">||||||</span> <span style="color:rgba(255,255,255,0.7)">14%</span><br><span style="color:var(--pink)">perplexity</span>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--green)">|||||</span> <span style="color:rgba(255,255,255,0.7)">12%</span><br><span style="color:var(--green)">notebooklm</span>&nbsp;&nbsp;&nbsp;<span style="color:var(--green)">||</span> <span style="color:rgba(255,255,255,0.7)">5%</span></div>
     </div>
     <div>
       <div class="stat-grid cols-2" style="margin-top:0">
-        <div class="stat-box"><div class="num teal" style="font-size:36px">81%</div><div class="stat-label">пишут про команду / организацию</div></div>
-        <div class="stat-box"><div class="num green" style="font-size:36px">58%</div><div class="stat-label">процессы и автоматизация</div></div>
-        <div class="stat-box"><div class="num amber" style="font-size:36px">24%</div><div class="stat-label">RAG / search / knowledge layer</div></div>
-        <div class="stat-box"><div class="num blue" style="font-size:36px">20%</div><div class="stat-label">tool chaos / switching cost</div></div>
+        <div class="stat-box"><div class="num teal" style="font-size:36px">80%</div><div class="stat-label">команда / организация</div></div>
+        <div class="stat-box"><div class="num green" style="font-size:36px">60%</div><div class="stat-label">операции и процессы</div></div>
+        <div class="stat-box"><div class="num amber" style="font-size:36px">35%</div><div class="stat-label">агенты / agent systems</div></div>
+        <div class="stat-box"><div class="num blue" style="font-size:36px">31%</div><div class="stat-label">RAG / search / knowledge</div></div>
       </div>
       <div class="quote-enhanced" style="margin-top:16px"><p style="font-size:15px">Инструменты уже есть. Запрос сместился на архитектуру: как собрать стек, процессы и людей в одну систему.</p><div class="author" style="color:var(--green)">паттерн из анкет</div></div>
     </div>
@@ -642,17 +659,17 @@ body.vox-open #vox-panel {
     <circle cx="455" cy="205" r="86" fill="var(--teal)" opacity="0.14"/><circle cx="455" cy="205" r="10" fill="var(--teal)" opacity="0.95"/>
     <text x="455" y="185" text-anchor="middle" fill="var(--teal)" font-family="Space Grotesk" font-size="42" font-weight="700">28</text><text x="455" y="216" text-anchor="middle" fill="var(--teal)" font-family="IBM Plex Mono" font-size="12" letter-spacing="2">МОСКВА</text>
     <circle cx="300" cy="140" r="44" fill="var(--blue)" opacity="0.13"/><circle cx="300" cy="140" r="6" fill="var(--blue)"/>
-    <text x="300" y="126" text-anchor="middle" fill="var(--blue)" font-family="Space Grotesk" font-size="26" font-weight="700">13</text><text x="300" y="150" text-anchor="middle" fill="var(--blue)" font-family="IBM Plex Mono" font-size="10">РФ регионы</text>
+    <text x="300" y="126" text-anchor="middle" fill="var(--blue)" font-family="Space Grotesk" font-size="26" font-weight="700">14</text><text x="300" y="150" text-anchor="middle" fill="var(--blue)" font-family="IBM Plex Mono" font-size="10">РФ регионы</text>
     <circle cx="600" cy="132" r="38" fill="var(--green)" opacity="0.13"/><circle cx="600" cy="132" r="5" fill="var(--green)"/>
     <text x="600" y="120" text-anchor="middle" fill="var(--green)" font-family="Space Grotesk" font-size="24" font-weight="700">6</text><text x="600" y="144" text-anchor="middle" fill="var(--green)" font-family="IBM Plex Mono" font-size="10">СПБ</text>
     <circle cx="650" cy="250" r="52" fill="var(--amber)" opacity="0.12"/><circle cx="650" cy="250" r="6" fill="var(--amber)"/>
-    <text x="650" y="236" text-anchor="middle" fill="var(--amber)" font-family="Space Grotesk" font-size="26" font-weight="700">20+</text><text x="650" y="260" text-anchor="middle" fill="var(--amber)" font-family="IBM Plex Mono" font-size="10">Европа / релокация</text>
+    <text x="650" y="236" text-anchor="middle" fill="var(--amber)" font-family="Space Grotesk" font-size="26" font-weight="700">8</text><text x="650" y="260" text-anchor="middle" fill="var(--amber)" font-family="IBM Plex Mono" font-size="10">Европа / Португалия</text>
     <circle cx="245" cy="270" r="42" fill="var(--cyan)" opacity="0.12"/><circle cx="245" cy="270" r="5" fill="var(--cyan)"/>
-    <text x="245" y="258" text-anchor="middle" fill="var(--cyan)" font-family="Space Grotesk" font-size="24" font-weight="700">8+</text><text x="245" y="282" text-anchor="middle" fill="var(--cyan)" font-family="IBM Plex Mono" font-size="10">Кавказ / ЦА</text>
+    <text x="245" y="258" text-anchor="middle" fill="var(--cyan)" font-family="Space Grotesk" font-size="24" font-weight="700">9</text><text x="245" y="282" text-anchor="middle" fill="var(--cyan)" font-family="IBM Plex Mono" font-size="10">Кавказ / ЦА / Молдова</text>
     <circle cx="760" cy="180" r="30" fill="var(--pink)" opacity="0.12"/><circle cx="760" cy="180" r="4" fill="var(--pink)"/>
-    <text x="760" y="170" text-anchor="middle" fill="var(--pink)" font-family="Space Grotesk" font-size="20" font-weight="700">5+</text><text x="760" y="193" text-anchor="middle" fill="var(--pink)" font-family="IBM Plex Mono" font-size="9">US / Asia / MENA</text>
+    <text x="760" y="170" text-anchor="middle" fill="var(--pink)" font-family="Space Grotesk" font-size="20" font-weight="700">long</text><text x="760" y="193" text-anchor="middle" fill="var(--pink)" font-family="IBM Plex Mono" font-size="9">US / Asia / MENA</text>
     <line x1="455" y1="205" x2="300" y2="140" stroke="var(--teal)" stroke-width="0.6" opacity="0.16"/><line x1="455" y1="205" x2="600" y2="132" stroke="var(--teal)" stroke-width="0.6" opacity="0.16"/><line x1="455" y1="205" x2="650" y2="250" stroke="var(--teal)" stroke-width="0.6" opacity="0.12"/><line x1="455" y1="205" x2="245" y2="270" stroke="var(--teal)" stroke-width="0.6" opacity="0.12"/>
-    <text x="450" y="395" text-anchor="middle" fill="var(--text-label)" font-family="IBM Plex Mono" font-size="11">95 локаций · Москва 28 · СПб 6 · Лиссабон, Берлин, Тбилиси, Кипр, Бали, Астана, Ереван, США и long tail</text>
+    <text x="450" y="395" text-anchor="middle" fill="var(--text-label)" font-family="IBM Plex Mono" font-size="11">95 локаций · Москва 28 · РФ регионы 14 · СПб 6 · Европа 8 · Кавказ/ЦА/Молдова 9 · long tail</text>
   </svg>
 </div></div>
 
@@ -676,15 +693,15 @@ body.vox-open #vox-panel {
 
 <!-- S7: WHAT THEY BUILD -->
 <div class="slide" id="s7"><div class="slide-counter"><span class="current">7</span>/<span class="total"></span></div><img class="slide-logo" src="logo.png" alt=""><div class="slide-inner">
-  <div class="label">// build intents &middot; from 97 answers</div>
+  <div class="label">// build intents &middot; from 95 goal answers</div>
   <h2>Что участники хотят построить</h2>
   <div class="bar-chart">
-    <div class="bar-row"><div class="bar-label">Агенты / ассистенты</div><div class="bar-track"><div class="bar-fill" style="width:75%;background:linear-gradient(90deg,var(--teal),rgba(77,201,212,0.6))">75%</div></div></div>
-    <div class="bar-row"><div class="bar-label">Автоматизация процессов</div><div class="bar-track"><div class="bar-fill" style="width:58%;background:linear-gradient(90deg,var(--green),rgba(56,217,169,0.6))">58%</div></div></div>
-    <div class="bar-row"><div class="bar-label">Внедрение в команду</div><div class="bar-track"><div class="bar-fill" style="width:52%;background:linear-gradient(90deg,var(--blue),rgba(59,130,246,0.6))">52%</div></div></div>
-    <div class="bar-row"><div class="bar-label">AI-стратегия / архитектура</div><div class="bar-track"><div class="bar-fill" style="width:31%;background:linear-gradient(90deg,var(--amber),rgba(200,146,0,0.6))">31%</div></div></div>
-    <div class="bar-row"><div class="bar-label">Demo / pilot за время лабы</div><div class="bar-track"><div class="bar-fill" style="width:28%;background:linear-gradient(90deg,var(--cyan),rgba(56,189,248,0.6))">28%</div></div></div>
-    <div class="bar-row"><div class="bar-label">Context / knowledge base</div><div class="bar-track"><div class="bar-fill" style="width:11%;background:linear-gradient(90deg,var(--pink),rgba(255,59,139,0.6))">11%</div></div></div>
+    <div class="bar-row"><div class="bar-label">AI-native org / company</div><div class="bar-track"><div class="bar-fill" style="width:54%;background:linear-gradient(90deg,var(--teal),rgba(77,201,212,0.6))">54%</div></div></div>
+    <div class="bar-row"><div class="bar-label">Автоматизация процессов</div><div class="bar-track"><div class="bar-fill" style="width:37%;background:linear-gradient(90deg,var(--green),rgba(56,217,169,0.6))">37%</div></div></div>
+    <div class="bar-row"><div class="bar-label">Агенты / agent systems</div><div class="bar-track"><div class="bar-fill" style="width:35%;background:linear-gradient(90deg,var(--blue),rgba(59,130,246,0.6))">35%</div></div></div>
+    <div class="bar-row"><div class="bar-label">Внедрение в команду</div><div class="bar-track"><div class="bar-fill" style="width:24%;background:linear-gradient(90deg,var(--amber),rgba(200,146,0,0.6))">24%</div></div></div>
+    <div class="bar-row"><div class="bar-label">Use cases / practice</div><div class="bar-track"><div class="bar-fill" style="width:22%;background:linear-gradient(90deg,var(--cyan),rgba(56,189,248,0.6))">22%</div></div></div>
+    <div class="bar-row"><div class="bar-label">Strategy / roadmap</div><div class="bar-track"><div class="bar-fill" style="width:22%;background:linear-gradient(90deg,var(--pink),rgba(255,59,139,0.6))">22%</div></div></div>
   </div>
   <div style="margin-top:14px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px">
     <div style="padding:12px 16px;border:1px solid var(--border);border-radius:8px;background:var(--bg-card)"><p style="font-size:11px;color:var(--text-label);margin-bottom:6px;letter-spacing:1px">// ENGINEERING</p><p style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.6">трансформировать engineering-отдел в AI-native организацию</p></div>
@@ -727,10 +744,10 @@ body.vox-open #vox-panel {
     </div>
     <div>
       <div class="stat-grid cols-2" style="margin-top:0;gap:10px">
-        <div class="stat-box"><div class="num teal" style="font-size:36px">75%</div><div class="stat-label">agents / assistants</div></div>
-        <div class="stat-box"><div class="num green" style="font-size:36px">58%</div><div class="stat-label">process automation</div></div>
-        <div class="stat-box"><div class="num blue" style="font-size:36px">52%</div><div class="stat-label">team adoption</div></div>
-        <div class="stat-box"><div class="num amber" style="font-size:36px">31%</div><div class="stat-label">architecture / strategy</div></div>
+        <div class="stat-box"><div class="num teal" style="font-size:36px">54%</div><div class="stat-label">AI-native company</div></div>
+        <div class="stat-box"><div class="num green" style="font-size:36px">37%</div><div class="stat-label">process automation</div></div>
+        <div class="stat-box"><div class="num blue" style="font-size:36px">35%</div><div class="stat-label">agent systems</div></div>
+        <div class="stat-box"><div class="num amber" style="font-size:36px">24%</div><div class="stat-label">team adoption</div></div>
       </div>
       <div style="margin-top:14px;padding:14px 18px;border:1px solid var(--border);border-radius:8px;background:var(--bg-card)">
         <p style="font-size:11px;color:var(--text-label);margin-bottom:6px;letter-spacing:1px">// KEY INSIGHT</p>
@@ -742,110 +759,126 @@ body.vox-open #vox-panel {
 
 <!-- S10: HOW THE LAB WORKS -->
 <div class="slide" id="s10"><div class="slide-counter"><span class="current">10</span>/<span class="total"></span></div><img class="slide-logo" src="logo.png" alt=""><div class="slide-inner">
-  <div class="label">// format &middot; participant journey</div>
+  <div class="label">// format &middot; AIN02 operating cadence</div>
   <h2>Как устроена лаба</h2>
   <div class="split" style="gap:28px;align-items:start">
     <div>
       <div class="layers" style="gap:6px">
-        <div class="layer" style="border-left:3px solid var(--teal)"><div class="layer-num teal" style="min-width:36px">01</div><div class="layer-name">workshop</div><div class="layer-desc">1.5-2ч live session &ndash; теория + практика + Q&amp;A</div></div>
-        <div class="layer" style="border-left:3px solid var(--green)"><div class="layer-num green" style="min-width:36px">02</div><div class="layer-name">co-working</div><div class="layer-desc">focus sessions &ndash; строите свой артефакт вместе</div></div>
-        <div class="layer" style="border-left:3px solid var(--blue)"><div class="layer-num blue" style="min-width:36px">03</div><div class="layer-name">curators</div><div class="layer-desc">1-1 разборы, feedback, подготовка к Demo Day</div></div>
-        <div class="layer" style="border-left:3px solid var(--amber)"><div class="layer-num amber" style="min-width:36px">04</div><div class="layer-name">practice</div><div class="layer-desc">домашка после каждой сессии &ndash; артефакт к Demo Day</div></div>
-        <div class="layer" style="border-left:3px solid var(--pink)"><div class="layer-num pink" style="min-width:36px">05</div><div class="layer-name">buddy groups</div><div class="layer-desc">пары и мини-группы &ndash; взаимная поддержка</div></div>
-        <div class="layer" style="border-left:3px solid var(--cyan)"><div class="layer-num cyan" style="min-width:36px">06</div><div class="layer-name">bonus</div><div class="layer-desc">доп. спикеры, мастермайнды, материалы</div></div>
+        <div class="layer" style="border-left:3px solid var(--teal)"><div class="layer-num teal" style="min-width:36px">01</div><div class="layer-name">core lectures</div><div class="layer-desc">общая рамка: POS, MOS, functions, 90-day implementation</div></div>
+        <div class="layer" style="border-left:3px solid var(--green)"><div class="layer-num green" style="min-width:36px">02</div><div class="layer-name">practical blocks</div><div class="layer-desc">Denis Smirnov: systems, evals, fake-company simulations</div></div>
+        <div class="layer" style="border-left:3px solid var(--blue)"><div class="layer-num blue" style="min-width:36px">03</div><div class="layer-name">guest sessions</div><div class="layer-desc">реальные кейсы: legal, sales, engineering, agents, transformation</div></div>
+        <div class="layer" style="border-left:3px solid var(--amber)"><div class="layer-num amber" style="min-width:36px">04</div><div class="layer-name">curator tracks</div><div class="layer-desc">routing по уровню и треку: beginner, tech stack, systems, ops</div></div>
+        <div class="layer" style="border-left:3px solid var(--pink)"><div class="layer-num pink" style="min-width:36px">05</div><div class="layer-name">office hours</div><div class="layer-desc">09 / 16 / 23 мая, hot seats и review артефактов</div></div>
+        <div class="layer" style="border-left:3px solid var(--cyan)"><div class="layer-num cyan" style="min-width:36px">06</div><div class="layer-name">Demo Day</div><div class="layer-desc">25 мая: контур, evidence, owner, next 90 days</div></div>
       </div>
-      <div class="quote-enhanced" style="margin-top:12px"><p style="font-size:13px">каждый workshop = конкретный навык с конкретным результатом. участник уходит с работающим артефактом.</p></div>
+      <div class="quote-enhanced" style="margin-top:12px"><p style="font-size:13px">каждая неделя закрывает слой системы: личный стек, управленческий контур, функция компании.</p></div>
     </div>
     <div>
       <div class="stat-grid cols-2" style="margin-top:0;gap:10px">
-        <div class="stat-box"><div class="num teal" style="font-size:32px">15+</div><div class="stat-label">live sessions</div></div>
-        <div class="stat-box"><div class="num green" style="font-size:32px">вт-пт</div><div class="stat-label">18:00 cet</div></div>
+        <div class="stat-box"><div class="num teal" style="font-size:32px">22</div><div class="stat-label">calendar events</div></div>
+        <div class="stat-box"><div class="num green" style="font-size:32px">17:00</div><div class="stat-label">main time CEST</div></div>
       </div>
       <div class="stat-grid" style="grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px">
-        <div class="stat-box" style="padding:12px 8px"><div class="num teal" style="font-size:24px">3</div><div class="stat-label">лекции</div></div>
-        <div class="stat-box" style="padding:12px 8px"><div class="num blue" style="font-size:24px">10+</div><div class="stat-label">workshops</div></div>
-        <div class="stat-box" style="padding:12px 8px"><div class="num green" style="font-size:24px">3+</div><div class="stat-label">coworking</div></div>
+        <div class="stat-box" style="padding:12px 8px"><div class="num teal" style="font-size:24px">9</div><div class="stat-label">guest speakers</div></div>
+        <div class="stat-box" style="padding:12px 8px"><div class="num blue" style="font-size:24px">3</div><div class="stat-label">Denis modules</div></div>
+        <div class="stat-box" style="padding:12px 8px"><div class="num green" style="font-size:24px">3</div><div class="stat-label">office hours</div></div>
       </div>
       <div style="margin-top:10px;padding:12px 16px;border:1px solid var(--border);border-radius:8px;background:var(--bg-card)">
         <p style="font-size:11px;color:var(--text-label);margin-bottom:6px;letter-spacing:1px">// participant journey</p>
         <div class="layers" style="gap:4px">
-          <div style="display:flex;align-items:center;gap:8px;padding:4px 0"><div style="width:5px;height:5px;border-radius:50%;background:var(--teal)"></div><span style="font-size:11px;color:rgba(255,255,255,0.7)">workshop &rarr; практика &rarr; артефакт</span></div>
-          <div style="display:flex;align-items:center;gap:8px;padding:4px 0"><div style="width:5px;height:5px;border-radius:50%;background:var(--green)"></div><span style="font-size:11px;color:rgba(255,255,255,0.7)">co-working &rarr; разбор с куратором</span></div>
-          <div style="display:flex;align-items:center;gap:8px;padding:4px 0"><div style="width:5px;height:5px;border-radius:50%;background:var(--amber)"></div><span style="font-size:11px;color:rgba(255,255,255,0.7)">домашка &rarr; feedback &rarr; итерация</span></div>
-          <div style="display:flex;align-items:center;gap:8px;padding:4px 0"><div style="width:5px;height:5px;border-radius:50%;background:var(--red)"></div><span style="font-size:11px;color:rgba(255,255,255,0.7);font-weight:600">Demo Day &rarr; презентация результата</span></div>
+          <div style="display:flex;align-items:center;gap:8px;padding:4px 0"><div style="width:5px;height:5px;border-radius:50%;background:var(--teal)"></div><span style="font-size:11px;color:rgba(255,255,255,0.7)">kickoff &rarr; выбрать сквозной кейс</span></div>
+          <div style="display:flex;align-items:center;gap:8px;padding:4px 0"><div style="width:5px;height:5px;border-radius:50%;background:var(--green)"></div><span style="font-size:11px;color:rgba(255,255,255,0.7)">W1/W2/W3 &rarr; построить слой за слоем</span></div>
+          <div style="display:flex;align-items:center;gap:8px;padding:4px 0"><div style="width:5px;height:5px;border-radius:50%;background:var(--amber)"></div><span style="font-size:11px;color:rgba(255,255,255,0.7)">curators &rarr; review, routing, unblock</span></div>
+          <div style="display:flex;align-items:center;gap:8px;padding:4px 0"><div style="width:5px;height:5px;border-radius:50%;background:var(--red)"></div><span style="font-size:11px;color:rgba(255,255,255,0.7);font-weight:600">Demo Day &rarr; evidence + 90-day plan</span></div>
         </div>
       </div>
     </div>
   </div>
 </div></div>
 
-<!-- S11: CURATORS (photo grid) -->
+<!-- S11: CURATOR TRACKS -->
 <div class="slide" id="s11"><div class="slide-counter"><span class="current">11</span>/<span class="total"></span></div><img class="slide-logo" src="logo.png" alt=""><div class="slide-inner">
-  <div class="label">// curators &middot; 12 practitioners</div>
-  <h2>Кураторы</h2>
-  <p style="font-size:14px;color:var(--text-dim);margin-bottom:12px">каждый куратор работает с группой участников 1-1. помогают с практикой, разбором задач, подготовкой к Demo Day.</p>
-  <div class="curator-grid">
-    <div class="curator-card"><div class="curator-num">01</div><img class="curator-photo" src="curators/Kettarian_Fox.jpg" alt=""><div class="curator-name"><a href="https://t.me/Kettarian_Fox" target="_blank" style="color:white;text-decoration:none">Stanislav Fedoseev</a></div><div style="font-size:10px;color:var(--teal);margin:2px 0"><a href="https://t.me/Kettarian_Fox" target="_blank" style="color:var(--teal);text-decoration:none">@Kettarian_Fox</a></div><div class="curator-desc">exCPO insuretech, агентные системы, LLM-пайплайны</div></div>
-    <div class="curator-card"><div class="curator-num">02</div><img class="curator-photo" src="curators/doonto.jpg" alt=""><div class="curator-name"><a href="https://t.me/doonto" target="_blank" style="color:white;text-decoration:none">Yury</a></div><div style="font-size:10px;color:var(--teal);margin:2px 0"><a href="https://t.me/doonto" target="_blank" style="color:var(--teal);text-decoration:none">@doonto</a></div><div class="curator-desc">enterprise architect, полупроводники, корпоративная трансформация</div></div>
-    <div class="curator-card"><div class="curator-num">03</div><img class="curator-photo" src="curators/He11ya.jpg" alt=""><div class="curator-name"><a href="https://t.me/He11ya" target="_blank" style="color:white;text-decoration:none">Jin Kolesnikov</a></div><div style="font-size:10px;color:var(--teal);margin:2px 0"><a href="https://t.me/He11ya" target="_blank" style="color:var(--teal);text-decoration:none">@He11ya</a></div><div class="curator-desc">futurist, ex-Singularity University, MAUOS</div></div>
-    <div class="curator-card"><div class="curator-num">04</div><img class="curator-photo" src="curators/prcdrl.jpg" alt=""><div class="curator-name"><a href="https://t.me/prcdrl" target="_blank" style="color:white;text-decoration:none">Stanislav Glazov</a></div><div style="font-size:10px;color:var(--teal);margin:2px 0"><a href="https://t.me/prcdrl" target="_blank" style="color:var(--teal);text-decoration:none">@prcdrl</a></div><div class="curator-desc">media artist, Hou2Touch (2500+ студентов), nod systems</div></div>
-    <div class="curator-card"><div class="curator-num">05</div><img class="curator-photo" src="curators/AlexFrmn.jpg" alt=""><div class="curator-name"><a href="https://t.me/AlexFrmn" target="_blank" style="color:white;text-decoration:none">Alexander Vasiliev</a></div><div style="font-size:10px;color:var(--teal);margin:2px 0"><a href="https://t.me/AlexFrmn" target="_blank" style="color:var(--teal);text-decoration:none">@AlexFrmn</a></div><div class="curator-desc">CTO, серверы, безопасность, 90+ скиллов, &laquo;Jarvis&raquo; POS</div></div>
-    <div class="curator-card"><div class="curator-num">06</div><img class="curator-photo" src="curators/serejaris.jpg" alt=""><div class="curator-name"><a href="https://t.me/serejaris" target="_blank" style="color:white;text-decoration:none">Sereja Ris</a></div><div style="font-size:10px;color:var(--teal);margin:2px 0"><a href="https://t.me/serejaris" target="_blank" style="color:var(--teal);text-decoration:none">@serejaris</a></div><div class="curator-desc">product coding, live coding</div></div>
-    <div class="curator-card"><div class="curator-num">07</div><img class="curator-photo" src="curators/igindin.jpg" alt=""><div class="curator-name"><a href="https://t.me/igindin" target="_blank" style="color:white;text-decoration:none">Ilya Gindin</a></div><div style="font-size:10px;color:var(--teal);margin:2px 0"><a href="https://t.me/igindin" target="_blank" style="color:var(--teal);text-decoration:none">@igindin</a></div><div class="curator-desc">community, AI-стратегия</div></div>
-    <div class="curator-card"><div class="curator-num">08</div><img class="curator-photo" src="curators/northcapen.jpg" alt=""><div class="curator-name"><a href="https://t.me/northcapen" target="_blank" style="color:white;text-decoration:none">Anton Voskobovich</a></div><div style="font-size:10px;color:var(--teal);margin:2px 0"><a href="https://t.me/northcapen" target="_blank" style="color:var(--teal);text-decoration:none">@northcapen</a></div><div class="curator-desc">AI operations, процессы</div></div>
-    <div class="curator-card"><div class="curator-num">09</div><img class="curator-photo" src="curators/Alexander_Stashenko.jpg" alt=""><div class="curator-name"><a href="https://t.me/Alexander_Stashenko" target="_blank" style="color:white;text-decoration:none">Alexander Stashenko</a></div><div style="font-size:10px;color:var(--teal);margin:2px 0"><a href="https://t.me/Alexander_Stashenko" target="_blank" style="color:var(--teal);text-decoration:none">@Alexander_Stashenko</a></div><div class="curator-desc">AI consulting</div></div>
-    <div class="curator-card"><div class="curator-num">10</div><img class="curator-photo" src="curators/ks_andr_a.jpg" alt=""><div class="curator-name"><a href="https://t.me/ks_andr_a" target="_blank" style="color:white;text-decoration:none">Kseniya Tkacheva</a></div><div style="font-size:10px;color:var(--teal);margin:2px 0"><a href="https://t.me/ks_andr_a" target="_blank" style="color:var(--teal);text-decoration:none">@ks_andr_a</a></div><div class="curator-desc">user experience</div></div>
-    <div class="curator-card"><div class="curator-num">11</div><div class="curator-photo" style="width:64px;height:64px;border-radius:50%;margin:0 auto 10px;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,rgba(255,107,107,0.3),rgba(255,59,139,0.2));font-family:var(--font-heading);font-size:20px;font-weight:700;color:#fff">DS</div><div class="curator-name"><a href="https://t.me/densmirnov" target="_blank" style="color:white;text-decoration:none">Denis Smirnov</a></div><div style="font-size:10px;color:var(--teal);margin:2px 0"><a href="https://t.me/densmirnov" target="_blank" style="color:var(--teal);text-decoration:none">@densmirnov</a></div><div class="curator-desc">tokenomics, governance, semantics, @daobuilders</div></div>
-    <div class="curator-card"><div class="curator-num">12</div><div class="curator-photo" style="width:64px;height:64px;border-radius:50%;margin:0 auto 10px;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,rgba(77,201,212,0.3),rgba(56,217,169,0.2));font-family:var(--font-heading);font-size:20px;font-weight:700;color:#fff">IG</div><div class="curator-name"><a href="https://t.me/oxigen717" target="_blank" style="color:white;text-decoration:none">Ilya Golubev</a></div><div style="font-size:10px;color:var(--teal);margin:2px 0"><a href="https://t.me/oxigen717" target="_blank" style="color:var(--teal);text-decoration:none">@oxigen717</a></div><div class="curator-desc">RAG, AI-агенты, n8n, автоматизации</div></div>
+  <div class="label">// curators &middot; current tracks</div>
+  <h2>Кураторский слой <span class="teal">Batch 2</span></h2>
+  <p style="font-size:14px;color:var(--text-dim);margin-bottom:12px">кураторы не просто отвечают на вопросы. они маршрутизируют кейсы по уровню, стеку и типу компании.</p>
+  <div class="stat-grid cols-4" style="margin-top:0;gap:10px">
+    <div class="stat-box"><div class="num teal" style="font-size:34px">8+</div><div class="stat-label">subject curators</div></div>
+    <div class="stat-box"><div class="num blue" style="font-size:34px">4</div><div class="stat-label">support tracks</div></div>
+    <div class="stat-box"><div class="num green" style="font-size:34px">TG</div><div class="stat-label">async routing</div></div>
+    <div class="stat-box"><div class="num amber" style="font-size:34px">3</div><div class="stat-label">office hours</div></div>
   </div>
-  <div style="margin-top:12px;display:flex;gap:16px">
-    <div style="flex:1;padding:12px 16px;border:1px solid var(--border);border-radius:8px;background:var(--bg-card)"><p style="font-size:13px;color:var(--teal);margin-bottom:4px;font-weight:600">что делают</p><p style="font-size:12px;color:var(--text-dim)">1-1 разборы, feedback на домашку, подготовка к Demo Day. кликайте на ник &ndash; пишите напрямую.</p></div>
-    <div style="flex:1;padding:12px 16px;border:1px solid var(--border);border-radius:8px;background:var(--bg-card)"><p style="font-size:13px;color:var(--teal);margin-bottom:4px;font-weight:600">как записаться</p><p style="font-size:12px;color:var(--text-dim)">запишитесь на 1-1 в чате кураторов. ваш куратор будет назначен на этой неделе.</p></div>
+  <div class="track-grid">
+    <div class="track-card" style="border-left:3px solid var(--teal)">
+      <div class="mini-avatars"><img src="curators/serejaris.jpg" alt=""><img src="curators/AlexFrmn.jpg" alt=""><img src="curators/Kettarian_Fox.jpg" alt=""></div>
+      <h3>tech stack &amp; coding</h3>
+      <p><span class="teal">Sereja Ris</span>, Alexander Vasiliev, Stanislav Fedoseev. Setup, Claude Code, multi-agent infra, vibe-coding.</p>
+    </div>
+    <div class="track-card" style="border-left:3px solid var(--green)">
+      <div class="mini-avatars"><img src="curators/densmirnov.jpg" alt=""><img src="curators/doonto.jpg" alt=""></div>
+      <h3>systems, evals, enterprise</h3>
+      <p><span class="green">Denis Smirnov</span>, Yury Doonto. Системный трек, evals, governance, корпоративная архитектура.</p>
+    </div>
+    <div class="track-card" style="border-left:3px solid var(--blue)">
+      <div class="mini-avatars"><img src="curators/He11ya.jpg" alt=""><img src="curators/prcdrl.jpg" alt=""></div>
+      <h3>beginner path &amp; creative</h3>
+      <p><span class="blue">Jin Kolesnikov</span>, Stanislav Glazov. Новички, первые артефакты, визуальные и образовательные кейсы.</p>
+    </div>
+    <div class="track-card" style="border-left:3px solid var(--amber)">
+      <div class="mini-avatars"><div class="initial-avatar">KV</div><img src="speakers/alexander-povaliaev.jpg" alt=""><div class="initial-avatar">KU</div></div>
+      <h3>ops &amp; community routing</h3>
+      <p><span class="amber">Karina Vantslav</span> ведёт операционный слой. Community cases идут отдельно от locked curator roster.</p>
+    </div>
   </div>
+  <p class="roster-note">source: curator CRM, 2026-04-28. On-hold и unknown контакты не показываем как подтверждённых кураторов.</p>
 </div></div>
 
 <!-- S12: SPEAKERS -->
 <div class="slide" id="s12"><div class="slide-counter"><span class="current">12</span>/<span class="total"></span></div><img class="slide-logo" src="logo.png" alt=""><div class="slide-inner">
-  <div class="label">// speakers &middot; 10 practitioners</div>
-  <h2><span class="teal">10</span> спикеров</h2>
-  <div class="speaker-grid" style="grid-template-columns:repeat(5,1fr);gap:12px">
-    <div class="speaker-card"><img class="speaker-photo" src="speakers/stepan-gershuni.jpg" alt=""><div class="speaker-name">Stepan Gershuni</div><div class="speaker-role">CybOS &middot; cyber.fund</div><div class="speaker-topic">3 лекции: strategy</div></div>
-    <div class="speaker-card"><img class="speaker-photo" src="speakers/alexander-povaliaev.jpg" alt=""><div class="speaker-name">Alexander Povaliaev</div><div class="speaker-role">AI Mindset</div><div class="speaker-topic">coworking &amp; workshops</div></div>
-    <div class="speaker-card"><img class="speaker-photo" src="speakers/dima-khanarin.jpg" alt=""><div class="speaker-name">Dima Khanarin</div><div class="speaker-role">codos.ai</div><div class="speaker-topic">AI transformation</div></div>
-    <div class="speaker-card"><img class="speaker-photo" src="speakers/alex-amyotov.jpg" alt=""><div class="speaker-name">Alexey Ametov</div><div class="speaker-role">Look At Media</div><div class="speaker-topic">AI content</div></div>
-    <div class="speaker-card"><img class="speaker-photo" src="speakers/vitaly-kleban.jpg" alt=""><div class="speaker-name">Vitaly Kleban</div><div class="speaker-role">cyber.Fund</div><div class="speaker-topic">Self-improving agents</div></div>
-    <div class="speaker-card"><img class="speaker-photo" src="speakers/valerii kovalskii.jpg" alt=""><div class="speaker-name">Valery Kovalskii</div><div class="speaker-role">Red Mad Robot</div><div class="speaker-topic">AI-driven dev</div></div>
-    <div class="speaker-card"><img class="speaker-photo" src="speakers/daniel-kravtsov.jpeg" alt=""><div class="speaker-name">Daniel Kravtsov</div><div class="speaker-role">Improvado</div><div class="speaker-topic">99 agents + graph</div></div>
-    <div class="speaker-card"><img class="speaker-photo" src="speakers/eugene-rid.jpg" alt=""><div class="speaker-name">Evgeny Rid</div><div class="speaker-role">@original_rid</div><div class="speaker-topic">AI &times; investments</div></div>
-    <div class="speaker-card"><img class="speaker-photo" src="speakers/bayram-annakov.jpg" alt=""><div class="speaker-name">Bayram Annakov</div><div class="speaker-role">onsa.ai</div><div class="speaker-topic">Sales automation</div></div>
-    <div class="speaker-card"><img class="speaker-photo" src="speakers/roma-buzko.jpg" alt=""><div class="speaker-name">Roma Buzko</div><div class="speaker-role">Buzko Krasnov</div><div class="speaker-topic">AI in legal</div></div>
+  <div class="label">// speakers &middot; current roster</div>
+  <h2><span class="teal">9</span> guest speakers + core team</h2>
+  <div class="speaker-grid compact">
+    <div class="speaker-card"><img class="speaker-photo" src="speakers/seva-ustinov.jpg" alt=""><div class="speaker-name">Seva Ustinov</div><div class="speaker-role">Plurio AI &middot; IT-Agency</div><div class="speaker-topic">team-scale AI</div></div>
+    <div class="speaker-card"><img class="speaker-photo" src="speakers/bayram-annakov.jpg" alt=""><div class="speaker-name">Bayram Annakov</div><div class="speaker-role">App in the Air &middot; onsa.ai</div><div class="speaker-topic">sales agents</div></div>
+    <div class="speaker-card"><img class="speaker-photo" src="speakers/roma-buzko.jpg" alt=""><div class="speaker-name">Roman Buzko</div><div class="speaker-role">Buzko Krasnov</div><div class="speaker-topic">legal AI</div></div>
+    <div class="speaker-card"><div class="initial-avatar">EK</div><div class="speaker-name">Evgeny Kuryshev</div><div class="speaker-role">ex-Yandex CTO &middot; Mirror AI</div><div class="speaker-topic">AI-native tech org</div></div>
+    <div class="speaker-card"><img class="speaker-photo" src="curators/serejaris.jpg" alt=""><div class="speaker-name">Sereja Ris</div><div class="speaker-role">@vibecod3rs</div><div class="speaker-topic">setup workshop</div></div>
+    <div class="speaker-card"><img class="speaker-photo" src="curators/densmirnov.jpg" alt=""><div class="speaker-name">Denis Smirnov</div><div class="speaker-role">ACME Labs</div><div class="speaker-topic">systems / evals</div></div>
+    <div class="speaker-card"><img class="speaker-photo" src="speakers/vitaly-kleban.jpg" alt=""><div class="speaker-name">Vitaly Kleban</div><div class="speaker-role">cyber.fund</div><div class="speaker-topic">self-improving agents</div></div>
+    <div class="speaker-card"><img class="speaker-photo" src="speakers/dima-khanarin.jpg" alt=""><div class="speaker-name">Dima Kharin</div><div class="speaker-role">AI transformation</div><div class="speaker-topic">company framework</div></div>
+    <div class="speaker-card"><div class="initial-avatar">EE</div><div class="speaker-name">Egor Egerev</div><div class="speaker-role">Tickets Cloud &middot; Burner</div><div class="speaker-topic">systems &amp; products</div></div>
   </div>
-  <div style="margin-top:12px;text-align:center"><span style="font-size:12px;color:var(--text-dim)">+ <span style="color:rgba(255,255,255,0.7)">Seva Ustinov</span> (Plurio AI, agent-product)</span></div>
-  <div style="margin-top:6px;text-align:center"><span style="font-size:11px;color:var(--text-dim)">bonus: дополнительные спикеры, мастермайнды, разборы кейсов</span></div>
+  <div class="alumni-strip">
+    <span class="alumni-pill"><img src="speakers/alex-amyotov.jpg" alt="">Alexey Amyotov</span>
+    <span class="alumni-pill"><img src="speakers/george-strakhov.png" alt="">George Strakhov</span>
+    <span class="alumni-pill"><img src="speakers/gleb-sidora.png" alt="">Gleb Sidora</span>
+    <span class="alumni-pill"><img src="speakers/daniel-kravtsov.jpeg" alt="">Daniil Kravtsov</span>
+    <span class="alumni-pill"><img src="speakers/eugene-rid.jpg" alt="">Eugene Rid</span>
+  </div>
+  <p class="roster-note">hosts: Alexander Povaliaev + Stepan Gershuni. Alumni v1 materials идут как записи/кейсы, не как live roster.</p>
 </div></div>
 
 <!-- S13: PROGRAM OVERVIEW -->
 <div class="slide" id="s13"><div class="slide-counter"><span class="current">13</span>/<span class="total"></span></div><img class="slide-logo" src="logo.png" alt=""><div class="slide-inner program-compact">
-  <div class="label">// program &middot; 3 weeks &middot; batch 2</div>
-  <h2>Программа: 4&ndash;25 мая</h2>
+  <div class="label">// program &middot; 2&ndash;25 May &middot; batch 2</div>
+  <h2>Программа: 2&ndash;25 мая</h2>
   <div style="display:flex;flex-direction:column;gap:12px">
-    <div class="week-card"><div class="week-header"><div class="week-num" style="background:var(--teal-dim);color:var(--teal)">W1</div><div class="week-title">POS &ndash; personal operating system</div><div class="week-dates">4&ndash;10 May</div></div>
-      <div class="week-row"><div class="week-row-time">пн 04.05</div><div style="width:6px;height:6px;border-radius:50%;background:var(--teal);flex-shrink:0"></div><div class="week-row-title">стартовая рамка: why AI-native, что строим за 3 недели</div><div class="week-row-dur">18:00</div></div>
-      <div class="week-row"><div class="week-row-time">вт</div><div style="width:6px;height:6px;border-radius:50%;background:var(--green);flex-shrink:0"></div><div class="week-row-title">personal OS setup: контекст, правила, рабочее окружение</div><div class="week-row-dur">practice</div></div>
-      <div class="week-row"><div class="week-row-time">ср&ndash;пт</div><div style="width:6px;height:6px;border-radius:50%;background:var(--blue);flex-shrink:0"></div><div class="week-row-title">process audit: 10 процессов, где AI должен войти первым</div><div class="week-row-dur">workshops</div></div>
-      <div class="week-row"><div class="week-row-time">сб</div><div style="width:6px;height:6px;border-radius:50%;background:var(--amber);flex-shrink:0"></div><div class="week-row-title">office hours + case routing to curators</div><div class="week-row-dur">10:00</div></div>
+    <div class="week-card"><div class="week-header"><div class="week-num" style="background:var(--teal-dim);color:var(--teal)">W0/W1</div><div class="week-title">Kickoff + Foundation</div><div class="week-dates">2&ndash;10 May</div></div>
+      <div class="week-row"><div class="week-row-time">сб 02.05</div><div style="width:6px;height:6px;border-radius:50%;background:var(--teal);flex-shrink:0"></div><div class="week-row-title">intro call: данные когорты, сквозной кейс, правила игры</div><div class="week-row-dur">12:00 CEST</div></div>
+      <div class="week-row"><div class="week-row-time">вт 05.05</div><div style="width:6px;height:6px;border-radius:50%;background:var(--green);flex-shrink:0"></div><div class="week-row-title">Denis Smirnov: systems / evals / fake-company module</div><div class="week-row-dur">12:00</div></div>
+      <div class="week-row"><div class="week-row-time">вт 05.05</div><div style="width:6px;height:6px;border-radius:50%;background:var(--blue);flex-shrink:0"></div><div class="week-row-title">Sereja Ris: setup workshop + tech stack routing</div><div class="week-row-dur">17:00</div></div>
+      <div class="week-row"><div class="week-row-time">сб 09.05</div><div style="width:6px;height:6px;border-radius:50%;background:var(--amber);flex-shrink:0"></div><div class="week-row-title">office hours: W1 artifacts + curator routing</div><div class="week-row-dur">12:00</div></div>
     </div>
     <div class="week-card"><div class="week-header"><div class="week-num" style="background:rgba(59,130,246,0.15);color:var(--blue)">W2</div><div class="week-title">MOS &ndash; management operating system</div><div class="week-dates">11&ndash;17 May</div></div>
-      <div class="week-row"><div class="week-row-time">пн 11.05</div><div style="width:6px;height:6px;border-radius:50%;background:var(--teal);flex-shrink:0"></div><div class="week-row-title">architecture: context, memory, skills, orchestration, governance</div><div class="week-row-dur">18:00</div></div>
-      <div class="week-row"><div class="week-row-time">вт</div><div style="width:6px;height:6px;border-radius:50%;background:var(--green);flex-shrink:0"></div><div class="week-row-title">manager loop: задачи, встречи, follow-up, decisions</div><div class="week-row-dur">practice</div></div>
-      <div class="week-row"><div class="week-row-time">ср&ndash;пт</div><div style="width:6px;height:6px;border-radius:50%;background:var(--blue);flex-shrink:0"></div><div class="week-row-title">agent workflows: routing, QA, logs, human-in-the-loop</div><div class="week-row-dur">workshops</div></div>
-      <div class="week-row"><div class="week-row-time">сб</div><div style="width:6px;height:6px;border-radius:50%;background:var(--amber);flex-shrink:0"></div><div class="week-row-title">office hours + mid-sprint artifact review</div><div class="week-row-dur">10:00</div></div>
+      <div class="week-row"><div class="week-row-time">вт 12.05</div><div style="width:6px;height:6px;border-radius:50%;background:var(--teal);flex-shrink:0"></div><div class="week-row-title">Denis Smirnov: system module 2</div><div class="week-row-dur">12:00</div></div>
+      <div class="week-row"><div class="week-row-time">ср 13.05</div><div style="width:6px;height:6px;border-radius:50%;background:var(--green);flex-shrink:0"></div><div class="week-row-title">Roman Buzko: legal AI in a real practice</div><div class="week-row-dur">17:00</div></div>
+      <div class="week-row"><div class="week-row-time">чт&ndash;пт</div><div style="width:6px;height:6px;border-radius:50%;background:var(--blue);flex-shrink:0"></div><div class="week-row-title">Kuryshev / Kleban / alumni showcase: architecture, agents, product cases</div><div class="week-row-dur">17:00</div></div>
+      <div class="week-row"><div class="week-row-time">сб 16.05</div><div style="width:6px;height:6px;border-radius:50%;background:var(--amber);flex-shrink:0"></div><div class="week-row-title">office hours: MOS / agent workflow review</div><div class="week-row-dur">12:00</div></div>
     </div>
     <div class="week-card"><div class="week-header"><div class="week-num" style="background:rgba(56,217,169,0.15);color:var(--green)">W3</div><div class="week-title">Company Functions + 90-day plan</div><div class="week-dates">18&ndash;25 May</div></div>
-      <div class="week-row"><div class="week-row-time">пн 18.05</div><div style="width:6px;height:6px;border-radius:50%;background:var(--teal);flex-shrink:0"></div><div class="week-row-title">function design: sales, ops, product, legal, finance, support, dev</div><div class="week-row-dur">18:00</div></div>
-      <div class="week-row"><div class="week-row-time">вт&ndash;чт</div><div style="width:6px;height:6px;border-radius:50%;background:var(--green);flex-shrink:0"></div><div class="week-row-title">build week: working contour + curator feedback</div><div class="week-row-dur">ship</div></div>
-      <div class="week-row"><div class="week-row-time">пт</div><div style="width:6px;height:6px;border-radius:50%;background:var(--amber);flex-shrink:0"></div><div class="week-row-title">Demo Day rehearsal: problem, workflow, evidence, next 90 days</div><div class="week-row-dur">prep</div></div>
-      <div class="week-row" style="background:rgba(255,107,107,0.06);border-radius:6px;padding:8px 0 8px 10px"><div class="week-row-time" style="color:var(--red);font-weight:600">пн 25.05</div><div style="width:8px;height:8px;border-radius:50%;background:var(--red);flex-shrink:0"></div><div class="week-row-title" style="color:#fff;font-weight:600">Demo Day: работающий контур + 90-day roadmap</div><div class="week-row-dur" style="background:rgba(255,107,107,0.15);color:var(--red)">18:00</div></div>
+      <div class="week-row"><div class="week-row-time">вт 19.05</div><div style="width:6px;height:6px;border-radius:50%;background:var(--teal);flex-shrink:0"></div><div class="week-row-title">Denis Smirnov: system module 3</div><div class="week-row-dur">12:00</div></div>
+      <div class="week-row"><div class="week-row-time">пт 22.05</div><div style="width:6px;height:6px;border-radius:50%;background:var(--green);flex-shrink:0"></div><div class="week-row-title">Seva Ustinov: team-scale AI / Plurio AI</div><div class="week-row-dur">17:00</div></div>
+      <div class="week-row"><div class="week-row-time">сб 23.05</div><div style="width:6px;height:6px;border-radius:50%;background:var(--amber);flex-shrink:0"></div><div class="week-row-title">office hours: Demo Day prep + 90-day roadmap</div><div class="week-row-dur">12:00</div></div>
+      <div class="week-row" style="background:rgba(255,107,107,0.06);border-radius:6px;padding:8px 0 8px 10px"><div class="week-row-time" style="color:var(--red);font-weight:600">пн 25.05</div><div style="width:8px;height:8px;border-radius:50%;background:var(--red);flex-shrink:0"></div><div class="week-row-title" style="color:#fff;font-weight:600">Demo Day: working contour + evidence + 90-day roadmap</div><div class="week-row-dur" style="background:rgba(255,107,107,0.15);color:var(--red)">17:00</div></div>
     </div>
   </div>
 </div></div>
@@ -855,19 +888,19 @@ body.vox-open #vox-panel {
 <div class="slide" id="s14"><div class="slide-counter"><span class="current">14</span>/<span class="total"></span></div><img class="slide-logo" src="logo.png" alt=""><div class="slide-inner">
   <div class="label" style="letter-spacing:4px;font-size:11px">// FORMAT DEEP DIVE</div>
   <h2>Как устроены <span class="teal">сессии</span></h2>
-  <p style="font-size:14px;color:var(--text-dim);margin-bottom:16px">типичная неделя спринта — 4 дня, каждый с конкретным результатом</p>
+  <p style="font-size:14px;color:var(--text-dim);margin-bottom:16px">типичная неделя спринта &ndash; практика, гости, curator routing и office hours</p>
   <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px">
     <div style="padding:16px;border:1px solid var(--teal);border-radius:12px;background:rgba(77,201,212,0.04);text-align:center">
       <p style="font-size:11px;color:var(--text-label);margin-bottom:6px;letter-spacing:1px">ПН</p>
       <p style="font-size:28px;font-weight:700;color:var(--teal);font-family:var(--font-heading)">2ч</p>
-      <p style="font-size:13px;color:#fff;font-weight:600;margin:6px 0 4px">лекция</p>
-      <p style="font-size:11px;color:var(--text-dim)">Гершуни — теория + кейсы + Q&amp;A</p>
+      <p style="font-size:13px;color:#fff;font-weight:600;margin:6px 0 4px">core frame</p>
+      <p style="font-size:11px;color:var(--text-dim)">рамка недели + Q&amp;A</p>
     </div>
     <div style="padding:16px;border:1px solid var(--green);border-radius:12px;background:rgba(56,217,169,0.04);text-align:center">
       <p style="font-size:11px;color:var(--text-label);margin-bottom:6px;letter-spacing:1px">ВТ</p>
       <p style="font-size:28px;font-weight:700;color:var(--green);font-family:var(--font-heading)">2ч</p>
-      <p style="font-size:13px;color:#fff;font-weight:600;margin:6px 0 4px">coworking</p>
-      <p style="font-size:11px;color:var(--text-dim)">Поваляев — focus + deep work</p>
+      <p style="font-size:13px;color:#fff;font-weight:600;margin:6px 0 4px">practice</p>
+      <p style="font-size:11px;color:var(--text-dim)">Denis / focus / build</p>
     </div>
     <div style="padding:16px;border:1px solid var(--blue);border-radius:12px;background:rgba(59,130,246,0.04);text-align:center">
       <p style="font-size:11px;color:var(--text-label);margin-bottom:6px;letter-spacing:1px">СР–ПТ</p>
@@ -884,15 +917,15 @@ body.vox-open #vox-panel {
   </div>
   <div style="display:flex;gap:10px">
     <div style="flex:1;display:flex;gap:10px">
-      <div style="flex:1;padding:12px;border:1px solid var(--border);border-radius:10px;background:var(--bg-card);text-align:center"><p style="font-size:24px;font-weight:700;color:var(--teal);font-family:var(--font-heading)">3</p><p style="font-size:10px;color:var(--text-dim)">лекции</p></div>
-      <div style="flex:1;padding:12px;border:1px solid var(--border);border-radius:10px;background:var(--bg-card);text-align:center"><p style="font-size:24px;font-weight:700;color:var(--green);font-family:var(--font-heading)">3+</p><p style="font-size:10px;color:var(--text-dim)">coworking</p></div>
-      <div style="flex:1;padding:12px;border:1px solid var(--border);border-radius:10px;background:var(--bg-card);text-align:center"><p style="font-size:24px;font-weight:700;color:var(--blue);font-family:var(--font-heading)">10+</p><p style="font-size:10px;color:var(--text-dim)">workshops</p></div>
+      <div style="flex:1;padding:12px;border:1px solid var(--border);border-radius:10px;background:var(--bg-card);text-align:center"><p style="font-size:24px;font-weight:700;color:var(--teal);font-family:var(--font-heading)">3</p><p style="font-size:10px;color:var(--text-dim)">system modules</p></div>
+      <div style="flex:1;padding:12px;border:1px solid var(--border);border-radius:10px;background:var(--bg-card);text-align:center"><p style="font-size:24px;font-weight:700;color:var(--green);font-family:var(--font-heading)">9</p><p style="font-size:10px;color:var(--text-dim)">guest speakers</p></div>
+      <div style="flex:1;padding:12px;border:1px solid var(--border);border-radius:10px;background:var(--bg-card);text-align:center"><p style="font-size:24px;font-weight:700;color:var(--blue);font-family:var(--font-heading)">22</p><p style="font-size:10px;color:var(--text-dim)">calendar events</p></div>
       <div style="flex:1;padding:12px;border:1px solid var(--border);border-radius:10px;background:var(--bg-card);text-align:center"><p style="font-size:24px;font-weight:700;color:var(--amber);font-family:var(--font-heading)">3</p><p style="font-size:10px;color:var(--text-dim)">office hours</p></div>
       <div style="flex:1;padding:12px;border:1px solid var(--border);border-radius:10px;background:var(--bg-card);text-align:center"><p style="font-size:24px;font-weight:700;color:var(--red);font-family:var(--font-heading)">1</p><p style="font-size:10px;color:var(--text-dim)">demo day</p></div>
     </div>
   </div>
   <div style="margin-top:12px;display:flex;gap:10px">
-    <div style="flex:1;padding:10px 14px;background:rgba(77,201,212,0.04);border:1px solid var(--border);border-radius:8px"><p style="font-size:12px;color:rgba(255,255,255,0.7)"><span class="teal" style="font-weight:600">18:00 CET</span> — основное время. coworking иногда в 12:00</p></div>
+    <div style="flex:1;padding:10px 14px;background:rgba(77,201,212,0.04);border:1px solid var(--border);border-radius:8px"><p style="font-size:12px;color:rgba(255,255,255,0.7)"><span class="teal" style="font-weight:600">17:00 CEST</span> &ndash; основное время. Denis / OH иногда в 12:00</p></div>
     <div style="flex:1;padding:10px 14px;background:rgba(77,201,212,0.04);border:1px solid var(--border);border-radius:8px"><p style="font-size:12px;color:rgba(255,255,255,0.7)"><span class="green" style="font-weight:600">записи</span> всех сессий доступны 12 месяцев</p></div>
   </div>
 </div></div>
@@ -905,7 +938,7 @@ body.vox-open #vox-panel {
     <div>
       <div class="stat-grid cols-2" style="margin-top:0;gap:10px">
         <div class="stat-box"><div class="num teal" style="font-size:36px">2ч</div><div class="stat-label">live session</div></div>
-        <div class="stat-box"><div class="num blue" style="font-size:36px">пн</div><div class="stat-label">18:00 CET</div></div>
+        <div class="stat-box"><div class="num blue" style="font-size:36px">пн</div><div class="stat-label">17:00 CEST</div></div>
       </div>
       <div style="margin-top:14px;padding:14px 18px;border:1px solid var(--border);border-radius:10px;background:var(--bg-card)">
         <div class="speaker-detail" style="margin-bottom:0;padding:12px;border:none;background:transparent">
@@ -940,7 +973,7 @@ body.vox-open #vox-panel {
     <div>
       <div class="stat-grid cols-2" style="margin-top:0;gap:10px">
         <div class="stat-box"><div class="num blue" style="font-size:36px">1.5&ndash;2ч</div><div class="stat-label">live session</div></div>
-        <div class="stat-box"><div class="num green" style="font-size:36px">вт&ndash;пт</div><div class="stat-label">18:00 CET</div></div>
+        <div class="stat-box"><div class="num green" style="font-size:36px">вт&ndash;пт</div><div class="stat-label">17:00 CEST</div></div>
       </div>
       <div class="layers" style="margin-top:14px;gap:6px">
         <div class="layer" style="padding:10px 14px"><div class="layer-num blue" style="min-width:24px;font-size:14px">40</div><div class="layer-desc" style="font-size:13px">мин теория &ndash; фреймворк от эксперта</div></div>
@@ -950,17 +983,17 @@ body.vox-open #vox-panel {
       <div class="quote-enhanced" style="margin-top:14px"><p style="font-size:13px">Каждый workshop = конкретный навык с конкретным результатом. Участник уходит с работающим артефактом.</p></div>
     </div>
     <div>
-      <p style="font-size:12px;color:var(--text-label);margin-bottom:8px;letter-spacing:2px">// все спикеры</p>
+      <p style="font-size:12px;color:var(--text-label);margin-bottom:8px;letter-spacing:2px">// current guest roster</p>
       <div style="display:flex;flex-direction:column;gap:5px">
-      <div class="speaker-detail" style="margin-bottom:0;padding:8px 12px"><img src="speakers/dima-khanarin.jpg" alt="" style="width:36px;height:36px"><div class="sd-info"><div class="sd-name" style="font-size:12px">Dima Khanarin</div><div class="sd-topic" style="font-size:10px;margin-top:1px">AI transformation &ndash; framework + action plan</div></div></div>
-      <div class="speaker-detail" style="margin-bottom:0;padding:8px 12px"><img src="speakers/alex-amyotov.jpg" alt="" style="width:36px;height:36px"><div class="sd-info"><div class="sd-name" style="font-size:12px">Alexey Ametov</div><div class="sd-topic" style="font-size:10px;margin-top:1px">AI-контент &ndash; pipeline + verification</div></div></div>
-      <div class="speaker-detail" style="margin-bottom:0;padding:8px 12px"><img src="speakers/vitaly-kleban.jpg" alt="" style="width:36px;height:36px"><div class="sd-info"><div class="sd-name" style="font-size:12px">Vitaly Kleban</div><div class="sd-topic" style="font-size:10px;margin-top:1px">self-improving agents &ndash; live demo</div></div></div>
-      <div class="speaker-detail" style="margin-bottom:0;padding:8px 12px"><img src="speakers/valerii kovalskii.jpg" alt="" style="width:36px;height:36px"><div class="sd-info"><div class="sd-name" style="font-size:12px">Valery Kovalskii</div><div class="sd-topic" style="font-size:10px;margin-top:1px">AI-driven dev &ndash; live build</div></div></div>
-      <div class="speaker-detail" style="margin-bottom:0;padding:8px 12px"><img src="speakers/daniel-kravtsov.jpeg" alt="" style="width:36px;height:36px"><div class="sd-info"><div class="sd-name" style="font-size:12px">Daniel Kravtsov</div><div class="sd-topic" style="font-size:10px;margin-top:1px">99 агентов + knowledge graph</div></div></div>
-      <div class="speaker-detail" style="margin-bottom:0;padding:8px 12px"><img src="speakers/bayram-annakov.jpg" alt="" style="width:36px;height:36px"><div class="sd-info"><div class="sd-name" style="font-size:12px">Bayram Annakov</div><div class="sd-topic" style="font-size:10px;margin-top:1px">AI sales automation &ndash; onsa.ai</div></div></div>
-      <div class="speaker-detail" style="margin-bottom:0;padding:8px 12px"><img src="speakers/roma-buzko.jpg" alt="" style="width:36px;height:36px"><div class="sd-info"><div class="sd-name" style="font-size:12px">Roma Buzko</div><div class="sd-topic" style="font-size:10px;margin-top:1px">AI in legal &ndash; Buzko Krasnov</div></div></div>
-      <div class="speaker-detail" style="margin-bottom:0;padding:8px 12px"><img src="speakers/seva-ustinov.jpg" alt="" style="width:36px;height:36px"><div class="sd-info"><div class="sd-name" style="font-size:12px">Seva Ustinov</div><div class="sd-topic" style="font-size:10px;margin-top:1px">agent-product &ndash; Plurio AI</div></div></div>
-      <div class="speaker-detail" style="margin-bottom:0;padding:8px 12px"><img src="speakers/eugene-rid.jpg" alt="" style="width:36px;height:36px"><div class="sd-info"><div class="sd-name" style="font-size:12px">Evgeny Rid</div><div class="sd-topic" style="font-size:10px;margin-top:1px">AI &times; investments</div></div></div>
+      <div class="speaker-detail" style="margin-bottom:0;padding:7px 12px"><img src="speakers/seva-ustinov.jpg" alt="" style="width:34px;height:34px"><div class="sd-info"><div class="sd-name" style="font-size:12px">Seva Ustinov</div><div class="sd-topic" style="font-size:10px;margin-top:1px">Plurio AI &ndash; team-scale AI</div></div></div>
+      <div class="speaker-detail" style="margin-bottom:0;padding:7px 12px"><img src="speakers/bayram-annakov.jpg" alt="" style="width:34px;height:34px"><div class="sd-info"><div class="sd-name" style="font-size:12px">Bayram Annakov</div><div class="sd-topic" style="font-size:10px;margin-top:1px">onsa.ai &ndash; sales agents</div></div></div>
+      <div class="speaker-detail" style="margin-bottom:0;padding:7px 12px"><img src="speakers/roma-buzko.jpg" alt="" style="width:34px;height:34px"><div class="sd-info"><div class="sd-name" style="font-size:12px">Roman Buzko</div><div class="sd-topic" style="font-size:10px;margin-top:1px">legal AI &ndash; Buzko Krasnov</div></div></div>
+      <div class="speaker-detail" style="margin-bottom:0;padding:7px 12px"><div class="initial-avatar" style="width:34px;height:34px;font-size:11px;margin:0">EK</div><div class="sd-info"><div class="sd-name" style="font-size:12px">Evgeny Kuryshev</div><div class="sd-topic" style="font-size:10px;margin-top:1px">ex-Yandex CTO &ndash; AI-native tech org</div></div></div>
+      <div class="speaker-detail" style="margin-bottom:0;padding:7px 12px"><img src="curators/serejaris.jpg" alt="" style="width:34px;height:34px"><div class="sd-info"><div class="sd-name" style="font-size:12px">Sereja Ris</div><div class="sd-topic" style="font-size:10px;margin-top:1px">setup workshop &ndash; @vibecod3rs</div></div></div>
+      <div class="speaker-detail" style="margin-bottom:0;padding:7px 12px"><img src="curators/densmirnov.jpg" alt="" style="width:34px;height:34px"><div class="sd-info"><div class="sd-name" style="font-size:12px">Denis Smirnov</div><div class="sd-topic" style="font-size:10px;margin-top:1px">systems, evals, fake-company modules</div></div></div>
+      <div class="speaker-detail" style="margin-bottom:0;padding:7px 12px"><img src="speakers/vitaly-kleban.jpg" alt="" style="width:34px;height:34px"><div class="sd-info"><div class="sd-name" style="font-size:12px">Vitaly Kleban</div><div class="sd-topic" style="font-size:10px;margin-top:1px">self-improving agents &ndash; cyber.fund</div></div></div>
+      <div class="speaker-detail" style="margin-bottom:0;padding:7px 12px"><img src="speakers/dima-khanarin.jpg" alt="" style="width:34px;height:34px"><div class="sd-info"><div class="sd-name" style="font-size:12px">Dima Kharin</div><div class="sd-topic" style="font-size:10px;margin-top:1px">AI transformation framework</div></div></div>
+      <div class="speaker-detail" style="margin-bottom:0;padding:7px 12px"><div class="initial-avatar" style="width:34px;height:34px;font-size:11px;margin:0">EE</div><div class="sd-info"><div class="sd-name" style="font-size:12px">Egor Egerev</div><div class="sd-topic" style="font-size:10px;margin-top:1px">Tickets Cloud / Burner &ndash; systems &amp; products</div></div></div>
       </div>
     </div>
   </div>
@@ -974,7 +1007,7 @@ body.vox-open #vox-panel {
     <div>
       <div class="stat-grid cols-2" style="margin-top:0;gap:10px">
         <div class="stat-box"><div class="num green" style="font-size:36px">2ч</div><div class="stat-label">deep work session</div></div>
-        <div class="stat-box"><div class="num teal" style="font-size:36px">вт</div><div class="stat-label">12:00 или 18:00 CET</div></div>
+        <div class="stat-box"><div class="num teal" style="font-size:36px">вт</div><div class="stat-label">12:00 или 17:00 CEST</div></div>
       </div>
       <div style="margin-top:14px;padding:14px 18px;border:1px solid var(--border);border-radius:10px;background:var(--bg-card)">
         <div class="speaker-detail" style="margin-bottom:0;padding:12px;border:none;background:transparent">
@@ -1015,7 +1048,7 @@ body.vox-open #vox-panel {
     <div>
       <div class="stat-grid cols-2" style="margin-top:0;gap:10px">
         <div class="stat-box"><div class="num amber" style="font-size:36px">1&ndash;2ч</div><div class="stat-label">open session</div></div>
-        <div class="stat-box"><div class="num teal" style="font-size:36px">сб</div><div class="stat-label">10:00 CET</div></div>
+        <div class="stat-box"><div class="num teal" style="font-size:36px">сб</div><div class="stat-label">12:00 CEST</div></div>
       </div>
       <div class="layers" style="margin-top:14px;gap:6px">
         <div class="layer" style="padding:10px 14px"><div class="layer-num amber" style="min-width:24px;font-size:14px">01</div><div class="layer-desc" style="font-size:13px">Hot seat &ndash; каждый участник задаёт вопрос по своей ситуации</div></div>
@@ -1052,7 +1085,7 @@ body.vox-open #vox-panel {
   <div class="split" style="gap:32px;align-items:start">
     <div>
       <div class="stat-grid cols-2" style="margin-top:0;gap:10px">
-        <div class="stat-box" style="border-top:2px solid var(--red)"><div class="num red" style="font-size:36px">пн</div><div class="stat-label">25 мая &middot; 18:00 CET</div></div>
+        <div class="stat-box" style="border-top:2px solid var(--red)"><div class="num red" style="font-size:36px">пн</div><div class="stat-label">25 мая &middot; 17:00 CEST</div></div>
         <div class="stat-box" style="border-top:2px solid var(--teal)"><div class="num teal" style="font-size:36px">5+3</div><div class="stat-label">мин выступление + Q&A</div></div>
       </div>
       <p style="font-size:12px;color:var(--text-label);margin-top:16px;margin-bottom:10px;letter-spacing:2px">// СТРУКТУРА ВЫСТУПЛЕНИЯ</p>
@@ -1073,47 +1106,35 @@ body.vox-open #vox-panel {
         <div class="card" style="padding:14px;border-left:3px solid var(--teal)"><h3 style="font-size:14px;margin-bottom:4px">Обратная связь от экспертов</h3><p style="font-size:12px">Конкретные рекомендации для вашего плана</p></div>
         <div class="card" style="padding:14px;border-left:3px solid var(--green)"><h3 style="font-size:14px;margin-bottom:4px">Подготовка с Week 2</h3><p style="font-size:12px">Кураторы помогают с презентацией</p></div>
       </div>
-      <div style="margin-top:12px;padding:12px 16px;background:rgba(255,107,107,0.06);border:1px solid rgba(255,107,107,0.15);border-radius:8px;text-align:center"><p style="font-size:14px;color:rgba(255,255,255,0.85);font-weight:600"><span class="red">Demo Day:</span> понедельник 25 мая 18:00 CET</p></div>
+      <div style="margin-top:12px;padding:12px 16px;background:rgba(255,107,107,0.06);border:1px solid rgba(255,107,107,0.15);border-radius:8px;text-align:center"><p style="font-size:14px;color:rgba(255,255,255,0.85);font-weight:600"><span class="red">Demo Day:</span> понедельник 25 мая 17:00 CEST</p></div>
     </div>
   </div>
 </div></div>
 
 <!-- S20: CURATORS DETAIL -->
 <div class="slide" id="s20"><div class="slide-counter"><span class="current">20</span>/<span class="total"></span></div><img class="slide-logo" src="logo.png" alt=""><div class="slide-inner">
-  <div class="label">// format &middot; curators support</div>
-  <h2>Кураторы <span class="dim" style="font-size:22px;font-weight:400">&ndash; поддержка между сессиями</span></h2>
+  <div class="label">// format &middot; curator routing</div>
+  <h2>Как работать с <span class="teal">кураторами</span></h2>
   <div class="split" style="gap:32px;align-items:start">
     <div>
       <div class="stat-grid cols-2" style="margin-top:0;gap:10px">
-        <div class="stat-box"><div class="num teal" style="font-size:36px">12</div><div class="stat-label">кураторов-практиков</div></div>
-        <div class="stat-box"><div class="num green" style="font-size:36px">1-1</div><div class="stat-label">персональная работа</div></div>
+        <div class="stat-box"><div class="num teal" style="font-size:36px">4</div><div class="stat-label">support tracks</div></div>
+        <div class="stat-box"><div class="num green" style="font-size:36px">TG</div><div class="stat-label">async first</div></div>
       </div>
       <div class="layers" style="margin-top:14px;gap:6px">
-        <div class="layer" style="padding:10px 14px"><div class="layer-num teal" style="min-width:24px;font-size:14px">01</div><div class="layer-desc" style="font-size:13px">Помощь между сессиями &ndash; async в Telegram</div></div>
-        <div class="layer" style="padding:10px 14px"><div class="layer-num blue" style="min-width:24px;font-size:14px">02</div><div class="layer-desc" style="font-size:13px">Проверка артефактов, обратная связь</div></div>
-        <div class="layer" style="padding:10px 14px"><div class="layer-num green" style="min-width:24px;font-size:14px">03</div><div class="layer-desc" style="font-size:13px">Подготовка к Demo Day</div></div>
-        <div class="layer" style="padding:10px 14px"><div class="layer-num amber" style="min-width:24px;font-size:14px">04</div><div class="layer-desc" style="font-size:13px">Check-ins каждые 2 дня</div></div>
+        <div class="layer" style="padding:10px 14px"><div class="layer-num teal" style="min-width:24px;font-size:14px">01</div><div class="layer-desc" style="font-size:13px">сформулировать кейс: функция, текущий процесс, желаемый контур</div></div>
+        <div class="layer" style="padding:10px 14px"><div class="layer-num blue" style="min-width:24px;font-size:14px">02</div><div class="layer-desc" style="font-size:13px">принести артефакт: prompt, skill, workflow, screen, логи, схему</div></div>
+        <div class="layer" style="padding:10px 14px"><div class="layer-num green" style="min-width:24px;font-size:14px">03</div><div class="layer-desc" style="font-size:13px">получить routing: beginner, tech, systems, ops или Demo Day prep</div></div>
+        <div class="layer" style="padding:10px 14px"><div class="layer-num amber" style="min-width:24px;font-size:14px">04</div><div class="layer-desc" style="font-size:13px">фиксировать next action после каждого разбора</div></div>
       </div>
     </div>
     <div>
-      <p style="font-size:12px;color:var(--text-label);margin-bottom:10px;letter-spacing:2px">// КТО ОНИ</p>
-      <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin-top:0">
-        <div style="text-align:center"><img src="curators/Kettarian_Fox.jpg" alt="Fedoseev" style="width:40px;height:40px;border-radius:50%;object-fit:cover;border:1.5px solid var(--border)"></div>
-        <div style="text-align:center"><img src="curators/doonto.jpg" alt="Yury" style="width:40px;height:40px;border-radius:50%;object-fit:cover;border:1.5px solid var(--border)"></div>
-        <div style="text-align:center"><img src="curators/He11ya.jpg" alt="Jin" style="width:40px;height:40px;border-radius:50%;object-fit:cover;border:1.5px solid var(--border)"></div>
-        <div style="text-align:center"><img src="curators/prcdrl.jpg" alt="Glazov" style="width:40px;height:40px;border-radius:50%;object-fit:cover;border:1.5px solid var(--border)"></div>
-        <div style="text-align:center"><img src="curators/AlexFrmn.jpg" alt="Vasiliev" style="width:40px;height:40px;border-radius:50%;object-fit:cover;border:1.5px solid var(--border)"></div>
-        <div style="text-align:center"><img src="curators/serejaris.jpg" alt="Ris" style="width:40px;height:40px;border-radius:50%;object-fit:cover;border:1.5px solid var(--border)"></div>
-        <div style="text-align:center"><img src="curators/igindin.jpg" alt="Gindin" style="width:40px;height:40px;border-radius:50%;object-fit:cover;border:1.5px solid var(--border)"></div>
-        <div style="text-align:center"><img src="curators/northcapen.jpg" alt="Voskobovich" style="width:40px;height:40px;border-radius:50%;object-fit:cover;border:1.5px solid var(--border)"></div>
-        <div style="text-align:center"><img src="curators/Alexander_Stashenko.jpg" alt="Stashenko" style="width:40px;height:40px;border-radius:50%;object-fit:cover;border:1.5px solid var(--border)"></div>
-        <div style="text-align:center"><img src="curators/ks_andr_a.jpg" alt="Tkacheva" style="width:40px;height:40px;border-radius:50%;object-fit:cover;border:1.5px solid var(--border)"></div>
-        <div style="text-align:center"><div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,rgba(255,107,107,0.3),rgba(255,59,139,0.2));border:1.5px solid var(--border);display:inline-flex;align-items:center;justify-content:center;font-family:var(--font-heading);font-size:13px;font-weight:600;color:#fff">DS</div></div>
-        <div style="text-align:center"><div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,rgba(77,201,212,0.3),rgba(56,217,169,0.2));border:1.5px solid var(--border);display:inline-flex;align-items:center;justify-content:center;font-family:var(--font-heading);font-size:13px;font-weight:600;color:#fff">IG</div></div>
-      </div>
-      <div style="margin-top:12px;padding:12px 16px;border:1px solid var(--border);border-radius:8px;background:var(--bg-card)">
-        <p style="font-size:13px;color:var(--teal);margin-bottom:4px;font-weight:600">как записаться</p>
-        <p style="font-size:12px;color:var(--text-dim)">Ваш куратор будет назначен на этой неделе. Пишите в чат кураторов для 1-1 разборов.</p>
+      <p style="font-size:12px;color:var(--text-label);margin-bottom:10px;letter-spacing:2px">// ROUTING MAP</p>
+      <div class="cards" style="grid-template-columns:1fr;gap:8px;margin-top:0">
+        <div class="card" style="padding:12px;border-left:3px solid var(--blue)"><h3 style="font-size:14px;margin-bottom:4px">новичкам</h3><p style="font-size:12px">Jin / Glazov / Fedoseev: первый workflow, понятная сборка, меньше tool chaos.</p></div>
+        <div class="card" style="padding:12px;border-left:3px solid var(--teal)"><h3 style="font-size:14px;margin-bottom:4px">техническому треку</h3><p style="font-size:12px">Ris / Vasiliev: Claude Code, multi-agent setup, infra, навыки и окружение.</p></div>
+        <div class="card" style="padding:12px;border-left:3px solid var(--green)"><h3 style="font-size:14px;margin-bottom:4px">системному треку</h3><p style="font-size:12px">Denis / Doonto: evals, governance, fake-company, enterprise architecture.</p></div>
+        <div class="card" style="padding:12px;border-left:3px solid var(--amber)"><h3 style="font-size:14px;margin-bottom:4px">операционному слою</h3><p style="font-size:12px">Karina: расписание, маршрутизация, доступы, точки синхронизации.</p></div>
       </div>
     </div>
   </div>
@@ -1126,7 +1147,7 @@ body.vox-open #vox-panel {
   <div class="split" style="gap:32px;align-items:start">
     <div>
       <div class="stat-grid cols-2" style="margin-top:0;gap:10px">
-        <div class="stat-box"><div class="num teal" style="font-size:36px">200+</div><div class="stat-label">участников в чате</div></div>
+        <div class="stat-box"><div class="num teal" style="font-size:36px">132</div><div class="stat-label">unique participants</div></div>
         <div class="stat-box"><div class="num green" style="font-size:36px">24/7</div><div class="stat-label">async доступ</div></div>
       </div>
       <div class="layers" style="margin-top:14px;gap:6px">
@@ -1142,7 +1163,7 @@ body.vox-open #vox-panel {
         <div class="card" style="padding:14px;border-left:3px solid var(--teal)"><h3 style="font-size:14px;margin-bottom:4px">Записи &ndash; 12 месяцев</h3><p style="font-size:12px">Все сессии доступны на learn.aimindset.org</p></div>
         <div class="card" style="padding:14px;border-left:3px solid var(--blue)"><h3 style="font-size:14px;margin-bottom:4px">Vault с шаблонами</h3><p style="font-size:12px">Skills, playbooks, ontology &ndash; всё в Obsidian vault</p></div>
         <div class="card" style="padding:14px;border-left:3px solid var(--green)"><h3 style="font-size:14px;margin-bottom:4px">Alumni community</h3><p style="font-size:12px">Доступ в чат и нетворкинг навсегда</p></div>
-        <div class="card" style="padding:14px;border-left:3px solid var(--amber)"><h3 style="font-size:14px;margin-bottom:4px">Office hours по субботам</h3><p style="font-size:12px">Поваляев + спикеры &ndash; каждую субботу 10:00 CET</p></div>
+        <div class="card" style="padding:14px;border-left:3px solid var(--amber)"><h3 style="font-size:14px;margin-bottom:4px">Office hours по субботам</h3><p style="font-size:12px">09 / 16 / 23 мая в 12:00 CEST</p></div>
       </div>
       <div style="margin-top:12px;padding:10px 14px;background:rgba(77,201,212,0.04);border:1px solid var(--border);border-radius:8px;text-align:center"><p style="font-size:12px;color:rgba(255,255,255,0.7)"><span class="teal">25%</span> скидка на следующие программы для alumni</p></div>
     </div>
@@ -1164,13 +1185,13 @@ body.vox-open #vox-panel {
           <div class="layer-num red" style="min-width:24px;font-size:11px;font-weight:700;letter-spacing:1px">PRE</div>
           <div>
             <div class="layer-name" style="font-size:13px;min-width:0">prerequisite</div>
-            <div class="layer-desc" style="font-size:11px">4 видео перед стартом &ndash; POS prework</div>
+            <div class="layer-desc" style="font-size:11px">setup materials + Sereja Ris prerequisite</div>
           </div>
         </div>
         <div class="layer" style="padding:10px 14px;border-left:3px solid var(--teal)">
           <div class="layer-num teal" style="min-width:24px;font-size:14px">W1</div>
           <div>
-            <div class="layer-name" style="font-size:13px;min-width:0">неделя 1 &ndash; 3</div>
+            <div class="layer-name" style="font-size:13px;min-width:0">недели 1 &ndash; 3</div>
             <div class="layer-desc" style="font-size:11px">лекции, воркшопы, записи, материалы</div>
           </div>
         </div>
@@ -1191,8 +1212,8 @@ body.vox-open #vox-panel {
       </div>
       <div style="margin-top:12px;display:flex;gap:8px">
         <div style="flex:1;padding:10px 12px;border:1px solid var(--border);border-radius:8px;background:var(--bg-card);text-align:center">
-          <p style="font-size:20px;font-weight:700;color:var(--teal);font-family:var(--font-heading)">24</p>
-          <p style="font-size:10px;color:var(--text-dim)">артефакта в коллекции</p>
+          <p style="font-size:20px;font-weight:700;color:var(--teal);font-family:var(--font-heading)">live</p>
+          <p style="font-size:10px;color:var(--text-dim)">Q&amp;A к сессиям</p>
         </div>
         <div style="flex:1;padding:10px 12px;border:1px solid var(--border);border-radius:8px;background:var(--bg-card);text-align:center">
           <p style="font-size:20px;font-weight:700;color:var(--green);font-family:var(--font-heading)">12</p>
@@ -1216,9 +1237,9 @@ body.vox-open #vox-panel {
               <span style="font-size:12px;color:var(--text-dim);cursor:pointer">&#9650;</span>
               <span style="font-size:12px;color:var(--text-dim);font-weight:600">0</span>
             </div>
-            <p style="font-size:11px;color:rgba(255,255,255,0.7);line-height:1.5">Сотрудники саботируют: боятся потерять работу, нравится незаменимость, страх что все узнают про дыры в процессах. Что делать?</p>
+            <p style="font-size:11px;color:rgba(255,255,255,0.7);line-height:1.5">пример: команда пользуется AI точечно, но процессы не меняются. с чего начать внедрение без сопротивления?</p>
           </div>
-          <p style="font-size:9px;color:var(--text-dim);margin-top:4px">@iserg &middot; 3 часа назад</p>
+          <p style="font-size:9px;color:var(--text-dim);margin-top:4px">пример вопроса участника</p>
         </div>
         <div style="padding:10px 12px;border:1px solid var(--border);border-radius:8px;background:rgba(28,28,46,0.5)">
           <div style="display:flex;align-items:start;gap:8px">
@@ -1226,9 +1247,9 @@ body.vox-open #vox-panel {
               <span style="font-size:12px;color:var(--text-dim);cursor:pointer">&#9650;</span>
               <span style="font-size:12px;color:var(--text-dim);font-weight:600">0</span>
             </div>
-            <p style="font-size:11px;color:rgba(255,255,255,0.7);line-height:1.5">Как слезть с Google Docs на уровне компании? Люди не хотят git и папки.</p>
+            <p style="font-size:11px;color:rgba(255,255,255,0.7);line-height:1.5">пример: где хранить контекст компании, чтобы агенты работали с актуальными правилами и владельцами?</p>
           </div>
-          <p style="font-size:9px;color:var(--text-dim);margin-top:4px">@iserg &middot; 2 часа назад</p>
+          <p style="font-size:9px;color:var(--text-dim);margin-top:4px">пример вопроса участника</p>
         </div>
       </div>
       <div class="cards" style="grid-template-columns:1fr;gap:6px;margin-top:0">
@@ -1253,16 +1274,16 @@ body.vox-open #vox-panel {
   <svg viewBox="0 0 1000 440" width="100%" style="max-width:1000px;margin:12px auto 0">
     <!-- Timeline line -->
     <line x1="80" y1="200" x2="920" y2="200" stroke="var(--teal)" stroke-width="2" opacity="0.3"/>
-    <!-- Prework -->
+    <!-- Kickoff -->
     <circle cx="120" cy="200" r="24" fill="rgba(255,107,107,0.1)" stroke="var(--red)" stroke-width="2"/>
-    <text x="120" y="196" text-anchor="middle" fill="var(--red)" font-family="Space Grotesk" font-size="10" font-weight="700">PRE</text>
-    <text x="120" y="208" text-anchor="middle" fill="var(--red)" font-family="IBM Plex Mono" font-size="8">WORK</text>
-    <text x="120" y="246" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-family="IBM Plex Mono" font-size="10">POS prework</text>
-    <text x="120" y="260" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-family="IBM Plex Mono" font-size="9">4 видео</text>
+    <text x="120" y="196" text-anchor="middle" fill="var(--red)" font-family="Space Grotesk" font-size="10" font-weight="700">W0</text>
+    <text x="120" y="208" text-anchor="middle" fill="var(--red)" font-family="IBM Plex Mono" font-size="8">2 MAY</text>
+    <text x="120" y="246" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-family="IBM Plex Mono" font-size="10">intro call</text>
+    <text x="120" y="260" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-family="IBM Plex Mono" font-size="9">case choice</text>
     <!-- W1 -->
     <circle cx="320" cy="200" r="32" fill="rgba(77,201,212,0.1)" stroke="var(--teal)" stroke-width="2"/>
     <text x="320" y="196" text-anchor="middle" fill="var(--teal)" font-family="Space Grotesk" font-size="14" font-weight="700">W1</text>
-    <text x="320" y="210" text-anchor="middle" fill="var(--teal)" font-family="IBM Plex Mono" font-size="8">4&ndash;10 MAY</text>
+    <text x="320" y="210" text-anchor="middle" fill="var(--teal)" font-family="IBM Plex Mono" font-size="8">4&ndash;8 MAY</text>
     <text x="320" y="248" text-anchor="middle" fill="#fff" font-family="Space Grotesk" font-size="12" font-weight="600">POS</text>
     <text x="320" y="264" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="IBM Plex Mono" font-size="9">контекст + правила</text>
     <text x="320" y="278" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="IBM Plex Mono" font-size="9">рабочая среда</text>
@@ -1282,7 +1303,7 @@ body.vox-open #vox-panel {
     <!-- W3 -->
     <circle cx="720" cy="200" r="32" fill="rgba(56,217,169,0.1)" stroke="var(--green)" stroke-width="2"/>
     <text x="720" y="196" text-anchor="middle" fill="var(--green)" font-family="Space Grotesk" font-size="14" font-weight="700">W3</text>
-    <text x="720" y="210" text-anchor="middle" fill="var(--green)" font-family="IBM Plex Mono" font-size="8">18&ndash;24 MAY</text>
+    <text x="720" y="210" text-anchor="middle" fill="var(--green)" font-family="IBM Plex Mono" font-size="8">18&ndash;22 MAY</text>
     <text x="720" y="248" text-anchor="middle" fill="#fff" font-family="Space Grotesk" font-size="12" font-weight="600">Functions</text>
     <text x="720" y="264" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="IBM Plex Mono" font-size="9">automated process</text>
     <text x="720" y="278" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="IBM Plex Mono" font-size="9">AI champions</text>
@@ -1299,14 +1320,14 @@ body.vox-open #vox-panel {
     <!-- Arrow -->
     <line x1="760" y1="200" x2="864" y2="200" stroke="var(--red)" stroke-width="1" opacity="0.4" stroke-dasharray="4,4"/>
     <!-- Bottom: artifacts count -->
-    <text x="500" y="340" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-family="IBM Plex Mono" font-size="11">сквозной кейс за спринт &middot; от personal OS до company function</text>
+    <text x="500" y="340" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-family="IBM Plex Mono" font-size="11">132 participants &middot; 9 guest speakers &middot; 8+ curators &middot; 1 Demo Day</text>
     <!-- Weekly format icons -->
-    <text x="320" y="150" text-anchor="middle" fill="var(--teal)" font-family="IBM Plex Mono" font-size="9" opacity="0.6">лекция + 2 workshop + office hours</text>
-    <text x="520" y="150" text-anchor="middle" fill="var(--blue)" font-family="IBM Plex Mono" font-size="9" opacity="0.6">лекция + coworking + 4 guest</text>
-    <text x="720" y="150" text-anchor="middle" fill="var(--green)" font-family="IBM Plex Mono" font-size="9" opacity="0.6">лекция + coworking + 4 guest</text>
+    <text x="320" y="150" text-anchor="middle" fill="var(--teal)" font-family="IBM Plex Mono" font-size="9" opacity="0.6">setup + Denis + Ris + OH</text>
+    <text x="520" y="150" text-anchor="middle" fill="var(--blue)" font-family="IBM Plex Mono" font-size="9" opacity="0.6">Denis + Roman + Kuryshev/Kleban</text>
+    <text x="720" y="150" text-anchor="middle" fill="var(--green)" font-family="IBM Plex Mono" font-size="9" opacity="0.6">function focus + Seva + prep</text>
   </svg>
   <div style="display:flex;gap:16px;justify-content:center;margin-top:8px">
-    <div style="padding:10px 20px;border:1px solid var(--border);border-radius:8px;background:var(--bg-card)"><p style="font-size:13px;color:rgba(255,255,255,0.8);text-align:center"><span class="teal" style="font-weight:600">1</span> сквозной кейс &middot; <span class="blue" style="font-weight:600">10+</span> sessions &middot; <span class="green" style="font-weight:600">12</span> кураторов &middot; <span class="red" style="font-weight:600">1</span> Demo Day</p></div>
+    <div style="padding:10px 20px;border:1px solid var(--border);border-radius:8px;background:var(--bg-card)"><p style="font-size:13px;color:rgba(255,255,255,0.8);text-align:center"><span class="teal" style="font-weight:600">1</span> сквозной кейс &middot; <span class="blue" style="font-weight:600">22</span> calendar events &middot; <span class="green" style="font-weight:600">8+</span> кураторов &middot; <span class="red" style="font-weight:600">25.05</span> Demo Day</p></div>
   </div>
 </div></div>
 
@@ -1371,7 +1392,7 @@ body.vox-open #vox-panel {
 </div>
 
 <!-- ============================================================
-     VOX BOT — AI Assistant Panel
+     VOX BOT – AI Assistant Panel
      HTML elements for ainative-deck presentation system
      Insert before </body>, after img-action-menu
      ============================================================ -->
@@ -1479,7 +1500,7 @@ function imgActionImage(){document.getElementById('img-action-menu').classList.r
 function openAiModal(){document.getElementById('ai-modal').classList.add('visible');document.getElementById('ai-prompt').focus();document.querySelectorAll('#ai-modal-inner .ai-mode-tabs button').forEach(function(b){b.classList.toggle('active',b.dataset.mode===aiMode)});document.getElementById('ai-preview').classList.remove('visible');document.getElementById('ai-insert-btn').style.display='none';document.getElementById('ai-generate-btn').style.display='';document.getElementById('ai-status').textContent='';aiResult=null}
 function closeAiModal(){document.getElementById('ai-modal').classList.remove('visible')}
 function setAiMode(m){aiMode=m;document.querySelectorAll('#ai-modal-inner .ai-mode-tabs button').forEach(function(b){b.classList.toggle('active',b.dataset.mode===m)})}
-async function runAiGeneration(){var prompt=document.getElementById('ai-prompt').value.trim();if(!prompt)return;var statusEl=document.getElementById('ai-status'),previewEl=document.getElementById('ai-preview'),insertBtn=document.getElementById('ai-insert-btn'),generateBtn=document.getElementById('ai-generate-btn');statusEl.textContent='generating...';generateBtn.style.display='none';try{var sysPrompt=aiMode==='svg'?'Create a visually rich SVG illustration. Style: dark background #161620, primary accent #4dc9d4 (teal), secondary #3b82f6 (blue). Use gradients, subtle glow effects, rounded shapes. viewBox="0 0 600 400". Return ONLY the raw <svg>...</svg> code. No markdown, no code fences, no explanation, no text before or after the SVG tag. Subject: '+prompt:'Create a detailed, visually rich SVG illustration. Dark background #161620, teal accent #4dc9d4, blue #3b82f6. Use: radial gradients, linear gradients, glow effects (feGaussianBlur), rounded shapes, layered composition, subtle opacity variations. Make it look like a polished infographic. viewBox="0 0 800 500". Return ONLY the <svg>...</svg> code. No markdown fences. Subject: '+prompt;var resp=await fetch(OR_BASE+'/chat/completions',{method:'POST',headers:{'Authorization':'Bearer '+OR_KEY,'Content-Type':'application/json','HTTP-Referer':location.href},body:JSON.stringify({model:'anthropic/claude-sonnet-4-20250514',messages:[{role:'user',content:sysPrompt}],max_tokens:aiMode==='svg'?6000:8000})});if(!resp.ok){var errBody=await resp.text();statusEl.textContent='API error '+resp.status+': '+(errBody.slice(0,120));generateBtn.style.display='';return}var data=await resp.json();if(data.error){statusEl.textContent='API error: '+(data.error.message||JSON.stringify(data.error).slice(0,120));generateBtn.style.display='';return}var content=data.choices&&data.choices[0]&&data.choices[0].message?data.choices[0].message.content:'';if(Array.isArray(content)){content=content.map(function(b){return typeof b==='string'?b:(b.text||'')}).join('')}content=content.replace(/```(?:svg|xml|html)?\s*/gi,'').replace(/```/g,'');var svgMatch=content.match(/<svg[\s\S]*<\/svg>/i);if(svgMatch){aiResult={type:'svg',content:svgMatch[0]};previewEl.innerHTML=svgMatch[0];previewEl.classList.add('visible');statusEl.textContent=aiMode==='svg'?'diagram generated':'illustration generated';insertBtn.style.display='';generateBtn.style.display=''}else{console.warn('[AI] No SVG found. Response:',content.substring(0,500));statusEl.textContent='no SVG in response — try again or rephrase';generateBtn.style.display=''}}catch(e){statusEl.textContent='error: '+e.message;console.error('[AI generation]',e);generateBtn.style.display=''}}
+async function runAiGeneration(){var prompt=document.getElementById('ai-prompt').value.trim();if(!prompt)return;var statusEl=document.getElementById('ai-status'),previewEl=document.getElementById('ai-preview'),insertBtn=document.getElementById('ai-insert-btn'),generateBtn=document.getElementById('ai-generate-btn');statusEl.textContent='generating...';generateBtn.style.display='none';try{var sysPrompt=aiMode==='svg'?'Create a visually rich SVG illustration. Style: dark background #161620, primary accent #4dc9d4 (teal), secondary #3b82f6 (blue). Use gradients, subtle glow effects, rounded shapes. viewBox="0 0 600 400". Return ONLY the raw <svg>...</svg> code. No markdown, no code fences, no explanation, no text before or after the SVG tag. Subject: '+prompt:'Create a detailed, visually rich SVG illustration. Dark background #161620, teal accent #4dc9d4, blue #3b82f6. Use: radial gradients, linear gradients, glow effects (feGaussianBlur), rounded shapes, layered composition, subtle opacity variations. Make it look like a polished infographic. viewBox="0 0 800 500". Return ONLY the <svg>...</svg> code. No markdown fences. Subject: '+prompt;var resp=await fetch(OR_BASE+'/chat/completions',{method:'POST',headers:{'Authorization':'Bearer '+OR_KEY,'Content-Type':'application/json','HTTP-Referer':location.href},body:JSON.stringify({model:'anthropic/claude-sonnet-4-20250514',messages:[{role:'user',content:sysPrompt}],max_tokens:aiMode==='svg'?6000:8000})});if(!resp.ok){var errBody=await resp.text();statusEl.textContent='API error '+resp.status+': '+(errBody.slice(0,120));generateBtn.style.display='';return}var data=await resp.json();if(data.error){statusEl.textContent='API error: '+(data.error.message||JSON.stringify(data.error).slice(0,120));generateBtn.style.display='';return}var content=data.choices&&data.choices[0]&&data.choices[0].message?data.choices[0].message.content:'';if(Array.isArray(content)){content=content.map(function(b){return typeof b==='string'?b:(b.text||'')}).join('')}content=content.replace(/```(?:svg|xml|html)?\s*/gi,'').replace(/```/g,'');var svgMatch=content.match(/<svg[\s\S]*<\/svg>/i);if(svgMatch){aiResult={type:'svg',content:svgMatch[0]};previewEl.innerHTML=svgMatch[0];previewEl.classList.add('visible');statusEl.textContent=aiMode==='svg'?'diagram generated':'illustration generated';insertBtn.style.display='';generateBtn.style.display=''}else{console.warn('[AI] No SVG found. Response:',content.substring(0,500));statusEl.textContent='no SVG in response – try again or rephrase';generateBtn.style.display=''}}catch(e){statusEl.textContent='error: '+e.message;console.error('[AI generation]',e);generateBtn.style.display=''}}
 function insertAiResult(){if(!aiResult)return;pushUndo();var d=document.createElement('div');d.innerHTML=aiResult.content;d.style.maxWidth='100%';d.style.textAlign='center';if(activeImgPlaceholder)activeImgPlaceholder.replaceWith(d);else slides[current].querySelector('.slide-inner').appendChild(d);closeAiModal();activeImgPlaceholder=null;activateEditOnSlides()}
 var previewVisible=false;function togglePreview(){previewVisible=!previewVisible;document.getElementById('preview-panel').classList.toggle('visible',previewVisible);document.getElementById('preview-btn').classList.toggle('active',previewVisible);if(previewVisible)updatePreview()}
 function updatePreview(){if(!previewVisible)return;var n=current+1;var ps=document.getElementById('preview-scale');if(n>=total){ps.innerHTML='<div style="display:flex;align-items:center;justify-content:center;height:100%;color:var(--text-dim);font-size:120px">END</div>';return}var c=slides[n].cloneNode(true);c.classList.add('active');c.style.display='flex';c.querySelectorAll('.layout-bar').forEach(function(b){b.remove()});ps.innerHTML='';ps.appendChild(c)}
@@ -1525,29 +1546,29 @@ document.getElementById('toc-overlay').addEventListener('click',function(e){if(e
 
 var presenterMode=false,presTimer=null,presSeconds=0;
 var presNotes=[
-  {t:"Cover",n:"представиться, Степан представляется. AI Mindset \u00d7 CybOS. Batch 2: 134 registered, 95 анкеты."},
-  {t:"Agenda",n:"сегодня intro call ~1.5 часа. Не первая лекция, а синхронизация контекста, ожиданий и commitment."},
-  {t:"Participants",n:"134 registered, 95 анкеты, 71% completion. Источник: BOT participants export, 2026-05-02."},
-  {t:"AI Stack",n:"Claude 55%, GPT 49%, agents 49%, Claude Code 26%, Cursor 20%, Perplexity 18%, Codex 16%."},
-  {t:"Geography",n:"95 локаций: Москва 28, СПб 6, РФ регионы 13, Европа/релокация 20+, Кавказ/ЦА 8+."},
-  {t:"New Approach",n:"POS → MOS → Company Functions. Главное: от личного стека к функциям компании."},
-  {t:"Build Intents",n:"75% агенты, 58% автоматизация, 52% team adoption, 31% architecture."},
-  {t:"Pain Points",n:"точечный AI, нет архитектуры, команда не переняла, tool sprawl."},
-  {t:"Sprint Goals",n:"агентный контур, процесс, командный перенос, 90-day roadmap."},
-  {t:"Lab Format",n:"7 форматов: workshop, co-working, curators, practice, buddy groups, bonus."},
-  {t:"Curators",n:"12 кураторов. TG ники кликабельны. Назначение на этой неделе. Новые: Denis Smirnov (tokenomics, governance), Ilya Golubev (RAG, AI-агенты)."},
-  {t:"Speakers",n:"12 спикеров. + Ustinov (Plurio AI)."},
-  {t:"Program",n:"4–25 May. W1 POS, W2 MOS, W3 Company Functions. Demo Day 25.05."},
-  {t:"Format Deep Dive",n:"6 форматов, каждый с конкретным результатом."},
-  {t:"Lecture",n:"2 часа live. 60 контент + 30 Q&A + 30 дискуссия."},
-  {t:"Workshop",n:"1.5-2 часа. 40 теория + 40 практика + 20 Q&A."},
-  {t:"Coworking",n:"2 часа. Check-in + deep work + sharing."},
-  {t:"Office Hours",n:"1-2 часа, суббота 10:00. Hot seat."},
-  {t:"Demo Day",n:"25 мая. 5+3 мин. Проблема → Решение → ROI → План."},
-  {t:"Curators Detail",n:"12 кураторов. Async TG. Check-ins. Demo Day prep."},
-  {t:"Community",n:"Telegram чат. Alumni навсегда. Vault. Записи 12 мес."},
-  {t:"LMS Platform",n:"learn.aimindset.org/ai-native. Все материалы, записи, Q&A, календарь, vault и шаблоны в одном месте."},
-  {t:"Journey",n:"Prework → W1 POS → W2 MOS → W3 Functions → Demo Day. Один сквозной кейс."},
+  {t:"Cover",n:"представиться, Степан представляется. Batch 2 / AIN02: kickoff 2 May, 132 unique, 95 submitted, 98 questionnaire responses."},
+  {t:"Agenda",n:"сегодня intro call: синхронизация контекста, аудитории, формата, спикеров, кураторов и intro round."},
+  {t:"Participants",n:"132 unique participants, 95 submitted profiles, 98 questionnaire answers, 72% submitted coverage. Source: BOT participants export, 2026-05-02."},
+  {t:"AI Stack",n:"q2 n=97: Claude 54%, GPT 46%, Claude Code 26%, Cursor 20%, Codex 16%, Gemini 14%, Perplexity 12%. Запрос не на инструменты, а на архитектуру."},
+  {t:"Geography",n:"q4 n=95: Москва 28, РФ регионы 14, СПб 6, Европа/Португалия 8, Кавказ/ЦА/Молдова 9, дальше long tail."},
+  {t:"New Approach",n:"POS → MOS → Company Functions. Главное: перевести личный стек в управляемую систему компании."},
+  {t:"Build Intents",n:"q3 n=95: AI-native company 54%, automation 37%, agent systems 35%, team adoption 24%, use cases and strategy по 22%."},
+  {t:"Pain Points",n:"точечный AI, нет архитектуры, команда не переняла, tool sprawl. Отсюда новая логика программы."},
+  {t:"Sprint Goals",n:"агентный контур, процесс, командный перенос, Demo Day и 90-day roadmap."},
+  {t:"Lab Format",n:"AIN02 cadence: core lectures, Denis practical modules, guest sessions, curator tracks, office hours, Demo Day."},
+  {t:"Curators",n:"current curator tracks: Ris/Vasiliev/Fedoseev for tech, Denis/Doonto for systems, Jin/Glazov for beginner, Karina for ops routing."},
+  {t:"Speakers",n:"current public roster: Ustinov, Annakov, Buzko, Kuryshev, Ris, Smirnov, Kleban, Kharin, Egerev. Alumni v1 are materials, not live roster."},
+  {t:"Program",n:"2–25 May. W0 intro, W1 foundation, W2 horizontal patterns, W3 vertical focus, Demo Day 25.05 at 17:00 CEST."},
+  {t:"Format Deep Dive",n:"main time 17:00 CEST; Denis modules and Saturday OH are at 12:00 CEST."},
+  {t:"Lecture",n:"2 hours live. Keep this as a frame slide, not a fixed promise for every Monday."},
+  {t:"Workshop",n:"current roster only. Mention alumni materials separately if asked."},
+  {t:"Coworking",n:"2 hours. Check-in + deep work + sharing. Use for artifact production, not passive attendance."},
+  {t:"Office Hours",n:"09 / 16 / 23 May, 12:00 CEST. Hot seats and artifact review."},
+  {t:"Demo Day",n:"25 May, 17:00 CEST. 5+3 min. Problem → Workflow → Evidence → 90-day plan."},
+  {t:"Curator Routing",n:"ask participants to bring artifacts and concrete blockers; route by beginner, tech, systems, ops."},
+  {t:"Community",n:"132 unique participants. Telegram is main communication layer; async between sessions."},
+  {t:"LMS Platform",n:"learn.aimindset.org/ai-native. Materials, recordings, Q&A, calendar and templates in one place. Avoid unverified artifact counts."},
+  {t:"Journey",n:"W0 2 May → W1 4–8 → W2 11–15 → W3 18–22 → Demo Day 25 May. One end-to-end case."},
   {t:"Timer",n:"по минуте на каждого. space = start/pause. next = следующий."}
 ];
 var tocItems=[
@@ -1561,7 +1582,7 @@ var tocItems=[
   {slide:7,label:"Pain Points",icon:"08"},
   {slide:8,label:"Sprint Goals",icon:"09"},
   {slide:9,label:"Lab Format",icon:"10"},
-  {slide:10,label:"Curators",icon:"11"},
+  {slide:10,label:"Curator Tracks",icon:"11"},
   {slide:11,label:"Speakers",icon:"12"},
   {slide:12,label:"Program",icon:"13"},
   {slide:13,label:"Format Intro",icon:"14"},
@@ -1570,7 +1591,7 @@ var tocItems=[
   {slide:16,label:"Coworking",icon:"17"},
   {slide:17,label:"Office Hours",icon:"18"},
   {slide:18,label:"Demo Day",icon:"19"},
-  {slide:19,label:"Curators Detail",icon:"20"},
+  {slide:19,label:"Curator Routing",icon:"20"},
   {slide:20,label:"Community",icon:"21"},
   {slide:21,label:"LMS Platform",icon:"22"},
   {slide:22,label:"Journey",icon:"23"},
@@ -1674,20 +1695,20 @@ var loaded=loadFromLocal();if(!loaded)showSlide(current);
 
 // ===== VOX BOT =====
 // ============================================================
-// VOX BOT — AI Assistant Panel
+// VOX BOT – AI Assistant Panel
 // Complete JavaScript for ainative-deck presentation system
 //
 // Dependencies (already defined in the deck):
-//   OR_KEY, OR_BASE — OpenRouter API credentials
-//   slides, total, current — slide navigation state
-//   editMode — edit mode flag
-//   pushUndo() — undo system
-//   initSlides(), showSlide(n) — slide navigation
-//   activateEditOnSlides() — re-enable contentEditable after DOM mutations
-//   toggleEdit() — toggle edit mode
-//   addSlideWithLayout(layout) — existing slide creation
-//   aiMode, aiResult — existing AI generation state
-//   runAiGeneration(), insertAiResult() — existing AI modal functions
+//   OR_KEY, OR_BASE – OpenRouter API credentials
+//   slides, total, current – slide navigation state
+//   editMode – edit mode flag
+//   pushUndo() – undo system
+//   initSlides(), showSlide(n) – slide navigation
+//   activateEditOnSlides() – re-enable contentEditable after DOM mutations
+//   toggleEdit() – toggle edit mode
+//   addSlideWithLayout(layout) – existing slide creation
+//   aiMode, aiResult – existing AI generation state
+//   runAiGeneration(), insertAiResult() – existing AI modal functions
 // ============================================================
 
 // ===== VOX STATE =====
@@ -1717,7 +1738,7 @@ function toggleVox() {
     // Start ambient tips if not in edit mode
     if (!editMode && !voxAmbientStarted) {
       voxAmbientStarted = true;
-      addVoxMessage('bot', '**live mode** — ambient tips based on slide context.\n\nask me anything about the program, speakers, or participants.\n\npress `LIVE ON` for auto-tips on each slide.');
+      addVoxMessage('bot', '**live mode** – ambient tips based on slide context.\n\nask me anything about the program, speakers, or participants.\n\npress `LIVE ON` for auto-tips on each slide.');
     }
   } else {
     updateVoxActionsVisibility();
@@ -1916,7 +1937,7 @@ async function voxChat(systemPrompt, userMessage, onChunk) {
       if (resp.status === 401) {
         OR_KEY = '';
         localStorage.removeItem('ainative-or-key');
-        throw new Error('401 — key expired or invalid');
+        throw new Error('401 – key expired or invalid');
       }
       throw new Error(`API error ${resp.status}: ${errBody.substring(0, 200)}`);
     }
@@ -1995,7 +2016,7 @@ async function voxGenerate(systemPrompt, userMessage) {
     if (resp.status === 401) {
       OR_KEY = '';
       localStorage.removeItem('ainative-or-key');
-      throw new Error('401 — key expired or invalid');
+      throw new Error('401 – key expired or invalid');
     }
     throw new Error(`API error ${resp.status}: ${errBody.substring(0, 200)}`);
   }
@@ -2015,9 +2036,9 @@ You help create and edit slides. You know the full program context and can answe
 
 PROGRAM CONTEXT:
 - Product: AI-Native Organizations Sprint by AI Mindset x CybOS (Stepan Gershuni)
-- Dates: 4 May \u2013 25 May 2026 (3 weeks + Demo Day)
-- Format: Online, live only (no pre-recordings). Price: EUR 1,490
-- 134 registered participants, 95 submitted profiles, 97 AI-stack answers, 95 filled locations.
+- Dates: 2 May – 25 May 2026 (kickoff + 3 weeks + Demo Day)
+- Format: Online live sessions + recordings + prework materials. Price: EUR 1,490
+- 134 raw registrations, 132 unique participants, 95 submitted profiles, 98 questionnaire responses, 97 AI-stack answers, 95 filled locations.
 - Central ask: move from point AI use to an organizational operating layer.
 - One-liner: "POS → MOS → Company Functions"
 
@@ -2026,36 +2047,46 @@ THIS PRESENTATION: Intro Call (not a lecture)
 - Core slides: Cover, Agenda, Participants, AI Stack, Geography, New Approach, Build Intents, Pain Points, Sprint Goals, Program, Timer
 
 PROGRAM STRUCTURE (3 weeks):
-Week 1 (4\u201310 May): POS
-- Focus: personal OS, context, rules, working environment, first agent discipline
-- Sat 09.05 \u2013 W1 wrap-up + POS artifacts
-Deliverables: working personal context, rules, baseline workflow, daily usage rhythm
+W0 (2 May): Intro Call
+- Focus: cohort data, expectations, cross-sprint case selection, intro round
 
-Week 2 (11\u201317 May): MOS
-- Focus: management OS, tasks, decisions, meetings, follow-up, team memory, routing
-- Sat 16.05 \u2013 W2 wrap-up + MOS / agent workflows
+Week 1 (4–8 May): Foundation / POS
+- Tue 5 May 12:00 CEST – Denis Smirnov practical module
+- Tue 5 May 17:00 CEST – Sereja Ris setup workshop
+- Sat 9 May 12:00 CEST – office hours
+Deliverables: case choice, working personal context, first setup, baseline workflow
+
+Week 2 (11–15 May): Horizontal Patterns / MOS
+- Tue 12 May 12:00 CEST – Denis Smirnov module 2
+- Wed 13 May 17:00 CEST – Roman Buzko legal AI
+- Thu/Fri – Evgeny Kuryshev, Vitaly Kleban, alumni showcase
+- Sat 16 May 12:00 CEST – office hours
 Deliverables: management layer, team memory, first agent workflow
 
-Week 3 (18\u201325 May): Company Functions
+Week 3 (18–22 May): Company Functions
 - Focus: sales, ops, product, legal, finance, support, development through one participant case
-- Sat 23.05 \u2013 W3 wrap-up + Demo Day prep
-- Mon 25.05 18:00 \u2013 Demo Day
+- Tue 19 May 12:00 CEST – Denis Smirnov module 3
+- Fri 22 May 17:00 CEST – Seva Ustinov / Plurio AI
+- Sat 23 May 12:00 CEST – office hours / Demo Day prep
+- Mon 25 May 17:00 CEST – Demo Day
 Deliverables: working company-function contour, 90-day plan, Demo Day presentation
 
-SPEAKERS: Stepan Gershuni (cybos.ai, lectures), Alexander Povaliaev (AI Mindset, workshops), Dima Khanarin (codos.ai), Alexey Amyotov (Look At Media), Vitaly Kleban (cyber.Fund), Valery Kovalskii (Red Mad Robot), Daniil Kravtsov (Improvado), Evgeny Rid (investor), Bayram Annakov (onsa.ai), Roma Buzko (Buzko & Krasnov), Seva Ustinov (Plurio AI)
+CURRENT GUEST SPEAKERS: Seva Ustinov (Plurio AI), Bayram Annakov (App in the Air / onsa.ai), Roman Buzko (Buzko Krasnov), Evgeny Kuryshev (ex-Yandex CTO / Mirror AI), Sereja Ris (@vibecod3rs), Denis Smirnov (ACME Labs), Vitaly Kleban (cyber.fund), Dima Kharin (AI transformation framework), Egor Egerev (Tickets Cloud / Burner).
 
-CURATORS: 10 practitioners \u2013 Stanislav Fedoseev, Yury (Switzerland), Jin Kolesnikov (Singularity U), Stanislav Glazov, Alexander Vasiliev, Sereja Ris, Ilya Gindin, Anton Voskobovich, Alexander Stashenko, Kseniya Tkacheva
+HOSTS / CORE TEAM: Alexander Povaliaev, Stepan Gershuni. Alumni v1 materials include Alexey Amyotov, George Strakhov, Gleb Sidora, Daniil Kravtsov, Eugene Rid. They are materials/cases unless explicitly scheduled live.
 
-PARTICIPANT STATS: 134 registered, 95 submitted profiles, 71% completion, 97 stack answers, 95 locations. Claude 55%, GPT 49%, agents 49%, Claude Code 26%, Cursor 20%, Perplexity 18%, Codex 16%, Gemini 14%.
+CURATOR TRACKS: Sereja Ris + Alexander Vasiliev + Stanislav Fedoseev for tech stack / coding; Denis Smirnov + Yury Doonto for systems/evals/enterprise; Jin Kolesnikov + Stanislav Glazov for beginner/creative path; Karina Vantslav for ops routing. Do not present on-hold or unknown contacts as confirmed curators.
+
+PARTICIPANT STATS: 132 unique participants, 95 submitted profiles, 72% submitted coverage, 98 questionnaire responses, 97 stack answers, 95 locations. Claude 54%, GPT 46%, Claude Code 26%, Cursor 20%, Codex 16%, Gemini 14%, Perplexity 12%.
 
 KEY AUDIENCE INSIGHTS:
-- 81% write about team / organization context
-- 75% mention agents or assistants
-- 58% mention process automation
-- 52% mention team adoption
-- 31% mention AI strategy / architecture
-- 28% want a demo or pilot during the lab
-- 20% show tool chaos / switching cost
+- 80% write about team / organization context
+- 60% mention operations / process context
+- 54% want AI-native company / organization transformation
+- 37% mention process automation
+- 35% mention agents / agent systems
+- 24% mention team adoption
+- 22% mention practical use cases and 22% strategy / roadmap
 - Main pain points: point AI, no architecture, team has not adopted, tools live separately
 
 When giving tips, reference the cohort patterns from the new survey data:
@@ -2702,7 +2733,7 @@ function toggleVoxLive() {
     ? '<span class="vox-act-icon">&#9673;</span> LIVE ON'
     : '<span class="vox-act-icon">&#9673;</span> LIVE OFF';
   if (voxLiveMode) {
-    addVoxMessage('bot', '**ambient mode on** — tips will appear as you navigate slides.');
+    addVoxMessage('bot', '**ambient mode on** – tips will appear as you navigate slides.');
     generateAmbientTip(current);
   } else {
     addVoxMessage('bot', 'ambient mode off.');
@@ -2729,7 +2760,7 @@ Presenter note: ${note.n || 'none'}
 ${prevCtx ? 'Previous slide: "' + (prevCtx.h1 || prevCtx.h2) + '"' : ''}
 ${nextCtx ? 'Next slide: "' + (nextCtx.h1 || nextCtx.h2) + '"' : ''}
 
-PARTICIPANT CONTEXT: 134 registered, 95 submitted profiles, 71% completion; 75% mention agents/assistants, 58% process automation, 52% team adoption. Stack: Claude 55%, GPT 49%, agents 49%, Claude Code 26%, Cursor 20%, Codex 16%.
+PARTICIPANT CONTEXT: 132 unique participants, 95 submitted profiles, 98 questionnaire responses; 54% want AI-native company transformation, 37% process automation, 35% agent systems, 24% team adoption. Stack: Claude 54%, GPT 46%, Claude Code 26%, Cursor 20%, Codex 16%.
 
 Give a SHORT (2-3 sentences) presenter tip in Russian. What to emphasize, which audience segment to address, what transition works. Be specific to THIS slide. Format: one punchy insight.`;
 

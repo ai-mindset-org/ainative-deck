@@ -3,3 +3,7 @@
 .env.local
 .env.*.local
 *.backup-*
+data/ain02-telegram-*.json
+data/ain02-telegram-participants-*.csv
+data/ain02-intros-*.md
+data/ain02-source-audit-*.md

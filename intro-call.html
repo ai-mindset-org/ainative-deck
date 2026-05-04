@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AI-Native Organizations Sprint - Batch 2 Intro Call</title>
 <meta property="og:title" content="AI-Native Organizations Sprint - Batch 2 Intro Call">
-<meta property="og:description" content="Batch 2 · 2–25 May 2026 · 143 participants · POS → MOS → Company Functions">
+<meta property="og:description" content="Batch 2 · 2–25 May 2026 · 161 participants · POS → MOS → Company Functions">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://ai-mindset-org.github.io/ainative-deck/assets/og-intro-call.png">
 <meta property="og:url" content="https://ai-mindset-org.github.io/ainative-deck/intro-call.html">
@@ -142,14 +142,17 @@ p, li { font-size: 17px; line-height: 1.7; color: rgba(255,255,255,0.8); }
 .program-compact .week-row { padding: 3px 0; font-size: 12px; }
 .program-compact .week-row-time { font-size: 11px; }
 .program-compact .week-row-dur { font-size: 10px; }
-.mosaic-field { position: absolute; inset: 0; pointer-events: none; overflow: hidden; opacity: 0.46; mask-image: radial-gradient(circle at 50% 46%, black 0%, black 54%, transparent 84%); }
-.mosaic-field::before { content: ''; position: absolute; inset: 6% 7%; background-image: linear-gradient(90deg, transparent 0 38%, rgba(255,255,255,0.14) 38% 38.35%, transparent 38.35% 100%), linear-gradient(0deg, transparent 0 50%, rgba(255,255,255,0.1) 50% 50.35%, transparent 50.35% 100%), radial-gradient(circle at 20% 25%, rgba(77,201,212,0.32), transparent 15%), radial-gradient(circle at 76% 36%, rgba(59,130,246,0.26), transparent 18%), radial-gradient(circle at 48% 70%, rgba(56,217,169,0.2), transparent 18%); border: 1px solid rgba(77,201,212,0.18); }
+.cover-signal-field { position: absolute; inset: 0; pointer-events: none; overflow: hidden; opacity: 0.72; mask-image: radial-gradient(circle at 50% 48%, black 0%, black 58%, transparent 86%); }
+.cover-signal-field::before { content: ''; position: absolute; inset: 7% 8%; background-image: linear-gradient(90deg, transparent 0 50%, rgba(255,255,255,0.14) 50% 50.22%, transparent 50.22% 100%), linear-gradient(0deg, transparent 0 58%, rgba(255,255,255,0.09) 58% 58.22%, transparent 58.22% 100%), radial-gradient(circle at 24% 30%, rgba(77,201,212,0.28), transparent 17%), radial-gradient(circle at 70% 34%, rgba(59,130,246,0.24), transparent 18%), radial-gradient(circle at 50% 72%, rgba(56,217,169,0.22), transparent 18%); border: 1px solid rgba(77,201,212,0.14); }
+.cover-signal-field::after { content: ''; position: absolute; left: 50%; bottom: 10%; transform: translateX(-50%); width: 220px; height: 1px; background: linear-gradient(90deg, transparent, rgba(77,201,212,0.22), transparent); }
 .mosaic-tile { position: absolute; border: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.05); filter: grayscale(1) contrast(1.14); opacity: 0.9; box-shadow: 0 0 28px rgba(77,201,212,0.07); overflow: hidden; }
 .mosaic-tile::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(77,201,212,0.16), transparent 48%, rgba(0,0,0,0.28)); mix-blend-mode: screen; }
 .mosaic-tile img { width: 100%; height: 100%; object-fit: cover; display: block; opacity: 0.82; mix-blend-mode: screen; }
 .cover-speaker-strip { display: flex; gap: 8px; justify-content: center; align-items: center; margin-top: 16px; flex-wrap: wrap; max-width: 880px; }
 .cover-speaker-mini { display: inline-flex; align-items: center; gap: 7px; padding: 5px 8px 5px 5px; border: 1px solid rgba(77,201,212,0.16); border-radius: 999px; background: rgba(10,10,15,0.48); color: rgba(255,255,255,0.72); font-size: 10px; line-height: 1; backdrop-filter: blur(6px); }
 .cover-speaker-mini img { width: 20px; height: 20px; border-radius: 50%; object-fit: cover; filter: grayscale(1); border: 1px solid rgba(77,201,212,0.22); }
+.cover-meta-line { font-family: var(--font-mono); font-size: 13px; color: var(--text-label); letter-spacing: 2px; margin-top: 18px; }
+.cover-context-line { font-size: 12px; color: rgba(255,255,255,0.54); line-height: 1.5; max-width: 720px; margin: 12px auto 0; }
 .cohort-grid { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 18px; align-items: stretch; margin-top: 14px; }
 .cohort-map { min-height: 292px; border: 1px solid rgba(77,201,212,0.18); border-radius: 12px; background: radial-gradient(circle at 48% 48%, rgba(77,201,212,0.12), transparent 34%), rgba(28,28,46,0.58); position: relative; overflow: hidden; }
 .cohort-map svg { width: 100%; height: 100%; display: block; }
@@ -737,36 +740,16 @@ body.vox-open #vox-panel {
 
 <!-- S1: COVER -->
 <div class="slide active" id="s1"><div class="slide-counter"><span class="current">1</span>/<span class="total"></span></div><img class="slide-logo" src="logo.png" alt=""><div class="slide-inner cover">
-  <div class="mosaic-field">
-    <div class="mosaic-tile" style="left:5%;top:10%;width:210px;height:122px"><img src="speakers/stepan-gershuni.jpg" alt=""></div>
-    <div class="mosaic-tile" style="right:6%;top:12%;width:190px;height:118px"><img src="speakers/alexander-povaliaev.jpg" alt=""></div>
-    <div class="mosaic-tile" style="left:16%;bottom:12%;width:210px;height:104px"><img src="speakers/denis-smirnov.jpg" alt=""></div>
-    <div class="mosaic-tile" style="right:15%;bottom:12%;width:210px;height:118px"><img src="speakers/sereja-ris.jpg" alt=""></div>
-    <div class="mosaic-tile" style="left:34%;top:7%;width:150px;height:92px"><img src="speakers/seva-ustinov.jpg" alt=""></div>
-    <div class="mosaic-tile" style="right:31%;top:8%;width:160px;height:96px"><img src="speakers/bayram-annakov.jpg" alt=""></div>
-    <div class="mosaic-tile" style="left:7%;bottom:28%;width:148px;height:96px"><img src="speakers/roma-buzko.jpg" alt=""></div>
-    <div class="mosaic-tile" style="right:7%;bottom:29%;width:150px;height:96px"><img src="speakers/ev-kuryshev.jpg" alt=""></div>
-    <div class="mosaic-tile" style="left:41%;bottom:6%;width:128px;height:82px"><img src="speakers/vitaly-kleban.jpg" alt=""></div>
-    <div class="mosaic-tile" style="right:41%;bottom:6%;width:128px;height:82px"><img src="speakers/dima-khanarin.jpg" alt=""></div>
-  </div>
-  <div class="label" style="letter-spacing:4px;font-size:11px;margin-bottom:24px">// AI MINDSET &times; CybOS</div>
-  <div style="display:flex;gap:24px;justify-content:center;margin-bottom:24px;align-items:center">
-    <div style="position:relative"><img src="speakers/alexander-povaliaev.jpg" style="width:80px;height:80px;border-radius:50%;border:2px solid var(--teal);object-fit:cover;position:relative;z-index:2" alt=""><div style="position:absolute;inset:-4px;border-radius:50%;border:1px solid var(--teal-glow);animation:pulse 3s ease-in-out infinite"></div></div>
-    <div style="position:relative"><img src="speakers/stepan-gershuni.jpg" style="width:80px;height:80px;border-radius:50%;border:2px solid var(--blue);object-fit:cover;position:relative;z-index:2" alt=""><div style="position:absolute;inset:-4px;border-radius:50%;border:1px solid rgba(59,130,246,0.3);animation:pulseSlow 4s ease-in-out infinite"></div></div>
+  <div class="cover-signal-field"></div>
+  <div class="label" style="letter-spacing:4px;font-size:11px;margin-bottom:22px">// AI MINDSET &times; CybOS · pre-start briefing</div>
+  <div style="display:flex;gap:18px;justify-content:center;margin-bottom:22px;align-items:center">
+    <div style="position:relative"><img src="speakers/alexander-povaliaev.jpg" style="width:76px;height:76px;border-radius:50%;border:2px solid var(--teal);object-fit:cover;position:relative;z-index:2" alt=""><div style="position:absolute;inset:-4px;border-radius:50%;border:1px solid var(--teal-glow);animation:pulse 3s ease-in-out infinite"></div></div>
   </div>
   <h1>AI-Native Organizations<br><span class="teal">Batch 2</span></h1>
-  <p class="subtitle">kickoff + 3 недели: setup &rarr; systems &rarr; company functions</p>
-  <p style="font-size:14px;color:var(--text-label);margin-bottom:20px;letter-spacing:2px">INTRO CALL &middot; 2 MAY 2026</p>
-  <div class="meta"><span class="tag">batch 2</span><span class="dot">&middot;</span><span class="tag">2&ndash;25 may 2026</span><span class="dot">&middot;</span><span class="tag">143 participants</span><span class="dot">&middot;</span><span class="tag green-tag">118 match forms</span></div>
-  <div class="cover-speaker-strip">
-    <span class="cover-speaker-mini"><img src="speakers/seva-ustinov.jpg" alt="">Seva Ustinov</span>
-    <span class="cover-speaker-mini"><img src="speakers/bayram-annakov.jpg" alt="">Bayram Annakov</span>
-    <span class="cover-speaker-mini"><img src="speakers/roma-buzko.jpg" alt="">Roman Buzko</span>
-    <span class="cover-speaker-mini"><img src="speakers/ev-kuryshev.jpg" alt="">Evgeny Kuryshev</span>
-    <span class="cover-speaker-mini"><img src="speakers/vitaly-kleban.jpg" alt="">Vitaly Kleban</span>
-    <span class="cover-speaker-mini"><img src="speakers/dima-khanarin.jpg" alt="">Dima Khanarin</span>
-    <span class="cover-speaker-mini"><img src="speakers/egerv.jpg" alt="">Egor Egerev</span>
-  </div>
+  <p class="subtitle">20 минут перед W1: кто пришёл, какой общий запрос и что делаем до лекции</p>
+  <p style="font-size:14px;color:var(--text-label);margin-bottom:14px;letter-spacing:2px">W1 START &middot; 4 MAY 2026</p>
+  <p class="cover-meta-line">batch 2 · 2&ndash;25 may 2026 · 161 in NocoDB · 138 profiles · 75 intro messages</p>
+  <p class="cover-context-line">смотрим не на строки выгрузки, а на людей: NocoDB, match-анкеты и intro-топик показывают один повторяющийся запрос – собрать AI в управляемый контур компании.</p>
   <svg style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:5;opacity:0.12" viewBox="0 0 1920 1080"><circle class="constellation-node" cx="120" cy="140" r="3" fill="#4dc9d4"/><circle class="constellation-node" cx="280" cy="100" r="2.5" fill="#4dc9d4"/><circle class="constellation-node" cx="200" cy="240" r="2" fill="#3b82f6"/><circle class="constellation-node" cx="380" cy="180" r="3" fill="#38d9a9"/><line x1="120" y1="140" x2="280" y2="100" stroke="#4dc9d4" stroke-width="0.6" opacity="0.35"/><line x1="280" y1="100" x2="380" y2="180" stroke="#4dc9d4" stroke-width="0.5" opacity="0.25"/><line x1="120" y1="140" x2="200" y2="240" stroke="#3b82f6" stroke-width="0.5" opacity="0.25"/><circle class="constellation-node" cx="1600" cy="120" r="2.5" fill="#4dc9d4"/><circle class="constellation-node" cx="1750" cy="180" r="3" fill="#38d9a9"/><line x1="1600" y1="120" x2="1750" y2="180" stroke="#4dc9d4" stroke-width="0.5" opacity="0.3"/><circle class="constellation-node" cx="150" cy="880" r="2" fill="#3b82f6"/><circle class="constellation-node" cx="300" cy="920" r="2.5" fill="#4dc9d4"/><line x1="150" y1="880" x2="300" y2="920" stroke="#3b82f6" stroke-width="0.4" opacity="0.2"/></svg>
 </div></div>
 
@@ -776,7 +759,7 @@ body.vox-open #vox-panel {
   <h2>Старт Batch 2: <span class="teal">что зафиксировали</span></h2>
   <p style="font-size:15px;color:var(--text-dim);margin-bottom:16px">Intro call уже прошёл в субботу. Используем его как входной контекст: кто пришёл, какие запросы повторяются и что дальше строим.</p>
   <div class="layers" style="gap:6px">
-    <div class="layer" style="border-left:3px solid var(--teal)"><div class="layer-num teal" style="min-width:36px">01</div><div class="layer-name">Кто участвует</div><div class="layer-desc">143 человека после дедупликации, 118 match-анкет, Batch 2 / AIN02</div></div>
+    <div class="layer" style="border-left:3px solid var(--teal)"><div class="layer-num teal" style="min-width:36px">01</div><div class="layer-name">Кто участвует</div><div class="layer-desc">161 человек в актуальной NocoDB-базе, 138 заполненных профилей, Batch 2 / AIN02</div></div>
     <div class="layer" style="border-left:3px solid var(--blue)"><div class="layer-num blue" style="min-width:36px">02</div><div class="layer-name">С каким стеком пришли</div><div class="layer-desc">Claude, GPT, Codex, Cursor, агенты, автоматизации</div></div>
     <div class="layer" style="border-left:3px solid var(--green)"><div class="layer-num green" style="min-width:36px">03</div><div class="layer-name">Что хотят построить</div><div class="layer-desc">агенты, операционные контуры, team adoption</div></div>
     <div class="layer" style="border-left:3px solid var(--amber)"><div class="layer-num amber" style="min-width:36px">04</div><div class="layer-name">Новый подход</div><div class="layer-desc">POS &rarr; MOS &rarr; Company Functions</div></div>
@@ -791,38 +774,38 @@ body.vox-open #vox-panel {
   <div class="label">// participants &middot; people, not rows</div>
   <h2>Кто пришёл в <span class="teal">Batch 2</span></h2>
   <div class="stat-grid cols-5">
-    <div class="stat-box people-stat"><div class="num teal">143</div><div class="stat-label">человека в базе после дедупликации</div></div>
-    <div class="stat-box people-stat"><div class="num green">118</div><div class="stat-label">заполнили match-анкету</div></div>
-    <div class="stat-box people-stat"><div class="num cyan">132</div><div class="stat-label">в sprint Telegram-чате</div></div>
-    <div class="stat-box people-stat"><div class="num amber">160</div><div class="stat-label">intro-сигналов в Telegram</div></div>
-    <div class="stat-box people-stat"><div class="num blue">56</div><div class="stat-label">были на live intro call в субботу</div></div>
+    <div class="stat-box people-stat"><div class="num teal">161</div><div class="stat-label">человек в актуальной NocoDB-базе</div></div>
+    <div class="stat-box people-stat"><div class="num green">138</div><div class="stat-label">заполненных профилей</div></div>
+    <div class="stat-box people-stat"><div class="num cyan">152</div><div class="stat-label">в sprint Telegram-чате</div></div>
+    <div class="stat-box people-stat"><div class="num amber">75</div><div class="stat-label">сообщений в intro-топике</div></div>
+    <div class="stat-box people-stat"><div class="num blue">38</div><div class="stat-label">полноценных #intro-постов</div></div>
   </div>
   <div class="cards" style="grid-template-columns:repeat(4,1fr);margin-top:16px">
-    <div class="card" style="padding:16px;text-align:center;border-top:2px solid var(--teal)"><p style="font-size:28px;font-weight:700;color:var(--teal);font-family:var(--font-heading)">67%</p><p style="font-size:12px;color:var(--text-dim);margin-top:4px">team / company context</p></div>
-    <div class="card" style="padding:16px;text-align:center;border-top:2px solid var(--blue)"><p style="font-size:28px;font-weight:700;color:var(--blue);font-family:var(--font-heading)">53%</p><p style="font-size:12px;color:var(--text-dim);margin-top:4px">coding / dev stack</p></div>
-    <div class="card" style="padding:16px;text-align:center;border-top:2px solid var(--green)"><p style="font-size:28px;font-weight:700;color:var(--green);font-family:var(--font-heading)">52%</p><p style="font-size:12px;color:var(--text-dim);margin-top:4px">ops / process automation</p></div>
-    <div class="card" style="padding:16px;text-align:center;border-top:2px solid var(--amber)"><p style="font-size:28px;font-weight:700;color:var(--amber);font-family:var(--font-heading)">41%</p><p style="font-size:12px;color:var(--text-dim);margin-top:4px">agents / agent systems</p></div>
+    <div class="card" style="padding:16px;text-align:center;border-top:2px solid var(--teal)"><p style="font-size:28px;font-weight:700;color:var(--teal);font-family:var(--font-heading)">62%</p><p style="font-size:12px;color:var(--text-dim);margin-top:4px">team / company context</p></div>
+    <div class="card" style="padding:16px;text-align:center;border-top:2px solid var(--blue)"><p style="font-size:28px;font-weight:700;color:var(--blue);font-family:var(--font-heading)">50%</p><p style="font-size:12px;color:var(--text-dim);margin-top:4px">coding / dev stack</p></div>
+    <div class="card" style="padding:16px;text-align:center;border-top:2px solid var(--green)"><p style="font-size:28px;font-weight:700;color:var(--green);font-family:var(--font-heading)">48%</p><p style="font-size:12px;color:var(--text-dim);margin-top:4px">ops / process automation</p></div>
+    <div class="card" style="padding:16px;text-align:center;border-top:2px solid var(--amber)"><p style="font-size:28px;font-weight:700;color:var(--amber);font-family:var(--font-heading)">42%</p><p style="font-size:12px;color:var(--text-dim);margin-top:4px">agents / agent systems</p></div>
   </div>
   <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;justify-content:center">
     <span class="tag">software</span><span class="tag blue-tag">consulting</span><span class="tag green-tag">education</span><span class="tag amber-tag">finance</span><span class="tag red-tag">legal</span><span class="tag">games</span><span class="tag blue-tag">media</span><span class="tag green-tag">health</span><span class="tag amber-tag">commerce</span>
   </div>
-  <div class="human-audit"><span>технический аудит: 145 строк в CSV</span><span>дедупликация: Telegram/email</span><span>источники: CSV + sprint chat + intro-call transcript</span></div>
+  <div class="human-audit"><span>источник: NocoDB lab=s 3 + CSV (6)</span><span>last updated: 2026-05-04 09:18 UTC</span><span>dedupe audit: 159, public count: 161</span></div>
 </div></div>
 
 <!-- S4: AI STACK -->
 <div class="slide" id="s4"><div class="slide-counter"><span class="current">4</span>/<span class="total"></span></div><img class="slide-logo" src="logo.png" alt=""><div class="slide-inner">
-  <div class="label">// ai stack &middot; 118 answers</div>
+  <div class="label">// ai stack &middot; 137 answers</div>
   <h2>AI-стек участников</h2>
   <div class="split" style="gap:32px">
     <div>
-      <div class="code-block" style="font-size:13px"><span class="comment"># open survey, n=118</span><br><br><span style="color:var(--teal)">claude</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--green)">||||||||||||||||||||||||</span> <span style="color:rgba(255,255,255,0.7)">56%</span><br><span style="color:var(--blue)">chatgpt / gpt</span>&nbsp;<span style="color:var(--green)">|||||||||||||||||||||</span> <span style="color:rgba(255,255,255,0.7)">48%</span><br><span style="color:var(--amber)">claude code</span>&nbsp;&nbsp;&nbsp;<span style="color:var(--green)">|||||||||||</span> <span style="color:rgba(255,255,255,0.7)">25%</span><br><span style="color:var(--cyan)">cursor</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--green)">||||||||</span> <span style="color:rgba(255,255,255,0.7)">19%</span><br><span style="color:var(--red)">codex</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--green)">|||||||</span> <span style="color:rgba(255,255,255,0.7)">17%</span><br><span style="color:var(--pink)">perplexity</span>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--green)">|||||||</span> <span style="color:rgba(255,255,255,0.7)">17%</span><br><span style="color:var(--blue)">gemini</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--green)">||||||</span> <span style="color:rgba(255,255,255,0.7)">15%</span><br><span style="color:var(--green)">make / n8n</span>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--green)">||</span> <span style="color:rgba(255,255,255,0.7)">5%</span></div>
+      <div class="code-block" style="font-size:13px"><span class="comment"># NocoDB q2, n=137</span><br><br><span style="color:var(--teal)">claude</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--green)">||||||||||||||||||||||||</span> <span style="color:rgba(255,255,255,0.7)">79 / 58%</span><br><span style="color:var(--blue)">chatgpt / gpt</span>&nbsp;<span style="color:var(--green)">|||||||||||||||||||</span> <span style="color:rgba(255,255,255,0.7)">63 / 46%</span><br><span style="color:var(--amber)">claude code</span>&nbsp;&nbsp;&nbsp;<span style="color:var(--green)">||||||||||</span> <span style="color:rgba(255,255,255,0.7)">31 / 23%</span><br><span style="color:var(--cyan)">cursor</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--green)">||||||</span> <span style="color:rgba(255,255,255,0.7)">19 / 14%</span><br><span style="color:var(--red)">codex</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--green)">||||||</span> <span style="color:rgba(255,255,255,0.7)">19 / 14%</span><br><span style="color:var(--pink)">perplexity</span>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--green)">||||||</span> <span style="color:rgba(255,255,255,0.7)">19 / 14%</span><br><span style="color:var(--blue)">gemini</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--green)">|||||</span> <span style="color:rgba(255,255,255,0.7)">18 / 13%</span><br><span style="color:var(--green)">make / n8n</span>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--green)">||</span> <span style="color:rgba(255,255,255,0.7)">6 / 4%</span></div>
     </div>
     <div>
       <div class="stat-grid cols-2" style="margin-top:0">
-        <div class="stat-box"><div class="num teal" style="font-size:36px">67%</div><div class="stat-label">команда / организация</div></div>
-        <div class="stat-box"><div class="num green" style="font-size:36px">52%</div><div class="stat-label">операции и процессы</div></div>
-        <div class="stat-box"><div class="num amber" style="font-size:36px">41%</div><div class="stat-label">агенты / agent systems</div></div>
-        <div class="stat-box"><div class="num blue" style="font-size:36px">22%</div><div class="stat-label">knowledge / context</div></div>
+        <div class="stat-box"><div class="num teal" style="font-size:36px">62%</div><div class="stat-label">команда / организация</div></div>
+        <div class="stat-box"><div class="num green" style="font-size:36px">48%</div><div class="stat-label">операции и процессы</div></div>
+        <div class="stat-box"><div class="num amber" style="font-size:36px">42%</div><div class="stat-label">агенты / agent systems</div></div>
+        <div class="stat-box"><div class="num blue" style="font-size:36px">30%</div><div class="stat-label">knowledge / context</div></div>
       </div>
       <div class="quote-enhanced" style="margin-top:16px"><p style="font-size:15px">Инструменты уже есть. Запрос сместился на архитектуру: как собрать стек, процессы и людей в одну систему.</p><div class="author" style="color:var(--green)">паттерн из анкет</div></div>
     </div>
@@ -831,24 +814,24 @@ body.vox-open #vox-panel {
 
 <!-- S5: GEOGRAPHY -->
 <div class="slide" id="s5"><div class="slide-counter"><span class="current">5</span>/<span class="total"></span></div><img class="slide-logo" src="logo.png" alt=""><div class="slide-inner cover">
-  <div class="label">// geography &middot; 118 filled locations</div>
+  <div class="label">// geography &middot; 137 filled locations</div>
   <h2>География участников</h2>
   <svg viewBox="0 0 900 430" width="900" height="430" style="margin:0 auto;max-width:100%">
     <rect width="900" height="430" fill="none"/>
     <circle cx="455" cy="205" r="86" fill="var(--teal)" opacity="0.14"/><circle cx="455" cy="205" r="10" fill="var(--teal)" opacity="0.95"/>
-    <text x="455" y="185" text-anchor="middle" fill="var(--teal)" font-family="Space Grotesk" font-size="42" font-weight="700">32</text><text x="455" y="216" text-anchor="middle" fill="var(--teal)" font-family="IBM Plex Mono" font-size="12" letter-spacing="2">МОСКВА</text>
+    <text x="455" y="185" text-anchor="middle" fill="var(--teal)" font-family="Space Grotesk" font-size="42" font-weight="700">38</text><text x="455" y="216" text-anchor="middle" fill="var(--teal)" font-family="IBM Plex Mono" font-size="12" letter-spacing="2">МОСКВА</text>
     <circle cx="300" cy="140" r="44" fill="var(--blue)" opacity="0.13"/><circle cx="300" cy="140" r="6" fill="var(--blue)"/>
-    <text x="300" y="126" text-anchor="middle" fill="var(--blue)" font-family="Space Grotesk" font-size="26" font-weight="700">15</text><text x="300" y="150" text-anchor="middle" fill="var(--blue)" font-family="IBM Plex Mono" font-size="10">РФ регионы</text>
+    <text x="300" y="126" text-anchor="middle" fill="var(--blue)" font-family="Space Grotesk" font-size="26" font-weight="700">25</text><text x="300" y="150" text-anchor="middle" fill="var(--blue)" font-family="IBM Plex Mono" font-size="10">РФ регионы</text>
     <circle cx="600" cy="132" r="38" fill="var(--green)" opacity="0.13"/><circle cx="600" cy="132" r="5" fill="var(--green)"/>
-    <text x="600" y="120" text-anchor="middle" fill="var(--green)" font-family="Space Grotesk" font-size="24" font-weight="700">7</text><text x="600" y="144" text-anchor="middle" fill="var(--green)" font-family="IBM Plex Mono" font-size="10">СПБ</text>
+    <text x="600" y="120" text-anchor="middle" fill="var(--green)" font-family="Space Grotesk" font-size="24" font-weight="700">10</text><text x="600" y="144" text-anchor="middle" fill="var(--green)" font-family="IBM Plex Mono" font-size="10">СПБ</text>
     <circle cx="650" cy="250" r="52" fill="var(--amber)" opacity="0.12"/><circle cx="650" cy="250" r="6" fill="var(--amber)"/>
-    <text x="650" y="236" text-anchor="middle" fill="var(--amber)" font-family="Space Grotesk" font-size="26" font-weight="700">24</text><text x="650" y="260" text-anchor="middle" fill="var(--amber)" font-family="IBM Plex Mono" font-size="10">Европа / релокация</text>
+    <text x="650" y="236" text-anchor="middle" fill="var(--amber)" font-family="Space Grotesk" font-size="26" font-weight="700">29</text><text x="650" y="260" text-anchor="middle" fill="var(--amber)" font-family="IBM Plex Mono" font-size="10">Европа / релокация</text>
     <circle cx="245" cy="270" r="42" fill="var(--cyan)" opacity="0.12"/><circle cx="245" cy="270" r="5" fill="var(--cyan)"/>
-    <text x="245" y="258" text-anchor="middle" fill="var(--cyan)" font-family="Space Grotesk" font-size="24" font-weight="700">7</text><text x="245" y="282" text-anchor="middle" fill="var(--cyan)" font-family="IBM Plex Mono" font-size="10">Кавказ / ЦА / Молдова</text>
+    <text x="245" y="258" text-anchor="middle" fill="var(--cyan)" font-family="Space Grotesk" font-size="24" font-weight="700">10</text><text x="245" y="282" text-anchor="middle" fill="var(--cyan)" font-family="IBM Plex Mono" font-size="10">Кавказ / ЦА / Молдова</text>
     <circle cx="760" cy="180" r="30" fill="var(--pink)" opacity="0.12"/><circle cx="760" cy="180" r="4" fill="var(--pink)"/>
     <text x="760" y="170" text-anchor="middle" fill="var(--pink)" font-family="Space Grotesk" font-size="20" font-weight="700">long</text><text x="760" y="193" text-anchor="middle" fill="var(--pink)" font-family="IBM Plex Mono" font-size="9">US / Asia / MENA</text>
     <line x1="455" y1="205" x2="300" y2="140" stroke="var(--teal)" stroke-width="0.6" opacity="0.16"/><line x1="455" y1="205" x2="600" y2="132" stroke="var(--teal)" stroke-width="0.6" opacity="0.16"/><line x1="455" y1="205" x2="650" y2="250" stroke="var(--teal)" stroke-width="0.6" opacity="0.12"/><line x1="455" y1="205" x2="245" y2="270" stroke="var(--teal)" stroke-width="0.6" opacity="0.12"/>
-    <text x="450" y="395" text-anchor="middle" fill="var(--text-label)" font-family="IBM Plex Mono" font-size="11">118 локаций · Москва 32 · Европа/релокация 24 · РФ регионы 15 · СПб 7 · СНГ/Кавказ/ЦА 7 · long tail</text>
+    <text x="450" y="395" text-anchor="middle" fill="var(--text-label)" font-family="IBM Plex Mono" font-size="11">137 локаций · Москва 38 · Европа/релокация 29 · РФ регионы 25 · СПб 10 · СНГ/Кавказ/ЦА 10 · long tail</text>
   </svg>
 </div></div>
 
@@ -877,31 +860,31 @@ body.vox-open #vox-panel {
   <div class="cohort-grid">
     <div class="audience-terrain">
       <div class="terrain-row">
-        <div class="terrain-num teal">67%</div>
-        <div class="terrain-main"><h3>команда / компания</h3><div class="terrain-bar"><span style="width:67%;background:var(--teal)"></span></div></div>
+        <div class="terrain-num teal">62%</div>
+        <div class="terrain-main"><h3>команда / компания</h3><div class="terrain-bar"><span style="width:62%;background:var(--teal)"></span></div></div>
         <div class="terrain-note">ищут владельца процесса, правила и способ переноса AI в команду</div>
       </div>
       <div class="terrain-row">
-        <div class="terrain-num blue">53%</div>
-        <div class="terrain-main"><h3>coding / dev stack</h3><div class="terrain-bar"><span style="width:53%;background:var(--blue)"></span></div></div>
+        <div class="terrain-num blue">50%</div>
+        <div class="terrain-main"><h3>coding / dev stack</h3><div class="terrain-bar"><span style="width:50%;background:var(--blue)"></span></div></div>
         <div class="terrain-note">Claude Code, Codex, Cursor, MCP, локальные модели, code review</div>
       </div>
       <div class="terrain-row">
-        <div class="terrain-num green">52%</div>
-        <div class="terrain-main"><h3>операции / процессы</h3><div class="terrain-bar"><span style="width:52%;background:var(--green)"></span></div></div>
+        <div class="terrain-num green">48%</div>
+        <div class="terrain-main"><h3>операции / процессы</h3><div class="terrain-bar"><span style="width:48%;background:var(--green)"></span></div></div>
         <div class="terrain-note">CRM, отчёты, статусы, support, delivery, workflow, cost stream</div>
       </div>
       <div class="terrain-row">
-        <div class="terrain-num amber">41%</div>
-        <div class="terrain-main"><h3>агенты / agent systems</h3><div class="terrain-bar"><span style="width:41%;background:var(--amber)"></span></div></div>
+        <div class="terrain-num amber">42%</div>
+        <div class="terrain-main"><h3>агенты / agent systems</h3><div class="terrain-bar"><span style="width:42%;background:var(--amber)"></span></div></div>
         <div class="terrain-note">нужна цепочка данных, действий, проверки и улучшения</div>
       </div>
       <div class="terrain-row">
-        <div class="terrain-num cyan">22%</div>
-        <div class="terrain-main"><h3>контекст / knowledge layer</h3><div class="terrain-bar"><span style="width:22%;background:var(--cyan)"></span></div></div>
+        <div class="terrain-num cyan">30%</div>
+        <div class="terrain-main"><h3>контекст / knowledge layer</h3><div class="terrain-bar"><span style="width:30%;background:var(--cyan)"></span></div></div>
         <div class="terrain-note">где хранить правила, владельцев, решения и актуальные данные</div>
       </div>
-      <div class="terrain-foot">Субботний intro-call подтвердил главный паттерн: люди спрашивают не “какую модель выбрать”, а как сделать компанию читаемой для AI и не сломать людей, данные и ответственность.</div>
+      <div class="terrain-foot">NocoDB + intro-топик подтверждают главный паттерн: люди спрашивают не “какую модель выбрать”, а как сделать компанию читаемой для AI и не сломать людей, данные и ответственность.</div>
     </div>
     <div>
       <div class="case-card-grid">
@@ -912,7 +895,7 @@ body.vox-open #vox-panel {
         <div class="case-mini-card" style="border-top:2px solid var(--cyan)"><h3>enterprise hints</h3><p>в ответах встречаются команды и компании на 50, 80, 110, 300, 2000 человек. Это сигнал, не распределение.</p></div>
         <div class="case-mini-card" style="border-top:2px solid var(--red)"><h3>human risk</h3><p>в intro-call отдельно всплыл риск: AI ускоряет людей, но без практики может снижать ясность мышления.</p></div>
       </div>
-      <div class="signal-card" style="margin-top:10px;border-top:2px solid var(--cyan)"><h3>главный вывод</h3><p>на этой лабе строим контур: где живёт контекст, кто владеет процессом, как проверяется результат и куда эскалировать блокер.</p></div>
+      <div class="signal-card" style="margin-top:10px;border-top:2px solid var(--cyan)"><h3>сквозная история для pre-start</h3><p>анонимный паттерн из NocoDB и #intro: компания 50&ndash;200 человек уже использует AI в отдельных руках, но ей нужен общий контекст, владелец процесса, proof-layer и ритм внедрения.</p></div>
     </div>
   </div>
 </div></div>
@@ -938,14 +921,14 @@ body.vox-open #vox-panel {
     <div class="compare-panel">
       <h3><span class="teal">Batch 2</span> уже пришёл с org-задачей</h3>
       <div class="metric-strip">
-        <div class="metric-chip"><div class="metric-num teal">143</div><div class="metric-label">people after dedupe</div></div>
-        <div class="metric-chip"><div class="metric-num green">118</div><div class="metric-label">match forms</div></div>
-        <div class="metric-chip"><div class="metric-num amber">160</div><div class="metric-label">intro-like TG messages</div></div>
+        <div class="metric-chip"><div class="metric-num teal">161</div><div class="metric-label">NocoDB records</div></div>
+        <div class="metric-chip"><div class="metric-num green">138</div><div class="metric-label">filled profiles</div></div>
+        <div class="metric-chip"><div class="metric-num amber">75</div><div class="metric-label">intro-topic messages</div></div>
       </div>
       <div class="layers" style="gap:7px;margin-top:10px">
-        <div class="layer" style="padding:10px 14px;border-left:3px solid var(--teal)"><div class="layer-num teal" style="min-width:24px;font-size:13px">67%</div><div class="layer-desc" style="font-size:12px">пишут про команду, отдел, компанию или организационный контекст.</div></div>
-        <div class="layer" style="padding:10px 14px;border-left:3px solid var(--green)"><div class="layer-num green" style="min-width:24px;font-size:13px">52%</div><div class="layer-desc" style="font-size:12px">приходят с процессами: CRM, отчёты, операции, продажи, support, workflow.</div></div>
-        <div class="layer" style="padding:10px 14px;border-left:3px solid var(--amber)"><div class="layer-num amber" style="min-width:24px;font-size:13px">41%</div><div class="layer-desc" style="font-size:12px">явно говорят про агентов и агентные системы, а не только prompt usage.</div></div>
+        <div class="layer" style="padding:10px 14px;border-left:3px solid var(--teal)"><div class="layer-num teal" style="min-width:24px;font-size:13px">62%</div><div class="layer-desc" style="font-size:12px">пишут про команду, отдел, компанию или организационный контекст.</div></div>
+        <div class="layer" style="padding:10px 14px;border-left:3px solid var(--green)"><div class="layer-num green" style="min-width:24px;font-size:13px">48%</div><div class="layer-desc" style="font-size:12px">приходят с процессами: CRM, отчёты, операции, продажи, support, workflow.</div></div>
+        <div class="layer" style="padding:10px 14px;border-left:3px solid var(--amber)"><div class="layer-num amber" style="min-width:24px;font-size:13px">42%</div><div class="layer-desc" style="font-size:12px">явно говорят про агентов и агентные системы, а не только prompt usage.</div></div>
       </div>
       <div class="quote-enhanced" style="margin-top:12px;padding:14px 18px"><p style="font-size:13px">Меньше массовости, больше намерения: построить управляемую AI-native функцию внутри компании.</p><div class="author" style="font-size:11px">что меняем в подходе Batch 2</div></div>
     </div>
@@ -965,14 +948,14 @@ body.vox-open #vox-panel {
     </div>
     <div>
       <div class="stat-grid cols-2" style="margin-top:0;gap:10px">
-        <div class="stat-box"><div class="num teal" style="font-size:36px">67%</div><div class="stat-label">team / company context</div></div>
-        <div class="stat-box"><div class="num green" style="font-size:36px">52%</div><div class="stat-label">process / ops context</div></div>
-        <div class="stat-box"><div class="num blue" style="font-size:36px">41%</div><div class="stat-label">agent systems</div></div>
-        <div class="stat-box"><div class="num amber" style="font-size:36px">29%</div><div class="stat-label">product / startup</div></div>
+        <div class="stat-box"><div class="num teal" style="font-size:36px">62%</div><div class="stat-label">team / company context</div></div>
+        <div class="stat-box"><div class="num green" style="font-size:36px">48%</div><div class="stat-label">process / ops context</div></div>
+        <div class="stat-box"><div class="num blue" style="font-size:36px">42%</div><div class="stat-label">agent systems</div></div>
+        <div class="stat-box"><div class="num amber" style="font-size:36px">26%</div><div class="stat-label">product / startup</div></div>
       </div>
       <div style="margin-top:14px;padding:14px 18px;border:1px solid var(--border);border-radius:8px;background:var(--bg-card)">
         <p style="font-size:11px;color:var(--text-label);margin-bottom:6px;letter-spacing:1px">// KEY INSIGHT</p>
-        <p style="font-size:13px;color:rgba(255,255,255,0.8);line-height:1.6">Боль повторяется: точечный AI есть, архитектуры и владельца процесса часто нет. Поэтому каждую неделю фиксируем контур, evidence и следующий routing.</p>
+        <p style="font-size:13px;color:rgba(255,255,255,0.8);line-height:1.6">Боль повторяется: точечный AI есть, архитектуры и владельца процесса часто нет. Поэтому каждую неделю фиксируем контур, evidence и следующий routing на примере одной функции компании.</p>
       </div>
     </div>
   </div>
@@ -1038,8 +1021,8 @@ body.vox-open #vox-panel {
     <div class="trackline-card" style="border-color:rgba(200,146,0,0.35)"><div class="trackline-meta">track 04</div><h3>build &amp; visual craft</h3><p><span class="amber">Федосеев + Глазов</span>: vibe-coding, визуальные артефакты, hooks, продуктовые прототипы.</p></div>
   </div>
   <div style="display:flex;gap:10px;margin-top:10px">
-    <div style="flex:1;padding:10px 14px;border:1px solid var(--border);border-radius:8px;background:rgba(77,201,212,0.04)"><p style="font-size:11px;color:var(--text-dim)"><span class="teal" style="font-weight:600">132</span> участника в sprint-чате · <span class="teal" style="font-weight:600">160</span> intro-like сообщений · маршрутизация начинается с #intro</p></div>
-    <div style="flex:1;padding:10px 14px;border:1px solid var(--border);border-radius:8px;background:rgba(77,201,212,0.04)"><p style="font-size:11px;color:var(--text-dim)">source: public site + curator chat export, 2026-05-03</p></div>
+    <div style="flex:1;padding:10px 14px;border:1px solid var(--border);border-radius:8px;background:rgba(77,201,212,0.04)"><p style="font-size:11px;color:var(--text-dim)"><span class="teal" style="font-weight:600">152</span> участника в sprint-чате · <span class="teal" style="font-weight:600">75</span> сообщений в intro-топике · маршрутизация начинается с #intro</p></div>
+    <div style="flex:1;padding:10px 14px;border:1px solid var(--border);border-radius:8px;background:rgba(77,201,212,0.04)"><p style="font-size:11px;color:var(--text-dim)">source: public site + sprint/curator context, 2026-05-04</p></div>
   </div>
 </div></div>
 
@@ -1065,7 +1048,7 @@ body.vox-open #vox-panel {
     <span class="alumni-pill"><img src="speakers/daniel-kravtsov.jpeg" alt="">Daniil Kravtsov</span>
     <span class="alumni-pill"><img src="speakers/eugene-rid.jpg" alt="">Eugene Rid</span>
   </div>
-  <p class="roster-note">source: ai-native.aimindset.org, checked 2026-05-03. Практики и кураторы вынесены в отдельный слой маршрутизации.</p>
+  <p class="roster-note">source: ai-native.aimindset.org, checked 2026-05-04. Практики и кураторы вынесены в отдельный слой маршрутизации.</p>
 </div></div>
 
 <!-- S13: PROGRAM OVERVIEW -->
@@ -1357,7 +1340,7 @@ body.vox-open #vox-panel {
   <div class="split" style="gap:32px;align-items:start">
     <div>
       <div class="stat-grid cols-2" style="margin-top:0;gap:10px">
-        <div class="stat-box"><div class="num teal" style="font-size:36px">143</div><div class="stat-label">людей после дедупликации</div></div>
+        <div class="stat-box"><div class="num teal" style="font-size:36px">161</div><div class="stat-label">человек в актуальной базе</div></div>
         <div class="stat-box"><div class="num green" style="font-size:36px">24/7</div><div class="stat-label">async доступ</div></div>
       </div>
       <div class="layers" style="margin-top:14px;gap:6px">
@@ -1622,7 +1605,7 @@ body.vox-open #vox-panel {
 <button id="vox-trigger" title="Vox AI assistant (V)"><svg viewBox="0 0 5 5" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="0" width="5" height="5" rx="0.5" fill="#1c1c2e"/><rect x="1" y="1" width="1" height="1" fill="#4dc9d4"/><rect x="3" y="1" width="1" height="1" fill="#4dc9d4"/><rect x="0" y="2" width="1" height="1" fill="#38d9a9" opacity="0.5"/><rect x="4" y="2" width="1" height="1" fill="#38d9a9" opacity="0.5"/><rect x="1" y="3" width="1" height="1" fill="#38d9a9"/><rect x="2" y="3" width="1" height="1" fill="#4dc9d4"/><rect x="3" y="3" width="1" height="1" fill="#38d9a9"/><rect x="2" y="4" width="1" height="1" fill="#38d9a9" opacity="0.4"/></svg></button>
 
 <script>
-const DECK_VERSION='2026-05-03-batch2-diploma-v1';localStorage.removeItem('ainative-intro-call-state');localStorage.setItem('ainative-intro-call-version',DECK_VERSION);
+const DECK_VERSION='2026-05-04-batch2-noco-prestart-v1';localStorage.removeItem('ainative-intro-call-state');localStorage.setItem('ainative-intro-call-version',DECK_VERSION);
 const GH_REPO='ai-mindset-org/ainative-deck',GH_FILE='intro-call.html',GH_BRANCH='main',STORAGE_KEY='ainative-intro-call-state',TOKEN_KEY='ainative-intro-call-gh-token',OR_BASE='https://openrouter.ai/api/v1';
 var OR_KEY=localStorage.getItem('ainative-or-key')||'';
 function ensureORKey(){OR_KEY=localStorage.getItem('ainative-or-key')||OR_KEY||'';if(OR_KEY&&OR_KEY.startsWith('sk-or-'))return true;var key=prompt('OpenRouter API Key:\n\nget one at openrouter.ai/keys');if(key&&key.trim().startsWith('sk-or-')){OR_KEY=key.trim();localStorage.setItem('ainative-or-key',OR_KEY);return true}return false}
@@ -1725,14 +1708,14 @@ document.getElementById('toc-overlay').addEventListener('click',function(e){if(e
 
 var presenterMode=false,presTimer=null,presSeconds=0;
 var presNotes=[
-  {t:"Cover",n:"представиться, Степан представляется. Batch 2 / AIN02: kickoff 2 May. Субботний intro уже прошёл, теперь используем его как контекст для W1."},
+  {t:"Cover",n:"это 20-минутный pre-start briefing перед W1, не ростер спикеров. Стартовать с факта: NocoDB x161, 138 профилей, 152 в sprint-чате, 75 сообщений в intro-топике."},
   {t:"Agenda",n:"intro call был нужен для синхронизации контекста, аудитории, формата, спикеров, кураторов и intro round. После 2 May не обещать повтор этого блока."},
-  {t:"Participants",n:"говорить человечески: 143 человека в базе, 118 match-анкет, 132 в sprint-чате, 160 intro-сигналов, 56 были на live intro call. 145 строк – только техническая сноска."},
-  {t:"AI Stack",n:"q2 n=118: Claude 56%, GPT 48%, Claude Code 25%, Cursor 19%, Codex 17%, Perplexity 17%, Gemini 15%. Запрос не на инструменты, а на архитектуру."},
-  {t:"Geography",n:"q4 n=118: Москва 32, Европа/релокация 24, РФ регионы 15, СПб 7, СНГ/Кавказ/ЦА 7, дальше long tail."},
+  {t:"Participants",n:"говорить человечески: 161 человек в актуальной NocoDB-базе, 138 заполненных профилей, 152 в sprint-чате, 75 сообщений в intro-топике, 38 полноценных #intro. Dedupe audit: 159, публично не выводим как главное число."},
+  {t:"AI Stack",n:"q2 n=137: Claude 79, GPT 63, Claude Code 31, Cursor/Codex/Perplexity по 19, Gemini 18. Запрос не на инструменты, а на архитектуру и ownership."},
+  {t:"Geography",n:"q4 n=137: Москва 38, Европа/релокация 29, РФ регионы 25, СПб 10, СНГ/Кавказ/ЦА 10, дальше long tail."},
   {t:"New Approach",n:"POS → MOS → Company Functions. Главное: перевести личный стек в управляемую систему компании."},
-  {t:"Audience Map",n:"анонимная карта из match-ответов + субботнего transcript: tools already exist, missing layer is context, ownership, data access and verification. Не называем участников."},
-  {t:"S2 → Batch 2",n:"S2: 217 людей после чистки, 16 Demo projects, curator routing как вывод ретро. Batch 2: меньше массовости, больше company/system/process intent."},
+  {t:"Audience Map",n:"анонимная карта из NocoDB + intro-топика: 62% team/company, 50% dev stack, 48% ops/process, 42% agents, 30% context. Не называем участников."},
+  {t:"S2 → Batch 2",n:"S2: 217 людей после чистки, 16 Demo projects, curator routing как вывод ретро. Batch 2: актуальная база 161, больше company/system/process intent."},
   {t:"Sprint Goals",n:"агентный контур, процесс, командный перенос, Demo Day и 90-day roadmap. Боль: точечный AI без owner и architecture."},
   {t:"Lab Format",n:"AIN02 cadence as operating loop: frame → build → case lens → routing → evidence. Every slide should point to artifact and routing."},
   {t:"Curators",n:"site-verified curator roster: Ris, Smirnov, Fedoseev, Jin, Doonto, Vasiliev, Lonchakova, Glazov. Routing is by artifact and track, not by celebrity matching."},
@@ -1745,7 +1728,7 @@ var presNotes=[
   {t:"Office Hours",n:"09 / 16 / 23 May, 12:00 CEST. Hot seats and artifact review."},
   {t:"Demo Day",n:"25 May, 16:00 CEST. 5+3 min. No jury framing: feedback lenses are evidence, usefulness, ownership, next 90 days."},
   {t:"Curator Routing",n:"ask participants to bring artifacts and concrete blockers; route by beginner, tech, systems, build/visual, support, or Demo Day prep."},
-  {t:"Community",n:"143 people from BOT CSV, 132 members in sprint Telegram export, 160 intro-like messages across target chats. Telegram is main communication layer; async between sessions."},
+  {t:"Community",n:"161 people in NocoDB/CSV, 152 members in sprint Telegram, 75 intro-topic messages and 38 tagged #intro posts. Telegram is main communication layer; async between sessions."},
   {t:"W1 Q&A",n:"QR must point to https://learn.aimindset.org/s3/qa/s3-w1-lecture. Explain prerequisites: start from zero/setup material, skip what is obvious, move into practice."},
   {t:"Journey",n:"participant path: intro already done → W1 setup/POS → W2 MOS → W3 function → Demo Day. Emphasize sustainable rhythm and routing blockers to curators/OH."},
   {t:"Timer",n:"по минуте на каждого. space = start/pause. next = следующий."}
@@ -2179,8 +2162,8 @@ PROGRAM CONTEXT:
 - Product: AI-Native Organizations Sprint by AI Mindset x CybOS (Stepan Gershuni)
 - Dates: 2 May – 25 May 2026 (kickoff + 3 weeks + Demo Day)
 - Format: Online live sessions + recordings + prework materials. Public site price: EUR 1,990; team 3+ price: EUR 1,490 per person.
-	- Latest participant export (BOT {participants}_exported_1 (5).csv, 2026-05-03): 145 raw technical CSV rows, 143 people after Telegram/email dedupe, 118 match forms, 118 AI-stack answers, 118 filled locations.
-	- Telegram context (2026-05-03): 132 members in sprint chat, 160 intro-like messages across target chats.
+	- Latest participant source (NocoDB table mm1gcynfaq6j6n6, lab=s 3 + BOT {participants}_exported_1 (6).csv, 2026-05-04): 161 current records, 138 filled profiles, q1 135, q2 137, q3 137, q4 137. Dedupe audit is 159; public deck uses current NocoDB count x161.
+	- Telegram context (2026-05-04): 152 members in sprint chat, 75 messages in intro topic, 38 tagged #intro posts.
 	- Saturday intro-call transcript (2 May 2026): around 56 live participants joined; the intro block already happened and should not be repeated as a full module.
 	- Central ask: move from point AI use to an organizational operating layer.
 - One-liner: "POS → MOS → Company Functions"
@@ -2234,15 +2217,15 @@ ALUMNI MATERIALS: Alexey Amyotov, George Strakhov, Gleb Sidora, Daniil Kravtsov,
 
 CURATOR TRACKS: Sereja Ris + Alexander Vasiliev for setup/tool stack; Denis Smirnov + Yury Doonto for systems/evals/enterprise; Jin Kolesnikov + Olga Lonchakova for beginner/adoption/community; Stanislav Fedoseev + Stanislav Glazov for build/visual craft. Do not present on-hold or unknown contacts as confirmed curators.
 
-	PARTICIPANT STATS: Public wording should start with people, not rows: 143 people after dedupe, 118 match forms, 132 sprint-chat members, 160 intro-like Telegram messages, 56 live intro-call attendees. 145 raw CSV rows is only technical audit. Claude 56%, GPT 48%, Claude Code 25%, Cursor 19%, Codex 17%, Perplexity 17%, Gemini 15%.
+	PARTICIPANT STATS: Public wording should start with people, not rows: 161 people in current NocoDB base, 138 filled profiles, 152 sprint-chat members, 75 intro-topic messages, 38 tagged #intro posts. Dedupe audit 159 is only an internal check. Stack from q2 n=137: Claude 79 / 58%, GPT 63 / 46%, Claude Code 31 / 23%, Cursor 19 / 14%, Codex 19 / 14%, Perplexity 19 / 14%, Gemini 18 / 13%.
 
 KEY AUDIENCE INSIGHTS:
-- 67% write about team / organization context
-- 53% mention coding / development stack
-- 52% mention operations / process context
-- 41% mention agents / agent systems
-- 29% mention product / startup context
-- 22% mention knowledge / context / RAG layer
+- 62% write about team / organization context
+- 50% mention coding / development stack
+- 48% mention operations / process context
+- 42% mention agents / agent systems
+- 30% mention knowledge / context / RAG layer
+- 26% mention product / startup context
 - Explicit company-size mentions are sparse, but include teams/companies around 50, 80, 110, 300, and 2000 people. Treat this as anecdotal, not full distribution.
 - S2 comparison: previous S2 had 217 people after cleanup, 16 Demo Day projects, 13 curators; Batch 2 is smaller but more company/system/process-oriented from intake.
 	- Main pain points: point AI, no architecture, team has not adopted, tools live separately
@@ -2980,7 +2963,7 @@ Presenter note: ${note.n || 'none'}
 ${prevCtx ? 'Previous slide: "' + (prevCtx.h1 || prevCtx.h2) + '"' : ''}
 ${nextCtx ? 'Next slide: "' + (nextCtx.h1 || nextCtx.h2) + '"' : ''}
 
-PARTICIPANT CONTEXT: 143 people after dedupe, 118 match forms, 132 members in sprint Telegram export, 160 intro-like messages, 56 live intro-call attendees. 145 CSV rows is technical audit only. Patterns: 67% team/company, 53% coding/dev, 52% ops/process, 41% agents, 22% knowledge/context. Stack: Claude 56%, GPT 48%, Claude Code 25%, Cursor 19%, Codex 17%. Saturday transcript themes: company-readable context, human+agent org design, sustainable rhythm, prerequisites as optional menu.
+PARTICIPANT CONTEXT: 161 people in current NocoDB base, 138 filled profiles, 152 members in sprint Telegram, 75 intro-topic messages, 38 tagged #intro posts. Dedupe audit 159 is internal only. Patterns: 62% team/company, 50% coding/dev, 48% ops/process, 42% agents, 30% knowledge/context. Stack: Claude 79, GPT 63, Claude Code 31, Cursor/Codex/Perplexity 19 each. Chosen anonymized sprint story: a 50-200 person operational/product company where AI is already used in separate hands, but there is no shared context, owner, proof layer, or adoption rhythm. Saturday transcript themes: company-readable context, human+agent org design, sustainable rhythm, prerequisites as optional menu.
 
 Give a SHORT (2-3 sentences) presenter tip in Russian. What to emphasize, which audience segment to address, what transition works. Be specific to THIS slide. Format: one punchy insight.`;
 

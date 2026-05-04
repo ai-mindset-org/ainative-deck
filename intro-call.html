@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AI-Native Organizations Sprint - Batch 2 Intro Call</title>
 <meta property="og:title" content="AI-Native Organizations Sprint - Batch 2 Intro Call">
-<meta property="og:description" content="Batch 2 · 2–25 May 2026 · about 160 participants · POS → MOS → Company Functions">
+<meta property="og:description" content="Batch 2 · 2–25 May 2026 · about 160 participants · POS → MOS → AOS / Company Functions">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://ai-mindset-org.github.io/ainative-deck/assets/og-intro-call.png">
 <meta property="og:url" content="https://ai-mindset-org.github.io/ainative-deck/intro-call.html">
@@ -459,32 +459,61 @@ body.vox-open #vox-panel {
 #vox-live-pop {
   display: none;
   position: fixed;
-  top: 70px;
-  right: 72px;
-  width: min(420px, 32vw);
-  max-height: 42vh;
+  top: 72px;
+  right: 76px;
   z-index: 14500;
+  align-items: flex-start;
+  gap: 12px;
+  max-width: min(560px, 39vw);
+  pointer-events: none;
+}
+#vox-live-pop.visible { display: flex; animation: voxPopIn 0.18s ease-out; }
+body.vox-open #vox-live-pop { display: none; }
+.vox-clip {
+  width: 54px; height: 82px; flex: 0 0 auto;
+  border: none; background: transparent; padding: 0; margin-top: 2px;
+  cursor: pointer; position: relative; pointer-events: auto;
+  filter: drop-shadow(0 10px 20px rgba(0,0,0,0.38));
+}
+.vox-clip svg { width: 54px; height: 82px; overflow: visible; }
+.clip-wire { fill: none; stroke: #b8c4d8; stroke-width: 7; stroke-linecap: round; stroke-linejoin: round; }
+.clip-wire-shadow { fill: none; stroke: rgba(10,10,15,0.5); stroke-width: 10; stroke-linecap: round; stroke-linejoin: round; }
+.clip-eye { fill: #f8fbff; stroke: #1a2030; stroke-width: 1.5; }
+.clip-pupil { fill: #151923; animation: clipLook 4s ease-in-out infinite; }
+.clip-brow, .clip-mouth { fill: none; stroke: #151923; stroke-width: 2; stroke-linecap: round; }
+.clip-glow { position: absolute; inset: 8px 1px; border-radius: 32px; border: 1px solid rgba(77,201,212,0.3); animation: pulse 2.8s ease-in-out infinite; }
+.vox-live-bubble {
+  pointer-events: auto;
+  min-width: min(430px, 34vw);
+  max-height: 40vh;
   padding: 14px 16px 16px;
   border: 1px solid rgba(77,201,212,0.28);
   border-radius: 10px;
-  background: rgba(10,10,15,0.76);
+  background: rgba(10,10,15,0.74);
   backdrop-filter: blur(18px);
   box-shadow: 0 18px 54px rgba(0,0,0,0.28), 0 0 28px rgba(77,201,212,0.12);
   overflow: auto;
 }
-#vox-live-pop.visible { display: block; animation: voxPopIn 0.18s ease-out; }
-body.vox-open #vox-live-pop { display: none; }
+#vox-live-pop.collapsed .vox-live-bubble { display: none; }
+#vox-live-pop.collapsed { right: 28px; max-width: 70px; }
 .vox-live-pop-head {
   display: flex; align-items: center; justify-content: space-between;
   gap: 12px; margin-bottom: 10px;
   font-family: var(--font-body); font-size: 10px;
   color: var(--teal); letter-spacing: 1.6px; text-transform: uppercase;
 }
+.vox-live-actions { display: flex; align-items: center; gap: 8px; }
 .vox-live-pop-head button {
   background: transparent; border: none; color: var(--text-dim);
   cursor: pointer; font-family: var(--font-body); font-size: 16px;
 }
 .vox-live-pop-head button:hover { color: var(--teal); }
+.vox-live-source {
+  margin-bottom: 8px; padding-bottom: 8px;
+  border-bottom: 1px solid rgba(77,201,212,0.12);
+  color: rgba(255,255,255,0.38);
+  font-family: var(--font-body); font-size: 9px; line-height: 1.5;
+}
 #vox-live-pop-text {
   color: rgba(255,255,255,0.82);
   font-size: 13px; line-height: 1.62;
@@ -493,6 +522,10 @@ body.vox-open #vox-live-pop { display: none; }
 @keyframes voxPopIn {
   from { opacity: 0; transform: translateY(-8px) scale(0.98); }
   to { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes clipLook {
+  0%, 45%, 100% { transform: translateX(0); }
+  55%, 70% { transform: translateX(2px); }
 }
 
 /* === VOX HEADER === */
@@ -712,7 +745,8 @@ body.vox-open #vox-live-pop { display: none; }
 @media (max-width: 768px) {
   #vox-panel { width: 100%; }
   #vox-trigger { bottom: 60px; top: auto; right: 12px; transform: none; width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--border); }
-  #vox-live-pop { top: 56px; right: 12px; left: 12px; width: auto; max-height: 34vh; }
+  #vox-live-pop { top: 56px; right: 12px; left: 12px; max-width: none; }
+  .vox-live-bubble { min-width: 0; width: calc(100vw - 96px); max-height: 34vh; }
 }
 
 /* === TOC OVERLAY === */
@@ -804,7 +838,7 @@ body.vox-open #vox-live-pop { display: none; }
     <div class="layer" style="border-left:3px solid var(--teal)"><div class="layer-num teal" style="min-width:36px">01</div><div class="layer-name">Кто участвует</div><div class="layer-desc">около 160 участников, 154 человека в sprint-чате, 141 заполненный профиль</div></div>
     <div class="layer" style="border-left:3px solid var(--blue)"><div class="layer-num blue" style="min-width:36px">02</div><div class="layer-name">С каким стеком пришли</div><div class="layer-desc">Claude, GPT, Codex, Cursor, агенты, автоматизации</div></div>
     <div class="layer" style="border-left:3px solid var(--green)"><div class="layer-num green" style="min-width:36px">03</div><div class="layer-name">Что хотят построить</div><div class="layer-desc">агенты, операционные контуры, team adoption</div></div>
-    <div class="layer" style="border-left:3px solid var(--amber)"><div class="layer-num amber" style="min-width:36px">04</div><div class="layer-name">Новый подход</div><div class="layer-desc">POS &rarr; MOS &rarr; Company Functions</div></div>
+    <div class="layer" style="border-left:3px solid var(--amber)"><div class="layer-num amber" style="min-width:36px">04</div><div class="layer-name">Новый подход</div><div class="layer-desc">POS &rarr; MOS &rarr; AOS / Company Functions</div></div>
     <div class="layer" style="border-left:3px solid var(--cyan)"><div class="layer-num cyan" style="min-width:36px">05</div><div class="layer-name">Как работает лаба</div><div class="layer-desc">сессии, кураторы, практика, Demo Day</div></div>
     <div class="layer" style="border-left:3px solid var(--red)"><div class="layer-num red" style="min-width:36px">06</div><div class="layer-name">Intro context</div><div class="layer-desc">интро уже было: берём паттерны группы, не повторяем круг заново</div></div>
   </div>
@@ -879,12 +913,12 @@ body.vox-open #vox-live-pop { display: none; }
 
 <!-- S6: NEW APPROACH -->
 <div class="slide" id="s6"><div class="slide-counter"><span class="current">6</span>/<span class="total"></span></div><img class="slide-logo" src="logo.png" alt=""><div class="slide-inner">
-  <div class="label">// method &middot; POS to functions</div>
+  <div class="label">// method &middot; POS → MOS → AOS</div>
   <h2>Новый подход: <span class="teal">от личного стека к функциям компании</span></h2>
   <div class="cards" style="grid-template-columns:repeat(3,1fr);gap:16px;margin-top:18px">
     <div class="card" style="border-top:3px solid var(--teal)"><div class="card-icon">W1</div><h3>POS</h3><p>personal OS: контекст, правила, рабочее окружение, первая дисциплина работы с агентами.</p><span class="tag">foundation</span></div>
-    <div class="card" style="border-top:3px solid var(--blue)"><div class="card-icon">W2</div><h3>MOS</h3><p>management OS: задачи, решения, встречи, follow-up, память команды, маршрутизация работы.</p><span class="tag blue-tag">coordination</span></div>
-    <div class="card" style="border-top:3px solid var(--green)"><div class="card-icon">W3</div><h3>Company Functions</h3><p>агентные контуры для sales, ops, product, legal, finance, support, development.</p><span class="tag green-tag">functions</span></div>
+    <div class="card" style="border-top:3px solid var(--blue)"><div class="card-icon">W2</div><h3>MOS</h3><p>management OS: задачи, решения, встречи, follow-up, память команды, маршрутизация работы.</p><span class="tag blue-tag">management</span></div>
+    <div class="card" style="border-top:3px solid var(--green)"><div class="card-icon">W3</div><h3>AOS / Company Functions</h3><p>AI-native org system: агентные контуры для sales, ops, product, legal, finance, support, development.</p><span class="tag green-tag">company layer</span></div>
   </div>
   <div class="stat-grid cols-4" style="margin-top:18px">
     <div class="stat-box"><div class="num teal" style="font-size:34px">3</div><div class="stat-label">недели</div></div>
@@ -1010,9 +1044,9 @@ body.vox-open #vox-live-pop { display: none; }
   <div class="split" style="gap:28px;align-items:start">
     <div>
       <div class="layers" style="gap:6px">
-        <div class="layer" style="border-left:3px solid var(--teal)"><div class="layer-num teal" style="min-width:36px">01</div><div class="layer-name">core lectures</div><div class="layer-desc">общая рамка: POS, MOS, functions, 90-day implementation</div></div>
-        <div class="layer" style="border-left:3px solid var(--green)"><div class="layer-num green" style="min-width:36px">02</div><div class="layer-name">practical blocks</div><div class="layer-desc">Denis Smirnov: systems, evals, fake-company simulations</div></div>
-        <div class="layer" style="border-left:3px solid var(--blue)"><div class="layer-num blue" style="min-width:36px">03</div><div class="layer-name">guest sessions</div><div class="layer-desc">реальные кейсы: legal, sales, engineering, agents, transformation</div></div>
+        <div class="layer" style="border-left:3px solid var(--teal)"><div class="layer-num teal" style="min-width:36px">01</div><div class="layer-name">core lectures</div><div class="layer-desc">Степан: POS, MOS, AOS, 90-day implementation</div></div>
+        <div class="layer" style="border-left:3px solid var(--green)"><div class="layer-num green" style="min-width:36px">02</div><div class="layer-name">практика Дениса</div><div class="layer-desc">systems, evals, fake-company simulations, проверяемость</div></div>
+        <div class="layer" style="border-left:3px solid var(--blue)"><div class="layer-num blue" style="min-width:36px">03</div><div class="layer-name">соавторы и гостевые сессии</div><div class="layer-desc">кейсы из комьюнити: legal, sales, engineering, agents, transformation</div></div>
         <div class="layer" style="border-left:3px solid var(--amber)"><div class="layer-num amber" style="min-width:36px">04</div><div class="layer-name">curator tracks</div><div class="layer-desc">routing по уровню и треку: beginner, tech stack, systems, ops</div></div>
         <div class="layer" style="border-left:3px solid var(--pink)"><div class="layer-num pink" style="min-width:36px">05</div><div class="layer-name">office hours</div><div class="layer-desc">09 / 16 / 23 мая, hot seats и review артефактов</div></div>
         <div class="layer" style="border-left:3px solid var(--cyan)"><div class="layer-num cyan" style="min-width:36px">06</div><div class="layer-name">Demo Day</div><div class="layer-desc">25 мая: контур, evidence, owner, next 90 days</div></div>
@@ -1027,12 +1061,12 @@ body.vox-open #vox-live-pop { display: none; }
         <div class="cycle-step accent-amber" data-step="04"><h3>routing</h3><p>кураторы помогают выбрать следующий шаг: setup, systems, beginner/adoption, build/visual craft.</p></div>
         <div class="cycle-center">
           <div class="cycle-week"><h4>W1 · POS</h4><p>личный стек, контекст, правила, рабочая среда</p></div>
-          <div class="cycle-week"><h4>W2 · MOS</h4><p>управление, память команды, agent workflow</p></div>
-          <div class="cycle-week"><h4>W3 · functions</h4><p>функция компании, evidence, 90-day plan</p></div>
+          <div class="cycle-week"><h4>W2 · MOS</h4><p>management layer, память команды, agent workflow</p></div>
+          <div class="cycle-week"><h4>W3 · AOS</h4><p>company functions, evidence, 90-day plan</p></div>
         </div>
       </div>
       <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px">
-        <div class="metric-chip"><div class="metric-num">22</div><div class="metric-label">calendar events</div></div>
+        <div class="metric-chip"><div class="metric-num">22</div><div class="metric-label">live sessions</div></div>
         <div class="metric-chip"><div class="metric-num green">17:00</div><div class="metric-label">main time CEST</div></div>
         <div class="metric-chip"><div class="metric-num blue">8</div><div class="metric-label">curators</div></div>
         <div class="metric-chip"><div class="metric-num amber">3</div><div class="metric-label">office hours</div></div>
@@ -1095,8 +1129,8 @@ body.vox-open #vox-live-pop { display: none; }
 
 <!-- S13: PROGRAM OVERVIEW -->
 <div class="slide" id="s13"><div class="slide-counter"><span class="current">13</span>/<span class="total"></span></div><img class="slide-logo" src="logo.png" alt=""><div class="slide-inner program-compact">
-  <div class="label">// program calendar &middot; Google Calendar checked 2026-05-04</div>
-  <h2>Календарь спринта: <span class="teal">каждый день виден</span></h2>
+  <div class="label">// 22 live sessions &middot; Google Calendar checked 2026-05-04</div>
+  <h2>22 live-сессии: <span class="teal">что происходит каждый день</span></h2>
   <div class="calendar-grid">
     <div class="calendar-head">week</div><div class="calendar-head">mon</div><div class="calendar-head">tue</div><div class="calendar-head">wed</div><div class="calendar-head">thu</div><div class="calendar-head">fri</div><div class="calendar-head">sat</div>
     <div class="calendar-week-label">W1</div>
@@ -1135,28 +1169,28 @@ body.vox-open #vox-live-pop { display: none; }
 <!-- S14: FORMAT SECTION DIVIDER -->
 <div class="slide" id="s14"><div class="slide-counter"><span class="current">14</span>/<span class="total"></span></div><img class="slide-logo" src="logo.png" alt=""><div class="slide-inner">
   <div class="label" style="letter-spacing:4px;font-size:11px">// FORMAT DEEP DIVE</div>
-  <h2>Как устроены <span class="teal">сессии</span></h2>
-  <p style="font-size:14px;color:var(--text-dim);margin-bottom:12px">каждый день держит отдельный тип работы: рамка, практика, доменный пример, внедрение, разбор.</p>
+  <h2>Как устроена <span class="teal">лаба</span></h2>
+  <p style="font-size:14px;color:var(--text-dim);margin-bottom:12px">это не набор лекций: 22 live-сессии собирают один путь от рамки до артефакта, доказательства и routing.</p>
   <div class="session-day-grid">
-    <div class="session-day" style="border-top:2px solid var(--teal)"><div class="day-label">пн · 17:00</div><h3>core lecture</h3><p>Степан задаёт рамку: какой слой системы собираем и какие вопросы несём в неделю.</p></div>
-    <div class="session-day" style="border-top:2px solid var(--green)"><div class="day-label">вт · 12:00</div><h3>Denis practice</h3><p>практический модуль: systems, evals, fake-company simulation, проверяемость.</p></div>
-    <div class="session-day" style="border-top:2px solid var(--cyan)"><div class="day-label">вт · 17:00</div><h3>setup / alumni</h3><p>Ris setup, alumni showcase или community talk: добираем среду и примеры.</p></div>
-    <div class="session-day" style="border-top:2px solid var(--blue)"><div class="day-label">ср</div><h3>domain case</h3><p>host или guest: legal, sales, engineering, функция компании, реальные решения.</p></div>
-    <div class="session-day" style="border-top:2px solid var(--blue)"><div class="day-label">чт / пт</div><h3>implementation</h3><p>ещё один домен или разбор: переносим рамку в свой контур, не просто слушаем.</p></div>
-    <div class="session-day" style="border-top:2px solid var(--amber)"><div class="day-label">сб · 12:00</div><h3>office hours</h3><p>не запись для просмотра, а live-место для кейсов, блокеров и curator routing.</p></div>
+    <div class="session-day" style="border-top:2px solid var(--teal)"><div class="day-label">пн · 17:00</div><h3>лекция Степана</h3><p>рамка недели: POS, MOS или AOS. Отсюда берём вопросы и один слой для сборки.</p></div>
+    <div class="session-day" style="border-top:2px solid var(--green)"><div class="day-label">вт · 12:00</div><h3>практика Дениса</h3><p>systems, evals, fake-company simulation: как проверять результат, а не просто генерировать.</p></div>
+    <div class="session-day" style="border-top:2px solid var(--cyan)"><div class="day-label">вт · 17:00</div><h3>setup / alumni / community</h3><p>среда, первые артефакты, alumni showcase и блоки из комьюнити.</p></div>
+    <div class="session-day" style="border-top:2px solid var(--blue)"><div class="day-label">ср · 17:00</div><h3>coworking / case</h3><p>доменный кейс или совместная работа: legal, sales, engineering, функция компании.</p></div>
+    <div class="session-day" style="border-top:2px solid var(--blue)"><div class="day-label">чт / пт · 17:00</div><h3>implementation</h3><p>переносим рамку в свой контур: owner, workflow, evidence, adoption.</p></div>
+    <div class="session-day" style="border-top:2px solid var(--amber)"><div class="day-label">сб · 12:00</div><h3>office hours</h3><p>hot seats: один кейс, один артефакт, один блокер, дальше curator routing.</p></div>
   </div>
   <div style="display:flex;gap:10px">
     <div style="flex:1;display:flex;gap:10px">
       <div style="flex:1;padding:12px;border:1px solid var(--border);border-radius:10px;background:var(--bg-card);text-align:center"><p style="font-size:24px;font-weight:700;color:var(--teal);font-family:var(--font-heading)">3</p><p style="font-size:10px;color:var(--text-dim)">system modules</p></div>
       <div style="flex:1;padding:12px;border:1px solid var(--border);border-radius:10px;background:var(--bg-card);text-align:center"><p style="font-size:24px;font-weight:700;color:var(--green);font-family:var(--font-heading)">9</p><p style="font-size:10px;color:var(--text-dim)">guest speakers</p></div>
-      <div style="flex:1;padding:12px;border:1px solid var(--border);border-radius:10px;background:var(--bg-card);text-align:center"><p style="font-size:24px;font-weight:700;color:var(--blue);font-family:var(--font-heading)">22</p><p style="font-size:10px;color:var(--text-dim)">calendar events</p></div>
+      <div style="flex:1;padding:12px;border:1px solid var(--border);border-radius:10px;background:var(--bg-card);text-align:center"><p style="font-size:24px;font-weight:700;color:var(--blue);font-family:var(--font-heading)">22</p><p style="font-size:10px;color:var(--text-dim)">главные live-сессии</p></div>
       <div style="flex:1;padding:12px;border:1px solid var(--border);border-radius:10px;background:var(--bg-card);text-align:center"><p style="font-size:24px;font-weight:700;color:var(--amber);font-family:var(--font-heading)">3</p><p style="font-size:10px;color:var(--text-dim)">office hours</p></div>
       <div style="flex:1;padding:12px;border:1px solid var(--border);border-radius:10px;background:var(--bg-card);text-align:center"><p style="font-size:24px;font-weight:700;color:var(--red);font-family:var(--font-heading)">1</p><p style="font-size:10px;color:var(--text-dim)">demo day</p></div>
     </div>
   </div>
   <div style="margin-top:12px;display:flex;gap:10px">
     <div style="flex:1;padding:10px 14px;background:rgba(77,201,212,0.04);border:1px solid var(--border);border-radius:8px"><p style="font-size:12px;color:rgba(255,255,255,0.7)"><span class="teal" style="font-weight:600">17:00 CEST</span> &ndash; основное время. Denis / OH иногда в 12:00</p></div>
-    <div style="flex:1;padding:10px 14px;background:rgba(77,201,212,0.04);border:1px solid var(--border);border-radius:8px"><p style="font-size:12px;color:rgba(255,255,255,0.7)"><span class="green" style="font-weight:600">записи</span> всех сессий доступны 12 месяцев</p></div>
+    <div style="flex:1;padding:10px 14px;background:rgba(77,201,212,0.04);border:1px solid var(--border);border-radius:8px"><p style="font-size:12px;color:rgba(255,255,255,0.7)"><span class="green" style="font-weight:600">суббота</span> &ndash; приходить с кейсом, артефактом и конкретным блокером</p></div>
   </div>
 </div></div>
 
@@ -1318,7 +1352,7 @@ body.vox-open #vox-live-pop { display: none; }
     <div>
       <div class="stat-grid cols-2" style="margin-top:0;gap:10px">
         <div class="stat-box" style="border-top:2px solid var(--red)"><div class="num red" style="font-size:36px">пн</div><div class="stat-label">25 мая &middot; 16:00 CEST</div></div>
-        <div class="stat-box" style="border-top:2px solid var(--teal)"><div class="num teal" style="font-size:36px">5+3</div><div class="stat-label">мин выступление + Q&A</div></div>
+        <div class="stat-box" style="border-top:2px solid var(--teal)"><div class="num teal" style="font-size:36px">5+1</div><div class="stat-label">мин выступление + короткий вопрос</div></div>
       </div>
       <p style="font-size:12px;color:var(--text-label);margin-top:16px;margin-bottom:10px;letter-spacing:2px">// СТРУКТУРА ВЫСТУПЛЕНИЯ</p>
       <div class="layers" style="gap:6px">
@@ -1363,7 +1397,7 @@ body.vox-open #vox-live-pop { display: none; }
       <div class="cards" style="grid-template-columns:1fr;gap:8px;margin-top:0">
         <div class="card" style="padding:12px;border-left:3px solid var(--blue)"><h3 style="font-size:14px;margin-bottom:4px">новичкам и командам</h3><p style="font-size:12px">Jin / Ольга: первый workflow, onboarding, adoption, меньше tool chaos.</p></div>
         <div class="card" style="padding:12px;border-left:3px solid var(--teal)"><h3 style="font-size:14px;margin-bottom:4px">техническому треку</h3><p style="font-size:12px">Ris / Vasiliev: Claude Code, multi-agent setup, infra, навыки и окружение.</p></div>
-        <div class="card" style="padding:12px;border-left:3px solid var(--green)"><h3 style="font-size:14px;margin-bottom:4px">системному треку</h3><p style="font-size:12px">Denis / Doonto: evals, governance, fake-company, enterprise architecture.</p></div>
+        <div class="card" style="padding:12px;border-left:3px solid var(--green)"><h3 style="font-size:14px;margin-bottom:4px">системному треку</h3><p style="font-size:12px">Denis / Юрий: evals, governance, fake-company, enterprise architecture.</p></div>
         <div class="card" style="padding:12px;border-left:3px solid var(--amber)"><h3 style="font-size:14px;margin-bottom:4px">build / visual craft</h3><p style="font-size:12px">Fedoseev / Glazov: vibe-coding, visual artifacts, hooks, product prototypes.</p></div>
       </div>
     </div>
@@ -1507,12 +1541,21 @@ body.vox-open #vox-live-pop { display: none; }
     <div class="journey-station" data-step="02"><h3>W1 · setup / POS</h3><p>выбираем один кейс, собираем личный контекст, базовую среду и вопрос к лекции.</p><div class="artifact">artifact: case card + setup proof</div></div>
     <div class="journey-station" data-step="03"><h3>W2 · MOS</h3><p>переводим личный слой в управленческий: задачи, решения, встречи, память команды.</p><div class="artifact">artifact: owner map + workflow</div></div>
     <div class="journey-station" data-step="04"><h3>W3 · function</h3><p>прикручиваем AI к конкретной функции: sales, ops, product, legal, support, dev.</p><div class="artifact">artifact: working contour + eval</div></div>
-    <div class="journey-station" data-step="05"><h3>25.05 · Demo Day</h3><p>показываем не идею, а контур: что работает, какие доказательства, кто владелец.</p><div class="artifact">artifact: 5 min demo + 90-day plan</div></div>
+    <div class="journey-station" data-step="05"><h3>25.05 · Demo Day</h3><p>показываем не идею, а контур: что работает, какие доказательства, кто владелец.</p><div class="artifact">artifact: 5 min demo + 1 min Q&A + 90-day plan</div></div>
   </div>
   <div class="journey-callout">
     <div><h3>ритм</h3><p>лучше дозировать и приходить регулярно, чем перегореть на первой неделе от всех записей сразу.</p></div>
     <div><h3>пререки</h3><p>начните с нулевого setup; если материал лёгкий, пропускайте и сразу переносите в практику.</p></div>
     <div><h3>маршрутизация</h3><p>блокер не держим в голове: несём в sprint-чат, кураторам или на office hours.</p></div>
+  </div>
+  <div style="margin-top:16px;display:flex;align-items:center;gap:14px;padding:14px 18px;border:1px solid rgba(77,201,212,0.24);border-radius:10px;background:rgba(77,201,212,0.055)">
+    <img src="speakers/stepan-gershuni.jpg" alt="" style="width:56px;height:56px;border-radius:50%;border:2px solid var(--teal);object-fit:cover">
+    <div style="flex:1">
+      <p style="font-size:12px;color:var(--text-label);letter-spacing:2px;margin-bottom:4px">// СЕГОДНЯ · 4 МАЯ · 17:00 CEST</p>
+      <p style="font-size:16px;color:#fff;font-weight:700;margin-bottom:4px">Stepan Gershuni: W1 lecture · Foundation</p>
+      <p style="font-size:12px;color:rgba(255,255,255,0.68);line-height:1.5">после этого слайда следующий шаг простой: открыть Q&A, задать вопрос к лекции и прийти с одним кейсом для Week 1.</p>
+    </div>
+    <a href="https://learn.aimindset.org/s3/qa/s3-w1-lecture" target="_blank" class="btn primary" style="text-decoration:none;white-space:nowrap">Q&A W1</a>
   </div>
 </div></div>
 
@@ -1607,7 +1650,7 @@ body.vox-open #vox-live-pop { display: none; }
   <!-- Chat Messages -->
   <div class="vox-messages" id="vox-messages">
     <div class="vox-msg vox-msg-bot">
-      <div class="vox-msg-content">VOX готов. Открой LIVE ON или workshop coach для подсказок по слайду.</div>
+      <div class="vox-msg-content">VOX готов. LIVE ON показывает аудитории рамку текущего слайда. Workshop Coach остаётся внутренним режимом разбора.</div>
     </div>
   </div>
 
@@ -1620,15 +1663,38 @@ body.vox-open #vox-live-pop { display: none; }
 
 <!-- Vox live popup: ambient presenter notes without opening the side panel -->
 <div id="vox-live-pop" aria-live="polite">
-  <div class="vox-live-pop-head"><span>VOX LIVE</span><button type="button" onclick="hideVoxPopup()" title="hide">&times;</button></div>
-  <div id="vox-live-pop-text">LIVE ON: подсказки появятся здесь и не будут перекрывать слайд.</div>
+  <button class="vox-clip" type="button" onclick="toggleVoxPopupCollapse()" title="VOX LIVE">
+    <span class="clip-glow"></span>
+    <svg viewBox="0 0 64 96" role="img" aria-label="VOX paperclip">
+      <path class="clip-wire-shadow" d="M36 16c14 0 20 11 20 24v24c0 17-11 29-27 29S4 80 4 65V29c0-12 8-22 20-22 13 0 20 10 20 22v34c0 10-6 18-15 18S16 74 16 65V31"/>
+      <path class="clip-wire" d="M36 16c14 0 20 11 20 24v24c0 17-11 29-27 29S4 80 4 65V29c0-12 8-22 20-22 13 0 20 10 20 22v34c0 10-6 18-15 18S16 74 16 65V31"/>
+      <ellipse class="clip-eye" cx="26" cy="25" rx="8" ry="7"/>
+      <ellipse class="clip-eye" cx="45" cy="26" rx="8" ry="7"/>
+      <circle class="clip-pupil" cx="27" cy="25" r="3"/>
+      <circle class="clip-pupil" cx="46" cy="26" r="3"/>
+      <path class="clip-brow" d="M19 17c4-5 10-5 14-1"/>
+      <path class="clip-brow" d="M39 17c5-4 11-3 14 2"/>
+      <path class="clip-mouth" d="M31 43c5 4 11 4 16 0"/>
+    </svg>
+  </button>
+  <div class="vox-live-bubble">
+    <div class="vox-live-pop-head">
+      <span>VOX LIVE · рамка слайда</span>
+      <span class="vox-live-actions">
+        <button type="button" onclick="toggleVoxPopupCollapse()" title="collapse">&minus;</button>
+        <button type="button" onclick="hideVoxPopup()" title="hide">&times;</button>
+      </span>
+    </div>
+    <div class="vox-live-source" id="vox-live-source">source: текущий слайд · intake 167/141 · sprint chat 154 · intro 75 · calendar 22</div>
+    <div id="vox-live-pop-text">LIVE ON: рамка текущего блока появится здесь и не будет перекрывать слайд.</div>
+  </div>
 </div>
 
 <!-- Vox trigger button (always visible, works in both edit and presentation modes) -->
 <button id="vox-trigger" title="Vox AI assistant (V)"><svg viewBox="0 0 5 5" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="0" width="5" height="5" rx="0.5" fill="#1c1c2e"/><rect x="1" y="1" width="1" height="1" fill="#4dc9d4"/><rect x="3" y="1" width="1" height="1" fill="#4dc9d4"/><rect x="0" y="2" width="1" height="1" fill="#38d9a9" opacity="0.5"/><rect x="4" y="2" width="1" height="1" fill="#38d9a9" opacity="0.5"/><rect x="1" y="3" width="1" height="1" fill="#38d9a9"/><rect x="2" y="3" width="1" height="1" fill="#4dc9d4"/><rect x="3" y="3" width="1" height="1" fill="#38d9a9"/><rect x="2" y="4" width="1" height="1" fill="#38d9a9" opacity="0.4"/></svg></button>
 
 <script>
-const DECK_VERSION='2026-05-04-batch2-current-intake-v2';localStorage.removeItem('ainative-intro-call-state');localStorage.setItem('ainative-intro-call-version',DECK_VERSION);
+const DECK_VERSION='2026-05-04-voxlive-workshop-layer-v3';localStorage.removeItem('ainative-intro-call-state');localStorage.setItem('ainative-intro-call-version',DECK_VERSION);
 const GH_REPO='ai-mindset-org/ainative-deck',GH_FILE='intro-call.html',GH_BRANCH='main',STORAGE_KEY='ainative-intro-call-state',TOKEN_KEY='ainative-intro-call-gh-token',OR_BASE='https://openrouter.ai/api/v1';
 var OR_KEY=localStorage.getItem('ainative-or-key')||'';
 function ensureORKey(){OR_KEY=localStorage.getItem('ainative-or-key')||OR_KEY||'';if(OR_KEY&&OR_KEY.startsWith('sk-or-'))return true;var key=prompt('OpenRouter API Key:\n\nget one at openrouter.ai/keys');if(key&&key.trim().startsWith('sk-or-')){OR_KEY=key.trim();localStorage.setItem('ainative-or-key',OR_KEY);return true}return false}
@@ -1701,7 +1767,7 @@ function closeGhModal(){document.getElementById('gh-modal').classList.remove('vi
 function confirmGhToken(){var t=document.getElementById('gh-token-input').value.trim();if(t){localStorage.setItem(TOKEN_KEY,t);closeGhModal();saveToGitHub()}}
 function setStatus(c,t){var e=document.getElementById('save-status');e.className='save-status '+c;e.textContent=t;if(c==='saved')setTimeout(function(){e.textContent=''},3000)}
 async function saveToGitHub(){var t=getGhToken();if(!t){showGhModal();return}setStatus('saving','pushing...');try{var g=await fetch('https://api.github.com/repos/'+GH_REPO+'/contents/'+GH_FILE+'?ref='+GH_BRANCH,{headers:{'Authorization':'token '+t,'Accept':'application/vnd.github.v3+json'}});var sha=null;if(g.ok)sha=(await g.json()).sha;var content=buildCleanHTML();var encoded=btoa(unescape(encodeURIComponent(content)));var body={message:'update intro-call \u2013 '+new Date().toISOString().slice(0,16),content:encoded,branch:GH_BRANCH};if(sha)body.sha=sha;var p=await fetch('https://api.github.com/repos/'+GH_REPO+'/contents/'+GH_FILE,{method:'PUT',headers:{'Authorization':'token '+t,'Accept':'application/vnd.github.v3+json','Content-Type':'application/json'},body:JSON.stringify(body)});if(p.ok){setStatus('saved','pushed');isDirty=false}else throw new Error((await p.json()).message||'error')}catch(e){setStatus('error','failed: '+e.message)}}
-function buildCleanHTML(){var c=document.documentElement.cloneNode(true);c.querySelector('body').classList.remove('edit-mode','vox-open','vox-live-active','toc-open');c.querySelectorAll('.layout-bar').forEach(function(b){b.remove()});c.querySelectorAll('[contenteditable]').forEach(function(el){el.removeAttribute('contenteditable')});c.querySelectorAll('[draggable]').forEach(function(el){el.removeAttribute('draggable')});c.querySelectorAll('.block-selected,.drag-over-top,.drag-over-bottom,.block-dragging').forEach(function(el){el.classList.remove('block-selected','drag-over-top','drag-over-bottom','block-dragging')});c.querySelectorAll('#block-actions,#img-action-menu,#layout-picker,#ai-modal,#gh-modal,#preview-panel,#toc-overlay,#vox-live-pop').forEach(function(el){el.classList.remove('visible')});var vm=c.querySelector('#vox-messages');if(vm){vm.innerHTML='<div class="vox-msg vox-msg-bot"><div class="vox-msg-content">VOX готов. Откройте LIVE ON или workshop coach для подсказок по слайду.</div></div>'}var vp=c.querySelector('#vox-live-pop-text');if(vp){vp.textContent='LIVE ON: подсказки появятся здесь и не будут перекрывать слайд.'}c.querySelectorAll('.slide').forEach(function(s,i){s.classList.toggle('active',i===0)});var pb=c.querySelector('.progress-bar');if(pb)pb.style.width='';return'<!DOCTYPE html>\n'+c.outerHTML}
+function buildCleanHTML(){var c=document.documentElement.cloneNode(true);c.querySelector('body').classList.remove('edit-mode','vox-open','vox-live-active','toc-open');c.querySelectorAll('.layout-bar').forEach(function(b){b.remove()});c.querySelectorAll('[contenteditable]').forEach(function(el){el.removeAttribute('contenteditable')});c.querySelectorAll('[draggable]').forEach(function(el){el.removeAttribute('draggable')});c.querySelectorAll('.block-selected,.drag-over-top,.drag-over-bottom,.block-dragging').forEach(function(el){el.classList.remove('block-selected','drag-over-top','drag-over-bottom','block-dragging')});c.querySelectorAll('#block-actions,#img-action-menu,#layout-picker,#ai-modal,#gh-modal,#preview-panel,#toc-overlay,#vox-live-pop').forEach(function(el){el.classList.remove('visible','collapsed')});var vm=c.querySelector('#vox-messages');if(vm){vm.innerHTML='<div class="vox-msg vox-msg-bot"><div class="vox-msg-content">VOX готов. Откройте LIVE ON для рамки слайда или workshop coach для внутреннего разбора.</div></div>'}var vp=c.querySelector('#vox-live-pop-text');if(vp){vp.textContent='LIVE ON: рамка текущего блока появится здесь и не будет перекрывать слайд.'}var vs=c.querySelector('#vox-live-source');if(vs){vs.textContent='source: текущий слайд · intake 167/141 · sprint chat 154 · intro 75 · calendar 22'}c.querySelectorAll('.slide').forEach(function(s,i){s.classList.toggle('active',i===0)});var pb=c.querySelector('.progress-bar');if(pb)pb.style.width='';return'<!DOCTYPE html>\n'+c.outerHTML}
 document.addEventListener('keydown',function(e){if(e.key==='Escape'){if(typeof voxOpen!=='undefined'&&voxOpen){toggleVox();return}var tocEl=document.getElementById('toc-overlay');if(tocEl&&tocEl.classList.contains('visible')){tocEl.classList.remove('visible');return}closeLayoutPicker();closeAiModal();closeGhModal();document.getElementById('img-action-menu').classList.remove('visible');deselectBlock()}});
 document.getElementById('layout-picker').addEventListener('click',function(e){if(e.target===e.currentTarget)closeLayoutPicker()});
 document.getElementById('ai-modal').addEventListener('click',function(e){if(e.target===e.currentTarget)closeAiModal()});
@@ -1736,24 +1802,24 @@ var presNotes=[
   {t:"Participants",n:"говорить человечески: около 160 участников в intake, 154 в sprint-чате, 141 заполненный профиль, 75 сообщений в intro-топике, 38 полноценных #intro. Технически: база 167, но публично не выводим это как главное число."},
   {t:"AI Stack",n:"q2 n=141: GPT 65, Claude 49, Claude Code 27, Codex/Perplexity по 20, Cursor/Gemini по 19, Make/n8n и Obsidian/KB по 6. Запрос не на инструменты, а на архитектуру и ownership."},
   {t:"Geography",n:"q4 n=140: Москва 40, Европа/релокация 29, РФ регионы 25, СПб 10, СНГ/Кавказ/ЦА 10, дальше long tail."},
-  {t:"New Approach",n:"POS → MOS → Company Functions. Главное: перевести личный стек в управляемую систему компании."},
+  {t:"New Approach",n:"POS → MOS → AOS / Company Functions. POS = личный setup, MOS = management layer, AOS = company layer."},
   {t:"Audience Map",n:"анонимная карта из анкет + intro-топика: 69% agents, 65% team/company, 58% ops/process, 54% dev stack, 32% context. Не называем участников."},
   {t:"S2 → Batch 2",n:"S2: 217 людей после чистки, 16 Demo projects, curator routing как вывод ретро. Batch 2 меньше по массе, но сильнее пришёл с company/system/process intent."},
   {t:"Sprint Goals",n:"агентный контур, процесс, командный перенос, Demo Day и 90-day roadmap. Боль: точечный AI без owner и architecture."},
   {t:"Lab Format",n:"AIN02 cadence as operating loop: frame → build → case lens → routing → evidence. Every slide should point to artifact and routing."},
-  {t:"Curators",n:"site-verified curator roster: Ris, Smirnov, Fedoseev, Jin, Doonto, Vasiliev, Lonchakova, Glazov. Routing is by artifact and track, not by celebrity matching."},
+  {t:"Curators",n:"site-verified curator roster: Ris, Smirnov, Fedoseev, Jin, Юрий, Vasiliev, Lonchakova, Glazov. Routing is by artifact and track, not by celebrity matching."},
   {t:"Speakers",n:"public site roster as co-authors and guest speakers: Gershuni, Povaliaev, Ustinov, Annakov, Kuryshev, Kleban, Kharin, Egerev, Buzko. Alumni v1 are materials, not live roster."},
-  {t:"Program",n:"calendar view checked against Google Calendar on 2026-05-04. No Wed-Fri collapse. Mention CEST, intro 2 May already happened, W1 lecture 4 May, Demo Day 25 May 16:00."},
-  {t:"Format Deep Dive",n:"day-by-day rhythm: Mon lecture, Tue Denis/setup or alumni, Wed/Thu/Fri cases, Sat office hours. Main time 17:00 CEST; Denis/OH often 12:00."},
+  {t:"Program",n:"22 live sessions checked against Google Calendar on 2026-05-04. No Wed-Fri collapse. Mention CEST, intro 2 May already happened, W1 lecture 4 May, Demo Day 25 May 16:00."},
+  {t:"Format Deep Dive",n:"lab mechanics: Mon lecture, Tue Denis/setup or alumni, Wed coworking/case, Thu/Fri implementation and guest sessions, Sat office hours. Main time 17:00 CEST; Denis/OH often 12:00."},
   {t:"Lecture",n:"2 hours live. Keep this as a frame slide, not a fixed promise for every Monday."},
   {t:"Workshop",n:"workshop beat: frame → action → artifact → proof → routing. May 5 Ris setup, May 12 alumni showcase, May 13–22 function-focused guest sessions."},
   {t:"Coworking",n:"2 hours. Check-in + deep work + sharing. Use for artifact production, not passive attendance."},
   {t:"Office Hours",n:"09 / 16 / 23 May, 12:00 CEST. Hot seats = one case, one artifact, one blocker, then expert route to next action."},
-  {t:"Demo Day",n:"25 May, 16:00 CEST. 5+3 min. No jury framing: feedback lenses are evidence, usefulness, ownership, next 90 days."},
+  {t:"Demo Day",n:"25 May, 16:00 CEST. 5+1 min. No jury framing: feedback lenses are evidence, usefulness, ownership, next 90 days."},
   {t:"Curator Routing",n:"ask participants to bring artifacts and concrete blockers; route by beginner, tech, systems, build/visual, support, or Demo Day prep."},
   {t:"Community",n:"154 members in sprint Telegram, about 160 people in intake, 75 intro-topic messages and 38 tagged #intro posts. Telegram is main communication layer; async between sessions."},
   {t:"W1 Q&A",n:"QR must point to https://learn.aimindset.org/s3/qa/s3-w1-lecture. Explain prerequisites: start from zero/setup material, skip what is obvious, move into practice."},
-  {t:"Journey",n:"participant path: intro already done → W1 setup/POS → W2 MOS → W3 function → Demo Day. Emphasize sustainable rhythm and routing blockers to curators/OH."}
+  {t:"Journey",n:"participant path: intro already done → W1 setup/POS → W2 MOS/company ontology → W3 AOS/function → Demo Day. Close with today's Stepan lecture and W1 Q&A link."}
 ];
 var tocItems=[
   {slide:0,label:"Cover",icon:"01"},
@@ -1815,6 +1881,7 @@ var voxPreviewState = null;
 var voxAmbientStarted = false;
 var voxLiveMode = false;
 var voxLastTipSlide = -1;
+var voxPopupCollapsed = false;
 
 // ===== PANEL TOGGLE =====
 
@@ -1835,7 +1902,7 @@ function toggleVox() {
     // Start ambient tips if not in edit mode
     if (!editMode && !voxAmbientStarted) {
       voxAmbientStarted = true;
-	      addVoxMessage('bot', '**VOX готов.** Я вижу текущий слайд, программу, CSV-срез, intro-call transcript и правила workshop.\n\nЖми `LIVE ON` для подсказок на каждом слайде или `workshop coach`, чтобы получить: что сказать, что попросить сделать, какой артефакт собрать и куда маршрутизировать блокер.');
+	      addVoxMessage('bot', '**VOX готов.** Я вижу текущий слайд, программу, CSV-срез, intro-call transcript и правила workshop.\n\n`LIVE ON` даёт аудитории контекстную рамку к текущему слайду. `workshop coach` остаётся внутренним режимом: что сказать, что попросить сделать, какой артефакт собрать и куда маршрутизировать блокер.');
     }
   } else {
     updateVoxActionsVisibility();
@@ -1997,12 +2064,25 @@ function showVoxPopup(content) {
   if (!pop || !text) return;
   text.innerHTML = formatVoxContent(content || '');
   pop.classList.add('visible');
+  pop.classList.toggle('collapsed', voxPopupCollapsed);
 }
 
 function updateVoxPopup(content) {
   const text = document.getElementById('vox-live-pop-text');
   if (!text) return;
   text.innerHTML = formatVoxContent(content || '');
+}
+
+function setVoxPopupSource(source) {
+  const el = document.getElementById('vox-live-source');
+  if (el) el.textContent = source || 'source: текущий слайд · intake 167/141 · sprint chat 154 · intro 75 · calendar 22';
+}
+
+function toggleVoxPopupCollapse() {
+  const pop = document.getElementById('vox-live-pop');
+  if (!pop) return;
+  voxPopupCollapsed = !voxPopupCollapsed;
+  pop.classList.toggle('collapsed', voxPopupCollapsed);
 }
 
 function hideVoxPopup() {
@@ -2119,7 +2199,7 @@ PROGRAM CONTEXT:
 	- Telegram context (2026-05-04): 154 members in sprint chat, 75 messages in intro topic, 38 tagged #intro posts.
 	- Saturday intro-call transcript (2 May 2026): around 56 live participants joined; the intro block already happened and should not be repeated as a full module.
 	- Central ask: move from point AI use to an organizational operating layer.
-- One-liner: "POS → MOS → Company Functions"
+- One-liner: "POS → MOS → AOS / Company Functions" where MOS = management layer and AOS = company / AI-native organization layer.
 
 THIS PRESENTATION: Intro Call (not a lecture)
 	- Purpose: show the Batch 2 context, preview program & speakers, and translate intro data into a work plan. After 2 May, present the intro round as completed context, not as a live timer block.
@@ -2148,9 +2228,9 @@ Week 2 (11–16 May): Horizontal Patterns / MOS
 - Thu 14 May 17:00 CEST – Evgeny Kuryshev
 - Fri 15 May 17:00 CEST – Vitaly Kleban
 - Sat 16 May 12:00 CEST – office hours
-Deliverables: management layer, team memory, first agent workflow
+Deliverables: management layer, company ontology, team memory, first agent workflow
 
-Week 3 (18–25 May): Company Functions
+Week 3 (18–25 May): AOS / Company Functions
 - Focus: sales, ops, product, legal, finance, support, development through one participant case
 - Mon 18 May 17:00 CEST – Stepan Gershuni W3 lecture
 - Tue 19 May 12:00 CEST – Denis Smirnov module 3
@@ -2160,7 +2240,7 @@ Week 3 (18–25 May): Company Functions
 - Fri 22 May 17:00 CEST – Egor Egerev
 - Sat 23 May 12:00 CEST – office hours / Demo Day prep
 - Mon 25 May 16:00 CEST – Demo Day
-Deliverables: working company-function contour, 90-day plan, Demo Day presentation
+Deliverables: working company-function contour, proof layer, 90-day plan, Demo Day presentation
 
 PUBLIC SITE SPEAKER ROSTER / CO-AUTHORS: Stepan Gershuni (CybOS / cyber.fund), Alexander Povaliaev (AI Mindset), Seva Ustinov (Plurio AI / IT-Agency), Bayram Annakov (onsa.ai / ex-App in the Air), Evgeny Kuryshev (Mirror AI / ex-Ostrovok), Vitaly Kleban (cyber.fund / Everynet), Dima Kharin (docare.io / ex-McKinsey), Egor Egerev (Tickets Cloud / Burner), Roman Buzko (Skala.io / Buzko Krasnov).
 
@@ -2168,7 +2248,7 @@ PRACTICAL / CURATOR LEADS: Denis Smirnov leads M1-M3 practical modules. Sereja R
 
 ALUMNI MATERIALS: Alexey Amyotov, George Strakhov, Gleb Sidora, Daniil Kravtsov, Eugene Rid. They are materials/cases unless explicitly scheduled live.
 
-CURATOR TRACKS: Sereja Ris + Alexander Vasiliev for setup/tool stack; Denis Smirnov + Yury Doonto for systems/evals/enterprise; Jin Kolesnikov + Olga Lonchakova for beginner/adoption/community; Stanislav Fedoseev + Stanislav Glazov for build/visual craft. Do not present on-hold or unknown contacts as confirmed curators.
+CURATOR TRACKS: Sereja Ris + Alexander Vasiliev for setup/tool stack; Denis Smirnov + Yury for systems/evals/enterprise; Jin Kolesnikov + Olga Lonchakova for beginner/adoption/community; Stanislav Fedoseev + Stanislav Glazov for build/visual craft. Do not use uncertain surnames or present on-hold/unknown contacts as confirmed curators.
 
 	PARTICIPANT STATS: Public wording should start with people, not rows: about 160 participants in current intake, 154 sprint-chat members, 141 filled profiles, 75 intro-topic messages, 38 tagged #intro posts. Internal audit: NocoDB/API and BOT show 167 intake entries; chat has 154. Stack from q2 n=141: GPT 65 / 46%, Claude 49 / 35%, Claude Code 27 / 19%, Codex 20 / 14%, Perplexity 20 / 14%, Cursor 19 / 13%, Gemini 19 / 13%, Make/n8n 6 / 4%, Obsidian/KB 6 / 4%.
 
@@ -2186,7 +2266,7 @@ KEY AUDIENCE INSIGHTS:
 
 When giving tips, reference the cohort patterns from the new survey data:
 - On "AI Stack": say that tools are already present; the missing layer is architecture and ownership
-- On "New Approach": connect POS to MOS to company functions
+- On "New Approach": connect POS to MOS to AOS / company functions. Explain simply: POS = personal setup, MOS = management layer, AOS = company/function layer.
 - On "Audience Map": do not name participants; speak in patterns by company context, process, stack, agents, and context layer
 - On "S2 Comparison": explain that the method changed because S2 surfaced routing and artifact gaps
 	- On "W1 Q&A": emphasize the concrete Gershuni lecture link, not the generic learn home page
@@ -2890,7 +2970,9 @@ function toggleVoxLive() {
     : '<span class="vox-act-icon">&#9673;</span> LIVE OFF';
   if (voxLiveMode) {
     if (voxOpen) toggleVox();
-    showVoxPopup('LIVE ON: контекстные подсказки будут появляться здесь. Для внутренних разборов открой панель VOX и нажми workshop coach.');
+    voxPopupCollapsed = false;
+    setVoxPopupSource('source: текущий слайд · intake 167/141 · sprint chat 154 · intro 75 · calendar 22');
+    showVoxPopup('LIVE ON: это публичная рамка к текущему слайду, не внутренние заметки спикера. Для глубокой подготовки открой панель VOX и нажми workshop coach.');
     generateAmbientTip(current);
   } else {
     hideVoxPopup();
@@ -2908,7 +2990,17 @@ async function generateAmbientTip(slideIndex) {
   const nextCtx = getSlideContextAt(slideIndex + 1);
   const note = presNotes[slideIndex] || {};
 
-  const tipPrompt = `You are a presentation coach giving a quick ambient tip to the presenter.
+  if (!ensureORKey()) {
+    showVoxPopup('Нужен OpenRouter key: открой VOX, нажми `set OpenRouter key`, затем включи LIVE ON снова. Ключ хранится только в этом браузере.');
+    voxLastTipSlide = -1;
+    return;
+  }
+
+  const sourceLine = `source: slide ${slideIndex + 1}/${ctx.totalSlides} · intake 167/141 · sprint chat 154 · intro 75 · calendar 22`;
+  setVoxPopupSource(sourceLine);
+
+  const tipPrompt = `You are VOX LIVE, a small public context layer for workshop participants.
+You are NOT giving private speaker notes. You explain how the current slide fits the workshop frame and what participants should do with it.
 
 Current slide ${slideIndex + 1}/${ctx.totalSlides}: "${ctx.h1 || ctx.h2}"
 Section: ${ctx.label}
@@ -2919,13 +3011,14 @@ ${prevCtx ? 'Previous slide: "' + (prevCtx.h1 || prevCtx.h2) + '"' : ''}
 ${nextCtx ? 'Next slide: "' + (nextCtx.h1 || nextCtx.h2) + '"' : ''}
 
 PARTICIPANT CONTEXT: about 160 people in current intake, 154 members in sprint Telegram, 141 filled profiles, 75 intro-topic messages, 38 tagged #intro posts. Internal source audit: 167 intake entries, chat 154. Patterns: 69% agents, 65% team/company, 58% ops/process, 54% coding/dev, 32% knowledge/context. Stack: GPT 65, Claude 49, Claude Code 27, Codex 20, Perplexity 20, Cursor/Gemini 19 each. Chosen anonymized sprint story: a 50-200 person operational/product company where AI is already used in separate hands, but there is no shared context, owner, proof layer, or adoption rhythm. Saturday transcript themes: company-readable context, human+agent org design, sustainable rhythm, prerequisites as optional menu.
+PROGRAM LAYER: POS = personal setup. MOS = management layer. AOS = company / AI-native organization layer. Calendar has 22 live sessions after kickoff, not just a passive schedule.
 
-Give a SHORT (2-3 sentences) presenter tip in Russian. What to emphasize, which audience segment to address, what transition works. Be specific to THIS slide. Format: one punchy insight.`;
+Give a SHORT useful note in Russian for the audience, 2 sentences max. Do not say "tell them" or "the presenter should". Say what this slide means, what to do next, and which artifact/blocker it connects to.`;
 
-  showVoxPopup('думаю по текущему слайду...');
+  showVoxPopup('смотрю текущий слайд и контекст лабы...');
   try {
     await voxChat(
-      'You are a concise presentation coach. Reply in Russian. Max 3 sentences. No markdown headers.',
+      'You are VOX LIVE, a concise workshop context layer. Reply in Russian. Max 2 sentences. No markdown headers. No private speaker notes.',
       tipPrompt,
       (content) => {
         updateVoxPopup(content);
@@ -2946,7 +3039,13 @@ Give a SHORT (2-3 sentences) presenter tip in Russian. What to emphasize, which 
 }
 
 function promptVoxKey() {
-  if (ensureORKey()) addVoxMessage('bot', '**key saved.** try again – type a question, press LIVE ON, or use workshop coach.');
+  if (ensureORKey()) {
+    addVoxMessage('bot', '**key saved.** try again – type a question, press LIVE ON, or use workshop coach.');
+    if (voxLiveMode) {
+      voxLastTipSlide = -1;
+      generateAmbientTip(current);
+    }
+  }
 }
 
 document.getElementById('vox-trigger').addEventListener('click', function(e) {

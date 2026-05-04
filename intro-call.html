@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AI-Native Organizations Sprint - Batch 2 Intro Call</title>
 <meta property="og:title" content="AI-Native Organizations Sprint - Batch 2 Intro Call">
-<meta property="og:description" content="Batch 2 · 2–25 May 2026 · 161 participants · POS → MOS → Company Functions">
+<meta property="og:description" content="Batch 2 · 2–25 May 2026 · about 160 participants · POS → MOS → Company Functions">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://ai-mindset-org.github.io/ainative-deck/assets/og-intro-call.png">
 <meta property="og:url" content="https://ai-mindset-org.github.io/ainative-deck/intro-call.html">
@@ -136,7 +136,7 @@ p, li { font-size: 17px; line-height: 1.7; color: rgba(255,255,255,0.8); }
 .week-row-title { flex: 1; color: rgba(255,255,255,0.85); }
 .week-row-dur { font-size: 11px; padding: 2px 8px; border-radius: 4px; background: var(--bg-terminal); color: var(--text-dim); }
 .program-compact { justify-content: flex-start; }
-.program-compact h2 { font-size: 34px; margin-bottom: 8px; }
+.program-compact h2 { font-size: 36px; margin-bottom: 8px; }
 .program-compact .week-card { padding: 11px 20px; margin-bottom: 7px; border-radius: 10px; }
 .program-compact .week-header { margin-bottom: 6px; padding-bottom: 6px; }
 .program-compact .week-row { padding: 3px 0; font-size: 12px; }
@@ -202,11 +202,11 @@ p, li { font-size: 17px; line-height: 1.7; color: rgba(255,255,255,0.8); }
 .cycle-week { border: 1px solid var(--border); border-radius: 9px; padding: 10px; background: rgba(77,201,212,0.04); text-align: center; }
 .cycle-week h4 { font-family: var(--font-heading); font-size: 12px; color: #fff; margin-bottom: 4px; }
 .cycle-week p { font-size: 9px; color: var(--text-dim); line-height: 1.35; }
-.calendar-grid { display: grid; grid-template-columns: 58px repeat(6, 1fr); gap: 6px; margin-top: 12px; }
+.calendar-grid { display: grid; grid-template-columns: 60px repeat(6, 1fr); gap: 7px; margin-top: 12px; }
 .calendar-head, .calendar-week-label, .calendar-day { border: 1px solid var(--border); border-radius: 8px; background: rgba(28,28,46,0.64); }
 .calendar-head { padding: 8px 6px; text-align: center; color: var(--text-label); font-size: 9px; letter-spacing: 1px; text-transform: uppercase; }
 .calendar-week-label { display: flex; align-items: center; justify-content: center; color: var(--teal); font-family: var(--font-heading); font-size: 13px; font-weight: 700; }
-.calendar-day { min-height: 72px; padding: 8px; position: relative; overflow: hidden; }
+.calendar-day { min-height: 78px; padding: 9px; position: relative; overflow: hidden; }
 .calendar-day.done { opacity: 0.72; background: rgba(77,201,212,0.035); }
 .calendar-day.demo { border-color: rgba(255,107,107,0.35); background: rgba(255,107,107,0.055); }
 .calendar-date { font-size: 9px; color: var(--text-label); margin-bottom: 5px; letter-spacing: 0.6px; }
@@ -455,6 +455,46 @@ body.vox-open #vox-panel {
   to { transform: translateX(0); }
 }
 
+/* === VOX LIVE POPUP === */
+#vox-live-pop {
+  display: none;
+  position: fixed;
+  top: 70px;
+  right: 72px;
+  width: min(420px, 32vw);
+  max-height: 42vh;
+  z-index: 14500;
+  padding: 14px 16px 16px;
+  border: 1px solid rgba(77,201,212,0.28);
+  border-radius: 10px;
+  background: rgba(10,10,15,0.76);
+  backdrop-filter: blur(18px);
+  box-shadow: 0 18px 54px rgba(0,0,0,0.28), 0 0 28px rgba(77,201,212,0.12);
+  overflow: auto;
+}
+#vox-live-pop.visible { display: block; animation: voxPopIn 0.18s ease-out; }
+body.vox-open #vox-live-pop { display: none; }
+.vox-live-pop-head {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 12px; margin-bottom: 10px;
+  font-family: var(--font-body); font-size: 10px;
+  color: var(--teal); letter-spacing: 1.6px; text-transform: uppercase;
+}
+.vox-live-pop-head button {
+  background: transparent; border: none; color: var(--text-dim);
+  cursor: pointer; font-family: var(--font-body); font-size: 16px;
+}
+.vox-live-pop-head button:hover { color: var(--teal); }
+#vox-live-pop-text {
+  color: rgba(255,255,255,0.82);
+  font-size: 13px; line-height: 1.62;
+}
+#vox-live-pop-text strong { color: #fff; }
+@keyframes voxPopIn {
+  from { opacity: 0; transform: translateY(-8px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
 /* === VOX HEADER === */
 .vox-header {
   display: flex; align-items: center; justify-content: space-between;
@@ -672,6 +712,7 @@ body.vox-open #vox-panel {
 @media (max-width: 768px) {
   #vox-panel { width: 100%; }
   #vox-trigger { bottom: 60px; top: auto; right: 12px; transform: none; width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--border); }
+  #vox-live-pop { top: 56px; right: 12px; left: 12px; width: auto; max-height: 34vh; }
 }
 
 /* === TOC OVERLAY === */
@@ -741,15 +782,16 @@ body.vox-open #vox-panel {
 <!-- S1: COVER -->
 <div class="slide active" id="s1"><div class="slide-counter"><span class="current">1</span>/<span class="total"></span></div><img class="slide-logo" src="logo.png" alt=""><div class="slide-inner cover">
   <div class="cover-signal-field"></div>
-  <div class="label" style="letter-spacing:4px;font-size:11px;margin-bottom:22px">// AI MINDSET &times; CybOS · pre-start briefing</div>
+  <div class="label" style="letter-spacing:4px;font-size:11px;margin-bottom:22px">// AI MINDSET &times; CybOS · LAB START</div>
   <div style="display:flex;gap:18px;justify-content:center;margin-bottom:22px;align-items:center">
     <div style="position:relative"><img src="speakers/alexander-povaliaev.jpg" style="width:76px;height:76px;border-radius:50%;border:2px solid var(--teal);object-fit:cover;position:relative;z-index:2" alt=""><div style="position:absolute;inset:-4px;border-radius:50%;border:1px solid var(--teal-glow);animation:pulse 3s ease-in-out infinite"></div></div>
+    <div style="position:relative"><img src="speakers/stepan-gershuni.jpg" style="width:76px;height:76px;border-radius:50%;border:2px solid var(--blue);object-fit:cover;position:relative;z-index:2" alt=""><div style="position:absolute;inset:-4px;border-radius:50%;border:1px solid rgba(59,130,246,0.34);animation:pulse 3s ease-in-out infinite 0.6s"></div></div>
   </div>
   <h1>AI-Native Organizations<br><span class="teal">Batch 2</span></h1>
-  <p class="subtitle">20 минут перед W1: кто пришёл, какой общий запрос и что делаем до лекции</p>
+  <p class="subtitle">3 недели практики: personal setup &rarr; management layer &rarr; company functions</p>
   <p style="font-size:14px;color:var(--text-label);margin-bottom:14px;letter-spacing:2px">W1 START &middot; 4 MAY 2026</p>
-  <p class="cover-meta-line">batch 2 · 2&ndash;25 may 2026 · 161 in NocoDB · 138 profiles · 75 intro messages</p>
-  <p class="cover-context-line">смотрим не на строки выгрузки, а на людей: NocoDB, match-анкеты и intro-топик показывают один повторяющийся запрос – собрать AI в управляемый контур компании.</p>
+  <p class="cover-meta-line">batch 2 · 2&ndash;25 may 2026 · около 160 участников · 154 в чате</p>
+  <p class="cover-context-line">интро уже собрало реальные кейсы: процессы, агенты, dev stack, команда и контекст компании. дальше переводим это в рабочие артефакты.</p>
   <svg style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:5;opacity:0.12" viewBox="0 0 1920 1080"><circle class="constellation-node" cx="120" cy="140" r="3" fill="#4dc9d4"/><circle class="constellation-node" cx="280" cy="100" r="2.5" fill="#4dc9d4"/><circle class="constellation-node" cx="200" cy="240" r="2" fill="#3b82f6"/><circle class="constellation-node" cx="380" cy="180" r="3" fill="#38d9a9"/><line x1="120" y1="140" x2="280" y2="100" stroke="#4dc9d4" stroke-width="0.6" opacity="0.35"/><line x1="280" y1="100" x2="380" y2="180" stroke="#4dc9d4" stroke-width="0.5" opacity="0.25"/><line x1="120" y1="140" x2="200" y2="240" stroke="#3b82f6" stroke-width="0.5" opacity="0.25"/><circle class="constellation-node" cx="1600" cy="120" r="2.5" fill="#4dc9d4"/><circle class="constellation-node" cx="1750" cy="180" r="3" fill="#38d9a9"/><line x1="1600" y1="120" x2="1750" y2="180" stroke="#4dc9d4" stroke-width="0.5" opacity="0.3"/><circle class="constellation-node" cx="150" cy="880" r="2" fill="#3b82f6"/><circle class="constellation-node" cx="300" cy="920" r="2.5" fill="#4dc9d4"/><line x1="150" y1="880" x2="300" y2="920" stroke="#3b82f6" stroke-width="0.4" opacity="0.2"/></svg>
 </div></div>
 
@@ -759,7 +801,7 @@ body.vox-open #vox-panel {
   <h2>Старт Batch 2: <span class="teal">что зафиксировали</span></h2>
   <p style="font-size:15px;color:var(--text-dim);margin-bottom:16px">Intro call уже прошёл в субботу. Используем его как входной контекст: кто пришёл, какие запросы повторяются и что дальше строим.</p>
   <div class="layers" style="gap:6px">
-    <div class="layer" style="border-left:3px solid var(--teal)"><div class="layer-num teal" style="min-width:36px">01</div><div class="layer-name">Кто участвует</div><div class="layer-desc">161 человек в актуальной NocoDB-базе, 138 заполненных профилей, Batch 2 / AIN02</div></div>
+    <div class="layer" style="border-left:3px solid var(--teal)"><div class="layer-num teal" style="min-width:36px">01</div><div class="layer-name">Кто участвует</div><div class="layer-desc">около 160 участников, 154 человека в sprint-чате, 141 заполненный профиль</div></div>
     <div class="layer" style="border-left:3px solid var(--blue)"><div class="layer-num blue" style="min-width:36px">02</div><div class="layer-name">С каким стеком пришли</div><div class="layer-desc">Claude, GPT, Codex, Cursor, агенты, автоматизации</div></div>
     <div class="layer" style="border-left:3px solid var(--green)"><div class="layer-num green" style="min-width:36px">03</div><div class="layer-name">Что хотят построить</div><div class="layer-desc">агенты, операционные контуры, team adoption</div></div>
     <div class="layer" style="border-left:3px solid var(--amber)"><div class="layer-num amber" style="min-width:36px">04</div><div class="layer-name">Новый подход</div><div class="layer-desc">POS &rarr; MOS &rarr; Company Functions</div></div>
@@ -771,41 +813,41 @@ body.vox-open #vox-panel {
 
 <!-- S3: PARTICIPANTS OVERVIEW -->
 <div class="slide" id="s3"><div class="slide-counter"><span class="current">3</span>/<span class="total"></span></div><img class="slide-logo" src="logo.png" alt=""><div class="slide-inner">
-  <div class="label">// participants &middot; people, not rows</div>
-  <h2>Кто пришёл в <span class="teal">Batch 2</span></h2>
+  <div class="label">// participants &middot; people-first view</div>
+  <h2>Кто в группе <span class="teal">Batch 2</span></h2>
   <div class="stat-grid cols-5">
-    <div class="stat-box people-stat"><div class="num teal">161</div><div class="stat-label">человек в актуальной NocoDB-базе</div></div>
-    <div class="stat-box people-stat"><div class="num green">138</div><div class="stat-label">заполненных профилей</div></div>
-    <div class="stat-box people-stat"><div class="num cyan">152</div><div class="stat-label">в sprint Telegram-чате</div></div>
+    <div class="stat-box people-stat"><div class="num teal">~160</div><div class="stat-label">участников в текущем intake</div></div>
+    <div class="stat-box people-stat"><div class="num cyan">154</div><div class="stat-label">в sprint Telegram-чате</div></div>
+    <div class="stat-box people-stat"><div class="num green">141</div><div class="stat-label">заполненный профиль</div></div>
     <div class="stat-box people-stat"><div class="num amber">75</div><div class="stat-label">сообщений в intro-топике</div></div>
     <div class="stat-box people-stat"><div class="num blue">38</div><div class="stat-label">полноценных #intro-постов</div></div>
   </div>
   <div class="cards" style="grid-template-columns:repeat(4,1fr);margin-top:16px">
-    <div class="card" style="padding:16px;text-align:center;border-top:2px solid var(--teal)"><p style="font-size:28px;font-weight:700;color:var(--teal);font-family:var(--font-heading)">62%</p><p style="font-size:12px;color:var(--text-dim);margin-top:4px">team / company context</p></div>
-    <div class="card" style="padding:16px;text-align:center;border-top:2px solid var(--blue)"><p style="font-size:28px;font-weight:700;color:var(--blue);font-family:var(--font-heading)">50%</p><p style="font-size:12px;color:var(--text-dim);margin-top:4px">coding / dev stack</p></div>
-    <div class="card" style="padding:16px;text-align:center;border-top:2px solid var(--green)"><p style="font-size:28px;font-weight:700;color:var(--green);font-family:var(--font-heading)">48%</p><p style="font-size:12px;color:var(--text-dim);margin-top:4px">ops / process automation</p></div>
-    <div class="card" style="padding:16px;text-align:center;border-top:2px solid var(--amber)"><p style="font-size:28px;font-weight:700;color:var(--amber);font-family:var(--font-heading)">42%</p><p style="font-size:12px;color:var(--text-dim);margin-top:4px">agents / agent systems</p></div>
+    <div class="card" style="padding:16px;text-align:center;border-top:2px solid var(--amber)"><p style="font-size:28px;font-weight:700;color:var(--amber);font-family:var(--font-heading)">69%</p><p style="font-size:12px;color:var(--text-dim);margin-top:4px">agents / agent systems</p></div>
+    <div class="card" style="padding:16px;text-align:center;border-top:2px solid var(--teal)"><p style="font-size:28px;font-weight:700;color:var(--teal);font-family:var(--font-heading)">65%</p><p style="font-size:12px;color:var(--text-dim);margin-top:4px">team / company context</p></div>
+    <div class="card" style="padding:16px;text-align:center;border-top:2px solid var(--green)"><p style="font-size:28px;font-weight:700;color:var(--green);font-family:var(--font-heading)">58%</p><p style="font-size:12px;color:var(--text-dim);margin-top:4px">ops / process automation</p></div>
+    <div class="card" style="padding:16px;text-align:center;border-top:2px solid var(--blue)"><p style="font-size:28px;font-weight:700;color:var(--blue);font-family:var(--font-heading)">54%</p><p style="font-size:12px;color:var(--text-dim);margin-top:4px">coding / dev stack</p></div>
   </div>
   <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;justify-content:center">
     <span class="tag">software</span><span class="tag blue-tag">consulting</span><span class="tag green-tag">education</span><span class="tag amber-tag">finance</span><span class="tag red-tag">legal</span><span class="tag">games</span><span class="tag blue-tag">media</span><span class="tag green-tag">health</span><span class="tag amber-tag">commerce</span>
   </div>
-  <div class="human-audit"><span>источник: NocoDB lab=s 3 + CSV (6)</span><span>last updated: 2026-05-04 09:18 UTC</span><span>dedupe audit: 159, public count: 161</span></div>
+  <div class="human-audit"><span>сверено: база участников + BOT (7) + sprint chat</span><span>intake: 167 · chat: 154</span><span>last updated: 2026-05-04 12:49 UTC</span></div>
 </div></div>
 
 <!-- S4: AI STACK -->
 <div class="slide" id="s4"><div class="slide-counter"><span class="current">4</span>/<span class="total"></span></div><img class="slide-logo" src="logo.png" alt=""><div class="slide-inner">
-  <div class="label">// ai stack &middot; 137 answers</div>
+  <div class="label">// ai stack &middot; 141 answers</div>
   <h2>AI-стек участников</h2>
   <div class="split" style="gap:32px">
     <div>
-      <div class="code-block" style="font-size:13px"><span class="comment"># NocoDB q2, n=137</span><br><br><span style="color:var(--teal)">claude</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--green)">||||||||||||||||||||||||</span> <span style="color:rgba(255,255,255,0.7)">79 / 58%</span><br><span style="color:var(--blue)">chatgpt / gpt</span>&nbsp;<span style="color:var(--green)">|||||||||||||||||||</span> <span style="color:rgba(255,255,255,0.7)">63 / 46%</span><br><span style="color:var(--amber)">claude code</span>&nbsp;&nbsp;&nbsp;<span style="color:var(--green)">||||||||||</span> <span style="color:rgba(255,255,255,0.7)">31 / 23%</span><br><span style="color:var(--cyan)">cursor</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--green)">||||||</span> <span style="color:rgba(255,255,255,0.7)">19 / 14%</span><br><span style="color:var(--red)">codex</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--green)">||||||</span> <span style="color:rgba(255,255,255,0.7)">19 / 14%</span><br><span style="color:var(--pink)">perplexity</span>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--green)">||||||</span> <span style="color:rgba(255,255,255,0.7)">19 / 14%</span><br><span style="color:var(--blue)">gemini</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--green)">|||||</span> <span style="color:rgba(255,255,255,0.7)">18 / 13%</span><br><span style="color:var(--green)">make / n8n</span>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--green)">||</span> <span style="color:rgba(255,255,255,0.7)">6 / 4%</span></div>
+      <div class="code-block" style="font-size:13px"><span class="comment"># current intake q2, n=141</span><br><br><span style="color:var(--blue)">chatgpt / gpt</span>&nbsp;<span style="color:var(--green)">||||||||||||||||||||||</span> <span style="color:rgba(255,255,255,0.7)">65 / 46%</span><br><span style="color:var(--teal)">claude</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--green)">||||||||||||||||</span> <span style="color:rgba(255,255,255,0.7)">49 / 35%</span><br><span style="color:var(--amber)">claude code</span>&nbsp;&nbsp;&nbsp;<span style="color:var(--green)">|||||||||</span> <span style="color:rgba(255,255,255,0.7)">27 / 19%</span><br><span style="color:var(--red)">codex</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--green)">||||||</span> <span style="color:rgba(255,255,255,0.7)">20 / 14%</span><br><span style="color:var(--pink)">perplexity</span>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--green)">||||||</span> <span style="color:rgba(255,255,255,0.7)">20 / 14%</span><br><span style="color:var(--cyan)">cursor</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--green)">|||||</span> <span style="color:rgba(255,255,255,0.7)">19 / 13%</span><br><span style="color:var(--blue)">gemini</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--green)">|||||</span> <span style="color:rgba(255,255,255,0.7)">19 / 13%</span><br><span style="color:var(--green)">make / n8n</span>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--green)">||</span> <span style="color:rgba(255,255,255,0.7)">6 / 4%</span><br><span style="color:var(--teal)">obsidian / kb</span>&nbsp;<span style="color:var(--green)">||</span> <span style="color:rgba(255,255,255,0.7)">6 / 4%</span></div>
     </div>
     <div>
       <div class="stat-grid cols-2" style="margin-top:0">
-        <div class="stat-box"><div class="num teal" style="font-size:36px">62%</div><div class="stat-label">команда / организация</div></div>
-        <div class="stat-box"><div class="num green" style="font-size:36px">48%</div><div class="stat-label">операции и процессы</div></div>
-        <div class="stat-box"><div class="num amber" style="font-size:36px">42%</div><div class="stat-label">агенты / agent systems</div></div>
-        <div class="stat-box"><div class="num blue" style="font-size:36px">30%</div><div class="stat-label">knowledge / context</div></div>
+        <div class="stat-box"><div class="num amber" style="font-size:36px">69%</div><div class="stat-label">агенты / agent systems</div></div>
+        <div class="stat-box"><div class="num teal" style="font-size:36px">65%</div><div class="stat-label">команда / организация</div></div>
+        <div class="stat-box"><div class="num green" style="font-size:36px">58%</div><div class="stat-label">операции и процессы</div></div>
+        <div class="stat-box"><div class="num blue" style="font-size:36px">54%</div><div class="stat-label">coding / dev stack</div></div>
       </div>
       <div class="quote-enhanced" style="margin-top:16px"><p style="font-size:15px">Инструменты уже есть. Запрос сместился на архитектуру: как собрать стек, процессы и людей в одну систему.</p><div class="author" style="color:var(--green)">паттерн из анкет</div></div>
     </div>
@@ -814,12 +856,12 @@ body.vox-open #vox-panel {
 
 <!-- S5: GEOGRAPHY -->
 <div class="slide" id="s5"><div class="slide-counter"><span class="current">5</span>/<span class="total"></span></div><img class="slide-logo" src="logo.png" alt=""><div class="slide-inner cover">
-  <div class="label">// geography &middot; 137 filled locations</div>
+  <div class="label">// geography &middot; 140 filled locations</div>
   <h2>География участников</h2>
   <svg viewBox="0 0 900 430" width="900" height="430" style="margin:0 auto;max-width:100%">
     <rect width="900" height="430" fill="none"/>
     <circle cx="455" cy="205" r="86" fill="var(--teal)" opacity="0.14"/><circle cx="455" cy="205" r="10" fill="var(--teal)" opacity="0.95"/>
-    <text x="455" y="185" text-anchor="middle" fill="var(--teal)" font-family="Space Grotesk" font-size="42" font-weight="700">38</text><text x="455" y="216" text-anchor="middle" fill="var(--teal)" font-family="IBM Plex Mono" font-size="12" letter-spacing="2">МОСКВА</text>
+    <text x="455" y="185" text-anchor="middle" fill="var(--teal)" font-family="Space Grotesk" font-size="42" font-weight="700">40</text><text x="455" y="216" text-anchor="middle" fill="var(--teal)" font-family="IBM Plex Mono" font-size="12" letter-spacing="2">МОСКВА</text>
     <circle cx="300" cy="140" r="44" fill="var(--blue)" opacity="0.13"/><circle cx="300" cy="140" r="6" fill="var(--blue)"/>
     <text x="300" y="126" text-anchor="middle" fill="var(--blue)" font-family="Space Grotesk" font-size="26" font-weight="700">25</text><text x="300" y="150" text-anchor="middle" fill="var(--blue)" font-family="IBM Plex Mono" font-size="10">РФ регионы</text>
     <circle cx="600" cy="132" r="38" fill="var(--green)" opacity="0.13"/><circle cx="600" cy="132" r="5" fill="var(--green)"/>
@@ -831,7 +873,7 @@ body.vox-open #vox-panel {
     <circle cx="760" cy="180" r="30" fill="var(--pink)" opacity="0.12"/><circle cx="760" cy="180" r="4" fill="var(--pink)"/>
     <text x="760" y="170" text-anchor="middle" fill="var(--pink)" font-family="Space Grotesk" font-size="20" font-weight="700">long</text><text x="760" y="193" text-anchor="middle" fill="var(--pink)" font-family="IBM Plex Mono" font-size="9">US / Asia / MENA</text>
     <line x1="455" y1="205" x2="300" y2="140" stroke="var(--teal)" stroke-width="0.6" opacity="0.16"/><line x1="455" y1="205" x2="600" y2="132" stroke="var(--teal)" stroke-width="0.6" opacity="0.16"/><line x1="455" y1="205" x2="650" y2="250" stroke="var(--teal)" stroke-width="0.6" opacity="0.12"/><line x1="455" y1="205" x2="245" y2="270" stroke="var(--teal)" stroke-width="0.6" opacity="0.12"/>
-    <text x="450" y="395" text-anchor="middle" fill="var(--text-label)" font-family="IBM Plex Mono" font-size="11">137 локаций · Москва 38 · Европа/релокация 29 · РФ регионы 25 · СПб 10 · СНГ/Кавказ/ЦА 10 · long tail</text>
+    <text x="450" y="395" text-anchor="middle" fill="var(--text-label)" font-family="IBM Plex Mono" font-size="11">140 локаций · Москва 40 · Европа/релокация 29 · РФ регионы 25 · СПб 10 · СНГ/Кавказ/ЦА 10 · long tail</text>
   </svg>
 </div></div>
 
@@ -860,31 +902,31 @@ body.vox-open #vox-panel {
   <div class="cohort-grid">
     <div class="audience-terrain">
       <div class="terrain-row">
-        <div class="terrain-num teal">62%</div>
-        <div class="terrain-main"><h3>команда / компания</h3><div class="terrain-bar"><span style="width:62%;background:var(--teal)"></span></div></div>
+        <div class="terrain-num teal">65%</div>
+        <div class="terrain-main"><h3>команда / компания</h3><div class="terrain-bar"><span style="width:65%;background:var(--teal)"></span></div></div>
         <div class="terrain-note">ищут владельца процесса, правила и способ переноса AI в команду</div>
       </div>
       <div class="terrain-row">
-        <div class="terrain-num blue">50%</div>
-        <div class="terrain-main"><h3>coding / dev stack</h3><div class="terrain-bar"><span style="width:50%;background:var(--blue)"></span></div></div>
-        <div class="terrain-note">Claude Code, Codex, Cursor, MCP, локальные модели, code review</div>
-      </div>
-      <div class="terrain-row">
-        <div class="terrain-num green">48%</div>
-        <div class="terrain-main"><h3>операции / процессы</h3><div class="terrain-bar"><span style="width:48%;background:var(--green)"></span></div></div>
-        <div class="terrain-note">CRM, отчёты, статусы, support, delivery, workflow, cost stream</div>
-      </div>
-      <div class="terrain-row">
-        <div class="terrain-num amber">42%</div>
-        <div class="terrain-main"><h3>агенты / agent systems</h3><div class="terrain-bar"><span style="width:42%;background:var(--amber)"></span></div></div>
+        <div class="terrain-num amber">69%</div>
+        <div class="terrain-main"><h3>агенты / agent systems</h3><div class="terrain-bar"><span style="width:69%;background:var(--amber)"></span></div></div>
         <div class="terrain-note">нужна цепочка данных, действий, проверки и улучшения</div>
       </div>
       <div class="terrain-row">
-        <div class="terrain-num cyan">30%</div>
-        <div class="terrain-main"><h3>контекст / knowledge layer</h3><div class="terrain-bar"><span style="width:30%;background:var(--cyan)"></span></div></div>
+        <div class="terrain-num green">58%</div>
+        <div class="terrain-main"><h3>операции / процессы</h3><div class="terrain-bar"><span style="width:58%;background:var(--green)"></span></div></div>
+        <div class="terrain-note">CRM, отчёты, статусы, support, delivery, workflow, cost stream</div>
+      </div>
+      <div class="terrain-row">
+        <div class="terrain-num blue">54%</div>
+        <div class="terrain-main"><h3>coding / dev stack</h3><div class="terrain-bar"><span style="width:54%;background:var(--blue)"></span></div></div>
+        <div class="terrain-note">Claude Code, Codex, Cursor, MCP, локальные модели, code review</div>
+      </div>
+      <div class="terrain-row">
+        <div class="terrain-num cyan">32%</div>
+        <div class="terrain-main"><h3>контекст / knowledge layer</h3><div class="terrain-bar"><span style="width:32%;background:var(--cyan)"></span></div></div>
         <div class="terrain-note">где хранить правила, владельцев, решения и актуальные данные</div>
       </div>
-      <div class="terrain-foot">NocoDB + intro-топик подтверждают главный паттерн: люди спрашивают не “какую модель выбрать”, а как сделать компанию читаемой для AI и не сломать людей, данные и ответственность.</div>
+      <div class="terrain-foot">анкеты и intro-топик подтверждают главный паттерн: люди спрашивают не “какую модель выбрать”, а как сделать компанию читаемой для AI и не сломать людей, данные и ответственность.</div>
     </div>
     <div>
       <div class="case-card-grid">
@@ -895,7 +937,7 @@ body.vox-open #vox-panel {
         <div class="case-mini-card" style="border-top:2px solid var(--cyan)"><h3>enterprise hints</h3><p>в ответах встречаются команды и компании на 50, 80, 110, 300, 2000 человек. Это сигнал, не распределение.</p></div>
         <div class="case-mini-card" style="border-top:2px solid var(--red)"><h3>human risk</h3><p>в intro-call отдельно всплыл риск: AI ускоряет людей, но без практики может снижать ясность мышления.</p></div>
       </div>
-      <div class="signal-card" style="margin-top:10px;border-top:2px solid var(--cyan)"><h3>сквозная история для pre-start</h3><p>анонимный паттерн из NocoDB и #intro: компания 50&ndash;200 человек уже использует AI в отдельных руках, но ей нужен общий контекст, владелец процесса, proof-layer и ритм внедрения.</p></div>
+      <div class="signal-card" style="margin-top:10px;border-top:2px solid var(--cyan)"><h3>сквозная история для старта</h3><p>анонимный паттерн из анкет и #intro: компания 50&ndash;200 человек уже использует AI в отдельных руках, но ей нужен общий контекст, владелец процесса, proof-layer и ритм внедрения.</p></div>
     </div>
   </div>
 </div></div>
@@ -921,16 +963,16 @@ body.vox-open #vox-panel {
     <div class="compare-panel">
       <h3><span class="teal">Batch 2</span> уже пришёл с org-задачей</h3>
       <div class="metric-strip">
-        <div class="metric-chip"><div class="metric-num teal">161</div><div class="metric-label">NocoDB records</div></div>
-        <div class="metric-chip"><div class="metric-num green">138</div><div class="metric-label">filled profiles</div></div>
-        <div class="metric-chip"><div class="metric-num amber">75</div><div class="metric-label">intro-topic messages</div></div>
+        <div class="metric-chip"><div class="metric-num teal">~160</div><div class="metric-label">участников intake</div></div>
+        <div class="metric-chip"><div class="metric-num green">154</div><div class="metric-label">в sprint-чате</div></div>
+        <div class="metric-chip"><div class="metric-num amber">141</div><div class="metric-label">заполненный профиль</div></div>
       </div>
       <div class="layers" style="gap:7px;margin-top:10px">
-        <div class="layer" style="padding:10px 14px;border-left:3px solid var(--teal)"><div class="layer-num teal" style="min-width:24px;font-size:13px">62%</div><div class="layer-desc" style="font-size:12px">пишут про команду, отдел, компанию или организационный контекст.</div></div>
-        <div class="layer" style="padding:10px 14px;border-left:3px solid var(--green)"><div class="layer-num green" style="min-width:24px;font-size:13px">48%</div><div class="layer-desc" style="font-size:12px">приходят с процессами: CRM, отчёты, операции, продажи, support, workflow.</div></div>
-        <div class="layer" style="padding:10px 14px;border-left:3px solid var(--amber)"><div class="layer-num amber" style="min-width:24px;font-size:13px">42%</div><div class="layer-desc" style="font-size:12px">явно говорят про агентов и агентные системы, а не только prompt usage.</div></div>
+        <div class="layer" style="padding:10px 14px;border-left:3px solid var(--amber)"><div class="layer-num amber" style="min-width:24px;font-size:13px">69%</div><div class="layer-desc" style="font-size:12px">явно говорят про агентов и агентные системы, а не только prompt usage.</div></div>
+        <div class="layer" style="padding:10px 14px;border-left:3px solid var(--teal)"><div class="layer-num teal" style="min-width:24px;font-size:13px">65%</div><div class="layer-desc" style="font-size:12px">пишут про команду, отдел, компанию или организационный контекст.</div></div>
+        <div class="layer" style="padding:10px 14px;border-left:3px solid var(--green)"><div class="layer-num green" style="min-width:24px;font-size:13px">58%</div><div class="layer-desc" style="font-size:12px">приходят с процессами: CRM, отчёты, операции, продажи, support, workflow.</div></div>
       </div>
-      <div class="quote-enhanced" style="margin-top:12px;padding:14px 18px"><p style="font-size:13px">Меньше массовости, больше намерения: построить управляемую AI-native функцию внутри компании.</p><div class="author" style="font-size:11px">что меняем в подходе Batch 2</div></div>
+      <div class="quote-enhanced" style="margin-top:12px;padding:14px 18px"><p style="font-size:13px">Меньше разговора про инструменты, больше про функцию компании: кто владелец, где контекст, как доказать результат.</p><div class="author" style="font-size:11px">что меняем в подходе Batch 2</div></div>
     </div>
   </div>
 </div></div>
@@ -948,10 +990,10 @@ body.vox-open #vox-panel {
     </div>
     <div>
       <div class="stat-grid cols-2" style="margin-top:0;gap:10px">
-        <div class="stat-box"><div class="num teal" style="font-size:36px">62%</div><div class="stat-label">team / company context</div></div>
-        <div class="stat-box"><div class="num green" style="font-size:36px">48%</div><div class="stat-label">process / ops context</div></div>
-        <div class="stat-box"><div class="num blue" style="font-size:36px">42%</div><div class="stat-label">agent systems</div></div>
-        <div class="stat-box"><div class="num amber" style="font-size:36px">26%</div><div class="stat-label">product / startup</div></div>
+        <div class="stat-box"><div class="num amber" style="font-size:36px">69%</div><div class="stat-label">agent systems</div></div>
+        <div class="stat-box"><div class="num teal" style="font-size:36px">65%</div><div class="stat-label">team / company context</div></div>
+        <div class="stat-box"><div class="num green" style="font-size:36px">58%</div><div class="stat-label">process / ops context</div></div>
+        <div class="stat-box"><div class="num blue" style="font-size:36px">54%</div><div class="stat-label">coding / dev stack</div></div>
       </div>
       <div style="margin-top:14px;padding:14px 18px;border:1px solid var(--border);border-radius:8px;background:var(--bg-card)">
         <p style="font-size:11px;color:var(--text-label);margin-bottom:6px;letter-spacing:1px">// KEY INSIGHT</p>
@@ -1021,7 +1063,7 @@ body.vox-open #vox-panel {
     <div class="trackline-card" style="border-color:rgba(200,146,0,0.35)"><div class="trackline-meta">track 04</div><h3>build &amp; visual craft</h3><p><span class="amber">Федосеев + Глазов</span>: vibe-coding, визуальные артефакты, hooks, продуктовые прототипы.</p></div>
   </div>
   <div style="display:flex;gap:10px;margin-top:10px">
-    <div style="flex:1;padding:10px 14px;border:1px solid var(--border);border-radius:8px;background:rgba(77,201,212,0.04)"><p style="font-size:11px;color:var(--text-dim)"><span class="teal" style="font-weight:600">152</span> участника в sprint-чате · <span class="teal" style="font-weight:600">75</span> сообщений в intro-топике · маршрутизация начинается с #intro</p></div>
+    <div style="flex:1;padding:10px 14px;border:1px solid var(--border);border-radius:8px;background:rgba(77,201,212,0.04)"><p style="font-size:11px;color:var(--text-dim)"><span class="teal" style="font-weight:600">154</span> участника в sprint-чате · <span class="teal" style="font-weight:600">75</span> сообщений в intro-топике · маршрутизация начинается с #intro</p></div>
     <div style="flex:1;padding:10px 14px;border:1px solid var(--border);border-radius:8px;background:rgba(77,201,212,0.04)"><p style="font-size:11px;color:var(--text-dim)">source: public site + sprint/curator context, 2026-05-04</p></div>
   </div>
 </div></div>
@@ -1037,7 +1079,7 @@ body.vox-open #vox-panel {
     <div class="speaker-card"><img class="speaker-photo" src="speakers/bayram-annakov.jpg" alt=""><div class="speaker-name">Bayram Annakov</div><div class="speaker-role">onsa.ai &middot; ex-App in the Air</div><div class="speaker-topic">sales automation</div></div>
     <div class="speaker-card"><img class="speaker-photo" src="speakers/ev-kuryshev.jpg" alt=""><div class="speaker-name">Evgeny Kuryshev</div><div class="speaker-role">Mirror AI &middot; ex-Ostrovok</div><div class="speaker-topic">AI-native tech org</div></div>
     <div class="speaker-card"><img class="speaker-photo" src="speakers/vitaly-kleban.jpg" alt=""><div class="speaker-name">Vitaly Kleban</div><div class="speaker-role">cyber.fund &middot; Everynet</div><div class="speaker-topic">self-improving agents</div></div>
-    <div class="speaker-card"><img class="speaker-photo" src="speakers/dima-khanarin.jpg" alt=""><div class="speaker-name">Dima Khanarin</div><div class="speaker-role">docare.io &middot; ex-McKinsey</div><div class="speaker-topic">AI transformation</div></div>
+    <div class="speaker-card"><img class="speaker-photo" src="speakers/dima-khanarin.jpg" alt=""><div class="speaker-name">Dima Kharin</div><div class="speaker-role">docare.io &middot; ex-McKinsey</div><div class="speaker-topic">AI transformation</div></div>
     <div class="speaker-card"><img class="speaker-photo" src="speakers/egerv.jpg" alt=""><div class="speaker-name">Egor Egerev</div><div class="speaker-role">Tickets Cloud &middot; Burner</div><div class="speaker-topic">founder systems</div></div>
     <div class="speaker-card"><img class="speaker-photo" src="speakers/roma-buzko.jpg" alt=""><div class="speaker-name">Roman Buzko</div><div class="speaker-role">Skala.io &middot; Buzko Krasnov</div><div class="speaker-topic">legal AI</div></div>
   </div>
@@ -1053,7 +1095,7 @@ body.vox-open #vox-panel {
 
 <!-- S13: PROGRAM OVERVIEW -->
 <div class="slide" id="s13"><div class="slide-counter"><span class="current">13</span>/<span class="total"></span></div><img class="slide-logo" src="logo.png" alt=""><div class="slide-inner program-compact">
-  <div class="label">// program calendar &middot; internal agenda 2026-05-01</div>
+  <div class="label">// program calendar &middot; Google Calendar checked 2026-05-04</div>
   <h2>Календарь спринта: <span class="teal">каждый день виден</span></h2>
   <div class="calendar-grid">
     <div class="calendar-head">week</div><div class="calendar-head">mon</div><div class="calendar-head">tue</div><div class="calendar-head">wed</div><div class="calendar-head">thu</div><div class="calendar-head">fri</div><div class="calendar-head">sat</div>
@@ -1075,7 +1117,7 @@ body.vox-open #vox-panel {
     <div class="calendar-day"><div class="calendar-date">18.05</div><div class="calendar-event">Stepan Gershuni · W3 lecture</div><span class="calendar-time">17:00</span></div>
     <div class="calendar-day"><div class="calendar-date">19.05</div><div class="calendar-event">Denis M3 + community talk TBD</div><span class="calendar-time">12:00 + 17:00</span></div>
     <div class="calendar-day"><div class="calendar-date">20.05</div><div class="calendar-event">Bayram Annakov · sales automation</div><span class="calendar-time">17:00</span></div>
-    <div class="calendar-day"><div class="calendar-date">21.05</div><div class="calendar-event">Dima Khanarin · AI transformation</div><span class="calendar-time">17:00</span></div>
+    <div class="calendar-day"><div class="calendar-date">21.05</div><div class="calendar-event">Dima Kharin · AI transformation</div><span class="calendar-time">17:00</span></div>
     <div class="calendar-day"><div class="calendar-date">22.05</div><div class="calendar-event">Egor Egerev · founder systems</div><span class="calendar-time">17:00</span></div>
     <div class="calendar-day"><div class="calendar-date">23.05</div><div class="calendar-event">office hours · Demo Day prep</div><span class="calendar-time">12:00</span></div>
     <div class="calendar-week-label">W0 / demo</div>
@@ -1187,7 +1229,7 @@ body.vox-open #vox-panel {
       <div class="speaker-detail" style="margin-bottom:0;padding:7px 12px"><img src="speakers/roma-buzko.jpg" alt="" style="width:34px;height:34px"><div class="sd-info"><div class="sd-name" style="font-size:12px">Roman Buzko</div><div class="sd-topic" style="font-size:10px;margin-top:1px">legal AI &ndash; Buzko Krasnov</div></div></div>
       <div class="speaker-detail" style="margin-bottom:0;padding:7px 12px"><img src="speakers/ev-kuryshev.jpg" alt="" style="width:34px;height:34px"><div class="sd-info"><div class="sd-name" style="font-size:12px">Evgeny Kuryshev</div><div class="sd-topic" style="font-size:10px;margin-top:1px">Mirror AI &ndash; AI-native tech org</div></div></div>
       <div class="speaker-detail" style="margin-bottom:0;padding:7px 12px"><img src="speakers/vitaly-kleban.jpg" alt="" style="width:34px;height:34px"><div class="sd-info"><div class="sd-name" style="font-size:12px">Vitaly Kleban</div><div class="sd-topic" style="font-size:10px;margin-top:1px">self-improving agents &ndash; cyber.fund</div></div></div>
-      <div class="speaker-detail" style="margin-bottom:0;padding:7px 12px"><img src="speakers/dima-khanarin.jpg" alt="" style="width:34px;height:34px"><div class="sd-info"><div class="sd-name" style="font-size:12px">Dima Khanarin</div><div class="sd-topic" style="font-size:10px;margin-top:1px">docare.io &ndash; AI transformation</div></div></div>
+      <div class="speaker-detail" style="margin-bottom:0;padding:7px 12px"><img src="speakers/dima-khanarin.jpg" alt="" style="width:34px;height:34px"><div class="sd-info"><div class="sd-name" style="font-size:12px">Dima Kharin</div><div class="sd-topic" style="font-size:10px;margin-top:1px">docare.io &ndash; AI transformation</div></div></div>
       <div class="speaker-detail" style="margin-bottom:0;padding:7px 12px"><img src="speakers/egerv.jpg" alt="" style="width:34px;height:34px"><div class="sd-info"><div class="sd-name" style="font-size:12px">Egor Egerev</div><div class="sd-topic" style="font-size:10px;margin-top:1px">Tickets Cloud / Burner &ndash; founder systems</div></div></div>
       </div>
     </div>
@@ -1238,7 +1280,7 @@ body.vox-open #vox-panel {
 <!-- S18: OFFICE HOURS FORMAT -->
 <div class="slide" id="s18"><div class="slide-counter"><span class="current">18</span>/<span class="total"></span></div><img class="slide-logo" src="logo.png" alt=""><div class="slide-inner">
   <div class="label">// format &middot; office hours</div>
-  <h2>Office Hours <span class="dim" style="font-size:22px;font-weight:400">&ndash; открытые консультации</span></h2>
+  <h2>Office Hours <span class="dim" style="font-size:22px;font-weight:400">&ndash; разбор рабочих блокеров</span></h2>
   <div class="split" style="gap:32px;align-items:start">
     <div>
       <div class="stat-grid cols-2" style="margin-top:0;gap:10px">
@@ -1246,28 +1288,23 @@ body.vox-open #vox-panel {
         <div class="stat-box"><div class="num teal" style="font-size:36px">сб</div><div class="stat-label">12:00 CEST</div></div>
       </div>
       <div class="layers" style="margin-top:14px;gap:6px">
-        <div class="layer" style="padding:10px 14px"><div class="layer-num amber" style="min-width:24px;font-size:14px">01</div><div class="layer-desc" style="font-size:13px">Hot seat &ndash; каждый участник задаёт вопрос по своей ситуации</div></div>
-        <div class="layer" style="padding:10px 14px"><div class="layer-num teal" style="min-width:24px;font-size:14px">02</div><div class="layer-desc" style="font-size:13px">Спикеры недели помогают с конкретными кейсами</div></div>
-        <div class="layer" style="padding:10px 14px"><div class="layer-num green" style="min-width:24px;font-size:14px">03</div><div class="layer-desc" style="font-size:13px">Неформальный нетворкинг между участниками</div></div>
+        <div class="layer" style="padding:10px 14px"><div class="layer-num amber" style="min-width:24px;font-size:14px">01</div><div class="layer-desc" style="font-size:13px">Hot seat &ndash; коротко показываете кейс, блокер и текущий артефакт</div></div>
+        <div class="layer" style="padding:10px 14px"><div class="layer-num teal" style="min-width:24px;font-size:14px">02</div><div class="layer-desc" style="font-size:13px">эксперты недели дают следующий ход: что проверить, упростить или перестроить</div></div>
+        <div class="layer" style="padding:10px 14px"><div class="layer-num green" style="min-width:24px;font-size:14px">03</div><div class="layer-desc" style="font-size:13px">куратор помогает маршрутизировать блокер: setup, systems, adoption, build или Demo Day</div></div>
       </div>
-      <div class="quote-enhanced" style="margin-top:14px"><p style="font-size:13px">Формат hot seat: ваш конкретный кейс разбирают эксперты и другие участники.</p></div>
+      <div style="margin-top:14px;padding:14px 18px;border-left:3px solid var(--amber);background:rgba(200,146,0,0.05);border-radius:0 10px 10px 0"><p style="font-size:13px;color:rgba(255,255,255,0.78);line-height:1.6">Coworking &ndash; ты работаешь. Office Hours &ndash; ты спрашиваешь, что застряло, и получаешь маршрут к следующему артефакту.</p></div>
     </div>
     <div>
-      <p style="font-size:12px;color:var(--text-label);margin-bottom:10px;letter-spacing:2px">// КТО ВЕДЁТ</p>
-      <div style="padding:14px 18px;border:1px solid var(--border);border-radius:10px;background:var(--bg-card);margin-bottom:12px">
-        <div class="speaker-detail" style="margin-bottom:0;padding:8px;border:none;background:transparent">
-          <img src="speakers/alexander-povaliaev.jpg" alt="" style="width:40px;height:40px">
-          <div class="sd-info">
-            <div class="sd-name" style="font-size:14px">Поваляев</div>
-            <div class="sd-topic" style="font-size:11px;margin-top:2px">+ спикеры текущей недели</div>
-          </div>
-        </div>
+      <p style="font-size:12px;color:var(--text-label);margin-bottom:10px;letter-spacing:2px">// КАК ПРИХОДИТЬ</p>
+      <div class="cards" style="grid-template-columns:1fr;gap:8px;margin-top:0">
+        <div class="card" style="padding:13px 15px;border-left:3px solid var(--amber)"><h3 style="font-size:14px;margin-bottom:4px">1. one case</h3><p style="font-size:12px">одна функция или процесс: sales, support, dev, ops, legal, finance, education.</p></div>
+        <div class="card" style="padding:13px 15px;border-left:3px solid var(--teal)"><h3 style="font-size:14px;margin-bottom:4px">2. one artifact</h3><p style="font-size:12px">prompt, workflow, schema, skill, owner map, dashboard, scorecard или demo script.</p></div>
+        <div class="card" style="padding:13px 15px;border-left:3px solid var(--green)"><h3 style="font-size:14px;margin-bottom:4px">3. one blocker</h3><p style="font-size:12px">что мешает: данные, владелец, eval, adoption, качество результата или интеграция.</p></div>
       </div>
-      <p style="font-size:12px;color:var(--text-label);margin-bottom:10px;letter-spacing:2px">// РАСПИСАНИЕ</p>
-      <div class="layers" style="gap:6px">
-        <div class="layer" style="padding:8px 12px"><div class="layer-num teal" style="min-width:24px;font-size:12px">сб</div><div class="layer-desc" style="font-size:12px">09.05 &ndash; W1 wrap-up + POS artifacts</div></div>
-        <div class="layer" style="padding:8px 12px"><div class="layer-num blue" style="min-width:24px;font-size:12px">сб</div><div class="layer-desc" style="font-size:12px">16.05 &ndash; W2 wrap-up + MOS / agent workflows</div></div>
-        <div class="layer" style="padding:8px 12px"><div class="layer-num green" style="min-width:24px;font-size:12px">сб</div><div class="layer-desc" style="font-size:12px">23.05 &ndash; W3 wrap-up + Demo Day prep</div></div>
+      <div class="layers" style="gap:6px;margin-top:12px">
+        <div class="layer" style="padding:8px 12px"><div class="layer-num teal" style="min-width:24px;font-size:12px">09.05</div><div class="layer-desc" style="font-size:12px">W1 wrap-up + POS artifacts</div></div>
+        <div class="layer" style="padding:8px 12px"><div class="layer-num blue" style="min-width:24px;font-size:12px">16.05</div><div class="layer-desc" style="font-size:12px">W2 wrap-up + MOS / agent workflows</div></div>
+        <div class="layer" style="padding:8px 12px"><div class="layer-num green" style="min-width:24px;font-size:12px">23.05</div><div class="layer-desc" style="font-size:12px">W3 wrap-up + Demo Day prep</div></div>
       </div>
     </div>
   </div>
@@ -1340,7 +1377,7 @@ body.vox-open #vox-panel {
   <div class="split" style="gap:32px;align-items:start">
     <div>
       <div class="stat-grid cols-2" style="margin-top:0;gap:10px">
-        <div class="stat-box"><div class="num teal" style="font-size:36px">161</div><div class="stat-label">человек в актуальной базе</div></div>
+        <div class="stat-box"><div class="num teal" style="font-size:36px">154</div><div class="stat-label">человека в sprint-чате</div></div>
         <div class="stat-box"><div class="num green" style="font-size:36px">24/7</div><div class="stat-label">async доступ</div></div>
       </div>
       <div class="layers" style="margin-top:14px;gap:6px">
@@ -1479,26 +1516,6 @@ body.vox-open #vox-panel {
   </div>
 </div></div>
 
-
-
-<!-- TIMER -->
-<div class="slide" id="s-timer"><div class="slide-counter"><span class="current">14</span>/<span class="total"></span></div><img class="slide-logo" src="logo.png" alt=""><div class="slide-inner cover">
-  <div class="label">// intro timer &middot; 60 seconds each</div>
-  <svg id="timer-svg" viewBox="0 0 300 300" width="280" height="280" style="margin:0 auto 12px">
-    <circle cx="150" cy="150" r="130" fill="none" stroke="rgba(77,201,212,0.1)" stroke-width="8"/>
-    <circle id="timer-arc" cx="150" cy="150" r="130" fill="none" stroke="#4dc9d4" stroke-width="8" stroke-dasharray="816.8" stroke-dashoffset="0" stroke-linecap="round" transform="rotate(-90 150 150)" style="transition: stroke-dashoffset 1s linear"/>
-    <image href="logo.png" x="110" y="110" width="80" height="80" opacity="0.6"/>
-  </svg>
-  <div id="timer-display" style="font-family:var(--font-heading);font-size:72px;font-weight:700;color:white;text-align:center;margin:8px 0">1:00</div>
-  <div id="timer-label" style="font-family:var(--font-code);font-size:14px;color:var(--text-dim);text-align:center;margin-bottom:16px">нажми пробел</div>
-  <div style="display:flex;gap:12px;justify-content:center;margin-top:16px">
-    <button id="timer-start" data-timer-action="startTimer" style="background:var(--teal);color:#161620;border:none;padding:10px 28px;border-radius:6px;font-family:var(--font-body);font-size:14px;font-weight:600;cursor:pointer">start</button>
-    <button data-timer-action="resetTimer" style="background:var(--bg-card);color:var(--text-dim);border:1px solid var(--border);padding:10px 20px;border-radius:6px;font-family:var(--font-body);font-size:14px;cursor:pointer">reset</button>
-    <button data-timer-action="nextPerson" style="background:var(--bg-card);color:var(--teal);border:1px solid var(--border);padding:10px 20px;border-radius:6px;font-family:var(--font-body);font-size:14px;cursor:pointer">next &rarr;</button>
-  </div>
-  <div id="timer-counter" style="margin-top:20px;font-family:var(--font-code);font-size:13px;color:var(--text-dim)">&#x0443;&#x0447;&#x0430;&#x0441;&#x0442;&#x043D;&#x0438;&#x043A; <span id="person-num">1</span></div>
-</div></div>
-
 <!-- Presenter Panel -->
 <div id="presenter-panel">
   <div class="pres-label">// presenter notes</div>
@@ -1550,7 +1567,7 @@ body.vox-open #vox-panel {
   <div class="vox-header">
     <div class="vox-title">
       <span class="vox-icon"><svg viewBox="0 0 5 5" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="0" width="5" height="5" rx="0.5" fill="#1c1c2e"/><rect x="1" y="1" width="1" height="1" fill="#4dc9d4"/><rect x="3" y="1" width="1" height="1" fill="#4dc9d4"/><rect x="0" y="2" width="1" height="1" fill="#38d9a9" opacity="0.5"/><rect x="4" y="2" width="1" height="1" fill="#38d9a9" opacity="0.5"/><rect x="1" y="3" width="1" height="1" fill="#38d9a9"/><rect x="2" y="3" width="1" height="1" fill="#4dc9d4"/><rect x="3" y="3" width="1" height="1" fill="#38d9a9"/><rect x="2" y="4" width="1" height="1" fill="#38d9a9" opacity="0.4"/></svg></span> vox
-      <span class="vox-context" id="vox-context">slide 1/24</span>
+      <span class="vox-context" id="vox-context">slide 1/23</span>
       <span class="vox-model" id="vox-model-status">sonnet latest</span>
     </div>
     <button class="vox-close" onclick="toggleVox()" title="close (V)">&times;</button>
@@ -1601,11 +1618,17 @@ body.vox-open #vox-panel {
   </div>
 </div>
 
+<!-- Vox live popup: ambient presenter notes without opening the side panel -->
+<div id="vox-live-pop" aria-live="polite">
+  <div class="vox-live-pop-head"><span>VOX LIVE</span><button type="button" onclick="hideVoxPopup()" title="hide">&times;</button></div>
+  <div id="vox-live-pop-text">LIVE ON: подсказки появятся здесь и не будут перекрывать слайд.</div>
+</div>
+
 <!-- Vox trigger button (always visible, works in both edit and presentation modes) -->
 <button id="vox-trigger" title="Vox AI assistant (V)"><svg viewBox="0 0 5 5" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="0" width="5" height="5" rx="0.5" fill="#1c1c2e"/><rect x="1" y="1" width="1" height="1" fill="#4dc9d4"/><rect x="3" y="1" width="1" height="1" fill="#4dc9d4"/><rect x="0" y="2" width="1" height="1" fill="#38d9a9" opacity="0.5"/><rect x="4" y="2" width="1" height="1" fill="#38d9a9" opacity="0.5"/><rect x="1" y="3" width="1" height="1" fill="#38d9a9"/><rect x="2" y="3" width="1" height="1" fill="#4dc9d4"/><rect x="3" y="3" width="1" height="1" fill="#38d9a9"/><rect x="2" y="4" width="1" height="1" fill="#38d9a9" opacity="0.4"/></svg></button>
 
 <script>
-const DECK_VERSION='2026-05-04-batch2-noco-prestart-v1';localStorage.removeItem('ainative-intro-call-state');localStorage.setItem('ainative-intro-call-version',DECK_VERSION);
+const DECK_VERSION='2026-05-04-batch2-current-intake-v2';localStorage.removeItem('ainative-intro-call-state');localStorage.setItem('ainative-intro-call-version',DECK_VERSION);
 const GH_REPO='ai-mindset-org/ainative-deck',GH_FILE='intro-call.html',GH_BRANCH='main',STORAGE_KEY='ainative-intro-call-state',TOKEN_KEY='ainative-intro-call-gh-token',OR_BASE='https://openrouter.ai/api/v1';
 var OR_KEY=localStorage.getItem('ainative-or-key')||'';
 function ensureORKey(){OR_KEY=localStorage.getItem('ainative-or-key')||OR_KEY||'';if(OR_KEY&&OR_KEY.startsWith('sk-or-'))return true;var key=prompt('OpenRouter API Key:\n\nget one at openrouter.ai/keys');if(key&&key.trim().startsWith('sk-or-')){OR_KEY=key.trim();localStorage.setItem('ainative-or-key',OR_KEY);return true}return false}
@@ -1619,7 +1642,7 @@ let slides,total,current=0,editMode=false,autoSaveTimer=null,autoPushTimer=null,
 const undoStack=[],redoStack=[],MAX_UNDO=50;
 function initSlides(){slides=document.querySelectorAll('.slide');total=slides.length;document.querySelectorAll('.total').forEach(function(el){el.textContent=total})}initSlides();
 function showSlide(n){if(n<0||n>=total)return;slides[current].classList.remove('active');current=n;slides[current].classList.add('active');document.querySelector('.progress-bar').style.width=((current+1)/total*100)+'%';document.querySelectorAll('.current').forEach(function(el){el.textContent=current+1});history.replaceState(null,'','#'+(current+1));deselectBlock();updatePreview()}
-document.addEventListener('keydown',function(e){if(e.target.contentEditable==='true'||e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA'){if((e.ctrlKey||e.metaKey)&&e.key==='z'&&!e.shiftKey){e.preventDefault();undo();return}if((e.ctrlKey||e.metaKey)&&(e.key==='Z'||e.key==='y')){e.preventDefault();redo();return}return}if(e.key===' '&&slides[current]&&slides[current].id==='s-timer')return;if(e.key==='ArrowRight'||e.key===' '||e.key==='Enter'){e.preventDefault();showSlide(current+1)}else if(e.key==='ArrowLeft'||e.key==='Backspace'){e.preventDefault();showSlide(current-1)}else if(e.key==='Home')showSlide(0);else if(e.key==='End')showSlide(total-1);else if(e.key==='f'||e.key==='F'){if(!document.fullscreenElement)document.documentElement.requestFullscreen().catch(function(){});else document.exitFullscreen()}else if(e.key==='e'||e.key==='E')toggleEdit();else if(e.key==='t'||e.key==='T')toggleTOC();else if(e.key==='p'||e.key==='P')togglePresenter();else if(e.key==='v'||e.key==='V')toggleVox();else if((e.ctrlKey||e.metaKey)&&e.key==='z')undo();else if((e.ctrlKey||e.metaKey)&&(e.key==='Z'||e.key==='y'))redo();else if(e.key==='Delete'&&editMode&&selectedBlock)deleteBlock()},false);
+document.addEventListener('keydown',function(e){if(e.target.contentEditable==='true'||e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA'){if((e.ctrlKey||e.metaKey)&&e.key==='z'&&!e.shiftKey){e.preventDefault();undo();return}if((e.ctrlKey||e.metaKey)&&(e.key==='Z'||e.key==='y')){e.preventDefault();redo();return}return}if(e.key==='ArrowRight'||e.key===' '||e.key==='Enter'){e.preventDefault();showSlide(current+1)}else if(e.key==='ArrowLeft'||e.key==='Backspace'){e.preventDefault();showSlide(current-1)}else if(e.key==='Home')showSlide(0);else if(e.key==='End')showSlide(total-1);else if(e.key==='f'||e.key==='F'){if(!document.fullscreenElement)document.documentElement.requestFullscreen().catch(function(){});else document.exitFullscreen()}else if(e.key==='e'||e.key==='E')toggleEdit();else if(e.key==='t'||e.key==='T')toggleTOC();else if(e.key==='p'||e.key==='P')togglePresenter();else if(e.key==='v'||e.key==='V')toggleVox();else if((e.ctrlKey||e.metaKey)&&e.key==='z')undo();else if((e.ctrlKey||e.metaKey)&&(e.key==='Z'||e.key==='y'))redo();else if(e.key==='Delete'&&editMode&&selectedBlock)deleteBlock()},false);
 document.addEventListener('keydown',function(e){if(e.target.contentEditable==='true'||e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA'){if(['ArrowRight','ArrowLeft',' ','Enter','Backspace'].includes(e.key)&&!(e.ctrlKey||e.metaKey))e.stopPropagation()}},true);
 var touchStartX=0;document.addEventListener('touchstart',function(e){touchStartX=e.touches[0].clientX});document.addEventListener('touchend',function(e){var d=touchStartX-e.changedTouches[0].clientX;if(Math.abs(d)>50)d>0?showSlide(current+1):showSlide(current-1)});
 if(location.hash){var n=parseInt(location.hash.slice(1))-1;if(n>=0&&n<total)showSlide(n)}
@@ -1678,7 +1701,7 @@ function closeGhModal(){document.getElementById('gh-modal').classList.remove('vi
 function confirmGhToken(){var t=document.getElementById('gh-token-input').value.trim();if(t){localStorage.setItem(TOKEN_KEY,t);closeGhModal();saveToGitHub()}}
 function setStatus(c,t){var e=document.getElementById('save-status');e.className='save-status '+c;e.textContent=t;if(c==='saved')setTimeout(function(){e.textContent=''},3000)}
 async function saveToGitHub(){var t=getGhToken();if(!t){showGhModal();return}setStatus('saving','pushing...');try{var g=await fetch('https://api.github.com/repos/'+GH_REPO+'/contents/'+GH_FILE+'?ref='+GH_BRANCH,{headers:{'Authorization':'token '+t,'Accept':'application/vnd.github.v3+json'}});var sha=null;if(g.ok)sha=(await g.json()).sha;var content=buildCleanHTML();var encoded=btoa(unescape(encodeURIComponent(content)));var body={message:'update intro-call \u2013 '+new Date().toISOString().slice(0,16),content:encoded,branch:GH_BRANCH};if(sha)body.sha=sha;var p=await fetch('https://api.github.com/repos/'+GH_REPO+'/contents/'+GH_FILE,{method:'PUT',headers:{'Authorization':'token '+t,'Accept':'application/vnd.github.v3+json','Content-Type':'application/json'},body:JSON.stringify(body)});if(p.ok){setStatus('saved','pushed');isDirty=false}else throw new Error((await p.json()).message||'error')}catch(e){setStatus('error','failed: '+e.message)}}
-function buildCleanHTML(){var c=document.documentElement.cloneNode(true);c.querySelector('body').classList.remove('edit-mode','vox-open','vox-live-active','toc-open');c.querySelectorAll('.layout-bar').forEach(function(b){b.remove()});c.querySelectorAll('[contenteditable]').forEach(function(el){el.removeAttribute('contenteditable')});c.querySelectorAll('[draggable]').forEach(function(el){el.removeAttribute('draggable')});c.querySelectorAll('.block-selected,.drag-over-top,.drag-over-bottom,.block-dragging').forEach(function(el){el.classList.remove('block-selected','drag-over-top','drag-over-bottom','block-dragging')});c.querySelectorAll('#block-actions,#img-action-menu,#layout-picker,#ai-modal,#gh-modal,#preview-panel,#toc-overlay').forEach(function(el){el.classList.remove('visible')});var vm=c.querySelector('#vox-messages');if(vm){vm.innerHTML='<div class="vox-msg vox-msg-bot"><div class="vox-msg-content">VOX готов. Откройте LIVE ON или workshop coach для подсказок по слайду.</div></div>'}c.querySelectorAll('.slide').forEach(function(s,i){s.classList.toggle('active',i===0)});var pb=c.querySelector('.progress-bar');if(pb)pb.style.width='';return'<!DOCTYPE html>\n'+c.outerHTML}
+function buildCleanHTML(){var c=document.documentElement.cloneNode(true);c.querySelector('body').classList.remove('edit-mode','vox-open','vox-live-active','toc-open');c.querySelectorAll('.layout-bar').forEach(function(b){b.remove()});c.querySelectorAll('[contenteditable]').forEach(function(el){el.removeAttribute('contenteditable')});c.querySelectorAll('[draggable]').forEach(function(el){el.removeAttribute('draggable')});c.querySelectorAll('.block-selected,.drag-over-top,.drag-over-bottom,.block-dragging').forEach(function(el){el.classList.remove('block-selected','drag-over-top','drag-over-bottom','block-dragging')});c.querySelectorAll('#block-actions,#img-action-menu,#layout-picker,#ai-modal,#gh-modal,#preview-panel,#toc-overlay,#vox-live-pop').forEach(function(el){el.classList.remove('visible')});var vm=c.querySelector('#vox-messages');if(vm){vm.innerHTML='<div class="vox-msg vox-msg-bot"><div class="vox-msg-content">VOX готов. Откройте LIVE ON или workshop coach для подсказок по слайду.</div></div>'}var vp=c.querySelector('#vox-live-pop-text');if(vp){vp.textContent='LIVE ON: подсказки появятся здесь и не будут перекрывать слайд.'}c.querySelectorAll('.slide').forEach(function(s,i){s.classList.toggle('active',i===0)});var pb=c.querySelector('.progress-bar');if(pb)pb.style.width='';return'<!DOCTYPE html>\n'+c.outerHTML}
 document.addEventListener('keydown',function(e){if(e.key==='Escape'){if(typeof voxOpen!=='undefined'&&voxOpen){toggleVox();return}var tocEl=document.getElementById('toc-overlay');if(tocEl&&tocEl.classList.contains('visible')){tocEl.classList.remove('visible');return}closeLayoutPicker();closeAiModal();closeGhModal();document.getElementById('img-action-menu').classList.remove('visible');deselectBlock()}});
 document.getElementById('layout-picker').addEventListener('click',function(e){if(e.target===e.currentTarget)closeLayoutPicker()});
 document.getElementById('ai-modal').addEventListener('click',function(e){if(e.target===e.currentTarget)closeAiModal()});
@@ -1708,30 +1731,29 @@ document.getElementById('toc-overlay').addEventListener('click',function(e){if(e
 
 var presenterMode=false,presTimer=null,presSeconds=0;
 var presNotes=[
-  {t:"Cover",n:"это 20-минутный pre-start briefing перед W1, не ростер спикеров. Стартовать с факта: NocoDB x161, 138 профилей, 152 в sprint-чате, 75 сообщений в intro-топике."},
-  {t:"Agenda",n:"intro call был нужен для синхронизации контекста, аудитории, формата, спикеров, кураторов и intro round. После 2 May не обещать повтор этого блока."},
-  {t:"Participants",n:"говорить человечески: 161 человек в актуальной NocoDB-базе, 138 заполненных профилей, 152 в sprint-чате, 75 сообщений в intro-топике, 38 полноценных #intro. Dedupe audit: 159, публично не выводим как главное число."},
-  {t:"AI Stack",n:"q2 n=137: Claude 79, GPT 63, Claude Code 31, Cursor/Codex/Perplexity по 19, Gemini 18. Запрос не на инструменты, а на архитектуру и ownership."},
-  {t:"Geography",n:"q4 n=137: Москва 38, Европа/релокация 29, РФ регионы 25, СПб 10, СНГ/Кавказ/ЦА 10, дальше long tail."},
+  {t:"Cover",n:"стартовая рамка: около 160 участников, 154 в sprint-чате, 141 заполненный профиль. Не говорить про записи базы как про главное; говорить про людей, кейсы и переход к артефактам."},
+  {t:"Agenda",n:"intro call уже был нужен для синхронизации контекста, аудитории, формата, спикеров и кураторов. Сейчас используем его как входной снимок перед работой."},
+  {t:"Participants",n:"говорить человечески: около 160 участников в intake, 154 в sprint-чате, 141 заполненный профиль, 75 сообщений в intro-топике, 38 полноценных #intro. Технически: база 167, но публично не выводим это как главное число."},
+  {t:"AI Stack",n:"q2 n=141: GPT 65, Claude 49, Claude Code 27, Codex/Perplexity по 20, Cursor/Gemini по 19, Make/n8n и Obsidian/KB по 6. Запрос не на инструменты, а на архитектуру и ownership."},
+  {t:"Geography",n:"q4 n=140: Москва 40, Европа/релокация 29, РФ регионы 25, СПб 10, СНГ/Кавказ/ЦА 10, дальше long tail."},
   {t:"New Approach",n:"POS → MOS → Company Functions. Главное: перевести личный стек в управляемую систему компании."},
-  {t:"Audience Map",n:"анонимная карта из NocoDB + intro-топика: 62% team/company, 50% dev stack, 48% ops/process, 42% agents, 30% context. Не называем участников."},
-  {t:"S2 → Batch 2",n:"S2: 217 людей после чистки, 16 Demo projects, curator routing как вывод ретро. Batch 2: актуальная база 161, больше company/system/process intent."},
+  {t:"Audience Map",n:"анонимная карта из анкет + intro-топика: 69% agents, 65% team/company, 58% ops/process, 54% dev stack, 32% context. Не называем участников."},
+  {t:"S2 → Batch 2",n:"S2: 217 людей после чистки, 16 Demo projects, curator routing как вывод ретро. Batch 2 меньше по массе, но сильнее пришёл с company/system/process intent."},
   {t:"Sprint Goals",n:"агентный контур, процесс, командный перенос, Demo Day и 90-day roadmap. Боль: точечный AI без owner и architecture."},
   {t:"Lab Format",n:"AIN02 cadence as operating loop: frame → build → case lens → routing → evidence. Every slide should point to artifact and routing."},
   {t:"Curators",n:"site-verified curator roster: Ris, Smirnov, Fedoseev, Jin, Doonto, Vasiliev, Lonchakova, Glazov. Routing is by artifact and track, not by celebrity matching."},
-  {t:"Speakers",n:"public site roster as co-authors and guest speakers: Gershuni, Povaliaev, Ustinov, Annakov, Kuryshev, Kleban, Khanarin, Egerev, Buzko. Alumni v1 are materials, not live roster."},
-  {t:"Program",n:"calendar view. No Wed-Fri collapse. Mention CEST, intro 2 May already happened, W1 lecture 4 May, Demo Day 25 May 16:00."},
+  {t:"Speakers",n:"public site roster as co-authors and guest speakers: Gershuni, Povaliaev, Ustinov, Annakov, Kuryshev, Kleban, Kharin, Egerev, Buzko. Alumni v1 are materials, not live roster."},
+  {t:"Program",n:"calendar view checked against Google Calendar on 2026-05-04. No Wed-Fri collapse. Mention CEST, intro 2 May already happened, W1 lecture 4 May, Demo Day 25 May 16:00."},
   {t:"Format Deep Dive",n:"day-by-day rhythm: Mon lecture, Tue Denis/setup or alumni, Wed/Thu/Fri cases, Sat office hours. Main time 17:00 CEST; Denis/OH often 12:00."},
   {t:"Lecture",n:"2 hours live. Keep this as a frame slide, not a fixed promise for every Monday."},
   {t:"Workshop",n:"workshop beat: frame → action → artifact → proof → routing. May 5 Ris setup, May 12 alumni showcase, May 13–22 function-focused guest sessions."},
   {t:"Coworking",n:"2 hours. Check-in + deep work + sharing. Use for artifact production, not passive attendance."},
-  {t:"Office Hours",n:"09 / 16 / 23 May, 12:00 CEST. Hot seats and artifact review."},
+  {t:"Office Hours",n:"09 / 16 / 23 May, 12:00 CEST. Hot seats = one case, one artifact, one blocker, then expert route to next action."},
   {t:"Demo Day",n:"25 May, 16:00 CEST. 5+3 min. No jury framing: feedback lenses are evidence, usefulness, ownership, next 90 days."},
   {t:"Curator Routing",n:"ask participants to bring artifacts and concrete blockers; route by beginner, tech, systems, build/visual, support, or Demo Day prep."},
-  {t:"Community",n:"161 people in NocoDB/CSV, 152 members in sprint Telegram, 75 intro-topic messages and 38 tagged #intro posts. Telegram is main communication layer; async between sessions."},
+  {t:"Community",n:"154 members in sprint Telegram, about 160 people in intake, 75 intro-topic messages and 38 tagged #intro posts. Telegram is main communication layer; async between sessions."},
   {t:"W1 Q&A",n:"QR must point to https://learn.aimindset.org/s3/qa/s3-w1-lecture. Explain prerequisites: start from zero/setup material, skip what is obvious, move into practice."},
-  {t:"Journey",n:"participant path: intro already done → W1 setup/POS → W2 MOS → W3 function → Demo Day. Emphasize sustainable rhythm and routing blockers to curators/OH."},
-  {t:"Timer",n:"по минуте на каждого. space = start/pause. next = следующий."}
+  {t:"Journey",n:"participant path: intro already done → W1 setup/POS → W2 MOS → W3 function → Demo Day. Emphasize sustainable rhythm and routing blockers to curators/OH."}
 ];
 var tocItems=[
   {slide:0,label:"Cover",icon:"01"},
@@ -1756,102 +1778,13 @@ var tocItems=[
   {slide:19,label:"Curator Routing",icon:"20"},
   {slide:20,label:"Community",icon:"21"},
   {slide:21,label:"LMS Platform",icon:"22"},
-  {slide:22,label:"Journey",icon:"23"},
-  {slide:23,label:"Timer",icon:"24"}
+  {slide:22,label:"Journey",icon:"23"}
 ];
 function togglePresenter(){presenterMode=!presenterMode;document.body.classList.toggle('presenter-mode',presenterMode);if(presenterMode){presSeconds=0;presTimer=setInterval(function(){presSeconds++;var m=String(Math.floor(presSeconds/60)).padStart(2,'0');var s=String(presSeconds%60).padStart(2,'0');document.getElementById('pres-timer').textContent=m+':'+s},1000);updatePresenterNotes();
 document.getElementById('pres-toc').innerHTML='<div style="font-size:10px;color:var(--text-label);letter-spacing:2px;margin-bottom:8px">// TABLE OF CONTENTS</div>'+tocItems.map(function(t,i){return '<div class="pres-agenda-item'+(i===current?' active':'')+'" style="cursor:pointer;padding:5px 8px;border-radius:4px;transition:all 0.15s" onclick="showSlide('+t.slide+')"><span style="color:var(--teal);min-width:22px;display:inline-block;font-size:11px">'+t.icon+'</span><span style="font-size:12px">'+t.label+'</span></div>'}).join('')}else{clearInterval(presTimer);document.getElementById('pres-timer').textContent='00:00'}}
 function updatePresenterNotes(){if(!presenterMode)return;var n=presNotes[current]||{t:'Slide '+(current+1),n:''};document.getElementById('pres-notes').innerHTML='<h4>'+n.t+'</h4><p>'+n.n+'</p>';var nx=presNotes[current+1];document.getElementById('pres-next-title').textContent=nx?nx.t:'end';
 document.querySelectorAll('#pres-toc .pres-agenda-item').forEach(function(el,i){el.classList.toggle('active',i===current);el.style.background=i===current?'var(--teal-dim)':'';el.style.borderLeftColor=i===current?'var(--teal)':'transparent'})}
-var origShowSlide=showSlide;showSlide=function(n){origShowSlide(n);if(presenterMode)updatePresenterNotes();if(typeof voxOpen!=='undefined'&&voxOpen){updateVoxContext();if(voxLiveMode&&n!==voxLastTipSlide)generateAmbientTip(n)}};
-
-// --- TIMER (with event listener fix) ---
-var timerInterval=null,timerSeconds=60,timerRunning=false,personCount=1;
-var TIMER_TOTAL=816.8;
-
-function updateTimerDisplay(){
-  var m=Math.floor(timerSeconds/60);
-  var s=timerSeconds%60;
-  document.getElementById('timer-display').textContent=m+':'+String(s).padStart(2,'0');
-  document.getElementById('timer-arc').setAttribute('stroke-dashoffset',TIMER_TOTAL*(1-(60-timerSeconds)/60));
-  document.getElementById('timer-arc').setAttribute('stroke',timerSeconds<=10?'#ff6b6b':'#4dc9d4');
-}
-
-function startTimer(){
-  if(timerRunning){
-    clearInterval(timerInterval);
-    timerRunning=false;
-    document.getElementById('timer-start').textContent='start';
-    return;
-  }
-  timerRunning=true;
-  document.getElementById('timer-start').textContent='pause';
-  document.getElementById('timer-label').textContent='';
-  timerInterval=setInterval(function(){
-    timerSeconds--;
-    updateTimerDisplay();
-    if(timerSeconds<=0){
-      clearInterval(timerInterval);
-      timerRunning=false;
-      document.getElementById('timer-start').textContent='start';
-      document.getElementById('timer-label').textContent='\u0432\u0440\u0435\u043C\u044F!';
-      document.getElementById('timer-display').style.color='#ff6b6b';
-      try{
-        var c=new AudioContext();
-        var o=c.createOscillator();
-        var g=c.createGain();
-        o.connect(g);g.connect(c.destination);
-        o.frequency.value=880;g.gain.value=0.3;
-        o.start();
-        g.gain.exponentialRampToValueAtTime(0.01,c.currentTime+0.5);
-        o.stop(c.currentTime+0.5);
-      }catch(e){}
-    }
-  },1000);
-}
-
-function resetTimer(){
-  clearInterval(timerInterval);
-  timerRunning=false;
-  timerSeconds=60;
-  document.getElementById('timer-start').textContent='start';
-  document.getElementById('timer-display').style.color='white';
-  document.getElementById('timer-label').textContent='\u043D\u0430\u0436\u043C\u0438 \u043F\u0440\u043E\u0431\u0435\u043B';
-  updateTimerDisplay();
-}
-
-function nextPerson(){
-  personCount++;
-  document.getElementById('person-num').textContent=personCount;
-  resetTimer();
-  startTimer();
-}
-
-// Expose to window scope
-window.startTimer=startTimer;
-window.resetTimer=resetTimer;
-window.nextPerson=nextPerson;
-
-// Event listeners for timer buttons (fix for inline onclick not finding functions)
-document.querySelectorAll('[data-timer-action]').forEach(function(btn){
-  btn.addEventListener('click',function(e){
-    e.preventDefault();
-    e.stopPropagation();
-    var action=btn.getAttribute('data-timer-action');
-    if(action==='startTimer')startTimer();
-    else if(action==='resetTimer')resetTimer();
-    else if(action==='nextPerson')nextPerson();
-  });
-});
-
-// Space bar on timer slide
-document.addEventListener('keydown',function(e){
-  if(e.key===' '&&slides[current]&&slides[current].id==='s-timer'){
-    e.preventDefault();
-    e.stopPropagation();
-    startTimer();
-  }
-},true);
+var origShowSlide=showSlide;showSlide=function(n){origShowSlide(n);if(presenterMode)updatePresenterNotes();if(typeof voxOpen!=='undefined'){if(voxOpen)updateVoxContext();if(voxLiveMode&&n!==voxLastTipSlide)generateAmbientTip(n)}};
 
 var loaded=loadFromLocal();if(!loaded)showSlide(current);
 
@@ -1892,6 +1825,7 @@ function toggleVox() {
 	  if (voxOpen) {
 	    updateORModelStatus(OR_ACTIVE_MODEL);
 	    updateVoxContext();
+    hideVoxPopup();
     updateVoxActionsVisibility();
     // Focus input after panel animation completes
     setTimeout(() => {
@@ -2057,6 +1991,25 @@ function addVoxStreamMessage() {
   return msg.querySelector('.vox-msg-content');
 }
 
+function showVoxPopup(content) {
+  const pop = document.getElementById('vox-live-pop');
+  const text = document.getElementById('vox-live-pop-text');
+  if (!pop || !text) return;
+  text.innerHTML = formatVoxContent(content || '');
+  pop.classList.add('visible');
+}
+
+function updateVoxPopup(content) {
+  const text = document.getElementById('vox-live-pop-text');
+  if (!text) return;
+  text.innerHTML = formatVoxContent(content || '');
+}
+
+function hideVoxPopup() {
+  const pop = document.getElementById('vox-live-pop');
+  if (pop) pop.classList.remove('visible');
+}
+
 // ===== OPENROUTER API =====
 
 /**
@@ -2162,18 +2115,18 @@ PROGRAM CONTEXT:
 - Product: AI-Native Organizations Sprint by AI Mindset x CybOS (Stepan Gershuni)
 - Dates: 2 May – 25 May 2026 (kickoff + 3 weeks + Demo Day)
 - Format: Online live sessions + recordings + prework materials. Public site price: EUR 1,990; team 3+ price: EUR 1,490 per person.
-	- Latest participant source (NocoDB table mm1gcynfaq6j6n6, lab=s 3 + BOT {participants}_exported_1 (6).csv, 2026-05-04): 161 current records, 138 filled profiles, q1 135, q2 137, q3 137, q4 137. Dedupe audit is 159; public deck uses current NocoDB count x161.
-	- Telegram context (2026-05-04): 152 members in sprint chat, 75 messages in intro topic, 38 tagged #intro posts.
+	- Latest participant source (live NocoDB/API + BOT {participants}_exported_1 (7).csv + s3-participants (1).csv, checked 2026-05-04): 167 intake entries, 141 filled profiles, q1 139, q2 141, q3 140, q4 140. Public deck wording: about 160 participants, not database records.
+	- Telegram context (2026-05-04): 154 members in sprint chat, 75 messages in intro topic, 38 tagged #intro posts.
 	- Saturday intro-call transcript (2 May 2026): around 56 live participants joined; the intro block already happened and should not be repeated as a full module.
 	- Central ask: move from point AI use to an organizational operating layer.
 - One-liner: "POS → MOS → Company Functions"
 
 THIS PRESENTATION: Intro Call (not a lecture)
-	- Purpose: meet participants, show the Batch 2 data, preview program & speakers, intro round. After 2 May, present this as context from the completed intro call.
-- Core slides: Cover, Agenda, Participants, AI Stack, Geography, New Approach, Audience Map, S2 Comparison, Sprint Goals, Program, W1 Q&A, Timer
+	- Purpose: show the Batch 2 context, preview program & speakers, and translate intro data into a work plan. After 2 May, present the intro round as completed context, not as a live timer block.
+- Core slides: Cover, Agenda, Participants, AI Stack, Geography, New Approach, Audience Map, S2 Comparison, Sprint Goals, Program, W1 Q&A, Journey
 - W1 lecture Q&A link and QR target: https://learn.aimindset.org/s3/qa/s3-w1-lecture (Stepan Gershuni, 4 May 17:00 CEST)
 
-PROGRAM STRUCTURE (latest internal agenda, 2026-05-01):
+PROGRAM STRUCTURE (Google Calendar checked 2026-05-04):
 W0 (2 May): Intro Call
 - Sat 2 May 12:00 CEST – intro call: cohort data, cross-sprint case selection, intro round
 
@@ -2203,13 +2156,13 @@ Week 3 (18–25 May): Company Functions
 - Tue 19 May 12:00 CEST – Denis Smirnov module 3
 - Tue 19 May 17:00 CEST – community talk TBD
 - Wed 20 May 17:00 CEST – Bayram Annakov
-- Thu 21 May 17:00 CEST – Dima Khanarin
+- Thu 21 May 17:00 CEST – Dima Kharin
 - Fri 22 May 17:00 CEST – Egor Egerev
 - Sat 23 May 12:00 CEST – office hours / Demo Day prep
 - Mon 25 May 16:00 CEST – Demo Day
 Deliverables: working company-function contour, 90-day plan, Demo Day presentation
 
-PUBLIC SITE SPEAKER ROSTER / CO-AUTHORS: Stepan Gershuni (CybOS / cyber.fund), Alexander Povaliaev (AI Mindset), Seva Ustinov (Plurio AI / IT-Agency), Bayram Annakov (onsa.ai / ex-App in the Air), Evgeny Kuryshev (Mirror AI / ex-Ostrovok), Vitaly Kleban (cyber.fund / Everynet), Dima Khanarin (docare.io / ex-McKinsey), Egor Egerev (Tickets Cloud / Burner), Roman Buzko (Skala.io / Buzko Krasnov).
+PUBLIC SITE SPEAKER ROSTER / CO-AUTHORS: Stepan Gershuni (CybOS / cyber.fund), Alexander Povaliaev (AI Mindset), Seva Ustinov (Plurio AI / IT-Agency), Bayram Annakov (onsa.ai / ex-App in the Air), Evgeny Kuryshev (Mirror AI / ex-Ostrovok), Vitaly Kleban (cyber.fund / Everynet), Dima Kharin (docare.io / ex-McKinsey), Egor Egerev (Tickets Cloud / Burner), Roman Buzko (Skala.io / Buzko Krasnov).
 
 PRACTICAL / CURATOR LEADS: Denis Smirnov leads M1-M3 practical modules. Sereja Ris leads setup workshop. Both are shown in curator layer, not duplicated as public-site speaker faces unless scheduled.
 
@@ -2217,15 +2170,15 @@ ALUMNI MATERIALS: Alexey Amyotov, George Strakhov, Gleb Sidora, Daniil Kravtsov,
 
 CURATOR TRACKS: Sereja Ris + Alexander Vasiliev for setup/tool stack; Denis Smirnov + Yury Doonto for systems/evals/enterprise; Jin Kolesnikov + Olga Lonchakova for beginner/adoption/community; Stanislav Fedoseev + Stanislav Glazov for build/visual craft. Do not present on-hold or unknown contacts as confirmed curators.
 
-	PARTICIPANT STATS: Public wording should start with people, not rows: 161 people in current NocoDB base, 138 filled profiles, 152 sprint-chat members, 75 intro-topic messages, 38 tagged #intro posts. Dedupe audit 159 is only an internal check. Stack from q2 n=137: Claude 79 / 58%, GPT 63 / 46%, Claude Code 31 / 23%, Cursor 19 / 14%, Codex 19 / 14%, Perplexity 19 / 14%, Gemini 18 / 13%.
+	PARTICIPANT STATS: Public wording should start with people, not rows: about 160 participants in current intake, 154 sprint-chat members, 141 filled profiles, 75 intro-topic messages, 38 tagged #intro posts. Internal audit: NocoDB/API and BOT show 167 intake entries; chat has 154. Stack from q2 n=141: GPT 65 / 46%, Claude 49 / 35%, Claude Code 27 / 19%, Codex 20 / 14%, Perplexity 20 / 14%, Cursor 19 / 13%, Gemini 19 / 13%, Make/n8n 6 / 4%, Obsidian/KB 6 / 4%.
 
 KEY AUDIENCE INSIGHTS:
-- 62% write about team / organization context
-- 50% mention coding / development stack
-- 48% mention operations / process context
-- 42% mention agents / agent systems
-- 30% mention knowledge / context / RAG layer
-- 26% mention product / startup context
+- 69% mention agents / agent systems
+- 65% write about team / organization context
+- 58% mention operations / process context
+- 54% mention coding / development stack
+- 32% mention knowledge / context / RAG layer
+- 32% mention product / startup context
 - Explicit company-size mentions are sparse, but include teams/companies around 50, 80, 110, 300, and 2000 people. Treat this as anecdotal, not full distribution.
 - S2 comparison: previous S2 had 217 people after cleanup, 16 Demo Day projects, 13 curators; Batch 2 is smaller but more company/system/process-oriented from intake.
 	- Main pain points: point AI, no architecture, team has not adopted, tools live separately
@@ -2936,10 +2889,12 @@ function toggleVoxLive() {
     ? '<span class="vox-act-icon">&#9673;</span> LIVE ON'
     : '<span class="vox-act-icon">&#9673;</span> LIVE OFF';
   if (voxLiveMode) {
-    addVoxMessage('bot', '**ambient mode on** – tips will appear as you navigate slides.');
+    if (voxOpen) toggleVox();
+    showVoxPopup('LIVE ON: контекстные подсказки будут появляться здесь. Для внутренних разборов открой панель VOX и нажми workshop coach.');
     generateAmbientTip(current);
   } else {
-    addVoxMessage('bot', 'ambient mode off.');
+    hideVoxPopup();
+    if (voxOpen) addVoxMessage('bot', 'ambient mode off.');
   }
 }
 
@@ -2963,34 +2918,29 @@ Presenter note: ${note.n || 'none'}
 ${prevCtx ? 'Previous slide: "' + (prevCtx.h1 || prevCtx.h2) + '"' : ''}
 ${nextCtx ? 'Next slide: "' + (nextCtx.h1 || nextCtx.h2) + '"' : ''}
 
-PARTICIPANT CONTEXT: 161 people in current NocoDB base, 138 filled profiles, 152 members in sprint Telegram, 75 intro-topic messages, 38 tagged #intro posts. Dedupe audit 159 is internal only. Patterns: 62% team/company, 50% coding/dev, 48% ops/process, 42% agents, 30% knowledge/context. Stack: Claude 79, GPT 63, Claude Code 31, Cursor/Codex/Perplexity 19 each. Chosen anonymized sprint story: a 50-200 person operational/product company where AI is already used in separate hands, but there is no shared context, owner, proof layer, or adoption rhythm. Saturday transcript themes: company-readable context, human+agent org design, sustainable rhythm, prerequisites as optional menu.
+PARTICIPANT CONTEXT: about 160 people in current intake, 154 members in sprint Telegram, 141 filled profiles, 75 intro-topic messages, 38 tagged #intro posts. Internal source audit: 167 intake entries, chat 154. Patterns: 69% agents, 65% team/company, 58% ops/process, 54% coding/dev, 32% knowledge/context. Stack: GPT 65, Claude 49, Claude Code 27, Codex 20, Perplexity 20, Cursor/Gemini 19 each. Chosen anonymized sprint story: a 50-200 person operational/product company where AI is already used in separate hands, but there is no shared context, owner, proof layer, or adoption rhythm. Saturday transcript themes: company-readable context, human+agent org design, sustainable rhythm, prerequisites as optional menu.
 
 Give a SHORT (2-3 sentences) presenter tip in Russian. What to emphasize, which audience segment to address, what transition works. Be specific to THIS slide. Format: one punchy insight.`;
 
-  const streamEl = addVoxStreamMessage();
+  showVoxPopup('думаю по текущему слайду...');
   try {
     await voxChat(
       'You are a concise presentation coach. Reply in Russian. Max 3 sentences. No markdown headers.',
       tipPrompt,
       (content) => {
-        streamEl.innerHTML = formatVoxContent(content);
-        document.getElementById('vox-messages').scrollTop = document.getElementById('vox-messages').scrollHeight;
+        updateVoxPopup(content);
       }
     );
-    streamEl.classList.remove('streaming');
   } catch (e) {
-    streamEl.classList.remove('streaming');
     if (e.message && e.message.indexOf('401') !== -1) {
-      streamEl.parentElement.remove();
-      addVoxMessage('bot', '**key expired or invalid**\n\nобновите OpenRouter API key.\n\n→ [openrouter.ai/keys](https://openrouter.ai/keys)', [
-        {label: 'set key', onclick: 'promptVoxKey()', primary: true}
-      ]);
+      showVoxPopup('OpenRouter key истёк или неверный. Открой VOX, нажми `set OpenRouter key`, затем включи LIVE ON снова.');
       voxLiveMode = false;
+      document.body.classList.remove('vox-live-active');
       var btn = document.getElementById('vox-live-btn');
       btn.classList.remove('active');
       btn.innerHTML = '<span class="vox-act-icon">&#9673;</span> LIVE OFF';
     } else {
-      streamEl.innerHTML = '<em style="color:var(--red)">tip error: ' + e.message + '</em>';
+      showVoxPopup('tip error: ' + e.message);
     }
   }
 }

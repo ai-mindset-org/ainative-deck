@@ -523,11 +523,11 @@ var mode = "present";
 var editedSlides = loadSlides();
 
 var timelineBlocks = [
-  { title: "Вход", start: 1, end: 3, time: "00-10", desc: "зачем вторая дека и новая метафора" },
-  { title: "Architecture", start: 4, end: 8, time: "10-34", desc: "context, harness, evidence, modern stack" },
-  { title: "Graph Lab", start: 9, end: 13, time: "34-62", desc: "Compass, graph memory, participants, routes" },
-  { title: "Team stack", start: 14, end: 17, time: "62-88", desc: "Personal OS -> team workflow -> Company OS" },
-  { title: "Practice", start: 18, end: 21, time: "88-110", desc: "workcase, artifacts, next build requirements" }
+  { title: "Сигнал зала", start: 1, end: 6, time: "00-18", desc: "живые результаты после setup: vault, naming, spec, agents" },
+  { title: "Architecture", start: 7, end: 11, time: "18-42", desc: "context, harness, evidence, modern stack" },
+  { title: "Graph Lab", start: 12, end: 16, time: "42-68", desc: "Compass, graph memory, participants, routes" },
+  { title: "Team stack", start: 17, end: 20, time: "68-92", desc: "Personal OS -> team workflow -> Company OS" },
+  { title: "Practice", start: 21, end: 24, time: "92-115", desc: "workcase, artifacts, next build requirements" }
 ];
 
 var baseSlides = [
@@ -536,9 +536,9 @@ var baseSlides = [
     shape: "cover",
     eyebrow: "// AINATIVE VOL2 · CONTEXT SESSION · 7 MAY 2026",
     title: "Context Observatory: навигационная комната лабы",
-    body: "Вторая дека не продолжает дракона. Она переводит ту же силу в архитектуру: Compass даёт координаты людей, Graph Lab держит карту связей, Playground собирает context pack, evidence возвращает систему к следующему запуску.",
-    bullets: ["source -> signal -> context pack -> action -> evidence", "Compass -> Graph Lab -> Playground -> Team Stack", "метафора: observatory / navigation room"],
-    chips: ["context observatory", "Graph Lab", "Compass", "team stack"],
+    body: "Вторая дека начинается не с абстрактного ресёрча, а с живого сигнала зала: после вчерашнего setup участники уже строят naming, transcript agents, agent-readable vaults и project constitution. Сегодня собираем это в навигационную комнату лабы.",
+    bullets: ["chat signal -> context problem -> shared protocol", "Compass -> Graph Lab -> Playground -> Team Stack", "метафора: observatory / navigation room"],
+    chips: ["context observatory", "lab signals", "Graph Lab", "Compass"],
     visual: "observatory",
     notes: "Открыть как отдельную ветку рассказа: первая дека про силу и harness, эта дека про комнату управления и карту."
   },
@@ -546,18 +546,48 @@ var baseSlides = [
     key: "not-another-tool",
     eyebrow: "OPENING CLAIM",
     title: "это не ещё один AI tool.",
-    body: "AI-native организация начинается там, где каждый важный workflow становится переносимым context pack, оставляет evidence и делает следующий запуск теплее.",
-    bullets: ["не dashboard ради dashboard", "не prompt ради prompt", "не match ради match", "система должна помнить, почему она сработала"],
-    chips: ["closed loop", "warm start", "evidence"],
+    body: "Сигнал из чата простой: naming convention, micro-agent, 190 migrated files, mission / stack / roadmap – это уже context infrastructure, а не вдохновение после воркшопа.",
+    bullets: ["vault становится agent surface", "project constitution держит направление", "следующая задача: сделать локальные системы соединяемыми"],
+    chips: ["room signal", "warm start", "evidence"],
     visual: "loop",
     notes: "Сразу снять ожидание “покажи инструмент”. Инструменты важны, но центральная тема – контур."
+  },
+  {
+    key: "room-signals",
+    eyebrow: "ROOM SIGNAL",
+    title: "зал уже строит context layer.",
+    body: "После setup появились не отчёты, а рабочие системы: naming convention для vault, Python micro-agent для классификации и переименования транскриптов, миграция 190 файлов в читаемую структуру.",
+    bullets: ["Granola / calendar -> transcripts -> Obsidian", "classifier каждые 5 минут приводит хаос к naming", "vault становится читаемым для человека и AI-агента", "порядок возник снизу, из личной практики"],
+    chips: ["naming", "transcript agent", "190 files", "agent-readable vault"],
+    visual: "signals",
+    notes: "Это главный новый вход. Не хвалить участников, а показать: lab уже производит infrastructure signals."
+  },
+  {
+    key: "today-problem",
+    eyebrow: "TODAY PROBLEM",
+    title: "личный порядок ещё не общий протокол.",
+    body: "Первый успех доказывает, что setup работает. Но пока каждая система живёт локально: naming есть у одного человека, constitution у другого, graph у лабы. Сегодняшняя проблема – собрать общий способ переносить это между людьми, агентами и продуктами.",
+    bullets: ["что является source", "как извлекается signal", "какой context pack переносится дальше", "где остаётся evidence", "как graph меняется после review"],
+    chips: ["shared protocol", "context route", "labshot"],
+    visual: "protocol",
+    notes: "Формулировка задания на сессию: не придумать ещё один инструмент, а собрать общий протокол."
+  },
+  {
+    key: "spec-constitution",
+    eyebrow: "SPEC SIGNAL",
+    title: "project constitution снижает энтропию.",
+    body: "Из spec-driven подхода берём простую практику: mission.md, stack.md и roadmap.md. Агент читает их в каждой новой сессии, сначала уточняет цель, потом сверяет тактические правки с общей картиной.",
+    bullets: ["mission.md: зачем существует проект", "stack.md: на чём он построен", "roadmap.md: куда движется и что меняется", "agent не начинает с пустого экрана"],
+    chips: ["mission", "stack", "roadmap", "constitution"],
+    visual: "constitution",
+    notes: "Связать с AGENTS.md, CLAUDE.md, Obsidian rules и naming convention. Это не бюрократия, а снижение энтропии."
   },
   {
     key: "room-metaphor",
     eyebrow: "METAPHOR",
     title: "лаборатория как navigation room.",
-    body: "В комнате видны маршруты: кто с кем связан, какой workflow имеет owner, где нужен passport, какой evidence должен вернуться в систему.",
-    bullets: ["люди -> координаты", "артефакты -> карты", "решения -> следы", "следующий запуск -> не с нуля"],
+    body: "В комнате видны маршруты: какой личный vault уже стал agent-readable, какой workflow имеет owner, где нужен passport, какой evidence должен вернуться в систему.",
+    bullets: ["люди -> координаты", "артефакты -> карты", "личные системы -> shared protocol", "следующий запуск -> не с нуля"],
     chips: ["observatory", "navigation", "map"],
     visual: "room",
     notes: "Это другая метафора, не дракон. Она взрослее для архитектурной части."
@@ -710,7 +740,7 @@ var baseSlides = [
     eyebrow: "BUILD PLAN",
     title: "что строим поверх этой рамки.",
     body: "Не ещё один dashboard. Строим связку: Compass -> Graph Lab -> Playground -> evidence notes -> next run.",
-    bullets: ["импорт real participant nodes", "export selected subgraph -> context pack", "api/rationale для объяснения связей", "source provenance у узлов", "evidence notes из транскриптов"],
+    bullets: ["participant context wins -> graph evidence", "project constitution template: mission.md / stack.md / roadmap.md", "vault ingest: transcript classifier -> source provenance", "export selected subgraph -> context pack", "api/rationale для объяснения связей"],
     chips: ["requirements", "Graph Lab", "Compass"],
     visual: "requirements",
     notes: "Это требования к дальнейшему продукту, а не обещание сразу всё показать сегодня."
@@ -720,7 +750,7 @@ var baseSlides = [
     eyebrow: "LIVE ROUTE",
     title: "показать четыре поверхности как один контур.",
     body: "Deck даёт нарратив. Graph Lab показывает связи. Compass показывает людей. Playground собирает context pack. Вместе это уже минимальная lab operating system.",
-    bullets: ["deck: frame", "graph: map", "compass: people routes", "playground: context pack", "github/obsidian: source of truth"],
+    bullets: ["Telegram signal -> deck slide", "deck slide -> context pack", "context pack -> Graph node", "Compass -> people routes", "GitHub / Obsidian -> source of truth"],
     chips: ["demo path", "lab os", "source of truth"],
     visual: "surface",
     links: [
@@ -735,7 +765,7 @@ var baseSlides = [
     eyebrow: "RESEARCH BASE",
     title: "на чём стоит эта рамка.",
     body: "Ресёрч не должен висеть отдельной полкой. Он переводится в требования к стеку: context engine, graph memory, governed loop, evidence, team stack.",
-    bullets: ["LangChain: context engineering", "Anthropic: effective agents", "12-factor agents", "Graphiti / GraphRAG", "OpenAI governance", "YC AI-native company"],
+    bullets: ["lab chat: naming, transcript agent, 190 files", "Spec-Driven Development: mission / stack / roadmap", "LangChain: context engineering", "Anthropic: effective agents", "12-factor agents", "Graphiti / GraphRAG", "YC AI-native company"],
     chips: ["research", "requirements", "sources"],
     visual: "sources",
     notes: "Дать ссылку на Obsidian research note, если нужно показать глубину."
@@ -932,7 +962,10 @@ function updateVox() {
 
 function voxFrame(slide) {
   var key = slide.key || "";
-  if (key.includes("cover")) return "LIVE ON: отдели вторую деку от dragon deck. Здесь не сила, а комната управления: где видны маршруты, evidence и следующий запуск.";
+  if (key.includes("cover")) return "LIVE ON: начни с сигнала зала. Это не новая теория, а попытка собрать уже возникшие personal context practices в shared protocol.";
+  if (key.includes("room-signals")) return "LIVE ON: это evidence slide. Naming, transcript micro-agent и 190 файлов показывают, что setup превратился в инфраструктуру.";
+  if (key.includes("today-problem")) return "LIVE ON: проблема дня – не научить всех одному tool, а сделать локальные контекстные системы переносимыми и соединяемыми.";
+  if (key.includes("constitution")) return "LIVE ON: mission.md, stack.md, roadmap.md объясняй как project memory. Агент начинает с цели, а не с пустой сессии.";
   if (key.includes("compass") || key.includes("participant")) return "LIVE ON: Compass объясняй как social context engine, не как матчер. Люди – context nodes, встреча – route, фидбек – evidence.";
   if (key.includes("graph")) return "LIVE ON: Graph Lab показывает связи и source provenance. Не список источников, а карта системы.";
   if (key.includes("playground") || key.includes("pack")) return "LIVE ON: context pack – минимальный переносимый артефакт. Его можно дать человеку, агенту или следующему слайду.";
@@ -977,6 +1010,38 @@ function visualFor(type, slide) {
     node(260, 230, "Compass", "people routes", "#e4b54b") + node(600, 150, "Graph Lab", "relations", "#5cdacc") +
     node(940, 230, "Playground", "context pack", "#56e39f") + node(600, 536, "evidence", "warmer next run", "#9c86ff") +
     route(340, 265, 525, 175, "#e4b54b") + route(675, 175, 860, 265, "#56e39f") + route(895, 310, 690, 508, "#9c86ff") + route(510, 508, 310, 310, "#6db2ff")
+  );
+  if (type === "signals") return svgWrap(
+    gridLabel("room signal -> context layer") +
+    node(180, 170, "chat", "raw signal", "#6db2ff") +
+    node(430, 170, "naming", "vault rule", "#5cdacc") +
+    node(700, 170, "micro-agent", "classify / rename", "#e4b54b") +
+    node(950, 170, "190 files", "migrated", "#56e39f") +
+    route(270, 170, 340, 170, "#6db2ff") + route(520, 170, 610, 170, "#5cdacc") + route(790, 170, 860, 170, "#e4b54b") +
+    '<rect x="235" y="420" width="730" height="118" rx="22" fill="rgba(18,26,34,.92)" stroke="#5cdacc"/>' +
+    '<text x="308" y="476" fill="#f0f7f4" font-family="Space Grotesk" font-size="34">agent-readable vault</text>' +
+    '<text x="308" y="510" fill="rgba(240,247,244,.58)" font-family="IBM Plex Mono" font-size="16">Granola / calendar -> transcripts -> Obsidian -> context surface</text>' +
+    route(700, 225, 600, 420, "#56e39f")
+  );
+  if (type === "protocol") return svgWrap(
+    gridLabel("personal order -> shared protocol") +
+    lane(135, 125, "source", "chat · calendar · transcript · repo", "#6db2ff") +
+    lane(235, 255, "signal", "what changed after the workshop", "#5cdacc") +
+    lane(335, 385, "context pack", "portable brief for human / agent", "#56e39f") +
+    lane(435, 515, "evidence", "what returns into graph memory", "#9c86ff") +
+    '<path d="M822 170 C990 220 990 545 835 570" fill="none" stroke="#e4b54b" stroke-width="5" stroke-dasharray="12 14"/>' +
+    '<text x="885" y="372" fill="#e4b54b" font-family="IBM Plex Mono" font-size="18">review updates route</text>'
+  );
+  if (type === "constitution") return svgWrap(
+    gridLabel("project constitution") +
+    documentNode(175, 185, "mission.md", "#5cdacc") +
+    documentNode(430, 145, "stack.md", "#6db2ff") +
+    documentNode(685, 185, "roadmap.md", "#e4b54b") +
+    node(600, 475, "agent session", "goal -> build -> check", "#56e39f") +
+    route(260, 330, 530, 430, "#5cdacc") +
+    route(515, 290, 600, 420, "#6db2ff") +
+    route(770, 330, 670, 430, "#e4b54b") +
+    '<text x="362" y="622" fill="rgba(240,247,244,.58)" font-family="IBM Plex Mono" font-size="18">not cold start: project memory is loaded first</text>'
   );
   if (type === "loop" || type === "closedloop") return svgWrap(
     gridLabel("closed loop") + box(118, 255, "source", "#6db2ff") + box(322, 185, "signal", "#5cdacc") + box(548, 255, "context pack", "#56e39f") +

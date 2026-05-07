@@ -148,7 +148,7 @@ body::after {
   display: none;
   position: absolute;
   inset: 0;
-  padding: 72px 78px 58px;
+  padding: 78px 92px 64px;
 }
 .slide.active { display: grid; }
 .slide::before, .slide::after {
@@ -162,12 +162,12 @@ body::after {
 .slide::before { left: 26px; top: 56px; border-right: 0; border-bottom: 0; }
 .slide::after { right: 26px; bottom: 26px; border-left: 0; border-top: 0; }
 .slide-inner {
-  width: min(1200px, 100%);
+  width: min(1320px, 100%);
   height: 100%;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: minmax(0, 0.92fr) minmax(360px, 0.78fr);
-  gap: 34px;
+  grid-template-columns: minmax(0, 0.98fr) minmax(390px, 0.82fr);
+  gap: 30px;
   align-items: center;
 }
 .slide.text-only .slide-inner { grid-template-columns: 1fr; max-width: 1040px; }
@@ -196,32 +196,32 @@ h1, h2 {
   letter-spacing: 0;
   line-height: 0.95;
 }
-h1 { max-width: 1080px; font-size: clamp(62px, 7.6vw, 116px); font-weight: 700; }
-h2 { max-width: 760px; font-size: clamp(50px, 5.4vw, 86px); font-weight: 700; }
+h1 { max-width: 1040px; font-size: clamp(52px, 6.4vw, 92px); font-weight: 700; }
+h2 { max-width: 720px; font-size: clamp(38px, 4vw, 64px); font-weight: 700; line-height: 1.03; }
 .cover h1 { text-align: center; }
 .accent { color: var(--teal); display: block; }
 .body {
   max-width: 760px;
-  margin: 24px 0 0;
+  margin: 20px 0 0;
   color: var(--ink-soft);
-  font-size: clamp(18px, 1.8vw, 28px);
-  line-height: 1.52;
+  font-size: clamp(16px, 1.28vw, 21px);
+  line-height: 1.58;
 }
 .cover .body {
   max-width: 900px;
-  margin: 34px auto 0;
-  font-size: clamp(18px, 1.4vw, 24px);
+  margin: 28px auto 0;
+  font-size: clamp(16px, 1.18vw, 20px);
 }
 .bullets {
-  margin: 34px 0 0;
+  margin: 26px 0 0;
   display: grid;
-  gap: 14px;
+  gap: 10px;
 }
 .bullet {
   position: relative;
   padding-left: 28px;
   color: var(--ink-soft);
-  font-size: clamp(16px, 1.25vw, 20px);
+  font-size: clamp(14px, 1.05vw, 17px);
   line-height: 1.55;
 }
 .bullet::before {
@@ -267,7 +267,7 @@ h2 { max-width: 760px; font-size: clamp(50px, 5.4vw, 86px); font-weight: 700; }
 .link-card small { display: block; margin-top: 6px; color: var(--ink-dim); font-size: 11px; }
 .visual {
   position: relative;
-  min-height: 520px;
+  min-height: 500px;
   border: 1px solid var(--line);
   border-radius: 14px;
   background:
@@ -291,7 +291,7 @@ h2 { max-width: 760px; font-size: clamp(50px, 5.4vw, 86px); font-weight: 700; }
   z-index: 2;
   width: 100%;
   height: 100%;
-  min-height: 520px;
+  min-height: 500px;
   display: block;
 }
 .slide-logo {
@@ -322,44 +322,45 @@ h2 { max-width: 760px; font-size: clamp(50px, 5.4vw, 86px); font-weight: 700; }
 body.show-notes .slide.active .speaker-note { display: block; }
 .operator-assistant {
   position: fixed;
-  right: 22px;
+  right: 28px;
   top: 50%;
   z-index: 76;
-  width: 68px;
-  height: 94px;
+  width: 48px;
+  height: 72px;
   transform: translateY(-50%);
-  border: 1px solid #000;
-  border-radius: 0;
-  background: #fff;
-  color: #000;
+  border: 1px solid rgba(240,247,244,0.28);
+  border-radius: 16px;
+  background: rgba(6,9,12,0.66);
+  color: var(--ink);
   display: grid;
   place-items: center;
   cursor: pointer;
-  filter: none;
+  box-shadow: 0 18px 46px rgba(0,0,0,0.36), inset 0 0 0 1px rgba(92,218,204,0.10);
+  backdrop-filter: blur(10px);
 }
 .operator-assistant svg {
-  width: 52px;
-  height: 76px;
+  width: 34px;
+  height: 54px;
   overflow: visible;
   animation: operatorPosture 8s ease-in-out infinite;
   transform-origin: 50% 50%;
 }
 .operator-assistant::after {
-  content: "op";
+  content: "vox";
   position: absolute;
-  right: 5px;
-  bottom: 4px;
-  color: #000;
+  right: 6px;
+  bottom: 5px;
+  color: rgba(240,247,244,0.48);
   font-family: var(--font-code);
-  font-size: 9px;
-  letter-spacing: 0.18em;
+  font-size: 7px;
+  letter-spacing: 0.16em;
 }
 .operator-assistant:hover { transform: translateY(-50%) translateX(-4px); }
-.op-line { fill: none; stroke: #000; stroke-width: 5.2; stroke-linecap: round; stroke-linejoin: round; }
-.op-shadow { fill: none; stroke: #ececec; stroke-width: 8.8; stroke-linecap: round; stroke-linejoin: round; }
-.op-eye { fill: #fff; stroke: #000; stroke-width: 1.5; }
-.op-pupil { fill: #000; animation: operatorLook 4s ease-in-out infinite; }
-.op-guide { fill: none; stroke: #8a8a8a; stroke-width: 1; stroke-dasharray: 4 4; opacity: 0.72; }
+.op-line { fill: none; stroke: #f0f7f4; stroke-width: 5.2; stroke-linecap: round; stroke-linejoin: round; }
+.op-shadow { fill: none; stroke: rgba(92,218,204,0.22); stroke-width: 8.8; stroke-linecap: round; stroke-linejoin: round; }
+.op-eye { fill: #f0f7f4; stroke: #07090d; stroke-width: 1.5; }
+.op-pupil { fill: #07090d; animation: operatorLook 4s ease-in-out infinite; }
+.op-guide { fill: none; stroke: rgba(240,247,244,0.44); stroke-width: 1; stroke-dasharray: 4 4; opacity: 0.72; }
 @keyframes operatorPosture {
   0%, 100% { transform: scaleY(1) rotate(0deg); }
   42% { transform: scaleY(1.12) rotate(-1deg); }
@@ -410,7 +411,7 @@ body.show-vox .vox { display: block; }
   right: 0;
   bottom: 0;
   z-index: 72;
-  width: min(520px, 42vw);
+  width: min(470px, 38vw);
   padding: 32px;
   border-left: 1px solid var(--line);
   background: rgba(5,8,11,0.94);
@@ -419,7 +420,7 @@ body.show-vox .vox { display: block; }
   overflow: auto;
 }
 body.mode-map .panel, body.mode-edit .panel { transform: translateX(0); }
-body.mode-map .slide, body.mode-edit .slide { padding-right: min(540px, 42vw); }
+body.mode-map .slide, body.mode-edit .slide { padding-right: min(490px, 38vw); }
 .panel h3 {
   margin: 0 0 20px;
   color: var(--teal);
@@ -579,7 +580,7 @@ body.mode-map .slide, body.mode-edit .slide { padding-right: min(540px, 42vw); }
 <script>
 "use strict";
 
-var STORAGE_KEY = "ain-ws02-context-observatory-v2";
+var STORAGE_KEY = "ain-ws02-context-observatory-v3";
 var current = initialSlideFromHash();
 var mode = "present";
 var editedSlides = loadSlides();
@@ -597,8 +598,8 @@ var baseSlides = [
     key: "cover",
     shape: "cover",
     eyebrow: "// AINATIVE VOL2 · CONTEXT SESSION · 7 MAY 2026",
-    title: "Context Observatory: навигационная комната лабы",
-    body: "Вторая дека начинается не с абстрактного ресёрча, а с живого сигнала зала: после вчерашнего setup участники уже строят naming, transcript agents, agent-readable vaults и project constitution. Сегодня собираем это в навигационную комнату лабы.",
+    title: "{context} Observatory: навигационная комната лабы",
+    body: "Вторая дека начинается не с абстрактного ресёрча, а с живого сигнала зала: после вчерашнего setup участники уже строят naming, transcript agents, agent-readable vaults и project constitution. Сегодня собираем {context} в навигационную комнату лабы.",
     bullets: ["chat signal -> context problem -> shared protocol", "Compass -> Graph Lab -> Playground -> Team Stack", "метафора: observatory / navigation room"],
     chips: ["context observatory", "lab signals", "Graph Lab", "Compass"],
     visual: "observatory",

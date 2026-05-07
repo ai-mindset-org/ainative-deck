@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AIN WS02 · Context Observatory</title>
+<meta name="description" content="Вторая дека AI-Native Sprint Vol2: context observatory, Compass, Graph Lab, Playground, team stack, evidence loop.">
+<meta property="og:title" content="AIN WS02 · Context Observatory">
+<meta property="og:description" content="Навигационная комната лабы: как context engineering превращает людей, артефакты и workflow в живой Graph Lab.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%2307090d'/%3E%3Ccircle cx='32' cy='32' r='18' fill='none' stroke='%235cdacc' stroke-width='4'/%3E%3Cpath d='M18 38 L32 18 L46 38 Z' fill='none' stroke='%23e4b54b' stroke-width='4' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; }
+:root {
+  --bg: #07090d;
+  --ink: #f0f7f4;
+  --ink-soft: rgba(240,247,244,0.84);
+  --ink-dim: rgba(240,247,244,0.50);
+  --ink-faint: rgba(240,247,244,0.30);
+  --panel: rgba(12,17,23,0.78);
+  --panel-strong: rgba(18,26,34,0.92);
+  --line: rgba(92,218,204,0.20);
+  --line-strong: rgba(92,218,204,0.48);
+  --teal: #5cdacc;
+  --green: #56e39f;
+  --amber: #e4b54b;
+  --red: #ff6d61;
+  --blue: #6db2ff;
+  --violet: #9c86ff;
+  --font-heading: "Space Grotesk", system-ui, sans-serif;
+  --font-body: "IBM Plex Mono", ui-monospace, monospace;
+  --font-code: "JetBrains Mono", ui-monospace, monospace;
+}
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(92,218,204,0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(92,218,204,0.055) 1px, transparent 1px);
+  background-size: 58px 58px;
+}
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 20% 70%, rgba(86,227,159,0.14), transparent 28%),
+    radial-gradient(circle at 72% 34%, rgba(92,218,204,0.14), transparent 30%),
+    linear-gradient(180deg, rgba(7,9,13,0.45), rgba(7,9,13,0.96) 76%),
+    conic-gradient(from 220deg at 52% 46%, rgba(92,218,204,0.16), rgba(228,181,75,0.06), rgba(9,13,18,0.1), rgba(86,227,159,0.08), rgba(92,218,204,0.16));
+}
+.noise {
+  position: fixed;
+  inset: 0;
+  z-index: 3;
+  opacity: 0.12;
+  pointer-events: none;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 260 260' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.18'/%3E%3C/svg%3E");
+}
+.ambient {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0.82;
+}
+.ambient svg { width: 100%; height: 100%; display: block; }
+.ambient .route { stroke-dasharray: 18 24; animation: drift 18s linear infinite; }
+.ambient .route-slow { stroke-dasharray: 4 18; animation: drift 28s linear infinite reverse; }
+.ambient .ring { animation: breathe 8s ease-in-out infinite; transform-origin: center; }
+@keyframes drift { to { stroke-dashoffset: -520; } }
+@keyframes breathe { 0%, 100% { opacity: 0.18; transform: scale(0.98); } 50% { opacity: 0.45; transform: scale(1.02); } }
+@keyframes orbit { to { transform: rotate(360deg); } }
+.top-line, .progress {
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 80;
+}
+.top-line {
+  top: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--teal), var(--green), var(--amber), transparent);
+}
+.progress { top: 2px; height: 3px; }
+.progress span {
+  display: block;
+  width: 0;
+  height: 100%;
+  background: linear-gradient(90deg, var(--teal), var(--green), var(--amber));
+  transition: width 0.22s ease;
+}
+.chrome {
+  position: fixed;
+  top: 14px;
+  left: 18px;
+  right: 18px;
+  z-index: 90;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  pointer-events: none;
+}
+.pill-row { display: flex; align-items: center; gap: 8px; pointer-events: auto; }
+.mini {
+  height: 30px;
+  padding: 0 11px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: rgba(9,13,18,0.72);
+  color: var(--ink-soft);
+  font-family: var(--font-body);
+  font-size: 11px;
+  cursor: pointer;
+}
+.mini:hover, .mini.active { border-color: var(--line-strong); color: #fff; background: rgba(24,35,43,0.9); }
+.mini.primary { color: var(--teal); }
+.counter {
+  color: var(--ink-dim);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  pointer-events: none;
+}
+.deck {
+  position: relative;
+  z-index: 10;
+  width: 100vw;
+  height: 100vh;
+}
+.slide {
+  display: none;
+  position: absolute;
+  inset: 0;
+  padding: 72px 78px 58px;
+}
+.slide.active { display: grid; }
+.slide::before, .slide::after {
+  content: "";
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--line-strong);
+  opacity: 0.7;
+}
+.slide::before { left: 26px; top: 56px; border-right: 0; border-bottom: 0; }
+.slide::after { right: 26px; bottom: 26px; border-left: 0; border-top: 0; }
+.slide-inner {
+  width: min(1200px, 100%);
+  height: 100%;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) minmax(360px, 0.78fr);
+  gap: 34px;
+  align-items: center;
+}
+.slide.text-only .slide-inner { grid-template-columns: 1fr; max-width: 1040px; }
+.slide.cover {
+  place-items: center;
+  padding: 64px 72px 72px;
+}
+.slide.cover .slide-inner {
+  grid-template-columns: 1fr;
+  text-align: center;
+  justify-items: center;
+  isolation: isolate;
+}
+.copy { min-width: 0; }
+.eyebrow {
+  margin: 0 0 20px;
+  color: var(--teal);
+  font-size: 13px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+h1, h2 {
+  margin: 0;
+  font-family: var(--font-heading);
+  color: #fff;
+  letter-spacing: 0;
+  line-height: 0.95;
+}
+h1 { max-width: 1080px; font-size: clamp(62px, 7.6vw, 116px); font-weight: 700; }
+h2 { max-width: 760px; font-size: clamp(50px, 5.4vw, 86px); font-weight: 700; }
+.cover h1 { text-align: center; }
+.accent { color: var(--teal); display: block; }
+.body {
+  max-width: 760px;
+  margin: 24px 0 0;
+  color: var(--ink-soft);
+  font-size: clamp(18px, 1.8vw, 28px);
+  line-height: 1.52;
+}
+.cover .body {
+  max-width: 900px;
+  margin: 34px auto 0;
+  font-size: clamp(18px, 1.4vw, 24px);
+}
+.bullets {
+  margin: 34px 0 0;
+  display: grid;
+  gap: 14px;
+}
+.bullet {
+  position: relative;
+  padding-left: 28px;
+  color: var(--ink-soft);
+  font-size: clamp(16px, 1.25vw, 20px);
+  line-height: 1.55;
+}
+.bullet::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.76em;
+  width: 12px;
+  height: 1px;
+  background: var(--teal);
+}
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 28px;
+}
+.chip {
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  padding: 7px 10px;
+  background: rgba(9,13,18,0.56);
+  color: var(--ink-dim);
+  font-family: var(--font-code);
+  font-size: 11px;
+}
+.link-cards {
+  margin-top: 28px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 10px;
+}
+.link-card {
+  min-height: 66px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 12px 14px;
+  background: rgba(10,15,20,0.76);
+  color: var(--ink);
+  text-decoration: none;
+}
+.link-card span { display: block; font-family: var(--font-heading); font-size: 16px; }
+.link-card small { display: block; margin-top: 6px; color: var(--ink-dim); font-size: 11px; }
+.visual {
+  position: relative;
+  min-height: 520px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background:
+    linear-gradient(180deg, rgba(92,218,204,0.05), transparent 62%),
+    rgba(12,17,23,0.54);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02), 0 24px 90px rgba(0,0,0,0.28);
+  overflow: hidden;
+}
+.visual::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(92,218,204,0.065) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(92,218,204,0.065) 1px, transparent 1px);
+  background-size: 52px 52px;
+  mask-image: linear-gradient(180deg, transparent, #000 18%, #000 82%, transparent);
+}
+.visual svg {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  min-height: 520px;
+  display: block;
+}
+.slide-logo {
+  position: absolute;
+  left: 40px;
+  bottom: 28px;
+  z-index: 34;
+  height: 34px;
+  opacity: 0.38;
+  filter: invert(1) brightness(1.15);
+}
+.speaker-note {
+  position: absolute;
+  left: 50%;
+  bottom: 84px;
+  z-index: 35;
+  width: min(780px, 60vw);
+  transform: translateX(-50%);
+  display: none;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 14px 16px;
+  background: rgba(6,9,12,0.90);
+  color: var(--ink-soft);
+  font-size: 13px;
+  line-height: 1.55;
+}
+body.show-notes .slide.active .speaker-note { display: block; }
+.vox {
+  position: fixed;
+  top: 82px;
+  left: 50%;
+  z-index: 70;
+  width: min(780px, 64vw);
+  transform: translateX(-50%);
+  border: 1px solid var(--line-strong);
+  border-radius: 18px;
+  padding: 22px 26px;
+  background: rgba(6,9,12,0.88);
+  box-shadow: 0 24px 80px rgba(0,0,0,0.30), 0 0 48px rgba(92,218,204,0.08);
+  display: none;
+}
+body.show-vox .vox { display: block; }
+.vox-title {
+  color: var(--teal);
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  font-size: 13px;
+}
+.vox-meta {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  color: var(--ink-dim);
+  font-size: 11px;
+}
+.vox-text {
+  margin-top: 18px;
+  color: var(--ink);
+  font-size: 20px;
+  line-height: 1.55;
+}
+.panel {
+  position: fixed;
+  top: 54px;
+  right: 0;
+  bottom: 0;
+  z-index: 72;
+  width: min(520px, 42vw);
+  padding: 32px;
+  border-left: 1px solid var(--line);
+  background: rgba(5,8,11,0.94);
+  transform: translateX(100%);
+  transition: transform 0.22s ease;
+  overflow: auto;
+}
+body.mode-map .panel, body.mode-edit .panel { transform: translateX(0); }
+body.mode-map .slide, body.mode-edit .slide { padding-right: min(540px, 42vw); }
+.panel h3 {
+  margin: 0 0 20px;
+  color: var(--teal);
+  font-family: var(--font-heading);
+  font-size: 28px;
+}
+.timeline-list, .edit-list { display: grid; gap: 10px; }
+.timeline-item {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 58px 1fr 62px;
+  gap: 12px;
+  align-items: center;
+  text-align: left;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 12px;
+  background: rgba(12,17,23,0.72);
+  color: var(--ink-soft);
+  font-family: var(--font-body);
+  cursor: pointer;
+}
+.timeline-item.active { border-color: var(--teal); color: #fff; background: rgba(92,218,204,0.08); }
+.timeline-time { color: var(--teal); font-size: 12px; }
+.timeline-title { display: block; color: #fff; font-family: var(--font-heading); font-size: 17px; }
+.timeline-desc { display: block; margin-top: 4px; color: var(--ink-dim); font-size: 11px; line-height: 1.4; }
+.timeline-range { color: var(--ink-dim); text-align: right; font-size: 12px; }
+.field { display: grid; gap: 8px; margin-bottom: 14px; }
+.field label {
+  color: var(--ink-dim);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-size: 10px;
+}
+.field input, .field textarea {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  padding: 10px 12px;
+  background: rgba(14,20,26,0.86);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 13px;
+  line-height: 1.45;
+}
+.field textarea { min-height: 92px; resize: vertical; }
+.bottom-bar {
+  position: fixed;
+  left: 50%;
+  bottom: 18px;
+  z-index: 84;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transform: translateX(-50%);
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: rgba(7,9,13,0.86);
+}
+.dots { display: flex; gap: 7px; align-items: center; }
+.dot {
+  width: 7px;
+  height: 7px;
+  border: 0;
+  border-radius: 999px;
+  padding: 0;
+  background: rgba(240,247,244,0.30);
+  cursor: pointer;
+}
+.dot.active { background: var(--teal); transform: scale(1.25); }
+.footer {
+  position: fixed;
+  left: 24px;
+  right: 24px;
+  bottom: 16px;
+  z-index: 50;
+  display: flex;
+  justify-content: space-between;
+  color: var(--ink-dim);
+  font-size: 11px;
+  pointer-events: none;
+}
+.footer a { color: var(--ink-dim); text-decoration: none; pointer-events: auto; }
+[contenteditable="true"] { outline: 1px dashed rgba(92,218,204,0.45); outline-offset: 6px; border-radius: 6px; }
+@media (max-width: 900px) {
+  .slide { padding: 78px 24px 80px; }
+  .slide-inner { grid-template-columns: 1fr; gap: 22px; align-content: center; }
+  .visual { min-height: 320px; }
+  .visual svg { min-height: 320px; }
+  h1 { font-size: clamp(48px, 12vw, 76px); }
+  h2 { font-size: clamp(38px, 10vw, 62px); }
+  .panel { width: 100vw; }
+  body.mode-map .slide, body.mode-edit .slide { padding-right: 24px; }
+  .vox { width: calc(100vw - 36px); }
+}
+</style>
+</head>
+<body>
+<div class="top-line"></div>
+<div class="progress"><span id="progress"></span></div>
+<div class="ambient" aria-hidden="true">
+  <svg viewBox="0 0 1600 900" preserveAspectRatio="none">
+    <circle class="ring" cx="1120" cy="420" r="300" fill="none" stroke="rgba(92,218,204,.16)" stroke-width="2"/>
+    <circle class="ring" cx="430" cy="610" r="260" fill="none" stroke="rgba(86,227,159,.18)" stroke-width="2"/>
+    <path class="route" d="M-80 680 C 230 760, 410 460, 740 520 S 1190 690, 1690 280" fill="none" stroke="rgba(92,218,204,.32)" stroke-width="4"/>
+    <path class="route-slow" d="M140 150 C 430 240, 540 110, 830 190 S 1230 240, 1500 80" fill="none" stroke="rgba(109,178,255,.24)" stroke-width="2"/>
+    <g fill="rgba(92,218,204,.5)">
+      <circle cx="180" cy="210" r="4"/><circle cx="760" cy="78" r="3"/><circle cx="1360" cy="610" r="4"/><circle cx="520" cy="820" r="3"/>
+    </g>
+  </svg>
+</div>
+<div class="noise"></div>
+
+<div class="chrome">
+  <div class="pill-row">
+    <button class="mini active" id="modePresent">показ</button>
+    <button class="mini" id="modeEdit">E · правка</button>
+    <button class="mini" id="modeMap">M · карта</button>
+    <button class="mini" id="toggleVox">V · live frame</button>
+    <button class="mini" id="toggleNotes">N · notes</button>
+  </div>
+  <div class="counter" id="counter">01 / 01</div>
+</div>
+
+<main class="deck" id="deck"></main>
+<aside class="panel" id="panel"></aside>
+
+<section class="vox" id="vox">
+  <div class="vox-title">VOX LIVE · navigation frame</div>
+  <div class="vox-meta" id="voxMeta">source: slide · research · Graph Lab · Compass</div>
+  <div class="vox-text" id="voxText"></div>
+</section>
+
+<div class="bottom-bar">
+  <button class="mini" id="prevBtn">←</button>
+  <div class="dots" id="dots"></div>
+  <button class="mini primary" id="nextBtn">→</button>
+</div>
+<div class="footer">
+  <span>AIN-WS02 · Alexander Povaliaev · AI Mindset</span>
+  <span><a href="https://ainative-lab-2.netlify.app/knowledge-graph" target="_blank" rel="noreferrer">Graph Lab</a> · <a href="https://aim-ain02-compass.netlify.app/" target="_blank" rel="noreferrer">Compass</a> · <span id="footerSection">start</span></span>
+</div>
+
+<script>
+"use strict";
+
+var STORAGE_KEY = "ain-ws02-context-observatory-v1";
+var current = initialSlideFromHash();
+var mode = "present";
+var editedSlides = loadSlides();
+
+var timelineBlocks = [
+  { title: "Вход", start: 1, end: 3, time: "00-10", desc: "зачем вторая дека и новая метафора" },
+  { title: "Architecture", start: 4, end: 8, time: "10-34", desc: "context, harness, evidence, modern stack" },
+  { title: "Graph Lab", start: 9, end: 13, time: "34-62", desc: "Compass, graph memory, participants, routes" },
+  { title: "Team stack", start: 14, end: 17, time: "62-88", desc: "Personal OS -> team workflow -> Company OS" },
+  { title: "Practice", start: 18, end: 21, time: "88-110", desc: "workcase, artifacts, next build requirements" }
+];
+
+var baseSlides = [
+  {
+    key: "cover",
+    shape: "cover",
+    eyebrow: "// AINATIVE VOL2 · CONTEXT SESSION · 7 MAY 2026",
+    title: "Context Observatory: навигационная комната лабы",
+    body: "Вторая дека не продолжает дракона. Она переводит ту же силу в архитектуру: Compass даёт координаты людей, Graph Lab держит карту связей, Playground собирает context pack, evidence возвращает систему к следующему запуску.",
+    bullets: ["source -> signal -> context pack -> action -> evidence", "Compass -> Graph Lab -> Playground -> Team Stack", "метафора: observatory / navigation room"],
+    chips: ["context observatory", "Graph Lab", "Compass", "team stack"],
+    visual: "observatory",
+    notes: "Открыть как отдельную ветку рассказа: первая дека про силу и harness, эта дека про комнату управления и карту."
+  },
+  {
+    key: "not-another-tool",
+    eyebrow: "OPENING CLAIM",
+    title: "это не ещё один AI tool.",
+    body: "AI-native организация начинается там, где каждый важный workflow становится переносимым context pack, оставляет evidence и делает следующий запуск теплее.",
+    bullets: ["не dashboard ради dashboard", "не prompt ради prompt", "не match ради match", "система должна помнить, почему она сработала"],
+    chips: ["closed loop", "warm start", "evidence"],
+    visual: "loop",
+    notes: "Сразу снять ожидание “покажи инструмент”. Инструменты важны, но центральная тема – контур."
+  },
+  {
+    key: "room-metaphor",
+    eyebrow: "METAPHOR",
+    title: "лаборатория как navigation room.",
+    body: "В комнате видны маршруты: кто с кем связан, какой workflow имеет owner, где нужен passport, какой evidence должен вернуться в систему.",
+    bullets: ["люди -> координаты", "артефакты -> карты", "решения -> следы", "следующий запуск -> не с нуля"],
+    chips: ["observatory", "navigation", "map"],
+    visual: "room",
+    notes: "Это другая метафора, не дракон. Она взрослее для архитектурной части."
+  },
+  {
+    key: "core-loop",
+    eyebrow: "CORE LOOP",
+    title: "source -> signal -> context pack -> action -> evidence.",
+    body: "Контекст не равен всему, что мы знаем. Контекст – это выбранное русло для конкретного действия.",
+    bullets: ["source: чат, LMS, GitHub, Obsidian, звонок", "signal: что важно сейчас", "context pack: переносимый brief", "evidence: что и почему сработало"],
+    chips: ["context pack", "evidence", "review"],
+    visual: "loop",
+    notes: "Эта формула должна повториться несколько раз. Она связывает deck, Lab-2 и Compass."
+  },
+  {
+    key: "context-harness",
+    eyebrow: "DISTINCTION",
+    title: "context направляет. harness ограничивает.",
+    body: "Context engineering отвечает, что система должна знать для действия. Harness engineering отвечает, где сила может действовать, с какими правами и где stop condition.",
+    bullets: ["context: source, memory, route, format", "harness: owner, rights, tools, policy, expiry", "evidence: replay, review, graph update"],
+    chips: ["context", "harness", "boundary"],
+    visual: "split",
+    notes: "Важно не смешивать: context и harness – разные инженерные задачи."
+  },
+  {
+    key: "modern-stack",
+    eyebrow: "MODERN STACK",
+    title: "не чат. контекстный контур.",
+    body: "Современный стек agent systems собирается вокруг runtime context, state/store, tools, evals, graph memory, governance и интерфейсов.",
+    bullets: ["context engine", "graph memory", "governed loop", "evidence layer", "MCP interfaces", "team stack"],
+    chips: ["LangChain", "Anthropic", "GraphRAG", "12-factor agents"],
+    visual: "stack",
+    notes: "Тут можно сослаться на исследование без ухода в академизм: это не мнение, а сближение практик."
+  },
+  {
+    key: "context-engine",
+    eyebrow: "CONTEXT ENGINE",
+    title: "context engine выбирает, что попадёт в действие.",
+    body: "Не нужно каждый раз скармливать модели всё. Нужны runtime context, task state, durable store, tool context и понятный формат выходного артефакта.",
+    bullets: ["model context: что в окне", "tool context: что можно вызвать", "state: где мы в задаче", "store: что живёт между запусками"],
+    chips: ["runtime", "state", "store", "tools"],
+    visual: "engine",
+    notes: "Практический перевод LangChain context engineering."
+  },
+  {
+    key: "governed-loop",
+    eyebrow: "GOVERNANCE",
+    title: "governed loop делает действие взрослым.",
+    body: "Agent registry, passport, tool rights, policy, expiry, trace и human review – это не бюрократия. Это способ понять, кто отвечает, если система ошиблась.",
+    bullets: ["agent passport", "tool registry", "policy as code", "expiry", "human review"],
+    chips: ["passport", "policy", "repair"],
+    visual: "governance",
+    notes: "Говорить спокойно: governance появляется там, где AI начинает действовать, а не только отвечать."
+  },
+  {
+    key: "graph-lab",
+    eyebrow: "GRAPH LAB",
+    title: "graph показывает не контент, а связи.",
+    body: "Слайды, спикеры, участники, артефакты, правила, pages и stack должны быть связаны. Иначе у нас набор файлов, а не система.",
+    bullets: ["node = человек / тема / page / artifact / stack", "edge = почему они связаны", "source = откуда это известно", "evidence = почему можно доверять"],
+    chips: ["50+ nodes", "relations", "source map"],
+    visual: "graph",
+    links: [{ label: "Graph Lab", kind: "live", url: "https://ainative-lab-2.netlify.app/knowledge-graph" }],
+    notes: "Показать live Graph Lab после этого слайда."
+  },
+  {
+    key: "compass",
+    eyebrow: "COMPASS",
+    title: "Compass – это social context engine.",
+    body: "Он не просто матчит участников. Он превращает профили, запросы, опыт, ограничения и пары в навигируемый граф.",
+    bullets: ["profile -> context node", "request -> signal", "pair -> route", "feedback -> evidence", "next match -> graph update"],
+    chips: ["people graph", "routes", "clusters"],
+    visual: "compass",
+    links: [{ label: "AIN02 Compass", kind: "live", url: "https://aim-ain02-compass.netlify.app/" }],
+    notes: "Важно: не Tinder. Это навигация по контексту аудитории."
+  },
+  {
+    key: "participant-stories",
+    eyebrow: "PARTICIPANTS",
+    title: "участники – не CRM-строки.",
+    body: "У каждого есть роль, стек, запрос, скорость, ограничения и зона практики. Это можно превратить в рабочую карту групп и пар.",
+    bullets: ["общая боль", "комплементарный опыт", "соседний workflow", "полезное напряжение", "след после встречи"],
+    chips: ["routing", "context nodes", "privacy"],
+    visual: "participants",
+    notes: "Здесь можно показать истории участников без персональных деталей: по паттернам."
+  },
+  {
+    key: "playground",
+    eyebrow: "PLAYGROUND",
+    title: "context pack – минимальный переносимый артефакт.",
+    body: "Если после разговора остаётся только ощущение, системы нет. Если остаётся context pack, его может прочитать человек, агент или следующий слайд.",
+    bullets: ["role + workflow", "input + action + review + output", "boundary + passport", "evidence + cadence", "team stack"],
+    chips: ["compiler", "portable", "markdown"],
+    visual: "pack",
+    links: [{ label: "Context Pack Compiler", kind: "live", url: "https://ainative-lab-2.netlify.app/playground" }],
+    notes: "Показать заполнение одного маленького workflow."
+  },
+  {
+    key: "graph-memory",
+    eyebrow: "MEMORY",
+    title: "память – это отношения во времени.",
+    body: "Graph memory хранит не просто факты. Она хранит отношения: кто, что, когда, почему, на каком evidence и что изменилось после review.",
+    bullets: ["temporal facts", "source provenance", "valid time", "created time", "hybrid search"],
+    chips: ["Graphiti", "GraphRAG", "provenance"],
+    visual: "memory",
+    notes: "Не продавать GraphRAG как магию. Сказать: нам нужна память с отношениями и временем."
+  },
+  {
+    key: "team-stack",
+    eyebrow: "TEAM STACK",
+    title: "Company OS рождается снизу.",
+    body: "Мы не выдаём людям одну корпоративную AI-систему сверху. Мы соединяем personal operating systems людей через shared workflows, naming, owners и evidence.",
+    bullets: ["Personal OS сотрудника", "shared naming", "workflow owner", "agent passport", "evidence registry", "review cadence"],
+    chips: ["Personal OS", "Team OS", "Company OS"],
+    visual: "teamstack",
+    notes: "Сильная практическая рамка: компания как совокупность персональных систем, а не запретительная платформа."
+  },
+  {
+    key: "artifact-factory",
+    eyebrow: "ARTIFACT FACTORY",
+    title: "каждый блок должен оставлять артефакт.",
+    body: "Naming convention, context pack, agent passport, guardrail checklist и evidence note – это не документы. Это минимальные детали операционной системы.",
+    bullets: ["naming.md", "context-pack.md", "agent-passport.md", "guardrails.md", "evidence-note.md"],
+    chips: ["artifact", "file", "portable"],
+    visual: "factory",
+    notes: "Связать с GitHub и Obsidian: файлы должны быть адресными, не декоративными."
+  },
+  {
+    key: "closed-loop",
+    eyebrow: "CLOSED LOOP",
+    title: "closed loop – это не AI-мода.",
+    body: "Это базовая кибернетика: действие становится управляемым, когда output возвращается во вход как feedback и меняет следующий запуск.",
+    bullets: ["source -> action -> output", "output -> evidence -> review", "review -> rule / memory / eval update"],
+    chips: ["Wiener", "feedback", "control"],
+    visual: "closedloop",
+    notes: "Убрать модность слова. Закрытая петля – это управление."
+  },
+  {
+    key: "small-workcase",
+    eyebrow: "PRACTICE",
+    title: "начинать с одного маленького workcase.",
+    body: "Не героический проект, а частый workflow с owner, baseline, низким blast radius и быстрым evidence.",
+    bullets: ["candidate scoring", "lead / ticket triage", "finance anomaly review", "internal FAQ", "buddy matching", "transcript -> artifact pack"],
+    chips: ["1-3 weeks", "baseline", "low risk"],
+    visual: "workcase",
+    notes: "Это мост к предпринимателям: первый полезный процесс за 1-3 недели."
+  },
+  {
+    key: "what-to-build",
+    eyebrow: "BUILD PLAN",
+    title: "что строим поверх этой рамки.",
+    body: "Не ещё один dashboard. Строим связку: Compass -> Graph Lab -> Playground -> evidence notes -> next run.",
+    bullets: ["импорт real participant nodes", "export selected subgraph -> context pack", "api/rationale для объяснения связей", "source provenance у узлов", "evidence notes из транскриптов"],
+    chips: ["requirements", "Graph Lab", "Compass"],
+    visual: "requirements",
+    notes: "Это требования к дальнейшему продукту, а не обещание сразу всё показать сегодня."
+  },
+  {
+    key: "live-demo",
+    eyebrow: "LIVE ROUTE",
+    title: "показать четыре поверхности как один контур.",
+    body: "Deck даёт нарратив. Graph Lab показывает связи. Compass показывает людей. Playground собирает context pack. Вместе это уже минимальная lab operating system.",
+    bullets: ["deck: frame", "graph: map", "compass: people routes", "playground: context pack", "github/obsidian: source of truth"],
+    chips: ["demo path", "lab os", "source of truth"],
+    visual: "surface",
+    links: [
+      { label: "Lab 2", kind: "hub", url: "https://ainative-lab-2.netlify.app/" },
+      { label: "Graph", kind: "map", url: "https://ainative-lab-2.netlify.app/knowledge-graph" },
+      { label: "Compass", kind: "people", url: "https://aim-ain02-compass.netlify.app/" }
+    ],
+    notes: "Это сценарий живого показа: не надо проходить все ссылки, но показать единую логику."
+  },
+  {
+    key: "sources",
+    eyebrow: "RESEARCH BASE",
+    title: "на чём стоит эта рамка.",
+    body: "Ресёрч не должен висеть отдельной полкой. Он переводится в требования к стеку: context engine, graph memory, governed loop, evidence, team stack.",
+    bullets: ["LangChain: context engineering", "Anthropic: effective agents", "12-factor agents", "Graphiti / GraphRAG", "OpenAI governance", "YC AI-native company"],
+    chips: ["research", "requirements", "sources"],
+    visual: "sources",
+    notes: "Дать ссылку на Obsidian research note, если нужно показать глубину."
+  },
+  {
+    key: "finish",
+    shape: "cover",
+    eyebrow: "// EXIT",
+    title: "build the room, not another prompt.",
+    body: "Если следующий запуск начинается с нуля, системы ещё нет. Если он начинается с context pack, graph memory и evidence – появляется AI-native контур.",
+    bullets: ["context pack", "graph memory", "team stack", "warmer next run"],
+    chips: ["next run", "not from zero", "Company OS"],
+    visual: "observatory",
+    notes: "Финал короткий: строим комнату, где контекст становится действием."
+  }
+];
+
+var slides = editedSlides || JSON.parse(JSON.stringify(baseSlides));
+
+function loadSlides() {
+  try {
+    var raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return null;
+    var parsed = JSON.parse(raw);
+    if (Array.isArray(parsed.slides)) return parsed.slides;
+  } catch (e) {}
+  return null;
+}
+
+function saveSlides() {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify({ slides: slides, updatedAt: new Date().toISOString() })); } catch (e) {}
+}
+
+function renderDeck() {
+  var deck = document.getElementById("deck");
+  deck.innerHTML = slides.map(function(slide, i) {
+    var cls = "slide" + (i === current ? " active" : "") + (slide.shape ? " " + slide.shape : "");
+    var edit = mode === "edit";
+    var bullets = (slide.bullets || []).map(function(b, bi) {
+      return '<div class="bullet"' + inlineAttr("bullet", bi, edit) + '>' + esc(b) + '</div>';
+    }).join("");
+    var chips = (slide.chips || []).map(function(c, ci) {
+      return '<span class="chip"' + inlineAttr("chip", ci, edit) + '>' + esc(c) + '</span>';
+    }).join("");
+    var links = (slide.links || []).map(function(link) {
+      return '<a class="link-card" href="' + esc(link.url) + '" target="_blank" rel="noreferrer"><span>' + esc(link.label) + '</span><small>' + esc(link.kind || "source") + '</small></a>';
+    }).join("");
+    if (slide.shape === "cover") {
+      return '<section class="' + cls + '"><div class="slide-inner"><div class="copy">' +
+        '<div class="eyebrow"' + inlineAttr("eyebrow", null, edit) + '>' + esc(slide.eyebrow) + '</div>' +
+        '<h1' + inlineAttr("title", null, edit) + '>' + titleWithAccent(slide.title) + '</h1>' +
+        '<p class="body"' + inlineAttr("body", null, edit) + '>' + esc(slide.body) + '</p>' +
+        '<div class="chips">' + chips + '</div>' + (links ? '<div class="link-cards">' + links + '</div>' : '') +
+        '</div></div><aside class="speaker-note">' + esc(slide.notes || "") + '</aside><img class="slide-logo" src="../../logo.png" alt=""></section>';
+    }
+    return '<section class="' + cls + '"><div class="slide-inner"><div class="copy">' +
+      '<div class="eyebrow"' + inlineAttr("eyebrow", null, edit) + '>' + esc(slide.eyebrow) + '</div>' +
+      '<h2' + inlineAttr("title", null, edit) + '>' + esc(slide.title) + '</h2>' +
+      '<p class="body"' + inlineAttr("body", null, edit) + '>' + esc(slide.body) + '</p>' +
+      '<div class="bullets">' + bullets + '</div><div class="chips">' + chips + '</div>' +
+      (links ? '<div class="link-cards">' + links + '</div>' : '') + '</div><div class="visual">' + visualFor(slide.visual, slide) + '</div></div>' +
+      '<aside class="speaker-note">' + esc(slide.notes || "") + '</aside><img class="slide-logo" src="../../logo.png" alt=""></section>';
+  }).join("");
+  bindInline();
+  renderDots();
+  renderPanel();
+  updateChrome();
+  updateVox();
+}
+
+function titleWithAccent(title) {
+  var parts = String(title || "").split(":");
+  if (parts.length < 2) return esc(title);
+  return esc(parts[0]) + '<span class="accent">' + esc(parts.slice(1).join(":").trim()) + '</span>';
+}
+
+function inlineAttr(field, index, edit) {
+  if (!edit) return "";
+  var attr = ' contenteditable="true" spellcheck="false" data-field="' + field + '"';
+  if (index !== null && index !== undefined) attr += ' data-index="' + index + '"';
+  return attr;
+}
+
+function bindInline() {
+  document.querySelectorAll('[contenteditable="true"]').forEach(function(el) {
+    el.addEventListener("input", function() {
+      var slide = slides[current];
+      var field = el.getAttribute("data-field");
+      var idx = el.getAttribute("data-index");
+      if (idx !== null && idx !== undefined) {
+        var arr = field === "chip" ? "chips" : "bullets";
+        slide[arr][parseInt(idx, 10)] = el.textContent.trim();
+      } else {
+        slide[field] = el.textContent.trim();
+      }
+      saveSlides();
+      updateVox();
+    });
+  });
+}
+
+function renderDots() {
+  var dots = document.getElementById("dots");
+  dots.innerHTML = slides.map(function(_, i) {
+    return '<button class="dot' + (i === current ? " active" : "") + '" data-go="' + i + '" aria-label="slide ' + (i + 1) + '"></button>';
+  }).join("");
+  dots.querySelectorAll(".dot").forEach(function(btn) {
+    btn.onclick = function() { go(parseInt(btn.getAttribute("data-go"), 10)); };
+  });
+}
+
+function renderPanel() {
+  var panel = document.getElementById("panel");
+  if (mode === "map") {
+    panel.innerHTML = '<h3>Карта и тайминг</h3><div class="timeline-list">' +
+      timelineBlocks.map(function(block) {
+        var active = current + 1 >= block.start && current + 1 <= block.end ? " active" : "";
+        return '<button class="timeline-item' + active + '" data-start="' + (block.start - 1) + '"><span class="timeline-time">' + esc(block.time) + '</span><span><span class="timeline-title">' + esc(block.title) + '</span><span class="timeline-desc">' + esc(block.desc) + '</span></span><span class="timeline-range">' + block.start + "-" + block.end + '</span></button>';
+      }).join("") +
+      slides.map(function(slide, idx) {
+        return '<button class="timeline-item' + (idx === current ? " active" : "") + '" data-start="' + idx + '"><span class="timeline-time">' + String(idx + 1).padStart(2, "0") + '</span><span><span class="timeline-title">' + esc(slide.title) + '</span><span class="timeline-desc">' + esc(slide.eyebrow || "") + '</span></span><span class="timeline-range">slide</span></button>';
+      }).join("") + '</div>';
+    panel.querySelectorAll("[data-start]").forEach(function(btn) {
+      btn.onclick = function() { go(parseInt(btn.getAttribute("data-start"), 10)); };
+    });
+  } else if (mode === "edit") {
+    var s = slides[current];
+    panel.innerHTML = '<h3>Правка слайда</h3><div class="edit-list">' +
+      field("eyebrow", s.eyebrow || "") + field("title", s.title || "", true) + field("body", s.body || "", true) +
+      field("bullets", (s.bullets || []).join("\\n"), true) + field("chips", (s.chips || []).join(", ")) +
+      field("notes", s.notes || "", true) +
+      '<button class="mini primary" id="saveEdit">сохранить</button><button class="mini" id="resetDeck">к оригиналу</button><button class="mini" id="exportJson">export json</button></div>';
+    document.getElementById("saveEdit").onclick = saveEditPanel;
+    document.getElementById("resetDeck").onclick = function() {
+      if (!confirm("сбросить локальные правки этой деки?")) return;
+      slides = JSON.parse(JSON.stringify(baseSlides));
+      localStorage.removeItem(STORAGE_KEY);
+      renderDeck();
+    };
+    document.getElementById("exportJson").onclick = exportJson;
+  } else {
+    panel.innerHTML = "";
+  }
+}
+
+function field(name, value, textarea) {
+  return '<div class="field"><label>' + esc(name) + '</label>' + (textarea
+    ? '<textarea id="edit-' + esc(name) + '">' + esc(value) + '</textarea>'
+    : '<input id="edit-' + esc(name) + '" value="' + esc(value) + '">') + '</div>';
+}
+
+function saveEditPanel() {
+  var s = slides[current];
+  ["eyebrow", "title", "body", "notes"].forEach(function(name) {
+    var el = document.getElementById("edit-" + name);
+    if (el) s[name] = el.value.trim();
+  });
+  var bullets = document.getElementById("edit-bullets");
+  if (bullets) s.bullets = bullets.value.split("\\n").map(function(x) { return x.trim(); }).filter(Boolean);
+  var chips = document.getElementById("edit-chips");
+  if (chips) s.chips = chips.value.split(",").map(function(x) { return x.trim(); }).filter(Boolean);
+  saveSlides();
+  renderDeck();
+}
+
+function exportJson() {
+  var blob = new Blob([JSON.stringify({ slides: slides }, null, 2)], { type: "application/json" });
+  var a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "ain-ws02-context-observatory.json";
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+function updateChrome() {
+  document.getElementById("counter").textContent = String(current + 1).padStart(2, "0") + " / " + String(slides.length).padStart(2, "0");
+  document.getElementById("progress").style.width = ((current + 1) / slides.length * 100) + "%";
+  document.getElementById("footerSection").textContent = sectionFor(current).title;
+  document.getElementById("modePresent").classList.toggle("active", mode === "present");
+  document.getElementById("modeEdit").classList.toggle("active", mode === "edit");
+  document.getElementById("modeMap").classList.toggle("active", mode === "map");
+}
+
+function sectionFor(idx) {
+  var n = idx + 1;
+  return timelineBlocks.find(function(block) { return n >= block.start && n <= block.end; }) || timelineBlocks[0];
+}
+
+function updateVox() {
+  var slide = slides[current];
+  document.getElementById("voxMeta").textContent = "source: slide " + (current + 1) + "/" + slides.length + " · " + sectionFor(current).title + " · research yes";
+  document.getElementById("voxText").textContent = voxFrame(slide);
+}
+
+function voxFrame(slide) {
+  var key = slide.key || "";
+  if (key.includes("cover")) return "LIVE ON: отдели вторую деку от dragon deck. Здесь не сила, а комната управления: где видны маршруты, evidence и следующий запуск.";
+  if (key.includes("compass") || key.includes("participant")) return "LIVE ON: Compass объясняй как social context engine, не как матчер. Люди – context nodes, встреча – route, фидбек – evidence.";
+  if (key.includes("graph")) return "LIVE ON: Graph Lab показывает связи и source provenance. Не список источников, а карта системы.";
+  if (key.includes("playground") || key.includes("pack")) return "LIVE ON: context pack – минимальный переносимый артефакт. Его можно дать человеку, агенту или следующему слайду.";
+  if (key.includes("team")) return "LIVE ON: Company OS рождается снизу: personal systems соединяются через workflow contracts и evidence.";
+  if (key.includes("govern") || key.includes("harness")) return "LIVE ON: harness не направляет мысль, он ограничивает действие: owner, rights, policy, expiry, stop condition.";
+  return "LIVE ON: держи формулу source -> signal -> context pack -> action -> evidence -> graph update. Всё остальное – детали этой петли.";
+}
+
+function setMode(next) {
+  mode = next;
+  document.body.classList.toggle("mode-map", mode === "map");
+  document.body.classList.toggle("mode-edit", mode === "edit");
+  renderDeck();
+}
+
+function go(idx) {
+  current = Math.max(0, Math.min(slides.length - 1, idx));
+  if (location.hash !== "#" + (current + 1)) history.replaceState(null, "", "#" + (current + 1));
+  renderDeck();
+}
+function next() { go(current + 1); }
+function prev() { go(current - 1); }
+
+function esc(value) {
+  return String(value == null ? "" : value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+function initialSlideFromHash() {
+  var raw = String(location.hash || "").replace("#", "");
+  var match = raw.match(/(?:slide-?|\/slide\/)?(\d+)/i);
+  var n = match ? parseInt(match[1], 10) : 1;
+  return Math.max(0, n - 1);
+}
+
+function visualFor(type, slide) {
+  if (type === "observatory" || type === "room") return svgWrap(
+    gridLabel("navigation room") + orbit(600, 350, 220, "#5cdacc") + orbit(600, 350, 145, "#56e39f") +
+    node(260, 230, "Compass", "people routes", "#e4b54b") + node(600, 150, "Graph Lab", "relations", "#5cdacc") +
+    node(940, 230, "Playground", "context pack", "#56e39f") + node(600, 536, "evidence", "warmer next run", "#9c86ff") +
+    route(340, 265, 525, 175, "#e4b54b") + route(675, 175, 860, 265, "#56e39f") + route(895, 310, 690, 508, "#9c86ff") + route(510, 508, 310, 310, "#6db2ff")
+  );
+  if (type === "loop" || type === "closedloop") return svgWrap(
+    gridLabel("closed loop") + box(118, 255, "source", "#6db2ff") + box(322, 185, "signal", "#5cdacc") + box(548, 255, "context pack", "#56e39f") +
+    box(792, 185, "action", "#e4b54b") + box(548, 505, "evidence", "#9c86ff") +
+    '<path d="M218 286 C310 200 438 200 548 286 S730 350 792 230" fill="none" stroke="#5cdacc" stroke-width="4" stroke-dasharray="12 14"/>' +
+    '<path d="M878 255 C988 390 796 555 650 545 S318 530 192 330" fill="none" stroke="#9c86ff" stroke-width="4" stroke-dasharray="12 14"/>'
+  );
+  if (type === "split") return svgWrap(
+    gridLabel("direction / boundary") + lane(150, 174, "context", "source · memory · route · format", "#5cdacc") +
+    lane(150, 410, "harness", "owner · rights · policy · expiry", "#e4b54b") +
+    '<path d="M640 220 C760 220 812 350 948 350" fill="none" stroke="#5cdacc" stroke-width="5"/>' +
+    '<path d="M640 458 C760 458 812 350 948 350" fill="none" stroke="#e4b54b" stroke-width="5"/>' +
+    node(948, 350, "action", "governed", "#56e39f")
+  );
+  if (type === "stack" || type === "engine") return svgWrap(
+    gridLabel("modern stack") + stackLayer(180, 140, "interfaces", "MCP · GitHub · LMS · Obsidian", "#6db2ff") +
+    stackLayer(250, 250, "context engine", "runtime · state · store", "#5cdacc") +
+    stackLayer(320, 360, "graph memory", "relations · time · source", "#56e39f") +
+    stackLayer(390, 470, "governed loop", "passport · policy · expiry", "#e4b54b") +
+    stackLayer(460, 580, "evidence", "trace · eval · review", "#9c86ff")
+  );
+  if (type === "governance") return svgWrap(
+    gridLabel("governed loop") + ringNode(600, 350, 260, "policy", "#e4b54b", -90) + ringNode(600, 350, 205, "rights", "#56e39f", -20) +
+    ringNode(600, 350, 150, "tools", "#6db2ff", 58) + ringNode(600, 350, 95, "owner", "#ff6d61", 140) +
+    node(600, 350, "agent passport", "scope + expiry", "#9c86ff")
+  );
+  if (type === "graph" || type === "memory") return svgWrap(
+    gridLabel("graph memory") + node(246, 180, "people", "participants", "#e4b54b") + node(560, 138, "themes", "context", "#5cdacc") +
+    node(882, 220, "pages", "lab surfaces", "#9c86ff") + node(360, 500, "artifacts", "files", "#6db2ff") +
+    node(760, 514, "stack", "system layer", "#56e39f") +
+    link(330, 210, 500, 160) + link(640, 160, 815, 242) + link(832, 268, 775, 484) + link(690, 508, 445, 508) + link(380, 468, 260, 230) + link(430, 480, 555, 178)
+  );
+  if (type === "compass" || type === "participants") return svgWrap(
+    gridLabel("social context engine") + compassRose(600, 350) +
+    node(210, 230, "profile", "role / stack", "#6db2ff") + node(460, 160, "request", "signal", "#5cdacc") +
+    node(740, 160, "route", "pair / group", "#e4b54b") + node(970, 270, "feedback", "evidence", "#9c86ff") +
+    node(600, 540, "cluster", "workgroup", "#56e39f")
+  );
+  if (type === "pack" || type === "factory") return svgWrap(
+    gridLabel("artifact factory") + documentNode(210, 210, "context-pack.md", "#5cdacc") + documentNode(470, 170, "passport.md", "#e4b54b") +
+    documentNode(730, 210, "guardrails.md", "#ff6d61") + documentNode(350, 470, "evidence.md", "#9c86ff") +
+    documentNode(640, 470, "naming.md", "#6db2ff") + '<rect x="430" y="330" width="340" height="90" rx="18" fill="rgba(18,26,34,.92)" stroke="#56e39f"/><text x="505" y="386" fill="#f0f7f4" font-family="Space Grotesk" font-size="34">portable system</text>'
+  );
+  if (type === "teamstack") return svgWrap(
+    gridLabel("company os from below") + stackPerson(170, 180, "person a") + stackPerson(450, 180, "person b") + stackPerson(730, 180, "person c") +
+    '<rect x="210" y="520" width="780" height="102" rx="22" fill="rgba(18,26,34,.92)" stroke="#5cdacc"/><text x="350" y="584" fill="#f0f7f4" font-family="Space Grotesk" font-size="34">shared workflow contracts</text>' +
+    route(285, 345, 360, 520, "#6db2ff") + route(565, 345, 600, 520, "#5cdacc") + route(845, 345, 820, 520, "#e4b54b")
+  );
+  if (type === "workcase" || type === "requirements" || type === "surface") return svgWrap(
+    gridLabel("build path") + lane(130, 140, "choose one workflow", "low blast radius", "#6db2ff") +
+    lane(190, 280, "compile context pack", "source · signal · owner", "#5cdacc") +
+    lane(250, 420, "ship prototype", "1-3 weeks", "#56e39f") +
+    lane(310, 560, "return evidence", "update graph", "#9c86ff")
+  );
+  if (type === "sources") return svgWrap(
+    gridLabel("research -> requirements") + documentNode(160, 180, "LangChain", "#5cdacc") + documentNode(410, 140, "Anthropic", "#e4b54b") +
+    documentNode(660, 180, "12-factor", "#6db2ff") + documentNode(280, 460, "Graphiti", "#56e39f") + documentNode(540, 500, "GraphRAG", "#9c86ff") + documentNode(800, 460, "OpenAI governance", "#ff6d61")
+  );
+  return svgWrap(gridLabel("context observatory") + node(600, 350, "context", "actionable", "#5cdacc"));
+}
+
+function svgWrap(inner) {
+  return '<svg viewBox="0 0 1200 720" preserveAspectRatio="xMidYMid meet">' + inner + '</svg>';
+}
+function gridLabel(text) {
+  return '<text x="78" y="90" fill="rgba(240,247,244,.58)" font-family="IBM Plex Mono" font-size="18">' + esc(text) + '</text>';
+}
+function node(x, y, title, sub, color) {
+  return '<g><rect x="' + (x - 94) + '" y="' + (y - 54) + '" width="188" height="108" rx="16" fill="rgba(18,26,34,.92)" stroke="' + color + '"/><text x="' + (x - 58) + '" y="' + (y - 8) + '" fill="#f0f7f4" font-family="Space Grotesk" font-size="24">' + esc(title) + '</text><text x="' + (x - 58) + '" y="' + (y + 24) + '" fill="rgba(240,247,244,.56)" font-family="IBM Plex Mono" font-size="14">' + esc(sub) + '</text></g>';
+}
+function box(x, y, text, color) {
+  return '<rect x="' + x + '" y="' + y + '" width="170" height="82" rx="14" fill="rgba(18,26,34,.9)" stroke="' + color + '"/><text x="' + (x + 36) + '" y="' + (y + 50) + '" fill="#f0f7f4" font-family="Space Grotesk" font-size="26">' + esc(text) + '</text>';
+}
+function lane(x, y, title, sub, color) {
+  return '<g><rect x="' + x + '" y="' + y + '" width="610" height="92" rx="16" fill="rgba(18,26,34,.88)" stroke="' + color + '"/><text x="' + (x + 28) + '" y="' + (y + 38) + '" fill="#f0f7f4" font-family="Space Grotesk" font-size="28">' + esc(title) + '</text><text x="' + (x + 28) + '" y="' + (y + 66) + '" fill="rgba(240,247,244,.58)" font-family="IBM Plex Mono" font-size="15">' + esc(sub) + '</text></g>';
+}
+function route(x1, y1, x2, y2, color) {
+  return '<path d="M' + x1 + ' ' + y1 + ' C ' + ((x1 + x2) / 2) + ' ' + y1 + ', ' + ((x1 + x2) / 2) + ' ' + y2 + ', ' + x2 + ' ' + y2 + '" fill="none" stroke="' + color + '" stroke-width="4" stroke-dasharray="12 14"/>';
+}
+function link(x1, y1, x2, y2) {
+  return '<line x1="' + x1 + '" y1="' + y1 + '" x2="' + x2 + '" y2="' + y2 + '" stroke="rgba(92,218,204,.45)" stroke-width="3"/>';
+}
+function orbit(cx, cy, r, color) {
+  return '<circle cx="' + cx + '" cy="' + cy + '" r="' + r + '" fill="none" stroke="' + color + '" stroke-width="2" stroke-dasharray="14 18" opacity=".66"/>';
+}
+function ringNode(cx, cy, r, label, color, angle) {
+  var rad = angle * Math.PI / 180;
+  var x = cx + Math.cos(rad) * r;
+  var y = cy + Math.sin(rad) * r;
+  return orbit(cx, cy, r, color) + node(x, y, label, "gate", color);
+}
+function stackLayer(x, y, title, sub, color) {
+  return '<g><rect x="' + x + '" y="' + y + '" width="720" height="86" rx="18" fill="rgba(18,26,34,.88)" stroke="' + color + '"/><text x="' + (x + 32) + '" y="' + (y + 36) + '" fill="#f0f7f4" font-family="Space Grotesk" font-size="28">' + esc(title) + '</text><text x="' + (x + 32) + '" y="' + (y + 64) + '" fill="rgba(240,247,244,.58)" font-family="IBM Plex Mono" font-size="15">' + esc(sub) + '</text></g>';
+}
+function compassRose(cx, cy) {
+  return '<g transform="translate(' + cx + ' ' + cy + ')"><circle r="154" fill="none" stroke="#5cdacc" stroke-width="3"/><circle r="88" fill="none" stroke="#e4b54b" stroke-width="2"/><path d="M0 -188 L44 -24 L0 -48 L-44 -24 Z" fill="rgba(228,181,75,.22)" stroke="#e4b54b" stroke-width="4"/><path d="M0 188 L44 24 L0 48 L-44 24 Z" fill="rgba(92,218,204,.18)" stroke="#5cdacc" stroke-width="4"/></g>';
+}
+function documentNode(x, y, title, color) {
+  return '<g><path d="M' + x + ' ' + y + ' h170 v128 h-132 l-38 30 z" fill="rgba(18,26,34,.9)" stroke="' + color + '" stroke-width="2"/><line x1="' + (x + 30) + '" y1="' + (y + 42) + '" x2="' + (x + 140) + '" y2="' + (y + 42) + '" stroke="rgba(240,247,244,.22)"/><line x1="' + (x + 30) + '" y1="' + (y + 72) + '" x2="' + (x + 130) + '" y2="' + (y + 72) + '" stroke="rgba(240,247,244,.22)"/><text x="' + (x + 18) + '" y="' + (y + 112) + '" fill="#f0f7f4" font-family="IBM Plex Mono" font-size="15">' + esc(title) + '</text></g>';
+}
+function stackPerson(x, y, title) {
+  return '<g><circle cx="' + (x + 100) + '" cy="' + y + '" r="46" fill="rgba(92,218,204,.12)" stroke="#5cdacc"/><text x="' + (x + 46) + '" y="' + (y + 90) + '" fill="#f0f7f4" font-family="Space Grotesk" font-size="24">' + esc(title) + '</text><rect x="' + x + '" y="' + (y + 120) + '" width="200" height="44" rx="10" fill="rgba(18,26,34,.9)" stroke="#6db2ff"/><rect x="' + x + '" y="' + (y + 176) + '" width="200" height="44" rx="10" fill="rgba(18,26,34,.9)" stroke="#5cdacc"/><rect x="' + x + '" y="' + (y + 232) + '" width="200" height="44" rx="10" fill="rgba(18,26,34,.9)" stroke="#e4b54b"/></g>';
+}
+
+document.getElementById("prevBtn").onclick = prev;
+document.getElementById("nextBtn").onclick = next;
+document.getElementById("modePresent").onclick = function() { setMode("present"); };
+document.getElementById("modeEdit").onclick = function() { setMode(mode === "edit" ? "present" : "edit"); };
+document.getElementById("modeMap").onclick = function() { setMode(mode === "map" ? "present" : "map"); };
+document.getElementById("toggleVox").onclick = function() { document.body.classList.toggle("show-vox"); };
+document.getElementById("toggleNotes").onclick = function() { document.body.classList.toggle("show-notes"); };
+
+window.addEventListener("keydown", function(e) {
+  var tag = (document.activeElement && document.activeElement.tagName || "").toLowerCase();
+  if (tag === "textarea" || tag === "input" || document.activeElement.isContentEditable) return;
+  if (e.key === "ArrowRight" || e.key === " " || e.key === "Enter") { e.preventDefault(); next(); }
+  if (e.key === "ArrowLeft" || e.key === "Backspace") { e.preventDefault(); prev(); }
+  if (e.key.toLowerCase() === "e") setMode(mode === "edit" ? "present" : "edit");
+  if (e.key.toLowerCase() === "m" || e.key.toLowerCase() === "t") setMode(mode === "map" ? "present" : "map");
+  if (e.key.toLowerCase() === "v") document.body.classList.toggle("show-vox");
+  if (e.key.toLowerCase() === "n") document.body.classList.toggle("show-notes");
+  if (e.key === "Home") go(0);
+  if (e.key === "End") go(slides.length - 1);
+});
+
+window.addEventListener("hashchange", function() {
+  var target = initialSlideFromHash();
+  if (target !== current) go(target);
+});
+
+renderDeck();
+</script>
+</body>
+</html>

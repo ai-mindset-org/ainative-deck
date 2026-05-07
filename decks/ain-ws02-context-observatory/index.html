@@ -580,17 +580,18 @@ body.mode-map .slide, body.mode-edit .slide { padding-right: min(490px, 38vw); }
 <script>
 "use strict";
 
-var STORAGE_KEY = "ain-ws02-context-observatory-v3";
+var STORAGE_KEY = "ain-ws02-context-observatory-v4";
 var current = initialSlideFromHash();
 var mode = "present";
 var editedSlides = loadSlides();
 
 var timelineBlocks = [
-  { title: "Сигнал зала", start: 1, end: 6, time: "00-18", desc: "живые результаты после setup: vault, naming, spec, agents" },
-  { title: "Architecture", start: 7, end: 11, time: "18-42", desc: "context, harness, evidence, modern stack" },
-  { title: "Graph Lab", start: 12, end: 16, time: "42-68", desc: "Compass, graph memory, participants, routes" },
-  { title: "Team stack", start: 17, end: 25, time: "68-102", desc: "Personal OS -> Shaper -> ProductFactory -> team products" },
-  { title: "Practice", start: 26, end: 29, time: "102-126", desc: "workcase, artifacts, next build requirements" }
+  { title: "Сигнал зала", start: 1, end: 5, time: "00-15", desc: "живые результаты после setup: vault, naming, spec, agents" },
+  { title: "Генплан системы", start: 6, end: 9, time: "15-35", desc: "personal context -> skills -> products -> graph/evidence" },
+  { title: "Architecture", start: 10, end: 14, time: "35-58", desc: "context, harness, evidence, modern stack" },
+  { title: "Graph Lab", start: 15, end: 19, time: "58-82", desc: "Compass, graph memory, participants, routes" },
+  { title: "Team stack", start: 20, end: 28, time: "82-112", desc: "Personal OS -> Shaper -> ProductFactory -> team products" },
+  { title: "Practice", start: 29, end: 32, time: "112-130", desc: "workcase, artifacts, next build requirements" }
 ];
 
 var baseSlides = [
@@ -644,6 +645,40 @@ var baseSlides = [
     chips: ["mission", "stack", "roadmap", "constitution"],
     visual: "constitution",
     notes: "Связать с AGENTS.md, CLAUDE.md, Obsidian rules и naming convention. Это не бюрократия, а снижение энтропии."
+  },
+  {
+    key: "system-masterplan",
+    eyebrow: "SYSTEM MASTERPLAN",
+    title: "генплан: context -> skill -> product -> graph.",
+    body: "Отбиваем презентацию не по темам, а по уровням системы. Снизу личный порядок, выше skill как повторяемый способ действия, дальше продуктовая поверхность, сверху graph/evidence как память следующего запуска.",
+    bullets: ["personal setup: vault, calendar, transcript, naming", "skill layer: trigger, input, procedure, artifact", "product layer: dashboard, matcher, compiler, calendar", "graph layer: source, relation, evidence, review"],
+    chips: ["hierarchy", "system map", "not a link dump"],
+    visual: "system-masterplan",
+    notes: "Это слайд после constitution: он объясняет, зачем дальше показываем разные сайты. Они не витрина, а разные уровни одной системы."
+  },
+  {
+    key: "skill-inventory",
+    eyebrow: "SKILL INVENTORY",
+    title: "skill – это интерфейс к практике.",
+    body: "Скилл не должен быть просто промптом. У нормального скилла есть входной контекст, процедура, границы, выходной артефакт и способ проверить результат.",
+    bullets: ["trigger: когда skill включается", "context input: какие источники он читает", "procedure: какие шаги повторяются", "artifact output: что остаётся после работы", "evidence: как понять, что это сработало"],
+    chips: ["Shaper", "ProductFactory", "AIM-deck", "context skill"],
+    visual: "skill-inventory",
+    notes: "Здесь можно проговорить два твоих скилла: Shaper задаёт форму рассказа, ProductFactory превращает контекст в продукт."
+  },
+  {
+    key: "code-graph",
+    eyebrow: "CODE GRAPH",
+    title: "code graph показывает, где живёт продукт.",
+    body: "Если у продукта нет карты repo, route, deploy, data source и owner, его сложно передавать агенту или команде. Code graph нужен не для красоты, а для продолжения работы без устного комментария.",
+    bullets: ["repo -> files -> routes -> deploy URL", "data source -> transform -> view", "owner -> skill -> next action", "evidence -> issue / note / commit"],
+    chips: ["GitHub", "Netlify", "routes", "owners"],
+    visual: "code-graph",
+    links: [
+      { label: "AIN Lab 2 GitHub", kind: "repo", url: "https://github.com/ai-mindset-org/ainative-lab-2" },
+      { label: "AIN Lab 2", kind: "site", url: "https://ainative-lab-2.netlify.app/" }
+    ],
+    notes: "Подвести к Graph Lab и Playground: мы хотим видеть не только контент, но и где он живёт технически."
   },
   {
     key: "room-metaphor",
@@ -869,9 +904,9 @@ var baseSlides = [
   {
     key: "live-demo",
     eyebrow: "LIVE ROUTE",
-    title: "показать поверхности как один контур.",
-    body: "Deck даёт нарратив. AIM OS показывает реестр продуктов и скиллов. Graph Lab показывает связи. Compass показывает людей. Content Calendar показывает канал как продукт. Playground собирает context pack. Вместе это минимальная lab operating system.",
-    bullets: ["Telegram signal -> deck slide", "AIM OS -> product/skill registry", "Content Calendar -> channel evidence", "Compass -> people routes", "Playground -> context pack", "GitHub / Obsidian -> source of truth"],
+    title: "выбрать сайты как уровни системы.",
+    body: "Показываем не все ссылки подряд, а 5 уровней: AIM OS как registry, Content Calendar как production loop, Compass как people graph, Playground как context compiler, Graph Lab как память связей.",
+    bullets: ["AIM OS -> product/skill registry", "Content Calendar -> channel evidence", "Compass -> people routes", "Playground -> context pack", "Graph Lab -> relation memory", "GitHub / Obsidian -> source of truth"],
     chips: ["demo path", "lab os", "ProductFactory"],
     visual: "surface",
     links: [
@@ -1089,6 +1124,9 @@ function voxFrame(slide) {
   if (key.includes("room-signals")) return "LIVE ON: это evidence slide. Naming, transcript micro-agent и 190 файлов показывают, что setup превратился в инфраструктуру.";
   if (key.includes("today-problem")) return "LIVE ON: проблема дня – не научить всех одному tool, а сделать локальные контекстные системы переносимыми и соединяемыми.";
   if (key.includes("constitution")) return "LIVE ON: mission.md, stack.md, roadmap.md объясняй как project memory. Агент начинает с цели, а не с пустой сессии.";
+  if (key.includes("system-masterplan")) return "LIVE ON: это генплан всей сессии. Не список сайтов, а иерархия: personal context -> skill -> product -> graph/evidence.";
+  if (key.includes("skill-inventory")) return "LIVE ON: skill объясняй как интерфейс к практике: trigger, input, procedure, artifact, evidence. Это взрослее, чем промпт.";
+  if (key.includes("code-graph")) return "LIVE ON: code graph показывает, где живёт продукт: repo, route, deploy, owner, data source. Это нужно, чтобы агент продолжил работу.";
   if (key.includes("compass") || key.includes("participant")) return "LIVE ON: Compass объясняй как social context engine, не как матчер. Люди – context nodes, встреча – route, фидбек – evidence.";
   if (key.includes("graph")) return "LIVE ON: Graph Lab показывает связи и source provenance. Не список источников, а карта системы.";
   if (key.includes("playground") || key.includes("pack")) return "LIVE ON: context pack – минимальный переносимый артефакт. Его можно дать человеку, агенту или следующему слайду.";
@@ -1133,6 +1171,36 @@ function initialSlideFromHash() {
 }
 
 function visualFor(type, slide) {
+  if (type === "system-masterplan") return svgWrap(
+    gridLabel("hierarchy of systems") +
+    stackLayer(180, 112, "01 · personal context", "vault · calendar · transcript · naming", "#6db2ff") +
+    stackLayer(240, 232, "02 · skill layer", "trigger · context input · procedure · artifact", "#5cdacc") +
+    stackLayer(300, 352, "03 · product layer", "dashboard · matcher · compiler · calendar", "#56e39f") +
+    stackLayer(360, 472, "04 · graph / evidence", "source · relation · review · next run", "#e4b54b") +
+    '<path d="M930 178 C1030 268 1030 440 930 560" fill="none" stroke="#9c86ff" stroke-width="4" stroke-dasharray="10 14"/><text x="960" y="368" fill="#9c86ff" font-family="IBM Plex Mono" font-size="17">feedback warms the next layer</text>'
+  );
+  if (type === "skill-inventory") return svgWrap(
+    gridLabel("skill as interface") +
+    node(190, 210, "trigger", "when it starts", "#6db2ff") +
+    node(435, 210, "context", "what it reads", "#5cdacc") +
+    node(680, 210, "procedure", "steps", "#56e39f") +
+    node(925, 210, "artifact", "what remains", "#e4b54b") +
+    node(560, 500, "evidence", "how we know", "#9c86ff") +
+    route(282, 210, 343, 210, "#6db2ff") + route(527, 210, 588, 210, "#5cdacc") + route(772, 210, 833, 210, "#56e39f") +
+    '<path d="M925 266 C900 430 740 510 652 510" fill="none" stroke="#9c86ff" stroke-width="4" stroke-dasharray="12 14"/><path d="M468 500 C320 468 214 350 190 266" fill="none" stroke="#9c86ff" stroke-width="4" stroke-dasharray="12 14"/>'
+  );
+  if (type === "code-graph") return svgWrap(
+    gridLabel("code graph / deploy graph") +
+    documentNode(140, 160, "repo", "#6db2ff") +
+    documentNode(382, 128, "routes", "#5cdacc") +
+    documentNode(624, 160, "data.json", "#56e39f") +
+    documentNode(866, 128, "netlify", "#e4b54b") +
+    node(382, 500, "owner", "who changes it", "#ff6d61") +
+    node(706, 500, "skill", "how it changes", "#9c86ff") +
+    link(310, 232, 382, 202) + link(552, 202, 624, 232) + link(794, 232, 866, 202) +
+    route(472, 500, 615, 500, "#9c86ff") +
+    '<text x="326" y="636" fill="rgba(240,247,244,.58)" font-family="IBM Plex Mono" font-size="18">product is maintainable when route, data, owner and deploy are visible</text>'
+  );
   if (type === "shaper-product") return shaperSvg(
     '<text x="118" y="128" fill="#000" font-family="IBM Plex Mono" font-size="18" letter-spacing="5">fig. two skills</text><path d="M118 156 H1082" stroke="#000"/>' +
     shaperBlock(168, 228, "01", "shaper", "narrative installation", "form · callouts · operator voice") +

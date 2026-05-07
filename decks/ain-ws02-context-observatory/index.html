@@ -320,6 +320,56 @@ h2 { max-width: 760px; font-size: clamp(50px, 5.4vw, 86px); font-weight: 700; }
   line-height: 1.55;
 }
 body.show-notes .slide.active .speaker-note { display: block; }
+.operator-assistant {
+  position: fixed;
+  right: 22px;
+  top: 50%;
+  z-index: 76;
+  width: 68px;
+  height: 94px;
+  transform: translateY(-50%);
+  border: 1px solid #000;
+  border-radius: 0;
+  background: #fff;
+  color: #000;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  filter: none;
+}
+.operator-assistant svg {
+  width: 52px;
+  height: 76px;
+  overflow: visible;
+  animation: operatorPosture 8s ease-in-out infinite;
+  transform-origin: 50% 50%;
+}
+.operator-assistant::after {
+  content: "op";
+  position: absolute;
+  right: 5px;
+  bottom: 4px;
+  color: #000;
+  font-family: var(--font-code);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+}
+.operator-assistant:hover { transform: translateY(-50%) translateX(-4px); }
+.op-line { fill: none; stroke: #000; stroke-width: 5.2; stroke-linecap: round; stroke-linejoin: round; }
+.op-shadow { fill: none; stroke: #ececec; stroke-width: 8.8; stroke-linecap: round; stroke-linejoin: round; }
+.op-eye { fill: #fff; stroke: #000; stroke-width: 1.5; }
+.op-pupil { fill: #000; animation: operatorLook 4s ease-in-out infinite; }
+.op-guide { fill: none; stroke: #8a8a8a; stroke-width: 1; stroke-dasharray: 4 4; opacity: 0.72; }
+@keyframes operatorPosture {
+  0%, 100% { transform: scaleY(1) rotate(0deg); }
+  42% { transform: scaleY(1.12) rotate(-1deg); }
+  68% { transform: scaleX(0.94) scaleY(1.05) rotate(1deg); }
+}
+@keyframes operatorLook {
+  0%, 100% { transform: translate(0, 0); }
+  45% { transform: translate(2px, -1px); }
+  72% { transform: translate(-2px, 1px); }
+}
 .vox {
   position: fixed;
   top: 82px;
@@ -497,6 +547,18 @@ body.mode-map .slide, body.mode-edit .slide { padding-right: min(540px, 42vw); }
 
 <main class="deck" id="deck"></main>
 <aside class="panel" id="panel"></aside>
+<button class="operator-assistant" id="operatorAssistant" title="VOX operator · V">
+  <svg viewBox="0 0 58 84" aria-hidden="true">
+    <path class="op-shadow" d="M21 7 C8 7 8 36 20 36 C35 36 35 13 24 13 C15 13 15 53 33 53 C52 53 52 23 40 23 C32 23 32 67 22 74"/>
+    <path class="op-line" d="M21 7 C8 7 8 36 20 36 C35 36 35 13 24 13 C15 13 15 53 33 53 C52 53 52 23 40 23 C32 23 32 67 22 74"/>
+    <path class="op-guide" d="M7 55 C18 72 38 74 52 58"/>
+    <circle class="op-eye" cx="26" cy="15" r="6"/>
+    <circle class="op-eye" cx="42" cy="16" r="6"/>
+    <circle class="op-pupil" cx="27" cy="15" r="2.4"/>
+    <circle class="op-pupil" cx="43" cy="16" r="2.4"/>
+    <path class="op-line" d="M36 31 C41 34 46 32 49 28" style="stroke-width:2"/>
+  </svg>
+</button>
 
 <section class="vox" id="vox">
   <div class="vox-title">VOX LIVE · navigation frame</div>
@@ -511,13 +573,13 @@ body.mode-map .slide, body.mode-edit .slide { padding-right: min(540px, 42vw); }
 </div>
 <div class="footer">
   <span>AIN-WS02 · Alexander Povaliaev · AI Mindset</span>
-  <span><a href="https://ainative-lab-2.netlify.app/knowledge-graph" target="_blank" rel="noreferrer">Graph Lab</a> · <a href="https://aim-ain02-compass.netlify.app/" target="_blank" rel="noreferrer">Compass</a> · <span id="footerSection">start</span></span>
+  <span><a href="https://aim-os.netlify.app/" target="_blank" rel="noreferrer">AIM OS</a> · <a href="https://aim-content-calendar.netlify.app/" target="_blank" rel="noreferrer">Content Calendar</a> · <a href="https://ainative-lab-2.netlify.app/knowledge-graph" target="_blank" rel="noreferrer">Graph Lab</a> · <a href="https://aim-ain02-compass.netlify.app/" target="_blank" rel="noreferrer">Compass</a> · <span id="footerSection">start</span></span>
 </div>
 
 <script>
 "use strict";
 
-var STORAGE_KEY = "ain-ws02-context-observatory-v1";
+var STORAGE_KEY = "ain-ws02-context-observatory-v2";
 var current = initialSlideFromHash();
 var mode = "present";
 var editedSlides = loadSlides();
@@ -526,8 +588,8 @@ var timelineBlocks = [
   { title: "Сигнал зала", start: 1, end: 6, time: "00-18", desc: "живые результаты после setup: vault, naming, spec, agents" },
   { title: "Architecture", start: 7, end: 11, time: "18-42", desc: "context, harness, evidence, modern stack" },
   { title: "Graph Lab", start: 12, end: 16, time: "42-68", desc: "Compass, graph memory, participants, routes" },
-  { title: "Team stack", start: 17, end: 20, time: "68-92", desc: "Personal OS -> team workflow -> Company OS" },
-  { title: "Practice", start: 21, end: 24, time: "92-115", desc: "workcase, artifacts, next build requirements" }
+  { title: "Team stack", start: 17, end: 25, time: "68-102", desc: "Personal OS -> Shaper -> ProductFactory -> team products" },
+  { title: "Practice", start: 26, end: 29, time: "102-126", desc: "workcase, artifacts, next build requirements" }
 ];
 
 var baseSlides = [
@@ -716,6 +778,64 @@ var baseSlides = [
     notes: "Связать с GitHub и Obsidian: файлы должны быть адресными, не декоративными."
   },
   {
+    key: "two-skills",
+    eyebrow: "TWO SKILLS",
+    title: "два скилла: Shaper и ProductFactory.",
+    body: "Shaper отвечает за нарративную установку: строгая форма, operator voice, схема, numbered callouts. ProductFactory отвечает за следующий ход: из контекста рождается маленький рабочий продукт – dashboard, matcher, compiler, calendar или graph.",
+    bullets: ["Shaper: форма, рамка, нумерация, constraints", "ProductFactory: brief, data source, views, deploy", "общий ритм: context -> artifact -> interface -> feedback"],
+    chips: ["Shaper", "ProductFactory", "operator voice"],
+    visual: "shaper-product",
+    notes: "Назвать это прямо как два твоих скилла: один задает язык, второй превращает язык в продукт."
+  },
+  {
+    key: "aim-os",
+    eyebrow: "AIM OS",
+    title: "AIM OS показывает личный контур как продукт.",
+    body: "AIM OS – не витрина ссылок. Это реестр продуктов, скиллов и архитектур: у каждого объекта есть URL, owner, driving skill, source-of-truth и место в общей системе.",
+    bullets: ["products / skills / architectures in one surface", "product -> owner -> driving skill", "architecture -> context route -> next product", "личный OS становится командно-читаемым"],
+    chips: ["AIM OS", "registry", "owner", "source-of-truth"],
+    visual: "aimos",
+    links: [{ label: "AIM OS", kind: "live registry", url: "https://aim-os.netlify.app/" }],
+    notes: "Показать AIM OS как proof: личный контур можно оформить как продуктовый реестр."
+  },
+  {
+    key: "content-calendar",
+    eyebrow: "MARKETING LOOP",
+    title: "Content Calendar – это контур канала.",
+    body: "На командном marketing stack видно хороший пример ProductFactory: канал становится рабочим продуктом. Backlog, production, analytics, mentions/collabs и channel signals возвращают решение обратно в контент-процесс.",
+    bullets: ["content backlog -> production state", "recent posts -> engagement signal", "mentions and collabs -> network surface", "analytics -> next content decision"],
+    chips: ["channel OS", "analytics", "collabs", "feedback"],
+    visual: "content-calendar",
+    links: [{ label: "AIM Content Calendar", kind: "live product", url: "https://aim-content-calendar.netlify.app/" }],
+    notes: "Это пример из текущей практики команды: открыть инструмент как evidence, а не рассказывать про маркетинг абстрактно."
+  },
+  {
+    key: "compass-trios",
+    eyebrow: "NETWORKING BLOCK",
+    title: "из Compass можно собрать тройку.",
+    body: "Важно проговорить privacy boundary: мы не показываем приватное досье участника. Берём публичный intro/context, безопасные теги, cluster card и match rationale. Из этого собираем пару или тройку с понятным поводом для связи.",
+    bullets: ["public fields only", "cluster card, not private dossier", "pair/trio rationale", "networking task -> follow-up evidence"],
+    chips: ["public context", "trios", "privacy boundary"],
+    visual: "compass-trios",
+    links: [{ label: "AIN02 Compass", kind: "trios surface", url: "https://aim-ain02-compass.netlify.app/" }],
+    notes: "Сказать прямо: ничего приватного. Это бережный способ превращать контекст участников в полезные связи."
+  },
+  {
+    key: "product-factory",
+    eyebrow: "PRODUCTFACTORY",
+    title: "ProductFactory начинается с короткого brief.",
+    body: "Не строим платформу. Формулируем один core question, выбираем data source, primary entity, 2-3 views, owner и deploy path. Так рождаются AIM OS, Content Calendar, Compass, Playground и следующие микросервисы под процессы.",
+    bullets: ["core question: что видно за 3 секунды", "data source: Linear / vault / Telegram / Sheets / static JSON", "primary entity: participant, post, workflow, session", "views: list, matrix, graph, calendar, detail panel", "feedback: activity log, evidence, next iteration"],
+    chips: ["brief", "data source", "views", "deploy"],
+    visual: "product-factory",
+    links: [
+      { label: "AIM OS", kind: "registry", url: "https://aim-os.netlify.app/" },
+      { label: "Content Calendar", kind: "example", url: "https://aim-content-calendar.netlify.app/" },
+      { label: "AIN02 Compass", kind: "example", url: "https://aim-ain02-compass.netlify.app/" }
+    ],
+    notes: "Это блок про ProductFactory: не вдохновение, а метод производства маленьких систем."
+  },
+  {
     key: "closed-loop",
     eyebrow: "CLOSED LOOP",
     title: "closed loop – это не AI-мода.",
@@ -748,14 +868,16 @@ var baseSlides = [
   {
     key: "live-demo",
     eyebrow: "LIVE ROUTE",
-    title: "показать четыре поверхности как один контур.",
-    body: "Deck даёт нарратив. Graph Lab показывает связи. Compass показывает людей. Playground собирает context pack. Вместе это уже минимальная lab operating system.",
-    bullets: ["Telegram signal -> deck slide", "deck slide -> context pack", "context pack -> Graph node", "Compass -> people routes", "GitHub / Obsidian -> source of truth"],
-    chips: ["demo path", "lab os", "source of truth"],
+    title: "показать поверхности как один контур.",
+    body: "Deck даёт нарратив. AIM OS показывает реестр продуктов и скиллов. Graph Lab показывает связи. Compass показывает людей. Content Calendar показывает канал как продукт. Playground собирает context pack. Вместе это минимальная lab operating system.",
+    bullets: ["Telegram signal -> deck slide", "AIM OS -> product/skill registry", "Content Calendar -> channel evidence", "Compass -> people routes", "Playground -> context pack", "GitHub / Obsidian -> source of truth"],
+    chips: ["demo path", "lab os", "ProductFactory"],
     visual: "surface",
     links: [
+      { label: "AIM OS", kind: "registry", url: "https://aim-os.netlify.app/" },
       { label: "Lab 2", kind: "hub", url: "https://ainative-lab-2.netlify.app/" },
       { label: "Graph", kind: "map", url: "https://ainative-lab-2.netlify.app/knowledge-graph" },
+      { label: "Content Calendar", kind: "marketing", url: "https://aim-content-calendar.netlify.app/" },
       { label: "Compass", kind: "people", url: "https://aim-ain02-compass.netlify.app/" }
     ],
     notes: "Это сценарий живого показа: не надо проходить все ссылки, но показать единую логику."
@@ -970,6 +1092,11 @@ function voxFrame(slide) {
   if (key.includes("graph")) return "LIVE ON: Graph Lab показывает связи и source provenance. Не список источников, а карта системы.";
   if (key.includes("playground") || key.includes("pack")) return "LIVE ON: context pack – минимальный переносимый артефакт. Его можно дать человеку, агенту или следующему слайду.";
   if (key.includes("team")) return "LIVE ON: Company OS рождается снизу: personal systems соединяются через workflow contracts и evidence.";
+  if (key.includes("two-skills")) return "LIVE ON: здесь два скилла в одной рамке. Shaper задает язык показа, ProductFactory превращает этот язык в рабочий продукт.";
+  if (key.includes("aim-os")) return "LIVE ON: AIM OS показывай как registry: product, skill, architecture, owner, source-of-truth. Это личный OS, оформленный как командная поверхность.";
+  if (key.includes("content-calendar")) return "LIVE ON: Content Calendar – пример ProductFactory: канал возвращает signals в production loop, а не просто хранит план публикаций.";
+  if (key.includes("compass-trios")) return "LIVE ON: проговори privacy boundary. Тройки строятся из публичного context, cluster card и rationale, без приватного досье.";
+  if (key.includes("product-factory")) return "LIVE ON: ProductFactory начинается с brief: core question, source, entity, views, deploy path, feedback. Маленький продукт важнее большой платформы.";
   if (key.includes("govern") || key.includes("harness")) return "LIVE ON: harness не направляет мысль, он ограничивает действие: owner, rights, policy, expiry, stop condition.";
   return "LIVE ON: держи формулу source -> signal -> context pack -> action -> evidence -> graph update. Всё остальное – детали этой петли.";
 }
@@ -1005,6 +1132,46 @@ function initialSlideFromHash() {
 }
 
 function visualFor(type, slide) {
+  if (type === "shaper-product") return shaperSvg(
+    '<text x="118" y="128" fill="#000" font-family="IBM Plex Mono" font-size="18" letter-spacing="5">fig. two skills</text><path d="M118 156 H1082" stroke="#000"/>' +
+    shaperBlock(168, 228, "01", "shaper", "narrative installation", "form · callouts · operator voice") +
+    shaperBlock(722, 228, "02", "productfactory", "context into product", "brief · source · views · deploy") +
+    '<path d="M478 362 C562 306 638 306 722 362" fill="none" stroke="#000" stroke-width="1.4" marker-end="url(#arr)"/>' +
+    '<rect x="382" y="558" width="436" height="56" fill="#000"/><text x="432" y="593" fill="#fff" font-family="IBM Plex Mono" font-size="17">context -> artifact -> interface -> feedback</text>',
+    "arr"
+  );
+  if (type === "aimos") return shaperSvg(
+    '<text x="118" y="128" fill="#000" font-family="IBM Plex Mono" font-size="18" letter-spacing="5">aim os · operating registry</text><path d="M118 156 H1082" stroke="#000"/>' +
+    shaperMini(146, 238, "01", "products", "url / owner / status") +
+    shaperMini(386, 238, "02", "skills", "trigger / workflow") +
+    shaperMini(626, 238, "03", "architectures", "context routes") +
+    shaperMini(866, 238, "04", "deploy guide", "ship path") +
+    '<path d="M268 402 H386 M508 402 H626 M748 402 H866" stroke="#000" stroke-width="1.4" marker-end="url(#arr)"/>' +
+    '<rect x="288" y="538" width="624" height="64" fill="#000"/><text x="344" y="578" fill="#fff" font-family="IBM Plex Mono" font-size="18">personal os becomes team-readable product surface</text>',
+    "arr"
+  );
+  if (type === "content-calendar") return shaperSvg(
+    '<text x="118" y="128" fill="#000" font-family="IBM Plex Mono" font-size="18" letter-spacing="5">content calendar · channel loop</text><path d="M118 156 H1082" stroke="#000"/>' +
+    shaperColumn(142, 232, "backlog", ["ideas", "requests", "campaigns"]) +
+    shaperColumn(390, 232, "production", ["draft", "review", "publish"]) +
+    shaperColumn(638, 232, "analytics", ["recent posts", "engagement", "signals"]) +
+    shaperColumn(886, 232, "channels", ["mentions", "collabs", "network"]) +
+    '<path d="M264 552 C420 626 784 626 936 552" fill="none" stroke="#000" stroke-width="1.4" stroke-dasharray="7 6"/><text x="414" y="648" fill="#000" font-family="IBM Plex Mono" font-size="17">signal returns to the next content decision</text>'
+  );
+  if (type === "compass-trios") return shaperSvg(
+    '<text x="118" y="128" fill="#000" font-family="IBM Plex Mono" font-size="18" letter-spacing="5">compass · trio protocol</text><path d="M118 156 H1082" stroke="#000"/>' +
+    shaperCard(150, 250, "p-01", "public intro") + shaperCard(442, 250, "p-02", "cluster card") + shaperCard(734, 250, "p-03", "match reason") +
+    '<rect x="426" y="516" width="348" height="64" fill="#000"/><text x="474" y="555" fill="#fff" font-family="IBM Plex Mono" font-size="17">networking task + follow-up evidence</text>' +
+    '<path d="M268 394 C386 484 514 484 600 516 M560 394 C600 466 600 484 600 516 M852 394 C754 482 676 486 600 516" fill="none" stroke="#000" stroke-width="1.3"/>' +
+    '<text x="384" y="644" fill="#8a8a8a" font-family="IBM Plex Mono" font-size="15">privacy boundary: public fields only, no private dossier</text>'
+  );
+  if (type === "product-factory") return shaperSvg(
+    '<text x="118" y="128" fill="#000" font-family="IBM Plex Mono" font-size="18" letter-spacing="5">productfactory · brief to product</text><path d="M118 156 H1082" stroke="#000"/>' +
+    shaperStep(130, 256, "01", "core question") + shaperStep(322, 256, "02", "data source") + shaperStep(514, 256, "03", "entity") + shaperStep(706, 256, "04", "views") + shaperStep(898, 256, "05", "deploy") +
+    '<path d="M266 326 H322 M458 326 H514 M650 326 H706 M842 326 H898" stroke="#000" stroke-width="1.4" marker-end="url(#arr)"/>' +
+    '<rect x="246" y="518" width="708" height="76" fill="#fff" stroke="#000"/><text x="306" y="565" fill="#000" font-family="IBM Plex Mono" font-size="18">small product first: dashboard / matcher / compiler / graph</text>',
+    "arr"
+  );
   if (type === "observatory" || type === "room") return svgWrap(
     gridLabel("navigation room") + orbit(600, 350, 220, "#5cdacc") + orbit(600, 350, 145, "#56e39f") +
     node(260, 230, "Compass", "people routes", "#e4b54b") + node(600, 150, "Graph Lab", "relations", "#5cdacc") +
@@ -1103,6 +1270,28 @@ function visualFor(type, slide) {
   return svgWrap(gridLabel("context observatory") + node(600, 350, "context", "actionable", "#5cdacc"));
 }
 
+function shaperSvg(inner, markerId) {
+  var marker = markerId ? '<defs><marker id="' + markerId + '" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#000"/></marker></defs>' : "";
+  return '<svg viewBox="0 0 1200 720" preserveAspectRatio="xMidYMid meet" role="img">' + marker + '<rect x="86" y="72" width="1028" height="588" fill="#fff" stroke="#000"/>' + inner + '</svg>';
+}
+function shaperBlock(x, y, n, title, lead, foot) {
+  return '<g transform="translate(' + x + ' ' + y + ')"><rect width="310" height="268" fill="#fff" stroke="#000"/><circle cx="34" cy="34" r="16" fill="#000"/><text x="25" y="40" fill="#fff" font-family="IBM Plex Mono" font-size="13">' + esc(n) + '</text><text x="70" y="44" fill="#000" font-family="IBM Plex Mono" font-size="22">' + esc(title) + '</text><text x="38" y="104" fill="#000" font-family="IBM Plex Mono" font-size="15">' + esc(lead) + '</text><path d="M38 136 H256 M38 170 H256 M38 204 H210" stroke="#000"/><text x="38" y="244" fill="#8a8a8a" font-family="IBM Plex Mono" font-size="13">' + esc(foot) + '</text></g>';
+}
+function shaperMini(x, y, n, title, sub) {
+  return '<g transform="translate(' + x + ' ' + y + ')"><rect width="186" height="206" fill="#fff" stroke="#000"/><circle cx="28" cy="28" r="15" fill="#000"/><text x="19" y="34" fill="#fff" font-family="IBM Plex Mono" font-size="13">' + esc(n) + '</text><text x="28" y="86" fill="#000" font-family="IBM Plex Mono" font-size="20">' + esc(title) + '</text><path d="M28 116 H150 M28 144 H136" stroke="#000"/><text x="28" y="178" fill="#8a8a8a" font-family="IBM Plex Mono" font-size="13">' + esc(sub) + '</text></g>';
+}
+function shaperColumn(x, y, title, rows) {
+  var rowSvg = (rows || []).map(function(row, i) {
+    return '<rect x="0" y="' + (82 + i * 52) + '" width="188" height="38" fill="#fff" stroke="#d9d9d9"/><text x="18" y="' + (107 + i * 52) + '" fill="#000" font-family="IBM Plex Mono" font-size="14">' + esc(row) + '</text>';
+  }).join("");
+  return '<g transform="translate(' + x + ' ' + y + ')"><rect width="188" height="276" fill="#fff" stroke="#000"/><text x="18" y="44" fill="#000" font-family="IBM Plex Mono" font-size="19">' + esc(title) + '</text><path d="M18 62 H170" stroke="#000"/>' + rowSvg + '</g>';
+}
+function shaperCard(x, y, title, sub) {
+  return '<g transform="translate(' + x + ' ' + y + ')"><rect width="236" height="144" fill="#fff" stroke="#000"/><text x="26" y="50" fill="#000" font-family="IBM Plex Mono" font-size="23">' + esc(title) + '</text><path d="M26 76 H198" stroke="#000"/><text x="26" y="112" fill="#8a8a8a" font-family="IBM Plex Mono" font-size="15">' + esc(sub) + '</text></g>';
+}
+function shaperStep(x, y, n, label) {
+  return '<g transform="translate(' + x + ' ' + y + ')"><rect width="136" height="140" fill="#fff" stroke="#000"/><circle cx="34" cy="34" r="16" fill="#000"/><text x="25" y="40" fill="#fff" font-family="IBM Plex Mono" font-size="13">' + esc(n) + '</text><text x="20" y="92" fill="#000" font-family="IBM Plex Mono" font-size="15">' + esc(label) + '</text></g>';
+}
 function svgWrap(inner) {
   return '<svg viewBox="0 0 1200 720" preserveAspectRatio="xMidYMid meet">' + inner + '</svg>';
 }
@@ -1153,6 +1342,7 @@ document.getElementById("modeEdit").onclick = function() { setMode(mode === "edi
 document.getElementById("modeMap").onclick = function() { setMode(mode === "map" ? "present" : "map"); };
 document.getElementById("toggleVox").onclick = function() { document.body.classList.toggle("show-vox"); };
 document.getElementById("toggleNotes").onclick = function() { document.body.classList.toggle("show-notes"); };
+document.getElementById("operatorAssistant").onclick = function() { document.body.classList.toggle("show-vox"); };
 
 window.addEventListener("keydown", function(e) {
   var tag = (document.activeElement && document.activeElement.tagName || "").toLowerCase();

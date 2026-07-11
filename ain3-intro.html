@@ -28,6 +28,13 @@
     --cool: #60a5fa;
     --mint: #38d9a9;
     --gold: #f7c948;
+    --week-intro: #60a5fa;
+    --week-w1: #38bdf8;
+    --week-w2: #38d9a9;
+    --week-w3: #f7c948;
+    --status-confirmed: #38d9a9;
+    --status-sync: #f7c948;
+    --status-open: #ff8a5c;
     --cool-soft: rgba(96,165,250,.13);
     --acc-soft: rgba(56,189,248,.13);
     --gold-soft: rgba(247,201,72,.12);
@@ -691,10 +698,14 @@
     font-size: 12px;
   }
 
-  .week-node.intro { border-color: rgba(247,201,72,.38); }
-  .week-node.w1 { margin-left: 42px; }
+  .week-node.intro { border-color: rgba(96,165,250,.38); }
+  .week-node.intro .date { color: var(--week-intro); border-color: rgba(96,165,250,.38); }
+  .week-node.w1 { margin-left: 42px; border-color: rgba(56,189,248,.34); }
+  .week-node.w1 .date { color: var(--week-w1); border-color: rgba(56,189,248,.38); }
   .week-node.w2 { margin-left: 92px; border-color: rgba(77,201,212,.32); }
+  .week-node.w2 .date { color: var(--week-w2); border-color: rgba(56,217,169,.38); }
   .week-node.w3 { margin-left: 22px; border-color: rgba(247,201,72,.34); }
+  .week-node.w3 .date { color: var(--week-w3); border-color: rgba(247,201,72,.38); }
 
   .week-node .thread {
     color: var(--acc);
@@ -1022,6 +1033,21 @@
     height: 3px;
     background: linear-gradient(90deg, var(--acc), var(--cool));
   }
+
+  .week-card.week-intro::before { background: linear-gradient(90deg, var(--week-intro), transparent); }
+  .week-card.week-w1::before { background: linear-gradient(90deg, var(--week-w1), transparent); }
+  .week-card.week-w2::before { background: linear-gradient(90deg, var(--week-w2), transparent); }
+  .week-card.week-w3::before { background: linear-gradient(90deg, var(--week-w3), transparent); }
+
+  .week-card.week-intro { border-color: rgba(96,165,250,.26); }
+  .week-card.week-w1 { border-color: rgba(56,189,248,.28); }
+  .week-card.week-w2 { border-color: rgba(56,217,169,.26); }
+  .week-card.week-w3 { border-color: rgba(247,201,72,.28); }
+
+  .week-card.week-intro .week { color: var(--week-intro); }
+  .week-card.week-w1 .week { color: var(--week-w1); }
+  .week-card.week-w2 .week { color: var(--week-w2); }
+  .week-card.week-w3 .week { color: var(--week-w3); }
 
   .week-card .week {
     color: var(--acc);
@@ -1441,7 +1467,7 @@
 
   .timeline-event {
     display: grid;
-    grid-template-columns: 58px 1fr;
+    grid-template-columns: 70px 1fr;
     gap: 12px;
     min-height: 54px;
     padding: 10px 0;
@@ -1453,6 +1479,51 @@
     font-size: 13px;
     letter-spacing: .1em;
     text-transform: uppercase;
+  }
+
+  .timeline-event b small {
+    display: block;
+    margin-top: 3px;
+    color: rgba(247,245,238,.42);
+    font-size: 10px;
+    letter-spacing: .08em;
+  }
+
+  .timeline-week.week-w1 { border-color: rgba(56,189,248,.28); }
+  .timeline-week.week-w2 { border-color: rgba(56,217,169,.25); }
+  .timeline-week.week-w3 { border-color: rgba(247,201,72,.26); }
+  .timeline-week.week-w1 h3,
+  .timeline-week.week-w1 .timeline-event b { color: var(--week-w1); }
+  .timeline-week.week-w2 h3,
+  .timeline-week.week-w2 .timeline-event b { color: var(--week-w2); }
+  .timeline-week.week-w3 h3,
+  .timeline-week.week-w3 .timeline-event b { color: var(--week-w3); }
+
+  .timeline-event[data-status] strong::after {
+    content: attr(data-status);
+    display: inline-block;
+    margin-left: 8px;
+    padding: 2px 6px;
+    border: 1px solid rgba(247,245,238,.18);
+    color: rgba(247,245,238,.5);
+    font-size: 8px;
+    letter-spacing: .12em;
+    vertical-align: middle;
+  }
+
+  .timeline-event.status-sync strong::after {
+    border-color: rgba(247,201,72,.28);
+    color: var(--status-sync);
+  }
+
+  .timeline-event.status-open strong::after {
+    border-color: rgba(255,138,92,.3);
+    color: var(--status-open);
+  }
+
+  .timeline-event.status-confirmed strong::after {
+    border-color: rgba(56,217,169,.26);
+    color: var(--status-confirmed);
   }
 
   .timeline-event strong {
@@ -2194,11 +2265,12 @@
           <div class="date">W3</div>
           <div>
             <b>demo</b>
-            <em>effect, 90-day frame, team transformation</em>
+            <em>effect, open slot, team transform, demo</em>
             <div class="week-avatars">
               <img src="speakers/stepan-gershuni.jpg" alt="">
               <img src="speakers/denis-smirnov.jpg" alt="">
               <img src="speakers/dima-tverdokhlebov.jpg" alt="">
+              <span>?</span>
               <img src="speakers/yuri-vedenin.png" alt="">
               <span>DD</span>
             </div>
@@ -2320,10 +2392,10 @@
         <div class="kicker" data-edit data-anim>13 июля – 3 августа</div>
         <h2 data-edit data-anim style="--delay:.1s">от узкого места к агентной инфраструктуре</h2>
         <div class="program-grid" data-anim style="--delay:.18s">
-          <div class="week-card"><div class="week">intro · выбрать</div><h3 data-edit>узкое место</h3><p data-edit>назвать процесс, владельца, входы, выходы, риск и критерий демо.</p><div class="artifact">brief + map</div></div>
-          <div class="week-card"><div class="week">W1 · собрать</div><h3 data-edit>baseline</h3><p data-edit>личный и командный контекст, первая связка инструментов, quality bar.</p><div class="artifact">working baseline</div></div>
-          <div class="week-card"><div class="week">W2 · провести</div><h3 data-edit>agent route</h3><p data-edit>источники, правила, человек в петле, повторяемый прогон процесса.</p><div class="artifact">route contract</div></div>
-          <div class="week-card"><div class="week">W3 · показать</div><h3 data-edit>effect</h3><p data-edit>демо, экономика, владелец, риск, следующий шаг для команды.</p><div class="artifact">demo + 90-day plan</div></div>
+          <div class="week-card week-intro"><div class="week">intro · выбрать</div><h3 data-edit>узкое место</h3><p data-edit>назвать процесс, владельца, входы, выходы, риск и критерий демо.</p><div class="artifact">brief + map</div></div>
+          <div class="week-card week-w1"><div class="week">W1 · собрать</div><h3 data-edit>AI-OS baseline</h3><p data-edit>личный и командный контекст, первая связка инструментов, первый skill.</p><div class="artifact">AI-OS baseline + skill</div></div>
+          <div class="week-card week-w2"><div class="week">W2 · провести</div><h3 data-edit>agent route</h3><p data-edit>источники, правила, человек в петле, повторяемый прогон процесса.</p><div class="artifact">workflow / agent route</div></div>
+          <div class="week-card week-w3"><div class="week">W3 · показать</div><h3 data-edit>demo artifact</h3><p data-edit>демо, эффект, владелец, риск и следующий шаг для команды.</p><div class="artifact">demo artifact + next steps</div></div>
         </div>
       </div>
       <div class="foot"><span>program spine</span><span>one process across three weeks</span><span>Demo Day · 3 Aug</span></div>
@@ -2336,29 +2408,30 @@
         <div class="kicker" data-edit data-anim>timeline · 13 июля – 3 августа</div>
         <h2 data-edit data-anim style="--delay:.1s">расписание видно как три рабочих недели</h2>
         <div class="schedule-timeline" data-anim style="--delay:.16s">
-          <div class="timeline-week">
+          <div class="timeline-week week-w1">
             <h3 data-edit>W1 · baseline</h3>
-            <div class="timeline-event"><b>13.07</b><div><strong data-edit>kickoff</strong><span data-edit>Степан + Александр · Personal OS → Team OS → Company OS</span></div></div>
-            <div class="timeline-event"><b>14.07</b><div><strong data-edit>practice + setup</strong><span data-edit>Денис · процесс, контекст, первый навык</span></div></div>
-            <div class="timeline-event"><b>15.07</b><div><strong data-edit>framework</strong><span data-edit>Дима Твердохлебов · AI-transformation frame</span></div></div>
-            <div class="timeline-event"><b>16.07</b><div><strong data-edit>data layer</strong><span data-edit>Даниил Кравцов · knowledge graph</span></div></div>
-            <div class="timeline-event"><b>17–18</b><div><strong data-edit>workspace + Q&A</strong><span data-edit>Сева Устинов · разбор недели</span></div></div>
+            <div class="timeline-event status-confirmed" data-status="confirmed"><b>13.07<small>17:00</small></b><div><strong data-edit>kickoff</strong><span data-edit>Степан + Александр · Personal OS → Team OS → Company OS</span></div></div>
+            <div class="timeline-event status-sync" data-status="time sync"><b>14.07<small>TBC / 17:00</small></b><div><strong data-edit>M1 practice + setup</strong><span data-edit>Денис + Александр · process brief → personal setup</span></div></div>
+            <div class="timeline-event status-sync" data-status="date sync"><b>15.07<small>17:00</small></b><div><strong data-edit>framework</strong><span data-edit>Дима Твердохлебов · AI-transformation frame</span></div></div>
+            <div class="timeline-event status-sync" data-status="date sync"><b>16.07<small>18:00</small></b><div><strong data-edit>data layer</strong><span data-edit>Даниил Кравцов · AI-native companies + graph</span></div></div>
+            <div class="timeline-event status-sync" data-status="date sync"><b>17 / 18<small>18:00 / 10:00</small></b><div><strong data-edit>workspace + Q&A</strong><span data-edit>Всеволод Устинов · Plurio workspace, затем разбор W1</span></div></div>
           </div>
-          <div class="timeline-week">
+          <div class="timeline-week week-w2">
             <h3 data-edit>W2 · workflow</h3>
-            <div class="timeline-event"><b>20.07</b><div><strong data-edit>enterprise</strong><span data-edit>Дима · безопасность, pilots, ownership</span></div></div>
-            <div class="timeline-event"><b>21.07</b><div><strong data-edit>agent route</strong><span data-edit>Денис + Александр · контракт маршрута</span></div></div>
-            <div class="timeline-event"><b>22.07</b><div><strong data-edit>product systems</strong><span data-edit>Артём Новосёлов · product / ML / founder layer</span></div></div>
-            <div class="timeline-event"><b>23.07</b><div><strong data-edit>roundtable</strong><span data-edit>Яндекс + Альфа + Hitachi · governance</span></div></div>
-            <div class="timeline-event"><b>24–25</b><div><strong data-edit>tools + Q&A</strong><span data-edit>Серёжа Рис · loops, git, workflows</span></div></div>
+            <div class="timeline-event status-sync" data-status="date sync"><b>20.07<small>17:00</small></b><div><strong data-edit>enterprise</strong><span data-edit>Дима · безопасность, pilots, ownership</span></div></div>
+            <div class="timeline-event status-sync" data-status="time sync"><b>21.07<small>TBC / 17:00</small></b><div><strong data-edit>M2 route</strong><span data-edit>Денис + Александр · sources, rules, human loop</span></div></div>
+            <div class="timeline-event status-confirmed" data-status="confirmed"><b>22.07<small>17:00</small></b><div><strong data-edit>product systems</strong><span data-edit>Артём Новосёлов · product / ML / founder layer</span></div></div>
+            <div class="timeline-event status-confirmed" data-status="by input"><b>23.07<small>17:00</small></b><div><strong data-edit>roundtable</strong><span data-edit>Яндекс + Альфа + Hitachi · governance</span></div></div>
+            <div class="timeline-event status-confirmed" data-status="confirmed"><b>24 / 25<small>17:00 / 10:00</small></b><div><strong data-edit>tools + Q&A</strong><span data-edit>Серёжа Рис · loops, git, workflows, затем разбор W2</span></div></div>
           </div>
-          <div class="timeline-week">
+          <div class="timeline-week week-w3">
             <h3 data-edit>W3 · demo</h3>
-            <div class="timeline-event"><b>27.07</b><div><strong data-edit>strategy</strong><span data-edit>Степан · ROI, 90-day plan, next systems</span></div></div>
-            <div class="timeline-event"><b>28.07</b><div><strong data-edit>effect</strong><span data-edit>Денис · quality, cost, risk, decision card</span></div></div>
-            <div class="timeline-event"><b>29.07</b><div><strong data-edit>pilot demos</strong><span data-edit>Дима · live cases and enterprise translation</span></div></div>
-            <div class="timeline-event"><b>31.07</b><div><strong data-edit>team transform</strong><span data-edit>Юра Веденин · UXPressia, team OS, 90-day frame</span></div></div>
-            <div class="timeline-event"><b>03.08</b><div><strong data-edit>Demo Day</strong><span data-edit>процесс, артефакт, эффект, next step</span></div></div>
+            <div class="timeline-event status-confirmed" data-status="confirmed"><b>27.07<small>17:00</small></b><div><strong data-edit>strategy</strong><span data-edit>Степан · ROI, 90-day plan, operating model</span></div></div>
+            <div class="timeline-event status-confirmed" data-status="confirmed"><b>28.07<small>TBC</small></b><div><strong data-edit>M3 effect</strong><span data-edit>Денис · quality, cost, risk, decision card</span></div></div>
+            <div class="timeline-event status-sync" data-status="date sync"><b>29.07<small>17:00</small></b><div><strong data-edit>pilot demos</strong><span data-edit>Дима · 3 pilots, live cases, enterprise translation</span></div></div>
+            <div class="timeline-event status-open" data-status="open"><b>30.07<small>17:00</small></b><div><strong data-edit>open slot</strong><span data-edit>финальный гостевой слот · тема и спикер уточняются</span></div></div>
+            <div class="timeline-event status-sync" data-status="needs confirm"><b>31.07<small>17:00</small></b><div><strong data-edit>team transform</strong><span data-edit>Юра Веденин · UXPressia, team OS, 90-day frame</span></div></div>
+            <div class="timeline-event status-confirmed" data-status="confirmed"><b>01 / 03<small>10:00 / 17:00</small></b><div><strong data-edit>Q&A + Demo Day</strong><span data-edit>финальные вопросы, затем процесс, артефакт, эффект, next step</span></div></div>
           </div>
         </div>
       </div>
@@ -2519,9 +2592,9 @@
 const GH_REPO = 'ai-mindset-org/ainative-deck';
 const GH_FILE = 'ain3-intro.html';
 const GH_BRANCH = 'main';
-const DECK_VERSION = '2026-07-11-ain3-intro-weekly-context-v7';
-const STORAGE_KEY = 'ain3-intro-weekly-context-v7-state';
-const HISTORY_KEY = 'ain3-intro-weekly-context-v7-history';
+const DECK_VERSION = '2026-07-11-ain3-intro-monday-final-v8';
+const STORAGE_KEY = 'ain3-intro-monday-final-v8-state';
+const HISTORY_KEY = 'ain3-intro-monday-final-v8-history';
 const UI_LANG_KEY = 'ain3-intro-ui-lang';
 const TOKEN_KEY = 'ainative-deck-gh-token';
 const ASSISTANT_ENDPOINT_KEY = 'ain3-assistant-endpoint';
@@ -2571,13 +2644,13 @@ const ASSISTANT_TIPS = {
   },
   'program-spine': {
     source: 'AIN3 weekly plan',
-    text: 'Рассказывай программу как одну дугу. Участник не прыгает между темами, он наращивает слои вокруг одного выбранного процесса.',
-    actions: ['baseline', 'agent route', 'demo effect']
+    text: 'Рассказывай программу как один рабочий процесс: intro выбирает узкое место, W1 собирает AI-OS baseline и первый skill, W2 проводит agent route, W3 доводит demo artifact.',
+    actions: ['AI-OS baseline', 'agent route', 'demo artifact']
   },
   'call-cadence': {
-    source: 'calendar + LMS public hub',
-    text: 'Не перечисляй каждую сессию длинно. Покажи плотность и логику: первая неделя даёт основу, вторая собирает маршрут, третья доводит до демо.',
-    actions: ['W1 baseline', 'W2 workflow', 'W3 demo']
+    source: 'AIN3 weekly plan v0.26 + chat navigation',
+    text: 'Показывай расписание честно: confirmed зелёным, date/time sync янтарным, open slot отдельно. Главная линия: W1 baseline, W2 workflow, W3 demo.',
+    actions: ['confirmed', 'date sync', 'open slot']
   },
   speakers: {
     source: 'LMS speaker block + people assets',

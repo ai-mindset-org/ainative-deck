@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AIN3 Intro Shaper - AI Mindset</title>
-<meta property="og:title" content="AIN3 Intro Shaper - AI Mindset">
-<meta property="og:description" content="AI-Native Sprint III intro kickoff: base slide + intro mechanics.">
+<title>AIN3 Intro - AI Mindset</title>
+<meta property="og:title" content="AIN3 Intro - AI Mindset">
+<meta property="og:description" content="AI-Native Sprint III: короткая редактируемая дека для знакомства.">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://ai-mindset-org.github.io/ainative-deck/assets/og-intro-call.png">
 <meta property="og:url" content="https://ai-mindset-org.github.io/ainative-deck/ain3-intro.html">
@@ -21,14 +21,14 @@
     --paper-2: #151720;
     --ink: #f7f5ee;
     --muted: rgba(247,245,238,.55);
-    --hair: rgba(250,204,21,.18);
+    --hair: rgba(56,189,248,.18);
     --line: rgba(247,245,238,.11);
-    --acc: #facc15;
-    --acc-2: #ffe36b;
-    --cool: #4dc9d4;
-    --cool-soft: rgba(77,201,212,.13);
-    --acc-soft: rgba(250,204,21,.13);
-    --shadow: rgba(250,204,21,.14);
+    --acc: #38bdf8;
+    --acc-2: #8bdcff;
+    --cool: #60a5fa;
+    --cool-soft: rgba(96,165,250,.13);
+    --acc-soft: rgba(56,189,248,.13);
+    --shadow: rgba(56,189,248,.14);
     --mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
     --display: 'Space Grotesk', var(--mono);
     --mx: .5;
@@ -49,8 +49,8 @@
     position: fixed;
     inset: 0;
     background:
-      linear-gradient(rgba(77,201,212,.055) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(77,201,212,.055) 1px, transparent 1px);
+      linear-gradient(rgba(56,189,248,.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(96,165,250,.06) 1px, transparent 1px);
     background-size: 64px 64px;
     transform: translate(calc((var(--mx) - .5) * -18px), calc((var(--my) - .5) * -18px));
     pointer-events: none;
@@ -62,9 +62,9 @@
     position: fixed;
     inset: 0;
     background:
-      radial-gradient(circle at calc(var(--mx) * 100%) calc(var(--my) * 100%), rgba(250,204,21,.13), transparent 22%),
-      radial-gradient(circle at 78% 18%, rgba(77,201,212,.13), transparent 28%),
-      radial-gradient(circle at 12% 82%, rgba(250,204,21,.07), transparent 32%),
+      radial-gradient(circle at calc(var(--mx) * 100%) calc(var(--my) * 100%), rgba(56,189,248,.16), transparent 22%),
+      radial-gradient(circle at 78% 18%, rgba(96,165,250,.14), transparent 28%),
+      radial-gradient(circle at 12% 82%, rgba(14,165,233,.08), transparent 32%),
       radial-gradient(circle at center, transparent 48%, rgba(0,0,0,.58) 100%);
     pointer-events: none;
   }
@@ -110,7 +110,7 @@
     gap: 8px;
     align-items: center;
     padding: 8px;
-    border: 1px solid rgba(250,204,21,.28);
+    border: 1px solid rgba(56,189,248,.3);
     border-radius: 12px;
     background: rgba(10,10,12,.88);
     box-shadow: 0 18px 60px rgba(0,0,0,.28);
@@ -125,7 +125,7 @@
   }
 
   .topbar::before {
-    content: "live edit";
+    content: "редактор";
     padding: 0 8px 0 2px;
     color: var(--muted);
     font-size: 11px;
@@ -147,13 +147,13 @@
   .topbar button:hover, .topbar button.active {
     border-color: var(--acc);
     background: var(--acc);
-    color: #111;
+    color: #071017;
   }
 
   .topbar .primary {
     background: var(--acc);
     border-color: var(--acc);
-    color: #111;
+    color: #071017;
     font-weight: 700;
   }
 
@@ -185,13 +185,13 @@
     transform-origin: center center;
     overflow: hidden;
     background:
-      linear-gradient(90deg, rgba(250,204,21,.07) 0 1px, transparent 1px 100%),
-      linear-gradient(0deg, rgba(77,201,212,.055) 0 1px, transparent 1px 100%),
-      radial-gradient(circle at 22% 34%, rgba(250,204,21,.12), transparent 30%),
-      linear-gradient(135deg, #08090c 0%, #0e1217 54%, #09090c 100%);
+      linear-gradient(90deg, rgba(56,189,248,.075) 0 1px, transparent 1px 100%),
+      linear-gradient(0deg, rgba(96,165,250,.06) 0 1px, transparent 1px 100%),
+      radial-gradient(circle at 22% 34%, rgba(56,189,248,.14), transparent 30%),
+      linear-gradient(135deg, #070b12 0%, #0c1420 54%, #07090f 100%);
     background-size: 80px 80px, 80px 80px, auto, auto;
     border: 1px solid rgba(247,245,238,.13);
-    box-shadow: 0 28px 90px rgba(0,0,0,.5), 12px 12px 0 rgba(250,204,21,.08), -12px -12px 0 rgba(77,201,212,.05);
+    box-shadow: 0 28px 90px rgba(0,0,0,.5), 12px 12px 0 rgba(56,189,248,.08), -12px -12px 0 rgba(96,165,250,.05);
   }
 
   .stage::before,
@@ -237,7 +237,7 @@
     width: 34px;
     height: 34px;
     border-radius: 8px;
-    box-shadow: 0 0 0 1px rgba(250,204,21,.28);
+    box-shadow: 0 0 0 1px rgba(56,189,248,.28);
   }
 
   .brand span {
@@ -313,9 +313,9 @@
     align-items: center;
     min-height: 38px;
     padding: 9px 17px;
-    border: 1px solid rgba(250,204,21,.38);
+    border: 1px solid rgba(56,189,248,.38);
     border-radius: 8px;
-    background: rgba(250,204,21,.08);
+    background: rgba(56,189,248,.08);
     color: var(--acc-2);
     font-size: 13px;
     letter-spacing: .14em;
@@ -334,7 +334,7 @@
     bottom: 92px;
     width: 560px;
     height: 360px;
-    border: 1px solid rgba(250,204,21,.24);
+    border: 1px solid rgba(56,189,248,.24);
     background: rgba(10,10,12,.38);
     overflow: hidden;
     transform: translate(calc((var(--mx) - .5) * 16px), calc((var(--my) - .5) * 16px));
@@ -347,7 +347,7 @@
     border: 1px solid rgba(77,201,212,.22);
     background:
       linear-gradient(90deg, transparent 0 49%, rgba(77,201,212,.25) 49% 50%, transparent 50%),
-      linear-gradient(0deg, transparent 0 49%, rgba(250,204,21,.22) 49% 50%, transparent 50%);
+      linear-gradient(0deg, transparent 0 49%, rgba(56,189,248,.22) 49% 50%, transparent 50%);
   }
 
   .node {
@@ -363,9 +363,9 @@
     text-align: center;
   }
 
-  .node.one { left: 48px; top: 66px; border-color: rgba(250,204,21,.45); color: var(--acc); }
+  .node.one { left: 48px; top: 66px; border-color: rgba(56,189,248,.45); color: var(--acc); }
   .node.two { right: 50px; top: 122px; border-color: rgba(77,201,212,.45); color: var(--cool); }
-  .node.three { left: 172px; bottom: 58px; border-color: rgba(250,204,21,.45); color: var(--acc); }
+  .node.three { left: 172px; bottom: 58px; border-color: rgba(56,189,248,.45); color: var(--acc); }
 
   .intro-grid {
     display: grid;
@@ -379,11 +379,11 @@
     border: 1px solid rgba(247,245,238,.13);
     background: rgba(16,17,24,.72);
     padding: 18px 20px;
-    box-shadow: 7px 7px 0 rgba(250,204,21,.08);
+    box-shadow: 7px 7px 0 rgba(56,189,248,.08);
     transform: translate(calc((var(--mx) - .5) * var(--shift, 8px)), calc((var(--my) - .5) * var(--shift, 8px)));
   }
 
-  .intro-card:nth-child(2) { --shift: -10px; border-color: rgba(250,204,21,.32); }
+  .intro-card:nth-child(2) { --shift: -10px; border-color: rgba(56,189,248,.32); }
   .intro-card:nth-child(3) { --shift: 12px; border-color: rgba(77,201,212,.32); }
 
   .intro-card .num {
@@ -418,10 +418,10 @@
   }
 
   .script-box {
-    border: 1px solid rgba(250,204,21,.32);
-    background: rgba(250,204,21,.08);
+    border: 1px solid rgba(56,189,248,.32);
+    background: rgba(56,189,248,.08);
     padding: 18px 22px;
-    box-shadow: 8px 8px 0 rgba(250,204,21,.1);
+    box-shadow: 8px 8px 0 rgba(56,189,248,.1);
   }
 
   .script-box h3,
@@ -493,13 +493,13 @@
   .nav button {
     width: 42px;
     height: 42px;
-    border: 1px solid rgba(250,204,21,.32);
+    border: 1px solid rgba(56,189,248,.32);
     border-radius: 10px;
     background: rgba(10,10,12,.82);
     color: var(--ink);
   }
 
-  .nav button:hover { background: var(--acc); color: #111; }
+  .nav button:hover { background: var(--acc); color: #071017; }
 
   .hint {
     position: fixed;
@@ -513,13 +513,13 @@
   }
 
   [contenteditable="true"] {
-    outline: 1px dashed rgba(250,204,21,.42);
+    outline: 1px dashed rgba(56,189,248,.42);
     border-radius: 4px;
   }
 
   [contenteditable="true"]:focus {
     outline-color: var(--acc);
-    background: rgba(250,204,21,.08);
+    background: rgba(56,189,248,.08);
   }
 
   .panel {
@@ -531,7 +531,7 @@
     max-height: calc(100vh - 132px);
     display: none;
     grid-template-rows: auto 1fr;
-    border: 1px solid rgba(250,204,21,.28);
+    border: 1px solid rgba(56,189,248,.28);
     border-radius: 12px;
     overflow: hidden;
     background: rgba(12,12,15,.94);
@@ -597,11 +597,11 @@
     width: 18px;
     height: 18px;
     margin: -9px 0 0 -9px;
-    border: 1px solid rgba(250,204,21,.62);
+    border: 1px solid rgba(56,189,248,.62);
     border-radius: 50%;
     pointer-events: none;
     transform: translate(calc(var(--mx) * 100vw), calc(var(--my) * 100vh));
-    box-shadow: 0 0 28px rgba(250,204,21,.32);
+    box-shadow: 0 0 28px rgba(56,189,248,.32);
   }
 
   @media (max-width: 860px) {
@@ -611,20 +611,20 @@
 </style>
 </head>
 <body>
-<div class="ticker"><span>AI MINDSET · <b>AIN3 INTRO</b> · ONE MINUTE PER PERSON · PROCESS → ARTIFACT · YELLOW / TEAL · AI MINDSET · <b>AIN3 INTRO</b> · ONE MINUTE PER PERSON · PROCESS → ARTIFACT · YELLOW / TEAL · </span></div>
+<div class="ticker"><span>AI MINDSET · <b>AIN3 INTRO</b> · знакомство · один круг · один процесс · первый артефакт · AI MINDSET · <b>AIN3 INTRO</b> · знакомство · один круг · один процесс · первый артефакт · </span></div>
 
 <div class="topbar" aria-label="editor controls">
-  <button id="editBtn" class="primary" type="button">edit</button>
+  <button id="editBtn" class="primary" type="button">править</button>
   <button type="button" data-cmd="bold">b</button>
   <button type="button" data-cmd="italic">i</button>
   <div class="split"></div>
-  <button type="button" id="saveBtn">save local</button>
-  <button type="button" id="snapshotBtn">snapshot</button>
-  <button type="button" id="publishBtn">publish</button>
-  <button type="button" id="downloadBtn">download</button>
-  <button type="button" id="mdBtn">md panel</button>
-  <button type="button" id="historyBtn">history</button>
-  <span id="status">ready</span>
+  <button type="button" id="saveBtn">сохранить</button>
+  <button type="button" id="snapshotBtn">снимок</button>
+  <button type="button" id="publishBtn">опубликовать</button>
+  <button type="button" id="downloadBtn">скачать</button>
+  <button type="button" id="mdBtn">текст</button>
+  <button type="button" id="historyBtn">история</button>
+  <span id="status">готово</span>
 </div>
 
 <main class="stage-wrap">
@@ -633,7 +633,7 @@
       <div class="brand"><img src="logo.png" alt=""><span>ai mindset · ain3</span></div>
       <div class="counter">intro 01 / 02</div>
       <div class="slide-content">
-        <div class="kicker" data-edit>intro kickoff · 11 июля · 10:00 CET</div>
+        <div class="kicker" data-edit>встреча-запуск · 11 июля · 10:00 CET</div>
         <h1 data-edit><span class="accent">AI-Native</span><br> Sprint III</h1>
         <p class="lead" data-edit>знакомимся не ради биографий, а чтобы собрать рабочий контур: кто в комнате, какой процесс болит, какой первый артефакт утащим в демо.</p>
         <div class="meta-row">
@@ -645,13 +645,13 @@
       <div class="orbit" aria-hidden="true">
         <div class="node one">личный контур</div>
         <div class="node two">командный процесс</div>
-        <div class="node three">demo artifact</div>
+        <div class="node three">первый артефакт</div>
       </div>
-      <div class="foot"><span>AIN3 / intro</span><span>editable shaper deck</span><span>AI Mindset</span></div>
+      <div class="foot"><span>AIN3 / intro</span><span>можно править прямо здесь</span><span>AI Mindset</span></div>
     </article>
 
     <article class="slide" data-title="intro mechanics">
-      <div class="brand"><img src="logo.png" alt=""><span>ai mindset · intro protocol</span></div>
+      <div class="brand"><img src="logo.png" alt=""><span>ai mindset · знакомство</span></div>
       <div class="counter">intro 02 / 02</div>
       <div class="slide-content">
         <div class="kicker" data-edit>как проходит знакомство</div>
@@ -665,12 +665,12 @@
           <div class="intro-card">
             <div class="num">02</div>
             <h3 data-edit>что собираю</h3>
-            <p data-edit>один процесс: продажи, ops, support, dev, HR, контент, knowledge base, агентный workflow.</p>
+            <p data-edit>один процесс: продажи, операции, поддержка, разработка, HR, контент, база знаний, командная рутина.</p>
           </div>
           <div class="intro-card">
             <div class="num">03</div>
             <h3 data-edit>с чем уйду</h3>
-            <p data-edit>первый артефакт к демо: прототип, карта процесса, агент, dashboard, eval, playbook, workspace.</p>
+            <p data-edit>первый артефакт к демо: прототип, карта процесса, агент, панель, проверка результата, инструкция, рабочее пространство.</p>
           </div>
         </div>
         <div class="script">
@@ -690,7 +690,7 @@
           </div>
         </div>
       </div>
-      <div class="foot"><span>intro mechanics</span><span>less text · more room energy</span><span>yellow / teal</span></div>
+      <div class="foot"><span>механика знакомства</span><span>меньше текста · больше живого круга</span><span>синий контур</span></div>
     </article>
   </section>
 </main>
@@ -699,16 +699,16 @@
   <button type="button" id="prevBtn" aria-label="previous slide">←</button>
   <button type="button" id="nextBtn" aria-label="next slide">→</button>
 </nav>
-<div class="hint">← → navigate · E edit · S save · P publish · Esc exit</div>
+<div class="hint">← → листать · E править · S сохранить · P опубликовать · Esc выйти</div>
 <div class="cursor" aria-hidden="true"></div>
 
 <section class="panel" id="mdPanel">
-  <div class="panel-head"><span>markdown panel</span><button type="button" data-close="mdPanel">close</button></div>
+  <div class="panel-head"><span>текст слайдов</span><button type="button" data-close="mdPanel">закрыть</button></div>
   <textarea id="md" spellcheck="false"></textarea>
 </section>
 
 <section class="panel" id="historyPanel">
-  <div class="panel-head"><span>history</span><button type="button" data-close="historyPanel">close</button></div>
+  <div class="panel-head"><span>история</span><button type="button" data-close="historyPanel">закрыть</button></div>
   <div class="history" id="historyList"></div>
 </section>
 
@@ -750,7 +750,7 @@ function toggleEdit(force) {
     else el.removeAttribute('contenteditable');
   });
   if (!next) saveLocal();
-  setStatus(next ? 'editing' : 'saved');
+  setStatus(next ? 'правка' : 'сохранено');
 }
 
 function collectState() {
@@ -774,7 +774,7 @@ function restoreState(state) {
 function saveLocal() {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(collectState()));
   dirty = false;
-  setStatus('local saved');
+  setStatus('сохранено');
 }
 
 function loadLocal() {
@@ -782,7 +782,7 @@ function loadLocal() {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return;
     restoreState(JSON.parse(raw));
-    setStatus('restored');
+    setStatus('восстановлено');
   } catch (err) {
     console.warn(err);
   }
@@ -806,7 +806,7 @@ function snapshot() {
   });
   setHistory(items);
   renderHistory();
-  setStatus('snapshot');
+  setStatus('снимок сохранен');
 }
 
 function renderHistory() {
@@ -814,16 +814,16 @@ function renderHistory() {
   list.innerHTML = '';
   const items = getHistory();
   if (!items.length) {
-    list.innerHTML = '<div style="color:var(--muted);font-size:13px;padding:8px">no snapshots yet</div>';
+    list.innerHTML = '<div style="color:var(--muted);font-size:13px;padding:8px">снимков пока нет</div>';
     return;
   }
   items.forEach((item, index) => {
     const btn = document.createElement('button');
     btn.type = 'button';
-    btn.textContent = `${item.label} · restore snapshot ${index + 1}`;
+    btn.textContent = `${item.label} · вернуть снимок ${index + 1}`;
     btn.addEventListener('click', () => {
       restoreState(item.state);
-      setStatus('snapshot restored');
+      setStatus('снимок возвращен');
     });
     list.appendChild(btn);
   });
@@ -858,7 +858,7 @@ function downloadHTML() {
   a.download = GH_FILE;
   a.click();
   URL.revokeObjectURL(a.href);
-  setStatus('downloaded');
+  setStatus('скачано');
 }
 
 function toBase64(str) {
@@ -868,7 +868,7 @@ function toBase64(str) {
 async function getGitHubToken() {
   let token = localStorage.getItem(TOKEN_KEY) || '';
   if (token) return token;
-  token = prompt('GitHub token for ai-mindset-org/ainative-deck');
+  token = prompt('GitHub token для ai-mindset-org/ainative-deck');
   if (!token) return '';
   localStorage.setItem(TOKEN_KEY, token.trim());
   return token.trim();
@@ -877,10 +877,10 @@ async function getGitHubToken() {
 async function publish() {
   const token = await getGitHubToken();
   if (!token) {
-    setStatus('no token');
+    setStatus('нет токена');
     return;
   }
-  setStatus('publishing...');
+  setStatus('публикую...');
   const api = `https://api.github.com/repos/${GH_REPO}/contents/${GH_FILE}?ref=${GH_BRANCH}`;
   const currentFile = await fetch(api, { headers: { Authorization: `Bearer ${token}` } });
   let sha = null;
@@ -910,11 +910,11 @@ async function publish() {
   if (!resp.ok) {
     const text = await resp.text();
     console.error(text);
-    setStatus(`publish ${resp.status}`);
+    setStatus(`ошибка ${resp.status}`);
     return;
   }
   dirty = false;
-  setStatus('published');
+  setStatus('опубликовано');
 }
 
 document.addEventListener('pointermove', event => {
@@ -925,7 +925,7 @@ document.addEventListener('pointermove', event => {
 document.addEventListener('input', event => {
   if (event.target.matches('[data-edit]')) {
     dirty = true;
-    setStatus('dirty');
+    setStatus('есть правки');
   }
 });
 

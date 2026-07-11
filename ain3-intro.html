@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>AIN3 Intro - AI Mindset</title>
 <meta property="og:title" content="AIN3 Intro - AI Mindset">
-<meta property="og:description" content="AI-Native Sprint III: редактируемая intro-дека про структуру лабы, людей и первый круг.">
+<meta property="og:description" content="AI-Native Sprint III: intro protocol, program map, speakers, curators and first-call mechanics.">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://ai-mindset-org.github.io/ainative-deck/assets/og-intro-call.png">
 <meta property="og:url" content="https://ai-mindset-org.github.io/ainative-deck/ain3-intro.html">
@@ -321,6 +321,11 @@
     z-index: 2;
     padding-top: 72px;
   }
+
+  .slide.compact .slide-content { padding-top: 54px; }
+  .slide.compact h2 { margin-top: 24px; font-size: 64px; max-width: 1120px; }
+  .slide.dense h2 { font-size: 58px; max-width: 1160px; }
+  .slide.dense .lead { font-size: 22px; max-width: 1040px; }
 
   .brand {
     position: absolute;
@@ -788,6 +793,277 @@
     margin-bottom: 6px;
   }
 
+  .intel-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin-top: 28px;
+  }
+
+  .intel-card,
+  .call-step-card,
+  .monday-panel,
+  .signal-panel,
+  .session-card,
+  .speaker-tile,
+  .lms-card,
+  .source-card,
+  .brief-card {
+    border: 1px solid rgba(56,189,248,.22);
+    background:
+      linear-gradient(180deg, rgba(56,189,248,.06), rgba(8,9,12,.12)),
+      rgba(13,19,28,.74);
+    box-shadow: 8px 8px 0 rgba(56,189,248,.055);
+  }
+
+  .intel-card {
+    min-height: 204px;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .intel-card::after,
+  .session-card::after,
+  .lms-card::after {
+    content: "";
+    position: absolute;
+    left: 20px;
+    right: 20px;
+    bottom: 16px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--acc), transparent);
+    opacity: .5;
+  }
+
+  .intel-card .tag,
+  .session-card .tag,
+  .lms-card .tag,
+  .source-card .tag {
+    color: var(--acc);
+    font-size: 12px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+
+  .intel-card h3,
+  .call-step-card h3,
+  .monday-panel h3,
+  .signal-panel h3,
+  .session-card h3,
+  .speaker-tile h3,
+  .lms-card h3,
+  .source-card h3,
+  .brief-card h3 {
+    color: #fff;
+    font-family: var(--display);
+    font-size: 24px;
+    line-height: 1;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .intel-card p,
+  .call-step-card p,
+  .monday-panel p,
+  .signal-panel p,
+  .session-card p,
+  .speaker-tile p,
+  .lms-card p,
+  .source-card p,
+  .brief-card p {
+    color: rgba(247,245,238,.66);
+    font-size: 15px;
+    line-height: 1.38;
+  }
+
+  .call-flow {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+    margin-top: 28px;
+  }
+
+  .call-step-card {
+    min-height: 185px;
+    padding: 18px;
+  }
+
+  .call-step-card b {
+    display: inline-grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    margin-bottom: 16px;
+    border: 1px solid rgba(56,189,248,.34);
+    color: var(--acc);
+    font-family: var(--display);
+    font-size: 20px;
+  }
+
+  .monday-grid,
+  .signal-grid {
+    display: grid;
+    grid-template-columns: .96fr 1.04fr;
+    gap: 22px;
+    margin-top: 28px;
+  }
+
+  .monday-panel,
+  .signal-panel {
+    padding: 22px;
+    min-height: 410px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .monday-panel::before,
+  .signal-panel::before {
+    content: "";
+    position: absolute;
+    inset: 34px;
+    border: 1px solid rgba(56,189,248,.14);
+    pointer-events: none;
+  }
+
+  .route-node {
+    display: grid;
+    grid-template-columns: 62px 1fr;
+    gap: 15px;
+    align-items: center;
+    margin-top: 18px;
+    padding: 14px;
+    border: 1px solid rgba(56,189,248,.18);
+    background: rgba(8,12,18,.62);
+  }
+
+  .route-node b {
+    width: 62px;
+    height: 52px;
+    display: grid;
+    place-items: center;
+    border: 1px solid rgba(56,189,248,.32);
+    color: var(--acc);
+    font-family: var(--display);
+    font-size: 24px;
+  }
+
+  .monday-list,
+  .source-list {
+    display: grid;
+    gap: 10px;
+    margin-top: 16px;
+  }
+
+  .monday-item,
+  .source-item {
+    display: grid;
+    grid-template-columns: 92px 1fr;
+    gap: 16px;
+    padding: 12px 0;
+    border-top: 1px solid rgba(247,245,238,.11);
+  }
+
+  .monday-item b,
+  .source-item b {
+    color: var(--acc);
+    font-size: 13px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+  }
+
+  .monday-item span,
+  .source-item span {
+    color: rgba(247,245,238,.7);
+    font-size: 15px;
+    line-height: 1.34;
+  }
+
+  .session-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+    margin-top: 26px;
+  }
+
+  .session-card {
+    min-height: 228px;
+    padding: 18px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .session-card .time {
+    color: rgba(247,245,238,.42);
+    font-size: 12px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    margin-top: 18px;
+  }
+
+  .speaker-wall {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 13px;
+    margin-top: 22px;
+  }
+
+  .speaker-tile {
+    display: grid;
+    grid-template-columns: 74px 1fr;
+    gap: 15px;
+    align-items: center;
+    min-height: 108px;
+    padding: 14px;
+  }
+
+  .speaker-tile img,
+  .speaker-initial {
+    width: 74px;
+    height: 74px;
+    border-radius: 12px;
+    border: 1px solid rgba(56,189,248,.26);
+    object-fit: cover;
+    background: rgba(8,12,18,.88);
+  }
+
+  .speaker-initial {
+    display: grid;
+    place-items: center;
+    color: var(--acc);
+    font-family: var(--display);
+    font-size: 25px;
+  }
+
+  .speaker-tile h3 { font-size: 21px; margin-bottom: 7px; }
+  .speaker-tile p { font-size: 13px; color: rgba(247,245,238,.58); }
+
+  .lms-grid,
+  .source-grid,
+  .brief-grid {
+    display: grid;
+    gap: 14px;
+    margin-top: 26px;
+  }
+
+  .lms-grid { grid-template-columns: repeat(4, 1fr); }
+  .source-grid { grid-template-columns: 1.05fr .95fr; }
+  .brief-grid { grid-template-columns: repeat(5, 1fr); }
+
+  .lms-card,
+  .source-card,
+  .brief-card {
+    padding: 20px;
+    min-height: 185px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .source-card { min-height: 330px; }
+  .brief-card { min-height: 184px; }
+  .brief-card h3 { color: var(--acc); font-size: 20px; }
+
   .script {
     display: grid;
     grid-template-columns: 1.04fr .96fr;
@@ -977,7 +1253,7 @@
 </style>
 </head>
 <body>
-<div class="ticker"><span>AI MINDSET · <b>AIN3 INTRO</b> · структура лабы · люди · маршруты · первый артефакт · AI MINDSET · <b>AIN3 INTRO</b> · структура лабы · люди · маршруты · первый артефакт · </span></div>
+<div class="ticker"><span>AI MINDSET · <b>AIN3 INTRO PROTOCOL</b> · люди · процесс · маршрут · первый понедельник · demo artifact · AI MINDSET · <b>AIN3 INTRO PROTOCOL</b> · люди · процесс · маршрут · первый понедельник · demo artifact · </span></div>
 
 <div class="topbar" aria-label="editor controls">
   <button id="editBtn" class="primary" type="button">править</button>
@@ -997,77 +1273,97 @@
       <div class="deck-dots" id="deckDots"></div>
     </div>
 
-    <article class="slide active" data-title="cover" data-label="обложка" data-subtitle="зачем мы здесь">
+    <article class="slide active" data-title="cover" data-label="обложка" data-subtitle="intro protocol">
       <div class="brand"><img src="logo.png" alt=""><span>ai mindset · ain3</span></div>
       <div class="counter"></div>
       <div class="slide-content">
-        <div class="kicker" data-edit data-anim>встреча-запуск · 11 июля · 10:00 CET</div>
+        <div class="kicker" data-edit data-anim>11 июля · intro call · 13 июля · kickoff</div>
         <h1 data-edit data-anim style="--delay:.1s"><span class="accent">AI-Native</span><br> Sprint III</h1>
-        <p class="lead" data-edit data-anim style="--delay:.16s">знакомимся через рабочий контур: кто в комнате, какой процесс болит, какой первый артефакт утащим в демо.</p>
-        <div class="meta-row">
+        <p class="lead" data-edit data-anim style="--delay:.16s">люди → процесс → маршрут → первый артефакт. Интро собирает комнату в рабочую карту лабы.</p>
+        <div class="meta-row" data-anim style="--delay:.22s">
           <span class="chip" data-edit>1 минута на человека</span>
-          <span class="chip cool-chip" data-edit>процесс → артефакт</span>
-          <span class="chip" data-edit>потом маршрут по кураторам</span>
+          <span class="chip cool-chip" data-edit>один реальный процесс</span>
+          <span class="chip" data-edit>Demo Day · 3 августа</span>
         </div>
       </div>
       <div class="orbit" aria-hidden="true">
-        <div class="node one">личный контур</div>
-        <div class="node two">командный процесс</div>
-        <div class="node three">первый артефакт</div>
+        <div class="node one">personal os</div>
+        <div class="node two">team process</div>
+        <div class="node three">company system</div>
       </div>
-      <div class="foot"><span>AIN3 / intro</span><span>можно править прямо здесь</span><span>AI Mindset</span></div>
+      <div class="foot"><span>AIN3 / intro</span><span>редактируемая deck-структура</span><span>AI Mindset</span></div>
     </article>
 
-    <article class="slide" data-title="dataflow" data-label="данные" data-subtitle="как обновляется картина">
-      <div class="brand"><img src="logo.png" alt=""><span>ai mindset · данные</span></div>
+    <article class="slide compact" data-title="reference-format" data-label="формат" data-subtitle="что берём из прошлых интро">
+      <div class="brand"><img src="logo.png" alt=""><span>ai mindset · reference</span></div>
       <div class="counter"></div>
       <div class="slide-content">
-        <div class="kicker" data-edit data-anim>как собрана картина</div>
-        <h2 data-edit data-anim style="--delay:.1s">данные участников уже подтянуты в vault</h2>
+        <div class="kicker" data-edit data-anim>пересобрано по предыдущему intro-call</div>
+        <h2 data-edit data-anim style="--delay:.1s">сначала показываем комнату, потом рабочую систему</h2>
+        <div class="intel-grid" data-anim style="--delay:.16s">
+          <div class="intel-card"><div class="tag">01 · people</div><h3 data-edit>кто участвует</h3><p data-edit>размер комнаты, типы компаний, роли, повторяющиеся боли, готовность к практике.</p></div>
+          <div class="intel-card"><div class="tag">02 · stack</div><h3 data-edit>чем уже пользуются</h3><p data-edit>Claude, Codex, ChatGPT, Cursor, Gemini, RAG, внутренние базы и командные пространства.</p></div>
+          <div class="intel-card"><div class="tag">03 · build</div><h3 data-edit>что строят</h3><p data-edit>процессы, агенты, базы знаний, инструкции, пайплайны, панели, демо-артефакты.</p></div>
+          <div class="intel-card"><div class="tag">04 · support</div><h3 data-edit>как помогаем</h3><p data-edit>core sessions, practice, guest expertise, curator routes, Q&A and Demo Day.</p></div>
+        </div>
+        <p class="lead" data-edit data-anim style="--delay:.24s">эта дека повторяет сильную структуру Batch 2, но с AIN3-данными, LMS-навигацией и первым понедельником.</p>
+      </div>
+      <div class="foot"><span>reference</span><span>intro-call.html · структура сохранена</span><span>AIN3 version</span></div>
+    </article>
+
+    <article class="slide compact" data-title="dataflow" data-label="данные" data-subtitle="как обновляется картина">
+      <div class="brand"><img src="logo.png" alt=""><span>ai mindset · dataflow</span></div>
+      <div class="counter"></div>
+      <div class="slide-content">
+        <div class="kicker" data-edit data-anim>данные участников · актуально на 2026-07-11</div>
+        <h2 data-edit data-anim style="--delay:.1s">dataflow собирает безопасный публичный слой</h2>
         <div class="grid-two">
           <div class="pipe-stack" data-anim style="--delay:.16s">
-            <div class="pipe-step"><b>01</b><span data-edit>анкета и чат дают стартовый портрет человека</span></div>
-            <div class="pipe-step"><b>02</b><span data-edit>микросервис на ws-danik обновляет файлы лабы</span></div>
-            <div class="pipe-step"><b>03</b><span data-edit>в vault появляется свежий ростер, карточки и контекст</span></div>
-            <div class="pipe-step"><b>04</b><span data-edit>презентация берёт только публичный слой: группы, маршруты, риски</span></div>
+            <div class="pipe-step"><b>01</b><span data-edit>анкета и Telegram дают стартовый портрет участника</span></div>
+            <div class="pipe-step"><b>02</b><span data-edit>микросервис на ws-danik обновляет файлы лабы в aim-vault</span></div>
+            <div class="pipe-step"><b>03</b><span data-edit>vault хранит ростер, карточки, контекст и агрегаты по комнате</span></div>
+            <div class="pipe-step"><b>04</b><span data-edit>на слайды выходят только группы, маршруты, сигналы и программа</span></div>
           </div>
           <div class="info-card" data-anim style="--delay:.22s">
-            <h3 data-edit>важно для показа</h3>
-            <p data-edit>персональные ответы, email и приватные поля остаются внутри dataflow. На слайдах показываем общий рисунок комнаты: сколько людей уже описали себя, кто в чате, какие типы задач повторяются.</p>
+            <h3 data-edit>граница данных</h3>
+            <p data-edit>персональные ответы и приватные поля остаются внутри vault/dataflow. Публичная презентация показывает общий рисунок: сколько людей включилось, какие задачи повторяются, куда направлять участников.</p>
             <div class="mini-list">
-              <div><b>источник</b><span data-edit>обновлённый roster 2026-07-11</span></div>
-              <div><b>граница</b><span data-edit>публично – только агрегаты и безопасные формулировки</span></div>
-              <div><b>обновление</b><span data-edit>перед финальным показом можно снова запустить dataflow</span></div>
+              <div><b>источник</b><span data-edit>AIN3 roster + context snapshot</span></div>
+              <div><b>запуск</b><span data-edit>/AIM-labs-dataflow ain3 participants</span></div>
+              <div><b>вывод</b><span data-edit>people map, program map, curator routes</span></div>
             </div>
           </div>
         </div>
       </div>
-      <div class="foot"><span>dataflow</span><span>живой контур данных</span><span>без персональных полей</span></div>
+      <div class="foot"><span>dataflow</span><span>vault-first, public-safe</span><span>ws-danik → aim-vault → deck</span></div>
     </article>
 
-    <article class="slide" data-title="room" data-label="комната" data-subtitle="кто пришёл">
-      <div class="brand"><img src="logo.png" alt=""><span>ai mindset · комната</span></div>
+    <article class="slide compact" data-title="room" data-label="комната" data-subtitle="кто пришёл">
+      <div class="brand"><img src="logo.png" alt=""><span>ai mindset · room</span></div>
       <div class="counter"></div>
       <div class="slide-content">
         <div class="kicker" data-edit data-anim>состояние когорты</div>
-        <h2 data-edit data-anim style="--delay:.1s">это уже большая комната, но её нужно собрать в рабочие маршруты</h2>
+        <h2 data-edit data-anim style="--delay:.1s">большая комната с понятными рабочими сигналами</h2>
         <div class="metric-grid" data-anim style="--delay:.16s">
           <div class="metric-card"><div class="big">87</div><p data-edit>человек в текущем ростере лабы</p></div>
-          <div class="metric-card"><div class="big">70</div><p data-edit>заполнили онбординг и дали контекст</p></div>
-          <div class="metric-card"><div class="big">41</div><p data-edit>уже видны в Telegram-контуре участников</p></div>
-          <div class="metric-card"><div class="big">26</div><p data-edit>ответили в анкете, но ещё требуют доведения до чата</p></div>
+          <div class="metric-card"><div class="big">70</div><p data-edit>уже заполнили онбординг и дали контекст</p></div>
+          <div class="metric-card"><div class="big">41</div><p data-edit>видны в Telegram-контуре участников</p></div>
+          <div class="metric-card"><div class="big">26</div><p data-edit>дали данные, требуют мягкого доведения до чата</p></div>
         </div>
-        <p class="lead" data-edit data-anim style="--delay:.24s">на интро эти цифры работают как навигация: кому нужен личный setup, кому командный процесс, кому enterprise-контур и governance.</p>
+        <div class="signal-grid" data-anim style="--delay:.22s">
+          <div class="signal-panel"><h3 data-edit>главные темы</h3><p data-edit>agentic workflows, process automation, team adoption, corporate transformation, knowledge layer, internal platforms, product and operations.</p><div class="route-node"><b>AI</b><span data-edit>участники хотят собрать рабочую AI-систему вокруг своего процесса</span></div></div>
+          <div class="signal-panel"><h3 data-edit>как это вести</h3><p data-edit>интро держит фокус на людях и процессах. Помогаем каждому назвать один процесс, критерий результата и маршрут поддержки.</p><div class="route-node"><b>01</b><span data-edit>один человек → один процесс → один первый артефакт</span></div></div>
+        </div>
       </div>
-      <div class="foot"><span>участники</span><span>уровень группы · персональные поля скрыты</span><span>обновлено 2026-07-11</span></div>
+      <div class="foot"><span>cohort map</span><span>public aggregate layer</span><span>updated 2026-07-11</span></div>
     </article>
 
-    <article class="slide" data-title="doors" data-label="структура" data-subtitle="три входа">
-      <div class="brand"><img src="logo.png" alt=""><span>ai mindset · маршруты</span></div>
+    <article class="slide compact" data-title="doors" data-label="маршруты" data-subtitle="три входа">
+      <div class="brand"><img src="logo.png" alt=""><span>ai mindset · routes</span></div>
       <div class="counter"></div>
       <div class="slide-content">
         <div class="kicker" data-edit data-anim>откуда они</div>
-        <h2 data-edit data-anim style="--delay:.1s">три входа в один AI-контур</h2>
+        <h2 data-edit data-anim style="--delay:.1s">три двери в общий AI-контур</h2>
         <div class="door-grid">
           <div class="door-map" data-anim style="--delay:.16s">
             <div class="map-node a">enterprise</div>
@@ -1075,107 +1371,193 @@
             <div class="map-node c">micro / personal</div>
           </div>
           <div class="door-list" data-anim style="--delay:.22s">
-            <div class="door-card"><h3 data-edit>enterprise</h3><p data-edit>банки, большие команды, внутренние платформы, безопасность, legacy и управляемое внедрение.</p></div>
-            <div class="door-card"><h3 data-edit>founder / smb</h3><p data-edit>основатели, агентства, продуктовые команды: нужен процесс, который быстро превращается в демо.</p></div>
-            <div class="door-card"><h3 data-edit>micro / personal</h3><p data-edit>личный контур, solo founder, специалисты, которые собирают рабочую среду вокруг себя.</p></div>
+            <div class="door-card"><h3 data-edit>enterprise</h3><p data-edit>банки, корпорации, внутренние платформы, безопасность, legacy, пилоты в командах.</p></div>
+            <div class="door-card"><h3 data-edit>founder / smb</h3><p data-edit>основатели, агентства, продуктовые команды: нужен быстрый процесс, который видно в работе.</p></div>
+            <div class="door-card"><h3 data-edit>micro / personal</h3><p data-edit>solo, специалисты, личный контур, codex/Claude workflows, персональная операционка.</p></div>
           </div>
         </div>
       </div>
-      <div class="foot"><span>структура комнаты</span><span>общий core, разные акценты</span><span>routing после интро</span></div>
+      <div class="foot"><span>routing</span><span>common core, different accents</span><span>curators after intro</span></div>
     </article>
 
-    <article class="slide" data-title="program" data-label="дуга" data-subtitle="как устроена работа">
-      <div class="brand"><img src="logo.png" alt=""><span>ai mindset · программа</span></div>
+    <article class="slide compact" data-title="w0-intro" data-label="W0" data-subtitle="11 июля">
+      <div class="brand"><img src="logo.png" alt=""><span>ai mindset · intro call</span></div>
       <div class="counter"></div>
       <div class="slide-content">
-        <div class="kicker" data-edit data-anim>тренинг структуры работы</div>
-        <h2 data-edit data-anim style="--delay:.1s">идём от одного процесса к демо-артефакту</h2>
+        <div class="kicker" data-edit data-anim>W0 · 11 июля · 10:00 CET</div>
+        <h2 data-edit data-anim style="--delay:.1s">первый звонок собирает комнату в карту</h2>
+        <div class="call-flow" data-anim style="--delay:.16s">
+          <div class="call-step-card"><b>1</b><h3 data-edit>frame</h3><p data-edit>что такое лаборатория, что считаем рабочим артефактом, как выглядит Demo Day.</p></div>
+          <div class="call-step-card"><b>2</b><h3 data-edit>people</h3><p data-edit>короткий круг: кто я, где работаю, какой AI-контур собираю.</p></div>
+          <div class="call-step-card"><b>3</b><h3 data-edit>process</h3><p data-edit>каждый называет один процесс, который будет вести через спринт.</p></div>
+          <div class="call-step-card"><b>4</b><h3 data-edit>route</h3><p data-edit>раскладываем людей по personal, founder, enterprise, context tracks.</p></div>
+          <div class="call-step-card"><b>5</b><h3 data-edit>commit</h3><p data-edit>до понедельника: brief процесса и первый вопрос к кураторам.</p></div>
+        </div>
+        <p class="lead" data-edit data-anim style="--delay:.24s">тайминг регулируется по комнате: 30–45 секунд при большом составе, 60 секунд как нормальный режим, 90 секунд для малого круга.</p>
+      </div>
+      <div class="foot"><span>intro protocol</span><span>one circle, one process</span><span>W0 task brief</span></div>
+    </article>
+
+    <article class="slide compact" data-title="monday-kickoff" data-label="понедельник" data-subtitle="13 июля">
+      <div class="brand"><img src="logo.png" alt=""><span>ai mindset · kickoff</span></div>
+      <div class="counter"></div>
+      <div class="slide-content">
+        <div class="kicker" data-edit data-anim>первый понедельник · 13 июля · 17:00 CET</div>
+        <h2 data-edit data-anim style="--delay:.1s">kickoff переводит знакомства в рабочую сборку</h2>
+        <div class="monday-grid" data-anim style="--delay:.16s">
+          <div class="monday-panel">
+            <h3 data-edit>core frame</h3>
+            <p data-edit>Степан Гершуни + Александр Поваляев открывают дугу Personal OS → Team OS → Company OS и фиксируют, как процесс превращается в систему.</p>
+            <div class="monday-list">
+              <div class="monday-item"><b>до звонка</b><span data-edit>принести brief одного процесса</span></div>
+              <div class="monday-item"><b>на звонке</b><span data-edit>выбрать owner, inputs, outputs, quality bar</span></div>
+              <div class="monday-item"><b>после</b><span data-edit>первый маленький artifact к W1 practice</span></div>
+            </div>
+          </div>
+          <div class="monday-panel">
+            <h3 data-edit>что человек должен понять</h3>
+            <div class="route-node"><b>P</b><span data-edit>Personal OS: мой контекст, задачи, ритм, инструменты</span></div>
+            <div class="route-node"><b>T</b><span data-edit>Team OS: общий процесс, роли, передача контекста, review</span></div>
+            <div class="route-node"><b>C</b><span data-edit>Company OS: правила, источники истины, governance, масштабирование</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="foot"><span>kickoff</span><span>Stepan + Alex</span><span>process brief → first artifact</span></div>
+    </article>
+
+    <article class="slide compact" data-title="program-spine" data-label="программа" data-subtitle="3 недели">
+      <div class="brand"><img src="logo.png" alt=""><span>ai mindset · program</span></div>
+      <div class="counter"></div>
+      <div class="slide-content">
+        <div class="kicker" data-edit data-anim>13 июля – 3 августа</div>
+        <h2 data-edit data-anim style="--delay:.1s">каждая неделя добавляет слой к одному процессу</h2>
         <div class="program-grid" data-anim style="--delay:.18s">
-          <div class="week-card"><div class="week">W0 · 11 июля</div><h3 data-edit>выбрать процесс</h3><p data-edit>интро, знакомство, выбор одного рабочего контура и первого результата.</p><div class="artifact">brief</div></div>
-          <div class="week-card"><div class="week">W1 · 13–18 июля</div><h3 data-edit>собрать основу</h3><p data-edit>личный setup, командный процесс, первый рабочий навык и критерий качества.</p><div class="artifact">baseline + skill</div></div>
-          <div class="week-card"><div class="week">W2 · 20–25 июля</div><h3 data-edit>провести маршрут</h3><p data-edit>источники, правила, человек в петле, ограничения, первый повторяемый прогон.</p><div class="artifact">route</div></div>
-          <div class="week-card"><div class="week">W3 · 27 июля – 3 августа</div><h3 data-edit>показать эффект</h3><p data-edit>демо, next step, риск, владелец и что можно масштабировать после лабы.</p><div class="artifact">demo day</div></div>
+          <div class="week-card"><div class="week">W0 · intro</div><h3 data-edit>process brief</h3><p data-edit>назвать процесс, контекст, результат, блокер и маршрут помощи.</p><div class="artifact">brief + map</div></div>
+          <div class="week-card"><div class="week">W1 · baseline</div><h3 data-edit>setup + skill</h3><p data-edit>личная и командная основа, первый рабочий навык, критерии качества.</p><div class="artifact">baseline</div></div>
+          <div class="week-card"><div class="week">W2 · route</div><h3 data-edit>workflow</h3><p data-edit>источники, правила, агентный маршрут, человек в петле, повторяемый прогон.</p><div class="artifact">agent route</div></div>
+          <div class="week-card"><div class="week">W3 · demo</div><h3 data-edit>effect</h3><p data-edit>демо, риск, владелец, next step, что переносится в команду после лабы.</p><div class="artifact">demo day</div></div>
         </div>
       </div>
-      <div class="foot"><span>программа</span><span>сборка рабочего контура</span><span>demo day · 3 августа</span></div>
+      <div class="foot"><span>program spine</span><span>one process across three weeks</span><span>Demo Day · 3 Aug</span></div>
     </article>
 
-    <article class="slide" data-title="people" data-label="люди" data-subtitle="кто ведёт">
-      <div class="brand"><img src="logo.png" alt=""><span>ai mindset · люди</span></div>
+    <article class="slide compact dense" data-title="call-cadence" data-label="звонки" data-subtitle="как устроены live-сессии">
+      <div class="brand"><img src="logo.png" alt=""><span>ai mindset · cadence</span></div>
       <div class="counter"></div>
       <div class="slide-content">
-        <div class="kicker" data-edit data-anim>кто ведёт и зачем</div>
-        <h2 data-edit data-anim style="--delay:.1s">спикеры закрывают разные слои AI-native организации</h2>
-        <div class="people-grid" data-anim style="--delay:.16s">
-          <div class="person-card"><div class="role">core</div><h3 data-edit>Степан Гершуни</h3><p data-edit>рамка AI-native организации, системное мышление, стратегическая дуга.</p></div>
-          <div class="person-card"><div class="role">host</div><h3 data-edit>Александр Поваляев</h3><p data-edit>сборка процесса, ритм лабы, перевод идей в артефакты.</p></div>
-          <div class="person-card"><div class="role">framework</div><h3 data-edit>Дима Твердохлебов</h3><p data-edit>AI-трансформация, уровни внедрения, enterprise-пилоты.</p></div>
-          <div class="person-card"><div class="role">data</div><h3 data-edit>Даниил Кравцов</h3><p data-edit>AI-native компании, граф знаний, данные как рабочий слой.</p></div>
-          <div class="person-card"><div class="role">workspace</div><h3 data-edit>Всеволод Устинов</h3><p data-edit>shared workspace, база знаний, продуктовый агент, командный контекст.</p></div>
-          <div class="person-card"><div class="role">build</div><h3 data-edit>Серёжа Рис · Артём Новосёлов · Юра Веденин</h3><p data-edit>инструменты, продуктовая инфраструктура и командная трансформация изнутри.</p></div>
+        <div class="kicker" data-edit data-anim>структура всех звонков</div>
+        <h2 data-edit data-anim style="--delay:.1s">у каждой live-сессии есть роль в сборке артефакта</h2>
+        <div class="session-grid" data-anim style="--delay:.16s">
+          <div class="session-card"><div class="tag">mon</div><h3 data-edit>core frame</h3><p data-edit>понедельник задаёт рамку недели и критерий результата.</p><div class="time">13 / 20 / 27 июля</div></div>
+          <div class="session-card"><div class="tag">tue</div><h3 data-edit>practice</h3><p data-edit>Денис ведёт практику: превращаем рамку в рабочий ход.</p><div class="time">14 / 21 / 28 июля</div></div>
+          <div class="session-card"><div class="tag">wed-thu</div><h3 data-edit>deep layer</h3><p data-edit>framework, data, shared workspace, enterprise cases, roundtable.</p><div class="time">15–16 / 22–23 / 29–30</div></div>
+          <div class="session-card"><div class="tag">fri-sat</div><h3 data-edit>tools + Q&A</h3><p data-edit>инструменты, разборы, вопросы, доведение маршрутов.</p><div class="time">17–18 / 24–25 / 31–1</div></div>
+          <div class="session-card"><div class="tag">demo</div><h3 data-edit>show work</h3><p data-edit>показываем процесс, артефакт, эффект и следующий шаг.</p><div class="time">3 августа</div></div>
         </div>
+        <p class="lead" data-edit data-anim style="--delay:.24s">логика simple: frame → practice → expert layer → Q&A → demo. Участник всегда понимает, зачем следующий звонок.</p>
       </div>
-      <div class="foot"><span>спикерская сетка</span><span>люди раскрывают разные входы в один контур</span><span>актуализировать перед показом</span></div>
+      <div class="foot"><span>cadence</span><span>15 live slots + Q&A + Demo Day</span><span>calendar from weekly plan</span></div>
     </article>
 
-    <article class="slide" data-title="curators" data-label="кураторы" data-subtitle="маршрутизация">
-      <div class="brand"><img src="logo.png" alt=""><span>ai mindset · кураторы</span></div>
+    <article class="slide compact dense" data-title="speakers" data-label="спикеры" data-subtitle="кто ведёт">
+      <div class="brand"><img src="logo.png" alt=""><span>ai mindset · speakers</span></div>
+      <div class="counter"></div>
+      <div class="slide-content">
+        <div class="kicker" data-edit data-anim>спикеры и гости</div>
+        <h2 data-edit data-anim style="--delay:.1s">люди закрывают разные слои AI-native организации</h2>
+        <div class="speaker-wall" data-anim style="--delay:.16s">
+          <div class="speaker-tile"><img src="speakers/stepan-gershuni.jpg" alt=""><div><h3 data-edit>Степан Гершуни</h3><p data-edit>core, strategy, AI-native org</p></div></div>
+          <div class="speaker-tile"><img src="speakers/alexander-povaliaev.jpg" alt=""><div><h3 data-edit>Александр Поваляев</h3><p data-edit>host, lab rhythm, artifacts</p></div></div>
+          <div class="speaker-tile"><img src="speakers/denis-smirnov.jpg" alt=""><div><h3 data-edit>Денис Смирнов</h3><p data-edit>practice, systems, agents</p></div></div>
+          <div class="speaker-tile"><span class="speaker-initial">DT</span><div><h3 data-edit>Дима Твердохлебов</h3><p data-edit>AI transformation, enterprise cases</p></div></div>
+          <div class="speaker-tile"><img src="speakers/daniel-kravtsov.jpeg" alt=""><div><h3 data-edit>Даниил Кравцов</h3><p data-edit>AI-native companies, knowledge graph</p></div></div>
+          <div class="speaker-tile"><img src="speakers/seva-ustinov.jpg" alt=""><div><h3 data-edit>Сева Устинов</h3><p data-edit>shared workspace, product agents</p></div></div>
+          <div class="speaker-tile"><span class="speaker-initial">AN</span><div><h3 data-edit>Артём Новосёлов</h3><p data-edit>product systems, startup scale</p></div></div>
+          <div class="speaker-tile"><img src="speakers/sereja-ris.jpg" alt=""><div><h3 data-edit>Серёжа Рис</h3><p data-edit>tools, workflows, live coding</p></div></div>
+          <div class="speaker-tile"><span class="speaker-initial">YV</span><div><h3 data-edit>Юра Веденин</h3><p data-edit>team transformation, enterprise UX</p></div></div>
+        </div>
+      </div>
+      <div class="foot"><span>speaker wall</span><span>photos from deck assets when available</span><span>LMS/vault checked</span></div>
+    </article>
+
+    <article class="slide compact" data-title="curators" data-label="кураторы" data-subtitle="маршрутизация">
+      <div class="brand"><img src="logo.png" alt=""><span>ai mindset · curators</span></div>
       <div class="counter"></div>
       <div class="slide-content">
         <div class="kicker" data-edit data-anim>кто с кем работает</div>
-        <h2 data-edit data-anim style="--delay:.1s">кураторы маршрутизируют людей, задачи и первые артефакты</h2>
+        <h2 data-edit data-anim style="--delay:.1s">маршруты поддержки привязаны к типу процесса</h2>
         <div class="route-grid" data-anim style="--delay:.16s">
-          <div class="route-card"><b>P</b><div><h3 data-edit>personal setup</h3><p data-edit>личная среда, контекст, первый навык, ежедневное использование.</p></div></div>
-          <div class="route-card"><b>F</b><div><h3 data-edit>founder / smb</h3><p data-edit>процесс продаж, продукта, контента или операций, который можно довести до демо.</p></div></div>
-          <div class="route-card"><b>E</b><div><h3 data-edit>enterprise</h3><p data-edit>безопасность, legacy, ownership, пилоты в командах и управляемый rollout.</p></div></div>
-          <div class="route-card"><b>C</b><div><h3 data-edit>context / agents</h3><p data-edit>база знаний, источники истины, качество результата, правила и границы агента.</p></div></div>
+          <div class="route-card"><b>P</b><div><h3 data-edit>personal / micro</h3><p data-edit>Александр Васильев. Личная среда, codex/Claude workflows, первый навык и ритм.</p></div></div>
+          <div class="route-card"><b>F</b><div><h3 data-edit>founder / smb</h3><p data-edit>Константин Урванцев, Станислав Федосеев, Сергей Ахметов, Виктор Соковнин.</p></div></div>
+          <div class="route-card"><b>E</b><div><h3 data-edit>enterprise</h3><p data-edit>Юрий Смирнов, Денис Смирнов, Станислав Федосеев, Константин Урванцев, Антон Грабаров.</p></div></div>
+          <div class="route-card"><b>C</b><div><h3 data-edit>context / agents</h3><p data-edit>Денис Смирнов, Александр Васильев. Источники, правила, качество, границы агента.</p></div></div>
         </div>
-        <p class="lead" data-edit data-anim style="--delay:.24s">после первого круга мы понимаем, кому нужен setup, кому архитектура, кому быстрый прототип, а кому помощь с внедрением в команду.</p>
+        <p class="lead" data-edit data-anim style="--delay:.24s">после интро можно быстро собрать mini-groups: по типу процесса, уровню компании и первому артефакту.</p>
       </div>
-      <div class="foot"><span>support map</span><span>после интро – разложить людей по маршрутам</span><span>office hours / mini-groups</span></div>
+      <div class="foot"><span>curator routes</span><span>routing after W0 circle</span><span>office hours / mini-groups</span></div>
     </article>
 
-    <article class="slide" data-title="intro-mechanics" data-label="интро" data-subtitle="первый круг">
-      <div class="brand"><img src="logo.png" alt=""><span>ai mindset · знакомство</span></div>
+    <article class="slide compact" data-title="lms-navigation" data-label="LMS" data-subtitle="куда идти после звонка">
+      <div class="brand"><img src="logo.png" alt=""><span>ai mindset · lms</span></div>
       <div class="counter"></div>
       <div class="slide-content">
-        <div class="kicker" data-edit data-anim>как проходит знакомство</div>
-        <h2 data-edit data-anim style="--delay:.1s">один круг,<br><span class="accent">одна минута</span><br>на человека</h2>
-        <div class="intro-grid">
-          <div class="intro-card">
-            <div class="num">01</div>
-            <h3 data-edit>кто я</h3>
-            <p data-edit>роль, компания, контекст. коротко: то, что поможет другим понять твой AI-контур.</p>
-          </div>
-          <div class="intro-card">
-            <div class="num">02</div>
-            <h3 data-edit>что собираю</h3>
-            <p data-edit>один процесс: продажи, операции, поддержка, разработка, HR, контент, база знаний, командная рутина.</p>
-          </div>
-          <div class="intro-card">
-            <div class="num">03</div>
-            <h3 data-edit>с чем уйду</h3>
-            <p data-edit>первый артефакт к демо: прототип, карта процесса, агент, панель, проверка результата, инструкция, рабочее пространство.</p>
-          </div>
+        <div class="kicker" data-edit data-anim>learn.aimindset.org/ain3</div>
+        <h2 data-edit data-anim style="--delay:.1s">LMS работает как хаб: расписание, записи, материалы, прогресс</h2>
+        <div class="lms-grid" data-anim style="--delay:.16s">
+          <div class="lms-card"><div class="tag">access</div><h3 data-edit>Telegram login</h3><p data-edit>вход через бот, доступ привязан к участнику, помощь через поддержку.</p></div>
+          <div class="lms-card"><div class="tag">sessions</div><h3 data-edit>карточки звонков</h3><p data-edit>Zoom, время, описание, спикер, материалы, статус просмотра.</p></div>
+          <div class="lms-card"><div class="tag">library</div><h3 data-edit>записи и транскрипты</h3><p data-edit>после live-сессий участник возвращается к записи и тексту.</p></div>
+          <div class="lms-card"><div class="tag">work</div><h3 data-edit>шаблоны и FAQ</h3><p data-edit>brief процесса, артефакты недели, навигация, ответы на частые вопросы.</p></div>
         </div>
-        <div class="script">
-          <div class="script-box">
-            <h3 data-edit>шаблон ответа</h3>
-            <div class="script-line"><b>1</b><span data-edit>я – [роль / контекст]</span></div>
-            <div class="script-line"><b>2</b><span data-edit>сейчас AI уже использую для [что]</span></div>
-            <div class="script-line"><b>3</b><span data-edit>хочу собрать [процесс] в [артефакт]</span></div>
-            <div class="script-line"><b>4</b><span data-edit>главный блокер: [данные / люди / интеграции / rhythm]</span></div>
+        <p class="lead" data-edit data-anim style="--delay:.24s">публичный экран подтверждает доступ через Telegram. Внутри лабы LMS становится главным местом, куда ведём после каждого звонка.</p>
+      </div>
+      <div class="foot"><span>LMS</span><span>public page checked · participant access required</span><span>Telegram auth</span></div>
+    </article>
+
+    <article class="slide compact" data-title="participant-brief" data-label="brief" data-subtitle="что просим от участников">
+      <div class="brand"><img src="logo.png" alt=""><span>ai mindset · participant brief</span></div>
+      <div class="counter"></div>
+      <div class="slide-content">
+        <div class="kicker" data-edit data-anim>#intro → process brief</div>
+        <h2 data-edit data-anim style="--delay:.1s">участник приходит с процессом, а уходит с рабочей задачей</h2>
+        <div class="brief-grid" data-anim style="--delay:.16s">
+          <div class="brief-card"><h3 data-edit>роль</h3><p data-edit>кто я, какая команда или контекст, где будет применяться AI.</p></div>
+          <div class="brief-card"><h3 data-edit>stack</h3><p data-edit>какие инструменты уже в работе: Claude, Codex, ChatGPT, Cursor, базы.</p></div>
+          <div class="brief-card"><h3 data-edit>блокер</h3><p data-edit>что тормозит: данные, люди, интеграции, качество, доверие, ритм.</p></div>
+          <div class="brief-card"><h3 data-edit>процесс</h3><p data-edit>один рабочий процесс с trigger, inputs, outputs, owner.</p></div>
+          <div class="brief-card"><h3 data-edit>критерий</h3><p data-edit>как понять, что артефакт можно показать на Demo Day.</p></div>
+        </div>
+        <p class="lead" data-edit data-anim style="--delay:.24s">это сохраняет скорость: человек приносит рабочий контур, с которым можно помогать сразу.</p>
+      </div>
+      <div class="foot"><span>participant contract</span><span>short human language</span><span>Demo Day criteria</span></div>
+    </article>
+
+    <article class="slide compact dense" data-title="sources" data-label="sources" data-subtitle="что проверено">
+      <div class="brand"><img src="logo.png" alt=""><span>ai mindset · source map</span></div>
+      <div class="counter"></div>
+      <div class="slide-content">
+        <div class="kicker" data-edit data-anim>source map</div>
+        <h2 data-edit data-anim style="--delay:.1s">факты собраны из deck repo, LMS и team-vault</h2>
+        <div class="source-grid" data-anim style="--delay:.16s">
+          <div class="source-card">
+            <div class="tag">checked</div>
+            <h3 data-edit>что использовано</h3>
+            <div class="source-list">
+              <div class="source-item"><b>deck</b><span data-edit>intro-call Batch 2 и старая intelligence-структура AIN3</span></div>
+              <div class="source-item"><b>LMS</b><span data-edit>публичный hub AIN3, Telegram auth, закрытый участнический контент</span></div>
+              <div class="source-item"><b>vault</b><span data-edit>weekly plan, speakers CRM, curators CRM, chat navigation, dataflow artifacts</span></div>
+              <div class="source-item"><b>assets</b><span data-edit>logo, favicon, available speaker photos from deck assets</span></div>
+            </div>
           </div>
-          <div class="time-box">
-            <h3 data-edit>тайминг по аудитории</h3>
-            <div class="time-row"><strong data-edit>много людей</strong><span data-edit>30-45 сек</span></div>
-            <div class="time-row"><strong data-edit>обычный круг</strong><span data-edit>60 сек</span></div>
-            <div class="time-row"><strong data-edit>малый круг</strong><span data-edit>90 сек + вопрос</span></div>
-            <div class="time-row"><strong data-edit>после круга</strong><span data-edit>маршруты / кураторы</span></div>
+          <div class="source-card">
+            <div class="tag">next update</div>
+            <h3 data-edit>перед показом</h3>
+            <p data-edit>если нужно обновить ростер, запускаем dataflow skill, проверяем новые числа, подтверждаем открытые гостевые слоты и обновляем speaker wall.</p>
+            <div class="route-node"><b>ok</b><span data-edit>деку можно править прямо в браузере, затем сохранить локально или опубликовать через editor.</span></div>
           </div>
         </div>
       </div>
-      <div class="foot"><span>механика знакомства</span><span>меньше текста · больше живого круга</span><span>синий контур</span></div>
+      <div class="foot"><span>source map</span><span>public-safe deck</span><span>AIN3 intro protocol v3</span></div>
     </article>
   </section>
 </main>
@@ -1200,9 +1582,9 @@
 const GH_REPO = 'ai-mindset-org/ainative-deck';
 const GH_FILE = 'ain3-intro.html';
 const GH_BRANCH = 'main';
-const DECK_VERSION = '2026-07-11-lab-structure-v2';
-const STORAGE_KEY = 'ain3-intro-lab-structure-v2-state';
-const HISTORY_KEY = 'ain3-intro-lab-structure-v2-history';
+const DECK_VERSION = '2026-07-11-ain3-intro-protocol-v3';
+const STORAGE_KEY = 'ain3-intro-protocol-v3-state';
+const HISTORY_KEY = 'ain3-intro-protocol-v3-history';
 const TOKEN_KEY = 'ainative-deck-gh-token';
 
 const stage = document.getElementById('stage');

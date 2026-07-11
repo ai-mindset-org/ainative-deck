@@ -51,8 +51,6 @@ This file documents the repeatable deck-kit pattern for AI Mindset lab intros. I
 The current intro format uses these blocks:
 
 - cover with logo rail
-- reference format from prior intros
-- dataflow boundary
 - cohort map
 - route map
 - W0 intro call
@@ -63,14 +61,14 @@ The current intro format uses these blocks:
 - curator stickers
 - LMS hub
 - participant brief
-- source map
-- deck-kit / multigen slide
+- lightweight `AIN LIVE` assistant overlay
 
 ## Editor
 
 Keyboard:
 
 - `E` toggles edit mode
+- `V` toggles the AIN LIVE context overlay
 - `S` saves to localStorage
 - `P` publishes through GitHub Contents API
 - arrow keys navigate slides
@@ -78,12 +76,24 @@ Keyboard:
 
 Runtime storage:
 
-- deck state: `ain3-intro-protocol-v4-state`
-- history: `ain3-intro-protocol-v4-history`
+- deck state: `ain3-intro-live-assistant-v5-state`
+- history: `ain3-intro-live-assistant-v5-history`
 - UI language: `ain3-intro-ui-lang`
 - GitHub token: `ainative-deck-gh-token`
+- optional assistant endpoint: `ain3-assistant-endpoint`
 
 GitHub tokens stay in browser localStorage only. Never hardcode or paste them into repo files, chat, screenshots, or notes.
+
+## Live Assistant
+
+`ain3-intro.html` includes a lightweight local `AIN LIVE` overlay. It reads the current slide id and shows a short speaker cue. This is intentionally local-first and has no token, participant data, or network calls by default.
+
+For a server-backed isolated assistant, use `AIN3_ASSISTANT_SPEC.md`:
+
+- the browser stores only the endpoint URL
+- secrets live on the server
+- participant fields remain private
+- public deck answers use aggregates, timeline, speakers, curators, LMS, and repo history
 
 ## Multigen Pattern
 

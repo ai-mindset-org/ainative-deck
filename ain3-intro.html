@@ -125,7 +125,7 @@
   }
 
   .topbar::before {
-    content: "edit";
+    content: "edit / правка";
     padding: 0 6px 0 2px;
     color: var(--muted);
     font-size: 11px;
@@ -167,6 +167,11 @@
     min-width: 70px;
     color: var(--muted);
     font-size: 11px;
+  }
+
+  #langBtn {
+    min-width: 44px;
+    color: var(--acc);
   }
 
   .stage-wrap {
@@ -411,6 +416,30 @@
     gap: 12px;
     margin-top: 34px;
   }
+
+  .logo-rail {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    max-width: 820px;
+    margin-top: 28px;
+  }
+
+  .logo-pill {
+    display: inline-flex;
+    align-items: center;
+    min-height: 34px;
+    padding: 8px 13px;
+    border: 1px solid rgba(247,245,238,.16);
+    background: rgba(8,12,18,.62);
+    color: rgba(247,245,238,.7);
+    font-family: var(--display);
+    font-size: 13px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+  }
+
+  .logo-pill.aim { border-color: rgba(56,189,248,.38); color: var(--acc); }
 
   .chip {
     display: inline-flex;
@@ -1002,6 +1031,62 @@
     margin-top: 18px;
   }
 
+  .schedule-timeline {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-top: 20px;
+  }
+
+  .timeline-week {
+    min-height: 456px;
+    padding: 17px;
+    border: 1px solid rgba(56,189,248,.22);
+    background: rgba(13,19,28,.72);
+    box-shadow: 8px 8px 0 rgba(56,189,248,.055);
+  }
+
+  .timeline-week h3 {
+    color: #fff;
+    font-family: var(--display);
+    font-size: 26px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .timeline-event {
+    display: grid;
+    grid-template-columns: 58px 1fr;
+    gap: 12px;
+    min-height: 54px;
+    padding: 10px 0;
+    border-top: 1px solid rgba(247,245,238,.1);
+  }
+
+  .timeline-event b {
+    color: var(--acc);
+    font-size: 13px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+  }
+
+  .timeline-event strong {
+    display: block;
+    color: rgba(247,245,238,.9);
+    font-family: var(--display);
+    font-size: 17px;
+    line-height: 1.05;
+    text-transform: uppercase;
+  }
+
+  .timeline-event span {
+    display: block;
+    margin-top: 3px;
+    color: rgba(247,245,238,.54);
+    font-size: 12px;
+    line-height: 1.25;
+  }
+
   .speaker-wall {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -1011,17 +1096,17 @@
 
   .speaker-tile {
     display: grid;
-    grid-template-columns: 74px 1fr;
-    gap: 15px;
+    grid-template-columns: 92px 1fr;
+    gap: 16px;
     align-items: center;
-    min-height: 108px;
-    padding: 14px;
+    min-height: 122px;
+    padding: 15px;
   }
 
   .speaker-tile img,
   .speaker-initial {
-    width: 74px;
-    height: 74px;
+    width: 92px;
+    height: 92px;
     border-radius: 12px;
     border: 1px solid rgba(56,189,248,.26);
     object-fit: cover;
@@ -1033,11 +1118,88 @@
     place-items: center;
     color: var(--acc);
     font-family: var(--display);
-    font-size: 25px;
+    font-size: 27px;
   }
 
   .speaker-tile h3 { font-size: 21px; margin-bottom: 7px; }
   .speaker-tile p { font-size: 13px; color: rgba(247,245,238,.58); }
+
+  .people-sticker {
+    position: relative;
+  }
+
+  .people-sticker::after {
+    content: attr(data-track);
+    position: absolute;
+    right: 14px;
+    top: 12px;
+    color: rgba(56,189,248,.7);
+    font-size: 10px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+  }
+
+  .curator-board {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 13px;
+    margin-top: 22px;
+  }
+
+  .curator-card {
+    min-height: 246px;
+    padding: 16px;
+    border: 1px solid rgba(56,189,248,.22);
+    background: rgba(13,19,28,.72);
+    box-shadow: 8px 8px 0 rgba(56,189,248,.055);
+  }
+
+  .curator-card .route {
+    color: var(--acc);
+    font-size: 12px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .curator-card h3 {
+    color: #fff;
+    font-family: var(--display);
+    font-size: 22px;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+
+  .avatar-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 9px;
+    margin-bottom: 14px;
+  }
+
+  .avatar,
+  .avatar-initial {
+    width: 54px;
+    height: 54px;
+    border-radius: 11px;
+    border: 1px solid rgba(56,189,248,.28);
+    background: rgba(8,12,18,.86);
+    object-fit: cover;
+  }
+
+  .avatar-initial {
+    display: grid;
+    place-items: center;
+    color: var(--acc);
+    font-family: var(--display);
+    font-size: 17px;
+  }
+
+  .curator-card p {
+    color: rgba(247,245,238,.62);
+    font-size: 13px;
+    line-height: 1.35;
+  }
 
   .lms-grid,
   .source-grid,
@@ -1063,6 +1225,44 @@
   .source-card { min-height: 330px; }
   .brief-card { min-height: 184px; }
   .brief-card h3 { color: var(--acc); font-size: 20px; }
+
+  .system-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    margin-top: 26px;
+  }
+
+  .system-card {
+    min-height: 240px;
+    padding: 20px;
+    border: 1px solid rgba(56,189,248,.22);
+    background: rgba(13,19,28,.72);
+    box-shadow: 8px 8px 0 rgba(56,189,248,.055);
+  }
+
+  .system-card b {
+    color: var(--acc);
+    font-size: 12px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+  }
+
+  .system-card h3 {
+    margin-top: 18px;
+    color: #fff;
+    font-family: var(--display);
+    font-size: 25px;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  .system-card p {
+    margin-top: 12px;
+    color: rgba(247,245,238,.64);
+    font-size: 14px;
+    line-height: 1.38;
+  }
 
   .script {
     display: grid;
@@ -1256,13 +1456,14 @@
 <div class="ticker"><span>AI MINDSET · <b>AIN3 INTRO PROTOCOL</b> · люди · процесс · маршрут · первый понедельник · demo artifact · AI MINDSET · <b>AIN3 INTRO PROTOCOL</b> · люди · процесс · маршрут · первый понедельник · demo artifact · </span></div>
 
 <div class="topbar" aria-label="editor controls">
-  <button id="editBtn" class="primary" type="button">править</button>
-  <button type="button" id="saveBtn">сохранить</button>
-  <button type="button" id="snapshotBtn">снимок</button>
-  <button type="button" id="publishBtn">опубликовать</button>
-  <button type="button" id="mdBtn">текст</button>
-  <button type="button" id="historyBtn">история</button>
-  <span id="status">готово</span>
+  <button id="langBtn" type="button" data-label-ru="EN" data-label-en="RU">EN</button>
+  <button id="editBtn" class="primary" type="button" data-label-ru="править" data-label-en="edit">править</button>
+  <button type="button" id="saveBtn" data-label-ru="сохранить" data-label-en="save">сохранить</button>
+  <button type="button" id="snapshotBtn" data-label-ru="снимок" data-label-en="snapshot">снимок</button>
+  <button type="button" id="publishBtn" data-label-ru="опубликовать" data-label-en="publish">опубликовать</button>
+  <button type="button" id="mdBtn" data-label-ru="текст" data-label-en="text">текст</button>
+  <button type="button" id="historyBtn" data-label-ru="история" data-label-en="history">история</button>
+  <span id="status" data-status-ru="готово" data-status-en="ready">готово</span>
 </div>
 
 <main class="stage-wrap">
@@ -1284,6 +1485,15 @@
           <span class="chip" data-edit>1 минута на человека</span>
           <span class="chip cool-chip" data-edit>один реальный процесс</span>
           <span class="chip" data-edit>Demo Day · 3 августа</span>
+        </div>
+        <div class="logo-rail" data-anim style="--delay:.28s" aria-label="program logos">
+          <span class="logo-pill aim" data-edit>AI Mindset</span>
+          <span class="logo-pill" data-edit>cyber.Fund</span>
+          <span class="logo-pill" data-edit>Omnius.team</span>
+          <span class="logo-pill" data-edit>Improvado</span>
+          <span class="logo-pill" data-edit>Plurio AI</span>
+          <span class="logo-pill" data-edit>Foresyn</span>
+          <span class="logo-pill" data-edit>UXPressia</span>
         </div>
       </div>
       <div class="orbit" aria-hidden="true">
@@ -1441,20 +1651,38 @@
       <div class="foot"><span>program spine</span><span>one process across three weeks</span><span>Demo Day · 3 Aug</span></div>
     </article>
 
-    <article class="slide compact dense" data-title="call-cadence" data-label="звонки" data-subtitle="как устроены live-сессии">
-      <div class="brand"><img src="logo.png" alt=""><span>ai mindset · cadence</span></div>
+    <article class="slide compact dense" data-title="call-cadence" data-label="timeline" data-subtitle="расписание live-сессий">
+      <div class="brand"><img src="logo.png" alt=""><span>ai mindset · timeline</span></div>
       <div class="counter"></div>
       <div class="slide-content">
-        <div class="kicker" data-edit data-anim>структура всех звонков</div>
-        <h2 data-edit data-anim style="--delay:.1s">у каждой live-сессии есть роль в сборке артефакта</h2>
-        <div class="session-grid" data-anim style="--delay:.16s">
-          <div class="session-card"><div class="tag">mon</div><h3 data-edit>core frame</h3><p data-edit>понедельник задаёт рамку недели и критерий результата.</p><div class="time">13 / 20 / 27 июля</div></div>
-          <div class="session-card"><div class="tag">tue</div><h3 data-edit>practice</h3><p data-edit>Денис ведёт практику: превращаем рамку в рабочий ход.</p><div class="time">14 / 21 / 28 июля</div></div>
-          <div class="session-card"><div class="tag">wed-thu</div><h3 data-edit>deep layer</h3><p data-edit>framework, data, shared workspace, enterprise cases, roundtable.</p><div class="time">15–16 / 22–23 / 29–30</div></div>
-          <div class="session-card"><div class="tag">fri-sat</div><h3 data-edit>tools + Q&A</h3><p data-edit>инструменты, разборы, вопросы, доведение маршрутов.</p><div class="time">17–18 / 24–25 / 31–1</div></div>
-          <div class="session-card"><div class="tag">demo</div><h3 data-edit>show work</h3><p data-edit>показываем процесс, артефакт, эффект и следующий шаг.</p><div class="time">3 августа</div></div>
+        <div class="kicker" data-edit data-anim>timeline · 13 июля – 3 августа</div>
+        <h2 data-edit data-anim style="--delay:.1s">расписание видно как три рабочих недели</h2>
+        <div class="schedule-timeline" data-anim style="--delay:.16s">
+          <div class="timeline-week">
+            <h3 data-edit>W1 · baseline</h3>
+            <div class="timeline-event"><b>13.07</b><div><strong data-edit>kickoff</strong><span data-edit>Степан + Александр · Personal OS → Team OS → Company OS</span></div></div>
+            <div class="timeline-event"><b>14.07</b><div><strong data-edit>practice + setup</strong><span data-edit>Денис · процесс, контекст, первый навык</span></div></div>
+            <div class="timeline-event"><b>15.07</b><div><strong data-edit>framework</strong><span data-edit>Дима Твердохлебов · AI-transformation frame</span></div></div>
+            <div class="timeline-event"><b>16.07</b><div><strong data-edit>data layer</strong><span data-edit>Даниил Кравцов · knowledge graph</span></div></div>
+            <div class="timeline-event"><b>17–18</b><div><strong data-edit>workspace + Q&A</strong><span data-edit>Сева Устинов · разбор недели</span></div></div>
+          </div>
+          <div class="timeline-week">
+            <h3 data-edit>W2 · workflow</h3>
+            <div class="timeline-event"><b>20.07</b><div><strong data-edit>enterprise</strong><span data-edit>Дима · безопасность, pilots, ownership</span></div></div>
+            <div class="timeline-event"><b>21.07</b><div><strong data-edit>agent route</strong><span data-edit>Денис + Александр · контракт маршрута</span></div></div>
+            <div class="timeline-event"><b>22.07</b><div><strong data-edit>product systems</strong><span data-edit>Артём Новосёлов · product / ML / founder layer</span></div></div>
+            <div class="timeline-event"><b>23.07</b><div><strong data-edit>roundtable</strong><span data-edit>Яндекс + Альфа + Hitachi · governance</span></div></div>
+            <div class="timeline-event"><b>24–25</b><div><strong data-edit>tools + Q&A</strong><span data-edit>Серёжа Рис · loops, git, workflows</span></div></div>
+          </div>
+          <div class="timeline-week">
+            <h3 data-edit>W3 · demo</h3>
+            <div class="timeline-event"><b>27.07</b><div><strong data-edit>strategy</strong><span data-edit>Степан · ROI, 90-day plan, next systems</span></div></div>
+            <div class="timeline-event"><b>28.07</b><div><strong data-edit>effect</strong><span data-edit>Денис · quality, cost, risk, decision card</span></div></div>
+            <div class="timeline-event"><b>29.07</b><div><strong data-edit>pilot demos</strong><span data-edit>Дима · live cases and enterprise translation</span></div></div>
+            <div class="timeline-event"><b>31.07</b><div><strong data-edit>team transform</strong><span data-edit>Юра Веденин · UXPressia, Mastercard, team OS</span></div></div>
+            <div class="timeline-event"><b>03.08</b><div><strong data-edit>Demo Day</strong><span data-edit>процесс, артефакт, эффект, next step</span></div></div>
+          </div>
         </div>
-        <p class="lead" data-edit data-anim style="--delay:.24s">логика simple: frame → practice → expert layer → Q&A → demo. Участник всегда понимает, зачем следующий звонок.</p>
       </div>
       <div class="foot"><span>cadence</span><span>15 live slots + Q&A + Demo Day</span><span>calendar from weekly plan</span></div>
     </article>
@@ -1466,15 +1694,15 @@
         <div class="kicker" data-edit data-anim>спикеры и гости</div>
         <h2 data-edit data-anim style="--delay:.1s">люди закрывают разные слои AI-native организации</h2>
         <div class="speaker-wall" data-anim style="--delay:.16s">
-          <div class="speaker-tile"><img src="speakers/stepan-gershuni.jpg" alt=""><div><h3 data-edit>Степан Гершуни</h3><p data-edit>core, strategy, AI-native org</p></div></div>
-          <div class="speaker-tile"><img src="speakers/alexander-povaliaev.jpg" alt=""><div><h3 data-edit>Александр Поваляев</h3><p data-edit>host, lab rhythm, artifacts</p></div></div>
-          <div class="speaker-tile"><img src="speakers/denis-smirnov.jpg" alt=""><div><h3 data-edit>Денис Смирнов</h3><p data-edit>practice, systems, agents</p></div></div>
-          <div class="speaker-tile"><span class="speaker-initial">DT</span><div><h3 data-edit>Дима Твердохлебов</h3><p data-edit>AI transformation, enterprise cases</p></div></div>
-          <div class="speaker-tile"><img src="speakers/daniel-kravtsov.jpeg" alt=""><div><h3 data-edit>Даниил Кравцов</h3><p data-edit>AI-native companies, knowledge graph</p></div></div>
-          <div class="speaker-tile"><img src="speakers/seva-ustinov.jpg" alt=""><div><h3 data-edit>Сева Устинов</h3><p data-edit>shared workspace, product agents</p></div></div>
-          <div class="speaker-tile"><span class="speaker-initial">AN</span><div><h3 data-edit>Артём Новосёлов</h3><p data-edit>product systems, startup scale</p></div></div>
-          <div class="speaker-tile"><img src="speakers/sereja-ris.jpg" alt=""><div><h3 data-edit>Серёжа Рис</h3><p data-edit>tools, workflows, live coding</p></div></div>
-          <div class="speaker-tile"><span class="speaker-initial">YV</span><div><h3 data-edit>Юра Веденин</h3><p data-edit>team transformation, enterprise UX</p></div></div>
+          <div class="speaker-tile people-sticker" data-track="core"><img src="speakers/stepan-gershuni.jpg" alt=""><div><h3 data-edit>Степан Гершуни</h3><p data-edit>cyber.Fund · strategy · AI-native org</p></div></div>
+          <div class="speaker-tile people-sticker" data-track="host"><img src="speakers/alexander-povaliaev.jpg" alt=""><div><h3 data-edit>Александр Поваляев</h3><p data-edit>AI Mindset · lab rhythm · artifacts</p></div></div>
+          <div class="speaker-tile people-sticker" data-track="practice"><img src="speakers/denis-smirnov.jpg" alt=""><div><h3 data-edit>Денис Смирнов</h3><p data-edit>AI-native systems · practice · agents</p></div></div>
+          <div class="speaker-tile people-sticker" data-track="enterprise"><span class="speaker-initial">DT</span><div><h3 data-edit>Дима Твердохлебов</h3><p data-edit>Omnius.team · ex-МТС / AI VK</p></div></div>
+          <div class="speaker-tile people-sticker" data-track="data"><img src="speakers/daniel-kravtsov.jpeg" alt=""><div><h3 data-edit>Даниил Кравцов</h3><p data-edit>Improvado · knowledge graph · data layer</p></div></div>
+          <div class="speaker-tile people-sticker" data-track="workspace"><img src="speakers/seva-ustinov.jpg" alt=""><div><h3 data-edit>Сева Устинов</h3><p data-edit>Plurio AI · shared workspace · product agents</p></div></div>
+          <div class="speaker-tile people-sticker" data-track="product"><span class="speaker-initial">AN</span><div><h3 data-edit>Артём Новосёлов</h3><p data-edit>Foresyn · ex-Stripe · product systems</p></div></div>
+          <div class="speaker-tile people-sticker" data-track="tools"><img src="speakers/sereja-ris.jpg" alt=""><div><h3 data-edit>Серёжа Рис</h3><p data-edit>tools · loops · workflows · live coding</p></div></div>
+          <div class="speaker-tile people-sticker" data-track="team"><span class="speaker-initial">YV</span><div><h3 data-edit>Юра Веденин</h3><p data-edit>UXPressia · team transformation · enterprise UX</p></div></div>
         </div>
       </div>
       <div class="foot"><span>speaker wall</span><span>photos from deck assets when available</span><span>LMS/vault checked</span></div>
@@ -1486,11 +1714,31 @@
       <div class="slide-content">
         <div class="kicker" data-edit data-anim>кто с кем работает</div>
         <h2 data-edit data-anim style="--delay:.1s">маршруты поддержки привязаны к типу процесса</h2>
-        <div class="route-grid" data-anim style="--delay:.16s">
-          <div class="route-card"><b>P</b><div><h3 data-edit>personal / micro</h3><p data-edit>Александр Васильев. Личная среда, codex/Claude workflows, первый навык и ритм.</p></div></div>
-          <div class="route-card"><b>F</b><div><h3 data-edit>founder / smb</h3><p data-edit>Константин Урванцев, Станислав Федосеев, Сергей Ахметов, Виктор Соковнин.</p></div></div>
-          <div class="route-card"><b>E</b><div><h3 data-edit>enterprise</h3><p data-edit>Юрий Смирнов, Денис Смирнов, Станислав Федосеев, Константин Урванцев, Антон Грабаров.</p></div></div>
-          <div class="route-card"><b>C</b><div><h3 data-edit>context / agents</h3><p data-edit>Денис Смирнов, Александр Васильев. Источники, правила, качество, границы агента.</p></div></div>
+        <div class="curator-board" data-anim style="--delay:.16s">
+          <div class="curator-card">
+            <div class="route">personal / micro</div>
+            <div class="avatar-row"><img class="avatar" src="speakers/alexander-vasiliev.jpg" alt=""><img class="avatar" src="curators/alex_named.jpg" alt=""></div>
+            <h3 data-edit>setup route</h3>
+            <p data-edit>Александр Васильев + AIM host layer. Личная среда, первый skill, ежедневный рабочий ритм.</p>
+          </div>
+          <div class="curator-card">
+            <div class="route">founder / smb</div>
+            <div class="avatar-row"><span class="avatar-initial">KU</span><img class="avatar" src="speakers/stanislav-fedoseev.jpg" alt=""><span class="avatar-initial">SA</span><span class="avatar-initial">VS</span></div>
+            <h3 data-edit>business route</h3>
+            <p data-edit>Константин Урванцев, Станислав Федосеев, Сергей Ахметов, Виктор Соковнин. Процесс, продукт, команда, go-to-market.</p>
+          </div>
+          <div class="curator-card">
+            <div class="route">enterprise</div>
+            <div class="avatar-row"><img class="avatar" src="curators/doonto.jpg" alt=""><img class="avatar" src="speakers/denis-smirnov.jpg" alt=""><img class="avatar" src="speakers/stanislav-fedoseev.jpg" alt=""><span class="avatar-initial">AG</span></div>
+            <h3 data-edit>enterprise route</h3>
+            <p data-edit>Юра Донто, Денис Смирнов, Станислав Федосеев, Антон Грабаров. Security, ownership, rollout.</p>
+          </div>
+          <div class="curator-card">
+            <div class="route">context / agents</div>
+            <div class="avatar-row"><img class="avatar" src="speakers/denis-smirnov.jpg" alt=""><img class="avatar" src="speakers/alexander-vasiliev.jpg" alt=""><img class="avatar" src="curators/densmirnov.jpg" alt=""></div>
+            <h3 data-edit>agent route</h3>
+            <p data-edit>Источники истины, правила, eval, качество результата, границы автономии и первый agent route.</p>
+          </div>
         </div>
         <p class="lead" data-edit data-anim style="--delay:.24s">после интро можно быстро собрать mini-groups: по типу процесса, уровню компании и первому артефакту.</p>
       </div>
@@ -1557,7 +1805,24 @@
           </div>
         </div>
       </div>
-      <div class="foot"><span>source map</span><span>public-safe deck</span><span>AIN3 intro protocol v3</span></div>
+      <div class="foot"><span>source map</span><span>public-safe deck</span><span>AIN3 intro protocol v4</span></div>
+    </article>
+
+    <article class="slide compact dense" data-title="deck-kit" data-label="deck kit" data-subtitle="как повторять этот формат">
+      <div class="brand"><img src="logo.png" alt=""><span>ai mindset · deck kit</span></div>
+      <div class="counter"></div>
+      <div class="slide-content">
+        <div class="kicker" data-edit data-anim>system multigen · lab deck pattern</div>
+        <h2 data-edit data-anim style="--delay:.1s">это можно гонять как мультиагентный deck-kit</h2>
+        <div class="system-grid" data-anim style="--delay:.16s">
+          <div class="system-card"><b>01 · data</b><h3 data-edit>refresh</h3><p data-edit>dataflow обновляет roster/context, deck берёт только безопасные агрегаты и routing-сигналы.</p></div>
+          <div class="system-card"><b>02 · people</b><h3 data-edit>stickers</h3><p data-edit>speaker / curator photos подтягиваются из deck assets и AIM people-photo pipeline.</p></div>
+          <div class="system-card"><b>03 · program</b><h3 data-edit>timeline</h3><p data-edit>weekly plan превращается в timeline: дата, роль звонка, ведущий, artifact недели.</p></div>
+          <div class="system-card"><b>04 · publish</b><h3 data-edit>edit → push</h3><p data-edit>E открывает правку, EN/RU меняет editor, publish отправляет чистый HTML в GitHub Pages.</p></div>
+        </div>
+        <p class="lead" data-edit data-anim style="--delay:.24s">следующий уровень – вынести это в skill: source map → content blocks → visual QA → browser publish → Telegram report.</p>
+      </div>
+      <div class="foot"><span>deck kit</span><span>documented in AIN3_INTRO_DECK_PIPELINE.md</span><span>system multigen</span></div>
     </article>
   </section>
 </main>
@@ -1566,7 +1831,7 @@
   <button type="button" id="prevBtn" aria-label="previous slide">←</button>
   <button type="button" id="nextBtn" aria-label="next slide">→</button>
 </nav>
-<div class="hint">← → листать · E править · S сохранить · P опубликовать · Esc выйти</div>
+<div class="hint">← → slides · E edit · EN/RU editor · S save · P publish · Esc exit</div>
 
 <section class="panel" id="mdPanel">
   <div class="panel-head"><span>текст слайдов</span><button type="button" data-close="mdPanel">закрыть</button></div>
@@ -1582,9 +1847,10 @@
 const GH_REPO = 'ai-mindset-org/ainative-deck';
 const GH_FILE = 'ain3-intro.html';
 const GH_BRANCH = 'main';
-const DECK_VERSION = '2026-07-11-ain3-intro-protocol-v3';
-const STORAGE_KEY = 'ain3-intro-protocol-v3-state';
-const HISTORY_KEY = 'ain3-intro-protocol-v3-history';
+const DECK_VERSION = '2026-07-11-ain3-intro-protocol-v4';
+const STORAGE_KEY = 'ain3-intro-protocol-v4-state';
+const HISTORY_KEY = 'ain3-intro-protocol-v4-history';
+const UI_LANG_KEY = 'ain3-intro-ui-lang';
 const TOKEN_KEY = 'ainative-deck-gh-token';
 
 const stage = document.getElementById('stage');
@@ -1595,9 +1861,26 @@ const overlaySubtitle = document.getElementById('overlaySubtitle');
 const deckDots = document.getElementById('deckDots');
 let current = 0;
 let dirty = false;
+let uiLang = localStorage.getItem(UI_LANG_KEY) || 'ru';
 
-function setStatus(text) {
-  statusEl.textContent = text;
+function uiText(ru, en) {
+  return uiLang === 'en' && en ? en : ru;
+}
+
+function setStatus(ru, en) {
+  statusEl.dataset.statusRu = ru;
+  statusEl.dataset.statusEn = en || ru;
+  statusEl.textContent = uiText(ru, en);
+}
+
+function applyUILang(lang = uiLang) {
+  uiLang = lang === 'en' ? 'en' : 'ru';
+  localStorage.setItem(UI_LANG_KEY, uiLang);
+  document.documentElement.lang = uiLang;
+  document.querySelectorAll('[data-label-ru]').forEach(el => {
+    el.textContent = el.dataset[uiLang === 'en' ? 'labelEn' : 'labelRu'];
+  });
+  statusEl.textContent = uiText(statusEl.dataset.statusRu || 'готово', statusEl.dataset.statusEn || 'ready');
 }
 
 function fitStage() {
@@ -1635,7 +1918,7 @@ function toggleEdit(force) {
     else el.removeAttribute('contenteditable');
   });
   if (!next) saveLocal();
-  setStatus(next ? 'правка' : 'сохранено');
+  setStatus(next ? 'правка' : 'сохранено', next ? 'editing' : 'saved');
 }
 
 function collectState() {
@@ -1662,7 +1945,7 @@ function restoreState(state) {
 function saveLocal() {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(collectState()));
   dirty = false;
-  setStatus('сохранено');
+  setStatus('сохранено', 'saved');
 }
 
 function loadLocal() {
@@ -1672,7 +1955,7 @@ function loadLocal() {
     const state = JSON.parse(raw);
     if (state.version === DECK_VERSION) {
       restoreState(state);
-      setStatus('восстановлено');
+      setStatus('восстановлено', 'restored');
     }
   } catch (err) {
     console.warn(err);
@@ -1697,7 +1980,7 @@ function snapshot() {
   });
   setHistory(items);
   renderHistory();
-  setStatus('снимок сохранен');
+  setStatus('снимок сохранен', 'snapshot saved');
 }
 
 function renderHistory() {
@@ -1705,16 +1988,16 @@ function renderHistory() {
   list.innerHTML = '';
   const items = getHistory();
   if (!items.length) {
-    list.innerHTML = '<div style="color:var(--muted);font-size:13px;padding:8px">снимков пока нет</div>';
+    list.innerHTML = `<div style="color:var(--muted);font-size:13px;padding:8px">${uiText('снимков пока нет', 'no snapshots yet')}</div>`;
     return;
   }
   items.forEach((item, index) => {
     const btn = document.createElement('button');
     btn.type = 'button';
-    btn.textContent = `${item.label} · вернуть снимок ${index + 1}`;
+    btn.textContent = `${item.label} · ${uiText('вернуть снимок', 'restore snapshot')} ${index + 1}`;
     btn.addEventListener('click', () => {
       restoreState(item.state);
-      setStatus('снимок возвращен');
+      setStatus('снимок возвращен', 'snapshot restored');
     });
     list.appendChild(btn);
   });
@@ -1749,7 +2032,7 @@ function downloadHTML() {
   a.download = GH_FILE;
   a.click();
   URL.revokeObjectURL(a.href);
-  setStatus('скачано');
+  setStatus('скачано', 'downloaded');
 }
 
 function toBase64(str) {
@@ -1759,7 +2042,7 @@ function toBase64(str) {
 async function getGitHubToken() {
   let token = localStorage.getItem(TOKEN_KEY) || '';
   if (token) return token;
-  token = prompt('GitHub token для ai-mindset-org/ainative-deck');
+  token = prompt(uiText('GitHub token для ai-mindset-org/ainative-deck', 'GitHub token for ai-mindset-org/ainative-deck'));
   if (!token) return '';
   localStorage.setItem(TOKEN_KEY, token.trim());
   return token.trim();
@@ -1768,10 +2051,10 @@ async function getGitHubToken() {
 async function publish() {
   const token = await getGitHubToken();
   if (!token) {
-    setStatus('нет токена');
+    setStatus('нет токена', 'no token');
     return;
   }
-  setStatus('публикую...');
+  setStatus('публикую...', 'publishing...');
   const api = `https://api.github.com/repos/${GH_REPO}/contents/${GH_FILE}?ref=${GH_BRANCH}`;
   const currentFile = await fetch(api, { headers: { Authorization: `Bearer ${token}` } });
   let sha = null;
@@ -1779,7 +2062,7 @@ async function publish() {
     const meta = await currentFile.json();
     sha = meta.sha;
   } else if (currentFile.status !== 404) {
-    setStatus(`github ${currentFile.status}`);
+    setStatus(`github ${currentFile.status}`, `github ${currentFile.status}`);
     return;
   }
 
@@ -1801,11 +2084,11 @@ async function publish() {
   if (!resp.ok) {
     const text = await resp.text();
     console.error(text);
-    setStatus(`ошибка ${resp.status}`);
+    setStatus(`ошибка ${resp.status}`, `error ${resp.status}`);
     return;
   }
   dirty = false;
-  setStatus('опубликовано');
+  setStatus('опубликовано', 'published');
 }
 
 document.addEventListener('pointermove', event => {
@@ -1816,7 +2099,7 @@ document.addEventListener('pointermove', event => {
 document.addEventListener('input', event => {
   if (event.target.matches('[data-edit]')) {
     dirty = true;
-    setStatus('есть правки');
+    setStatus('есть правки', 'unsaved edits');
   }
 });
 
@@ -1845,6 +2128,7 @@ document.addEventListener('keydown', event => {
 
 document.getElementById('prevBtn').addEventListener('click', () => showSlide(current - 1));
 document.getElementById('nextBtn').addEventListener('click', () => showSlide(current + 1));
+document.getElementById('langBtn').addEventListener('click', () => applyUILang(uiLang === 'ru' ? 'en' : 'ru'));
 document.getElementById('editBtn').addEventListener('click', () => toggleEdit());
 document.getElementById('saveBtn').addEventListener('click', saveLocal);
 document.getElementById('snapshotBtn').addEventListener('click', snapshot);
@@ -1868,6 +2152,7 @@ window.addEventListener('beforeunload', () => { if (dirty) saveLocal(); });
 
 fitStage();
 loadLocal();
+applyUILang(uiLang);
 updateOverlay();
 renderHistory();
 </script>

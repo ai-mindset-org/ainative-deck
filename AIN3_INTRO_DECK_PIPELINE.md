@@ -53,12 +53,12 @@ The current intro format uses these blocks:
 - cover with logo rail
 - cohort map
 - route map
-- W0 intro call
+- intro-call promises from the 2026-07-11 Zoom summary
 - Monday kickoff
 - program spine
 - live-session timeline
-- speaker stickers
-- curator stickers
+- speaker stickers with weekly map
+- curator route matrix and office-hours strip
 - LMS hub
 - participant brief
 - lightweight `AIN LIVE` assistant overlay
@@ -76,13 +76,13 @@ Keyboard:
 
 Runtime storage:
 
-- deck state: `ain3-intro-live-assistant-v5-state`
-- history: `ain3-intro-live-assistant-v5-history`
+- deck state: `ain3-intro-weekly-context-v7-state`
+- history: `ain3-intro-weekly-context-v7-history`
 - UI language: `ain3-intro-ui-lang`
 - GitHub token: `ainative-deck-gh-token`
 - optional assistant endpoint: `ain3-assistant-endpoint`
 
-GitHub tokens stay in browser localStorage only. Never hardcode or paste them into repo files, chat, screenshots, or notes.
+Browser publish needs a GitHub token with repository Contents read/write access. GitHub tokens stay in browser localStorage only. Never hardcode or paste them into repo files, chat, screenshots, or notes. CLI publishing can use `gh auth` / normal git credentials instead of the browser token.
 
 ## Live Assistant
 

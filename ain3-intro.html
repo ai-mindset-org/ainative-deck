@@ -588,6 +588,7 @@
 
   .cover-signal {
     position: absolute;
+    z-index: 2;
     left: 0;
     right: 0;
     top: 88px;
@@ -600,6 +601,106 @@
   @keyframes coverScan {
     0%, 100% { transform: translateY(0); opacity: .28; }
     50% { transform: translateY(360px); opacity: .82; }
+  }
+
+  .weekly-map {
+    display: grid;
+    grid-template-rows: .76fr 1fr 1fr 1fr .72fr;
+    gap: 13px;
+    padding: 40px 38px 34px;
+  }
+
+  .cover-metaphor {
+    position: absolute;
+    z-index: 2;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: .78;
+    pointer-events: none;
+  }
+
+  .week-node {
+    position: relative;
+    z-index: 3;
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    gap: 14px;
+    align-items: center;
+    min-height: 92px;
+    padding: 14px;
+    border: 1px solid rgba(56,189,248,.26);
+    background: linear-gradient(90deg, rgba(8,12,18,.92), rgba(8,12,18,.72));
+    box-shadow: 7px 7px 0 rgba(56,189,248,.055);
+  }
+
+  .week-node .date {
+    display: grid;
+    place-items: center;
+    width: 70px;
+    height: 56px;
+    border: 1px solid rgba(56,189,248,.3);
+    color: var(--acc);
+    font-family: var(--display);
+    font-size: 17px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+  }
+
+  .week-node b {
+    display: block;
+    color: #fff;
+    font-family: var(--display);
+    font-size: 20px;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  .week-node em {
+    display: block;
+    margin-top: 5px;
+    color: rgba(247,245,238,.58);
+    font-style: normal;
+    font-size: 11px;
+    letter-spacing: .12em;
+    line-height: 1.24;
+    text-transform: uppercase;
+  }
+
+  .week-avatars {
+    display: flex;
+    gap: 6px;
+    margin-top: 10px;
+  }
+
+  .week-avatars img,
+  .week-avatars span {
+    width: 34px;
+    height: 34px;
+    border: 1px solid rgba(247,245,238,.22);
+    border-radius: 8px;
+    background: rgba(8,12,18,.86);
+    object-fit: cover;
+  }
+
+  .week-avatars span {
+    display: grid;
+    place-items: center;
+    color: var(--gold);
+    font-family: var(--display);
+    font-size: 12px;
+  }
+
+  .week-node.intro { border-color: rgba(247,201,72,.38); }
+  .week-node.w1 { margin-left: 42px; }
+  .week-node.w2 { margin-left: 92px; border-color: rgba(77,201,212,.32); }
+  .week-node.w3 { margin-left: 22px; border-color: rgba(247,201,72,.34); }
+
+  .week-node .thread {
+    color: var(--acc);
+    font-size: 11px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
   }
 
   .chip {
@@ -992,6 +1093,7 @@
 
   .intel-card,
   .call-step-card,
+  .promise-card,
   .monday-panel,
   .signal-panel,
   .session-card,
@@ -1039,6 +1141,7 @@
 
   .intel-card h3,
   .call-step-card h3,
+  .promise-card h3,
   .monday-panel h3,
   .signal-panel h3,
   .session-card h3,
@@ -1056,6 +1159,7 @@
 
   .intel-card p,
   .call-step-card p,
+  .promise-card p,
   .monday-panel p,
   .signal-panel p,
   .session-card p,
@@ -1074,6 +1178,50 @@
     gap: 12px;
     margin-top: 28px;
   }
+
+  .promise-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 13px;
+    margin-top: 26px;
+  }
+
+  .promise-card {
+    min-height: 142px;
+    padding: 17px;
+  }
+
+  .promise-card b {
+    display: inline-block;
+    margin-bottom: 14px;
+    color: var(--acc);
+    font-size: 12px;
+    letter-spacing: .17em;
+    text-transform: uppercase;
+  }
+
+  .promise-rail {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-top: 26px;
+  }
+
+  .promise-rail span {
+    min-height: 48px;
+    display: grid;
+    place-items: center;
+    border: 1px solid rgba(56,189,248,.22);
+    background: rgba(8,12,18,.62);
+    color: rgba(247,245,238,.62);
+    font-size: 12px;
+    letter-spacing: .14em;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .promise-rail span:nth-child(2) { border-color: rgba(56,217,169,.3); color: var(--cool); }
+  .promise-rail span:nth-child(4) { border-color: rgba(247,201,72,.34); color: var(--gold); }
 
   .call-step-card {
     min-height: 185px;
@@ -1440,6 +1588,109 @@
     color: rgba(247,245,238,.62);
     font-size: 13px;
     line-height: 1.35;
+  }
+
+  .curator-matrix {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 13px;
+    margin-top: 22px;
+  }
+
+  .curator-track {
+    min-height: 310px;
+    padding: 16px;
+    border: 1px solid rgba(56,189,248,.22);
+    background: rgba(13,19,28,.72);
+    box-shadow: 8px 8px 0 rgba(56,189,248,.055);
+  }
+
+  .curator-track .route {
+    color: var(--acc);
+    font-size: 12px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .curator-track h3 {
+    color: #fff;
+    font-family: var(--display);
+    font-size: 22px;
+    line-height: 1;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .curator-track p {
+    color: rgba(247,245,238,.62);
+    font-size: 13px;
+    line-height: 1.35;
+  }
+
+  .curator-roster {
+    display: grid;
+    gap: 7px;
+    margin-top: 14px;
+  }
+
+  .curator-name {
+    display: grid;
+    grid-template-columns: 32px 1fr;
+    gap: 9px;
+    align-items: center;
+    min-height: 40px;
+    color: rgba(247,245,238,.78);
+    font-size: 12px;
+    line-height: 1.18;
+  }
+
+  .curator-name img,
+  .curator-name span {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    border: 1px solid rgba(56,189,248,.28);
+    background: rgba(8,12,18,.86);
+    object-fit: cover;
+  }
+
+  .curator-name span {
+    display: grid;
+    place-items: center;
+    color: var(--gold);
+    font-family: var(--display);
+    font-size: 11px;
+  }
+
+  .office-strip {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-top: 18px;
+  }
+
+  .office-strip div {
+    min-height: 64px;
+    padding: 11px 12px;
+    border: 1px solid rgba(56,189,248,.18);
+    background: rgba(8,12,18,.62);
+  }
+
+  .office-strip b {
+    display: block;
+    color: var(--acc);
+    font-size: 12px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+  }
+
+  .office-strip span {
+    display: block;
+    margin-top: 6px;
+    color: rgba(247,245,238,.58);
+    font-size: 11px;
+    line-height: 1.25;
   }
 
   .lms-grid,
@@ -1898,13 +2149,61 @@
           <span class="logo-pill" data-edit>Plurio AI</span>
         </div>
       </div>
-      <div class="cover-network" aria-hidden="true">
+      <div class="cover-network weekly-map" aria-hidden="true">
         <div class="cover-signal"></div>
-        <div class="cover-speaker s1"><img src="speakers/stepan-gershuni.jpg" alt=""><div><b>Степан</b><span>strategy / systems</span></div></div>
-        <div class="cover-speaker s2"><img src="speakers/alexander-povaliaev.jpg" alt=""><div><b>Александр</b><span>route / artifact</span></div></div>
-        <div class="cover-speaker s3"><img src="speakers/dima-tverdokhlebov.jpg" alt=""><div><b>Дима</b><span>enterprise frame</span></div></div>
-        <div class="cover-speaker s4"><img src="speakers/daniel-kravtsov.jpeg" alt=""><div><b>Даниил</b><span>data / decision layer</span></div></div>
-        <div class="cover-speaker s5"><img src="speakers/seva-ustinov.jpg" alt=""><div><b>Сева</b><span>workspace / agents</span></div></div>
+        <svg class="cover-metaphor" viewBox="0 0 600 650" fill="none">
+          <path d="M116 96C220 92 316 122 402 186C493 254 530 350 486 444C442 538 326 574 206 530C91 488 48 392 78 292C101 213 44 146 116 96Z" stroke="rgba(56,189,248,.28)" stroke-width="2"/>
+          <path d="M112 125L260 254L384 366L488 500" stroke="rgba(56,189,248,.32)" stroke-width="3"/>
+          <path d="M74 420H520" stroke="rgba(247,201,72,.28)" stroke-width="3"/>
+          <path d="M306 84V560" stroke="rgba(77,201,212,.3)" stroke-width="3"/>
+        </svg>
+        <div class="week-node intro">
+          <div class="date">intro</div>
+          <div><b>11 июля</b><em>люди, процессы, обещания перед стартом</em><span class="thread">room map</span></div>
+        </div>
+        <div class="week-node w1">
+          <div class="date">W1</div>
+          <div>
+            <b>baseline</b>
+            <em>personal OS, team OS, данные, workspace</em>
+            <div class="week-avatars">
+              <img src="speakers/stepan-gershuni.jpg" alt="">
+              <img src="speakers/alexander-povaliaev.jpg" alt="">
+              <img src="speakers/denis-smirnov.jpg" alt="">
+              <img src="speakers/dima-tverdokhlebov.jpg" alt="">
+              <img src="speakers/daniel-kravtsov.jpeg" alt="">
+              <img src="speakers/seva-ustinov.jpg" alt="">
+            </div>
+          </div>
+        </div>
+        <div class="week-node w2">
+          <div class="date">W2</div>
+          <div>
+            <b>workflow</b>
+            <em>agent route, product systems, governance, tools</em>
+            <div class="week-avatars">
+              <img src="speakers/dima-tverdokhlebov.jpg" alt="">
+              <img src="speakers/denis-smirnov.jpg" alt="">
+              <img src="speakers/artem-novoselov.jpg" alt="">
+              <img src="speakers/sereja-ris.jpg" alt="">
+              <span>RT</span>
+            </div>
+          </div>
+        </div>
+        <div class="week-node w3">
+          <div class="date">W3</div>
+          <div>
+            <b>demo</b>
+            <em>effect, 90-day frame, team transformation</em>
+            <div class="week-avatars">
+              <img src="speakers/stepan-gershuni.jpg" alt="">
+              <img src="speakers/denis-smirnov.jpg" alt="">
+              <img src="speakers/dima-tverdokhlebov.jpg" alt="">
+              <img src="speakers/yuri-vedenin.png" alt="">
+              <span>DD</span>
+            </div>
+          </div>
+        </div>
         <div class="cover-path">
           <span>узкое место</span>
           <span>контекст</span>
@@ -1957,22 +2256,28 @@
       <div class="foot"><span>маршрутизация</span><span>общий core, разные акценты</span><span>кураторы после интро</span></div>
     </article>
 
-    <article class="slide compact" data-title="w0-intro" data-label="W0" data-subtitle="11 июля">
-      <div class="brand"><img src="logo.png" alt=""><span>ai mindset · W0</span></div>
+    <article class="slide compact" data-title="w0-intro" data-label="intro" data-subtitle="11 июля">
+      <div class="brand"><img src="logo.png" alt=""><span>ai mindset · intro</span></div>
       <div class="counter"></div>
       <div class="slide-content">
-        <div class="kicker" data-edit data-anim>W0 · 11 июля · 10:00 CET</div>
-        <h2 data-edit data-anim style="--delay:.1s">первый звонок собирает людей в рабочую карту</h2>
-        <div class="call-flow" data-anim style="--delay:.16s">
-          <div class="call-step-card"><b>1</b><h3 data-edit>рамка</h3><p data-edit>что делаем три недели и что считаем рабочим артефактом.</p></div>
-          <div class="call-step-card"><b>2</b><h3 data-edit>круг</h3><p data-edit>кто я, где работаю, какой AI-контур собираю.</p></div>
-          <div class="call-step-card"><b>3</b><h3 data-edit>процесс</h3><p data-edit>один процесс, который человек ведёт через спринт.</p></div>
-          <div class="call-step-card"><b>4</b><h3 data-edit>маршрут</h3><p data-edit>кому нужен personal, founder, enterprise или context трек.</p></div>
-          <div class="call-step-card"><b>5</b><h3 data-edit>шаг</h3><p data-edit>до понедельника: brief процесса и первый вопрос к кураторам.</p></div>
+        <div class="kicker" data-edit data-anim>11 июля · 10:00 CET · intro call</div>
+        <h2 data-edit data-anim style="--delay:.1s">сегодня договорились о рабочем старте</h2>
+        <div class="promise-grid" data-anim style="--delay:.16s">
+          <div class="promise-card"><b>01</b><h3 data-edit>LMS</h3><p data-edit>войти в кабинет, увидеть календарь, Zoom, записи и материалы.</p></div>
+          <div class="promise-card"><b>02</b><h3 data-edit>профиль</h3><p data-edit>дописать контекст о себе, чтобы сработали matching и помощь.</p></div>
+          <div class="promise-card"><b>03</b><h3 data-edit>brief</h3><p data-edit>выбрать один процесс: owner, inputs, outputs, контекст, риск.</p></div>
+          <div class="promise-card"><b>04</b><h3 data-edit>ритм</h3><p data-edit>пн/вт live, практика в середине недели, суббота для разбора кейсов.</p></div>
+          <div class="promise-card"><b>05</b><h3 data-edit>кураторы</h3><p data-edit>приносить вопрос в правильный трек: personal, founder, enterprise, context.</p></div>
+          <div class="promise-card"><b>06</b><h3 data-edit>buddy</h3><p data-edit>во вторник запускаем matching, чтобы люди быстрее нашли друг друга.</p></div>
         </div>
-        <p class="lead" data-edit data-anim style="--delay:.24s">тайминг регулируется по комнате: 30–45 секунд при большом составе, 60 секунд как нормальный режим, 90 секунд для малого круга.</p>
+        <div class="promise-rail" data-anim style="--delay:.24s">
+          <span data-edit>сегодня · room map</span>
+          <span data-edit>понедельник · kickoff</span>
+          <span data-edit>вторник · buddy</span>
+          <span data-edit>суббота · case review</span>
+        </div>
       </div>
-      <div class="foot"><span>intro protocol</span><span>один круг, один процесс</span><span>W0 brief</span></div>
+      <div class="foot"><span>intro protocol</span><span>LMS · profile · process brief</span><span>до понедельника</span></div>
     </article>
 
     <article class="slide compact" data-title="monday-kickoff" data-label="понедельник" data-subtitle="13 июля">
@@ -2015,7 +2320,7 @@
         <div class="kicker" data-edit data-anim>13 июля – 3 августа</div>
         <h2 data-edit data-anim style="--delay:.1s">от узкого места к агентной инфраструктуре</h2>
         <div class="program-grid" data-anim style="--delay:.18s">
-          <div class="week-card"><div class="week">W0 · выбрать</div><h3 data-edit>узкое место</h3><p data-edit>назвать процесс, владельца, входы, выходы, риск и критерий демо.</p><div class="artifact">brief + map</div></div>
+          <div class="week-card"><div class="week">intro · выбрать</div><h3 data-edit>узкое место</h3><p data-edit>назвать процесс, владельца, входы, выходы, риск и критерий демо.</p><div class="artifact">brief + map</div></div>
           <div class="week-card"><div class="week">W1 · собрать</div><h3 data-edit>baseline</h3><p data-edit>личный и командный контекст, первая связка инструментов, quality bar.</p><div class="artifact">working baseline</div></div>
           <div class="week-card"><div class="week">W2 · провести</div><h3 data-edit>agent route</h3><p data-edit>источники, правила, человек в петле, повторяемый прогон процесса.</p><div class="artifact">route contract</div></div>
           <div class="week-card"><div class="week">W3 · показать</div><h3 data-edit>effect</h3><p data-edit>демо, экономика, владелец, риск, следующий шаг для команды.</p><div class="artifact">demo + 90-day plan</div></div>
@@ -2052,7 +2357,7 @@
             <div class="timeline-event"><b>27.07</b><div><strong data-edit>strategy</strong><span data-edit>Степан · ROI, 90-day plan, next systems</span></div></div>
             <div class="timeline-event"><b>28.07</b><div><strong data-edit>effect</strong><span data-edit>Денис · quality, cost, risk, decision card</span></div></div>
             <div class="timeline-event"><b>29.07</b><div><strong data-edit>pilot demos</strong><span data-edit>Дима · live cases and enterprise translation</span></div></div>
-            <div class="timeline-event"><b>31.07</b><div><strong data-edit>team transform</strong><span data-edit>Юра Веденин · UXPressia, Mastercard, team OS</span></div></div>
+            <div class="timeline-event"><b>31.07</b><div><strong data-edit>team transform</strong><span data-edit>Юра Веденин · UXPressia, team OS, 90-day frame</span></div></div>
             <div class="timeline-event"><b>03.08</b><div><strong data-edit>Demo Day</strong><span data-edit>процесс, артефакт, эффект, next step</span></div></div>
           </div>
         </div>
@@ -2075,7 +2380,7 @@
           <div class="speaker-tile people-sticker" data-track="product"><img src="speakers/artem-novoselov.jpg" alt=""><div><h3 data-edit>Артём Новосёлов</h3><p class="vision" data-edit>product systems, ML scale, founder layer</p></div></div>
           <div class="speaker-tile people-sticker" data-track="practice"><img src="speakers/denis-smirnov.jpg" alt=""><div><h3 data-edit>Денис Смирнов</h3><p class="vision" data-edit>практики M1–M3: context → route → effect</p></div></div>
           <div class="speaker-tile people-sticker" data-track="tools"><img src="speakers/sereja-ris.jpg" alt=""><div><h3 data-edit>Серёжа Рис</h3><p class="vision" data-edit>loops, git, workflows, live coding руками</p></div></div>
-          <div class="speaker-tile people-sticker" data-track="31.07?"><span class="speaker-initial">YV</span><div><h3 data-edit>Юра Веденин</h3><p class="vision" data-edit>team transform и 90-day frame</p></div></div>
+          <div class="speaker-tile people-sticker" data-track="31.07"><img src="speakers/yuri-vedenin.png" alt=""><div><h3 data-edit>Юра Веденин</h3><p class="vision" data-edit>UXPressia, team OS и 90-day frame</p></div></div>
         </div>
       </div>
       <div class="foot"><span>speaker wall</span><span>vision cards</span><span>фото из AIM people assets</span></div>
@@ -2087,35 +2392,55 @@
       <div class="slide-content">
         <div class="kicker" data-edit data-anim>кто с кем работает</div>
         <h2 data-edit data-anim style="--delay:.1s">кураторы помогают не потерять маршрут</h2>
-        <div class="curator-board" data-anim style="--delay:.16s">
-          <div class="curator-card">
+        <div class="curator-matrix" data-anim style="--delay:.16s">
+          <div class="curator-track">
             <div class="route">personal / micro</div>
-            <div class="avatar-row"><img class="avatar" src="speakers/alexander-vasiliev.jpg" alt=""><img class="avatar" src="curators/alex_named.jpg" alt=""></div>
             <h3 data-edit>личная сборка</h3>
-            <p data-edit>личная среда, первый skill, ежедневный ритм, быстрый рабочий результат.</p>
+            <p data-edit>Claude/Codex, Obsidian, MCP, первый skill, ежедневный ритм и быстрый рабочий результат.</p>
+            <div class="curator-roster">
+              <div class="curator-name"><img src="speakers/alexander-vasiliev.jpg" alt=""><strong>Александр Васильев</strong></div>
+            </div>
           </div>
-          <div class="curator-card">
+          <div class="curator-track">
             <div class="route">founder / smb</div>
-            <div class="avatar-row"><img class="avatar" src="curators/konstantin-urvantcev.jpg" alt=""><img class="avatar" src="speakers/stanislav-fedoseev.jpg" alt=""><img class="avatar" src="curators/sergey-akhmetov.jpg" alt=""><img class="avatar" src="curators/victor-sokovnin.jpg" alt=""></div>
             <h3 data-edit>бизнес-маршрут</h3>
             <p data-edit>процесс, продукт, команда, клиентский результат, первый внедряемый контур.</p>
+            <div class="curator-roster">
+              <div class="curator-name"><img src="curators/konstantin-urvantcev.jpg" alt=""><strong>Константин Урванцев</strong></div>
+              <div class="curator-name"><img src="speakers/stanislav-fedoseev.jpg" alt=""><strong>Станислав Федосеев</strong></div>
+              <div class="curator-name"><img src="curators/sergey-akhmetov.jpg" alt=""><strong>Сергей Ахметов</strong></div>
+              <div class="curator-name"><img src="curators/victor-sokovnin.jpg" alt=""><strong>Виктор Соковнин</strong></div>
+            </div>
           </div>
-          <div class="curator-card">
+          <div class="curator-track">
             <div class="route">enterprise</div>
-            <div class="avatar-row"><img class="avatar" src="curators/doonto.jpg" alt=""><img class="avatar" src="speakers/denis-smirnov.jpg" alt=""><img class="avatar" src="speakers/stanislav-fedoseev.jpg" alt=""><span class="avatar-initial">AG</span></div>
-            <h3 data-edit>enterprise-маршрут</h3>
-            <p data-edit>security, ownership, rollout, внутренние платформы, принятие в командах.</p>
+            <h3 data-edit>корпоративный слой</h3>
+            <p data-edit>security, ownership, rollout, внутренние платформы, принятие в командах и governance.</p>
+            <div class="curator-roster">
+              <div class="curator-name"><img src="curators/doonto.jpg" alt=""><strong>Юра Смирнов</strong></div>
+              <div class="curator-name"><img src="speakers/denis-smirnov.jpg" alt=""><strong>Денис Смирнов</strong></div>
+              <div class="curator-name"><img src="speakers/stanislav-fedoseev.jpg" alt=""><strong>Станислав Федосеев</strong></div>
+              <div class="curator-name"><span>AG</span><strong>Антон Грабаров</strong></div>
+            </div>
           </div>
-          <div class="curator-card">
+          <div class="curator-track">
             <div class="route">context / agents</div>
-            <div class="avatar-row"><img class="avatar" src="speakers/denis-smirnov.jpg" alt=""><img class="avatar" src="speakers/alexander-vasiliev.jpg" alt=""><img class="avatar" src="curators/densmirnov.jpg" alt=""></div>
-            <h3 data-edit>agent-маршрут</h3>
-            <p data-edit>источники истины, правила, eval, качество результата и границы автономии.</p>
+            <h3 data-edit>маршрут агента</h3>
+            <p data-edit>источники истины, RAG, graph memory, правила, eval, качество результата и границы автономии.</p>
+            <div class="curator-roster">
+              <div class="curator-name"><img src="speakers/denis-smirnov.jpg" alt=""><strong>Денис Смирнов</strong></div>
+              <div class="curator-name"><img src="speakers/alexander-vasiliev.jpg" alt=""><strong>Александр Васильев</strong></div>
+            </div>
           </div>
         </div>
-        <p class="lead" data-edit data-anim style="--delay:.24s">после интро быстро собираем мини-группы: по типу процесса, уровню компании и первому артефакту.</p>
+        <div class="office-strip" data-anim style="--delay:.24s">
+          <div><b>18.07</b><span data-edit>baseline, первый skill, среда</span></div>
+          <div><b>25.07</b><span data-edit>workflow review, agent route</span></div>
+          <div><b>01.08</b><span data-edit>demo artifact, 30–90 day plan</span></div>
+          <div><b>03.08</b><span data-edit>Demo Day и следующий шаг</span></div>
+        </div>
       </div>
-      <div class="foot"><span>curator routes</span><span>маршрут после W0</span><span>office hours / mini-groups</span></div>
+      <div class="foot"><span>curator routes</span><span>после intro · mini-groups</span><span>office hours</span></div>
     </article>
 
     <article class="slide compact" data-title="lms-navigation" data-label="LMS" data-subtitle="куда идти после звонка">
@@ -2194,9 +2519,9 @@
 const GH_REPO = 'ai-mindset-org/ainative-deck';
 const GH_FILE = 'ain3-intro.html';
 const GH_BRANCH = 'main';
-const DECK_VERSION = '2026-07-11-ain3-intro-visual-system-v6';
-const STORAGE_KEY = 'ain3-intro-visual-system-v6-state';
-const HISTORY_KEY = 'ain3-intro-visual-system-v6-history';
+const DECK_VERSION = '2026-07-11-ain3-intro-weekly-context-v7';
+const STORAGE_KEY = 'ain3-intro-weekly-context-v7-state';
+const HISTORY_KEY = 'ain3-intro-weekly-context-v7-history';
 const UI_LANG_KEY = 'ain3-intro-ui-lang';
 const TOKEN_KEY = 'ainative-deck-gh-token';
 const ASSISTANT_ENDPOINT_KEY = 'ain3-assistant-endpoint';
@@ -2235,9 +2560,9 @@ const ASSISTANT_TIPS = {
     actions: ['enterprise', 'founder / smb', 'micro / personal']
   },
   'w0-intro': {
-    source: 'W0 mechanics',
-    text: 'Держи круг быстрым. Норма: одна минута на человека, но при большом составе можно ужать до 30–45 секунд и собрать детали после звонка.',
-    actions: ['человек', 'контекст', 'один процесс']
+    source: 'Zoom summary · intro call · 2026-07-11',
+    text: 'Здесь фиксируем обещания сегодняшнего звонка: LMS, профиль, один процесс, кураторы, buddy-matching и понятный ритм до понедельника.',
+    actions: ['LMS', 'process brief', 'buddy Tuesday']
   },
   'monday-kickoff': {
     source: 'weekly plan · W1 kickoff',
@@ -2260,9 +2585,9 @@ const ASSISTANT_TIPS = {
     actions: ['vision cards', 'коротко', 'без биографий']
   },
   curators: {
-    source: 'curator routing map',
-    text: 'Этот слайд успокаивает комнату: после интро люди не остаются одни. Маршруты нужны, чтобы вопрос быстрее попадал к правильному человеку.',
-    actions: ['mini-groups', 'office hours', 'маршрут помощи']
+    source: 'AIN03 curators CRM + office hours',
+    text: 'Этот слайд показывает, куда нести вопрос. Человек выбирает не “любимого эксперта”, а маршрут помощи под свой процесс.',
+    actions: ['personal', 'founder / smb', 'enterprise', 'context / agents']
   },
   'lms-navigation': {
     source: 'learn.aimindset.org/ain3',
@@ -2361,11 +2686,33 @@ function fitStage() {
   stage.style.transform = `translate(-50%, -50%) scale(${scale})`;
 }
 
-function showSlide(index) {
+function getHashIndex() {
+  const raw = decodeURIComponent(location.hash.replace(/^#/, '')).trim();
+  if (!raw) return 0;
+  const numeric = Number(raw);
+  if (Number.isInteger(numeric) && numeric >= 1 && numeric <= slides.length) return numeric - 1;
+  const normalized = raw.toLowerCase();
+  const match = slides.findIndex(slide =>
+    (slide.dataset.title || '').toLowerCase() === normalized ||
+    (slide.dataset.label || '').toLowerCase() === normalized
+  );
+  return match >= 0 ? match : 0;
+}
+
+function syncHash() {
+  const slide = slides[current];
+  const next = slide?.dataset.title || String(current + 1);
+  if (location.hash.replace(/^#/, '') !== next) {
+    history.replaceState(null, '', `#${encodeURIComponent(next)}`);
+  }
+}
+
+function showSlide(index, options = {}) {
   current = Math.max(0, Math.min(slides.length - 1, index));
   slides.forEach((slide, i) => slide.classList.toggle('active', i === current));
   updateOverlay();
   updateAssistantContext();
+  if (!options.fromHash) syncHash();
 }
 
 function updateOverlay() {
@@ -2517,7 +2864,7 @@ function toBase64(str) {
 async function getGitHubToken() {
   let token = localStorage.getItem(TOKEN_KEY) || '';
   if (token) return token;
-  token = prompt(uiText('GitHub token для ai-mindset-org/ainative-deck', 'GitHub token for ai-mindset-org/ainative-deck'));
+  token = prompt(uiText('GitHub token для публикации в ai-mindset-org/ainative-deck.\nНужен доступ Contents: read/write. Токен сохранится только в localStorage этого браузера: ainative-deck-gh-token.', 'GitHub token for publishing to ai-mindset-org/ainative-deck.\nNeeds Contents: read/write. The token is stored only in this browser localStorage: ainative-deck-gh-token.'));
   if (!token) return '';
   localStorage.setItem(TOKEN_KEY, token.trim());
   return token.trim();
@@ -2627,11 +2974,13 @@ document.querySelectorAll('[data-close]').forEach(btn => {
 });
 
 window.addEventListener('resize', fitStage);
+window.addEventListener('hashchange', () => showSlide(getHashIndex(), { fromHash: true }));
 window.addEventListener('beforeunload', () => { if (dirty) saveLocal(); });
 
 fitStage();
 loadLocal();
 applyUILang(uiLang);
+showSlide(getHashIndex(), { fromHash: true });
 updateOverlay();
 updateAssistantContext();
 renderHistory();

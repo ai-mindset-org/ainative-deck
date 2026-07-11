@@ -1,0 +1,984 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AIN3 Intro Shaper - AI Mindset</title>
+<meta property="og:title" content="AIN3 Intro Shaper - AI Mindset">
+<meta property="og:description" content="AI-Native Sprint III intro kickoff: base slide + intro mechanics.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://ai-mindset-org.github.io/ainative-deck/assets/og-intro-call.png">
+<meta property="og:url" content="https://ai-mindset-org.github.io/ainative-deck/ain3-intro.html">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" href="logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #08090c;
+    --paper: #101118;
+    --paper-2: #151720;
+    --ink: #f7f5ee;
+    --muted: rgba(247,245,238,.55);
+    --hair: rgba(250,204,21,.18);
+    --line: rgba(247,245,238,.11);
+    --acc: #facc15;
+    --acc-2: #ffe36b;
+    --cool: #4dc9d4;
+    --cool-soft: rgba(77,201,212,.13);
+    --acc-soft: rgba(250,204,21,.13);
+    --shadow: rgba(250,204,21,.14);
+    --mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    --display: 'Space Grotesk', var(--mono);
+    --mx: .5;
+    --my: .5;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--mono);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background:
+      linear-gradient(rgba(77,201,212,.055) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(77,201,212,.055) 1px, transparent 1px);
+    background-size: 64px 64px;
+    transform: translate(calc((var(--mx) - .5) * -18px), calc((var(--my) - .5) * -18px));
+    pointer-events: none;
+    opacity: .72;
+  }
+
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(circle at calc(var(--mx) * 100%) calc(var(--my) * 100%), rgba(250,204,21,.13), transparent 22%),
+      radial-gradient(circle at 78% 18%, rgba(77,201,212,.13), transparent 28%),
+      radial-gradient(circle at 12% 82%, rgba(250,204,21,.07), transparent 32%),
+      radial-gradient(circle at center, transparent 48%, rgba(0,0,0,.58) 100%);
+    pointer-events: none;
+  }
+
+  button, input, textarea { font: inherit; }
+  button { cursor: pointer; }
+
+  .ticker {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 20;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    background: #050506;
+    border-bottom: 1px solid var(--line);
+    color: rgba(247,245,238,.66);
+    font-size: 11px;
+    letter-spacing: .24em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .ticker span {
+    display: inline-block;
+    padding-left: 24px;
+    animation: ticker 36s linear infinite;
+  }
+
+  .ticker b { color: var(--acc); }
+  @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  .topbar {
+    position: fixed;
+    z-index: 50;
+    top: 46px;
+    left: 50%;
+    transform: translate(-50%, -120%);
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    padding: 8px;
+    border: 1px solid rgba(250,204,21,.28);
+    border-radius: 12px;
+    background: rgba(10,10,12,.88);
+    box-shadow: 0 18px 60px rgba(0,0,0,.28);
+    backdrop-filter: blur(14px);
+    transition: transform .18s ease, opacity .18s ease;
+    opacity: 0;
+  }
+
+  body.edit .topbar, .topbar:hover {
+    transform: translateX(-50%);
+    opacity: 1;
+  }
+
+  .topbar::before {
+    content: "live edit";
+    padding: 0 8px 0 2px;
+    color: var(--muted);
+    font-size: 11px;
+    letter-spacing: .08em;
+    white-space: nowrap;
+  }
+
+  .topbar button {
+    min-height: 36px;
+    border: 1px solid rgba(247,245,238,.15);
+    border-radius: 8px;
+    padding: 8px 12px;
+    color: var(--ink);
+    background: rgba(255,255,255,.03);
+    text-transform: lowercase;
+    transition: .15s ease;
+  }
+
+  .topbar button:hover, .topbar button.active {
+    border-color: var(--acc);
+    background: var(--acc);
+    color: #111;
+  }
+
+  .topbar .primary {
+    background: var(--acc);
+    border-color: var(--acc);
+    color: #111;
+    font-weight: 700;
+  }
+
+  .topbar .split {
+    width: 1px;
+    height: 24px;
+    background: rgba(247,245,238,.13);
+  }
+
+  #status {
+    min-width: 96px;
+    color: var(--muted);
+    font-size: 11px;
+  }
+
+  .stage-wrap {
+    position: fixed;
+    inset: 34px 0 0;
+    display: block;
+    z-index: 5;
+  }
+
+  .stage {
+    width: 1600px;
+    height: 900px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform-origin: center center;
+    overflow: hidden;
+    background:
+      linear-gradient(90deg, rgba(250,204,21,.07) 0 1px, transparent 1px 100%),
+      linear-gradient(0deg, rgba(77,201,212,.055) 0 1px, transparent 1px 100%),
+      radial-gradient(circle at 22% 34%, rgba(250,204,21,.12), transparent 30%),
+      linear-gradient(135deg, #08090c 0%, #0e1217 54%, #09090c 100%);
+    background-size: 80px 80px, 80px 80px, auto, auto;
+    border: 1px solid rgba(247,245,238,.13);
+    box-shadow: 0 28px 90px rgba(0,0,0,.5), 12px 12px 0 rgba(250,204,21,.08), -12px -12px 0 rgba(77,201,212,.05);
+  }
+
+  .stage::before,
+  .stage::after {
+    content: "";
+    position: absolute;
+    width: 78px;
+    height: 78px;
+    border: 3px solid rgba(247,245,238,.62);
+    pointer-events: none;
+    z-index: 8;
+  }
+
+  .stage::before { top: 36px; left: 36px; border-right: 0; border-bottom: 0; }
+  .stage::after { right: 36px; bottom: 36px; border-left: 0; border-top: 0; }
+
+  .slide {
+    position: absolute;
+    inset: 0;
+    display: none;
+    padding: 76px 92px 86px;
+  }
+
+  .slide.active { display: grid; }
+
+  .slide-content {
+    position: relative;
+    z-index: 2;
+    padding-top: 72px;
+  }
+
+  .brand {
+    position: absolute;
+    left: 92px;
+    top: 62px;
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    z-index: 5;
+  }
+
+  .brand img {
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    box-shadow: 0 0 0 1px rgba(250,204,21,.28);
+  }
+
+  .brand span {
+    color: rgba(247,245,238,.72);
+    font-size: 12px;
+    letter-spacing: .24em;
+    text-transform: uppercase;
+  }
+
+  .counter {
+    position: absolute;
+    top: 76px;
+    right: 112px;
+    color: rgba(247,245,238,.34);
+    font-size: 13px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    z-index: 5;
+  }
+
+  .kicker {
+    color: var(--cool);
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: .28em;
+    text-transform: uppercase;
+  }
+
+  h1, h2, h3, p { margin: 0; }
+  h1, h2 {
+    font-family: var(--display);
+    letter-spacing: 0;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+
+  h1 {
+    max-width: 1080px;
+    margin-top: 72px;
+    font-size: 116px;
+    line-height: .88;
+    font-weight: 700;
+  }
+
+  h2 {
+    margin-top: 36px;
+    font-size: 76px;
+    line-height: .92;
+    font-weight: 700;
+    max-width: 980px;
+  }
+
+  .accent { color: var(--acc); }
+  .cool { color: var(--cool); }
+
+  .lead {
+    max-width: 830px;
+    margin-top: 30px;
+    color: rgba(247,245,238,.76);
+    font-size: 27px;
+    line-height: 1.36;
+  }
+
+  .meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 34px;
+  }
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    min-height: 38px;
+    padding: 9px 17px;
+    border: 1px solid rgba(250,204,21,.38);
+    border-radius: 8px;
+    background: rgba(250,204,21,.08);
+    color: var(--acc-2);
+    font-size: 13px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+  }
+
+  .chip.cool-chip {
+    border-color: rgba(77,201,212,.38);
+    background: rgba(77,201,212,.08);
+    color: var(--cool);
+  }
+
+  .orbit {
+    position: absolute;
+    right: 92px;
+    bottom: 92px;
+    width: 560px;
+    height: 360px;
+    border: 1px solid rgba(250,204,21,.24);
+    background: rgba(10,10,12,.38);
+    overflow: hidden;
+    transform: translate(calc((var(--mx) - .5) * 16px), calc((var(--my) - .5) * 16px));
+  }
+
+  .orbit::before {
+    content: "";
+    position: absolute;
+    inset: 30px;
+    border: 1px solid rgba(77,201,212,.22);
+    background:
+      linear-gradient(90deg, transparent 0 49%, rgba(77,201,212,.25) 49% 50%, transparent 50%),
+      linear-gradient(0deg, transparent 0 49%, rgba(250,204,21,.22) 49% 50%, transparent 50%);
+  }
+
+  .node {
+    position: absolute;
+    min-width: 148px;
+    padding: 15px 18px;
+    border: 1px solid rgba(247,245,238,.25);
+    background: rgba(16,17,24,.92);
+    color: rgba(247,245,238,.82);
+    font-size: 13px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    text-align: center;
+  }
+
+  .node.one { left: 48px; top: 66px; border-color: rgba(250,204,21,.45); color: var(--acc); }
+  .node.two { right: 50px; top: 122px; border-color: rgba(77,201,212,.45); color: var(--cool); }
+  .node.three { left: 172px; bottom: 58px; border-color: rgba(250,204,21,.45); color: var(--acc); }
+
+  .intro-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 18px;
+    margin-top: 24px;
+  }
+
+  .intro-card {
+    min-height: 164px;
+    border: 1px solid rgba(247,245,238,.13);
+    background: rgba(16,17,24,.72);
+    padding: 18px 20px;
+    box-shadow: 7px 7px 0 rgba(250,204,21,.08);
+    transform: translate(calc((var(--mx) - .5) * var(--shift, 8px)), calc((var(--my) - .5) * var(--shift, 8px)));
+  }
+
+  .intro-card:nth-child(2) { --shift: -10px; border-color: rgba(250,204,21,.32); }
+  .intro-card:nth-child(3) { --shift: 12px; border-color: rgba(77,201,212,.32); }
+
+  .intro-card .num {
+    font-family: var(--display);
+    color: var(--acc);
+    font-size: 34px;
+    line-height: 1;
+    margin-bottom: 10px;
+  }
+
+  .intro-card h3 {
+    font-family: var(--display);
+    color: #fff;
+    font-size: 25px;
+    line-height: .98;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .intro-card p {
+    color: rgba(247,245,238,.64);
+    font-size: 15px;
+    line-height: 1.36;
+  }
+
+  .script {
+    display: grid;
+    grid-template-columns: 1.04fr .96fr;
+    gap: 16px;
+    align-items: stretch;
+    margin-top: 18px;
+  }
+
+  .script-box {
+    border: 1px solid rgba(250,204,21,.32);
+    background: rgba(250,204,21,.08);
+    padding: 18px 22px;
+    box-shadow: 8px 8px 0 rgba(250,204,21,.1);
+  }
+
+  .script-box h3,
+  .time-box h3 {
+    color: #fff;
+    font-family: var(--display);
+    font-size: 22px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .script-line {
+    display: grid;
+    grid-template-columns: 34px 1fr;
+    gap: 10px;
+    padding: 7px 0;
+    border-top: 1px solid rgba(247,245,238,.11);
+    color: rgba(247,245,238,.78);
+    font-size: 15px;
+    line-height: 1.34;
+  }
+
+  .script-line:first-of-type { border-top: 0; }
+  .script-line b { color: var(--acc); }
+
+  .time-box {
+    border: 1px solid rgba(77,201,212,.26);
+    background: rgba(77,201,212,.08);
+    padding: 18px 22px;
+  }
+
+  .time-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 18px;
+    padding: 8px 0;
+    border-top: 1px solid rgba(247,245,238,.11);
+    color: rgba(247,245,238,.76);
+    font-size: 15px;
+  }
+
+  .time-row:first-of-type { border-top: 0; }
+  .time-row strong { color: #fff; }
+  .time-row span:last-child { color: var(--cool); white-space: nowrap; }
+
+  .foot {
+    position: absolute;
+    left: 92px;
+    right: 92px;
+    bottom: 58px;
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    color: rgba(247,245,238,.38);
+    font-size: 12px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+  }
+
+  .nav {
+    position: fixed;
+    z-index: 30;
+    right: 28px;
+    bottom: 24px;
+    display: flex;
+    gap: 8px;
+  }
+
+  .nav button {
+    width: 42px;
+    height: 42px;
+    border: 1px solid rgba(250,204,21,.32);
+    border-radius: 10px;
+    background: rgba(10,10,12,.82);
+    color: var(--ink);
+  }
+
+  .nav button:hover { background: var(--acc); color: #111; }
+
+  .hint {
+    position: fixed;
+    left: 28px;
+    bottom: 28px;
+    z-index: 30;
+    color: rgba(247,245,238,.28);
+    font-size: 11px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+  }
+
+  [contenteditable="true"] {
+    outline: 1px dashed rgba(250,204,21,.42);
+    border-radius: 4px;
+  }
+
+  [contenteditable="true"]:focus {
+    outline-color: var(--acc);
+    background: rgba(250,204,21,.08);
+  }
+
+  .panel {
+    position: fixed;
+    z-index: 70;
+    top: 104px;
+    right: 22px;
+    width: min(520px, calc(100vw - 44px));
+    max-height: calc(100vh - 132px);
+    display: none;
+    grid-template-rows: auto 1fr;
+    border: 1px solid rgba(250,204,21,.28);
+    border-radius: 12px;
+    overflow: hidden;
+    background: rgba(12,12,15,.94);
+    box-shadow: 0 22px 70px rgba(0,0,0,.45);
+    backdrop-filter: blur(14px);
+  }
+
+  .panel.open { display: grid; }
+  .panel-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 14px;
+    border-bottom: 1px solid rgba(247,245,238,.11);
+    color: var(--muted);
+    font-size: 12px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+  }
+
+  .panel-head button {
+    border: 1px solid rgba(247,245,238,.15);
+    border-radius: 7px;
+    background: transparent;
+    color: var(--ink);
+    padding: 5px 9px;
+  }
+
+  #md {
+    width: 100%;
+    min-height: 380px;
+    height: 100%;
+    resize: none;
+    border: 0;
+    outline: 0;
+    padding: 16px;
+    background: #08090c;
+    color: rgba(247,245,238,.8);
+    font-size: 13px;
+    line-height: 1.55;
+  }
+
+  .history {
+    display: grid;
+    gap: 8px;
+    padding: 12px;
+    overflow: auto;
+  }
+
+  .history button {
+    text-align: left;
+    border: 1px solid rgba(247,245,238,.12);
+    border-radius: 9px;
+    background: rgba(255,255,255,.03);
+    color: var(--ink);
+    padding: 10px;
+  }
+
+  .cursor {
+    position: fixed;
+    z-index: 60;
+    width: 18px;
+    height: 18px;
+    margin: -9px 0 0 -9px;
+    border: 1px solid rgba(250,204,21,.62);
+    border-radius: 50%;
+    pointer-events: none;
+    transform: translate(calc(var(--mx) * 100vw), calc(var(--my) * 100vh));
+    box-shadow: 0 0 28px rgba(250,204,21,.32);
+  }
+
+  @media (max-width: 860px) {
+    .topbar { width: calc(100vw - 18px); overflow-x: auto; justify-content: flex-start; }
+    .hint { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="ticker"><span>AI MINDSET · <b>AIN3 INTRO</b> · ONE MINUTE PER PERSON · PROCESS → ARTIFACT · YELLOW / TEAL · AI MINDSET · <b>AIN3 INTRO</b> · ONE MINUTE PER PERSON · PROCESS → ARTIFACT · YELLOW / TEAL · </span></div>
+
+<div class="topbar" aria-label="editor controls">
+  <button id="editBtn" class="primary" type="button">edit</button>
+  <button type="button" data-cmd="bold">b</button>
+  <button type="button" data-cmd="italic">i</button>
+  <div class="split"></div>
+  <button type="button" id="saveBtn">save local</button>
+  <button type="button" id="snapshotBtn">snapshot</button>
+  <button type="button" id="publishBtn">publish</button>
+  <button type="button" id="downloadBtn">download</button>
+  <button type="button" id="mdBtn">md panel</button>
+  <button type="button" id="historyBtn">history</button>
+  <span id="status">ready</span>
+</div>
+
+<main class="stage-wrap">
+  <section class="stage" id="stage">
+    <article class="slide active" data-title="cover">
+      <div class="brand"><img src="logo.png" alt=""><span>ai mindset · ain3</span></div>
+      <div class="counter">intro 01 / 02</div>
+      <div class="slide-content">
+        <div class="kicker" data-edit>intro kickoff · 11 июля · 10:00 CET</div>
+        <h1 data-edit><span class="accent">AI-Native</span><br> Sprint III</h1>
+        <p class="lead" data-edit>знакомимся не ради биографий, а чтобы собрать рабочий контур: кто в комнате, какой процесс болит, какой первый артефакт утащим в демо.</p>
+        <div class="meta-row">
+          <span class="chip" data-edit>1 минута на человека</span>
+          <span class="chip cool-chip" data-edit>процесс → артефакт</span>
+          <span class="chip" data-edit>потом маршрут по кураторам</span>
+        </div>
+      </div>
+      <div class="orbit" aria-hidden="true">
+        <div class="node one">личный контур</div>
+        <div class="node two">командный процесс</div>
+        <div class="node three">demo artifact</div>
+      </div>
+      <div class="foot"><span>AIN3 / intro</span><span>editable shaper deck</span><span>AI Mindset</span></div>
+    </article>
+
+    <article class="slide" data-title="intro mechanics">
+      <div class="brand"><img src="logo.png" alt=""><span>ai mindset · intro protocol</span></div>
+      <div class="counter">intro 02 / 02</div>
+      <div class="slide-content">
+        <div class="kicker" data-edit>как проходит знакомство</div>
+        <h2 data-edit>один круг,<br><span class="accent">одна минута</span><br>на человека</h2>
+        <div class="intro-grid">
+          <div class="intro-card">
+            <div class="num">01</div>
+            <h3 data-edit>кто я</h3>
+            <p data-edit>роль, компания, контекст. без длинной биографии – только то, что поможет другим понять твой AI-контур.</p>
+          </div>
+          <div class="intro-card">
+            <div class="num">02</div>
+            <h3 data-edit>что собираю</h3>
+            <p data-edit>один процесс: продажи, ops, support, dev, HR, контент, knowledge base, агентный workflow.</p>
+          </div>
+          <div class="intro-card">
+            <div class="num">03</div>
+            <h3 data-edit>с чем уйду</h3>
+            <p data-edit>первый артефакт к демо: прототип, карта процесса, агент, dashboard, eval, playbook, workspace.</p>
+          </div>
+        </div>
+        <div class="script">
+          <div class="script-box">
+            <h3 data-edit>шаблон ответа</h3>
+            <div class="script-line"><b>1</b><span data-edit>я – [роль / контекст]</span></div>
+            <div class="script-line"><b>2</b><span data-edit>сейчас AI уже использую для [что]</span></div>
+            <div class="script-line"><b>3</b><span data-edit>хочу собрать [процесс] в [артефакт]</span></div>
+            <div class="script-line"><b>4</b><span data-edit>главный блокер: [данные / люди / интеграции / rhythm]</span></div>
+          </div>
+          <div class="time-box">
+            <h3 data-edit>тайминг по аудитории</h3>
+            <div class="time-row"><strong data-edit>много людей</strong><span data-edit>30-45 сек</span></div>
+            <div class="time-row"><strong data-edit>обычный круг</strong><span data-edit>60 сек</span></div>
+            <div class="time-row"><strong data-edit>малый круг</strong><span data-edit>90 сек + вопрос</span></div>
+            <div class="time-row"><strong data-edit>после круга</strong><span data-edit>маршруты / кураторы</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="foot"><span>intro mechanics</span><span>less text · more room energy</span><span>yellow / teal</span></div>
+    </article>
+  </section>
+</main>
+
+<nav class="nav" aria-label="slide navigation">
+  <button type="button" id="prevBtn" aria-label="previous slide">←</button>
+  <button type="button" id="nextBtn" aria-label="next slide">→</button>
+</nav>
+<div class="hint">← → navigate · E edit · S save · P publish · Esc exit</div>
+<div class="cursor" aria-hidden="true"></div>
+
+<section class="panel" id="mdPanel">
+  <div class="panel-head"><span>markdown panel</span><button type="button" data-close="mdPanel">close</button></div>
+  <textarea id="md" spellcheck="false"></textarea>
+</section>
+
+<section class="panel" id="historyPanel">
+  <div class="panel-head"><span>history</span><button type="button" data-close="historyPanel">close</button></div>
+  <div class="history" id="historyList"></div>
+</section>
+
+<script>
+const GH_REPO = 'ai-mindset-org/ainative-deck';
+const GH_FILE = 'ain3-intro.html';
+const GH_BRANCH = 'main';
+const STORAGE_KEY = 'ain3-intro-shaper-state';
+const HISTORY_KEY = 'ain3-intro-shaper-history';
+const TOKEN_KEY = 'ainative-deck-gh-token';
+
+const stage = document.getElementById('stage');
+const slides = Array.from(document.querySelectorAll('.slide'));
+const statusEl = document.getElementById('status');
+let current = 0;
+let dirty = false;
+
+function setStatus(text) {
+  statusEl.textContent = text;
+}
+
+function fitStage() {
+  const wrap = document.querySelector('.stage-wrap');
+  const scale = Math.min(wrap.clientWidth / 1600, wrap.clientHeight / 900);
+  stage.style.transform = `translate(-50%, -50%) scale(${scale})`;
+}
+
+function showSlide(index) {
+  current = Math.max(0, Math.min(slides.length - 1, index));
+  slides.forEach((slide, i) => slide.classList.toggle('active', i === current));
+}
+
+function toggleEdit(force) {
+  const next = typeof force === 'boolean' ? force : !document.body.classList.contains('edit');
+  document.body.classList.toggle('edit', next);
+  document.getElementById('editBtn').classList.toggle('active', next);
+  document.querySelectorAll('[data-edit]').forEach(el => {
+    if (next) el.setAttribute('contenteditable', 'true');
+    else el.removeAttribute('contenteditable');
+  });
+  if (!next) saveLocal();
+  setStatus(next ? 'editing' : 'saved');
+}
+
+function collectState() {
+  return {
+    current,
+    html: document.querySelector('.stage').innerHTML,
+    updatedAt: new Date().toISOString()
+  };
+}
+
+function restoreState(state) {
+  if (!state || !state.html) return;
+  document.querySelector('.stage').innerHTML = state.html;
+  const restored = Array.from(document.querySelectorAll('.slide'));
+  slides.splice(0, slides.length, ...restored);
+  current = Math.min(state.current || 0, slides.length - 1);
+  showSlide(current);
+  toggleEdit(false);
+}
+
+function saveLocal() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(collectState()));
+  dirty = false;
+  setStatus('local saved');
+}
+
+function loadLocal() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return;
+    restoreState(JSON.parse(raw));
+    setStatus('restored');
+  } catch (err) {
+    console.warn(err);
+  }
+}
+
+function getHistory() {
+  try { return JSON.parse(localStorage.getItem(HISTORY_KEY) || '[]'); }
+  catch { return []; }
+}
+
+function setHistory(items) {
+  localStorage.setItem(HISTORY_KEY, JSON.stringify(items.slice(0, 20)));
+}
+
+function snapshot() {
+  const items = getHistory();
+  const state = collectState();
+  items.unshift({
+    label: new Date().toLocaleString('ru-RU', { dateStyle: 'short', timeStyle: 'short' }),
+    state
+  });
+  setHistory(items);
+  renderHistory();
+  setStatus('snapshot');
+}
+
+function renderHistory() {
+  const list = document.getElementById('historyList');
+  list.innerHTML = '';
+  const items = getHistory();
+  if (!items.length) {
+    list.innerHTML = '<div style="color:var(--muted);font-size:13px;padding:8px">no snapshots yet</div>';
+    return;
+  }
+  items.forEach((item, index) => {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.textContent = `${item.label} · restore snapshot ${index + 1}`;
+    btn.addEventListener('click', () => {
+      restoreState(item.state);
+      setStatus('snapshot restored');
+    });
+    list.appendChild(btn);
+  });
+}
+
+function buildMarkdown() {
+  return Array.from(document.querySelectorAll('.slide')).map((slide, index) => {
+    const title = slide.querySelector('h1,h2')?.innerText.trim() || `slide ${index + 1}`;
+    const bits = Array.from(slide.querySelectorAll('[data-edit]'))
+      .map(el => el.innerText.trim())
+      .filter(Boolean);
+    return `## ${index + 1}. ${title}\n\n${bits.map(x => `- ${x}`).join('\n')}`;
+  }).join('\n\n---\n\n');
+}
+
+function openMarkdown() {
+  document.getElementById('md').value = buildMarkdown();
+  document.getElementById('mdPanel').classList.add('open');
+}
+
+function cleanHTML() {
+  const clone = document.documentElement.cloneNode(true);
+  clone.querySelectorAll('[contenteditable]').forEach(el => el.removeAttribute('contenteditable'));
+  clone.querySelector('body')?.classList.remove('edit');
+  return '<!doctype html>\n' + clone.outerHTML;
+}
+
+function downloadHTML() {
+  const blob = new Blob([cleanHTML()], { type: 'text/html;charset=utf-8' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = GH_FILE;
+  a.click();
+  URL.revokeObjectURL(a.href);
+  setStatus('downloaded');
+}
+
+function toBase64(str) {
+  return btoa(unescape(encodeURIComponent(str)));
+}
+
+async function getGitHubToken() {
+  let token = localStorage.getItem(TOKEN_KEY) || '';
+  if (token) return token;
+  token = prompt('GitHub token for ai-mindset-org/ainative-deck');
+  if (!token) return '';
+  localStorage.setItem(TOKEN_KEY, token.trim());
+  return token.trim();
+}
+
+async function publish() {
+  const token = await getGitHubToken();
+  if (!token) {
+    setStatus('no token');
+    return;
+  }
+  setStatus('publishing...');
+  const api = `https://api.github.com/repos/${GH_REPO}/contents/${GH_FILE}?ref=${GH_BRANCH}`;
+  const currentFile = await fetch(api, { headers: { Authorization: `Bearer ${token}` } });
+  let sha = null;
+  if (currentFile.ok) {
+    const meta = await currentFile.json();
+    sha = meta.sha;
+  } else if (currentFile.status !== 404) {
+    setStatus(`github ${currentFile.status}`);
+    return;
+  }
+
+  const body = {
+    message: `update AIN3 intro shaper - ${new Date().toISOString()}`,
+    content: toBase64(cleanHTML()),
+    branch: GH_BRANCH
+  };
+  if (sha) body.sha = sha;
+
+  const resp = await fetch(`https://api.github.com/repos/${GH_REPO}/contents/${GH_FILE}`, {
+    method: 'PUT',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(body)
+  });
+  if (!resp.ok) {
+    const text = await resp.text();
+    console.error(text);
+    setStatus(`publish ${resp.status}`);
+    return;
+  }
+  dirty = false;
+  setStatus('published');
+}
+
+document.addEventListener('pointermove', event => {
+  document.documentElement.style.setProperty('--mx', (event.clientX / window.innerWidth).toFixed(4));
+  document.documentElement.style.setProperty('--my', (event.clientY / window.innerHeight).toFixed(4));
+});
+
+document.addEventListener('input', event => {
+  if (event.target.matches('[data-edit]')) {
+    dirty = true;
+    setStatus('dirty');
+  }
+});
+
+document.addEventListener('keydown', event => {
+  const editingText = event.target.isContentEditable || event.target.tagName === 'TEXTAREA' || event.target.tagName === 'INPUT';
+  if (!editingText && (event.key === 'ArrowRight' || event.key === ' ' || event.key === 'Enter')) {
+    event.preventDefault();
+    showSlide(current + 1);
+  }
+  if (!editingText && (event.key === 'ArrowLeft' || event.key === 'Backspace')) {
+    event.preventDefault();
+    showSlide(current - 1);
+  }
+  if (!editingText && (event.key === 'e' || event.key === 'E')) toggleEdit();
+  if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 's') {
+    event.preventDefault();
+    saveLocal();
+  }
+  if (!editingText && (event.key === 's' || event.key === 'S')) saveLocal();
+  if (!editingText && (event.key === 'p' || event.key === 'P')) publish();
+  if (event.key === 'Escape') {
+    document.querySelectorAll('.panel.open').forEach(panel => panel.classList.remove('open'));
+    toggleEdit(false);
+  }
+});
+
+document.getElementById('prevBtn').addEventListener('click', () => showSlide(current - 1));
+document.getElementById('nextBtn').addEventListener('click', () => showSlide(current + 1));
+document.getElementById('editBtn').addEventListener('click', () => toggleEdit());
+document.getElementById('saveBtn').addEventListener('click', saveLocal);
+document.getElementById('snapshotBtn').addEventListener('click', snapshot);
+document.getElementById('publishBtn').addEventListener('click', publish);
+document.getElementById('downloadBtn').addEventListener('click', downloadHTML);
+document.getElementById('mdBtn').addEventListener('click', openMarkdown);
+document.getElementById('historyBtn').addEventListener('click', () => {
+  renderHistory();
+  document.getElementById('historyPanel').classList.add('open');
+});
+
+document.querySelectorAll('[data-cmd]').forEach(btn => {
+  btn.addEventListener('click', () => document.execCommand(btn.dataset.cmd, false, null));
+});
+
+document.querySelectorAll('[data-close]').forEach(btn => {
+  btn.addEventListener('click', () => document.getElementById(btn.dataset.close).classList.remove('open'));
+});
+
+window.addEventListener('resize', fitStage);
+window.addEventListener('beforeunload', () => { if (dirty) saveLocal(); });
+
+fitStage();
+loadLocal();
+renderHistory();
+</script>
+</body>
+</html>

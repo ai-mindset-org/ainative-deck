@@ -4,7 +4,7 @@ Public deck: `ain3-intro.html`
 
 This file documents the repeatable deck-kit pattern for AI Mindset lab intros. It is intentionally public-safe: no personal participant fields, no private contacts, no tokens.
 
-Current production version: `2026-07-11-ain3-intro-monday-final-v8`.
+Current production version: `2026-07-11-ain3-intro-monday-final-v9`.
 
 ## Sources
 
@@ -83,8 +83,8 @@ Keyboard:
 
 Runtime storage:
 
-- deck state: `ain3-intro-monday-final-v8-state`
-- history: `ain3-intro-monday-final-v8-history`
+- deck state: `ain3-intro-monday-final-v9-state`
+- history: `ain3-intro-monday-final-v9-history`
 - UI language: `ain3-intro-ui-lang`
 - GitHub token: `ainative-deck-gh-token`
 - optional assistant endpoint: `ain3-assistant-endpoint`
@@ -111,6 +111,18 @@ Week accents:
 | W1 baseline | cyan |
 | W2 workflow | green |
 | W3 demo | amber |
+
+## Proofread Delta v9
+
+2026-07-11 reread against the AIN3 weekly plan, speakers CRM, and curators CRM:
+
+- split 14.07 into two timeline rows:
+  - Denis M1 practice at `TBC`
+  - Alexander personal setup at `17:00`
+- changed enterprise curator label to `Юрий Смирнов`, matching curator CRM / @doonto.
+- fixed `Антон Грабаров` typo to `Антон Граборов`.
+- kept 30.07 as open slot and 31.07 as Yuri Vedenin `needs confirm`.
+- kept status colors explicit: confirmed green, date/time sync amber, open orange.
 
 ## Live Assistant
 

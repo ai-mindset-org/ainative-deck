@@ -4,6 +4,8 @@ Public deck: `ain3-intro.html`
 
 This file documents the repeatable deck-kit pattern for AI Mindset lab intros. It is intentionally public-safe: no personal participant fields, no private contacts, no tokens.
 
+Current production version: `2026-07-11-ain3-intro-monday-final-v8`.
+
 ## Sources
 
 1. `Labs/22 – ain3/` in the team vault:
@@ -35,8 +37,13 @@ This file documents the repeatable deck-kit pattern for AI Mindset lab intros. I
    - repeated process themes
 4. Read weekly plan and turn it into timeline blocks.
 5. Read speaker/curator CRM and map people to photo assets.
-6. Render the deck as a single public HTML file.
-7. Run browser QA:
+6. Cross-check the timeline against:
+   - weekly plan v0.26
+   - speaker CRM v1.16
+   - chat navigation dataflow context
+   - curator CRM office-hours table
+7. Render the deck as a single public HTML file.
+8. Run browser QA:
    - slide count
    - image load
    - console errors
@@ -44,7 +51,7 @@ This file documents the repeatable deck-kit pattern for AI Mindset lab intros. I
    - editor hidden by default
    - `E` opens edit mode
    - EN/RU editor toggle works
-8. Commit and push to GitHub Pages.
+9. Commit and push to GitHub Pages.
 
 ## Deck Blocks
 
@@ -56,7 +63,7 @@ The current intro format uses these blocks:
 - intro-call promises from the 2026-07-11 Zoom summary
 - Monday kickoff
 - program spine
-- live-session timeline
+- live-session timeline with status colors
 - speaker stickers with weekly map
 - curator route matrix and office-hours strip
 - LMS hub
@@ -76,13 +83,34 @@ Keyboard:
 
 Runtime storage:
 
-- deck state: `ain3-intro-weekly-context-v7-state`
-- history: `ain3-intro-weekly-context-v7-history`
+- deck state: `ain3-intro-monday-final-v8-state`
+- history: `ain3-intro-monday-final-v8-history`
 - UI language: `ain3-intro-ui-lang`
 - GitHub token: `ainative-deck-gh-token`
 - optional assistant endpoint: `ain3-assistant-endpoint`
 
 Browser publish needs a GitHub token with repository Contents read/write access. GitHub tokens stay in browser localStorage only. Never hardcode or paste them into repo files, chat, screenshots, or notes. CLI publishing can use `gh auth` / normal git credentials instead of the browser token.
+
+## Schedule And Color Logic
+
+The deck must not imply that every slot is confirmed. Use explicit status labels on the timeline:
+
+| Status | Meaning | Visual |
+| --- | --- | --- |
+| `confirmed` | confirmed by weekly plan / speaker CRM | green label |
+| `by input` | in program input, final participants may still be assembled | green label |
+| `date sync` / `time sync` | slot exists, final time/date or speaker wording needs sync | amber label |
+| `needs confirm` | proposed slot, speaker confirmation pending | amber label |
+| `open` | no final speaker/topic | orange label |
+
+Week accents:
+
+| Block | Accent |
+| --- | --- |
+| intro | blue |
+| W1 baseline | cyan |
+| W2 workflow | green |
+| W3 demo | amber |
 
 ## Live Assistant
 

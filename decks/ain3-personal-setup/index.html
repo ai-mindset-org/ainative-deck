@@ -118,7 +118,7 @@ ul.cl li .mut{color:var(--muted)}
 <section class="slide active">
   <div class="label reveal r1">// AI-NATIVE SPRINT V3 · W1 · <b>14.07 · 17:00 CET</b></div>
   <h1 class="reveal r2">personal setup:<br>среда для одного процесса</h1>
-  <p class="sub reveal r3">Вчера Стёпа показал организацию как систему обработки информации. Утром Денис помог выбрать процесс и описать его контекст. Сегодня собираем <b>рабочую среду</b>, в которой этот процесс может выполнять агент.</p>
+  <p class="sub reveal r3">Вчера Стёпа показал организацию как систему обработки информации. Сегодня в полдень Денис помог выбрать процесс и собрать карту контекста. Сейчас собираем <b>рабочую среду</b>, в которой этот процесс может выполнять агент.</p>
   <div class="reveal r4" style="margin-top:26px">
     <span class="pill inv">выход: AI-OS baseline</span><span class="pill">+ первый skill</span><span class="pill">90 минут · hands-on</span>
   </div>
@@ -131,10 +131,10 @@ ul.cl li .mut{color:var(--muted)}
   <h2 class="reveal r1">у вас уже есть половина</h2>
   <div class="grid2">
     <div class="card g reveal r2">
-      <div class="k">утро · денис · M1</div>
+      <div class="k">полдень · денис · M1</div>
       <h3>process brief</h3>
-      <p>Один рабочий процесс: как он идёт сейчас, какие источники он трогает, что считается хорошим результатом. Это <b>карта задачи</b>.</p>
-      <div class="file">process brief + context map</div>
+      <p>Один рабочий процесс: вход, шаги, выход, критерии качества – заданные <b>до</b> прогона. Плюс карта контекста: 3–5 источников. Это <b>карта задачи</b>.</p>
+      <div class="file">process brief + карта контекста</div>
     </div>
     <div class="card reveal r3">
       <div class="k">вечер · сейчас</div>
@@ -143,7 +143,7 @@ ul.cl li .mut{color:var(--muted)}
       <div class="file">AI-OS baseline + first skill</div>
     </div>
   </div>
-  <p class="sub reveal r4" style="margin-top:8px">Формула недели: <b>setup даёт поверхность · context даёт памяти системе · evidence замыкает цикл.</b></p>
+  <p class="sub reveal r4" style="margin-top:8px">Денис на M1: «если процесс выбран хорошо – у вас появится <b>первая ступенька к полноценной персональной операционной системе</b>». Это она и есть. Формула: setup даёт поверхность · context даёт памяти системе · evidence замыкает цикл.</p>
 </section>
 
 <!-- 3 main question -->
@@ -154,7 +154,7 @@ ul.cl li .mut{color:var(--muted)}
       <div class="q">что должно быть в моей рабочей среде, чтобы агент не начинал каждый раз с нуля?</div>
     </div>
   </div>
-  <p class="sub reveal r3">Холодный старт стоит 20–80k токенов пересказа – каждый раз. Всё занятие – это способы заплатить один раз вместо каждого раза.</p>
+  <p class="sub reveal r3">Денис: «наша единственная ценность – собственный <b>нормализованный контекст</b>, с которым могут работать и люди, и агенты». Холодный старт без него стоит 20–80k токенов пересказа – каждый раз. Всё занятие – способы заплатить один раз вместо каждого раза.</p>
 </section>
 
 <!-- 4 one process -->
@@ -170,7 +170,7 @@ ul.cl li .mut{color:var(--muted)}
     <div class="fstep"><div class="t">first run</div><div class="d">артефакт</div></div><div class="farr">→</div>
     <div class="fstep"><div class="t">evidence</div><div class="d">результат в систему</div></div>
   </div>
-  <p class="foot-tag reveal r4">эта строка – весь маршрут недели. каждый следующий слайд – один её узел.</p>
+  <p class="foot-tag reveal r4">формула дениса: «один процесс, один контекст, один первый прогон» · эта строка – весь маршрут, каждый слайд – один её узел</p>
 </section>
 
 <!-- 5 stack map -->
@@ -191,7 +191,7 @@ ul.cl li .mut{color:var(--muted)}
 
 <!-- 6 source map -->
 <section class="slide">
-  <div class="label">// SOURCE MAP</div>
+  <div class="label">// SOURCE MAP = КАРТА КОНТЕКСТА ИЗ M1</div>
   <h2 class="reveal r1">агенту нужны источники до запроса</h2>
   <div class="two">
     <div>
@@ -224,7 +224,7 @@ ul.cl li .mut{color:var(--muted)}
 <section class="slide">
   <div class="label">// NAMING + FILES</div>
   <h2 class="reveal r1">имя файла – это база данных</h2>
-  <p class="sub reveal r2">Файл, который нельзя найти повторно, не существует. Одна конвенция решает: поиск, сортировку по дате, понимание без открытия.</p>
+  <p class="sub reveal r2">Файл, который нельзя найти повторно, не существует. Одна конвенция решает: поиск, сортировку по дате, понимание без открытия. <b>Если заберёте с занятия одно – заберите naming convention.</b> И не создавайте файлы сами – дайте правила агентам.</p>
   <div class="term reveal r3" style="margin-top:22px;font-size:15px">
 <span class="cm"># шаблон</span>
 {project} {type} description – YYYY-MM-DD.md
@@ -281,7 +281,7 @@ ul.cl li .mut{color:var(--muted)}
       <ul class="cl reveal r3">
         <li><b>goal</b> – что должно получиться</li>
         <li><b>current state</b> – где мы сейчас</li>
-        <li><b>rules</b> – критерии качества от M1</li>
+        <li><b>rules</b> – критерии качества из M1: проверяемые, заданные до прогона</li>
         <li><b>examples</b> – 1-2 образца «как хорошо»</li>
         <li><b>boundary</b> – что агенту нельзя</li>
       </ul>
@@ -381,7 +381,7 @@ name:</span> weekly-digest
 <section class="slide">
   <div class="label">// FIRST RUN</div>
   <h2 class="reveal r1">первый запуск должен дать артефакт</h2>
-  <p class="sub reveal r2">Не «поговорить с агентом», а получить файл. Критерий: после первого прогона в папке output/ лежит то, что можно открыть и оценить против правил из context pack.</p>
+  <p class="sub reveal r2">Не «поговорить с агентом», а получить файл. Критерий: после первого прогона в папке output/ лежит то, что можно открыть и оценить против правил из context pack. <b>Первый прогон – диагностика, не финал</b>: он показывает, чего не хватает в контексте.</p>
   <div class="term reveal r3" style="margin-top:22px;font-size:14px">
 <span class="cm"># мини-промпт первого запуска</span>
 
@@ -404,6 +404,7 @@ name:</span> weekly-digest
   </div>
   <p class="sub reveal r3" style="margin-top:22px">То, что вчера у Стёпы называлось «сверка рекомендовано ↔ стало» на уровне организации – у вас происходит на уровне одного процесса: каждый прогон делает следующий лучше. <b>Правки – тоже данные.</b></p>
   <ul class="cl reveal r4" style="max-width:640px">
+    <li><b>«то, что нельзя измерить, нельзя улучшить»</b> – критерии до прогона</li>
     <li><b>evidence – это файл</b>, не ощущение: строка в log.md</li>
     <li><b>2 из 3</b> действий агента мимо ожиданий = мало контекста, чините pack</li>
     <li><b>3 ручные правки</b> одного и того же = место для нового правила в AGENTS.md</li>
@@ -420,7 +421,7 @@ name:</span> weekly-digest
     <div class="card a reveal r3"><div class="k">local</div><h3>только у меня</h3><p>личные заметки, черновики, финансы. не покидает устройство – никаких облачных индексов.</p></div>
     <div class="card m reveal r4"><div class="k">ask first</div><h3>спроси до</h3><p>отправка людям, удаление, деньги, публикация. агент готовит – человек нажимает.</p></div>
   </div>
-  <p class="sub reveal r5" style="margin-top:16px">В чат лабы: скриншот или sanitized-фрагмент, не сырые приватные файлы. Токены и ключи – только в localStorage/env, никогда в файлах репозитория.</p>
+  <p class="sub reveal r5" style="margin-top:16px">Правило handoff из M1: агент делает часть работы, <b>ответственность – единственное, что никогда не переходит к агенту</b>. В чат лабы: скриншот или sanitized-фрагмент, не сырые приватные файлы. Токены и ключи – только в localStorage/env.</p>
 </section>
 
 <!-- 17 interfaces -->
@@ -486,9 +487,10 @@ name:</span> weekly-digest
     <li><b>заполнить</b> one workflow seed до конца</li>
     <li><b>запустить</b> первый прогон – получить файл в output/</li>
     <li><b>записать</b> evidence: что совпало, что нет</li>
+    <li><b>отметить</b> в своём стеке: где «обклейка» поверх старого, а где автоматизировано по-настоящему</li>
     <li><b>принести в чат</b>: процесс · 3 источника · первый skill · где evidence</li>
   </ul>
-  <p class="sub reveal r3" style="margin-top:20px">С этим baseline завтра идём к Диме Твердохлебову – от личной среды к рамке AI-трансформации компании. Ваш процесс станет пилотом.</p>
+  <p class="sub reveal r3" style="margin-top:20px">С этим baseline завтра идём к Диме Твердохлебову – три уровня внедрения: <b>обклейка → абстракция → AI-native</b>. Ваш процесс станет пилотом, вопрос «на каком я уровне» – берите с собой.</p>
   <div class="reveal r4" style="margin-top:26px">
     <span class="pill inv">вопросы – кнопка «ассистент» внизу справа</span>
     <span class="pill">материалы – learn.aimindset.org/ain3</span>

@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>AIN3 Intro - AI Mindset</title>
 <meta property="og:title" content="AIN3 Intro - AI Mindset">
-<meta property="og:description" content="AI-Native Sprint III: people, program spine, speakers, curators and first-call mechanics.">
+<meta property="og:description" content="AI-Native Sprint III: people, one real process, Compass, buddies, LMS, Tutor and the route to a demo artifact.">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://ai-mindset-org.github.io/ainative-deck/assets/og-intro-call.png">
 <meta property="og:url" content="https://ai-mindset-org.github.io/ainative-deck/ain3-intro.html">
@@ -356,6 +356,8 @@
     width: 34px;
     height: 34px;
     border-radius: 8px;
+    padding: 4px;
+    background: #fff;
     box-shadow: 0 0 0 1px rgba(56,189,248,.28);
   }
 
@@ -452,19 +454,66 @@
   .logo-pill.aim { border-color: rgba(56,189,248,.38); color: var(--acc); }
 
   .slide[data-title="cover"] .slide-content {
-    max-width: 790px;
+    max-width: 980px;
   }
 
   .slide[data-title="cover"] h1 {
-    max-width: 760px;
-    margin-top: 58px;
-    font-size: 108px;
+    max-width: 940px;
+    margin-top: 72px;
+    font-size: 132px;
   }
 
   .slide[data-title="cover"] .lead {
-    max-width: 770px;
-    font-size: 25px;
+    max-width: 840px;
+    font-size: 28px;
   }
+
+  .slide[data-title="cover"] .cover-network { display: none; }
+  .slide[data-title="cover"] .logo-rail { max-width: 720px; }
+
+  .cover-mark {
+    position: absolute;
+    z-index: 2;
+    right: 118px;
+    top: 196px;
+    width: 318px;
+    height: 318px;
+    display: grid;
+    place-items: center;
+    border: 1px solid rgba(56,189,248,.22);
+    background: rgba(8,12,18,.44);
+    box-shadow: 14px 14px 0 rgba(56,189,248,.055);
+  }
+  .cover-mark::before,
+  .cover-mark::after { content: ""; position: absolute; border: 1px solid rgba(56,189,248,.18); border-radius: 50%; }
+  .cover-mark::before { width: 224px; height: 224px; }
+  .cover-mark::after { width: 154px; height: 154px; border-color: rgba(247,201,72,.24); }
+  .cover-mark img { position: relative; z-index: 2; width: 112px; height: 112px; padding: 14px; border-radius: 24px; background: #fff; }
+  .cover-mark span { position: absolute; bottom: 28px; color: rgba(247,245,238,.48); font-size: 11px; letter-spacing: .2em; text-transform: uppercase; }
+
+  .week-overview-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 28px;
+  }
+  .week-overview-card {
+    min-height: 430px;
+    padding: 24px;
+    border: 1px solid rgba(56,189,248,.27);
+    background: rgba(8,14,22,.74);
+  }
+  .week-overview-card.w2 { border-color: rgba(56,217,169,.3); }
+  .week-overview-card.w3 { border-color: rgba(247,201,72,.32); }
+  .week-overview-card > b { color: var(--acc); font-size: 13px; letter-spacing: .17em; text-transform: uppercase; }
+  .week-overview-card.w2 > b { color: var(--mint); }
+  .week-overview-card.w3 > b { color: var(--gold); }
+  .week-overview-card h3 { margin: 22px 0 10px; font-family: var(--display); font-size: 34px; text-transform: uppercase; }
+  .week-overview-card > p { min-height: 66px; color: rgba(247,245,238,.58); font-size: 15px; line-height: 1.4; }
+  .week-people { display: flex; gap: 7px; margin-top: 24px; }
+  .week-people img { width: 48px; height: 48px; border: 1px solid rgba(247,245,238,.2); border-radius: 9px; object-fit: cover; }
+  .week-names { margin-top: 18px; color: rgba(247,245,238,.62); font-size: 12px; line-height: 1.6; }
+  .week-output { margin-top: 20px; padding-top: 16px; border-top: 1px solid rgba(247,245,238,.12); color: #fff; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; }
 
   .cover-network {
     position: absolute;
@@ -855,6 +904,34 @@
     font-size: 15px;
     line-height: 1.38;
   }
+
+  .slide[data-title="room"] .slide-content { padding-top: 42px; }
+  .slide[data-title="room"] h2 {
+    max-width: 1260px;
+    margin-top: 16px;
+    font-size: 58px;
+  }
+  .slide[data-title="room"] .metric-grid { margin-top: 18px; }
+  .slide[data-title="room"] .metric-card {
+    min-height: 124px;
+    padding: 17px 19px;
+  }
+  .slide[data-title="room"] .metric-card .big { font-size: 52px; }
+  .slide[data-title="room"] .metric-card p {
+    margin-top: 10px;
+    font-size: 14px;
+  }
+  .slide[data-title="room"] .signal-grid {
+    gap: 16px;
+    margin-top: 16px;
+  }
+  .slide[data-title="room"] .signal-panel {
+    min-height: 318px;
+    padding: 18px;
+  }
+  .slide[data-title="room"] .signal-panel::before { inset: 26px; }
+  .slide[data-title="room"] .signal-panel p { font-size: 14px; }
+  .slide[data-title="room"] .route-node { margin-top: 14px; }
 
   .info-card {
     padding: 22px;
@@ -1774,7 +1851,7 @@
 
   .lms-grid { grid-template-columns: repeat(4, 1fr); }
   .source-grid { grid-template-columns: 1.05fr .95fr; }
-  .brief-grid { grid-template-columns: repeat(5, 1fr); }
+  .brief-grid { grid-template-columns: repeat(4, 1fr); }
 
   .lms-card,
   .source-card,
@@ -1942,36 +2019,32 @@
     gap: 10px;
     align-items: center;
     padding: 7px 13px 7px 9px;
-    border: 1px solid rgba(56,189,248,.42);
-    border-radius: 16px;
-    background:
-      linear-gradient(135deg, rgba(56,189,248,.18), rgba(8,12,18,.82) 42%, rgba(247,201,72,.08)),
-      rgba(8,12,18,.9);
-    color: var(--acc);
-    box-shadow: 0 14px 44px rgba(0,0,0,.34), 0 0 28px rgba(56,189,248,.16);
+    border: 1px solid rgba(36,36,36,.16);
+    border-radius: 12px;
+    background: #fbfbfa;
+    color: #ef332b;
+    box-shadow: 0 14px 44px rgba(0,0,0,.24);
     backdrop-filter: blur(12px);
   }
 
   .assistant-trigger:hover,
   .assistant-trigger.active {
-    border-color: rgba(247,201,72,.52);
-    background:
-      linear-gradient(135deg, rgba(56,189,248,.24), rgba(8,12,18,.82) 42%, rgba(247,201,72,.14)),
-      rgba(8,12,18,.94);
+    border-color: rgba(239,51,43,.48);
+    background: #fff;
     transform: translateY(-1px);
   }
 
   .assistant-trigger svg {
     width: 32px;
     height: 32px;
-    border: 1px solid rgba(56,189,248,.24);
-    border-radius: 10px;
+    border: 1px solid rgba(239,51,43,.22);
+    border-radius: 8px;
     padding: 5px;
-    background: rgba(8,12,18,.6);
+    background: rgba(239,51,43,.06);
   }
 
   .assistant-trigger span {
-    color: rgba(247,245,238,.78);
+    color: #242424;
     font-family: var(--display);
     font-size: 12px;
     letter-spacing: .13em;
@@ -1985,16 +2058,15 @@
     left: 50%;
     bottom: 28px;
     width: min(920px, calc(100vw - 190px));
-    min-height: 138px;
+    min-height: 228px;
     display: none;
-    grid-template-columns: 76px 1fr;
+    grid-template-columns: 82px 1fr;
     column-gap: 0;
-    border: 1px solid rgba(56,189,248,.3);
-    border-radius: 18px;
-    background:
-      linear-gradient(90deg, rgba(56,189,248,.12), transparent 18%),
-      rgba(11,12,18,.95);
-    box-shadow: 0 24px 76px rgba(0,0,0,.44), 0 0 34px rgba(56,189,248,.11);
+    border: 1px solid rgba(36,36,36,.14);
+    border-radius: 12px;
+    background: #fbfbfa;
+    color: #242424;
+    box-shadow: 0 24px 76px rgba(0,0,0,.32);
     backdrop-filter: blur(16px);
     overflow: hidden;
     transform: translateX(-50%);
@@ -2004,18 +2076,17 @@
 
   .assistant-panel::before {
     content: "";
-    width: 52px;
-    height: 52px;
+    width: 48px;
+    height: 48px;
     align-self: start;
     justify-self: center;
-    margin-top: 22px;
-    border: 1px solid rgba(56,189,248,.34);
-    border-radius: 14px;
+    margin-top: 24px;
+    border: 1px solid rgba(239,51,43,.34);
+    border-radius: 9px;
     background:
-      linear-gradient(90deg, transparent 0 18px, rgba(56,189,248,.22) 18px 20px, transparent 20px),
-      linear-gradient(0deg, transparent 0 24px, rgba(247,201,72,.24) 24px 26px, transparent 26px),
-      rgba(8,12,18,.88);
-    box-shadow: 0 0 20px rgba(56,189,248,.16);
+      linear-gradient(90deg, transparent 0 17px, rgba(239,51,43,.22) 17px 19px, transparent 19px),
+      linear-gradient(0deg, transparent 0 22px, rgba(239,51,43,.2) 22px 24px, transparent 24px),
+      #fff;
   }
 
   .assistant-head {
@@ -2023,56 +2094,103 @@
     align-items: center;
     justify-content: space-between;
     gap: 14px;
-    padding: 18px 20px 9px 0;
-    color: var(--acc);
-    font-size: 13px;
-    letter-spacing: .22em;
+    padding: 19px 20px 12px 0;
+  }
+
+  .assistant-head > div { display: flex; align-items: baseline; gap: 10px; }
+  .assistant-head b {
+    color: #242424;
+    font-family: var(--display);
+    font-size: 18px;
+    letter-spacing: .02em;
+  }
+  .assistant-head span {
+    color: rgba(36,36,36,.48);
+    font-size: 11px;
+    letter-spacing: .1em;
     text-transform: uppercase;
   }
 
   .assistant-head button {
     border: 0;
     background: transparent;
-    color: rgba(247,245,238,.62);
+    color: rgba(36,36,36,.48);
     font-size: 24px;
     line-height: 1;
   }
 
-  .assistant-source {
+  .assistant-question {
     grid-column: 2;
     margin: 0 20px 0 0;
-    padding: 10px 0 11px;
-    border-top: 1px solid rgba(56,189,248,.18);
-    color: rgba(247,245,238,.36);
+    padding: 12px 0 10px;
+    border-top: 1px solid rgba(36,36,36,.1);
+  }
+
+  .assistant-question span,
+  .assistant-source-label {
+    display: block;
+    color: rgba(36,36,36,.42);
     font-size: 11px;
     letter-spacing: .11em;
     text-transform: uppercase;
   }
 
+  .assistant-question strong {
+    display: block;
+    margin-top: 6px;
+    color: #242424;
+    font-size: 15px;
+    line-height: 1.35;
+  }
+
   .assistant-text {
     grid-column: 2;
-    padding: 0 20px 14px 0;
-    color: rgba(247,245,238,.78);
-    font-size: 17px;
+    padding: 0 20px 15px 0;
+    color: rgba(36,36,36,.72);
+    font-size: 16px;
     line-height: 1.44;
   }
 
-  .assistant-actions {
+  .assistant-footer {
     grid-column: 2;
     display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 18px;
+    padding: 0 20px 20px 0;
+  }
+
+  .assistant-sources { min-width: 0; }
+
+  .assistant-actions {
+    display: flex;
     flex-wrap: wrap;
-    gap: 8px;
-    padding: 0 20px 18px 0;
+    gap: 6px;
+    margin-top: 7px;
   }
 
   .assistant-actions span {
-    border: 1px solid rgba(56,189,248,.24);
-    border-radius: 8px;
-    padding: 7px 10px;
-    color: rgba(247,245,238,.58);
+    padding: 5px 8px;
+    border: 1px solid rgba(36,36,36,.1);
+    border-radius: 5px;
+    background: #fff;
+    color: rgba(36,36,36,.55);
+    font-size: 10px;
+  }
+
+  .assistant-cta {
+    flex: 0 0 auto;
+    padding: 10px 13px;
+    border-radius: 6px;
+    background: #ef332b;
+    color: #fff;
     font-size: 11px;
-    letter-spacing: .08em;
-    text-transform: uppercase;
+    letter-spacing: .04em;
+    text-decoration: none;
+  }
+
+  .assistant-cta:hover {
+    background: #d92b25;
   }
 
   [contenteditable="true"] {
@@ -2154,27 +2272,218 @@
     padding: 10px;
   }
 
+  /* Product layer: each service keeps its own visual language inside one deck. */
+  .lab-loop {
+    display: grid;
+    grid-template-columns: 1fr 56px 1fr 56px 1fr 56px 1fr;
+    align-items: stretch;
+    margin-top: 34px;
+  }
+
+  .lab-loop-card {
+    min-height: 310px;
+    padding: 26px;
+    border: 1px solid rgba(56,189,248,.27);
+    background: rgba(8,14,22,.76);
+    box-shadow: 10px 10px 0 rgba(56,189,248,.055);
+  }
+
+  .lab-loop-card:nth-of-type(3) { border-color: rgba(56,217,169,.3); }
+  .lab-loop-card:nth-of-type(5) { border-color: rgba(247,201,72,.32); }
+  .lab-loop-card:nth-of-type(7) { border-color: rgba(247,245,238,.28); }
+  .lab-loop-card b {
+    color: var(--acc);
+    font-size: 13px;
+    letter-spacing: .17em;
+    text-transform: uppercase;
+  }
+  .lab-loop-card h3 {
+    margin: 28px 0 14px;
+    color: #fff;
+    font-family: var(--display);
+    font-size: 31px;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+  .lab-loop-card p { color: rgba(247,245,238,.62); font-size: 16px; line-height: 1.45; }
+  .lab-loop-card span {
+    display: block;
+    margin-top: 32px;
+    color: rgba(247,245,238,.42);
+    font-size: 12px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+  }
+  .lab-loop-arrow { display: grid; place-items: center; color: var(--acc); font-size: 28px; }
+
+  .case-wall {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-top: 28px;
+  }
+  .case-card {
+    min-height: 190px;
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    gap: 20px;
+    padding: 24px;
+    border: 1px solid rgba(247,245,238,.15);
+    background: rgba(8,12,18,.78);
+  }
+  .case-card:nth-child(1) { border-left: 5px solid var(--acc); }
+  .case-card:nth-child(2) { border-left: 5px solid var(--mint); }
+  .case-card:nth-child(3) { border-left: 5px solid var(--gold); }
+  .case-card:nth-child(4) { border-left: 5px solid #f78b72; }
+  .case-code {
+    width: 72px;
+    height: 72px;
+    display: grid;
+    place-items: center;
+    border: 1px solid rgba(247,245,238,.18);
+    color: #fff;
+    font-family: var(--display);
+    font-size: 25px;
+  }
+  .case-card h3 { margin: 2px 0 8px; color: #fff; font-family: var(--display); font-size: 24px; }
+  .case-card p { color: rgba(247,245,238,.62); font-size: 15px; line-height: 1.4; }
+  .case-card small { display: block; margin-top: 12px; color: rgba(247,245,238,.38); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; }
+
+  .slide.compass-product { background: #f7f4ec; color: #171717; }
+  .slide.compass-product::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(rgba(24,24,24,.055) 1px, transparent 1px), linear-gradient(90deg, rgba(24,24,24,.055) 1px, transparent 1px);
+    background-size: 44px 44px;
+    pointer-events: none;
+  }
+  .compass-product .brand span,
+  .compass-product .counter,
+  .compass-product .kicker,
+  .compass-product .foot { color: rgba(23,23,23,.52); }
+  .compass-product h2 { color: #171717; }
+  .compass-shell {
+    position: relative;
+    display: grid;
+    grid-template-columns: 250px 1fr 330px;
+    min-height: 430px;
+    margin-top: 24px;
+    border: 1px solid #171717;
+    background: rgba(255,255,255,.42);
+  }
+  .compass-rail { padding: 22px; border-right: 1px solid rgba(23,23,23,.22); }
+  .compass-mark { font-size: 12px; letter-spacing: .16em; text-transform: uppercase; }
+  .compass-cluster { margin-top: 28px; padding: 12px; border: 1px solid rgba(23,23,23,.22); font-size: 12px; line-height: 1.4; }
+  .compass-cluster b { display: block; margin-bottom: 8px; font-size: 14px; }
+  .compass-main { padding: 30px; }
+  .compass-main h3 { margin: 0 0 10px; font-family: var(--display); font-size: 38px; }
+  .compass-main > p { color: rgba(23,23,23,.58); font-size: 14px; }
+  .match-card { display: grid; grid-template-columns: 62px 1fr; gap: 16px; margin-top: 26px; padding: 18px; border: 1px solid #171717; background: #fffdf8; }
+  .match-avatar { width: 62px; height: 62px; display: grid; place-items: center; border: 1px solid #171717; border-radius: 50%; font-weight: 700; }
+  .match-card b { font-size: 17px; }
+  .match-card p { margin-top: 7px; color: rgba(23,23,23,.6); font-size: 13px; line-height: 1.4; }
+  .match-action { display: inline-block; margin-top: 11px; padding: 8px 12px; background: #171717; color: #fff; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
+  .compass-flow { padding: 24px; border-left: 1px solid rgba(23,23,23,.22); }
+  .compass-step { padding: 14px 0; border-top: 1px solid rgba(23,23,23,.18); }
+  .compass-step:first-child { border-top: 0; }
+  .compass-step b { display: block; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; }
+  .compass-step span { display: block; margin-top: 7px; color: rgba(23,23,23,.58); font-size: 13px; line-height: 1.35; }
+
+  .buddy-board {
+    display: grid;
+    grid-template-columns: 1fr 220px 1fr;
+    align-items: center;
+    gap: 24px;
+    margin-top: 34px;
+  }
+  .buddy-person {
+    min-height: 340px;
+    padding: 30px;
+    border: 1px solid rgba(56,217,169,.3);
+    background: rgba(11,24,24,.72);
+  }
+  .buddy-person.right { border-color: rgba(247,201,72,.34); background: rgba(28,24,10,.68); }
+  .buddy-sigil { width: 86px; height: 86px; display: grid; place-items: center; border: 1px solid currentColor; border-radius: 50%; color: var(--mint); font-family: var(--display); font-size: 30px; }
+  .buddy-person.right .buddy-sigil { color: var(--gold); }
+  .buddy-person h3 { margin: 28px 0 12px; font-family: var(--display); font-size: 30px; }
+  .buddy-person p { color: rgba(247,245,238,.62); font-size: 16px; line-height: 1.45; }
+  .buddy-bridge { position: relative; text-align: center; color: var(--acc); }
+  .buddy-bridge::before, .buddy-bridge::after { content: ""; position: absolute; left: 0; right: 0; height: 1px; background: rgba(56,189,248,.36); }
+  .buddy-bridge::before { top: -36px; }
+  .buddy-bridge::after { bottom: -36px; }
+  .buddy-bridge b { display: block; font-family: var(--display); font-size: 25px; }
+  .buddy-bridge span { display: block; margin-top: 10px; color: rgba(247,245,238,.5); font-size: 12px; line-height: 1.5; }
+
+  .slide.lms-product,
+  .slide.tutor-product { background: #fbfbfa; color: #242424; }
+  .lms-product .brand span, .lms-product .counter, .lms-product .kicker, .lms-product .foot,
+  .tutor-product .brand span, .tutor-product .counter, .tutor-product .kicker, .tutor-product .foot { color: rgba(36,36,36,.48); }
+  .lms-product h2, .tutor-product h2 { color: #242424; }
+  .lms-window {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    min-height: 430px;
+    margin-top: 24px;
+    border: 1px solid rgba(36,36,36,.17);
+    border-radius: 8px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 18px 54px rgba(20,20,20,.08);
+  }
+  .lms-side { padding: 22px; border-right: 1px solid rgba(36,36,36,.1); color: rgba(36,36,36,.62); }
+  .lms-side b { display: block; color: #242424; font-size: 15px; }
+  .lms-side span { display: block; margin-top: 20px; font-size: 12px; }
+  .lms-main { padding: 28px 34px; }
+  .lms-main h3 { font-family: var(--display); font-size: 32px; }
+  .lms-week { display: grid; grid-template-columns: 90px 1fr 100px; gap: 16px; align-items: center; padding: 18px 0; border-top: 1px solid rgba(36,36,36,.1); }
+  .lms-week:first-of-type { margin-top: 18px; }
+  .lms-week b { color: #242424; }
+  .lms-week span { color: rgba(36,36,36,.52); font-size: 13px; }
+  .lms-week em { justify-self: end; padding: 6px 9px; border-radius: 5px; background: rgba(56,189,248,.1); color: #1684ad; font-size: 11px; font-style: normal; }
+
+  .tutor-layout { display: grid; grid-template-columns: 1fr 360px; gap: 24px; margin-top: 24px; }
+  .tutor-chat { min-height: 430px; padding: 26px; border: 1px solid rgba(36,36,36,.14); border-radius: 10px; background: #fff; }
+  .tutor-chat-head { display: flex; justify-content: space-between; padding-bottom: 18px; border-bottom: 1px solid rgba(36,36,36,.1); font-size: 12px; color: rgba(36,36,36,.5); }
+  .tutor-question { width: max-content; max-width: 72%; margin: 30px 0 0 auto; padding: 12px 18px; border-radius: 7px; background: #ef332b; color: #fff; font-size: 15px; }
+  .tutor-answer { max-width: 76%; margin-top: 24px; padding: 18px; border-left: 3px solid #ef332b; background: #f6f6f4; color: rgba(36,36,36,.72); font-size: 15px; line-height: 1.5; }
+  .tutor-cite { display: inline-block; margin-top: 12px; color: #ef332b; font-size: 12px; }
+  .tutor-side { padding: 24px; border: 1px solid rgba(36,36,36,.14); border-radius: 10px; background: #fff; }
+  .tutor-side h3 { font-family: var(--display); font-size: 24px; }
+  .tutor-side div { padding: 16px 0; border-top: 1px solid rgba(36,36,36,.1); }
+  .tutor-side div:first-of-type { margin-top: 18px; }
+  .tutor-side b { display: block; color: #242424; font-size: 13px; }
+  .tutor-side span { display: block; margin-top: 6px; color: rgba(36,36,36,.52); font-size: 12px; line-height: 1.4; }
+
   @media (max-width: 860px) {
     .topbar { width: calc(100vw - 18px); overflow-x: auto; justify-content: flex-start; }
     .hint { display: none; }
-    .assistant-trigger { right: 12px; bottom: 74px; min-width: 112px; }
-    .assistant-trigger span { font-size: 10px; }
+    .assistant-trigger { right: 12px; bottom: 72px; width: 52px; min-width: 52px; padding: 8px; grid-template-columns: 1fr; }
+    .assistant-trigger span { display: none; }
     .assistant-panel {
       left: 10px;
       right: 10px;
-      bottom: 14px;
+      bottom: 72px;
       width: auto;
-      min-height: 128px;
+      min-height: 0;
+      max-height: calc(100vh - 94px);
       transform: none;
-      grid-template-columns: 58px 1fr;
+      grid-template-columns: 54px 1fr;
+      overflow-y: auto;
     }
     .assistant-panel::before {
-      width: 42px;
-      height: 42px;
+      width: 38px;
+      height: 38px;
       margin-top: 18px;
     }
-    .assistant-head { padding-top: 15px; font-size: 11px; }
-    .assistant-text { font-size: 15px; }
+    .assistant-head { padding: 14px 14px 9px 0; }
+    .assistant-head > div { display: block; }
+    .assistant-head span { display: block; margin-top: 3px; }
+    .assistant-question { margin-right: 14px; padding-top: 10px; }
+    .assistant-question strong { font-size: 14px; }
+    .assistant-text { padding-right: 14px; font-size: 14px; }
+    .assistant-footer { align-items: stretch; flex-direction: column; padding: 0 14px 14px 0; }
+    .assistant-cta { text-align: center; }
   }
 </style>
 </head>
@@ -2206,7 +2515,7 @@
       <div class="slide-content">
         <div class="kicker" data-edit data-anim>13 июля – 3 августа · AI-native organizations</div>
         <h1 data-edit data-anim style="--delay:.1s"><span class="accent">AI-Native</span><br> Sprint III</h1>
-        <p class="lead" data-edit data-anim style="--delay:.16s">делаем AI управляемым процессом: роли, контекст, агентный маршрут и демо-артефакт в работе</p>
+        <p class="lead" data-edit data-anim style="--delay:.16s">один реальный процесс → рабочий AI-контур → демо-артефакт за три недели</p>
         <div class="meta-row" data-anim style="--delay:.22s">
           <span class="chip" data-edit>11 июля · intro</span>
           <span class="chip cool-chip" data-edit>13 июля · kickoff</span>
@@ -2218,6 +2527,7 @@
           <span class="logo-pill" data-edit>Omnius.team</span>
           <span class="logo-pill" data-edit>Improvado</span>
           <span class="logo-pill" data-edit>Plurio AI</span>
+          <span class="logo-pill" data-edit>LMS + Tutor</span>
         </div>
       </div>
       <div class="cover-network weekly-map" aria-hidden="true">
@@ -2283,7 +2593,23 @@
           <span>демо-артефакт</span>
         </div>
       </div>
+      <div class="cover-mark" aria-hidden="true"><img src="logo.png" alt=""><span>AI Mindset · AIN3</span></div>
       <div class="foot"><span>AIN3 / старт</span><span>people → process → artifact</span><span>AI Mindset</span></div>
+    </article>
+
+    <article class="slide compact" data-title="week-map" data-label="программа" data-subtitle="три недели и люди внутри">
+      <div class="brand"><img src="logo.png" alt=""><span>ai mindset · three-week route</span></div>
+      <div class="counter"></div>
+      <div class="slide-content">
+        <div class="kicker" data-edit data-anim>13 июля – 3 августа</div>
+        <h2 data-edit data-anim style="--delay:.1s">три недели ведут один процесс до демо</h2>
+        <div class="week-overview-grid" data-anim style="--delay:.16s">
+          <div class="week-overview-card w1"><b>W1 · baseline</b><h3 data-edit>личный контур → команда</h3><p data-edit>среда, контекст, первый skill, данные и общее рабочее пространство.</p><div class="week-people"><img src="speakers/stepan-gershuni.jpg" alt=""><img src="speakers/alexander-povaliaev.jpg" alt=""><img src="speakers/denis-smirnov.jpg" alt=""><img src="speakers/dima-tverdokhlebov.jpg" alt=""><img src="speakers/daniel-kravtsov.jpeg" alt=""><img src="speakers/seva-ustinov.jpg" alt=""></div><div class="week-names" data-edit>Степан · Александр · Денис · Дима · Даниил · Сева</div><div class="week-output" data-edit>выход: AI-OS baseline + первый skill</div></div>
+          <div class="week-overview-card w2"><b>W2 · workflow</b><h3 data-edit>маршрут агента</h3><p data-edit>источники, правила, product systems, governance и рабочие инструменты.</p><div class="week-people"><img src="speakers/dima-tverdokhlebov.jpg" alt=""><img src="speakers/denis-smirnov.jpg" alt=""><img src="speakers/artem-novoselov.jpg" alt=""><img src="speakers/sereja-ris.jpg" alt=""><img src="curators/yury-smirnov.jpg" alt=""><img src="curators/anton-graborov.jpg" alt=""></div><div class="week-names" data-edit>Дима · Денис · Артём · Серёжа · Юрий Смирнов · Антон Граборов</div><div class="week-output" data-edit>выход: повторяемый agent route</div></div>
+          <div class="week-overview-card w3"><b>W3 · demo</b><h3 data-edit>эффект и следующий шаг</h3><p data-edit>качество, стоимость, риск, operating model и план на 30–90 дней.</p><div class="week-people"><img src="speakers/stepan-gershuni.jpg" alt=""><img src="speakers/denis-smirnov.jpg" alt=""><img src="speakers/dima-tverdokhlebov.jpg" alt=""><img src="speakers/yuri-vedenin.png" alt=""></div><div class="week-names" data-edit>Степан · Денис · Дима · Юра Веденин · гостевой слот</div><div class="week-output" data-edit>выход: demo artifact + 90-day plan</div></div>
+        </div>
+      </div>
+      <div class="foot"><span>программа + люди</span><span>W1 baseline · W2 workflow · W3 demo</span><span>детали дальше</span></div>
     </article>
 
     <article class="slide compact" data-title="room" data-label="комната" data-subtitle="кто пришёл">
@@ -2291,19 +2617,19 @@
       <div class="counter"></div>
       <div class="slide-content">
         <div class="kicker" data-edit data-anim>кто в комнате</div>
-        <h2 data-edit data-anim style="--delay:.1s">87 человек пришли за рабочей AI-системой</h2>
+        <h2 data-edit data-anim style="--delay:.1s">почти 100 человек в одной рабочей комнате</h2>
         <div class="metric-grid" data-anim style="--delay:.16s">
-          <div class="metric-card"><div class="big">87</div><p data-edit>человек в текущем ростере лабы</p></div>
-          <div class="metric-card"><div class="big">70</div><p data-edit>уже заполнили онбординг и дали контекст</p></div>
-          <div class="metric-card"><div class="big">41</div><p data-edit>уже видны в чате участников</p></div>
-          <div class="metric-card"><div class="big">26</div><p data-edit>заполнили анкету, но ещё догоняют чат</p></div>
+          <div class="metric-card"><div class="big">97</div><p data-edit>участников уже в комнате лабы</p></div>
+          <div class="metric-card"><div class="big">19</div><p data-edit>интро дают живой контекст для matching</p></div>
+          <div class="metric-card"><div class="big">50–200</div><p data-edit>человек — частый масштаб компаний в публичных интро</p></div>
+          <div class="metric-card"><div class="big">3</div><p data-edit>главных контекста: enterprise, founder / SMB и personal</p></div>
         </div>
         <div class="signal-grid" data-anim style="--delay:.22s">
-          <div class="signal-panel"><h3 data-edit>что их объединяет</h3><p data-edit>нужен контур, где люди, документы, задачи и агенты работают вместе и дают проверяемый результат.</p><div class="route-node"><b>AI</b><span data-edit>участники хотят перенести AI из эксперимента в нормальный процесс</span></div></div>
-          <div class="signal-panel"><h3 data-edit>как вести интро</h3><p data-edit>держим разговор коротким: человек, контекст, один процесс, критерий демо, кому нужна помощь.</p><div class="route-node"><b>01</b><span data-edit>один человек → один процесс → один первый артефакт</span></div></div>
+          <div class="signal-panel"><h3 data-edit>ядро аудитории</h3><p data-edit>фаундеры и владельцы компаний, product и operations-лидеры; enterprise-команды приносят ограничения масштаба.</p><div class="route-node"><b>AI</b><span data-edit>Москва, Петербург, Иркутск, Берлин и распределённые команды</span></div></div>
+          <div class="signal-panel"><h3 data-edit>что собираем</h3><p data-edit>каждый выбирает один рабочий процесс и ведёт его через контекст, agent route и проверку результата.</p><div class="route-node"><b>01</b><span data-edit>один процесс → один маршрут → один demo artifact</span></div></div>
         </div>
       </div>
-      <div class="foot"><span>карта комнаты</span><span>агрегаты без персональных полей</span><span>updated 2026-07-11</span></div>
+      <div class="foot"><span>карта комнаты</span><span>агрегаты без персональных полей</span><span>updated 2026-07-13</span></div>
     </article>
 
     <article class="slide compact" data-title="doors" data-label="маршруты" data-subtitle="три входа">
@@ -2332,21 +2658,21 @@
       <div class="brand"><img src="logo.png" alt=""><span>ai mindset · intro</span></div>
       <div class="counter"></div>
       <div class="slide-content">
-        <div class="kicker" data-edit data-anim>11 июля · 10:00 CET · intro call</div>
-        <h2 data-edit data-anim style="--delay:.1s">сегодня договорились о рабочем старте</h2>
+        <div class="kicker" data-edit data-anim>суббота · 11 июля · что уже договорились</div>
+        <h2 data-edit data-anim style="--delay:.1s">до первой недели у каждого есть точка входа</h2>
         <div class="promise-grid" data-anim style="--delay:.16s">
           <div class="promise-card"><b>01</b><h3 data-edit>LMS</h3><p data-edit>войти в кабинет, увидеть календарь, Zoom, записи и материалы.</p></div>
           <div class="promise-card"><b>02</b><h3 data-edit>профиль</h3><p data-edit>дописать контекст о себе, чтобы сработали matching и помощь.</p></div>
-          <div class="promise-card"><b>03</b><h3 data-edit>brief</h3><p data-edit>выбрать один процесс: owner, inputs, outputs, контекст, риск.</p></div>
-          <div class="promise-card"><b>04</b><h3 data-edit>ритм</h3><p data-edit>пн/вт live, практика в середине недели, суббота для разбора кейсов.</p></div>
+          <div class="promise-card"><b>03</b><h3 data-edit>один процесс</h3><p data-edit>выбрать owner, inputs, outputs, контекст, риск и критерий результата.</p></div>
+          <div class="promise-card"><b>04</b><h3 data-edit>ритм</h3><p data-edit>live-сессии, практика M1–M3 и субботние Office Hours для разбора.</p></div>
           <div class="promise-card"><b>05</b><h3 data-edit>кураторы</h3><p data-edit>приносить вопрос в правильный трек: personal, founder, enterprise, context.</p></div>
-          <div class="promise-card"><b>06</b><h3 data-edit>buddy</h3><p data-edit>во вторник запускаем matching, чтобы люди быстрее нашли друг друга.</p></div>
+          <div class="promise-card"><b>06</b><h3 data-edit>matching</h3><p data-edit>после заполнения профиля Compass подбирает людей и тему первого разговора.</p></div>
         </div>
         <div class="promise-rail" data-anim style="--delay:.24s">
           <span data-edit>сегодня · room map</span>
           <span data-edit>понедельник · kickoff</span>
-          <span data-edit>вторник · buddy</span>
-          <span data-edit>суббота · case review</span>
+          <span data-edit>после профиля · matching</span>
+          <span data-edit>суббота · Office Hours</span>
         </div>
       </div>
       <div class="foot"><span>intro protocol</span><span>LMS · profile · process brief</span><span>до понедельника</span></div>
@@ -2401,6 +2727,41 @@
       <div class="foot"><span>program spine</span><span>one process across three weeks</span><span>Demo Day · 3 Aug</span></div>
     </article>
 
+    <article class="slide compact" data-title="lab-system" data-label="механика" data-subtitle="как проходит лаборатория">
+      <div class="brand"><img src="logo.png" alt=""><span>ai mindset · lab system</span></div>
+      <div class="counter"></div>
+      <div class="slide-content">
+        <div class="kicker" data-edit data-anim>рабочий цикл · три недели</div>
+        <h2 data-edit data-anim style="--delay:.1s">лаборатория держится на коротком контуре</h2>
+        <div class="lab-loop" data-anim style="--delay:.16s">
+          <div class="lab-loop-card"><b>01 · принести</b><h3 data-edit>реальный процесс</h3><p data-edit>одна повторяемая работа, понятный владелец и критерий хорошего результата.</p><span>brief процесса</span></div>
+          <div class="lab-loop-arrow">→</div>
+          <div class="lab-loop-card"><b>02 · собрать</b><h3 data-edit>контекст + маршрут</h3><p data-edit>источники, правила, инструменты, агентные шаги и человек в петле.</p><span>M1 → M2</span></div>
+          <div class="lab-loop-arrow">→</div>
+          <div class="lab-loop-card"><b>03 · проверить</b><h3 data-edit>в работе</h3><p data-edit>прогон, качество, стоимость, риск и обратная связь от buddy или куратора.</p><span>M3 + Office Hours</span></div>
+          <div class="lab-loop-arrow">→</div>
+          <div class="lab-loop-card"><b>04 · показать</b><h3 data-edit>demo artifact</h3><p data-edit>живой артефакт, эффект, владелец и следующий шаг на 30–90 дней.</p><span>Demo Day</span></div>
+        </div>
+      </div>
+      <div class="foot"><span>one process</span><span>practice · feedback · iteration</span><span>artifact over theory</span></div>
+    </article>
+
+    <article class="slide compact" data-title="previous-cases" data-label="кейсы" data-subtitle="что уже собирали в прошлой лабе">
+      <div class="brand"><img src="logo.png" alt=""><span>ai mindset · demo evidence</span></div>
+      <div class="counter"></div>
+      <div class="slide-content">
+        <div class="kicker" data-edit data-anim>Demo Day · подтверждённые артефакты AIN02</div>
+        <h2 data-edit data-anim style="--delay:.1s">четыре масштаба одного подхода</h2>
+        <div class="case-wall" data-anim style="--delay:.16s">
+          <div class="case-card"><div class="case-code">AM</div><div><h3 data-edit>агент для account manager</h3><p data-edit>собирает контекст и сигналы, готовит персональный пакет: документ, презентацию и письма.</p><small>sales workflow · Catherine Nedelina</small></div></div>
+          <div class="case-card"><div class="case-code">BI</div><div><h3 data-edit>бонусы и управленческий учёт</h3><p data-edit>прикладной агентный контур вырос из первого ручного шага в конкретную рабочую задачу.</p><small>operations · Денис Рудых</small></div></div>
+          <div class="case-card"><div class="case-code">37</div><div><h3 data-edit>maturity matrix</h3><p data-edit>37 параметров и четыре уровня зрелости превращают разговор об AI-native в диагностическую карту.</p><small>strategy · Виктор Соковнин</small></div></div>
+          <div class="case-card"><div class="case-code">KG</div><div><h3 data-edit>company knowledge layer</h3><p data-edit>коннекторы, транскрипты, LLM gateway и история отношений по клиентской базе в одном контуре.</p><small>company system · Сергей Ахметов</small></div></div>
+        </div>
+      </div>
+      <div class="foot"><span>real artifacts</span><span>личный → процесс → компания</span><span>без обещаний непроверенного эффекта</span></div>
+    </article>
+
     <article class="slide compact dense" data-title="call-cadence" data-label="timeline" data-subtitle="расписание live-сессий">
       <div class="brand"><img src="logo.png" alt=""><span>ai mindset · timeline</span></div>
       <div class="counter"></div>
@@ -2411,7 +2772,7 @@
           <div class="timeline-week week-w1">
             <h3 data-edit>W1 · baseline</h3>
             <div class="timeline-event status-confirmed" data-status="confirmed"><b>13.07<small>17:00</small></b><div><strong data-edit>kickoff</strong><span data-edit>Степан + Александр · Personal OS → Team OS → Company OS</span></div></div>
-            <div class="timeline-event status-sync" data-status="time sync"><b>14.07<small>TBC</small></b><div><strong data-edit>M1 practice</strong><span data-edit>Денис · process brief → context map</span></div></div>
+            <div class="timeline-event status-confirmed" data-status="confirmed"><b>14.07<small>12:00</small></b><div><strong data-edit>M1 practice</strong><span data-edit>Денис · process brief → context map</span></div></div>
             <div class="timeline-event status-confirmed" data-status="confirmed"><b>14.07<small>17:00</small></b><div><strong data-edit>personal setup</strong><span data-edit>Александр · AI-OS baseline → first skill</span></div></div>
             <div class="timeline-event status-sync" data-status="date sync"><b>15.07<small>17:00</small></b><div><strong data-edit>framework</strong><span data-edit>Дима Твердохлебов · AI-transformation frame</span></div></div>
             <div class="timeline-event status-sync" data-status="date sync"><b>16.07<small>18:00</small></b><div><strong data-edit>data layer</strong><span data-edit>Даниил Кравцов · AI-native companies + graph</span></div></div>
@@ -2420,23 +2781,23 @@
           <div class="timeline-week week-w2">
             <h3 data-edit>W2 · workflow</h3>
             <div class="timeline-event status-sync" data-status="date sync"><b>20.07<small>17:00</small></b><div><strong data-edit>enterprise</strong><span data-edit>Дима · безопасность, pilots, ownership</span></div></div>
-            <div class="timeline-event status-sync" data-status="time sync"><b>21.07<small>TBC / 17:00</small></b><div><strong data-edit>M2 route</strong><span data-edit>Денис + Александр · sources, rules, human loop</span></div></div>
+            <div class="timeline-event status-confirmed" data-status="confirmed"><b>21.07<small>12:00</small></b><div><strong data-edit>M2 route</strong><span data-edit>Денис + Александр · sources, rules, human loop</span></div></div>
             <div class="timeline-event status-confirmed" data-status="confirmed"><b>22.07<small>17:00</small></b><div><strong data-edit>product systems</strong><span data-edit>Артём Новосёлов · product / ML / founder layer</span></div></div>
-            <div class="timeline-event status-confirmed" data-status="by input"><b>23.07<small>17:00</small></b><div><strong data-edit>roundtable</strong><span data-edit>Яндекс + Альфа + Hitachi · governance</span></div></div>
+            <div class="timeline-event status-confirmed" data-status="confirmed"><b>23.07<small>17:00</small></b><div><strong data-edit>enterprise roundtable</strong><span data-edit>Юрий Смирнов + Антон Граборов · governance и внедрение</span></div></div>
             <div class="timeline-event status-confirmed" data-status="confirmed"><b>24 / 25<small>17:00 / 10:00</small></b><div><strong data-edit>tools + Q&A</strong><span data-edit>Серёжа Рис · loops, git, workflows, затем разбор W2</span></div></div>
           </div>
           <div class="timeline-week week-w3">
             <h3 data-edit>W3 · demo</h3>
             <div class="timeline-event status-confirmed" data-status="confirmed"><b>27.07<small>17:00</small></b><div><strong data-edit>strategy</strong><span data-edit>Степан · ROI, 90-day plan, operating model</span></div></div>
-            <div class="timeline-event status-confirmed" data-status="confirmed"><b>28.07<small>TBC</small></b><div><strong data-edit>M3 effect</strong><span data-edit>Денис · quality, cost, risk, decision card</span></div></div>
+            <div class="timeline-event status-confirmed" data-status="confirmed"><b>28.07<small>12:00</small></b><div><strong data-edit>M3 effect</strong><span data-edit>Денис · quality, cost, risk, decision card</span></div></div>
             <div class="timeline-event status-sync" data-status="date sync"><b>29.07<small>17:00</small></b><div><strong data-edit>pilot demos</strong><span data-edit>Дима · 3 pilots, live cases, enterprise translation</span></div></div>
             <div class="timeline-event status-open" data-status="open"><b>30.07<small>17:00</small></b><div><strong data-edit>open slot</strong><span data-edit>финальный гостевой слот · тема и спикер уточняются</span></div></div>
             <div class="timeline-event status-sync" data-status="needs confirm"><b>31.07<small>17:00</small></b><div><strong data-edit>team transform</strong><span data-edit>Юра Веденин · UXPressia, team OS, 90-day frame</span></div></div>
-            <div class="timeline-event status-confirmed" data-status="confirmed"><b>01 / 03<small>10:00 / 17:00</small></b><div><strong data-edit>Q&A + Demo Day</strong><span data-edit>финальные вопросы, затем процесс, артефакт, эффект, next step</span></div></div>
+            <div class="timeline-event status-confirmed" data-status="confirmed"><b>01 / 03<small>10:00 / 15:00</small></b><div><strong data-edit>Q&A + Demo Day</strong><span data-edit>финальные вопросы, затем процесс, артефакт, эффект, next step</span></div></div>
           </div>
         </div>
       </div>
-      <div class="foot"><span>cadence</span><span>15 live slots + Q&A + Demo Day</span><span>calendar from weekly plan</span></div>
+      <div class="foot"><span>cadence</span><span>live · practice · Office Hours</span><span>calendar checked 13 Jul</span></div>
     </article>
 
     <article class="slide compact dense" data-title="speakers" data-label="спикеры" data-subtitle="кто ведёт">
@@ -2491,10 +2852,10 @@
             <h3 data-edit>корпоративный слой</h3>
             <p data-edit>security, ownership, rollout, внутренние платформы, принятие в командах и governance.</p>
             <div class="curator-roster">
-              <div class="curator-name"><img src="curators/doonto.jpg" alt=""><strong>Юрий Смирнов</strong></div>
+              <div class="curator-name"><img src="curators/yury-smirnov.jpg" alt=""><strong>Юрий Смирнов</strong></div>
               <div class="curator-name"><img src="speakers/denis-smirnov.jpg" alt=""><strong>Денис Смирнов</strong></div>
               <div class="curator-name"><img src="speakers/stanislav-fedoseev.jpg" alt=""><strong>Станислав Федосеев</strong></div>
-              <div class="curator-name"><span>AG</span><strong>Антон Граборов</strong></div>
+              <div class="curator-name"><img src="curators/anton-graborov.jpg" alt=""><strong>Антон Граборов</strong></div>
             </div>
           </div>
           <div class="curator-track">
@@ -2517,21 +2878,88 @@
       <div class="foot"><span>curator routes</span><span>после intro · mini-groups</span><span>office hours</span></div>
     </article>
 
-    <article class="slide compact" data-title="lms-navigation" data-label="LMS" data-subtitle="куда идти после звонка">
+    <article class="slide compact compass-product" data-title="compass" data-label="Compass" data-subtitle="как люди находят друг друга">
+      <div class="brand"><img src="logo.png" alt=""><span>ai mindset · compass</span></div>
+      <div class="counter"></div>
+      <div class="slide-content">
+        <div class="kicker" data-edit data-anim>cohort context → interface → feedback loop</div>
+        <h2 data-edit data-anim style="--delay:.1s">Compass превращает интро в полезные знакомства</h2>
+        <div class="compass-shell" data-anim style="--delay:.16s">
+          <aside class="compass-rail">
+            <div class="compass-mark">AIN 03 / Compass</div>
+            <div class="compass-cluster"><b>dynamic clusters</b>роль · домен · запрос · география · AI-fluency</div>
+            <div class="compass-cluster"><b>profile quality</b>подсказывает, чего не хватает в #intro</div>
+          </aside>
+          <div class="compass-main">
+            <h3 data-edit>рекомендация дня</h3>
+            <p data-edit>понятное объяснение, почему разговор может быть полезен</p>
+            <div class="match-card">
+              <div class="match-avatar">01</div>
+              <div><b data-edit>общий процесс: company context</b><p data-edit>вы работаете с разными частями одной задачи: сбор источников и передача контекста команде.</p><span class="match-action">открыть готовое интро</span></div>
+            </div>
+          </div>
+          <aside class="compass-flow">
+            <div class="compass-step"><b>#intro</b><span data-edit>профиль и реальный рабочий запрос</span></div>
+            <div class="compass-step"><b>match</b><span data-edit>сходство, дополнение и тема разговора</span></div>
+            <div class="compass-step"><b>message</b><span data-edit>черновик первого сообщения для Telegram</span></div>
+            <div class="compass-step"><b>feedback</b><span data-edit>полезно · поговорили · нерелевантно</span></div>
+          </aside>
+        </div>
+      </div>
+      <div class="foot"><span>aim-compass.algobasilisk.xyz</span><span>curated introductions</span><span>личные данные остаются внутри</span></div>
+    </article>
+
+    <article class="slide compact" data-title="buddies" data-label="buddies" data-subtitle="малые рабочие связи">
+      <div class="brand"><img src="logo.png" alt=""><span>ai mindset · buddies</span></div>
+      <div class="counter"></div>
+      <div class="slide-content">
+        <div class="kicker" data-edit data-anim>после профиля · пары и малые группы</div>
+        <h2 data-edit data-anim style="--delay:.1s">buddy помогает удержать один реальный процесс</h2>
+        <div class="buddy-board" data-anim style="--delay:.16s">
+          <div class="buddy-person"><div class="buddy-sigil">A</div><h3 data-edit>приносит контекст</h3><p data-edit>коротко показывает процесс, узкое место и один артефакт недели.</p></div>
+          <div class="buddy-bridge"><b>20 минут</b><span data-edit>показать → задать вопрос → договориться о следующей проверке</span></div>
+          <div class="buddy-person right"><div class="buddy-sigil">B</div><h3 data-edit>возвращает сигнал</h3><p data-edit>видит слепое место, проверяет понятность и помогает сохранить темп.</p></div>
+        </div>
+      </div>
+      <div class="foot"><span>Compass предлагает контакт</span><span>buddy держит ритм</span><span>куратор подключается к сложному месту</span></div>
+    </article>
+
+    <article class="slide compact lms-product" data-title="lms-navigation" data-label="LMS" data-subtitle="вся программа в одном месте">
       <div class="brand"><img src="logo.png" alt=""><span>ai mindset · lms</span></div>
       <div class="counter"></div>
       <div class="slide-content">
         <div class="kicker" data-edit data-anim>learn.aimindset.org/ain3</div>
-        <h2 data-edit data-anim style="--delay:.1s">LMS держит расписание, записи и материалы</h2>
-        <div class="lms-grid" data-anim style="--delay:.16s">
-          <div class="lms-card"><div class="tag">вход</div><h3 data-edit>через Telegram</h3><p data-edit>доступ привязан к участнику, помощь идёт через поддержку.</p></div>
-          <div class="lms-card"><div class="tag">звонки</div><h3 data-edit>карточки сессий</h3><p data-edit>Zoom, время, спикер, материалы и статус просмотра.</p></div>
-          <div class="lms-card"><div class="tag">записи</div><h3 data-edit>после live</h3><p data-edit>запись и текст помогают догнать контекст без потери темпа.</p></div>
-          <div class="lms-card"><div class="tag">работа</div><h3 data-edit>шаблоны</h3><p data-edit>brief процесса, артефакты недели, навигация и FAQ.</p></div>
+        <h2 data-edit data-anim style="--delay:.1s">LMS держит программу в рабочем состоянии</h2>
+        <div class="lms-window" data-anim style="--delay:.16s">
+          <aside class="lms-side"><b>AI Mindset</b><span>AIN3 · LIVE</span><span>программа</span><span>эксперты</span><span>записи</span><span>материалы</span><span>Tutor</span></aside>
+          <div class="lms-main">
+            <h3 data-edit>AI-Native Sprint III</h3>
+            <div class="lms-week"><b>неделя 1</b><span data-edit>Personal AI + Team Processes</span><em>baseline</em></div>
+            <div class="lms-week"><b>неделя 2</b><span data-edit>Infrastructure + Ontology</span><em>workflow</em></div>
+            <div class="lms-week"><b>неделя 3</b><span data-edit>Company Functions + Agent Pipelines</span><em>demo</em></div>
+            <div class="lms-week"><b>каждый live</b><span data-edit>Zoom → запись → материалы → следующий шаг</span><em>one route</em></div>
+          </div>
         </div>
-        <p class="lead" data-edit data-anim style="--delay:.24s">после каждого live-звонка ведём человека обратно в LMS: запись, материалы, следующий шаг.</p>
       </div>
-      <div class="foot"><span>LMS</span><span>learn.aimindset.org/ain3</span><span>Telegram auth</span></div>
+      <div class="foot"><span>learn.aimindset.org/ain3</span><span>вход через Telegram</span><span>календарь · записи · материалы</span></div>
+    </article>
+
+    <article class="slide compact tutor-product" data-title="tutor" data-label="Tutor" data-subtitle="ответы по материалам лабы">
+      <div class="brand"><img src="logo.png" alt=""><span>ai mindset · tutor</span></div>
+      <div class="counter"></div>
+      <div class="slide-content">
+        <div class="kicker" data-edit data-anim>learn.aimindset.org/ain3/tutor</div>
+        <h2 data-edit data-anim style="--delay:.1s">Tutor возвращает к конкретному месту в занятии</h2>
+        <div class="tutor-layout" data-anim style="--delay:.16s">
+          <div class="tutor-chat">
+            <div class="tutor-chat-head"><b>Tutor · AIN3</b><span>поиск по записям и материалам</span></div>
+            <div class="tutor-question" data-edit>как выбрать процесс для первой недели?</div>
+            <div class="tutor-answer" data-edit>Возьмите повторяемую работу с понятным владельцем и проверяемым выходом. Зафиксируйте входы, ограничения и критерий качества до сборки агента.<span class="tutor-cite">смотреть фрагмент занятия →</span></div>
+          </div>
+          <aside class="tutor-side"><h3 data-edit>что умеет</h3><div><b>цитирует источник</b><span data-edit>ответ связан с записью, слайдом или материалом</span></div><div><b>ведёт к таймкоду</b><span data-edit>можно открыть точный фрагмент вместо пересказа</span></div><div><b>знает AIN3</b><span data-edit>программа, эксперты, практики и артефакты этого потока</span></div></aside>
+        </div>
+      </div>
+      <div class="foot"><span>grounded answers</span><span>lecture citations</span><span>конкретный таймкод</span></div>
     </article>
 
     <article class="slide compact" data-title="participant-brief" data-label="brief" data-subtitle="что просим от участников">
@@ -2539,15 +2967,14 @@
       <div class="counter"></div>
       <div class="slide-content">
         <div class="kicker" data-edit data-anim>#intro → process brief</div>
-        <h2 data-edit data-anim style="--delay:.1s">на выходе у каждого есть первый рабочий шаг</h2>
+        <h2 data-edit data-anim style="--delay:.1s">к понедельнику нужен один короткий brief</h2>
         <div class="brief-grid" data-anim style="--delay:.16s">
-          <div class="brief-card"><h3 data-edit>роль</h3><p data-edit>кто я, какая команда или контекст, где будет применяться AI.</p></div>
-          <div class="brief-card"><h3 data-edit>инструменты</h3><p data-edit>что уже в работе: Claude, Codex, ChatGPT, Cursor, базы.</p></div>
-          <div class="brief-card"><h3 data-edit>блокер</h3><p data-edit>что тормозит: данные, люди, интеграции, качество, доверие, ритм.</p></div>
-          <div class="brief-card"><h3 data-edit>процесс</h3><p data-edit>один рабочий процесс с trigger, inputs, outputs, owner.</p></div>
-          <div class="brief-card"><h3 data-edit>демо</h3><p data-edit>как понять, что артефакт можно показать на Demo Day.</p></div>
+          <div class="brief-card"><h3 data-edit>процесс</h3><p data-edit>какую повторяемую работу ведём через три недели.</p></div>
+          <div class="brief-card"><h3 data-edit>контекст</h3><p data-edit>owner, inputs, outputs, источники и ограничения.</p></div>
+          <div class="brief-card"><h3 data-edit>критерий</h3><p data-edit>как выглядит хороший результат, который можно показать.</p></div>
+          <div class="brief-card"><h3 data-edit>помощь</h3><p data-edit>какой вопрос отнести buddy, куратору или Tutor.</p></div>
         </div>
-        <p class="lead" data-edit data-anim style="--delay:.24s">это сохраняет скорость: человек приносит рабочий контур, с которым можно помогать сразу.</p>
+        <p class="lead" data-edit data-anim style="--delay:.24s">этого достаточно, чтобы начать сборку без долгого технического задания.</p>
       </div>
       <div class="foot"><span>participant brief</span><span>коротко и по делу</span><span>Demo Day criteria</span></div>
     </article>
@@ -2559,9 +2986,9 @@
   <button type="button" id="prevBtn" aria-label="previous slide">←</button>
   <button type="button" id="nextBtn" aria-label="next slide">→</button>
 </nav>
-<div class="hint">← → slides · E edit · V assistant · S save · P publish · Esc exit</div>
+<div class="hint">← → slides · E edit · V Tutor · S save · P publish · Esc exit</div>
 
-<button class="assistant-trigger" id="assistantTrigger" type="button" aria-label="AIN live assistant">
+<button class="assistant-trigger" id="assistantTrigger" type="button" aria-label="открыть Tutor" aria-controls="assistantPanel" aria-expanded="false">
   <svg viewBox="0 0 48 48" fill="none" aria-hidden="true">
     <rect x="9" y="8" width="30" height="32" rx="10" stroke="currentColor" stroke-width="3"/>
     <rect x="16" y="17" width="6" height="6" fill="currentColor"/>
@@ -2569,14 +2996,17 @@
     <path d="M17 30h14" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
     <path d="M24 8V4" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
   </svg>
-  <span>AIN LIVE</span>
+  <span>TUTOR</span>
 </button>
 
-<section class="assistant-panel" id="assistantPanel" aria-live="polite">
-  <div class="assistant-head"><span>AIN LIVE · context dock</span><button type="button" id="assistantClose" aria-label="close assistant">×</button></div>
-  <div class="assistant-source" id="assistantSource">local context</div>
+<section class="assistant-panel" id="assistantPanel" aria-live="polite" aria-label="Tutor по текущему слайду">
+  <div class="assistant-head"><div><b>Tutor</b><span id="assistantContext">текущий слайд</span></div><button type="button" id="assistantClose" aria-label="закрыть Tutor">×</button></div>
+  <div class="assistant-question"><span>вопрос</span><strong id="assistantQuestion"></strong></div>
   <div class="assistant-text" id="assistantText"></div>
-  <div class="assistant-actions" id="assistantActions"></div>
+  <div class="assistant-footer">
+    <div class="assistant-sources"><span class="assistant-source-label">источники</span><div class="assistant-actions" id="assistantActions"></div></div>
+    <a class="assistant-cta" href="https://learn.aimindset.org/ain3/tutor" target="_blank" rel="noopener noreferrer">открыть полный Tutor ↗</a>
+  </div>
 </section>
 
 <section class="panel" id="mdPanel">
@@ -2593,9 +3023,9 @@
 const GH_REPO = 'ai-mindset-org/ainative-deck';
 const GH_FILE = 'ain3-intro.html';
 const GH_BRANCH = 'main';
-const DECK_VERSION = '2026-07-11-ain3-intro-monday-final-v9';
-const STORAGE_KEY = 'ain3-intro-monday-final-v9-state';
-const HISTORY_KEY = 'ain3-intro-monday-final-v9-history';
+const DECK_VERSION = '2026-07-13-ain3-kickoff-v13';
+const STORAGE_KEY = 'ain3-kickoff-v13-state';
+const HISTORY_KEY = 'ain3-kickoff-v13-history';
 const UI_LANG_KEY = 'ain3-intro-ui-lang';
 const TOKEN_KEY = 'ainative-deck-gh-token';
 const ASSISTANT_ENDPOINT_KEY = 'ain3-assistant-endpoint';
@@ -2608,7 +3038,8 @@ const overlaySubtitle = document.getElementById('overlaySubtitle');
 const deckDots = document.getElementById('deckDots');
 const assistantPanel = document.getElementById('assistantPanel');
 const assistantTrigger = document.getElementById('assistantTrigger');
-const assistantSource = document.getElementById('assistantSource');
+const assistantContext = document.getElementById('assistantContext');
+const assistantQuestion = document.getElementById('assistantQuestion');
 const assistantText = document.getElementById('assistantText');
 const assistantActions = document.getElementById('assistantActions');
 let current = 0;
@@ -2617,61 +3048,91 @@ let uiLang = localStorage.getItem(UI_LANG_KEY) || 'ru';
 let assistantOpen = false;
 let assistantRequestId = 0;
 
-const ASSISTANT_TIPS = {
+const TUTOR_TIPS = {
   cover: {
-    source: 'AIN3 public site + previous intro pattern',
-    text: 'Открой через смысл лабы: AI становится управляемым процессом. На экране сразу есть люди, маршрут и результат, к которому ведём группу.',
-    actions: ['смысл лабы', 'люди на маршруте', 'demo artifact']
+    question: 'Что будет результатом трёх недель?',
+    answer: 'Вы проведёте один реальный процесс через контекст, маршрут агента и проверку результата. К Demo Day появится рабочий артефакт и план на 30–90 дней.',
+    sources: ['программа AIN3', 'kickoff deck']
+  },
+  'week-map': {
+    question: 'Как устроен маршрут по неделям?',
+    answer: 'W1 собирает личный baseline и первый skill. W2 превращает его в повторяемый agent route. W3 проверяет эффект и готовит demo artifact.',
+    sources: ['weekly plan · 2026-07-13', 'расписание AIN3']
   },
   room: {
-    source: 'AIN3 roster aggregate · 2026-07-11',
-    text: 'Здесь важны не числа сами по себе, а сигнал: группа уже достаточно большая, поэтому интро должно быстро собрать людей по процессам и уровню зрелости.',
-    actions: ['говорить агрегатами', 'не раскрывать личные поля', 'вести к brief']
+    question: 'Кто уже в комнате?',
+    answer: 'В Telegram-комнате 97 участников, опубликовано 19 интро. Ядро видимой выборки — founders и владельцы компаний примерно на 50–200 человек; рядом product, operations, enterprise-команды и независимые builders.',
+    sources: ['Telegram room · 2026-07-13', '#intro snapshot']
   },
   doors: {
-    source: 'onboarding patterns + chat context',
-    text: 'Три входа помогают участникам узнать себя в программе. После этого проще объяснить, почему core общий, а поддержка разная.',
-    actions: ['enterprise', 'founder / smb', 'micro / personal']
+    question: 'Какой маршрут выбрать?',
+    answer: 'Выберите ближайший контекст: enterprise, founder / SMB или personal. Общий core один, а примеры, ограничения и поддержка привязаны к вашей среде.',
+    sources: ['onboarding AIN3', 'контекст участников']
   },
   'w0-intro': {
-    source: 'Zoom summary · intro call · 2026-07-11',
-    text: 'Здесь фиксируем обещания сегодняшнего звонка: LMS, профиль, один процесс, кураторы, buddy-matching и понятный ритм до понедельника.',
-    actions: ['LMS', 'process brief', 'buddy Tuesday']
+    question: 'Что нужно сделать до старта?',
+    answer: 'Откройте LMS, заполните профиль и выберите один повторяемый процесс. Профиль даст контекст для matching, buddies и кураторской поддержки.',
+    sources: ['intro call · 2026-07-11', 'LMS AIN3']
   },
   'monday-kickoff': {
-    source: 'weekly plan · W1 kickoff',
-    text: 'Понедельник должен выглядеть как рабочий старт. Не продаём программу, а показываем, что у каждого уже есть материал для сборки.',
-    actions: ['brief до звонка', 'owner / inputs / outputs', 'маленький artifact']
+    question: 'С чем прийти на kickoff?',
+    answer: 'Принесите короткий process brief: owner, inputs, outputs, источники, ограничения и критерий хорошего результата.',
+    sources: ['W1 kickoff', 'process brief contract']
   },
   'program-spine': {
-    source: 'AIN3 weekly plan',
-    text: 'Рассказывай программу как один рабочий процесс: intro выбирает узкое место, W1 собирает AI-OS baseline и первый skill, W2 проводит agent route, W3 доводит demo artifact.',
-    actions: ['AI-OS baseline', 'agent route', 'demo artifact']
+    question: 'Почему процесс проходит через все три недели?',
+    answer: 'Один процесс сохраняет общий критерий качества. Вы сможете сравнить baseline, маршрут агента и итоговый эффект на одном рабочем кейсе.',
+    sources: ['программа AIN3', 'weekly spine']
+  },
+  'lab-system': {
+    question: 'Как работает лаборатория?',
+    answer: 'Цикл повторяется каждую неделю: принести процесс, собрать следующий слой, проверить его в работе, получить feedback и обновить артефакт.',
+    sources: ['program contract', 'intro call']
+  },
+  'previous-cases': {
+    question: 'Какие артефакты можно собрать?',
+    answer: 'В прошлой лаборатории участники показывали системы для sales, operations, strategy и управления компанией. Ваш артефакт должен работать и быть проверяемым.',
+    sources: ['AIN02 Demo Day', 'разбор артефактов']
   },
   'call-cadence': {
-    source: 'AIN3 weekly plan v0.26 + chat navigation',
-    text: 'Показывай расписание честно: confirmed зелёным, date/time sync янтарным, open slot отдельно. Главная линия: W1 baseline, W2 workflow, W3 demo.',
-    actions: ['confirmed', 'date sync', 'open slot']
+    question: 'Где смотреть актуальное расписание?',
+    answer: 'Все live-слоты собраны в LMS и календаре AIN3. Зелёные слоты подтверждены, янтарные ещё синхронизируются, open slot остаётся открытым.',
+    sources: ['календарь AIN3', 'weekly plan · 2026-07-13']
   },
   speakers: {
-    source: 'LMS speaker block + people assets',
-    text: 'Говори про видение каждого спикера. Участнику важно понять, к кому он мысленно пойдёт за стратегией, процессом, данными, enterprise или tools.',
-    actions: ['vision cards', 'коротко', 'без биографий']
+    question: 'К кому идти с вопросом?',
+    answer: 'Ориентируйтесь по теме: strategy, process, data, enterprise, product systems или agent tools. Карточки спикеров показывают их роль в маршруте.',
+    sources: ['speaker CRM', 'LMS AIN3']
   },
   curators: {
-    source: 'AIN03 curators CRM + office hours',
-    text: 'Этот слайд показывает, куда нести вопрос. Человек выбирает не “любимого эксперта”, а маршрут помощи под свой процесс.',
-    actions: ['personal', 'founder / smb', 'enterprise', 'context / agents']
+    question: 'Когда подключать куратора?',
+    answer: 'Подключайте куратора к конкретному узкому месту: архитектуре процесса, enterprise-ограничениям, данным, агентам или внедрению в команду.',
+    sources: ['curators CRM', 'Office Hours']
+  },
+  compass: {
+    question: 'Как Compass выбирает контакт?',
+    answer: 'Compass использует ваш профиль и #intro, находит близкий рабочий контекст, объясняет причину совпадения и помогает начать разговор.',
+    sources: ['Compass AIN3', '#intro profile']
+  },
+  buddies: {
+    question: 'Что делать на buddy-созвоне?',
+    answer: 'За 20 минут покажите текущий процесс, сформулируйте один вопрос и договоритесь, что проверите к следующей встрече.',
+    sources: ['buddies AIN02', 'matching promise AIN3']
   },
   'lms-navigation': {
-    source: 'learn.aimindset.org/ain3',
-    text: 'Покажи LMS как место возврата после каждого звонка. Человеку нужно знать, где догнать запись и где взять следующий шаг.',
-    actions: ['вход через Telegram', 'записи', 'шаблоны']
+    question: 'Что находится в LMS?',
+    answer: 'В LMS собраны программа, эксперты, записи, материалы и следующий шаг после каждого live. Вход работает через Telegram.',
+    sources: ['learn.aimindset.org/ain3', 'LMS navigation']
+  },
+  tutor: {
+    question: 'Чем Tutor помогает после занятия?',
+    answer: 'Tutor отвечает по материалам AIN3 и возвращает к конкретному источнику: записи, слайду, цитате или таймкоду.',
+    sources: ['learn.aimindset.org/ain3/tutor', 'материалы AIN3']
   },
   'participant-brief': {
-    source: 'process brief contract',
-    text: 'Финал должен звучать как простое действие. После звонка каждый берёт один процесс и приносит его в понедельник в понятной форме.',
-    actions: ['роль', 'процесс', 'демо-критерий']
+    question: 'Что должно быть в коротком brief?',
+    answer: 'Назовите процесс, owner, inputs, outputs, источники, ограничения и критерий результата, который можно показать на Demo Day.',
+    sources: ['process brief contract', 'Demo Day criteria']
   }
 };
 
@@ -2688,10 +3149,10 @@ function setStatus(ru, en) {
 function getAssistantTip() {
   const slide = slides[current];
   const key = slide?.dataset.title || 'cover';
-  return ASSISTANT_TIPS[key] || {
-    source: 'local deck context',
-    text: 'Держи слайд коротким: один смысл, один переход, один следующий шаг.',
-    actions: ['сократить', 'назвать действие', 'перейти дальше']
+  return TUTOR_TIPS[key] || {
+    question: 'Как применить этот слайд к своему процессу?',
+    answer: 'Зафиксируйте один вывод и один следующий шаг, который можно проверить в работе.',
+    sources: ['материалы AIN3']
   };
 }
 
@@ -2699,10 +3160,12 @@ function updateAssistantContext() {
   if (!assistantPanel) return;
   const endpoint = localStorage.getItem(ASSISTANT_ENDPOINT_KEY);
   const tip = getAssistantTip();
-  assistantSource.textContent = endpoint ? `${tip.source} · server endpoint ready` : `${tip.source} · local`;
-  assistantText.textContent = tip.text;
+  const slide = slides[current];
+  assistantContext.textContent = `текущий слайд · ${slide?.dataset.label || slide?.dataset.title || 'AIN3'}`;
+  assistantQuestion.textContent = tip.question;
+  assistantText.textContent = tip.answer;
   assistantActions.innerHTML = '';
-  tip.actions.forEach(label => {
+  tip.sources.forEach(label => {
     const item = document.createElement('span');
     item.textContent = label;
     assistantActions.appendChild(item);
@@ -2714,6 +3177,7 @@ function toggleAssistant(force) {
   assistantOpen = typeof force === 'boolean' ? force : !assistantOpen;
   assistantPanel.classList.toggle('open', assistantOpen);
   assistantTrigger.classList.toggle('active', assistantOpen);
+  assistantTrigger.setAttribute('aria-expanded', String(assistantOpen));
   if (assistantOpen) updateAssistantContext();
 }
 
@@ -2726,21 +3190,27 @@ async function loadAssistantCueFromServer(endpoint, fallbackTip) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         slideId: slide?.dataset.title || 'cover',
-        question: 'Give a short presenter cue for this slide.',
-        mode: 'presenter-cue',
+        question: fallbackTip.question,
+        mode: 'tutor-answer',
         publicOnly: true
       })
     });
     if (!response.ok) throw new Error(`assistant ${response.status}`);
     const data = await response.json();
     if (requestId !== assistantRequestId) return;
-    assistantSource.textContent = `${fallbackTip.source} · server`;
-    assistantText.textContent = data.answer || fallbackTip.text;
+    assistantText.textContent = data.answer || fallbackTip.answer;
+    if (Array.isArray(data.sources) && data.sources.length) {
+      assistantActions.innerHTML = '';
+      data.sources.slice(0, 3).forEach(label => {
+        const item = document.createElement('span');
+        item.textContent = label;
+        assistantActions.appendChild(item);
+      });
+    }
   } catch (err) {
     if (requestId !== assistantRequestId) return;
     console.warn(err);
-    assistantSource.textContent = `${fallbackTip.source} · local fallback`;
-    assistantText.textContent = fallbackTip.text;
+    assistantText.textContent = fallbackTip.answer;
   }
 }
 

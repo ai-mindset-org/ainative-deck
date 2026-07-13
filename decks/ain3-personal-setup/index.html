@@ -1,0 +1,560 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AIN3 · Personal Setup — среда для одного процесса</title>
+<meta property="og:title" content="AIN3 · Personal Setup">
+<meta property="og:description" content="AI-OS baseline + first skill для одного рабочего процесса. AI-Native Sprint v3, W1.">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fbfbf9; --ink:#111114; --muted:#8a8a8a; --soft:#dcdcd8; --hair:#efefec;
+  --blue:#2743e0; --cyan:#0e93a8; --green:#0d8a5f; --violet:#7040c8; --magenta:#c02878; --amber:#b07800;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,monospace; --head:"Space Grotesk",sans-serif;
+}
+*{box-sizing:border-box} html,body{margin:0;height:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--mono);overflow:hidden}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.5;
+  background-image:linear-gradient(var(--hair) 1px,transparent 1px),linear-gradient(90deg,var(--hair) 1px,transparent 1px);
+  background-size:64px 64px}
+.progress{position:fixed;top:0;left:0;height:2px;background:var(--blue);z-index:60;transition:width .35s ease}
+.slide{position:absolute;inset:0;display:none;padding:54px 84px 74px;flex-direction:column}
+.slide.active{display:flex;animation:slideIn .45s ease}
+@keyframes slideIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.counter{position:fixed;top:20px;right:28px;font-size:11px;color:var(--muted);letter-spacing:.14em;z-index:50}
+.brandline{position:fixed;bottom:22px;left:28px;display:flex;gap:12px;align-items:center;z-index:50;
+  font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.brandline img{height:26px;opacity:.55}
+.hint{position:fixed;bottom:22px;right:28px;font-size:10px;color:var(--muted);letter-spacing:.1em;z-index:50}
+.label{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
+.label b{color:var(--blue);font-weight:600}
+h1{font-family:var(--head);font-size:56px;line-height:1.08;font-weight:700;margin:0 0 18px;max-width:17ch}
+h2{font-family:var(--head);font-size:38px;line-height:1.12;font-weight:600;margin:0 0 16px}
+.sub{font-size:17px;line-height:1.65;color:#3c3c40;max-width:62ch}
+.sub b{font-weight:600;color:var(--ink)}
+.thesis{font-family:var(--head);font-size:26px;line-height:1.35;font-weight:500;max-width:30ch;margin:8px 0 20px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:22px;flex:1;align-content:start;margin-top:18px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:20px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:22px}
+.card{border:1px solid var(--soft);background:#fff;padding:16px 18px 14px;position:relative;border-left:3px solid var(--blue)}
+.card.g{border-left-color:var(--green)} .card.v{border-left-color:var(--violet)} .card.m{border-left-color:var(--magenta)}
+.card.c{border-left-color:var(--cyan)} .card.a{border-left-color:var(--amber)}
+.card .k{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.card .k b{color:inherit;font-weight:600}
+.card h3{font-family:var(--head);font-size:19px;margin:0 0 6px;font-weight:600}
+.card p{font-size:12.5px;line-height:1.55;color:#44444a;margin:0}
+.card .file{margin-top:8px;font-size:11px;color:var(--cyan)}
+.big-num{font-family:var(--head);font-size:60px;font-weight:700;line-height:1}
+.stat{border:1px solid var(--soft);background:#fff;padding:18px 20px}
+.stat .n{font-family:var(--head);font-size:42px;font-weight:700;line-height:1.05}
+.stat .d{font-size:12px;color:#4a4a50;line-height:1.5;margin-top:6px}
+.stat .s{font-size:10px;color:var(--muted);margin-top:8px;letter-spacing:.06em}
+.term{background:#111114;color:#e8e6e2;border:1px solid #111114;padding:16px 18px;font-size:12.5px;line-height:1.7;white-space:pre;overflow-x:auto}
+.term .cm{color:#8a8a8a} .term .kw{color:#7ec8d8} .term .str{color:#a8d8a8}
+.ladder{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:20px}
+.rung{border:1px solid var(--soft);background:#fff;padding:12px 12px 10px;font-size:11px;line-height:1.45;position:relative}
+.rung .lv{font-family:var(--head);font-weight:700;font-size:18px;margin-bottom:4px}
+.rung .nm{font-weight:600;font-size:11.5px;margin-bottom:5px;min-height:30px}
+.rung .tl{color:#55555c;font-size:10.5px}
+.rung.here{outline:2px solid var(--blue);outline-offset:-1px}
+.rung.here::after{content:"мы завтра здесь";position:absolute;top:-22px;left:0;font-size:9px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--blue);white-space:nowrap}
+.rung.dim{opacity:.55}
+table.mx{border-collapse:collapse;width:100%;margin-top:18px;font-size:11.5px}
+table.mx th,table.mx td{border:1px solid var(--soft);padding:8px 10px;text-align:left;vertical-align:top;line-height:1.4;background:#fff}
+table.mx th{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:500}
+table.mx td.zone{background:#eef3ff}
+.flow{display:flex;align-items:stretch;gap:0;margin-top:26px;flex-wrap:wrap}
+.fstep{border:1px solid var(--soft);background:#fff;padding:14px 16px;min-width:120px;flex:1;position:relative}
+.fstep .t{font-weight:600;font-size:13px} .fstep .d{font-size:10.5px;color:var(--muted);margin-top:4px;line-height:1.4}
+.farr{align-self:center;padding:0 8px;color:var(--blue);font-size:18px}
+.reveal{opacity:0;transform:translateY(12px);transition:opacity .5s ease,transform .5s ease}
+.slide.active .reveal{opacity:1;transform:none}
+.slide.active .reveal:nth-child(1),.slide.active .r1{transition-delay:.05s}
+.slide.active .r2{transition-delay:.18s}.slide.active .r3{transition-delay:.31s}
+.slide.active .r4{transition-delay:.44s}.slide.active .r5{transition-delay:.57s}
+.slide.active .r6{transition-delay:.7s}.slide.active .r7{transition-delay:.83s}
+.pill{display:inline-block;border:1px solid var(--ink);padding:3px 10px;font-size:11px;letter-spacing:.08em;margin-right:8px}
+.pill.inv{background:var(--ink);color:var(--bg)}
+.qbox{border:1px solid var(--ink);padding:26px 30px;background:#fff;max-width:820px}
+.qbox .q{font-family:var(--head);font-size:32px;font-weight:600;line-height:1.3}
+.two{display:grid;grid-template-columns:1.1fr .9fr;gap:34px;flex:1;align-items:start;margin-top:6px}
+ul.cl{list-style:none;padding:0;margin:12px 0 0;font-size:13.5px;line-height:1.6}
+ul.cl li{padding:7px 0;border-top:1px solid var(--hair)}
+ul.cl li b{font-weight:600}
+ul.cl li .mut{color:var(--muted)}
+.foot-tag{margin-top:auto;padding-top:16px;font-size:11px;color:var(--muted);letter-spacing:.08em}
+/* assistant chip */
+#chip{position:fixed;bottom:64px;right:28px;z-index:80;font-family:var(--mono)}
+#chipBtn{border:1px solid var(--ink);background:#fff;color:var(--ink);font:600 11px var(--mono);
+  letter-spacing:.14em;text-transform:uppercase;padding:9px 14px;cursor:pointer;display:flex;gap:8px;align-items:center}
+#chipBtn:hover{background:var(--ink);color:#fff}
+#chipBtn .dot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse 1.6s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.25}}
+#chipPanel{display:none;position:absolute;bottom:44px;right:0;width:390px;max-height:520px;border:1px solid var(--ink);
+  background:#fff;box-shadow:0 18px 50px rgba(0,0,0,.14);flex-direction:column}
+#chipPanel.open{display:flex}
+#chipHead{padding:10px 14px;border-bottom:1px solid var(--soft);font-size:10px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--muted);display:flex;justify-content:space-between;align-items:center}
+#chipLog{flex:1;overflow:auto;padding:12px 14px;font-size:12px;line-height:1.55;display:flex;flex-direction:column;gap:10px}
+#chipLog .msg{max-width:92%} #chipLog .me{align-self:flex-end;background:var(--hair);padding:8px 10px}
+#chipLog .ai{align-self:flex-start;border-left:2px solid var(--blue);padding:2px 0 2px 10px;white-space:pre-wrap}
+#chipForm{display:flex;border-top:1px solid var(--soft)}
+#chipIn{flex:1;border:0;padding:11px 12px;font:12.5px var(--mono);outline:none;background:transparent}
+#chipSend{border:0;border-left:1px solid var(--soft);background:#fff;padding:0 16px;cursor:pointer;font:600 12px var(--mono)}
+#chipSend:hover{background:var(--ink);color:#fff}
+@media (max-width:900px){.slide{padding:34px 22px 84px}h1{font-size:36px}h2{font-size:26px}
+  .ladder{grid-template-columns:repeat(2,1fr)}.two,.grid2{grid-template-columns:1fr}#chipPanel{width:calc(100vw - 44px)}}
+</style>
+</head>
+<body>
+<div class="progress" id="prog"></div>
+<div class="counter"><span id="cur">1</span> / <span id="tot">?</span></div>
+<div class="brandline"><img src="../../logo.png" alt=""><span>ai-native sprint v3 · w1 · personal setup</span></div>
+<div class="hint">→ пробел · F фуллскрин</div>
+
+<!-- 1 cover -->
+<section class="slide active">
+  <div class="label reveal r1">// AI-NATIVE SPRINT V3 · W1 · <b>14.07 · 17:00 CET</b></div>
+  <h1 class="reveal r2">personal setup:<br>среда для одного процесса</h1>
+  <p class="sub reveal r3">Вчера Стёпа показал организацию как систему обработки информации. Утром Денис помог выбрать процесс и описать его контекст. Сегодня собираем <b>рабочую среду</b>, в которой этот процесс может выполнять агент.</p>
+  <div class="reveal r4" style="margin-top:26px">
+    <span class="pill inv">выход: AI-OS baseline</span><span class="pill">+ первый skill</span><span class="pill">90 минут · hands-on</span>
+  </div>
+  <div class="foot-tag reveal r5">Александр Поваляев · AI Mindset</div>
+</section>
+
+<!-- 2 bridge from M1 -->
+<section class="slide">
+  <div class="label">// МОСТ ОТ M1</div>
+  <h2 class="reveal r1">у вас уже есть половина</h2>
+  <div class="grid2">
+    <div class="card g reveal r2">
+      <div class="k">утро · денис · M1</div>
+      <h3>process brief</h3>
+      <p>Один рабочий процесс: как он идёт сейчас, какие источники он трогает, что считается хорошим результатом. Это <b>карта задачи</b>.</p>
+      <div class="file">process brief + context map</div>
+    </div>
+    <div class="card reveal r3">
+      <div class="k">вечер · сейчас</div>
+      <h3>environment</h3>
+      <p>Среда, где эта карта становится исполняемой: файлы правил, источники, первый skill, границы. Это <b>место, где агент работает</b>.</p>
+      <div class="file">AI-OS baseline + first skill</div>
+    </div>
+  </div>
+  <p class="sub reveal r4" style="margin-top:8px">Формула недели: <b>setup даёт поверхность · context даёт памяти системе · evidence замыкает цикл.</b></p>
+</section>
+
+<!-- 3 main question -->
+<section class="slide">
+  <div class="label">// ГЛАВНЫЙ ВОПРОС</div>
+  <div style="flex:1;display:flex;align-items:center">
+    <div class="qbox reveal r1">
+      <div class="q">что должно быть в моей рабочей среде, чтобы агент не начинал каждый раз с нуля?</div>
+    </div>
+  </div>
+  <p class="sub reveal r3">Холодный старт стоит 20–80k токенов пересказа – каждый раз. Всё занятие – это способы заплатить один раз вместо каждого раза.</p>
+</section>
+
+<!-- 4 one process -->
+<section class="slide">
+  <div class="label">// ОДИН ПРОЦЕСС</div>
+  <h2 class="reveal r1">всё строится вокруг одного процесса</h2>
+  <p class="sub reveal r2">Не «внедрить AI в жизнь». Один процесс, который повторяется чаще раза в неделю и который вы можете описать: вход → шаги → результат → критерий качества.</p>
+  <div class="flow reveal r3">
+    <div class="fstep"><div class="t">one process</div><div class="d">из process brief</div></div><div class="farr">→</div>
+    <div class="fstep"><div class="t">source map</div><div class="d">3–5 источников</div></div><div class="farr">→</div>
+    <div class="fstep"><div class="t">context pack</div><div class="d">паспорт задачи</div></div><div class="farr">→</div>
+    <div class="fstep"><div class="t">skill</div><div class="d">повторяемое действие</div></div><div class="farr">→</div>
+    <div class="fstep"><div class="t">first run</div><div class="d">артефакт</div></div><div class="farr">→</div>
+    <div class="fstep"><div class="t">evidence</div><div class="d">результат в систему</div></div>
+  </div>
+  <p class="foot-tag reveal r4">эта строка – весь маршрут недели. каждый следующий слайд – один её узел.</p>
+</section>
+
+<!-- 5 stack map -->
+<section class="slide">
+  <div class="label">// STACK MAP</div>
+  <h2 class="reveal r1">семь слоёв личной операционной системы</h2>
+  <div class="cards">
+    <div class="card reveal r1"><div class="k">01 · input</div><h3>вход</h3><p>голос, telegram, календарь, скриншоты, транскрипты звонков – живой материал.</p></div>
+    <div class="card c reveal r2"><div class="k">02 · context</div><h3>контекст</h3><p>vault заметок, файлы правил AGENTS.md / CLAUDE.md, нейминг – как агент понимает мир до запроса.</p></div>
+    <div class="card v reveal r2"><div class="k">03 · runtime</div><h3>рантайм</h3><p>Claude Code, Codex, Cursor – разные входы в один принцип работы.</p></div>
+    <div class="card g reveal r3"><div class="k">04 · skills</div><h3>скиллы</h3><p>повторяемые действия как markdown-файлы. исполняемая память.</p></div>
+    <div class="card m reveal r3"><div class="k">05 · connectors</div><h3>коннекторы</h3><p>Telegram, Calendar, Linear, GitHub, браузер – где агент берёт и меняет состояние.</p></div>
+    <div class="card a reveal r4"><div class="k">06 · publish</div><h3>публикация</h3><p>GitHub Pages, Netlify – как результат становится артефактом наружу.</p></div>
+    <div class="card reveal r4"><div class="k">07 · governance</div><h3>границы</h3><p>токены только локально, private/public split, ask-first – где заканчивается автономия.</p></div>
+  </div>
+  <p class="foot-tag reveal r5">показываю слой и принцип · инструмент – только пример, не список покупок</p>
+</section>
+
+<!-- 6 source map -->
+<section class="slide">
+  <div class="label">// SOURCE MAP</div>
+  <h2 class="reveal r1">агенту нужны источники до запроса</h2>
+  <div class="two">
+    <div>
+      <p class="sub reveal r2">Для вашего процесса: где уже лежит правда? Выберите <b>3 источника</b> – не десять. У каждого: почему важен и как агент до него дотянется.</p>
+      <ul class="cl reveal r3">
+        <li><b>chat / переписка</b> <span class="mut">– решения и договорённости</span></li>
+        <li><b>transcripts</b> <span class="mut">– звонки, голосовые</span></li>
+        <li><b>docs / notes</b> <span class="mut">– документы, база знаний</span></li>
+        <li><b>calendar</b> <span class="mut">– ритм и дедлайны</span></li>
+        <li><b>tasks</b> <span class="mut">– трекер, тикеты</span></li>
+      </ul>
+    </div>
+    <div class="term reveal r4"><span class="cm">## source map — шаблон</span>
+
+<span class="kw">- source:</span> транскрипты созвонов
+  <span class="kw">why:</span> там живут реальные решения
+  <span class="kw">access:</span> папка transcripts/ в vault
+
+<span class="kw">- source:</span> рабочий чат
+  <span class="kw">why:</span> статусы и блокеры
+  <span class="kw">access:</span> экспорт / MCP
+
+<span class="kw">- source:</span> задачник
+  <span class="kw">why:</span> что уже решено делать
+  <span class="kw">access:</span> API / выгрузка</div>
+  </div>
+</section>
+
+<!-- 7 naming -->
+<section class="slide">
+  <div class="label">// NAMING + FILES</div>
+  <h2 class="reveal r1">имя файла – это база данных</h2>
+  <p class="sub reveal r2">Файл, который нельзя найти повторно, не существует. Одна конвенция решает: поиск, сортировку по дате, понимание без открытия.</p>
+  <div class="term reveal r3" style="margin-top:22px;font-size:15px">
+<span class="cm"># шаблон</span>
+{project} {type} description – YYYY-MM-DD.md
+
+<span class="cm"># примеры</span>
+{crm} {meeting} weekly sync – 2026-07-14.md
+{lab} {research} competitors scan – 2026-07-14.md
+{ops} {process} invoice flow – 2026-07-14.md</div>
+  <ul class="cl reveal r4" style="max-width:640px">
+    <li><b>дата в конце</b> <span class="mut">– сортировка бесплатно</span></li>
+    <li><b>тип в скобках</b> <span class="mut">– агент фильтрует по типу без чтения</span></li>
+    <li><b>имя латиницей</b> <span class="mut">– стабильные ссылки, git, шаринг</span></li>
+  </ul>
+</section>
+
+<!-- 8 AGENTS/CLAUDE -->
+<section class="slide">
+  <div class="label">// ФАЙЛЫ ПРАВИЛ</div>
+  <h2 class="reveal r1">среда начинается с правил, не с промпта</h2>
+  <div class="two">
+    <div>
+      <p class="sub reveal r2">AGENTS.md / CLAUDE.md – файл, который агент читает <b>до</b> вашего первого сообщения. Иерархия: глобальный (кто вы, стиль) → проектный (эта задача, эти границы).</p>
+      <ul class="cl reveal r3">
+        <li><b>роль и контекст</b> <span class="mut">– кто вы, что за проект</span></li>
+        <li><b>правила</b> <span class="mut">– нейминг, язык, что нельзя</span></li>
+        <li><b>карта</b> <span class="mut">– где что лежит, куда писать</span></li>
+      </ul>
+      <p class="sub reveal r4" style="margin-top:14px;font-size:13px">факт: правила читаются в каждой сессии – файл держите коротким, до ~200 строк. дальше модель начинает терять инструкции.</p>
+    </div>
+    <div class="term reveal r5"><span class="cm"># AGENTS.md — минимум</span>
+
+<span class="kw">## кто я</span>
+руковожу X, процесс – Y
+
+<span class="kw">## правила</span>
+- файлы: {project} {type} desc – date
+- отвечай кратко, по-русски
+- не трогай папку private/
+
+<span class="kw">## карта</span>
+- источники: sources/
+- результаты: output/
+- журнал запусков: log.md</div>
+  </div>
+</section>
+
+<!-- 9 context pack -->
+<section class="slide">
+  <div class="label">// CONTEXT PACK</div>
+  <h2 class="reveal r1">паспорт задачи – переносит её между запусками</h2>
+  <div class="two">
+    <div>
+      <p class="sub reveal r2">Context pack – одна карточка, из которой любой агент (и вы через месяц) понимает задачу без пересказа. Это answer на главный вопрос занятия.</p>
+      <ul class="cl reveal r3">
+        <li><b>goal</b> – что должно получиться</li>
+        <li><b>current state</b> – где мы сейчас</li>
+        <li><b>rules</b> – критерии качества от M1</li>
+        <li><b>examples</b> – 1-2 образца «как хорошо»</li>
+        <li><b>boundary</b> – что агенту нельзя</li>
+      </ul>
+    </div>
+    <div class="term reveal r4"><span class="cm"># context pack — заполните свой</span>
+
+<span class="kw">goal:</span> еженедельный дайджест проекта
+<span class="kw">current:</span> пишу руками 2 часа по пятницам
+<span class="kw">rules:</span> ≤1 страницы, факты со ссылками,
+  без воды, структура: сделано/риски/дальше
+<span class="kw">examples:</span> digest-2026-07-04.md (эталон)
+<span class="kw">boundary:</span> не отправлять без моего ок,
+  не использовать приватные заметки</div>
+  </div>
+</section>
+
+<!-- 10 skill -->
+<section class="slide">
+  <div class="label">// SKILL</div>
+  <h2 class="reveal r1">skill = текст повторяемого действия</h2>
+  <div class="two">
+    <div>
+      <p class="sub reveal r2">Папка + файл SKILL.md. Агент видит имя и описание всегда, тело – когда триггер сработал. Один skill = одна процедура.</p>
+      <p class="sub reveal r3" style="font-size:13px;margin-top:12px">данные: скиллы, курируемые человеком из своей практики, дают <b>+16 п.п.</b> к качеству прогона; сгенерированные пачкой «на всякий случай» – ноль. skill рождается из повторения, не из фантазии.</p>
+    </div>
+    <div class="term reveal r4"><span class="cm"># ~/.claude/skills/weekly-digest/SKILL.md</span>
+
+<span class="kw">---
+name:</span> weekly-digest
+<span class="kw">description:</span> <span class="str">Use when просят «собери
+  дайджест недели» по проекту X.</span>
+<span class="kw">---</span>
+
+<span class="kw">## шаги</span>
+1. прочитай log.md + transcripts/ за 7 дней
+2. собери: сделано / риски / дальше
+3. проверь против examples/digest-эталон
+4. сохрани в output/digest – {date}.md
+
+<span class="kw">## evidence</span>
+файл существует · ≤1 стр · есть ссылки</div>
+  </div>
+</section>
+
+<!-- 11 ladders: память -->
+<section class="slide">
+  <div class="label">// СТЕПЕНИ РЕАЛИЗАЦИИ · 1/2</div>
+  <h2 class="reveal r1">память: шесть ступеней одной лестницы</h2>
+  <div class="ladder reveal r2">
+    <div class="rung dim"><div class="lv">0</div><div class="nm">в голове</div><div class="tl">пересказ в каждом промпте</div></div>
+    <div class="rung here"><div class="lv">1</div><div class="nm">markdown-файлы</div><div class="tl">MEMORY.md / CLAUDE.md – агент читает на старте</div></div>
+    <div class="rung"><div class="lv">2</div><div class="nm">локальный индекс</div><div class="tl">поиск по vault: BM25 + вектора на устройстве</div></div>
+    <div class="rung"><div class="lv">3</div><div class="nm">git-команда</div><div class="tl">commit = запись, blame = аудит, PR = ревью факта</div></div>
+    <div class="rung dim"><div class="lv">4</div><div class="nm">сервис-граф</div><div class="tl">типизированные связи, Zep / Mem0 / gbrain</div></div>
+    <div class="rung dim"><div class="lv">5</div><div class="nm">автономная</div><div class="tl">сама решает что помнить · риск отравления</div></div>
+  </div>
+  <div class="grid3" style="margin-top:26px">
+    <div class="stat reveal r3"><div class="n">74.0%</div><div class="d">точность файловой памяти на бенчмарке LoCoMo – <b>выше</b>, чем у графовой Mem0 (68.5%)</div><div class="s">файлы – не времянка, а оптимум для старта</div></div>
+    <div class="stat reveal r4"><div class="n">~30</div><div class="d">фактов – порог, после которого файл перестаёт справляться и нужна ступень 2</div><div class="s">до этого – просто пишите в MEMORY.md</div></div>
+    <div class="stat reveal r5"><div class="n">2→3</div><div class="d">переход personal → team: субстрат один – git. память команды = репозиторий</div><div class="s">общий каркас всех лестниц</div></div>
+  </div>
+</section>
+
+<!-- 12 ladders: сессии -->
+<section class="slide">
+  <div class="label">// СТЕПЕНИ РЕАЛИЗАЦИИ · 2/2</div>
+  <h2 class="reveal r1">сессии: как контекст переживает закрытие окна</h2>
+  <div class="ladder reveal r2">
+    <div class="rung dim"><div class="lv">0</div><div class="nm">с нуля</div><div class="tl">холодный старт = 20–80k токенов пересказа</div></div>
+    <div class="rung"><div class="lv">1</div><div class="nm">resume</div><div class="tl">--continue / --resume в той же папке</div></div>
+    <div class="rung here"><div class="lv">2</div><div class="nm">handoff-бриф</div><div class="tl">5–7 строк перед закрытием: задача · решения · next</div></div>
+    <div class="rung"><div class="lv">3</div><div class="nm">параллель</div><div class="tl">несколько агентов в git worktrees</div></div>
+    <div class="rung dim"><div class="lv">4</div><div class="nm">кросс-рантайм</div><div class="tl">Claude ↔ Codex ↔ Cursor через MCP / A2A</div></div>
+    <div class="rung dim"><div class="lv">5</div><div class="nm">флот</div><div class="tl">супервизор-демон агентов · эксперим.</div></div>
+  </div>
+  <div class="qbox reveal r3" style="margin-top:26px;max-width:100%">
+    <div class="q" style="font-size:22px">«brief, not reload» – короткий бриф обыгрывает полную перезагрузку истории уже после 1–2 циклов. дисциплина: закрыл сессию – оставил 5 строк следующей.</div>
+  </div>
+</section>
+
+<!-- 13 matrix -->
+<section class="slide">
+  <div class="label">// ОБЩИЙ КАРКАС</div>
+  <h2 class="reveal r1">одна лестница на всё: голова → файл → индекс → git → сервис → автономия</h2>
+  <table class="mx reveal r2">
+    <tr><th>компонент</th><th>0 · голова</th><th>1 · файл</th><th class="">2 · индекс</th><th>3 · git-команда</th><th>4 · сервис</th><th>5 · автономия</th></tr>
+    <tr><td><b>память</b></td><td>пересказ</td><td class="zone">MEMORY.md</td><td class="zone">поиск по vault</td><td>общий репо</td><td>граф Zep/gbrain</td><td>сама решает</td></tr>
+    <tr><td><b>скиллы</b></td><td>заново каждый раз</td><td class="zone">снипеты</td><td class="zone">SKILL.md</td><td>SSOT + зеркала</td><td>реестр + evals</td><td>из траекторий</td></tr>
+    <tr><td><b>сессии</b></td><td>с нуля</td><td class="zone">resume</td><td class="zone">handoff-бриф</td><td>worktrees</td><td>кросс-рантайм A2A</td><td>флот + демон</td></tr>
+    <tr><td><b>контекст</b></td><td>copy-paste</td><td class="zone">AGENTS.md</td><td class="zone">vault как источник</td><td>JIT-подгрузка</td><td>контекст-граф</td><td>онтология орг.</td></tr>
+    <tr><td><b>оркестрация</b></td><td>один агент</td><td class="zone">субагенты</td><td class="zone">фоновые</td><td>workflow-код</td><td>агентные меши</td><td>агент в артефакте</td></tr>
+  </table>
+  <p class="sub reveal r3" style="margin-top:14px;font-size:13px">голубая зона – <b>ступени этой недели</b>: достижимы руками за вечер. переход 2→3 везде один и тот же – git. эта презентация – ступень 5 оркестрации: в ней живёт агент (кнопка внизу справа).</p>
+</section>
+
+<!-- 14 first run -->
+<section class="slide">
+  <div class="label">// FIRST RUN</div>
+  <h2 class="reveal r1">первый запуск должен дать артефакт</h2>
+  <p class="sub reveal r2">Не «поговорить с агентом», а получить файл. Критерий: после первого прогона в папке output/ лежит то, что можно открыть и оценить против правил из context pack.</p>
+  <div class="term reveal r3" style="margin-top:22px;font-size:14px">
+<span class="cm"># мини-промпт первого запуска</span>
+
+прочитай AGENTS.md и context-pack.md.
+собери {выход процесса} по шагам из skill.
+перед сохранением сверь с examples/ и rules.
+результат → output/{имя по конвенции}.md
+в конце: 3 строки – что сделал, что не смог, что уточнить.</div>
+  <p class="foot-tag reveal r4">live demo: собираю skill под процесс участника и запускаю</p>
+</section>
+
+<!-- 15 evidence -->
+<section class="slide">
+  <div class="label">// EVIDENCE</div>
+  <h2 class="reveal r1">результат возвращается в систему</h2>
+  <div class="flow reveal r2" style="max-width:860px">
+    <div class="fstep"><div class="t">output</div><div class="d">файл-артефакт</div></div><div class="farr">→</div>
+    <div class="fstep"><div class="t">evidence</div><div class="d">оценка против правил: прошёл / нет / почему</div></div><div class="farr">→</div>
+    <div class="fstep"><div class="t">update</div><div class="d">правка skill или context pack</div></div><div class="farr">↺</div>
+  </div>
+  <p class="sub reveal r3" style="margin-top:22px">То, что вчера у Стёпы называлось «сверка рекомендовано ↔ стало» на уровне организации – у вас происходит на уровне одного процесса: каждый прогон делает следующий лучше. <b>Правки – тоже данные.</b></p>
+  <ul class="cl reveal r4" style="max-width:640px">
+    <li><b>evidence – это файл</b>, не ощущение: строка в log.md</li>
+    <li><b>2 из 3</b> действий агента мимо ожиданий = мало контекста, чините pack</li>
+    <li><b>3 ручные правки</b> одного и того же = место для нового правила в AGENTS.md</li>
+  </ul>
+</section>
+
+<!-- 16 boundaries -->
+<section class="slide">
+  <div class="label">// BOUNDARIES</div>
+  <h2 class="reveal r1">автономия начинается с границ</h2>
+  <div class="cards">
+    <div class="card g reveal r1"><div class="k">public</div><h3>можно наружу</h3><p>публикуемые артефакты, обезличенные примеры. агент действует сам.</p></div>
+    <div class="card c reveal r2"><div class="k">team</div><h3>внутри команды</h3><p>рабочие документы, транскрипты командных встреч. агент действует, человек видит.</p></div>
+    <div class="card a reveal r3"><div class="k">local</div><h3>только у меня</h3><p>личные заметки, черновики, финансы. не покидает устройство – никаких облачных индексов.</p></div>
+    <div class="card m reveal r4"><div class="k">ask first</div><h3>спроси до</h3><p>отправка людям, удаление, деньги, публикация. агент готовит – человек нажимает.</p></div>
+  </div>
+  <p class="sub reveal r5" style="margin-top:16px">В чат лабы: скриншот или sanitized-фрагмент, не сырые приватные файлы. Токены и ключи – только в localStorage/env, никогда в файлах репозитория.</p>
+</section>
+
+<!-- 17 interfaces -->
+<section class="slide">
+  <div class="label">// THREE INTERFACES</div>
+  <h2 class="reveal r1">интерфейс выбирается по человеку, принцип один</h2>
+  <div class="grid3">
+    <div class="card reveal r2"><div class="k">terminal-first</div><h3>claude code</h3><p>максимум контроля: скиллы, субагенты, хуки. если вы живёте в терминале – ваш вход здесь.</p></div>
+    <div class="card v reveal r3"><div class="k">parallel-tasks</div><h3>codex</h3><p>облачные задачи параллельно, песочницы, ревью диффов. сильный на «сделай N вещей, покажи что вышло».</p></div>
+    <div class="card c reveal r4"><div class="k">editor-first</div><h3>cursor / cowork</h3><p>агент внутри редактора: видишь файлы, правишь рядом. мягкий вход, тот же AGENTS.md.</p></div>
+  </div>
+  <div class="qbox reveal r5" style="margin-top:24px;max-width:100%"><div class="q" style="font-size:20px">tool-FOMO выключаем: файлы правил, скиллы и context pack переносимы. среда – ваша, рантайм – сменный.</div></div>
+</section>
+
+<!-- 18 personal → team -->
+<section class="slide">
+  <div class="label">// PERSONAL → TEAM</div>
+  <h2 class="reveal r1">личная система становится командной через протокол</h2>
+  <div class="flow reveal r2" style="max-width:900px">
+    <div class="fstep"><div class="t">personal OS</div><div class="d">мои правила · мои скиллы · мой vault</div></div><div class="farr">→</div>
+    <div class="fstep"><div class="t">shared protocol</div><div class="d">общий git: нейминг · SSOT скиллов · зеркала</div></div><div class="farr">→</div>
+    <div class="fstep"><div class="t">team workflow</div><div class="d">общая память: commit = запись, blame = кто и когда</div></div>
+  </div>
+  <p class="sub reveal r3" style="margin-top:20px">Перелом 2→3 из матрицы. Ничего нового не покупается: тот же markdown, тот же git. Меняется одно – <b>у файлов появляется второй читатель</b>, и правила из «моих привычек» становятся протоколом.</p>
+  <p class="sub reveal r4" style="font-size:13px">пример из нашей команды: скиллы живут в одном репозитории-SSOT, скрипт разливает их по 5 зеркалам; полный контур – к лекции Димы про трансформацию (15.07).</p>
+</section>
+
+<!-- 19 work block -->
+<section class="slide">
+  <div class="label">// WORK BLOCK · 12 МИНУТ</div>
+  <h2 class="reveal r1">руками: ваш baseline</h2>
+  <div class="two">
+    <div>
+      <ul class="cl reveal r2" style="font-size:15px">
+        <li><b>1.</b> процесс из M1 – одной строкой</li>
+        <li><b>2.</b> source map – 3 источника: why + access</li>
+        <li><b>3.</b> context pack – 5 полей</li>
+        <li><b>4.</b> skill skeleton – триггер · шаги · output · evidence</li>
+        <li><b>5.</b> boundary – что агенту нельзя</li>
+      </ul>
+      <p class="sub reveal r3" style="margin-top:16px;font-size:13px">шаблон – в чате лабы и на LMS. потом 2–3 разбора добровольцев: чиним границы и evidence.</p>
+    </div>
+    <div class="term reveal r4"><span class="cm"># {project} {context} one workflow seed – 2026-07-14</span>
+
+<span class="kw">## workflow</span>
+<span class="kw">## source map</span>
+- source: · why: · access:
+<span class="kw">## context pack</span>
+- goal: · current: · rules:
+- examples: · boundary:
+<span class="kw">## first skill</span>
+- trigger: · steps: · output: · evidence:
+<span class="kw">## next run</span>
+- when: · what to review:</div>
+  </div>
+</section>
+
+<!-- 20 next -->
+<section class="slide">
+  <div class="label">// ДО ВСТРЕЧИ С ДИМОЙ · 15.07</div>
+  <h2 class="reveal r1">домашка – один прогон</h2>
+  <ul class="cl reveal r2" style="max-width:680px;font-size:15px">
+    <li><b>заполнить</b> one workflow seed до конца</li>
+    <li><b>запустить</b> первый прогон – получить файл в output/</li>
+    <li><b>записать</b> evidence: что совпало, что нет</li>
+    <li><b>принести в чат</b>: процесс · 3 источника · первый skill · где evidence</li>
+  </ul>
+  <p class="sub reveal r3" style="margin-top:20px">С этим baseline завтра идём к Диме Твердохлебову – от личной среды к рамке AI-трансформации компании. Ваш процесс станет пилотом.</p>
+  <div class="reveal r4" style="margin-top:26px">
+    <span class="pill inv">вопросы – кнопка «ассистент» внизу справа</span>
+    <span class="pill">материалы – learn.aimindset.org/ain3</span>
+  </div>
+  <div class="foot-tag reveal r5">Александр Поваляев · @ai_mind_set · AI-Native Sprint v3</div>
+</section>
+
+<!-- assistant chip -->
+<div id="chip">
+  <div id="chipPanel">
+    <div id="chipHead"><span>◈ ассистент занятия · read-only</span><button onclick="toggleChip()" style="border:0;background:none;cursor:pointer;font:600 13px var(--mono)">×</button></div>
+    <div id="chipLog"><div class="msg ai">привет! я живу прямо в этой презентации – пример «агента, встроенного в артефакт» (ступень 5 оркестрации). спроси про context pack, skill, source map или домашку.</div></div>
+    <form id="chipForm" onsubmit="return sendChip(event)">
+      <input id="chipIn" placeholder="вопрос по занятию…" autocomplete="off">
+      <button id="chipSend" type="submit">→</button>
+    </form>
+  </div>
+  <button id="chipBtn" onclick="toggleChip()"><span class="dot"></span>ассистент</button>
+</div>
+
+<script>
+// ===== deck nav =====
+const slides=[...document.querySelectorAll('.slide')];let cur=0;
+document.getElementById('tot').textContent=slides.length;
+function show(i){cur=Math.max(0,Math.min(slides.length-1,i));
+  slides.forEach((s,j)=>s.classList.toggle('active',j===cur));
+  document.getElementById('cur').textContent=cur+1;
+  document.getElementById('prog').style.width=((cur+1)/slides.length*100)+'%';}
+document.addEventListener('keydown',e=>{
+  if(e.target.tagName==='INPUT')return;
+  if(['ArrowRight',' ','Enter','PageDown'].includes(e.key)){e.preventDefault();show(cur+1)}
+  if(['ArrowLeft','Backspace','PageUp'].includes(e.key)){e.preventDefault();show(cur-1)}
+  if(e.key==='Home')show(0); if(e.key==='End')show(slides.length-1);
+  if(e.key==='f'||e.key==='F'){document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen()}
+});
+let tx=0;document.addEventListener('touchstart',e=>tx=e.touches[0].clientX);
+document.addEventListener('touchend',e=>{const d=e.changedTouches[0].clientX-tx;if(Math.abs(d)>60)show(cur+(d<0?1:-1))});
+show(parseInt(new URLSearchParams(location.search).get('s')||'1',10)-1);
+
+// ===== embedded assistant (OpenRouter, key only in localStorage) =====
+var OR_KEY=localStorage.getItem('ainative-or-key')||'';
+const OR_BASE='https://openrouter.ai/api/v1';
+function ensureORKey(){if(OR_KEY)return true;
+  const key=prompt('Ключ OpenRouter (хранится только в вашем браузере):\n→ openrouter.ai/keys');
+  if(key&&key.startsWith('sk-or-')){OR_KEY=key;localStorage.setItem('ainative-or-key',key);return true}
+  return false}
+function toggleChip(){document.getElementById('chipPanel').classList.toggle('open')}
+const SYS=`Ты ассистент занятия "Personal Setup" лабы AI-Native Sprint v3 (AI Mindset, 14.07.2026, ведёт Александр Поваляев). Занятие: сборка среды для одного рабочего процесса. Маршрут: one process → source map (3 источника: why+access) → context pack (goal/current/rules/examples/boundary) → skill (SKILL.md: триггер, шаги, output, evidence) → first run (артефакт в output/) → evidence (оценка против правил) → update. Утром был M1 Дениса (process brief + context map), 15.07 — Дима Твердохлебов про AI-трансформацию. Нейминг файлов: {project} {type} description – YYYY-MM-DD.md. Границы: public/team/local/ask-first; ключи только в localStorage/env. Лестница зрелости у каждого компонента: 0 голова → 1 файл → 2 индекс → 3 git-команда → 4 сервис → 5 автономия; на этой неделе — ступени 1-2. Отвечай кратко (до 120 слов), по-русски, дружелюбно и конкретно, с примерами. Не выдумывай ссылок.`;
+const hist=[];
+async function sendChip(e){e.preventDefault();
+  const inp=document.getElementById('chipIn');const q=inp.value.trim();if(!q)return false;
+  if(!ensureORKey())return false;
+  const log=document.getElementById('chipLog');
+  log.insertAdjacentHTML('beforeend',`<div class="msg me"></div>`);log.lastChild.textContent=q;
+  inp.value='';hist.push({role:'user',content:q});
+  log.insertAdjacentHTML('beforeend',`<div class="msg ai">…</div>`);const cell=log.lastChild;log.scrollTop=log.scrollHeight;
+  try{
+    const r=await fetch(OR_BASE+'/chat/completions',{method:'POST',
+      headers:{'Content-Type':'application/json','Authorization':'Bearer '+OR_KEY},
+      body:JSON.stringify({model:'anthropic/claude-sonnet-4.6',max_tokens:500,
+        messages:[{role:'system',content:SYS},...hist.slice(-8)]})});
+    const j=await r.json();
+    const a=(j.choices&&j.choices[0]&&j.choices[0].message.content)||('ошибка: '+(j.error&&j.error.message||r.status));
+    cell.textContent=a;hist.push({role:'assistant',content:a});
+  }catch(err){cell.textContent='сеть недоступна: '+err.message}
+  log.scrollTop=log.scrollHeight;return false}
+</script>
+</body>
+</html>

@@ -355,10 +355,13 @@
   .brand img {
     width: 34px;
     height: 34px;
-    border-radius: 8px;
-    padding: 4px;
-    background: #fff;
-    box-shadow: 0 0 0 1px rgba(56,189,248,.28);
+    border-radius: 0;
+    padding: 0;
+    background: transparent;
+    box-shadow: none;
+    object-fit: contain;
+    filter: invert(1);
+    mix-blend-mode: screen;
   }
 
   .brand span {
@@ -474,38 +477,37 @@
   .cover-mark {
     position: absolute;
     z-index: 2;
-    right: 118px;
-    top: 196px;
-    width: 318px;
-    height: 318px;
+    right: 84px;
+    top: 178px;
+    width: 372px;
+    height: 372px;
     display: grid;
     place-items: center;
-    border: 1px solid rgba(56,189,248,.22);
-    background: rgba(8,12,18,.44);
-    box-shadow: 14px 14px 0 rgba(56,189,248,.055);
   }
   .cover-mark::before,
   .cover-mark::after { content: ""; position: absolute; z-index: 0; border: 1px solid rgba(56,189,248,.18); border-radius: 50%; }
-  .cover-mark::before { width: 224px; height: 224px; }
-  .cover-mark::after { width: 154px; height: 154px; border-color: rgba(247,201,72,.24); }
+  .cover-mark::before { width: 286px; height: 286px; }
+  .cover-mark::after { width: 194px; height: 194px; border-color: rgba(247,201,72,.24); }
   .cover-mark .cover-core {
     position: relative;
     z-index: 3;
-    width: 92px;
-    height: 92px;
-    padding: 12px;
-    border-radius: 22px;
-    background: #fff;
-    box-shadow: 0 0 0 1px rgba(56,189,248,.3), 0 0 42px rgba(56,189,248,.12);
+    width: 88px;
+    height: 88px;
+    padding: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    object-fit: contain;
+    mix-blend-mode: screen;
     animation: coverCorePulse 4.8s ease-in-out infinite;
   }
   .cover-mark .cover-person {
     position: absolute;
     z-index: 2;
-    width: 48px;
-    height: 48px;
+    width: 38px;
+    height: 38px;
     padding: 0;
-    border: 1px solid rgba(247,245,238,.34);
+    border: 1px solid rgba(56,189,248,.42);
     border-radius: 50%;
     background: #111824;
     object-fit: cover;
@@ -513,13 +515,26 @@
     box-shadow: 0 8px 22px rgba(0,0,0,.34);
     animation: coverPersonFloat 5.6s ease-in-out infinite;
   }
-  .cover-mark .p1 { left: 135px; top: 18px; animation-delay: -.4s; }
-  .cover-mark .p2 { right: 34px; top: 72px; animation-delay: -1.2s; }
-  .cover-mark .p3 { right: 28px; bottom: 74px; animation-delay: -2.1s; }
-  .cover-mark .p4 { left: 135px; bottom: 28px; animation-delay: -3s; }
-  .cover-mark .p5 { left: 28px; bottom: 74px; animation-delay: -3.8s; }
-  .cover-mark .p6 { left: 34px; top: 72px; animation-delay: -4.6s; }
-  .cover-mark span { position: absolute; z-index: 4; bottom: 8px; color: rgba(247,245,238,.52); font-size: 9px; letter-spacing: .16em; text-transform: uppercase; }
+  .cover-mark .track-practice { border-color: rgba(56,217,169,.52); }
+  .cover-mark .track-implementation { border-color: rgba(247,201,72,.52); }
+  .cover-mark .track-support { border-color: rgba(247,245,238,.46); }
+  .cover-mark .p1 { left: 167px; top: 5px; animation-delay: -.2s; }
+  .cover-mark .p2 { left: 230px; top: 20px; animation-delay: -.6s; }
+  .cover-mark .p3 { left: 284px; top: 56px; animation-delay: -1s; }
+  .cover-mark .p4 { left: 318px; top: 111px; animation-delay: -1.4s; }
+  .cover-mark .p5 { left: 326px; top: 173px; animation-delay: -1.8s; }
+  .cover-mark .p6 { left: 309px; top: 235px; animation-delay: -2.2s; }
+  .cover-mark .p7 { left: 269px; top: 287px; animation-delay: -2.6s; }
+  .cover-mark .p8 { left: 212px; top: 318px; animation-delay: -3s; }
+  .cover-mark .p9 { left: 148px; top: 322px; animation-delay: -3.4s; }
+  .cover-mark .p10 { left: 88px; top: 300px; animation-delay: -3.8s; }
+  .cover-mark .p11 { left: 42px; top: 258px; animation-delay: -4.2s; }
+  .cover-mark .p12 { left: 15px; top: 201px; animation-delay: -4.6s; }
+  .cover-mark .p13 { left: 11px; top: 138px; animation-delay: -5s; }
+  .cover-mark .p14 { left: 35px; top: 78px; animation-delay: -5.4s; }
+  .cover-mark .p15 { left: 83px; top: 35px; animation-delay: -5.8s; }
+  .cover-mark .p16 { left: 144px; top: 12px; animation-delay: -6.2s; }
+  .cover-mark span { position: absolute; z-index: 4; bottom: 14px; color: rgba(247,245,238,.58); font-size: 9px; letter-spacing: .16em; text-transform: uppercase; }
 
   @keyframes coverCorePulse {
     0%, 100% { transform: scale(1); }
@@ -603,13 +618,7 @@
     text-transform: uppercase;
   }
 
-  .audience-signal > p {
-    max-width: 470px;
-    margin-top: 18px;
-    color: rgba(247,245,238,.62);
-    font-size: 15px;
-    line-height: 1.45;
-  }
+  .audience-signal > p { display: none; }
 
   .audience-origin {
     display: flex;
@@ -632,7 +641,7 @@
   }
 
   .audience-mini b { display: block; color: var(--acc); font-family: var(--display); font-size: 24px; }
-  .audience-mini span { display: block; margin-top: 5px; color: rgba(247,245,238,.46); font-size: 9px; line-height: 1.25; text-transform: uppercase; }
+  .audience-mini span { display: block; margin-top: 5px; color: rgba(247,245,238,.72); font-size: 9px; line-height: 1.25; text-transform: uppercase; }
 
   .audience-origin span,
   .company-cloud span,
@@ -672,8 +681,9 @@
   }
 
   .audience-role b { color: var(--mint); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; }
-  .audience-role h3 { max-width: 280px; margin-top: 16px; font-family: var(--display); font-size: 26px; line-height: 1.05; text-transform: uppercase; }
-  .audience-role p { margin-top: 11px; color: rgba(247,245,238,.54); font-size: 13px; line-height: 1.35; }
+  .audience-role h3 { max-width: 300px; margin-top: 14px; font-family: var(--display); font-size: 27px; line-height: 1.03; text-transform: uppercase; }
+  .audience-role p { display: none; }
+  .audience-role span { display: block; margin-top: 12px; color: rgba(247,245,238,.74); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; }
 
   .company-cloud {
     display: flex;
@@ -1853,10 +1863,21 @@
   }
 
   .schedule-timeline {
+    position: relative;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 14px;
-    margin-top: 10px;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 10px;
+    margin-top: 26px;
+  }
+  .schedule-timeline::before {
+    content: "";
+    position: absolute;
+    left: 4%;
+    right: 4%;
+    top: 78px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--acc), var(--acc), var(--mint), var(--mint), var(--gold), var(--gold));
+    opacity: .45;
   }
 
   .priority-line {
@@ -1872,28 +1893,30 @@
   .priority-line .library { border-color: rgba(247,201,72,.3); color: var(--gold); }
 
   .timeline-week {
-    min-height: 456px;
-    padding: 17px;
-    border: 1px solid rgba(56,189,248,.22);
-    background: rgba(13,19,28,.72);
-    box-shadow: 8px 8px 0 rgba(56,189,248,.055);
+    position: relative;
+    min-height: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    box-shadow: none;
   }
 
   .timeline-week h3 {
     color: #fff;
     font-family: var(--display);
-    font-size: 26px;
+    font-size: 18px;
     text-transform: uppercase;
-    margin-bottom: 12px;
+    margin-bottom: 22px;
   }
 
   .timeline-event {
     display: grid;
-    grid-template-columns: 70px 1fr;
-    gap: 12px;
-    min-height: 54px;
-    padding: 10px 0;
-    border-top: 1px solid rgba(247,245,238,.1);
+    grid-template-columns: 1fr;
+    gap: 8px;
+    min-height: 128px;
+    padding: 12px;
+    border: 1px solid rgba(56,189,248,.18);
+    background: rgba(13,19,28,.72);
   }
 
   .timeline-event b {
@@ -1952,7 +1975,7 @@
     display: block;
     color: rgba(247,245,238,.9);
     font-family: var(--display);
-    font-size: 17px;
+    font-size: 16px;
     line-height: 1.05;
     text-transform: uppercase;
   }
@@ -2785,10 +2808,11 @@
   .lms-product .brand span, .lms-product .counter, .lms-product .kicker, .lms-product .foot,
   .tutor-product .brand span, .tutor-product .counter, .tutor-product .kicker, .tutor-product .foot { color: rgba(36,36,36,.48); }
   .lms-product h2, .tutor-product h2 { color: #242424; }
+  .lms-product .brand img,
+  .tutor-product .brand img,
+  .compass-product .brand img { filter: none; mix-blend-mode: multiply; }
   .lms-window {
-    display: grid;
-    grid-template-columns: 240px 1fr;
-    min-height: 430px;
+    height: 470px;
     margin-top: 24px;
     border: 1px solid rgba(36,36,36,.17);
     border-radius: 8px;
@@ -2796,6 +2820,7 @@
     background: #fff;
     box-shadow: 0 18px 54px rgba(20,20,20,.08);
   }
+  .lms-window img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top center; }
   .lms-side { padding: 22px; border-right: 1px solid rgba(36,36,36,.1); color: rgba(36,36,36,.62); }
   .lms-side b { display: block; color: #242424; font-size: 15px; }
   .lms-side span { display: block; margin-top: 20px; font-size: 12px; }
@@ -2819,6 +2844,35 @@
   .tutor-side div:first-of-type { margin-top: 18px; }
   .tutor-side b { display: block; color: #242424; font-size: 13px; }
   .tutor-side span { display: block; margin-top: 6px; color: rgba(36,36,36,.52); font-size: 12px; line-height: 1.4; }
+
+  .week-close-rail {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    margin-top: 46px;
+    padding-top: 24px;
+  }
+  .week-close-rail::before {
+    content: "";
+    position: absolute;
+    left: 8%;
+    right: 8%;
+    top: 72px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--acc), var(--mint), var(--gold));
+    opacity: .52;
+  }
+  .week-close-step { position: relative; min-height: 260px; }
+  .week-close-step b { display: block; color: var(--acc); font-family: var(--display); font-size: 96px; line-height: .8; }
+  .week-close-step:nth-child(2) b { color: var(--mint); }
+  .week-close-step:nth-child(3) b { color: var(--gold); }
+  .week-close-step small { display: block; margin-top: 22px; color: rgba(247,245,238,.6); font-size: 12px; letter-spacing: .18em; text-transform: uppercase; }
+  .week-close-step h3 { margin-top: 16px; font-family: var(--display); color: #fff; font-size: 38px; line-height: 1; text-transform: uppercase; }
+  .week-close-step span { display: block; margin-top: 12px; color: rgba(247,245,238,.7); font-size: 17px; }
+  .cadence-repeat { display: flex; align-items: center; gap: 14px; margin-top: 20px; color: rgba(247,245,238,.68); font-size: 13px; letter-spacing: .12em; text-transform: uppercase; }
+  .cadence-repeat b { color: #fff; }
+  .cadence-repeat span { padding: 8px 10px; border: 1px solid rgba(56,189,248,.18); color: rgba(247,245,238,.78); }
 
   @media (max-width: 860px) {
     .topbar { width: calc(100vw - 18px); overflow-x: auto; justify-content: flex-start; }
@@ -2963,14 +3017,24 @@
         </div>
       </div>
       <div class="cover-mark" aria-hidden="true">
-        <img class="cover-person p1" src="speakers/stepan-gershuni.jpg" alt="">
-        <img class="cover-person p2" src="speakers/alexander-povaliaev.jpg" alt="">
-        <img class="cover-person p3" src="speakers/dima-tverdokhlebov.jpg" alt="">
-        <img class="cover-person p4" src="speakers/denis-smirnov.jpg" alt="">
-        <img class="cover-person p5" src="curators/anton-graborov.jpg" alt="">
-        <img class="cover-person p6" src="curators/yury-smirnov.jpg" alt="">
-        <img class="cover-core" src="logo.png" alt="">
-        <span>люди → процесс → система</span>
+        <img class="cover-person p1 track-practice" src="speakers/stepan-gershuni.jpg" alt="">
+        <img class="cover-person p2 track-practice" src="speakers/alexander-povaliaev.jpg" alt="">
+        <img class="cover-person p3 track-implementation" src="speakers/dima-tverdokhlebov.jpg" alt="">
+        <img class="cover-person p4 track-support" src="speakers/seva-ustinov.jpg" alt="">
+        <img class="cover-person p5 track-support" src="speakers/daniel-kravtsov.jpeg" alt="">
+        <img class="cover-person p6 track-support" src="speakers/artem-novoselov.jpg" alt="">
+        <img class="cover-person p7 track-practice" src="speakers/denis-smirnov.jpg" alt="">
+        <img class="cover-person p8 track-support" src="speakers/sereja-ris.jpg" alt="">
+        <img class="cover-person p9 track-implementation" src="speakers/yuri-vedenin.png" alt="">
+        <img class="cover-person p10 track-implementation" src="curators/anton-graborov.jpg" alt="">
+        <img class="cover-person p11 track-implementation" src="curators/yury-smirnov.jpg" alt="">
+        <img class="cover-person p12 track-support" src="speakers/alexander-vasiliev.jpg" alt="">
+        <img class="cover-person p13 track-support" src="speakers/stanislav-fedoseev.jpg" alt="">
+        <img class="cover-person p14 track-support" src="curators/konstantin-urvantcev.jpg" alt="">
+        <img class="cover-person p15 track-support" src="curators/sergey-akhmetov.jpg" alt="">
+        <img class="cover-person p16 track-support" src="curators/victor-sokovnin.jpg" alt="">
+        <img class="cover-core" src="logo-white.png" alt="">
+        <span>рамка · практика · внедрение · поддержка</span>
       </div>
       <div class="foot"><span>AIN3 / старт</span><span>people → process → artifact</span><span>AI Mindset</span></div>
     </article>
@@ -2985,15 +3049,15 @@
           <div class="audience-signal" data-total="105">
             <b data-edit>105</b>
             <strong data-edit>участников в общей рабочей комнате</strong>
-            <p data-edit>В onboarding и публичных интро звучит один общий запрос: собрать разрозненные AI-эксперименты в понятный процесс для себя, команды или компании.</p>
-            <div class="audience-mini"><div><b>101</b><span data-edit>participant cards</span></div><div><b>91</b><span data-edit>already in chat</span></div><div><b>19</b><span data-edit>intro-call matches</span></div></div>
+            <p data-edit></p>
+            <div class="audience-mini"><div><b>101</b><span data-edit>профиль</span></div><div><b>91</b><span data-edit>в чате</span></div><div><b>19</b><span data-edit>голосов intro</span></div></div>
           </div>
           <div>
             <div class="audience-role-grid">
-              <div class="audience-role" data-code="F"><b>founders / owners</b><h3 data-edit>строят компанию сразу с агентами</h3><p data-edit>сервисный бизнес, агентства, продукты, marketplace и новые финансовые компании.</p></div>
-              <div class="audience-role" data-code="O"><b>product / tech / ops</b><h3 data-edit>собирают рабочий контур</h3><p data-edit>CTO, product, business unit, operations и engineering-лидеры.</p></div>
-              <div class="audience-role" data-code="E"><b>enterprise / change</b><h3 data-edit>проводят трансформацию</h3><p data-edit>банки, корпорации, консалтинг: governance, legacy, adoption и ownership.</p></div>
-              <div class="audience-role" data-code="P"><b>builders / specialists</b><h3 data-edit>усиливают личную практику</h3><p data-edit>аналитика, партнёрства, исследования, дизайн и собственные продукты.</p></div>
+              <div class="audience-role" data-code="↗"><b>founders / owners</b><h3 data-edit>собирают рост</h3><span data-edit>сервисы · агентства · SaaS</span></div>
+              <div class="audience-role" data-code="⌘"><b>product / tech / ops</b><h3 data-edit>строят контур</h3><span data-edit>продукты · marketplace · data</span></div>
+              <div class="audience-role" data-code="◎"><b>enterprise / change</b><h3 data-edit>ведут внедрение</h3><span data-edit>finance · retail · consulting</span></div>
+              <div class="audience-role" data-code="✦"><b>builders / specialists</b><h3 data-edit>усиливают практику</h3><span data-edit>research · media · design</span></div>
             </div>
             <div class="company-cloud" aria-label="компании из публичных интро"><span>ECOPSY</span><span>Rodnya</span><span>DataGo</span><span>Bot.RF</span><span>Intensa</span><span>Kuper</span><span>Sber</span><span>Yandex Lavka</span></div>
           </div>
@@ -3002,125 +3066,37 @@
       <div class="foot"><span>people map</span><span>Москва · Петербург · Краснодар · Лиссабон · Берлин · Барселона · ОАЭ</span><span>updated 13 Jul</span></div>
     </article>
 
-    <article class="slide compact" data-title="cohort-signals" data-label="аудитория" data-subtitle="сигналы из onboarding">
-      <div class="brand"><img src="logo.png" alt=""><span>ai mindset · onboarding signals</span></div>
-      <div class="counter"></div>
-      <div class="slide-content">
-        <div class="kicker" data-edit data-anim>101 participant card · onboarding + chat + intro-call</div>
-        <h2 data-edit data-anim style="--delay:.1s">где участники хотят изменить работу</h2>
-        <div class="cohort-dashboard" data-anim style="--delay:.16s">
-          <div class="cohort-chart">
-            <h3 data-edit>темы в текстах анкет</h3>
-            <p data-edit>количество карточек с сигналом; категории пересекаются</p>
-            <div class="cohort-bars">
-              <div class="cohort-bar"><span data-edit>company / team</span><div class="cohort-track"><i style="--value:82%"></i></div><b>83</b></div>
-              <div class="cohort-bar"><span data-edit>agents / automation</span><div class="cohort-track"><i style="--value:72%"></i></div><b>73</b></div>
-              <div class="cohort-bar"><span data-edit>knowledge / data</span><div class="cohort-track"><i style="--value:62%"></i></div><b>63</b></div>
-              <div class="cohort-bar"><span data-edit>personal system</span><div class="cohort-track"><i style="--value:58%"></i></div><b>59</b></div>
-              <div class="cohort-bar"><span data-edit>product / growth</span><div class="cohort-track"><i style="--value:47%"></i></div><b>47</b></div>
-              <div class="cohort-bar"><span data-edit>creative / media</span><div class="cohort-track"><i style="--value:23%"></i></div><b>23</b></div>
-            </div>
-          </div>
-          <aside class="cohort-notes">
-            <h3 data-edit>четыре пересекающиеся когорты</h3>
-            <p data-edit>маршрутизация помощи, а не жёсткие сегменты</p>
-            <div class="cohort-clusters">
-              <div class="cohort-cluster"><b>company</b><strong data-edit>команда и внедрение</strong><span data-edit>роли, процессы, adoption, governance</span></div>
-              <div class="cohort-cluster"><b>business</b><strong data-edit>founder / SMB</strong><span data-edit>клиент, выручка, продукт, скорость</span></div>
-              <div class="cohort-cluster"><b>builder</b><strong data-edit>agent systems</strong><span data-edit>skills, workflows, code, eval, context</span></div>
-              <div class="cohort-cluster"><b>personal</b><strong data-edit>личный контур</strong><span data-edit>ритм, знание, задачи, первый кейс</span></div>
-            </div>
-            <div class="cohort-method" data-edit>метод: словарная агрегация q1–q5 по 101 participant-карточке; один человек может попадать в несколько тем.</div>
-          </aside>
-        </div>
-      </div>
-      <div class="foot"><span>onboarding signals</span><span>101 cards · overlapping categories</span><span>без email и username</span></div>
-    </article>
-
-    <article class="slide compact" data-title="lab-system" data-label="механика" data-subtitle="как проходит лаборатория">
-      <div class="brand"><img src="logo.png" alt=""><span>ai mindset · lab system</span></div>
-      <div class="counter"></div>
-      <div class="slide-content">
-        <div class="kicker" data-edit data-anim>один рабочий цикл · повторяется три недели</div>
-        <h2 data-edit data-anim style="--delay:.1s">сначала рамка, затем работа, review и артефакт</h2>
-        <div class="lab-loop" data-anim style="--delay:.16s">
-          <div class="lab-loop-card"><b>01 · принести</b><h3 data-edit>реальный процесс</h3><p data-edit>одна повторяемая работа, понятный владелец и критерий хорошего результата.</p><span>brief процесса</span></div>
-          <div class="lab-loop-arrow">→</div>
-          <div class="lab-loop-card"><b>02 · собрать</b><h3 data-edit>следующий слой</h3><p data-edit>контекст, источники, правила, инструменты, агентные шаги и человек в петле.</p><span>practice M1–M3</span></div>
-          <div class="lab-loop-arrow">→</div>
-          <div class="lab-loop-card"><b>03 · проверить</b><h3 data-edit>на своей работе</h3><p data-edit>прогон, качество, стоимость, риск и feedback от buddy или куратора.</p><span>Office Hours</span></div>
-          <div class="lab-loop-arrow">→</div>
-          <div class="lab-loop-card"><b>04 · показать</b><h3 data-edit>demo artifact</h3><p data-edit>живой артефакт, эффект, владелец и следующий шаг на 30–90 дней.</p><span>Demo Day</span></div>
-        </div>
-      </div>
-      <div class="foot"><span>core – live</span><span>practice – принести работу</span><span>guest – можно догнать по записи</span></div>
-    </article>
-
-    <article class="slide compact" data-title="program-spine" data-label="программа" data-subtitle="3 недели">
-      <div class="brand"><img src="logo.png" alt=""><span>ai mindset · program</span></div>
-      <div class="counter"></div>
-      <div class="slide-content">
-        <div class="kicker" data-edit data-anim>13 июля – 3 августа</div>
-        <h2 data-edit data-anim style="--delay:.1s">от узкого места к агентной инфраструктуре</h2>
-        <div class="program-grid" data-anim style="--delay:.18s">
-          <div class="week-card week-intro"><div class="week">intro · выбрать</div><h3 data-edit>узкое место</h3><p data-edit>назвать процесс, владельца, входы, выходы, риск и критерий демо.</p><div class="artifact">brief + map</div></div>
-          <div class="week-card week-w1"><div class="week">W1 · собрать</div><h3 data-edit>AI-OS baseline</h3><p data-edit>личный и командный контекст, первая связка инструментов, первый skill.</p><div class="artifact">AI-OS baseline + skill</div></div>
-          <div class="week-card week-w2"><div class="week">W2 · провести</div><h3 data-edit>agent route</h3><p data-edit>источники, правила, человек в петле, повторяемый прогон процесса.</p><div class="artifact">workflow / agent route</div></div>
-          <div class="week-card week-w3"><div class="week">W3 · показать</div><h3 data-edit>demo artifact</h3><p data-edit>демо, эффект, владелец, риск и следующий шаг для команды.</p><div class="artifact">demo artifact + next steps</div></div>
-        </div>
-      </div>
-      <div class="foot"><span>program spine</span><span>one process across three weeks</span><span>Demo Day · 3 Aug</span></div>
-    </article>
-
-    <article class="slide compact" data-title="previous-cases" data-label="кейсы" data-subtitle="что уже собирали в прошлой лабе">
-      <div class="brand"><img src="logo.png" alt=""><span>ai mindset · demo evidence</span></div>
-      <div class="counter"></div>
-      <div class="slide-content">
-        <div class="kicker" data-edit data-anim>Demo Day · подтверждённые артефакты AIN02</div>
-        <h2 data-edit data-anim style="--delay:.1s">четыре масштаба одного подхода</h2>
-        <div class="case-wall" data-anim style="--delay:.16s">
-          <div class="case-card"><div class="case-code">AM</div><div><h3 data-edit>агент для account manager</h3><p data-edit>собирает контекст и сигналы, готовит персональный пакет: документ, презентацию и письма.</p><small>sales workflow · Catherine Nedelina</small></div></div>
-          <div class="case-card"><div class="case-code">BI</div><div><h3 data-edit>бонусы и управленческий учёт</h3><p data-edit>прикладной агентный контур вырос из первого ручного шага в конкретную рабочую задачу.</p><small>operations · Денис Рудых</small></div></div>
-          <div class="case-card"><div class="case-code">37</div><div><h3 data-edit>maturity matrix</h3><p data-edit>37 параметров и четыре уровня зрелости превращают разговор об AI-native в диагностическую карту.</p><small>strategy · Виктор Соковнин</small></div></div>
-          <div class="case-card"><div class="case-code">KG</div><div><h3 data-edit>company knowledge layer</h3><p data-edit>коннекторы, транскрипты, LLM gateway и история отношений по клиентской базе в одном контуре.</p><small>company system · Сергей Ахметов</small></div></div>
-        </div>
-      </div>
-      <div class="foot"><span>real artifacts</span><span>личный → процесс → компания</span><span>без обещаний непроверенного эффекта</span></div>
-    </article>
-
     <article class="slide compact dense" data-title="call-cadence" data-label="timeline" data-subtitle="расписание live-сессий">
       <div class="brand"><img src="logo.png" alt=""><span>ai mindset · timeline</span></div>
       <div class="counter"></div>
       <div class="slide-content">
         <div class="kicker" data-edit data-anim>timeline · 13 июля – 3 августа</div>
-        <h2 data-edit data-anim style="--delay:.1s">слева направо: понять → собрать → доказать</h2>
-        <div class="priority-line" data-anim style="--delay:.13s"><b data-edit>как проходить</b><span class="must" data-edit>core – быть live</span><span class="practice" data-edit>practice – принести работу</span><span class="library" data-edit>guest – можно догнать по записи</span></div>
+        <h2 data-edit data-anim style="--delay:.1s">быстрый таймлайн лабы</h2>
+        <div class="priority-line" data-anim style="--delay:.13s"><b data-edit>ритм</b><span class="must" data-edit>live</span><span class="practice" data-edit>practice</span><span class="library" data-edit>Q&A / Office Hours</span></div>
         <div class="schedule-timeline" data-anim style="--delay:.16s">
           <div class="timeline-week week-w1">
             <h3 data-edit>W1 · baseline</h3>
-            <div class="timeline-event status-confirmed" data-status="confirmed"><b>13.07<small>17:00</small></b><div><strong data-edit>kickoff</strong><span data-edit>Степан + Александр · Personal OS → Team OS → Company OS</span></div></div>
-            <div class="timeline-event status-confirmed" data-status="confirmed"><b>14.07<small>12:00</small></b><div><strong data-edit>M1 practice</strong><span data-edit>Денис · process brief → context map</span></div></div>
-            <div class="timeline-event status-confirmed" data-status="confirmed"><b>14.07<small>17:00</small></b><div><strong data-edit>personal setup</strong><span data-edit>Александр · AI-OS baseline → first skill</span></div></div>
-            <div class="timeline-event status-sync" data-status="date sync"><b>15.07<small>17:00</small></b><div><strong data-edit>framework</strong><span data-edit>Дима Твердохлебов · AI-transformation frame</span></div></div>
-            <div class="timeline-event status-sync" data-status="date sync"><b>16.07<small>18:00</small></b><div><strong data-edit>data layer</strong><span data-edit>Даниил Кравцов · AI-native companies + graph</span></div></div>
-            <div class="timeline-event status-sync" data-status="date sync"><b>17 / 18<small>18:00 / 10:00</small></b><div><strong data-edit>workspace + Q&A</strong><span data-edit>Всеволод Устинов · Plurio workspace, затем разбор W1</span></div></div>
+            <div class="timeline-event status-confirmed" data-status="live"><b>13–14.07<small>kickoff + M1</small></b><div><strong data-edit>старт и process brief</strong><span data-edit>Степан, Александр, Денис · выбираем процесс и первый контур.</span></div></div>
           </div>
           <div class="timeline-week week-w2">
-            <h3 data-edit>W2 · workflow</h3>
-            <div class="timeline-event status-sync" data-status="date sync"><b>20.07<small>17:00</small></b><div><strong data-edit>enterprise</strong><span data-edit>Дима · безопасность, pilots, ownership</span></div></div>
-            <div class="timeline-event status-confirmed" data-status="confirmed"><b>21.07<small>12:00</small></b><div><strong data-edit>M2 route</strong><span data-edit>Денис + Александр · sources, rules, human loop</span></div></div>
-            <div class="timeline-event status-confirmed" data-status="confirmed"><b>22.07<small>17:00</small></b><div><strong data-edit>product systems</strong><span data-edit>Артём Новосёлов · product / ML / founder layer</span></div></div>
-            <div class="timeline-event status-confirmed" data-status="confirmed"><b>23.07<small>17:00</small></b><div><strong data-edit>enterprise roundtable</strong><span data-edit>Юрий Смирнов + Антон Граборов · governance и внедрение</span></div></div>
-            <div class="timeline-event status-confirmed" data-status="confirmed"><b>24 / 25<small>17:00 / 10:00</small></b><div><strong data-edit>tools + Q&A</strong><span data-edit>Серёжа Рис · loops, git, workflows, затем разбор W2</span></div></div>
+            <h3 data-edit>W1 · context</h3>
+            <div class="timeline-event status-sync" data-status="sync"><b>15–18.07<small>framework</small></b><div><strong data-edit>данные, workspace, Q&A</strong><span data-edit>Дима, Даниил, Сева · собираем контекст вокруг процесса.</span></div></div>
+          </div>
+          <div class="timeline-week week-w3">
+            <h3 data-edit>W2 · route</h3>
+            <div class="timeline-event status-confirmed" data-status="practice"><b>20–21.07<small>route</small></b><div><strong data-edit>enterprise + M2</strong><span data-edit>Дима, Денис, Александр · источники, правила, human loop.</span></div></div>
+          </div>
+          <div class="timeline-week week-w2">
+            <h3 data-edit>W2 · systems</h3>
+            <div class="timeline-event status-confirmed" data-status="live"><b>22–25.07<small>systems</small></b><div><strong data-edit>product, governance, tools</strong><span data-edit>Артём, Юрий, Антон, Серёжа · собираем рабочий маршрут.</span></div></div>
+          </div>
+          <div class="timeline-week week-w3">
+            <h3 data-edit>W3 · effect</h3>
+            <div class="timeline-event status-confirmed" data-status="practice"><b>27–29.07<small>effect</small></b><div><strong data-edit>strategy + M3</strong><span data-edit>Степан, Денис, Дима · качество, риск, эффект, решение.</span></div></div>
           </div>
           <div class="timeline-week week-w3">
             <h3 data-edit>W3 · demo</h3>
-            <div class="timeline-event status-confirmed" data-status="confirmed"><b>27.07<small>17:00</small></b><div><strong data-edit>strategy</strong><span data-edit>Степан · ROI, 90-day plan, operating model</span></div></div>
-            <div class="timeline-event status-confirmed" data-status="confirmed"><b>28.07<small>12:00</small></b><div><strong data-edit>M3 effect</strong><span data-edit>Денис · quality, cost, risk, decision card</span></div></div>
-            <div class="timeline-event status-sync" data-status="date sync"><b>29.07<small>17:00</small></b><div><strong data-edit>pilot demos</strong><span data-edit>Дима · 3 pilots, live cases, enterprise translation</span></div></div>
-            <div class="timeline-event status-open" data-status="open"><b>30.07<small>17:00</small></b><div><strong data-edit>open slot</strong><span data-edit>финальный гостевой слот · тема и спикер уточняются</span></div></div>
-            <div class="timeline-event status-sync" data-status="needs confirm"><b>31.07<small>17:00</small></b><div><strong data-edit>team transform</strong><span data-edit>Юра Веденин · UXPressia, team OS, 90-day frame</span></div></div>
-            <div class="timeline-event status-confirmed" data-status="confirmed"><b>01 / 03<small>10:00 / 15:00</small></b><div><strong data-edit>Q&A + Demo Day</strong><span data-edit>финальные вопросы, затем процесс, артефакт, эффект, next step</span></div></div>
+            <div class="timeline-event status-open" data-status="final"><b>30.07–03.08<small>demo day</small></b><div><strong data-edit>финальный слот и Demo Day</strong><span data-edit>30.07 open · 31.07 Юра Веденин · 03.08 демо-артефакты.</span></div></div>
           </div>
         </div>
       </div>
@@ -3243,9 +3219,9 @@
         <div class="kicker" data-edit data-anim>после профиля · пары и малые группы</div>
         <h2 data-edit data-anim style="--delay:.1s">buddy помогает удержать один реальный процесс</h2>
         <div class="buddy-board" data-anim style="--delay:.16s">
-          <div class="buddy-person"><div class="buddy-sigil">A</div><h3 data-edit>приносит контекст</h3><p data-edit>коротко показывает процесс, узкое место и один артефакт недели.</p></div>
-          <div class="buddy-bridge"><b>20 минут</b><span data-edit>показать → задать вопрос → договориться о следующей проверке</span></div>
-          <div class="buddy-person right"><div class="buddy-sigil">B</div><h3 data-edit>возвращает сигнал</h3><p data-edit>видит слепое место, проверяет понятность и помогает сохранить темп.</p></div>
+          <div class="buddy-person"><div class="buddy-sigil">A</div><h3 data-edit>показывает работу</h3><p data-edit>процесс, узкое место и один текущий артефакт.</p></div>
+          <div class="buddy-bridge"><b>контекст ↔ feedback</b><span data-edit>показать работу → задать вопрос → договориться о следующей проверке</span></div>
+          <div class="buddy-person right"><div class="buddy-sigil">B</div><h3 data-edit>возвращает следующий шаг</h3><p data-edit>видит слепое место и помогает сохранить темп.</p></div>
         </div>
       </div>
       <div class="foot"><span>Compass предлагает контакт</span><span>buddy держит ритм</span><span>куратор подключается к сложному месту</span></div>
@@ -3257,16 +3233,7 @@
       <div class="slide-content">
         <div class="kicker" data-edit data-anim>learn.aimindset.org/ain3</div>
         <h2 data-edit data-anim style="--delay:.1s">LMS держит программу в рабочем состоянии</h2>
-        <div class="lms-window" data-anim style="--delay:.16s">
-          <aside class="lms-side"><b>AI Mindset</b><span>AIN3 · LIVE</span><span>программа</span><span>эксперты</span><span>записи</span><span>материалы</span><span>Tutor</span></aside>
-          <div class="lms-main">
-            <h3 data-edit>AI-Native Sprint III</h3>
-            <div class="lms-week"><b>неделя 1</b><span data-edit>Personal AI + Team Processes</span><em>baseline</em></div>
-            <div class="lms-week"><b>неделя 2</b><span data-edit>Infrastructure + Ontology</span><em>workflow</em></div>
-            <div class="lms-week"><b>неделя 3</b><span data-edit>Company Functions + Agent Pipelines</span><em>demo</em></div>
-            <div class="lms-week"><b>каждый live</b><span data-edit>Zoom → запись → материалы → следующий шаг</span><em>one route</em></div>
-          </div>
-        </div>
+        <div class="lms-window" data-anim style="--delay:.16s"><img src="ain3-lms-overview.png" alt="реальный экран LMS AIN3"></div>
       </div>
       <div class="foot"><span>learn.aimindset.org/ain3</span><span>вход через Telegram</span><span>календарь · записи · материалы</span></div>
     </article>
@@ -3289,21 +3256,20 @@
       <div class="foot"><span>grounded answers</span><span>lecture citations</span><span>конкретный таймкод</span></div>
     </article>
 
-    <article class="slide compact" data-title="participant-brief" data-label="brief" data-subtitle="что просим от участников">
-      <div class="brand"><img src="logo.png" alt=""><span>ai mindset · participant brief</span></div>
+    <article class="slide compact" data-title="week-close" data-label="3 недели" data-subtitle="как идём по программе">
+      <div class="brand"><img src="logo.png" alt=""><span>ai mindset · weekly rhythm</span></div>
       <div class="counter"></div>
       <div class="slide-content">
-        <div class="kicker" data-edit data-anim>#intro → process brief</div>
-        <h2 data-edit data-anim style="--delay:.1s">к понедельнику нужен один короткий brief</h2>
-        <div class="brief-grid" data-anim style="--delay:.16s">
-          <div class="brief-card"><h3 data-edit>процесс</h3><p data-edit>какую повторяемую работу ведём через три недели.</p></div>
-          <div class="brief-card"><h3 data-edit>контекст</h3><p data-edit>owner, inputs, outputs, источники и ограничения.</p></div>
-          <div class="brief-card"><h3 data-edit>критерий</h3><p data-edit>как выглядит хороший результат, который можно показать.</p></div>
-          <div class="brief-card"><h3 data-edit>помощь</h3><p data-edit>какой вопрос отнести buddy, куратору или Tutor.</p></div>
+        <div class="kicker" data-edit data-anim>один ритм · три результата</div>
+        <h2 data-edit data-anim style="--delay:.1s">каждую неделю – короткий цикл вокруг своей работы</h2>
+        <div class="week-close-rail" data-anim style="--delay:.16s">
+          <div class="week-close-step"><b>01</b><small data-edit>W1 · baseline</small><h3 data-edit>контекст</h3><span data-edit>выбираем процесс и собираем первый рабочий контур.</span></div>
+          <div class="week-close-step"><b>02</b><small data-edit>W2 · workflow</small><h3 data-edit>маршрут</h3><span data-edit>добавляем источники, правила, инструменты и human loop.</span></div>
+          <div class="week-close-step"><b>03</b><small data-edit>W3 · demo</small><h3 data-edit>артефакт</h3><span data-edit>показываем эффект, риск, владельца и следующий шаг.</span></div>
         </div>
-        <p class="lead" data-edit data-anim style="--delay:.24s">этого достаточно, чтобы начать сборку без долгого технического задания.</p>
+        <div class="cadence-repeat" data-anim style="--delay:.24s"><b data-edit>каждую неделю</b><span data-edit>live</span><span data-edit>practice</span><span data-edit>buddy</span><span data-edit>Office Hours</span></div>
       </div>
-      <div class="foot"><span>participant brief</span><span>коротко и по делу</span><span>Demo Day criteria</span></div>
+      <div class="foot"><span>weekly rhythm</span><span>один процесс через три недели</span><span>Demo Day · 3 Aug · 15:00 CET</span></div>
     </article>
 
   </section>
@@ -3345,9 +3311,9 @@
 const GH_REPO = 'ai-mindset-org/ainative-deck';
 const GH_FILE = 'ain3-intro.html';
 const GH_BRANCH = 'main';
-const DECK_VERSION = '2026-07-13-ain3-kickoff-v15';
-const STORAGE_KEY = 'ain3-kickoff-v15-state';
-const HISTORY_KEY = 'ain3-kickoff-v15-history';
+const DECK_VERSION = '2026-07-13-ain3-kickoff-v16';
+const STORAGE_KEY = 'ain3-kickoff-v16-state';
+const HISTORY_KEY = 'ain3-kickoff-v16-history';
 const UI_LANG_KEY = 'ain3-intro-ui-lang';
 const TOKEN_KEY = 'ainative-deck-gh-token';
 const ASSISTANT_ENDPOINT_KEY = 'ain3-assistant-endpoint';
@@ -3381,26 +3347,6 @@ const TUTOR_TIPS = {
     answer: 'В комнате есть founders и владельцы, product/tech/operations-лидеры, корпоративные change-лидеры и самостоятельные builders. Их объединяет переход от отдельных AI-проб к рабочему процессу.',
     sources: ['intro call · 2026-07-11', 'публичные интро AIN3']
   },
-  'cohort-signals': {
-    question: 'Как читать эти данные?',
-    answer: 'Это пересекающиеся сигналы из 101 participant-карточки. Они помогают подобрать примеры и поддержку, но не закрепляют человека в одном сегменте.',
-    sources: ['onboarding q1–q5 · 2026-07-13', 'participant cards AIN3']
-  },
-  'program-spine': {
-    question: 'Почему процесс проходит через все три недели?',
-    answer: 'Один процесс сохраняет общий критерий качества. Вы сможете сравнить baseline, маршрут агента и итоговый эффект на одном рабочем кейсе.',
-    sources: ['программа AIN3', 'weekly spine']
-  },
-  'lab-system': {
-    question: 'Как работает лаборатория?',
-    answer: 'Цикл повторяется каждую неделю: принести процесс, собрать следующий слой, проверить его в работе, получить feedback и обновить артефакт. Core-сессии лучше проходить live, гостевые разборы можно догнать по записи.',
-    sources: ['program contract', 'intro call']
-  },
-  'previous-cases': {
-    question: 'Какие артефакты можно собрать?',
-    answer: 'В прошлой лаборатории участники показывали системы для sales, operations, strategy и управления компанией. Ваш артефакт должен работать и быть проверяемым.',
-    sources: ['AIN02 Demo Day', 'разбор артефактов']
-  },
   'call-cadence': {
     question: 'Где смотреть актуальное расписание?',
     answer: 'Все live-слоты собраны в LMS и календаре AIN3. Зелёные слоты подтверждены, янтарные ещё синхронизируются, open slot остаётся открытым.',
@@ -3423,7 +3369,7 @@ const TUTOR_TIPS = {
   },
   buddies: {
     question: 'Что делать на buddy-созвоне?',
-    answer: 'За 20 минут покажите текущий процесс, сформулируйте один вопрос и договоритесь, что проверите к следующей встрече.',
+    answer: 'Покажите текущую работу, сформулируйте один вопрос и договоритесь, что проверите к следующей встрече.',
     sources: ['buddies AIN02', 'matching promise AIN3']
   },
   'lms-navigation': {
@@ -3436,10 +3382,10 @@ const TUTOR_TIPS = {
     answer: 'Спросите, что обязательно посмотреть, где спикер объясняет нужную рамку, к кому идти с вашим ограничением и что принести на Demo Day. Ответ вернётся со слайдом, записью или таймкодом.',
     sources: ['learn.aimindset.org/ain3/tutor', 'материалы AIN3']
   },
-  'participant-brief': {
-    question: 'Что должно быть в коротком brief?',
-    answer: 'Назовите процесс, owner, inputs, outputs, источники, ограничения и критерий результата, который можно показать на Demo Day.',
-    sources: ['process brief contract', 'Demo Day criteria']
+  'week-close': {
+    question: 'Как идти по трём неделям?',
+    answer: 'Каждую неделю держите один короткий цикл: live, практика на своей работе, buddy feedback и Office Hours. К Demo Day нужен рабочий артефакт и следующий шаг.',
+    sources: ['weekly plan · 2026-07-13', 'Demo Day criteria']
   }
 };
 

@@ -1,43 +1,74 @@
 ---
 name: operating-brief
-description: Use when пользователь описывает рабочий процесс своими словами и просит превратить его в спецификацию – operating brief с триггером, входами, выходом, владельцем, критериями качества и картой контекста. Триггеры – "собери бриф процесса", "operating brief", "опиши мой процесс", "спецификация процесса".
+description: Use when a user describes a repeatable process and needs a process contract with trigger, inputs, output, owner, definition of done, source map and first-run contract. Triggers include “собери бриф процесса”, “operating brief”, “опиши процесс”, and “спецификация процесса”.
 ---
 
 # operating-brief
 
-Превращает сырое описание процесса в структурированный паспорт, пригодный для передачи агенту или человеку.
+Turn a raw process description into a concise contract that can be handed to a person or agent.
 
-## Когда использовать
+## Inputs
 
-- Пользователь на словах описал повторяемую работу и хочет её формализовать.
-- Нужен вход для скилла или автоматизации.
+- User description of one repeatable process.
+- Existing examples, rules or source paths when available.
 
-## Когда НЕ использовать
+## Workflow
 
-- Процесс ещё не выбран (сначала выбор одного процесса).
-- Это разовая задача, а не повторяемый процесс.
+1. Extract `trigger`, `inputs`, `output`, `owner`, `definition_of_done`.
+2. Ask only for missing fields that materially change the contract.
+3. Create a 3–5 item source map: `source · why · access · boundary`.
+4. Break the process into 4–8 steps.
+5. Mark the executor for each step: `agent`, `automation` or `person`.
+6. Mark human gates for sending, publishing, deleting, spending and permission changes.
+7. Choose one first candidate with high frequency, high pain and accessible context.
+8. Define the first-run output, reviewer, time budget, evidence line and next trigger.
+9. Save as `output/{project} {brief} <description> – YYYY-MM-DD.md`.
 
-## Шаги
+## Output
 
-1. Прочитай описание процесса от пользователя. Если чего-то из пяти вопросов не хватает – спроси ровно недостающее, не больше.
-2. Заполни поля: trigger, inputs, output, owner, definition_of_done.
-3. Собери карту контекста: 3–5 источников, для каждого – source / why / access. Не больше пяти.
-4. Размечай шаги матрицей agent / automation / человек.
-5. Сохрани в `output/{project} {type=brief} <slug> – YYYY-MM-DD.md` по конвенции нейминга.
+Use this self-contained structure so the skill stays portable after installation:
 
-## Формат выхода
+```md
+# {process name} – operating brief
 
-Markdown по структуре `operating-brief-template.md`: пять вопросов + таблица источников + матрица шагов + блок «первый прогон».
+## Identity
+- project slug:
+- owner:
+- frequency:
 
-## Критерии качества (evidence)
+## Five fields
+- trigger:
+- inputs:
+- output:
+- owner:
+- definition of done:
 
-- Все пять полей заполнены, критерий качества – проверяемый, не «стало лучше».
-- Источников от 3 до 5, у каждого указан access.
-- У каждого шага размечен исполнитель; отправка/удаление/деньги помечены как «человек · ask first».
-- Файл назван по конвенции, лежит в `output/`.
+## Source map
+| source | why it matters | access | boundary |
+|---|---|---|---|
 
-## Частые ошибки
+## Process steps
+| step | input | action | output | executor | human gate |
+|---|---|---|---|---|---|
 
-- Размытый критерий качества («понятнее», «лучше») – не приближает к решению.
-- Больше пяти источников – карта контекста должна быть минимальной, необходимой и достаточной.
-- Владелец не указан – процесс без владельца теряется.
+## First candidate
+- candidate:
+- reason:
+
+## First run contract
+- output filename:
+- review owner:
+- maximum run time:
+- evidence line: result · evidence · gap · system update
+- next run:
+```
+
+## Evidence
+
+- All five fields are present.
+- Definition of done contains observable checks.
+- Source map contains 3–5 sources with access and boundary.
+- Every process step has an executor.
+- Human gates are explicit.
+- One first candidate is selected.
+- Filename follows the canonical naming rule.

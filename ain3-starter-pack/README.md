@@ -1,41 +1,97 @@
-# AIN3 · Personal Setup – стартер-пак
+# AIN3 · Personal Harness
 
-Минимальная переносимая инфосистема для одного рабочего процесса. Клонируешь, заполняешь под свой процесс, запускаешь за вечер.
+Публичный harness для **одного повторяемого процесса**. Пакет превращает операционный бриф в контур, который агент открывает, выполняет, проверяет и продолжает с точной точки.
 
-Собран для участников **AI-Native Sprint v3** (AI Mindset). Наследует линию `ainative-lab → ainative-lab-2`.
+Собран для **AI-Native Sprint III** · W1 · Personal OS + Skills.
 
-## Что внутри
+## Что получится
 
-| Файл | Зачем |
+За 25–40 минут у тебя появятся:
+
+- один выбранный процесс и проверяемый результат;
+- карта из 3–5 источников;
+- единая конвенция имён;
+- интерактивный naming builder для personal, team и model-data контуров;
+- Agent Passport и Agent Registry с owner, scope, audit и stop controls;
+- `AGENTS.md` или `CLAUDE.md` с картой среды и границами;
+- первый `SKILL.md`;
+- первый результат в `output/`;
+- строка evidence, по которой улучшается следующий прогон.
+
+## Живые поверхности
+
+| Поверхность | Что можно сделать |
 |---|---|
-| [`CLAUDE.md.template`](CLAUDE.md.template) | остов файла правил: агент читает его до твоего первого сообщения |
-| [`naming-convention.md`](naming-convention.md) | имя файла = база данных; одна конвенция на всё |
-| [`operating-brief-template.md`](operating-brief-template.md) | паспорт процесса: 5 вопросов + матрица agent/automation/checklist |
-| [`context-pack-template.md`](context-pack-template.md) | рабочее состояние: goal, current, rules, examples, boundary |
-| [`evidence-log-template.md`](evidence-log-template.md) | журнал утверждений, источников, проверок и следующих шагов |
+| [`rules/`](rules/) | открыть 13 договорённостей в 6 зонах harness и скопировать deep link |
+| [`naming/`](naming/) | собрать canonical filename для personal, team и model-data контуров |
+| [`playground/`](playground/) | скомпилировать сырой процесс в компактный context pack и скачать Markdown |
+| [`graph/`](graph/) | пройти Harness Atlas: люди, артефакты, skills, маршруты и evidence |
+| [публичный дек](https://ain3-personal-harness.alex-named.chatgpt.site/deck/) | 21 слайд, кликабельный процесс и заметки спикера |
+
+## Маршрут
+
+1. Открой [`setup-checklist.md`](setup-checklist.md) и выбери один процесс.
+2. Скопируй подходящий router-template в корень рабочей папки:
+   - Codex и совместимые среды – [`AGENTS.md.template`](AGENTS.md.template) → `AGENTS.md`;
+   - Claude Code – [`CLAUDE.md.template`](CLAUDE.md.template) → `CLAUDE.md`.
+3. Собери пример в интерактивном [`naming builder`](naming/) и прими [`naming-convention.md`](naming-convention.md) как правило для новых файлов.
+4. Если в контуре есть агенты или расписания, заполни [`agent-passport-template.md`](agent-passport-template.md) и добавь строки в [`agent-registry-template.md`](agent-registry-template.md).
+5. Заполни [`operating-brief-template.md`](operating-brief-template.md), [`source-map-template.md`](source-map-template.md) и переносимый [`context-pack-template.md`](context-pack-template.md).
+6. Выбери starter skills из `skills/`: operating brief, process audit, context pack, evidence review и session handoff.
+7. Сделай первый прогон, сохрани [`agent-run-receipt.md`](agent-run-receipt.md) и запиши результат в [`evidence-log-template.md`](evidence-log-template.md).
+8. Для передачи действующего контура используй [`harness-setup-handoff-template.md`](harness-setup-handoff-template.md).
+9. Через 1–2 недели пройди [`refresh-ritual.md`](refresh-ritual.md).
+
+Brief хранит portable contract из пяти полей: `trigger · inputs · output · owner · DoD`. M1 process view добавляет `action · review · metric`; процедура уходит в skill, human gate – в review, metric – в definition of done.
+
+## Состав пакета
+
+| Артефакт | Роль в системе |
+|---|---|
+| [`setup-checklist.md`](setup-checklist.md) | запуск контура за один вечер |
+| [`stack-map.md`](stack-map.md) | карта слоёв, инструментов и переносимости |
+| [`AGENTS.md.template`](AGENTS.md.template) | router для Codex и agent-compatible сред |
+| [`CLAUDE.md.template`](CLAUDE.md.template) | router для Claude Code |
+| [`naming/`](naming/) | интерактивный builder для personal, team и model-data имён |
+| [`naming-convention.md`](naming-convention.md) | filename как общий индекс и canonical rule |
+| [`rules/`](rules/) | explorer 13 правил и связанных артефактов |
+| [`playground/`](playground/) | context pack compiler с autosave и Markdown export |
+| [`graph/`](graph/) | кастомный Harness Atlas с фильтрами и deep links |
+| [`agent-passport-template.md`](agent-passport-template.md) | identity, owner, scope, permissions, audit, expiry и kill switch |
+| [`agent-registry-template.md`](agent-registry-template.md) | видимый реестр агентов, triggers, evidence и stop controls |
+| [`operating-brief-template.md`](operating-brief-template.md) | trigger · inputs · output · owner · DoD |
+| [`source-map-template.md`](source-map-template.md) | 3–5 минимально достаточных источников |
+| [`context-pack-template.md`](context-pack-template.md) | goal · current · rules · examples · boundary для передачи состояния |
 | [`agent-run-receipt.md`](agent-run-receipt.md) | воспроизводимый receipt одного агентного запуска |
-| [`participant-progress-example.md`](participant-progress-example.md) | синтетическая схема прогресса без данных реального участника |
-| [`skills/operating-brief/SKILL.md`](skills/operating-brief/SKILL.md) | скилл: сырой процесс → operating brief |
-| [`skills/process-audit/SKILL.md`](skills/process-audit/SKILL.md) | скилл: разобрать процесс на автоматизируемые куски |
-| [`skills/context-pack/SKILL.md`](skills/context-pack/SKILL.md) | скилл: передать точное состояние между людьми и агентами |
-| [`skills/evidence-review/SKILL.md`](skills/evidence-review/SKILL.md) | скилл: проверить факты, источники и privacy boundary |
-| [`skills/session-handoff/SKILL.md`](skills/session-handoff/SKILL.md) | скилл: продолжить работу в другой модели или на другом компьютере |
-| [`refresh-ritual.md`](refresh-ritual.md) | чек-лист поддержки контура раз в 1–2 недели |
-| [`demo/one-workflow-seed.md`](demo/one-workflow-seed.md) | заполненный пример целого контура – «куда дорастает» |
+| [`participant-progress-example.md`](participant-progress-example.md) | synthetic-схема прогресса без данных реального участника |
+| [`skills/operating-brief/SKILL.md`](skills/operating-brief/SKILL.md) | описание процесса → operating brief |
+| [`skills/process-audit/SKILL.md`](skills/process-audit/SKILL.md) | шаги процесса → первый кандидат на автоматизацию |
+| [`skills/context-pack/SKILL.md`](skills/context-pack/SKILL.md) | точное рабочее состояние → переносимый context pack |
+| [`skills/evidence-review/SKILL.md`](skills/evidence-review/SKILL.md) | claims, sources и privacy boundary → review receipt |
+| [`skills/session-handoff/SKILL.md`](skills/session-handoff/SKILL.md) | текущая сессия → точный restart в другом runtime |
+| [`evidence-log-template.md`](evidence-log-template.md) | факт прогона → точечное изменение системы |
+| [`demo/one-workflow-seed.md`](demo/one-workflow-seed.md) | заполненный synthetic example |
+| [`refresh-ritual.md`](refresh-ritual.md) | поддержка контура раз в 1–2 недели |
+| [`harness-setup-handoff-template.md`](harness-setup-handoff-template.md) | assess → compare → recommend → dashboard и точный restart |
 
-## Запуск
+## Структура рабочей папки
 
-1. Поставь агентный runtime: `npm install -g @anthropic-ai/claude-code` (или Codex / Cursor – контур переносим).
-2. Скопируй `CLAUDE.md.template` в корень рабочей папки как `CLAUDE.md`, заполни 5 полей.
-3. Прими конвенцию из `naming-convention.md` – агент будет называть файлы по ней.
-4. Возьми `operating-brief-template.md`, заполни под **один** свой процесс (тот, что повторяется чаще раза в неделю).
-5. Запусти скилл `operating-brief`, получи бриф; прогони `process-audit` – увидишь, что автоматизируется.
-6. Первый прогон → файл в `output/`. Это диагностика, не финал.
+```text
+my-workspace/
+├── AGENTS.md               # или CLAUDE.md
+├── sources/                # входы процесса
+├── output/                 # проверяемые результаты
+├── evidence-log.md         # история прогонов
+└── .agents/skills/         # Codex
+    └── <skill>/SKILL.md
+```
+
+Для Claude Code используй `.claude/skills/`. Можно хранить один canonical `SKILL.md` и синхронизировать его в runtime-папки.
 
 ## Принцип
 
-> Один процесс, один контекст, один первый прогон. Не строй идеального агента сразу.
+**Один процесс → один контекст → один прогон → один evidence-сигнал.** Следующий прогон становится лучше через правку источников, правил или skill.
 
-Твоя единственная переносимая ценность – собственный **нормализованный контекст**, с которым работают и люди, и агенты. Этот пак – форма, в которую его складывают.
+Переносимая ценность контура – **нормализованный контекст**, который одинаково читают человек, команда и агент.
 
-Вопросы – [@ai_mind_set](https://t.me/ai_mind_set).
+AI Mindset · [программа AIN3](https://ai-native.aimindset.org/) · [public site](https://ain3-personal-harness.alex-named.chatgpt.site/) · [публичный дек](https://ain3-personal-harness.alex-named.chatgpt.site/deck/) · [@ai_mind_set](https://t.me/ai_mind_set)

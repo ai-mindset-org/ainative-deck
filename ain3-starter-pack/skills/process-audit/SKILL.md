@@ -1,44 +1,51 @@
 ---
 name: process-audit
-description: Use when есть operating brief или описание процесса и нужно разложить его на куски по уровню автоматизации – что отдать агенту, что автоматизации, что оставить человеку, и с чего начать. Триггеры – "разбери процесс", "process audit", "что здесь можно автоматизировать", "приоритизируй шаги".
+description: Use when an operating brief or process description exists and the user needs to identify the first automation candidate, assign agent/automation/person roles, map human gates, and place each step on the adoption curve. Triggers include “разбери процесс”, “process audit”, “что автоматизировать”, and “приоритизируй шаги”.
 ---
 
 # process-audit
 
-Разбирает процесс на шаги и размечает каждый по уровню внедрения: обклейка → абстракция → AI-native.
+Map one process into steps and select one high-leverage candidate for the next run.
 
-## Когда использовать
+## Inputs
 
-- Есть operating brief или карта процесса.
-- Нужно решить, с чего начать автоматизацию и что трогать не стоит.
+- An operating brief or equivalent process description.
+- Frequency, pain and current execution signals when available.
 
-## Когда НЕ использовать
+## Workflow
 
-- Процесс ещё не описан (сначала `operating-brief`).
-- Хочется автоматизировать всё сразу – цель аудита обратная: сузить до одного куска.
+1. Split the process into 4–8 steps from trigger to accepted output.
+2. Rate each step:
+   - frequency: low / medium / high;
+   - pain: time / quality / coordination / risk;
+   - context readiness: missing / partial / ready.
+3. Mark the adoption level:
+   - `overlay` – AI assists inside the current process;
+   - `abstraction` – the step has a reusable skill or template;
+   - `AI-native` – the workflow is designed around the agent with human gates.
+4. Assign the executor: `agent`, `automation` or `person`.
+5. Mark human gates for accountability, review and external side effects.
+6. Select one candidate with high frequency, high pain and ready context.
+7. Define a first-run output and evidence check.
+8. Save as `output/{project} {analysis} process audit – YYYY-MM-DD.md`.
 
-## Шаги
+## Output
 
-1. Раздели процесс на 4–8 шагов (вход → … → выход).
-2. Для каждого шага оцени два параметра: **частота** (как часто повторяется) и **боль** (время / качество / ручная работа / риск ошибки).
-3. Размечай уровень внедрения каждого шага:
-   - **обклейка** – AI поверх старого процесса, ничего не переспроектировано
-   - **абстракция** – шаг вынесен в скилл / шаблон, повторяем
-   - **AI-native** – процесс переспроектирован вокруг агента, человек на воротах
-4. Выбери ОДИН шаг с высокой частотой и высокой болью как первый кандидат.
-5. Отметь, где ответственность и решения остаются за человеком (ворота).
+| step | frequency | pain | context | level | executor | human gate |
+|---|---|---|---|---|---|---|
 
-## Формат выхода
+Add:
 
-Таблица `шаг | частота | боль | уровень (обклейка/абстракция/AI-native) | исполнитель`, затем строка «первый кандидат» с обоснованием, сохранённая в `output/` по конвенции нейминга.
+```text
+first candidate: {one step}
+first-run output: {observable artifact}
+evidence: {measurable check}
+```
 
-## Критерии качества (evidence)
+## Evidence
 
-- Выбран ровно один первый кандидат, а не «автоматизируем всё».
-- У каждого шага проставлен уровень внедрения.
-- Явно помечены ворота – где человек принимает решение.
-
-## Частые ошибки
-
-- «Хочу всё» – аудит должен сузить, а не расширить.
-- Путать обклейку с AI-native: если старый процесс не тронут, это обклейка, даже если внутри агент.
+- The process has 4–8 steps.
+- Every step has frequency, pain, context readiness, level and executor.
+- Human gates are explicit.
+- Exactly one first candidate is selected.
+- The candidate has a first-run output and measurable evidence.

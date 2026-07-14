@@ -1,0 +1,20 @@
+{
+  "schema": "aim.ain3.skripka.functions.v1",
+  "default_mode": "read_only",
+  "authorization": {
+    "participant": "jwt_self_only",
+    "curator": "jwt_assigned_only",
+    "staff": "admin_purpose_audit"
+  },
+  "logging": "request_id_and_subject_hash_only",
+  "functions": [
+    {"name": "participant_context.get", "audience": ["participant", "curator", "staff"], "scope_by_audience": ["self", "assigned", "purpose_audited"], "confirmation": false},
+    {"name": "progress.assess", "audience": ["participant", "curator", "staff"], "scope_by_audience": ["self", "assigned", "purpose_audited"], "confirmation": false},
+    {"name": "cohort.stalled", "audience": ["staff"], "scope": "aggregate_only", "confirmation": false},
+    {"name": "artifact.verify", "audience": ["participant", "curator", "staff"], "scope_by_audience": ["self", "assigned", "purpose_audited"], "confirmation": false},
+    {"name": "next_action.propose", "audience": ["participant", "curator", "staff"], "scope_by_audience": ["self", "assigned", "purpose_audited"], "confirmation": false},
+    {"name": "curator.brief", "audience": ["curator", "staff"], "scope_by_audience": ["assigned", "purpose_audited"], "confirmation": false},
+    {"name": "message.draft", "audience": ["curator", "staff"], "scope_by_audience": ["assigned", "purpose_audited"], "output": "draft_only", "confirmation": true},
+    {"name": "receipt.write", "audience": ["participant", "curator", "staff"], "scope_by_audience": ["self", "assigned", "purpose_audited"], "write": "append_only", "confirmation": true}
+  ]
+}

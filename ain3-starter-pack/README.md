@@ -22,11 +22,13 @@
 
 | Поверхность | Что можно сделать |
 |---|---|
+| [`session/`](session/) | открыть post-session receipt: реальный таймлайн, все материалы и самостоятельную практику |
 | [`rules/`](rules/) | открыть 13 договорённостей в 6 зонах harness и скопировать deep link |
 | [`naming/`](naming/) | собрать canonical filename для personal, team и model-data контуров |
 | [`playground/`](playground/) | скомпилировать сырой процесс в компактный context pack и скачать Markdown |
 | [`graph/`](graph/) | пройти Harness Atlas: люди, артефакты, skills, маршруты и evidence |
-| [публичный дек](https://ain3-personal-harness.alex-named.chatgpt.site/deck/) | 21 слайд, кликабельный процесс и заметки спикера |
+| [`glossary/`](glossary/) | найти один из 37 терминов и понять его роль для dev/non-dev |
+| [публичный дек](https://ain3-personal-harness.alex-named.chatgpt.site/deck/) | 24 слайда, кликабельный процесс, World-блок и заметки спикера |
 
 ## Маршрут
 
@@ -48,6 +50,7 @@ Brief хранит portable contract из пяти полей: `trigger · input
 
 | Артефакт | Роль в системе |
 |---|---|
+| [`session/`](session/) | санитизированный итог сессии 14 июля: таймлайн, материалы, вопросы и практика |
 | [`setup-checklist.md`](setup-checklist.md) | запуск контура за один вечер |
 | [`stack-map.md`](stack-map.md) | карта слоёв, инструментов и переносимости |
 | [`AGENTS.md.template`](AGENTS.md.template) | router для Codex и agent-compatible сред |
@@ -57,6 +60,8 @@ Brief хранит portable contract из пяти полей: `trigger · input
 | [`rules/`](rules/) | explorer 13 правил и связанных артефактов |
 | [`playground/`](playground/) | context pack compiler с autosave и Markdown export |
 | [`graph/`](graph/) | кастомный Harness Atlas с фильтрами и deep links |
+| [`glossary/`](glossary/) | 37 терминов с ролью, применимостью и поиском |
+| [`glossary.md`](glossary.md) | переносимая Markdown-версия словаря |
 | [`agent-passport-template.md`](agent-passport-template.md) | identity, owner, scope, permissions, audit, expiry и kill switch |
 | [`agent-registry-template.md`](agent-registry-template.md) | видимый реестр агентов, triggers, evidence и stop controls |
 | [`operating-brief-template.md`](operating-brief-template.md) | trigger · inputs · output · owner · DoD |

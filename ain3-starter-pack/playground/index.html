@@ -1,0 +1,609 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080808">
+  <title>AIN3 · Context Pack Compiler</title>
+  <meta name="description" content="Соберите переносимый context pack для одного agent workflow: contract, boundary, passport, evidence и exact next run.">
+  <link rel="icon" href="data:,">
+  <style>
+    :root{
+      --paper:#f2f0e9;
+      --paper-2:#e9e6dc;
+      --ink:#080808;
+      --red:#ef3f36;
+      --red-soft:#ffd8d3;
+      --muted:#706d66;
+      --line:#bdb9ae;
+      --grid:rgba(8,8,8,.055);
+      --white:#f8f6ef;
+      --mono:"JetBrains Mono","SFMono-Regular",Consolas,"Liberation Mono",monospace;
+      --sans:Inter,"Helvetica Neue",Arial,sans-serif;
+    }
+    *{box-sizing:border-box}
+    html{background:var(--ink);scroll-behavior:smooth}
+    body{
+      margin:0;
+      min-width:0;
+      overflow-x:hidden;
+      background:var(--paper);
+      color:var(--ink);
+      font:13px/1.5 var(--mono);
+      -webkit-font-smoothing:antialiased;
+    }
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+      background-size:48px 48px;
+    }
+    button,input,textarea{font:inherit}
+    button,a{color:inherit}
+    button{cursor:pointer}
+    :focus-visible{outline:3px solid var(--red);outline-offset:2px}
+    ::selection{background:var(--red);color:var(--white)}
+    .topbar{
+      min-height:64px;
+      padding:0 32px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:24px;
+      background:var(--ink);
+      color:var(--paper);
+      position:relative;
+      z-index:10;
+    }
+    .brand{
+      font-weight:700;
+      text-transform:uppercase;
+      letter-spacing:.2em;
+      font-size:11px;
+      white-space:nowrap;
+    }
+    .brand b{color:var(--red)}
+    .topnav{display:flex;align-items:center;min-width:0}
+    .topnav a{
+      min-height:36px;
+      padding:0 13px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      border:1px solid #494949;
+      margin-left:-1px;
+      text-decoration:none;
+      text-transform:uppercase;
+      letter-spacing:.12em;
+      font-size:9px;
+      white-space:nowrap;
+    }
+    .topnav a:hover{background:var(--paper);color:var(--ink)}
+    .shell{max-width:1500px;margin:0 auto;padding:42px 42px 76px;position:relative;z-index:1;min-width:0}
+    .hero{
+      display:grid;
+      grid-template-columns:minmax(0,1.18fr) minmax(320px,.82fr);
+      align-items:end;
+      gap:56px;
+      padding:28px 0 44px;
+      border-bottom:1px solid var(--ink);
+    }
+    .hero>*{min-width:0}
+    .eyebrow{color:var(--red);text-transform:uppercase;letter-spacing:.18em;font-weight:700;font-size:10px;margin-bottom:22px}
+    h1{font:800 clamp(58px,7.6vw,118px)/.84 var(--sans);letter-spacing:-.065em;margin:0;max-width:8.5ch}
+    h1 span{color:var(--red)}
+    .hero-copy{font-size:17px;line-height:1.5;color:var(--muted);max-width:46ch;margin:0}
+    .hero-copy strong{display:block;color:var(--ink);font-family:var(--sans);font-size:22px;line-height:1.15;margin-bottom:18px}
+    .save-state{display:flex;align-items:center;gap:9px;margin-top:22px;text-transform:uppercase;letter-spacing:.12em;font-size:9px;color:var(--muted)}
+    .save-state::before{content:"";width:8px;height:8px;background:var(--red);display:block}
+    .signal-rail{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));border:1px solid var(--ink);border-top:0;margin-bottom:28px}
+    .signal-step{min-height:82px;padding:14px;border-right:1px solid var(--ink);display:flex;flex-direction:column;justify-content:space-between;min-width:0}
+    .signal-step:last-child{border-right:0}
+    .signal-step b{font:800 clamp(18px,2vw,28px)/1 var(--sans);letter-spacing:-.03em;overflow-wrap:anywhere}
+    .signal-step span{font-size:8px;text-transform:uppercase;letter-spacing:.14em;color:var(--muted)}
+    .signal-step.active{background:var(--ink);color:var(--paper)}
+    .signal-step.active b{color:var(--red)}
+    .signal-step.active span{color:#888}
+    .workspace{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(430px,.95fr);gap:28px;align-items:start;min-width:0}
+    .form-stack,.preview-column{min-width:0}
+    .module{border:1px solid var(--ink);background:rgba(242,240,233,.92);margin-bottom:18px;min-width:0}
+    .module-head{min-height:48px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;gap:16px;border-bottom:1px solid var(--ink)}
+    .module-head h2{font:700 16px/1.1 var(--sans);margin:0;letter-spacing:-.015em}
+    .module-head span{text-transform:uppercase;letter-spacing:.14em;font-size:8px;color:var(--muted);text-align:right}
+    .module-index{color:var(--red);margin-right:8px}
+    .module-body{padding:18px;min-width:0}
+    .field{min-width:0;margin-bottom:16px}
+    .field:last-child{margin-bottom:0}
+    .field-row{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:6px}
+    .field label{font-weight:700;font-size:11px;letter-spacing:.02em}
+    .field small{color:var(--muted);font-size:9px;text-align:right}
+    input,textarea{
+      width:100%;
+      border:1px solid var(--line);
+      border-radius:0;
+      background:rgba(255,255,255,.46);
+      color:var(--ink);
+      padding:11px 12px;
+      min-height:44px;
+      outline:0;
+      resize:vertical;
+      appearance:none;
+    }
+    textarea{min-height:74px;line-height:1.45}
+    textarea.tall{min-height:102px}
+    input::placeholder,textarea::placeholder{color:#99958c}
+    input:focus,textarea:focus{border-color:var(--ink);background:#fff;box-shadow:inset 5px 0 0 var(--red)}
+    .grid-2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;min-width:0}
+    .grid-3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;min-width:0}
+    .contract-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border:1px solid var(--line);min-width:0}
+    .contract-grid .field{padding:12px;margin:0;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+    .contract-grid .field:nth-child(2n){border-right:0}
+    .contract-grid .field:nth-last-child(-n+2){border-bottom:0}
+    .contract-grid textarea{min-height:72px;background:transparent;border:0;border-top:1px solid var(--line);margin-top:7px;padding:9px 0 0}
+    .contract-grid textarea:focus{box-shadow:none;background:rgba(255,255,255,.56);border-color:var(--red);padding-left:8px}
+    .passport{border-left:6px solid var(--red)}
+    .passport .module-head{background:var(--red-soft)}
+    .preview-shell{position:sticky;top:18px;border:1px solid var(--ink);background:var(--ink);color:var(--paper);min-width:0;box-shadow:12px 12px 0 rgba(8,8,8,.12)}
+    .preview-head{padding:14px 16px;border-bottom:1px solid #444;display:flex;align-items:center;justify-content:space-between;gap:14px;min-width:0}
+    .preview-title{display:flex;align-items:center;gap:10px;min-width:0}
+    .preview-title b{font:700 15px/1.1 var(--sans);white-space:nowrap}
+    .live{display:flex;align-items:center;gap:6px;color:var(--red);text-transform:uppercase;letter-spacing:.13em;font-size:8px}
+    .live::before{content:"";width:7px;height:7px;background:var(--red)}
+    .progress{font-size:9px;color:#8b8b8b;white-space:nowrap}
+    .filebar{padding:11px 16px;border-bottom:1px solid #333;color:#a7a7a7;font-size:9px;overflow-wrap:anywhere}
+    .filebar b{color:var(--red);font-weight:500}
+    .preview-body{max-height:calc(100vh - 245px);min-height:480px;overflow:auto;padding:20px 22px;scrollbar-color:#555 var(--ink);scrollbar-width:thin}
+    pre{margin:0;white-space:pre-wrap;overflow-wrap:anywhere;word-break:normal;color:#d8d6d0;font:11px/1.62 var(--mono);tab-size:2}
+    .preview-actions{padding:13px 14px;border-top:1px solid #444;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+    .action{
+      min-height:46px;
+      border:1px solid #575757;
+      background:transparent;
+      color:var(--paper);
+      padding:8px 10px;
+      text-transform:uppercase;
+      letter-spacing:.1em;
+      font-size:8px;
+    }
+    .action.primary{background:var(--red);border-color:var(--red);font-weight:700}
+    .action:hover{background:var(--paper);border-color:var(--paper);color:var(--ink)}
+    .action.danger:hover{background:var(--red);border-color:var(--red);color:var(--paper)}
+    .preview-note{padding:11px 16px;border-top:1px solid #2c2c2c;color:#747474;font-size:9px;line-height:1.45}
+    .toast{position:fixed;right:24px;bottom:24px;max-width:min(360px,calc(100vw - 36px));background:var(--paper);color:var(--ink);border:1px solid var(--ink);border-left:7px solid var(--red);padding:13px 16px;transform:translateY(90px);opacity:0;transition:.2s;z-index:50;font-size:10px;text-transform:uppercase;letter-spacing:.09em}
+    .toast.show{transform:none;opacity:1}
+    footer{margin-top:64px;padding-top:22px;border-top:1px solid var(--ink);display:flex;justify-content:space-between;gap:20px;color:var(--muted);font-size:8px;text-transform:uppercase;letter-spacing:.12em}
+    @media(max-width:1040px){
+      .hero{grid-template-columns:1fr;align-items:start;gap:28px}
+      .workspace{grid-template-columns:minmax(0,1fr)}
+      .preview-shell{position:relative;top:auto;box-shadow:8px 8px 0 rgba(8,8,8,.12)}
+      .preview-body{max-height:720px;min-height:420px}
+    }
+    @media(max-width:680px){
+      .topbar{padding:13px 18px;align-items:flex-start;flex-direction:column;gap:12px}
+      .brand{white-space:normal;font-size:9px}
+      .topnav{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));width:100%}
+      .topnav a{min-height:44px;margin-left:0;padding:4px;font-size:7px;letter-spacing:.08em;text-align:center;white-space:normal}
+      .shell{padding:18px 18px 52px;width:100%}
+      .hero{padding:26px 0 32px}
+      h1{font-size:54px;max-width:9ch}
+      .hero-copy{font-size:14px}
+      .hero-copy strong{font-size:19px}
+      .signal-rail{grid-template-columns:1fr;margin-bottom:18px}
+      .signal-step{min-height:62px;border-right:0;border-bottom:1px solid var(--ink);flex-direction:row;align-items:center;gap:14px}
+      .signal-step:last-child{border-bottom:0}
+      .signal-step b{font-size:21px}
+      .workspace{gap:20px}
+      .module-body{padding:14px}
+      .module-head{align-items:flex-start}
+      .module-head span{max-width:15ch}
+      .grid-2,.grid-3,.contract-grid{grid-template-columns:minmax(0,1fr)}
+      .contract-grid .field{border-right:0;border-bottom:1px solid var(--line)!important}
+      .contract-grid .field:last-child{border-bottom:0!important}
+      .field-row{align-items:flex-start;flex-direction:column;gap:2px}
+      .field small{text-align:left}
+      input,textarea{font-size:16px}
+      .preview-head{align-items:flex-start;flex-direction:column}
+      .preview-body{max-height:none;min-height:0;padding:17px 15px}
+      pre{font-size:10px;line-height:1.58}
+      .preview-actions{grid-template-columns:repeat(2,minmax(0,1fr))}
+      footer{margin-top:48px;flex-direction:column}
+      .toast{right:18px;bottom:18px}
+    }
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.toast{transition:none}}
+    @media print{
+      .topbar,.form-stack,.preview-actions,.preview-note,footer,.toast{display:none!important}
+      body::before{display:none}
+      .shell{padding:0}
+      .hero,.signal-rail{display:none}
+      .workspace{display:block}
+      .preview-shell{position:static;box-shadow:none;border:0}
+      .preview-body{max-height:none;min-height:0;color:#000;background:#fff;padding:0}
+      pre{color:#000;font-size:10pt}
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">AI Mindset · <b>AIN3</b> · context compiler</div>
+    <nav class="topnav" aria-label="AIN3 starter pack">
+      <a href="../">starter pack</a>
+      <a href="../naming/">naming</a>
+      <a href="https://ain3-personal-harness.alex-named.chatgpt.site/deck/">deck</a>
+    </nav>
+  </header>
+
+  <main class="shell">
+    <section class="hero" aria-labelledby="page-title">
+      <div>
+        <div class="eyebrow">Fig. 01 · one workflow · portable context</div>
+        <h1 id="page-title">compile the <span>next run</span></h1>
+      </div>
+      <div>
+        <p class="hero-copy"><strong>Один workflow получает договорённости, границы и память.</strong>Заполните рабочий контур. Компилятор соберёт Markdown, который можно передать человеку, агенту или следующей сессии.</p>
+        <div class="save-state" id="saveState" role="status">локально · ждёт ввода</div>
+      </div>
+    </section>
+
+    <div class="signal-rail" aria-label="Схема context seed">
+      <div class="signal-step active"><b>source</b><span>сырьё</span></div>
+      <div class="signal-step"><b>signal</b><span>что важно</span></div>
+      <div class="signal-step"><b>ask</b><span>действие</span></div>
+      <div class="signal-step"><b>output</b><span>артефакт</span></div>
+      <div class="signal-step"><b>evidence</b><span>след</span></div>
+    </div>
+
+    <div class="workspace">
+      <form class="form-stack" id="compilerForm" autocomplete="off">
+        <section class="module" aria-labelledby="operator-title">
+          <div class="module-head"><h2 id="operator-title"><span class="module-index">00</span>Оператор</h2><span>кто держит контур</span></div>
+          <div class="module-body grid-2">
+            <div class="field">
+              <div class="field-row"><label for="operator">operator</label><small>имя или команда</small></div>
+              <input id="operator" data-key="operator" placeholder="Александр Поваляев" maxlength="120">
+            </div>
+            <div class="field">
+              <div class="field-row"><label for="role">role</label><small>роль в этом запуске</small></div>
+              <input id="role" data-key="role" placeholder="owner · facilitator · reviewer" maxlength="160">
+            </div>
+          </div>
+        </section>
+
+        <section class="module" aria-labelledby="workflow-title">
+          <div class="module-head"><h2 id="workflow-title"><span class="module-index">01</span>Workflow contract</h2><span>trigger · input · action · review · output · metric</span></div>
+          <div class="module-body">
+            <div class="field">
+              <div class="field-row"><label for="workflow">one workflow</label><small>узкое рабочее действие</small></div>
+              <input id="workflow" data-key="workflow" placeholder="weekly pipeline sync" maxlength="180">
+            </div>
+            <div class="contract-grid">
+              <div class="field"><label for="trigger">trigger</label><textarea id="trigger" data-key="trigger" placeholder="Что запускает процесс?"></textarea></div>
+              <div class="field"><label for="input">input</label><textarea id="input" data-key="input" placeholder="Какие данные приходят?"></textarea></div>
+              <div class="field"><label for="action">action</label><textarea id="action" data-key="action" placeholder="Что делает агент или система?"></textarea></div>
+              <div class="field"><label for="review">review</label><textarea id="review" data-key="review" placeholder="Где человек проверяет и решает?"></textarea></div>
+              <div class="field"><label for="output">output</label><textarea id="output" data-key="output" placeholder="Какой артефакт остаётся?"></textarea></div>
+              <div class="field"><label for="metric">metric</label><textarea id="metric" data-key="metric" placeholder="Как выглядит достаточный результат?"></textarea></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="module" aria-labelledby="context-title">
+          <div class="module-head"><h2 id="context-title"><span class="module-index">02</span>Context boundary</h2><span>selected sources · explicit limit</span></div>
+          <div class="module-body grid-2">
+            <div class="field">
+              <div class="field-row"><label for="sources">sources</label><small>файлы, транскрипты, задачи, ссылки</small></div>
+              <textarea class="tall" id="sources" data-key="sources" placeholder="meeting transcript · CRM export · process note · current tasks"></textarea>
+            </div>
+            <div class="field">
+              <div class="field-row"><label for="boundary">boundary</label><small>данные, решения, действия</small></div>
+              <textarea class="tall" id="boundary" data-key="boundary" placeholder="Только read access к CRM. Любая отправка клиенту проходит review."></textarea>
+            </div>
+          </div>
+        </section>
+
+        <section class="module passport" aria-labelledby="passport-title">
+          <div class="module-head"><h2 id="passport-title"><span class="module-index">03</span>Agent Passport</h2><span>видимый · ограниченный · отзывной</span></div>
+          <div class="module-body">
+            <div class="grid-2">
+              <div class="field"><div class="field-row"><label for="passportOwner">owner</label><small>кто отвечает</small></div><input id="passportOwner" data-key="passportOwner" placeholder="Alexander · CRM team"></div>
+              <div class="field"><div class="field-row"><label for="passportExpiry">expiry</label><small>дата или условие</small></div><input id="passportExpiry" data-key="passportExpiry" placeholder="2026-07-31 · review after 3 runs"></div>
+            </div>
+            <div class="field"><div class="field-row"><label for="passportScope">scope</label><small>разрешённая работа</small></div><textarea id="passportScope" data-key="passportScope" placeholder="Собирает weekly sync brief из перечисленных sources."></textarea></div>
+            <div class="field"><div class="field-row"><label for="passportTools">tools</label><small>доступные interfaces</small></div><textarea id="passportTools" data-key="passportTools" placeholder="local files read · CRM export read · Markdown write"></textarea></div>
+            <div class="field"><div class="field-row"><label for="passportRevoke">revoke</label><small>kill switch и repair route</small></div><textarea id="passportRevoke" data-key="passportRevoke" placeholder="Отключить token, снять schedule, записать incident в evidence log."></textarea></div>
+          </div>
+        </section>
+
+        <section class="module" aria-labelledby="loop-title">
+          <div class="module-head"><h2 id="loop-title"><span class="module-index">04</span>Evidence loop</h2><span>proof · cadence · next run</span></div>
+          <div class="module-body">
+            <div class="field"><div class="field-row"><label for="evidence">evidence</label><small>что докажет результат и позволит replay</small></div><textarea class="tall" id="evidence" data-key="evidence" placeholder="Ссылка на output, изменения после review, runtime и причина решения."></textarea></div>
+            <div class="grid-2">
+              <div class="field"><div class="field-row"><label for="cadence">review cadence</label><small>когда обновляем контур</small></div><textarea id="cadence" data-key="cadence" placeholder="Каждую пятницу · 20 минут · owner + reviewer"></textarea></div>
+              <div class="field"><div class="field-row"><label for="nextRun">exact next run</label><small>дата, trigger, первый шаг</small></div><textarea id="nextRun" data-key="nextRun" placeholder="2026-07-17 10:00 · открыть CRM export · собрать brief"></textarea></div>
+            </div>
+          </div>
+        </section>
+      </form>
+
+      <aside class="preview-column" aria-label="Собранный context pack">
+        <div class="preview-shell">
+          <div class="preview-head">
+            <div class="preview-title"><b>context pack</b><span class="live">live</span></div>
+            <span class="progress" id="progress">0 / 19 fields</span>
+          </div>
+          <div class="filebar">// <b id="filename">{ain3} {context} one-workflow – YYYY-MM-DD.md</b></div>
+          <div class="preview-body"><pre id="preview" aria-live="polite"></pre></div>
+          <div class="preview-actions">
+            <button class="action primary" type="button" id="copyButton">copy</button>
+            <button class="action" type="button" id="downloadButton">download .md</button>
+            <button class="action" type="button" id="exampleButton">worked example</button>
+            <button class="action danger" type="button" id="clearButton">clear</button>
+          </div>
+          <div class="preview-note">Autosave хранит черновик только в localStorage этого браузера. Страница не вызывает модели и внешние API.</div>
+        </div>
+      </aside>
+    </div>
+
+    <footer><span>AIN3 · personal harness</span><span>source · signal · ask · output · evidence · 2026</span></footer>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite">saved</div>
+
+  <script>
+    (() => {
+      'use strict';
+
+      const STORE_KEY = 'ain3-context-pack-compiler-v1';
+      const FIELD_KEYS = [
+        'operator','role','workflow','trigger','input','action','review','output','metric',
+        'sources','boundary','passportOwner','passportScope','passportTools','passportExpiry',
+        'passportRevoke','evidence','cadence','nextRun'
+      ];
+      const state = Object.fromEntries(FIELD_KEYS.map(key => [key, '']));
+      const form = document.querySelector('#compilerForm');
+      const preview = document.querySelector('#preview');
+      const filename = document.querySelector('#filename');
+      const progress = document.querySelector('#progress');
+      const saveState = document.querySelector('#saveState');
+      const toast = document.querySelector('#toast');
+      let toastTimer = 0;
+      let saveTimer = 0;
+
+      const example = {
+        operator:'Александр Поваляев',
+        role:'owner · facilitator · final reviewer',
+        workflow:'weekly pipeline sync',
+        trigger:'Пятница, 10:00. В CRM завершён weekly snapshot.',
+        input:'CRM snapshot, открытые задачи, транскрипт team sync, решения прошлой недели.',
+        action:'Агент соединяет источники, выделяет изменения, риски и решения, затем собирает draft weekly brief.',
+        review:'Owner проверяет решения, расхождения и публичные формулировки до публикации.',
+        output:'Один Markdown brief: status, decisions, owners, blockers, exact next actions.',
+        metric:'Brief готов за 15 минут. Каждое решение имеет owner и дату следующей проверки.',
+        sources:'{crm} {meeting} weekly pipeline sync – 2026-07-14.md\nCRM export · current week\nLinear active tasks · CRM team',
+        boundary:'Read-only доступ к источникам. Публикация и изменение CRM требуют ручного review. Персональные данные остаются в локальном контуре.',
+        passportOwner:'Alexander · CRM team',
+        passportScope:'Собирает weekly sync brief только из перечисленных sources. Не создаёт задачи и не отправляет сообщения.',
+        passportTools:'local files read · CRM export read · Markdown write',
+        passportExpiry:'2026-07-31 · review after 3 runs',
+        passportRevoke:'Отключить schedule и access token. Сохранить последний run в evidence log. Owner решает repair или retirement.',
+        evidence:'Ссылка на итоговый brief, diff после human review, время сборки, список принятых решений.',
+        cadence:'Каждую пятницу · 20 минут · owner + reviewer. Passport review после трёх запусков.',
+        nextRun:'2026-07-17 10:00 · открыть свежий CRM snapshot · собрать draft · review до 10:30'
+      };
+
+      const value = key => (state[key] || '').trim();
+      const clean = (text, fallback = '–') => text ? text.replace(/\r\n/g, '\n').trim() : fallback;
+      const cell = (text, fallback = '–') => clean(text, fallback).replace(/\|/g, '\\|').replace(/\n+/g, '<br>');
+      const listItem = (label, text) => `- ${label}: ${clean(text).replace(/\n/g, '\n  ')}`;
+      const today = () => {
+        const date = new Date();
+        const local = new Date(date.getTime() - date.getTimezoneOffset() * 60000);
+        return local.toISOString().slice(0, 10);
+      };
+      const translit = {
+        а:'a',б:'b',в:'v',г:'g',д:'d',е:'e',ё:'e',ж:'zh',з:'z',и:'i',й:'y',к:'k',л:'l',м:'m',н:'n',о:'o',п:'p',р:'r',с:'s',т:'t',у:'u',ф:'f',х:'h',ц:'ts',ч:'ch',ш:'sh',щ:'sch',ъ:'',ы:'y',ь:'',э:'e',ю:'yu',я:'ya'
+      };
+      const slugify = input => {
+        const source = (input || 'one workflow').toLowerCase();
+        const latin = Array.from(source, char => translit[char] ?? char).join('');
+        return latin
+          .replace(/[–\u2014]/g, '-')
+          .replace(/[^a-z0-9]+/g, '-')
+          .replace(/^-+|-+$/g, '')
+          .replace(/-{2,}/g, '-')
+          .slice(0, 48) || 'one-workflow';
+      };
+      const canonicalFilename = () => `{ain3} {context} ${slugify(value('workflow'))} – ${today()}.md`;
+
+      function compose(){
+        const source = value('sources');
+        const signal = [value('workflow'), value('trigger')].filter(Boolean).join(' · ');
+        const ask = [value('action'), value('review') && `human review: ${value('review')}`].filter(Boolean).join(' · ');
+        const result = [value('output'), value('metric') && `metric: ${value('metric')}`].filter(Boolean).join(' · ');
+        const proof = value('evidence');
+        const lines = [
+          '---',
+          'project: ain3',
+          'type: context',
+          `operator: "${clean(value('operator')).replace(/"/g, '\\"')}"`,
+          `workflow: "${clean(value('workflow')).replace(/"/g, '\\"')}"`,
+          `updated: ${today()}`,
+          '---',
+          '',
+          `# Context pack · ${clean(value('workflow'), 'one workflow')}`,
+          '',
+          `> ${clean(value('role'), 'operator role')} · owner: ${clean(value('passportOwner'), 'assign owner')}`,
+          '',
+          '## Source · signal · ask · output · evidence',
+          '',
+          '| layer | selected context |',
+          '|---|---|',
+          `| source | ${cell(source)} |`,
+          `| signal | ${cell(signal)} |`,
+          `| ask | ${cell(ask)} |`,
+          `| output | ${cell(result)} |`,
+          `| evidence | ${cell(proof)} |`,
+          '',
+          '## Workflow contract',
+          '',
+          listItem('trigger', value('trigger')),
+          listItem('input', value('input')),
+          listItem('action', value('action')),
+          listItem('review', value('review')),
+          listItem('output', value('output')),
+          listItem('metric', value('metric')),
+          '',
+          '## Context boundary',
+          '',
+          listItem('sources', source),
+          listItem('boundary', value('boundary')),
+          '',
+          '## Agent Passport',
+          '',
+          listItem('owner', value('passportOwner')),
+          listItem('scope', value('passportScope')),
+          listItem('tools', value('passportTools')),
+          listItem('expiry', value('passportExpiry')),
+          listItem('revoke', value('passportRevoke')),
+          '',
+          '## Evidence loop',
+          '',
+          listItem('evidence', proof),
+          listItem('review cadence', value('cadence')),
+          '',
+          '## Exact next run',
+          '',
+          clean(value('nextRun')),
+          '',
+          '---',
+          '',
+          `filename: ${canonicalFilename()}`,
+          'compiled with AIN3 Context Pack Compiler'
+        ];
+        return lines.join('\n');
+      }
+
+      function filledCount(){
+        return FIELD_KEYS.reduce((count, key) => count + (value(key) ? 1 : 0), 0);
+      }
+
+      function render(){
+        const content = compose();
+        const filled = filledCount();
+        preview.textContent = content;
+        preview.dataset.content = content;
+        filename.textContent = canonicalFilename();
+        progress.textContent = `${filled} / ${FIELD_KEYS.length} fields`;
+        document.querySelectorAll('.signal-step').forEach((step, index) => {
+          const thresholds = [1, 4, 7, 10, 16];
+          step.classList.toggle('active', filled >= thresholds[index]);
+        });
+      }
+
+      function load(){
+        try{
+          const stored = JSON.parse(localStorage.getItem(STORE_KEY) || '{}');
+          FIELD_KEYS.forEach(key => {
+            if(typeof stored[key] === 'string') state[key] = stored[key];
+          });
+        }catch(error){
+          localStorage.removeItem(STORE_KEY);
+        }
+      }
+
+      function save(){
+        window.clearTimeout(saveTimer);
+        saveState.textContent = 'локально · сохраняю';
+        saveTimer = window.setTimeout(() => {
+          try{
+            localStorage.setItem(STORE_KEY, JSON.stringify(state));
+            saveState.textContent = `локально · сохранено ${new Date().toLocaleTimeString('ru-RU',{hour:'2-digit',minute:'2-digit'})}`;
+          }catch(error){
+            saveState.textContent = 'localStorage недоступен';
+          }
+        }, 180);
+      }
+
+      function hydrate(){
+        FIELD_KEYS.forEach(key => {
+          const field = form.querySelector(`[data-key="${key}"]`);
+          if(field) field.value = state[key];
+        });
+      }
+
+      function showToast(message){
+        toast.textContent = message;
+        toast.classList.add('show');
+        window.clearTimeout(toastTimer);
+        toastTimer = window.setTimeout(() => toast.classList.remove('show'), 1800);
+      }
+
+      async function copyText(text){
+        try{
+          await navigator.clipboard.writeText(text);
+          showToast('context pack copied');
+        }catch(error){
+          const helper = document.createElement('textarea');
+          helper.value = text;
+          helper.style.position = 'fixed';
+          helper.style.opacity = '0';
+          document.body.appendChild(helper);
+          helper.select();
+          const copied = document.execCommand('copy');
+          helper.remove();
+          showToast(copied ? 'context pack copied' : 'copy unavailable');
+        }
+      }
+
+      form.addEventListener('input', event => {
+        const key = event.target.dataset.key;
+        if(!key) return;
+        state[key] = event.target.value;
+        render();
+        save();
+      });
+
+      document.querySelector('#copyButton').addEventListener('click', () => copyText(preview.dataset.content || compose()));
+
+      document.querySelector('#downloadButton').addEventListener('click', () => {
+        const content = preview.dataset.content || compose();
+        const blob = new Blob([content], {type:'text/markdown;charset=utf-8'});
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = canonicalFilename();
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        window.setTimeout(() => URL.revokeObjectURL(url), 100);
+        showToast(`saved · ${canonicalFilename()}`);
+      });
+
+      document.querySelector('#exampleButton').addEventListener('click', () => {
+        Object.assign(state, example);
+        hydrate();
+        render();
+        save();
+        showToast('worked example loaded');
+      });
+
+      document.querySelector('#clearButton').addEventListener('click', () => {
+        if(!window.confirm('Очистить все поля и локальный черновик?')) return;
+        FIELD_KEYS.forEach(key => { state[key] = ''; });
+        hydrate();
+        try{ localStorage.removeItem(STORE_KEY); }catch(error){}
+        saveState.textContent = 'локально · черновик очищен';
+        render();
+        showToast('compiler cleared');
+      });
+
+      load();
+      hydrate();
+      render();
+      saveState.textContent = filledCount() ? 'локально · черновик восстановлен' : 'локально · ждёт ввода';
+    })();
+  </script>
+</body>
+</html>

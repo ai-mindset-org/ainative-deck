@@ -1,0 +1,29 @@
+name: rebuild world graph manifest
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "ain3-starter-pack/world/**"
+      - "tools/build-world-manifest.py"
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: build manifest
+        run: python3 tools/build-world-manifest.py
+      - name: commit manifest if changed
+        run: |
+          git config user.name "world-graph-bot"
+          git config user.email "actions@github.com"
+          git add ain3-starter-pack/data/world-manifest.json
+          git diff --cached --quiet || git commit -m "chore: rebuild world graph manifest"
+          git push

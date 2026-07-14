@@ -189,10 +189,10 @@
     <div class="karpathy-strip"><strong>Karpathy / nanochat:</strong> data → tokenizer → pretrain → eval → SFT → chat → inference. Один читаемый контур позволяет менять каждый слой осознанно. <a href="https://github.com/karpathy/nanochat" target="_blank" rel="noopener">primary source ↗</a></div>
   </section>
 
-  <section class="slide paper" data-title="Один recap Дениса" data-section="context" data-phase="2" data-artifact="operating brief" data-note="Это единственный recap практики Дениса. Текущая Zoom-запись ещё processing, поэтому формулировки здесь опираются на подтверждённый канон M1 и программу: задача → контекст → сценарий → результат → оценка; переносимый context живёт вне истории чата; участник выбирает один процесс, 3–5 источников и 5–7 правил результата. Сегодня operating brief получает адрес, source map, границы, skill route, first run и evidence.">
+  <section class="slide paper" data-title="Один recap Дениса" data-section="context" data-phase="2" data-artifact="operating brief" data-note="Это единственный recap практики Дениса — подтверждён транскриптом утренней сессии (Krisp, 12:00 CET, разобран в World-граф). Дословная цепочка Дениса: задача → контекст → сценарий → результат → оценка. Пять черновиков на выходе M1: процессный бриф, карта контекста, критерии качества, handoff, первый прогон. Его формулы для мостика: «мыслить процессами, не инструментами», «что нельзя измерить, нельзя улучшить», «чем меньше мы используем агента, тем эффективнее результат», «скилл — не хранилище фактов, а сценарий». Сквозной кейс — Acme и Надя: weekly update с полдня до 10 минут — и это только половина задачи, вторая половина в критериях качества (CEO понимает статус за 2–3 минуты). Сегодня operating brief получает адрес, source map, границы, skill route, first run и evidence.">
     <div class="corners"></div><div class="figure">Fig. 07 · M1 handoff</div>
     <div class="kicker">// DENIS · ONE BRIEF · ONE HANDOFF</div>
-    <h2 class="wide" data-edit>Берём один процесс из <span class="red">предыдущей практики</span></h2>
+    <h2 class="wide" data-edit>Берём один процесс из <span class="red">утренней практики</span></h2>
     <div class="brief-fields five"><div class="brief-field"><div class="ix">01</div><b>trigger</b><span>что запускает процесс</span></div><div class="brief-field"><div class="ix">02</div><b>inputs</b><span>3–5 нужных источников</span></div><div class="brief-field"><div class="ix">03</div><b>output</b><span>один наблюдаемый артефакт</span></div><div class="brief-field"><div class="ix">04</div><b>owner</b><span>кто принимает результат</span></div><div class="brief-field"><div class="ix">05</div><b>DoD</b><span>5–7 правил качества</span></div></div>
     <div class="denis-chain" aria-label="Рабочая цепочка Дениса"><span>задача</span><span>контекст</span><span>сценарий</span><span>результат</span><span>оценка</span></div>
   </section>
@@ -201,7 +201,7 @@
     <div class="corners"></div><div class="figure">Fig. 08 · token route</div>
     <div class="kicker">// TOKEN FLOW · HUMAN JUDGMENT · CLICK ANY NODE</div>
     <h2 class="wide" data-edit>Процесс – поток с <span class="red">точками суждения</span></h2>
-    <div class="route-board"><button class="route-stop human" type="button" data-go="4"><span class="ix">01 · HUMAN</span><b>agreements</b><span>что считаем правилом</span></button><button class="route-stop" type="button" data-go="5"><span class="ix">02 · AGENT</span><b>naming</b><span>объект получает адрес</span></button><button class="route-stop" type="button" data-go="9"><span class="ix">03 · AGENT</span><b>sources</b><span>сигнал отбирается</span></button><button class="route-stop human" type="button" data-go="11"><span class="ix">04 · HUMAN</span><b>boundary</b><span>scope и stop rule</span></button><button class="route-stop" type="button" data-go="15"><span class="ix">05 · AGENT</span><b>skill</b><span>процедура исполняется</span></button><button class="route-stop" type="button" data-go="17"><span class="ix">06 · AGENT</span><b>run</b><span>появляется output</span></button><button class="route-stop human" type="button" data-go="16"><span class="ix">07 · HUMAN</span><b>review</b><span>решение и оценка</span></button><button class="route-stop" type="button" data-go="21"><span class="ix">08 · TRACE</span><b>handoff</b><span>evidence продолжает контур</span></button></div>
+    <div class="route-board"><button class="route-stop human" type="button" data-go="4"><span class="ix">01 · HUMAN</span><b>agreements</b><span>что считаем правилом</span></button><button class="route-stop" type="button" data-go="5"><span class="ix">02 · AGENT</span><b>naming</b><span>объект получает адрес</span></button><button class="route-stop" type="button" data-go="9"><span class="ix">03 · AGENT</span><b>sources</b><span>сигнал отбирается</span></button><button class="route-stop human" type="button" data-go="13"><span class="ix">04 · HUMAN</span><b>boundary</b><span>scope и stop rule</span></button><button class="route-stop" type="button" data-go="17"><span class="ix">05 · AGENT</span><b>skill</b><span>процедура исполняется</span></button><button class="route-stop" type="button" data-go="19"><span class="ix">06 · AGENT</span><b>run</b><span>появляется output</span></button><button class="route-stop human" type="button" data-go="18"><span class="ix">07 · HUMAN</span><b>review</b><span>решение и оценка</span></button><button class="route-stop" type="button" data-go="23"><span class="ix">08 · TRACE</span><b>handoff</b><span>evidence продолжает контур</span></button></div>
     <div class="route-legend"><span>agent step</span><span class="human">human judgment</span><span class="trace">evidence trace</span></div>
   </section>
 
@@ -231,8 +231,35 @@
     </div>
   </section>
 
+  <section class="slide" data-title="World: лекция стала графом" data-section="context" data-phase="2" data-artifact="context graph demo" data-note="Живое демо этого утра: практика Дениса закончилась около 13:30 — Krisp-транскрипт приехал в vault по git-рельсе, /world-спавнер разложил его на контекст-граф из 38 нод, без ручного конспекта. Генезис инструмента: LLM-wiki методология Karpathy — сырые источники неприкосновенны, wiki-слой поддерживают агенты — скрещённая с собственными скиллами /ingest (извлечение сущностей) и /research (параллельный fan-out агентов) и shaper-эстетикой. Четыре агента-линзы читают один транскрипт: артефакты, экономика, люди, рамки. По сути это карта контекста Дениса, построенная агентами из самой его лекции — «процесс как источник контекста» буквально. Покажи граф в браузере: инструмент наблюдает папку и рисует рост в реальном времени.">
+    <div class="corners"></div><div class="figure">Fig. 11 · lecture context graph</div>
+    <div class="kicker">// LECTURE → TRANSCRIPT → 38 NODES · ONE HOUR</div>
+    <h2 class="wide" data-edit>Утренняя лекция уже стала <span class="red">графом</span></h2>
+    <div class="backbone">
+      <div class="backbone-step"><span class="ix">01</span><h3>lecture</h3><p>Практика M1 Дениса: 12:00 CET, 90 минут, zoom.</p><code>live audio</code></div>
+      <div class="backbone-step"><span class="ix">02</span><h3>transcript</h3><p>Krisp пишет запись, транскрипт приезжает в vault по git-рельсе.</p><code>{krisp} · .md</code></div>
+      <div class="backbone-step hot"><span class="ix">04</span><h3>agents</h3><p>Четыре линзы читают один текст: артефакты, экономика, люди, рамки.</p><code>/world · sonnet ×4</code></div>
+      <div class="backbone-step"><span class="ix">38</span><h3>graph</h3><p>Хабы, листья, wikilinks и мосты между кластерами.</p><code>38 nodes · flat .md</code></div>
+      <div class="backbone-step"><span class="ix">→</span><h3>observe</h3><p>Браузерный инструмент рисует рост графа в реальном времени.</p><code>world-context-vault</code></div>
+    </div>
+  </section>
+
+  <section class="slide paper" data-title="Правила World-графа" data-section="context" data-phase="2" data-artifact="graph rules" data-note="Правила, по которым граф собирается — и по которым его можно догружать: повторный запуск /world на той же папке добавляет кластеры (вечерний воркшоп, лекция Стёпы, следующие практики). База — Karpathy LLM wiki: сырьё неприкосновенно, синтез-слой ведут агенты; у Дениса то же правило прозвучало как «сырые данные всегда остаются источником правды». Каждый лист несёт provenance (PROV-O reduction), связи могут быть типизированы 12-словарём CiTO/IBIS — граф остаётся проверяемым: у каждого узла есть источник, модель-автор и уверенность.">
+    <div class="corners"></div><div class="figure">Fig. 12 · graph rules</div>
+    <div class="kicker">// KARPATHY LLM WIKI · HUB &amp; LEAF · PROVENANCE</div>
+    <h2 class="wide" data-edit>Граф живёт по <span class="red">правилам</span></h2>
+    <div class="memory-table six">
+      <div class="memory-row"><b>raw</b><span class="scope">immutable</span><span>транскрипт остаётся источником правды, граф строится рядом</span><code>.md</code></div>
+      <div class="memory-row"><b>lenses</b><span class="scope">×4</span><span>technical · market · people · concept — один текст, четыре агента</span><code>/world</code></div>
+      <div class="memory-row"><b>leaf</b><span class="scope">2–4 фразы</span><span>граф — это проза; хаб — чистый индекс без текста</span><code>hub &amp; leaf</code></div>
+      <div class="memory-row"><b>links</b><span class="scope">≥2 / leaf</span><span>хаб + сосед обязательны, иначе остров вне графа</span><code>[[wikilink]]</code></div>
+      <div class="memory-row"><b>provenance</b><span class="scope">per leaf</span><span>source_url · confidence · asserted_by · extracted_at</span><code>yaml</code></div>
+      <div class="memory-row"><b>relations</b><span class="scope">12 типов</span><span>supports · contradicts · extends · raises_question — где очевидно</span><code>cito/ibis</code></div>
+    </div>
+  </section>
+
   <section class="slide paper" data-title="Окно и хранилища" data-section="context" data-phase="2" data-artifact="memory scopes" data-note="Покажи, что в моём стеке память разделена по сроку жизни и уровню доверия. Window обслуживает текущий ход. Session хранит сырой stream и структурную сводку локально. Handoff фиксирует current, next, blocker и resume. Vault хранит rules, projects и decisions. Runtime индексирует registry, events и evals. Public получает только sanitized deck, templates и evidence. Стёпа на стр. 65 называет переходом к OS именно данные, связи, историю процессов, переиспользуемые skills и улучшение от запуска к запуску.">
-    <div class="corners"></div><div class="figure">Fig. 11 · memory scopes</div>
+    <div class="corners"></div><div class="figure">Fig. 13 · memory scopes</div>
     <div class="memory-layout">
       <div>
         <div class="kicker">// CONTEXT WINDOW · WORKING SET</div><h2 data-edit>Окно держит <span class="red">сейчас</span></h2>
@@ -243,7 +270,7 @@
   </section>
 
   <section class="slide" data-title="Невидимые агенты" data-section="visibility" data-phase="3" data-artifact="agent registry" data-note="Произнеси ключевую фразу целиком. Registry – первый акт видимости: имя, owner, runtime, scope, last run, status, expiry и revoke route. NIST AI RMF поддерживает принцип inventory, explicit roles и safe decommissioning. В моём стеке registry показывает, что существует; Agent Card объясняет способ вызова; Passport фиксирует делегированный scope. Это рабочий синтез, а не заявление о едином отраслевом стандарте.">
-    <div class="corners"></div><div class="figure">Fig. 12 · registry before governance</div>
+    <div class="corners"></div><div class="figure">Fig. 14 · registry before governance</div>
     <div class="kicker">// VISIBILITY · REGISTRY FIRST</div>
     <h2 class="wide" data-edit>Невидимыми агентами <span class="red">нельзя управлять</span>.</h2>
     <div class="visibility-layout">
@@ -253,7 +280,7 @@
   </section>
 
   <section class="slide paper" data-title="Agent Passport" data-section="visibility" data-phase="3" data-artifact="agent passport" data-note="Passport отвечает на вопрос: кому и какой scope делегирован. Стёпа на стр. 74 отделяет управление людьми от делегирования агентам; здесь контракт становится операционным: owner, status, role, tools, limits, data boundary, approval, expiry и revoke. Переключи identity, access и lifecycle. Open Agent Passport – draft и vendor preprint; называй слайд operator passport inspired by OAP. В starter pack лежит отдельный копируемый шаблон.">
-    <div class="corners"></div><div class="figure">Fig. 13 · operator passport</div>
+    <div class="corners"></div><div class="figure">Fig. 15 · operator passport</div>
     <div class="kicker">// OWNER · SCOPE · LIMITS · REVOKE</div>
     <h2 class="wide" data-edit>Agent Passport делает границы <span class="red">проверяемыми</span></h2>
     <div class="passport-shell">
@@ -267,7 +294,7 @@
   </section>
 
   <section class="slide paper" data-title="Router проекта" data-section="rules" data-phase="4" data-artifact="AGENTS.md / CLAUDE.md" data-note="Router загружается до первой задачи и превращает договорённости в pre-task context. AGENTS.md – имя для Codex-compatible runtime, CLAUDE.md – для Claude Code; оба описывают одну проектную конституцию. В моём router naming convention применяется всегда: агент проверяет соседние файлы, выбирает canonical type и завершает имя датой. Держи router коротким: operator, naming, map, DoD, boundaries и continuity. Процедуры живут в skills и подключаются по триггеру.">
-    <div class="corners"></div><div class="figure">Fig. 14 · pre-task constitution</div>
+    <div class="corners"></div><div class="figure">Fig. 16 · pre-task constitution</div>
     <div class="kicker">// AGENTS.md · CLAUDE.md · PROJECT CONSTITUTION</div>
     <div class="split">
       <div class="router-file"><div class="path">workspace/router · read before first task</div><div class="router-block"><b>operator</b><span>роль · язык · рабочий ритм</span></div><div class="router-block"><b>naming</b><span>project · type · description · date</span></div><div class="router-block"><b>map</b><span>sources · outputs · skills · evidence</span></div><div class="router-block"><b>DoD</b><span>измеримый quality contract</span></div><div class="router-block"><b>boundary</b><span>read · write · ask · deny</span></div><div class="router-block"><b>continuity</b><span>current · next · blocker · resume</span></div></div>
@@ -276,7 +303,7 @@
   </section>
 
   <section class="slide paper" data-title="Skills как процедурная память" data-section="skill" data-phase="5" data-artifact="SKILL.md" data-note="Покажи два настоящих архетипа моего harness: meeting-summary превращает transcript в decisions и actions; daily-focus собирает calendar, tasks и priority card. Skill появляется после повторов и хранит trigger, selected context, procedure, output, checks и evidence. Это процедурная память: кусок опыта отделился от человека и стал вызываемым. Переключи вкладки; первый setup ограничивается тремя кандидатами, каталог растёт из эксплуатации.">
-    <div class="corners"></div><div class="figure">Fig. 15 · procedural memory</div>
+    <div class="corners"></div><div class="figure">Fig. 17 · procedural memory</div>
     <div class="kicker">// SKILL.md · REPEATABLE ROUTE</div>
     <h2 class="wide" data-edit>Skill хранит способ <span class="red">действовать</span></h2>
     <div class="skill-workbench">
@@ -286,7 +313,7 @@
   </section>
 
   <section class="slide" data-title="Review и eval" data-section="skill" data-phase="5" data-artifact="eval + replay" data-note="Human review – учебный сигнал для системы. T/R/C используй как компактный локальный rubric: Text, Rules, Code. Внутренняя быстрая петля проходит output → review → evidence → update; внешняя медленная петля замечает паттерн, меняет context/rule/skill и делает replay. Это адаптация двухскоростного цикла Стёпы со стр. 41. На уровне организации performance review получает агентный эквивалент evals – стр. 70.">
-    <div class="corners"></div><div class="figure">Fig. 16 · two-speed eval loop</div>
+    <div class="corners"></div><div class="figure">Fig. 18 · two-speed eval loop</div>
     <div class="kicker">// REVIEW · SIGNAL · REPLAY</div>
     <h2 class="wide" data-edit>Review обновляет <span class="red">следующий run</span></h2>
     <div class="eval-layout"><div class="eval-cards"><div class="eval-card"><div class="letter">T</div><b>text</b><span>ясность · структура · действие</span></div><div class="eval-card"><div class="letter">R</div><b>rules</b><span>naming · boundary · tone</span></div><div class="eval-card"><div class="letter">C</div><b>code</b><span>works · tested · minimal</span></div></div><div class="review-loop"><span class="loop-label l1">output</span><span class="loop-label l2">review</span><span class="loop-label l3">evidence</span><span class="loop-label l4">update</span><b>FAIL →<br><span class="red">context / rule / skill</span></b></div></div>
@@ -294,7 +321,7 @@
   </section>
 
   <section class="slide" data-title="Session Inspector" data-section="run" data-phase="6" data-artifact="session → evidence → next run" data-note="Покажи Session Inspector крупно. Это локальная наблюдаемая поверхность над реальными Claude/Codex сессиями. Raw stream попадает в canonical index, search и topic graph; handoff записывается в Obsidian; git показывает, какие файлы реально изменились; resume открывает точную точку продолжения. На этом слайде больше нет synthetic KPI. Ценность первого run – адресуемый output, найденный gap и конкретный system update, связанный с evidence.">
-    <div class="corners"></div><div class="figure">Fig. 17 · live session surface</div>
+    <div class="corners"></div><div class="figure">Fig. 19 · live session surface</div>
     <div class="kicker">// LOCAL CANON · SEARCH · GRAPH · HANDOFF · RESUME</div>
     <h2 class="wide" data-edit>Первый run становится <span class="red">наблюдаемым</span></h2>
     <div class="inspector-stage"><a class="inspector-frame" href="http://127.0.0.1:49555/inspector.html#inspector" target="_blank" rel="noopener"><img src="session-inspector-atlas.png" alt="Sanitized Session Inspector: sessions, surfaces, graph, atlas and terminal route"></a><span class="inspector-live">local · :49555</span></div>
@@ -302,7 +329,7 @@
   </section>
 
   <section class="slide paper" data-title="Harness Atlas" data-section="run" data-phase="6" data-artifact="runtime + vault + git graph" data-note="Покажи персональный Harness Atlas как наблюдаемую карту. Runtime substrate – Claude, Codex, hooks, MCP, skills, session stream и SQLite. Human knowledge – vault, rules, meetings, decisions и evidence. Красный operator node соединяет их через naming, handoff и git. В моём personal rail raw data остаётся локально, Markdown-проекция проходит через приватный GitHub sync; публичный rail содержит только sanitized deck, starter pack, templates и examples. Стёпа на стр. 70 переводит оргструктуру в orchestration graph – этот Atlas является персональным прототипом такого graph.">
-    <div class="corners"></div><div class="figure">Fig. 18 · custom graph</div>
+    <div class="corners"></div><div class="figure">Fig. 20 · custom graph</div>
     <div class="kicker">// OBSIDIAN · RUNTIME · ONE VISIBLE MAP</div>
     <h2 class="wide" data-edit>Harness становится <span class="red">картой</span></h2>
     <div class="atlas-layout">
@@ -316,7 +343,7 @@
   </section>
 
   <section class="slide paper" data-title="От Personal OS к Company OS" data-section="run" data-phase="6" data-artifact="maturity contract" data-note="Собери мост к Стёпе без отдельного пересказа его программы. Зрелость системы диагностируется четырьмя вопросами: что AI видит, что делает, где заканчивается автономия, как измеряется результат – стр. 59–67. Один и тот же контракт поднимается от personal к team и company: локальный context становится общим source map, skill становится orchestration, review становится eval, evidence становится operating history. На стр. 76 слои компании: infrastructure, data/context, orchestration, skills/workflows, people/organization и вертикальный governance.">
-    <div class="corners"></div><div class="figure">Fig. 19 · maturity contract</div>
+    <div class="corners"></div><div class="figure">Fig. 21 · maturity contract</div>
     <div class="kicker">// SAME CONTRACT · THREE SCALES · FOUR QUESTIONS</div>
     <h2 class="wide" data-edit>Один harness растёт до <span class="red">Company OS</span></h2>
     <div class="maturity-wrap"><div class="maturity">
@@ -330,7 +357,7 @@
   </section>
 
   <section class="slide paper" data-title="Практика" data-section="run" data-phase="6" data-artifact="first addressable run" data-note="Запусти таймер T. Практика использует operating brief Дениса и проходит четыре действия: назвать output и owner, дать объектам canonical addresses, собрать selected context и delegation boundary, выполнить или точно спроектировать first run с evidence. По Стёпе отметь красным точки человеческого суждения и автоматизируй остальной маршрут. Через 12 минут попроси показать один файл, один judgment gate и одну системную правку.">
-    <div class="corners"></div><div class="figure">Fig. 20 · live build</div>
+    <div class="corners"></div><div class="figure">Fig. 22 · live build</div>
     <div class="kicker">// LIVE WORK · 12 MINUTES</div>
     <h2 class="wide" data-edit>Собери harness вокруг <span class="red">одного процесса</span></h2>
     <div class="practice"><div class="practice-step" data-practice-from="720"><div class="ix">01</div><span class="time">02:00</span><h3>output + owner</h3><p>один артефакт, DoD и человек, который принимает</p></div><div class="practice-step" data-practice-from="600"><div class="ix">02</div><span class="time">03:00</span><h3>naming + sources</h3><p>canonical addresses · 3–5 источников</p></div><div class="practice-step" data-practice-from="420"><div class="ix">03</div><span class="time">03:00</span><h3>context + boundary</h3><p>selected pack · tools · human judgment · revoke</p></div><div class="practice-step" data-practice-from="240"><div class="ix">04</div><span class="time">04:00</span><h3>run + evidence</h3><p>output · gap · system update · next run</p></div></div>
@@ -338,7 +365,7 @@
   </section>
 
   <section class="slide" data-title="Harness handoff" data-section="handoff" data-phase="7" data-artifact="setup handoff + public kit" data-note="Закрой передачей контура. Handoff проходит assess, compare, recommend и dashboard: evidence-backed map, двунаправленное сравнение, небольшой набор moves и одна визуальная поверхность. Участник забирает naming canon, Agent Passport, registry, setup handoff и ZIP. Следующий агент начинает с current state, evidence, git state и exact first action. Публичный pack содержит sanitized артефакты; личная memory rail остаётся локальной и в приватном vault.">
-    <div class="corners"></div><div class="figure">Fig. 21 · transfer protocol</div>
+    <div class="corners"></div><div class="figure">Fig. 23 · transfer protocol</div>
     <div class="close-grid">
       <div><div class="kicker">// CONTINUITY · ASSESS → TRANSFER</div><div class="statement" data-edit>Передай<br>контур<br><span class="red">следующей</span><br>сессии.</div><div class="handoff-stages"><div class="handoff-stage"><b>01</b><span>assess · evidence first</span></div><div class="handoff-stage"><b>02</b><span>compare · strengths too</span></div><div class="handoff-stage"><b>03</b><span>recommend · small moves</span></div><div class="handoff-stage"><b>04</b><span>dashboard · one view</span></div></div></div>
       <div class="download-card"><div class="path">AIN3 · PUBLIC HARNESS KIT</div><h3>Файлы, которые переживают разговор</h3><p>Rules, naming canon, context compiler, Harness Atlas, Agent Passport, registry, skills, evidence и setup handoff.</p><div class="download-actions"><a class="primary" href="../../ain3-starter-pack/ain3-personal-harness-starter-pack.zip" download><span>download full ZIP</span><span>↓</span></a><a href="../../ain3-starter-pack/agent-passport-template.md" download><span>Agent Passport</span><span>↓</span></a><a href="../../ain3-starter-pack/agent-registry-template.md" download><span>agent registry</span><span>↓</span></a><a href="../../ain3-starter-pack/harness-setup-handoff-template.md" download><span>setup handoff</span><span>↓</span></a><a href="https://ain3-personal-harness.alex-named.chatgpt.site/" target="_blank" rel="noopener"><span>open public companion</span><span>↗</span></a><a href="https://github.com/ai-mindset-org/ainative-deck/tree/main/ain3-starter-pack" target="_blank" rel="noopener"><span>GitHub source</span><span>↗</span></a></div></div>

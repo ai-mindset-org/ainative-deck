@@ -1,0 +1,426 @@
+{
+  "meta": {
+    "title": "AIN3 Harness Graph",
+    "version": "1.0.0",
+    "updated": "2026-07-14",
+    "description": "Карта персонального harness: люди, договорённости, маршруты, инструменты и проверяемые артефакты."
+  },
+  "categories": [
+    { "id": "speakers", "label": "люди", "description": "Три оптики программы: WHY, WHAT, HOW." },
+    { "id": "themes", "label": "темы", "description": "Ключевые идеи лекции и практики." },
+    { "id": "artifacts", "label": "артефакты", "description": "Файлы и поверхности, которые можно открыть и передать." },
+    { "id": "tools", "label": "инструменты", "description": "Runtime, хранилища и поверхности наблюдения." },
+    { "id": "routes", "label": "маршрут", "description": "Путь процесса от входа до handoff." },
+    { "id": "harness", "label": "harness", "description": "Управляющие договорённости и контрольные поля." }
+  ],
+  "nodes": [
+    {
+      "id": "stepan-gershuni",
+      "label": "Степан Гершуни",
+      "category": "speakers",
+      "summary": "WHY: AI-native меняет operating model. Человек проектирует среду, роли и границы работы.",
+      "x": 170,
+      "y": 180
+    },
+    {
+      "id": "denis-smirnov",
+      "label": "Денис Смирнов",
+      "category": "speakers",
+      "summary": "WHAT: процесс собирается как contract с trigger, inputs, output, owner и DoD.",
+      "x": 170,
+      "y": 400
+    },
+    {
+      "id": "alex-povaliaev",
+      "label": "Александр Поваляев",
+      "category": "speakers",
+      "summary": "HOW: персональный harness превращает договорённости в файлы, skills, runs и evidence.",
+      "x": 700,
+      "y": 440
+    },
+
+    {
+      "id": "personal-harness",
+      "label": "Персональный harness",
+      "category": "themes",
+      "summary": "Среда, которая направляет capability модели через контекст, инструменты, разрешения, evals и evidence.",
+      "x": 470,
+      "y": 210
+    },
+    {
+      "id": "agreements",
+      "label": "Договорённости",
+      "category": "themes",
+      "summary": "Явные правила делают следующий запуск воспроизводимым для человека и агента.",
+      "x": 680,
+      "y": 120
+    },
+    {
+      "id": "naming-convention",
+      "label": "Naming convention",
+      "category": "themes",
+      "summary": "Имя файла работает как индекс: project, type, description, date и extension.",
+      "x": 420,
+      "y": 510
+    },
+    {
+      "id": "context-engineering",
+      "label": "Context engineering",
+      "category": "themes",
+      "summary": "Нужный объём свежих источников собирается под конкретный результат и окно модели.",
+      "x": 760,
+      "y": 245
+    },
+    {
+      "id": "storage-boundary",
+      "label": "Граница хранения",
+      "category": "themes",
+      "summary": "Local, team, external и public слои получают владельца, срок жизни и понятный доступ.",
+      "x": 970,
+      "y": 150
+    },
+    {
+      "id": "observability",
+      "label": "Невидимые агенты",
+      "category": "themes",
+      "summary": "Невидимыми агентами нельзя управлять. Registry, Passport, runs и evidence создают наблюдаемость.",
+      "x": 970,
+      "y": 390
+    },
+
+    {
+      "id": "public-deck",
+      "label": "Публичный deck",
+      "category": "artifacts",
+      "summary": "Визуальная программа лекции: harness, naming, context, agent visibility и первый run.",
+      "x": 210,
+      "y": 690,
+      "href": "https://ain3-personal-harness.alex-named.chatgpt.site/deck/"
+    },
+    {
+      "id": "starter-pack",
+      "label": "Starter pack",
+      "category": "artifacts",
+      "summary": "Набор шаблонов для первого рабочего контура AIN3.",
+      "x": 380,
+      "y": 790,
+      "href": "../"
+    },
+    {
+      "id": "naming-builder",
+      "label": "Naming builder",
+      "category": "artifacts",
+      "summary": "Интерактивная грамматика для personal, team и model-data файлов.",
+      "x": 520,
+      "y": 650,
+      "href": "../naming/"
+    },
+    {
+      "id": "agent-passport",
+      "label": "Agent Passport",
+      "category": "artifacts",
+      "summary": "Identity, owner, scope, tools, data boundary, risk, audit, expiry и kill switch.",
+      "x": 1080,
+      "y": 530,
+      "href": "../agent-passport-template.md"
+    },
+    {
+      "id": "agent-registry",
+      "label": "Agent Registry",
+      "category": "artifacts",
+      "summary": "Индекс агентов, владельцев, triggers, доступов, evidence и stop controls.",
+      "x": 1210,
+      "y": 390,
+      "href": "../agent-registry-template.md"
+    },
+    {
+      "id": "operating-brief",
+      "label": "Operating brief",
+      "category": "artifacts",
+      "summary": "Короткий контракт процесса с результатом, входами, владельцем и definition of done.",
+      "x": 350,
+      "y": 320,
+      "href": "../operating-brief-template.md"
+    },
+    {
+      "id": "source-map",
+      "label": "Source map",
+      "category": "artifacts",
+      "summary": "Карта источников с purpose, access, freshness, boundary и fallback.",
+      "x": 860,
+      "y": 620,
+      "href": "../source-map-template.md"
+    },
+    {
+      "id": "evidence-log",
+      "label": "Evidence log",
+      "category": "artifacts",
+      "summary": "Результат прогона, проверяемый сигнал, gap и следующее системное изменение.",
+      "x": 970,
+      "y": 820,
+      "href": "../evidence-log-template.md"
+    },
+    {
+      "id": "harness-handoff",
+      "label": "Harness handoff",
+      "category": "artifacts",
+      "summary": "Точное состояние контура, открытые gaps и команда для продолжения в другом runtime.",
+      "x": 1220,
+      "y": 760,
+      "href": "../harness-setup-handoff-template.md"
+    },
+
+    {
+      "id": "obsidian",
+      "label": "Obsidian",
+      "category": "tools",
+      "summary": "Human-facing knowledge layer: заметки, ссылки, локальный граф и навигация по контексту.",
+      "x": 1450,
+      "y": 140,
+      "href": "https://obsidian.md/"
+    },
+    {
+      "id": "codex",
+      "label": "Codex",
+      "category": "tools",
+      "summary": "Agent runtime, который читает AGENTS.md, использует tools и оставляет проверяемые изменения.",
+      "x": 1430,
+      "y": 300
+    },
+    {
+      "id": "claude-code",
+      "label": "Claude Code",
+      "category": "tools",
+      "summary": "Параллельный runtime с CLAUDE.md, skills и общим файловым контекстом.",
+      "x": 1460,
+      "y": 450
+    },
+    {
+      "id": "session-inspector",
+      "label": "Session Inspector",
+      "category": "tools",
+      "summary": "Control surface для сессий, событий, расходов и evidence.",
+      "x": 1450,
+      "y": 600
+    },
+    {
+      "id": "harness-atlas",
+      "label": "Harness Atlas",
+      "category": "tools",
+      "summary": "Карта связей между runtime config, vault, skills, plugins, MCP и workflows.",
+      "x": 1430,
+      "y": 760
+    },
+    {
+      "id": "github",
+      "label": "GitHub",
+      "category": "tools",
+      "summary": "Версионируемый source для deck, templates, manifest и публичной истории изменений.",
+      "x": 660,
+      "y": 920,
+      "href": "https://github.com/ai-mindset-org/ainative-deck"
+    },
+    {
+      "id": "github-pages",
+      "label": "GitHub Pages",
+      "category": "tools",
+      "summary": "Публичная поверхность для deck, starter pack, naming builder и harness graph.",
+      "x": 430,
+      "y": 930,
+      "href": "https://ai-mindset-org.github.io/ainative-deck/"
+    },
+
+    {
+      "id": "raw-inputs",
+      "label": "Raw inputs",
+      "category": "routes",
+      "summary": "Задачи, встречи, транскрипты, docs и сигналы, которые входят в процесс.",
+      "x": 80,
+      "y": 900
+    },
+    {
+      "id": "router",
+      "label": "Router",
+      "category": "routes",
+      "summary": "AGENTS.md или CLAUDE.md указывает, где лежат правила, источники, skills и definition of done.",
+      "x": 250,
+      "y": 900
+    },
+    {
+      "id": "context-pack",
+      "label": "Context pack",
+      "category": "routes",
+      "summary": "Минимальный набор источников, ограничений и примеров для одного запуска.",
+      "x": 570,
+      "y": 790
+    },
+    {
+      "id": "skill",
+      "label": "Skill",
+      "category": "routes",
+      "summary": "Trigger, steps, tools, human gates и output contract в переносимой процедуре.",
+      "x": 710,
+      "y": 690
+    },
+    {
+      "id": "eval",
+      "label": "Eval",
+      "category": "routes",
+      "summary": "Проверка структуры, правил, качества и observable result перед приёмкой.",
+      "x": 820,
+      "y": 810
+    },
+    {
+      "id": "first-run",
+      "label": "First run",
+      "category": "routes",
+      "summary": "Первый реальный запуск на ограниченном процессе с видимым output.",
+      "x": 760,
+      "y": 520
+    },
+    {
+      "id": "evidence",
+      "label": "Evidence",
+      "category": "routes",
+      "summary": "Файл, diff, ссылка, лог или метрика, по которым можно проверить результат.",
+      "x": 930,
+      "y": 700
+    },
+    {
+      "id": "handoff",
+      "label": "Handoff",
+      "category": "routes",
+      "summary": "Restart-ready передача: current state, decisions, gaps, next command и exact paths.",
+      "x": 1100,
+      "y": 900
+    },
+
+    {
+      "id": "permissions",
+      "label": "Permissions",
+      "category": "harness",
+      "summary": "Какие tools и действия доступны агенту, где требуется human gate.",
+      "x": 1160,
+      "y": 100
+    },
+    {
+      "id": "data-boundary",
+      "label": "Data boundary",
+      "category": "harness",
+      "summary": "Какие данные агент читает, пишет, публикует и сохраняет.",
+      "x": 1280,
+      "y": 190
+    },
+    {
+      "id": "owner",
+      "label": "Owner",
+      "category": "harness",
+      "summary": "Человек, который отвечает за scope, доступы, приёмку и остановку.",
+      "x": 1050,
+      "y": 270
+    },
+    {
+      "id": "lifecycle",
+      "label": "Lifecycle",
+      "category": "harness",
+      "summary": "Создание, первый run, review, refresh, expiry и archive.",
+      "x": 1320,
+      "y": 520
+    },
+    {
+      "id": "kill-switch",
+      "label": "Kill switch",
+      "category": "harness",
+      "summary": "Понятный способ отозвать доступ, остановить run и передать recovery человеку.",
+      "x": 1240,
+      "y": 630
+    },
+    {
+      "id": "refresh-loop",
+      "label": "Refresh loop",
+      "category": "harness",
+      "summary": "Evidence обновляет rules, sources, skills и passport перед следующим запуском.",
+      "x": 1090,
+      "y": 690
+    }
+  ],
+  "edges": [
+    { "source": "stepan-gershuni", "target": "personal-harness", "kind": "idea" },
+    { "source": "stepan-gershuni", "target": "agreements", "kind": "idea" },
+    { "source": "denis-smirnov", "target": "operating-brief", "kind": "idea" },
+    { "source": "denis-smirnov", "target": "router", "kind": "idea" },
+    { "source": "alex-povaliaev", "target": "personal-harness", "kind": "practice" },
+    { "source": "alex-povaliaev", "target": "public-deck", "kind": "owner" },
+    { "source": "alex-povaliaev", "target": "harness-atlas", "kind": "owner" },
+    { "source": "alex-povaliaev", "target": "session-inspector", "kind": "owner" },
+
+    { "source": "personal-harness", "target": "agreements", "kind": "system" },
+    { "source": "personal-harness", "target": "context-engineering", "kind": "system" },
+    { "source": "personal-harness", "target": "observability", "kind": "system" },
+    { "source": "agreements", "target": "naming-convention", "kind": "system" },
+    { "source": "agreements", "target": "permissions", "kind": "system" },
+    { "source": "agreements", "target": "owner", "kind": "system" },
+    { "source": "context-engineering", "target": "storage-boundary", "kind": "system" },
+    { "source": "context-engineering", "target": "source-map", "kind": "system" },
+    { "source": "context-engineering", "target": "context-pack", "kind": "system" },
+    { "source": "storage-boundary", "target": "data-boundary", "kind": "system" },
+    { "source": "storage-boundary", "target": "obsidian", "kind": "system" },
+    { "source": "observability", "target": "agent-registry", "kind": "system" },
+    { "source": "observability", "target": "session-inspector", "kind": "system" },
+    { "source": "observability", "target": "evidence-log", "kind": "system" },
+
+    { "source": "naming-convention", "target": "naming-builder", "kind": "artifact" },
+    { "source": "naming-convention", "target": "github", "kind": "artifact" },
+    { "source": "public-deck", "target": "starter-pack", "kind": "artifact" },
+    { "source": "public-deck", "target": "github-pages", "kind": "artifact" },
+    { "source": "starter-pack", "target": "naming-builder", "kind": "artifact" },
+    { "source": "starter-pack", "target": "operating-brief", "kind": "artifact" },
+    { "source": "starter-pack", "target": "source-map", "kind": "artifact" },
+    { "source": "starter-pack", "target": "evidence-log", "kind": "artifact" },
+    { "source": "starter-pack", "target": "agent-passport", "kind": "artifact" },
+    { "source": "starter-pack", "target": "agent-registry", "kind": "artifact" },
+    { "source": "starter-pack", "target": "harness-handoff", "kind": "artifact" },
+    { "source": "agent-passport", "target": "agent-registry", "kind": "control" },
+    { "source": "agent-passport", "target": "permissions", "kind": "control" },
+    { "source": "agent-passport", "target": "data-boundary", "kind": "control" },
+    { "source": "agent-passport", "target": "owner", "kind": "control" },
+    { "source": "agent-passport", "target": "lifecycle", "kind": "control" },
+    { "source": "agent-passport", "target": "kill-switch", "kind": "control" },
+    { "source": "agent-registry", "target": "owner", "kind": "control" },
+    { "source": "agent-registry", "target": "lifecycle", "kind": "control" },
+    { "source": "evidence-log", "target": "refresh-loop", "kind": "control" },
+    { "source": "harness-handoff", "target": "handoff", "kind": "artifact" },
+
+    { "source": "raw-inputs", "target": "router", "kind": "flow" },
+    { "source": "router", "target": "context-pack", "kind": "flow" },
+    { "source": "context-pack", "target": "skill", "kind": "flow" },
+    { "source": "skill", "target": "first-run", "kind": "flow" },
+    { "source": "first-run", "target": "eval", "kind": "flow" },
+    { "source": "eval", "target": "evidence", "kind": "flow" },
+    { "source": "evidence", "target": "handoff", "kind": "flow" },
+    { "source": "handoff", "target": "refresh-loop", "kind": "flow" },
+    { "source": "refresh-loop", "target": "router", "kind": "flow" },
+    { "source": "operating-brief", "target": "raw-inputs", "kind": "route" },
+    { "source": "source-map", "target": "context-pack", "kind": "route" },
+    { "source": "evidence-log", "target": "evidence", "kind": "route" },
+
+    { "source": "router", "target": "codex", "kind": "runtime" },
+    { "source": "router", "target": "claude-code", "kind": "runtime" },
+    { "source": "skill", "target": "codex", "kind": "runtime" },
+    { "source": "skill", "target": "claude-code", "kind": "runtime" },
+    { "source": "obsidian", "target": "github", "kind": "storage" },
+    { "source": "github", "target": "github-pages", "kind": "publish" },
+    { "source": "github", "target": "harness-handoff", "kind": "storage" },
+    { "source": "session-inspector", "target": "evidence", "kind": "observe" },
+    { "source": "harness-atlas", "target": "agent-registry", "kind": "observe" },
+    { "source": "harness-atlas", "target": "obsidian", "kind": "observe" },
+    { "source": "harness-atlas", "target": "codex", "kind": "observe" },
+    { "source": "harness-atlas", "target": "claude-code", "kind": "observe" },
+
+    { "source": "permissions", "target": "data-boundary", "kind": "control" },
+    { "source": "data-boundary", "target": "owner", "kind": "control" },
+    { "source": "owner", "target": "lifecycle", "kind": "control" },
+    { "source": "lifecycle", "target": "kill-switch", "kind": "control" },
+    { "source": "kill-switch", "target": "refresh-loop", "kind": "control" }
+  ]
+}

@@ -1,0 +1,608 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>AIN3 · Harness Rules Explorer</title>
+  <meta name="description" content="13 договорённостей AIN3 в шести зонах персонального harness: context, memory, guardrail, review, naming, communication.">
+  <link rel="icon" href="data:,">
+  <style>
+    :root{
+      --paper:#f1efe8;
+      --paper-2:#e7e4da;
+      --ink:#090909;
+      --muted:#716f68;
+      --hair:#c9c6bd;
+      --red:#e2352c;
+      --red-dark:#a71914;
+      --black:#050505;
+      --white:#f8f6ef;
+      --mono:"SFMono-Regular","Cascadia Code","JetBrains Mono","Liberation Mono",monospace;
+      --display:Inter,"Helvetica Neue",Arial,sans-serif;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      background:var(--paper);
+      color:var(--ink);
+      font:14px/1.5 var(--mono);
+      -webkit-font-smoothing:antialiased;
+    }
+    body::before{
+      content:"";
+      position:fixed;
+      inset:52px 0 0;
+      pointer-events:none;
+      z-index:-1;
+      background-image:
+        linear-gradient(rgba(9,9,9,.055) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(9,9,9,.055) 1px,transparent 1px);
+      background-size:48px 48px;
+      mask-image:linear-gradient(to bottom,#000 72%,transparent);
+    }
+    button,input,a{font:inherit}
+    button{color:inherit}
+    button:focus-visible,input:focus-visible,a:focus-visible{outline:3px solid var(--red);outline-offset:3px}
+    a{color:inherit}
+    .topbar{
+      position:sticky;
+      top:0;
+      z-index:30;
+      min-height:52px;
+      display:flex;
+      align-items:center;
+      gap:18px;
+      padding:0 24px;
+      background:var(--black);
+      color:var(--white);
+      border-bottom:1px solid #333;
+      text-transform:uppercase;
+      letter-spacing:.16em;
+      font-size:10px;
+    }
+    .brand{font-weight:800;white-space:nowrap}
+    .brand b{color:var(--red)}
+    .top-status{margin-left:auto;color:#929292;white-space:nowrap}
+    .top-links{display:flex;align-items:center;gap:6px}
+    .top-links a{
+      text-decoration:none;
+      border:1px solid #404040;
+      padding:7px 10px;
+      transition:.15s ease;
+    }
+    .top-links a:hover{background:var(--white);color:var(--ink)}
+    .shell{width:min(1420px,calc(100% - 48px));margin:0 auto;padding-bottom:72px}
+    .hero{
+      min-height:430px;
+      display:grid;
+      grid-template-columns:minmax(0,1.15fr) minmax(360px,.85fr);
+      align-items:center;
+      gap:64px;
+      padding:70px 0 56px;
+      border-bottom:1px solid var(--ink);
+    }
+    .eyebrow{color:var(--red);font-weight:800;text-transform:uppercase;letter-spacing:.2em;font-size:10px}
+    h1{
+      max-width:10ch;
+      margin:20px 0 24px;
+      font:800 clamp(58px,7vw,108px)/.88 var(--display);
+      letter-spacing:-.06em;
+    }
+    h1 span{color:var(--red)}
+    .hero-copy{max-width:710px;margin:0;font:600 clamp(18px,2vw,27px)/1.34 var(--display)}
+    .hero-meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:30px}
+    .hero-meta span{border:1px solid var(--ink);padding:7px 10px;background:rgba(241,239,232,.68);font-size:10px;text-transform:uppercase;letter-spacing:.12em}
+    .harness-plate{
+      min-height:310px;
+      position:relative;
+      display:grid;
+      place-items:center;
+      overflow:hidden;
+      border:1px solid var(--ink);
+      background:var(--black);
+      color:var(--white);
+      box-shadow:12px 12px 0 rgba(226,53,44,.16);
+    }
+    .harness-plate::before,.harness-plate::after{content:"";position:absolute;border:1px solid #555;border-radius:50%}
+    .harness-plate::before{width:248px;height:248px}
+    .harness-plate::after{width:170px;height:170px;border-color:var(--red)}
+    .core{z-index:2;width:104px;height:104px;border:1px solid var(--white);display:grid;place-items:center;text-align:center;font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;transform:rotate(45deg);background:var(--black)}
+    .core span{transform:rotate(-45deg)}
+    .orbit{position:absolute;z-index:3;padding:5px 8px;background:var(--black);border:1px solid #4a4a4a;color:#aaa;text-transform:uppercase;font-size:8px;letter-spacing:.14em}
+    .orbit[data-o="1"]{top:22px;left:50%;transform:translateX(-50%)}
+    .orbit[data-o="2"]{top:78px;right:18px}
+    .orbit[data-o="3"]{bottom:55px;right:20px}
+    .orbit[data-o="4"]{bottom:22px;left:50%;transform:translateX(-50%)}
+    .orbit[data-o="5"]{bottom:55px;left:20px}
+    .orbit[data-o="6"]{top:78px;left:18px}
+    .plate-caption{position:absolute;left:14px;right:14px;bottom:9px;display:flex;justify-content:space-between;color:#666;font-size:8px;letter-spacing:.13em;text-transform:uppercase}
+    .section{padding:64px 0;border-bottom:1px solid var(--ink)}
+    .section-head{display:grid;grid-template-columns:110px 1fr;gap:24px;margin-bottom:28px}
+    .fig{padding-top:7px;color:var(--red);font-size:10px;text-transform:uppercase;letter-spacing:.18em}
+    h2{margin:0;font:800 clamp(38px,5vw,68px)/.96 var(--display);letter-spacing:-.045em}
+    .section-lead{max-width:760px;margin:14px 0 0;color:var(--muted);font-size:14px}
+    .zones{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));border:1px solid var(--ink)}
+    .zone{
+      min-height:164px;
+      display:flex;
+      flex-direction:column;
+      align-items:flex-start;
+      border:0;
+      border-right:1px solid var(--ink);
+      padding:15px;
+      background:rgba(241,239,232,.76);
+      text-align:left;
+      cursor:pointer;
+      transition:.14s ease;
+    }
+    .zone:last-child{border-right:0}
+    .zone:hover{background:var(--paper-2)}
+    .zone.active{background:var(--red);color:#fff}
+    .zone-num{font-size:9px;letter-spacing:.16em;text-transform:uppercase;opacity:.72}
+    .zone-name{margin-top:18px;font:800 clamp(16px,1.6vw,23px)/1 var(--display);word-break:break-word}
+    .zone-count{margin-top:auto;font-size:10px;letter-spacing:.12em;text-transform:uppercase}
+    .zone-purpose{display:block;margin-top:5px;color:var(--muted);font-size:9px;line-height:1.35}
+    .zone.active .zone-purpose{color:rgba(255,255,255,.72)}
+    .controls{
+      position:sticky;
+      top:52px;
+      z-index:20;
+      display:grid;
+      grid-template-columns:minmax(200px,1fr) auto auto;
+      gap:8px;
+      padding:10px;
+      border:1px solid var(--ink);
+      background:rgba(241,239,232,.96);
+      backdrop-filter:blur(10px);
+      margin-bottom:14px;
+    }
+    .search{
+      width:100%;
+      min-height:42px;
+      border:1px solid var(--ink);
+      border-radius:0;
+      padding:0 13px;
+      background:#fffdf6;
+      color:var(--ink);
+    }
+    .ctrl{
+      min-height:42px;
+      border:1px solid var(--ink);
+      background:transparent;
+      padding:0 13px;
+      cursor:pointer;
+      text-transform:uppercase;
+      letter-spacing:.11em;
+      font-size:9px;
+    }
+    .ctrl:hover{background:var(--ink);color:var(--paper)}
+    .result-line{display:flex;justify-content:space-between;gap:16px;margin:0 0 12px;color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.13em}
+    .rules{display:grid;gap:10px}
+    .rule-card{border:1px solid var(--ink);background:rgba(241,239,232,.88);scroll-margin-top:124px}
+    .rule-card[hidden]{display:none}
+    .rule-head{
+      width:100%;
+      min-height:94px;
+      display:grid;
+      grid-template-columns:56px minmax(0,1fr) auto 24px;
+      gap:18px;
+      align-items:center;
+      border:0;
+      padding:15px 18px;
+      background:transparent;
+      text-align:left;
+      cursor:pointer;
+    }
+    .rule-head:hover{background:var(--paper-2)}
+    .rule-card.open{border-color:var(--red);box-shadow:5px 5px 0 rgba(226,53,44,.13)}
+    .rule-card.open .rule-head{background:var(--ink);color:var(--paper)}
+    .rule-ix{font:800 25px/1 var(--display);color:var(--red)}
+    .rule-title{display:block;font:750 clamp(18px,2vw,26px)/1.1 var(--display);letter-spacing:-.025em}
+    .rule-problem{display:block;margin-top:7px;max-width:76ch;color:var(--muted);font-size:11px;line-height:1.4}
+    .rule-problem::before{content:"problem · ";color:var(--red);font-size:8px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+    .rule-card.open .rule-problem{color:#9c9c9c}
+    .zone-chip{border:1px solid currentColor;padding:4px 7px;font-size:8px;text-transform:uppercase;letter-spacing:.13em;white-space:nowrap}
+    .chevron{font-size:18px;line-height:1;color:var(--red);transition:transform .15s}
+    .rule-card.open .chevron{transform:rotate(45deg)}
+    .rule-body{display:none;border-top:1px solid var(--red);padding:22px 18px 18px 92px}
+    .rule-card.open .rule-body{display:block}
+    .body-grid{display:grid;grid-template-columns:1.25fr 1fr 1fr;gap:28px}
+    .field-label{display:block;margin-bottom:8px;color:var(--red);font-size:9px;text-transform:uppercase;letter-spacing:.16em;font-weight:800}
+    .field p{margin:0;color:#353535;font-size:12px;line-height:1.6}
+    .artifact-code{display:block;border-left:4px solid var(--red);background:#fffdf6;padding:10px 12px;color:var(--ink);font-size:11px;overflow-wrap:anywhere}
+    .actions{display:flex;flex-wrap:wrap;gap:7px;margin-top:20px}
+    .action{
+      display:inline-flex;
+      align-items:center;
+      min-height:35px;
+      border:1px solid var(--ink);
+      padding:0 10px;
+      background:transparent;
+      color:var(--ink);
+      text-decoration:none;
+      cursor:pointer;
+      font-size:9px;
+      text-transform:uppercase;
+      letter-spacing:.12em;
+    }
+    .action.primary{background:var(--red);border-color:var(--red);color:#fff}
+    .action:hover{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+    .empty{display:none;border:1px solid var(--ink);padding:34px;text-align:center;color:var(--muted)}
+    .empty.show{display:block}
+    .contract{
+      display:grid;
+      grid-template-columns:minmax(0,1fr) auto;
+      gap:32px;
+      align-items:end;
+      margin-top:54px;
+      padding:32px;
+      background:var(--black);
+      color:var(--paper);
+      border-left:8px solid var(--red);
+    }
+    .contract h3{max-width:12ch;margin:0;font:800 clamp(35px,4.4vw,64px)/.95 var(--display);letter-spacing:-.04em}
+    .contract p{max-width:64ch;margin:18px 0 0;color:#aaa}
+    .contract .action{border-color:#555;color:var(--paper)}
+    footer{display:flex;justify-content:space-between;gap:20px;padding:24px 0;color:var(--muted);font-size:9px;text-transform:uppercase;letter-spacing:.13em}
+    .toast{position:fixed;right:18px;bottom:18px;z-index:60;padding:11px 14px;border-left:5px solid var(--red);background:var(--black);color:var(--paper);font-size:10px;transform:translateY(70px);opacity:0;transition:.18s ease}
+    .toast.show{transform:none;opacity:1}
+    @media(max-width:1080px){
+      .zones{grid-template-columns:repeat(3,1fr)}
+      .zone:nth-child(3){border-right:0}
+      .zone:nth-child(-n+3){border-bottom:1px solid var(--ink)}
+      .hero{gap:36px}
+    }
+    @media(max-width:760px){
+      .topbar{padding:8px 14px;min-height:52px;gap:8px}.top-status{display:none}.top-links{margin-left:auto}.top-links a{padding:6px 7px;font-size:8px}
+      .shell{width:min(100% - 28px,1420px)}
+      .hero{grid-template-columns:1fr;gap:38px;padding:50px 0}.hero h1{font-size:60px}.harness-plate{min-height:290px}
+      .section{padding:50px 0}.section-head{grid-template-columns:1fr;gap:7px}
+      .zones{grid-template-columns:repeat(2,1fr)}
+      .zone{min-height:132px;border-right:1px solid var(--ink)!important;border-bottom:1px solid var(--ink)!important}
+      .zone:nth-child(2n){border-right:0!important}.zone:nth-last-child(-n+2){border-bottom:0!important}
+      .controls{grid-template-columns:1fr 1fr;top:52px}.search{grid-column:1/-1}
+      .rule-head{grid-template-columns:42px minmax(0,1fr) 20px;gap:10px;padding:14px 12px}.zone-chip{display:none}.rule-problem{font-size:10px}
+      .rule-body{padding:18px 14px}.body-grid{grid-template-columns:1fr;gap:19px}
+      .contract{grid-template-columns:1fr;padding:25px 20px}
+      footer{flex-direction:column}
+    }
+    @media(max-width:420px){
+      .brand span{display:none}.top-links a:first-child{display:none}
+      .hero h1{font-size:47px}.hero-copy{font-size:19px}.hero-meta span{font-size:8px}
+      .harness-plate{min-height:270px}.harness-plate::before{width:218px;height:218px}.harness-plate::after{width:146px;height:146px}
+      .orbit[data-o="2"],.orbit[data-o="3"]{right:7px}.orbit[data-o="5"],.orbit[data-o="6"]{left:7px}
+      .zone{padding:12px}.zone-name{font-size:18px}
+      .controls{padding:7px}.ctrl{padding:0 8px;font-size:8px}
+      .rule-title{font-size:18px}.rule-ix{font-size:20px}
+    }
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.toast,.chevron{transition:none}}
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">AI MINDSET · <b>AIN3</b> · <span>RULES EXPLORER</span></div>
+    <div class="top-status"><span id="topCount">13</span> rules · 6 zones · {ain3}</div>
+    <nav class="top-links" aria-label="Ссылки">
+      <a href="../">starter pack</a>
+      <a href="https://ain3-personal-harness.alex-named.chatgpt.site/deck/">deck</a>
+    </nav>
+  </header>
+
+  <main class="shell">
+    <section class="hero" aria-labelledby="pageTitle">
+      <div>
+        <div class="eyebrow">Fig. 00 · agreements around capability</div>
+        <h1 id="pageTitle">Договорённости становятся <span>harness</span></h1>
+        <p class="hero-copy">Тринадцать компактных правил задают контекст, память, границы, проверку и продолжение работы агента.</p>
+        <div class="hero-meta"><span>project · {ain3}</span><span>one workflow first</span><span>evidence + replay</span><span>owner + scope + expiry</span></div>
+      </div>
+      <div class="harness-plate" aria-label="Шесть зон harness вокруг агентного шага">
+        <span class="orbit" data-o="1">context</span>
+        <span class="orbit" data-o="2">memory</span>
+        <span class="orbit" data-o="3">guardrail</span>
+        <span class="orbit" data-o="4">review</span>
+        <span class="orbit" data-o="5">naming</span>
+        <span class="orbit" data-o="6">communication</span>
+        <div class="core"><span>agent<br>→ artifact</span></div>
+        <div class="plate-caption"><span>capability</span><span>bounded by contract</span></div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="zonesTitle">
+      <div class="section-head">
+        <div class="fig">Fig. 01 · zones</div>
+        <div><h2 id="zonesTitle">Шесть зон контура</h2><p class="section-lead">Клик по зоне оставляет на экране связанные правила. Повторный клик возвращает весь набор.</p></div>
+      </div>
+      <div class="zones" id="zones" role="group" aria-label="Фильтр по зоне"></div>
+    </section>
+
+    <section class="section" aria-labelledby="rulesTitle">
+      <div class="section-head">
+        <div class="fig">Fig. 02 · rules</div>
+        <div><h2 id="rulesTitle">13 рабочих правил</h2><p class="section-lead">Каждая карточка содержит проблему, договорённость, артефакт и короткую проверку. Полезные шаблоны открываются и скачиваются рядом.</p></div>
+      </div>
+      <div class="controls" aria-label="Управление списком">
+        <input class="search" id="search" type="search" inputmode="search" autocomplete="off" placeholder="поиск: passport, context, handoff…" aria-label="Поиск по правилам">
+        <button class="ctrl" id="expandVisible" type="button">раскрыть видимые</button>
+        <button class="ctrl" id="reset" type="button">сбросить</button>
+      </div>
+      <div class="result-line"><span id="filterState">all zones</span><span id="resultCount">13 / 13 rules</span></div>
+      <div class="rules" id="rules"></div>
+      <div class="empty" id="empty">Совпадений нет. Сбрось фильтр или измени запрос.</div>
+
+      <aside class="contract">
+        <div><div class="eyebrow">starter contract · AIN3</div><h3>Один процесс оставляет видимый след</h3><p>Начни с context seed, опиши владельца и границы, выполни первый запуск, сохрани evidence и передай точку продолжения.</p></div>
+        <a class="action" href="../ain3-personal-harness-starter-pack.zip" download>скачать весь pack</a>
+      </aside>
+    </section>
+
+    <footer><span>AI Mindset · AI-Native III · Personal Harness</span><span>13 rules · 6 zones · 2026</span></footer>
+  </main>
+  <div class="toast" id="toast" role="status" aria-live="polite">link copied</div>
+
+  <script>
+    const zones = [
+      {id:'context', name:'context', purpose:'что система знает перед действием'},
+      {id:'memory', name:'memory', purpose:'что сохраняется между запусками'},
+      {id:'guardrail', name:'guardrail', purpose:'где заканчивается право действия'},
+      {id:'review', name:'review', purpose:'как появляется проверяемый сигнал'},
+      {id:'naming', name:'naming', purpose:'как артефакт получает адрес'},
+      {id:'communication', name:'communication', purpose:'как работа продолжается дальше'}
+    ];
+
+    const ruleData = [
+      {
+        slug:'context-seed', zone:'context', title:'Context seed',
+        problem:'Запуск начинается с общего запроса, а источник, сигнал и критерий результата остаются скрытыми.',
+        rule:'Перед каждым содержательным шагом фиксируй source · signal · ask · output · evidence. Храни seed рядом с результатом, чтобы повторить запуск на другой модели или версии данных.',
+        artifact:'{ain3} {context} weekly decision seed – 2026-07-14.md',
+        check:'Другой оператор за минуту понимает источник, вопрос, формат и критерий качества.',
+        open:'../operating-brief-template.md', download:'../operating-brief-template.md'
+      },
+      {
+        slug:'one-workflow-first', zone:'context', title:'One workflow first',
+        problem:'Стек строится сразу для всех сценариев, поэтому ни один процесс не доходит до проверяемого запуска.',
+        rule:'Выбери один повторяемый процесс, одного владельца и один наблюдаемый output. Расширяй контур после первого evidence-сигнала.',
+        artifact:'one trigger → one skill → one output → one evidence',
+        check:'Процесс можно запустить сегодня, а результат можно показать отдельным файлом или ссылкой.',
+        open:'../demo/one-workflow-seed.md', download:'../demo/one-workflow-seed.md'
+      },
+      {
+        slug:'template-before-dashboard', zone:'context', title:'Template before dashboard',
+        problem:'Интерфейс собирается вокруг полей, которые команда ещё трактует по-разному.',
+        rule:'Сначала зафиксируй поля, типы, обязательность и словари. Проверь форму на нескольких ручных запусках, затем подключай визуализацию.',
+        artifact:'stable schema → filled examples → dashboard view',
+        check:'Два человека заполняют форму одинаково и получают сопоставимые записи.',
+        open:'../source-map-template.md', download:'../source-map-template.md'
+      },
+      {
+        slug:'context-window', zone:'context', title:'Context window protocol',
+        problem:'Сессия расходует окно на старые файлы и повторы, а следующий сложный шаг остаётся без рабочего объёма.',
+        rule:'Следи за абсолютным остатком контекста. В зоне warn сокращай повторы и готовь handoff. В зоне crit сохраняй прогресс и продолжай в новом окне.',
+        artifact:'status · remaining context · saved state · next action',
+        check:'Перед сменой окна записаны пути, решения, открытые вопросы и точный первый шаг.',
+        open:'../harness-setup-handoff-template.md', download:'../harness-setup-handoff-template.md'
+      },
+      {
+        slug:'memory-scopes', zone:'memory', title:'Memory scopes',
+        problem:'Личная, проектная и командная память смешиваются, поэтому агент читает лишнее и теряет нужное.',
+        rule:'Разделяй runtime context, project memory, team knowledge и external sources. Для каждого слоя укажи владельца, срок жизни, доступ и способ обновления.',
+        artifact:'local · project · team · external · public',
+        check:'Для каждого источника ясно, кто обновляет его, кто читает и когда запись устаревает.',
+        open:'../source-map-template.md', download:'../source-map-template.md'
+      },
+      {
+        slug:'agent-registry', zone:'guardrail', title:'Agent registry',
+        problem:'Агентные процессы запускаются из разных мест, а владельцы, разрешения и stop-control остаются невидимыми.',
+        rule:'Веди единый реестр агентов и автоматизаций: owner, status, trigger, runtime, tools, data boundary, evidence, expiry и revoke.',
+        artifact:'{ain3} {registry} active agents – 2026-07-14.md',
+        check:'Любого действующего агента можно найти, связать с владельцем и остановить из одной записи.',
+        open:'../agent-registry-template.md', download:'../agent-registry-template.md'
+      },
+      {
+        slug:'agent-passport', zone:'guardrail', title:'Agent Passport',
+        problem:'Агент действует от имени человека или команды без явного контракта полномочий.',
+        rule:'Перед выпуском опиши identity, owner, scope, tools, data boundary, risk tier, audit, expiry и kill switch. Scope агента всегда конкретен и ограничен задачей.',
+        artifact:'owner · scope · tools · data · risk · expiry · revoke',
+        check:'Ревьюер видит паспорт до результата и понимает полномочия агента за одну минуту.',
+        open:'../agent-passport-template.md', download:'../agent-passport-template.md'
+      },
+      {
+        slug:'blast-radius', zone:'guardrail', title:'Blast radius',
+        problem:'Одна политика применяется к превью, публикации, деньгам и данным, хотя цена ошибки различается.',
+        rule:'Оцени радиус каждого действия и выбери реакцию allow · ask · deny · log · escalate · learn. Усиливай проверку вместе с ценой необратимого эффекта.',
+        artifact:'action · impact · reversibility · policy · recovery',
+        check:'Для каждого рискованного действия указан human gate и понятный способ восстановления.',
+        open:'../agent-passport-template.md', download:'../agent-passport-template.md'
+      },
+      {
+        slug:'evidence-replay', zone:'review', title:'Evidence + replay',
+        problem:'История событий существует, а причину решения и путь воспроизведения через неделю найти сложно.',
+        rule:'После значимого шага сохрани result, rationale, replay path, gap и review date. Evidence связывает запуск с обновлением системы.',
+        artifact:'result · evidence · gap · replay · system update',
+        check:'Результат можно воспроизвести по ссылкам без восстановления контекста из памяти участника.',
+        open:'../evidence-log-template.md', download:'../evidence-log-template.md'
+      },
+      {
+        slug:'human-review-signal', zone:'review', title:'Human review as signal',
+        problem:'Человек подтверждает output, но причина принятия или отклонения исчезает после клика.',
+        rule:'Записывай review как структурированный сигнал: decision, reason, changed field и next rule. Повторяющиеся причины превращай в guardrail или eval.',
+        artifact:'accept | revise | reject + reason + changed field',
+        check:'После ревью система получила конкретное изменение правила, шаблона или skill.',
+        open:'../evidence-log-template.md', download:'../evidence-log-template.md'
+      },
+      {
+        slug:'auto-eval', zone:'review', title:'Auto-eval T / R / C',
+        problem:'Качество замечают на финальном output, а точка деградации внутри процесса остаётся неизвестной.',
+        rule:'Добавляй к содержательному ответу бинарную оценку T – text, R – rules, C – code. Повторяющиеся fail собирай и превращай в новую проверку.',
+        artifact:'▫ eval: T:✓ R:✓ C:○',
+        check:'Каждый fail указывает одну проверяемую причину и один следующий системный шаг.',
+        open:'../evidence-log-template.md', download:'../evidence-log-template.md'
+      },
+      {
+        slug:'naming-axis', zone:'naming', title:'Naming axis',
+        problem:'Файл понятен автору, но проект, тип, содержание и дата не читаются машиной и командой.',
+        rule:'Используй стабильную ось {project} {type} description – YYYY-MM-DD.ext. Для этой лаборатории canonical project slug: {ain3}.',
+        artifact:'{ain3} {context} harness map – 2026-07-14.md',
+        check:'Имя сортируется по дате, фильтруется по проекту и типу, а description читается без открытия файла.',
+        open:'../naming/', download:'../naming-convention.md', openLabel:'builder', downloadLabel:'canon .md'
+      },
+      {
+        slug:'handoff-continuity', zone:'communication', title:'Handoff continuity',
+        problem:'Передача работы описывает историю сессии, а точка продолжения и проверяемое состояние теряются.',
+        rule:'Handoff фиксирует цель, текущее состояние, созданные артефакты, решения, ограничения, открытые вопросы и точный next action. Все пути остаются кликабельными.',
+        artifact:'goal · state · paths · decisions · blockers · next action',
+        check:'Новый оператор начинает первый полезный шаг без устного восстановления истории.',
+        open:'../harness-setup-handoff-template.md', download:'../harness-setup-handoff-template.md'
+      }
+    ];
+
+    const state = {zone:'all', query:''};
+    const zoneRoot = document.getElementById('zones');
+    const rulesRoot = document.getElementById('rules');
+    const resultCount = document.getElementById('resultCount');
+    const filterState = document.getElementById('filterState');
+    const empty = document.getElementById('empty');
+    const search = document.getElementById('search');
+    const toast = document.getElementById('toast');
+
+    function escapeHtml(value){
+      return value.replace(/[&<>'"]/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[char]));
+    }
+
+    function renderZones(){
+      zoneRoot.innerHTML = zones.map((zone,index) => {
+        const count = ruleData.filter(rule => rule.zone === zone.id).length;
+        return `<button class="zone" type="button" data-zone="${zone.id}" aria-pressed="false">
+          <span class="zone-num">zone ${String(index + 1).padStart(2,'0')}</span>
+          <span class="zone-name">${zone.name}</span>
+          <span class="zone-count">${count} ${count === 1 ? 'rule' : 'rules'}</span>
+          <span class="zone-purpose">${zone.purpose}</span>
+        </button>`;
+      }).join('');
+    }
+
+    function renderRules(){
+      rulesRoot.innerHTML = ruleData.map((rule,index) => `<article class="rule-card" id="rule-${rule.slug}" data-slug="${rule.slug}" data-zone="${rule.zone}" data-search="${escapeHtml(`${rule.title} ${rule.problem} ${rule.rule} ${rule.artifact} ${rule.check}`.toLowerCase())}">
+        <button class="rule-head" type="button" aria-expanded="false" aria-controls="body-${rule.slug}">
+          <span class="rule-ix">${String(index + 1).padStart(2,'0')}</span>
+          <span><span class="rule-title">${rule.title}</span><span class="rule-problem">${rule.problem}</span></span>
+          <span class="zone-chip">${rule.zone}</span>
+          <span class="chevron" aria-hidden="true">+</span>
+        </button>
+        <div class="rule-body" id="body-${rule.slug}">
+          <div class="body-grid">
+            <div class="field"><span class="field-label">rule</span><p>${rule.rule}</p></div>
+            <div class="field"><span class="field-label">artifact</span><code class="artifact-code">${rule.artifact}</code></div>
+            <div class="field"><span class="field-label">check</span><p>${rule.check}</p></div>
+          </div>
+          <div class="actions">
+            <a class="action primary" href="${rule.open}">${rule.openLabel || 'open template'}</a>
+            <a class="action" href="${rule.download}" download>${rule.downloadLabel || 'download'}</a>
+            <button class="action copy-link" type="button" data-slug="${rule.slug}">copy deep link</button>
+          </div>
+        </div>
+      </article>`).join('');
+    }
+
+    function setOpen(card,open,{updateUrl=true}={}){
+      card.classList.toggle('open',open);
+      card.querySelector('.rule-head').setAttribute('aria-expanded',String(open));
+      if(open && updateUrl){
+        const url = new URL(window.location.href);
+        url.searchParams.set('rule',card.dataset.slug);
+        history.replaceState(null,'',url);
+      }
+    }
+
+    function applyFilters(){
+      let visible = 0;
+      document.querySelectorAll('.zone').forEach(button => {
+        const active = button.dataset.zone === state.zone;
+        button.classList.toggle('active',active);
+        button.setAttribute('aria-pressed',String(active));
+      });
+      document.querySelectorAll('.rule-card').forEach(card => {
+        const zoneMatch = state.zone === 'all' || card.dataset.zone === state.zone;
+        const queryMatch = !state.query || card.dataset.search.includes(state.query);
+        const show = zoneMatch && queryMatch;
+        card.hidden = !show;
+        if(show) visible += 1;
+      });
+      resultCount.textContent = `${visible} / ${ruleData.length} rules`;
+      filterState.textContent = state.zone === 'all' ? (state.query ? `search · ${state.query}` : 'all zones') : `zone · ${state.zone}`;
+      empty.classList.toggle('show',visible === 0);
+    }
+
+    function resetAll(){
+      state.zone = 'all';
+      state.query = '';
+      search.value = '';
+      document.querySelectorAll('.rule-card').forEach(card => setOpen(card,false,{updateUrl:false}));
+      const url = new URL(window.location.href);
+      url.searchParams.delete('rule');
+      history.replaceState(null,'',url);
+      applyFilters();
+    }
+
+    function showToast(message){
+      toast.textContent = message;
+      toast.classList.add('show');
+      window.clearTimeout(showToast.timer);
+      showToast.timer = window.setTimeout(() => toast.classList.remove('show'),1800);
+    }
+
+    renderZones();
+    renderRules();
+    applyFilters();
+
+    zoneRoot.addEventListener('click',event => {
+      const button = event.target.closest('.zone');
+      if(!button) return;
+      state.zone = state.zone === button.dataset.zone ? 'all' : button.dataset.zone;
+      applyFilters();
+      document.getElementById('rulesTitle').scrollIntoView({block:'start'});
+    });
+
+    rulesRoot.addEventListener('click',async event => {
+      const head = event.target.closest('.rule-head');
+      if(head){
+        const card = head.closest('.rule-card');
+        setOpen(card,!card.classList.contains('open'));
+        return;
+      }
+      const copy = event.target.closest('.copy-link');
+      if(copy){
+        const url = new URL(window.location.href);
+        url.searchParams.set('rule',copy.dataset.slug);
+        try{await navigator.clipboard.writeText(url.href);showToast('deep link copied');}
+        catch(error){showToast(url.href);}
+      }
+    });
+
+    search.addEventListener('input',() => {
+      state.query = search.value.trim().toLowerCase();
+      applyFilters();
+    });
+
+    document.getElementById('expandVisible').addEventListener('click',event => {
+      const visible = [...document.querySelectorAll('.rule-card:not([hidden])')];
+      const shouldOpen = visible.some(card => !card.classList.contains('open'));
+      visible.forEach(card => setOpen(card,shouldOpen,{updateUrl:false}));
+      event.currentTarget.textContent = shouldOpen ? 'свернуть видимые' : 'раскрыть видимые';
+    });
+    document.getElementById('reset').addEventListener('click',resetAll);
+
+    const requested = new URLSearchParams(window.location.search).get('rule');
+    if(requested){
+      const target = document.querySelector(`[data-slug="${CSS.escape(requested)}"]`);
+      if(target){
+        setOpen(target,true,{updateUrl:false});
+        window.requestAnimationFrame(() => target.scrollIntoView({block:'start'}));
+      }
+    }
+  </script>
+</body>
+</html>

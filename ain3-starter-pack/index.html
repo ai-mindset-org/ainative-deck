@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AIN3 · Personal Harness</title>
+  <meta name="description" content="Rules, naming, context compiler, graph, Agent Passport and handoff for one observable AI-native process.">
+  <meta property="og:title" content="AIN3 · Personal Harness">
+  <meta property="og:description" content="Договорённости, контекст, skills и следы одного рабочего агентского процесса.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://ain3-personal-harness.alex-named.chatgpt.site/">
+  <meta property="og:image" content="https://ain3-personal-harness.alex-named.chatgpt.site/assets/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="data:,">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet">
+  <style>
+    :root{--paper:#f2f0e9;--ink:#0a0a0a;--muted:#706f6a;--hair:#d7d4cb;--red:#d22;--red2:#ff4c43;--blue:#38bdf8;--black:#070707;--mono:"JetBrains Mono",monospace;--display:"Space Grotesk",sans-serif}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--mono);font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+    body::before{content:"";position:fixed;inset:0;pointer-events:none;background-image:linear-gradient(rgba(10,10,10,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(10,10,10,.045) 1px,transparent 1px);background-size:48px 48px;mask-image:linear-gradient(to bottom,black,transparent 82%)}
+    a{color:inherit}
+    .shell{max-width:1440px;margin:0 auto;padding:0 36px 80px;position:relative}.top{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--ink);height:76px;gap:24px}.brand{font-family:var(--display);font-weight:700;letter-spacing:.16em;text-transform:uppercase}.topnav{display:flex;gap:0}.topnav a{font-size:10px;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;border:1px solid var(--ink);padding:8px 12px;margin-left:-1px;background:var(--paper)}.topnav a:hover{background:var(--ink);color:var(--paper)}
+    .brand{display:flex;align-items:center;gap:11px}.brand img{width:34px;height:34px;border-radius:50%;object-fit:cover;border:1px solid var(--ink);filter:grayscale(1)}
+    .hero{min-height:650px;display:grid;grid-template-columns:minmax(0,1.22fr) minmax(360px,.78fr);gap:56px;align-items:center;border-bottom:1px solid var(--ink);position:relative}.kicker{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--red);font-weight:700;margin-bottom:22px}.hero h1{font:700 clamp(64px,8vw,126px)/.84 var(--display);letter-spacing:-.055em;margin:0;max-width:8.5ch}.hero h1 em{font-style:normal;color:var(--red)}.lead{font:500 clamp(20px,2vw,30px)/1.35 var(--display);max-width:31ch;margin:30px 0 0}.hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:34px}.btn{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:0 18px;border:1px solid var(--ink);text-decoration:none;text-transform:uppercase;letter-spacing:.11em;font-size:11px;background:var(--paper)}.btn.primary{background:var(--red);color:white;border-color:var(--red)}.btn:hover{transform:translateY(-2px);box-shadow:5px 5px 0 var(--ink)}
+    .hero-plate{border:1px solid var(--ink);background:var(--black);color:var(--paper);padding:26px;min-height:390px;display:flex;flex-direction:column;justify-content:space-between;position:relative;box-shadow:12px 12px 0 rgba(210,34,34,.16)}.hero-plate::before,.hero-plate::after{content:"";position:absolute;background:var(--red)}.hero-plate::before{width:90px;height:7px;top:28px;right:-18px}.hero-plate::after{width:1px;height:110px;bottom:-22px;left:42px}.plate-label{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--red2)}.grammar{font:600 clamp(20px,2.2vw,31px)/1.55 var(--mono);margin:48px 0}.grammar span{display:inline-block}.grammar .p{color:var(--blue)}.grammar .t{color:var(--red2)}.plate-foot{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid #4a4a4a}.plate-foot div{padding:12px;border-right:1px solid #4a4a4a}.plate-foot div:last-child{border:0}.plate-foot b{display:block;font:700 24px/1 var(--display)}.plate-foot span{display:block;margin-top:6px;color:#aaa;font-size:8px;letter-spacing:.12em;text-transform:uppercase}
+    .section{padding:88px 0;border-bottom:1px solid var(--ink)}.section-head{display:grid;grid-template-columns:120px minmax(0,1fr);gap:24px;align-items:start;margin-bottom:44px}.fig{font-size:11px;color:var(--red);letter-spacing:.18em;text-transform:uppercase}.section h2{font:700 clamp(40px,5vw,76px)/.98 var(--display);letter-spacing:-.035em;margin:0;max-width:17ch}.section-copy{max-width:780px;margin:20px 0 0;color:var(--muted);font-size:17px}
+    .surfaces{display:grid;grid-template-columns:repeat(5,1fr);border:1px solid var(--ink)}.surface{min-height:220px;padding:22px;border-right:1px solid var(--ink);text-decoration:none;display:flex;flex-direction:column;justify-content:space-between;transition:.18s}.surface:last-child{border-right:0}.surface:hover{background:var(--black);color:var(--paper);transform:translateY(-5px)}.surface .key{color:var(--red);font-size:10px;letter-spacing:.18em;text-transform:uppercase}.surface h3{font:600 26px/1.02 var(--display);margin:28px 0 10px}.surface p{font-size:12px;color:var(--muted);margin:0}.surface:hover p{color:#aaa}.surface .go{font-size:20px;align-self:flex-end}
+    .route{display:grid;grid-template-columns:repeat(8,1fr);border:1px solid var(--ink)}.route div{min-height:150px;padding:16px;border-right:1px solid var(--ink);position:relative}.route div:last-child{border:0}.route b{font:700 34px/1 var(--display);color:var(--red)}.route span{display:block;margin-top:30px;font-weight:600}.route small{display:block;margin-top:6px;color:var(--muted);font-size:9px}
+    .artifact-list{border-top:1px solid var(--ink)}.artifact-group{min-height:48px;background:var(--black);color:var(--paper);display:flex;align-items:center;justify-content:space-between;gap:20px;padding:0 18px;border-bottom:1px solid var(--ink);text-transform:uppercase;letter-spacing:.15em;font-size:9px}.artifact-group span{color:var(--red2)}.artifact-group b{font-weight:500;color:#8d8d8d}.artifact{display:grid;grid-template-columns:74px minmax(220px,.8fr) minmax(280px,1.2fr) auto;border-bottom:1px solid var(--ink);align-items:center;gap:18px;min-height:92px}.artifact .n{font:700 32px/1 var(--display);color:var(--red)}.artifact h3{font:600 20px/1.2 var(--display);margin:0}.artifact p{margin:0;color:var(--muted);font-size:13px}.artifact .links{display:flex;gap:6px}.artifact .links a{font-size:9px;letter-spacing:.11em;text-transform:uppercase;text-decoration:none;border:1px solid var(--ink);padding:7px 9px;white-space:nowrap}.artifact .links a:hover{background:var(--ink);color:var(--paper)}
+    .run{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--ink)}.run-step{padding:28px;min-height:210px;border-right:1px solid var(--ink);border-bottom:1px solid var(--ink)}.run-step:nth-child(2n){border-right:0}.run-step:nth-last-child(-n+2){border-bottom:0}.run-step .ix{color:var(--red);font-size:11px;letter-spacing:.16em}.run-step h3{font:600 28px/1.1 var(--display);margin:26px 0 12px}.run-step p{margin:0;color:var(--muted);max-width:44ch}
+    .final{background:var(--black);color:var(--paper);margin:0 -36px;padding:80px 36px;display:grid;grid-template-columns:1fr auto;gap:40px;align-items:end}.final h2{font:700 clamp(48px,7vw,104px)/.9 var(--display);max-width:9ch;margin:0;letter-spacing:-.045em}.final h2 span{color:var(--red2)}.final p{color:#aaa;max-width:56ch}.final .btn{background:transparent;border-color:var(--paper);color:var(--paper)}.final .btn.primary{background:var(--red);border-color:var(--red)}
+    footer{display:flex;justify-content:space-between;gap:20px;padding:24px 0;font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted)}
+    .toast{position:fixed;right:24px;bottom:24px;background:var(--ink);color:var(--paper);border-left:5px solid var(--red);padding:12px 16px;font-size:11px;transform:translateY(80px);opacity:0;transition:.22s;z-index:50}.toast.show{transform:none;opacity:1}
+    @media(max-width:1120px){.surfaces{grid-template-columns:repeat(3,1fr)}.surface{border-bottom:1px solid var(--ink)}.surface:nth-child(3){border-right:0}.surface:nth-child(n+4){border-bottom:0}.route{grid-template-columns:repeat(4,1fr)}.route div:nth-child(4n){border-right:0}.route div:nth-child(-n+4){border-bottom:1px solid var(--ink)}}
+    @media(max-width:980px){.hero{grid-template-columns:1fr;padding:80px 0}.hero-plate{min-height:340px}.artifact{grid-template-columns:60px 1fr auto}.artifact p{grid-column:2/4;padding-bottom:16px}.final{grid-template-columns:1fr}}
+    @media(max-width:680px){.shell{padding:0 18px 50px}.top{height:auto;padding:18px 0;align-items:flex-start;flex-direction:column}.topnav{flex-wrap:wrap}.topnav a{padding:6px 8px}.hero{min-height:0;gap:34px}.hero h1{font-size:58px}.hero-plate{padding:20px;min-height:310px}.grammar{font-size:18px}.plate-foot{grid-template-columns:1fr 1fr}.plate-foot div:nth-child(2){border-right:0}.plate-foot div:nth-child(-n+2){border-bottom:1px solid #4a4a4a}.section{padding:64px 0}.section-head{grid-template-columns:1fr;gap:10px}.surfaces{grid-template-columns:1fr 1fr}.surface{min-height:180px;border-right:1px solid var(--ink)!important;border-bottom:1px solid var(--ink)!important}.surface:nth-child(2n){border-right:0!important}.surface:last-child{grid-column:1/-1;border-bottom:0!important}.route{grid-template-columns:1fr 1fr}.route div{border-right:1px solid var(--ink)!important;border-bottom:1px solid var(--ink)!important}.route div:nth-child(2n){border-right:0!important}.route div:nth-last-child(-n+2){border-bottom:0!important}.artifact{grid-template-columns:46px 1fr;gap:12px;padding:16px 0}.artifact .links,.artifact p{grid-column:2}.artifact .links{flex-wrap:wrap}.run{grid-template-columns:1fr}.run-step{border-right:0;border-bottom:1px solid var(--ink)!important}.run-step:last-child{border-bottom:0!important}.final{margin:0 -18px;padding:64px 18px}.brand{font-size:12px}}
+    @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}.btn,.toast,.surface{transition:none}}
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <header class="top">
+      <div class="brand"><img src="assets/alexander-povaliaev.png" alt="Александр Поваляев"><span>AI Mindset · AIN3</span></div>
+      <nav class="topnav" aria-label="Навигация">
+          <a href="rules/">rules</a><a href="naming/">naming</a><a href="playground/">playground</a><a href="graph/">graph</a><a href="#files">files</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <div>
+        <div class="kicker">W1 · Personal OS · portable public kit</div>
+        <h1>personal <em>harness</em></h1>
+        <p class="lead">Договорённости, которые направляют модель и оставляют видимый след каждого рабочего запуска.</p>
+        <div class="hero-actions">
+          <a class="btn primary" href="ain3-personal-harness-starter-pack.zip" download>скачать ZIP</a>
+          <a class="btn" href="https://ain3-personal-harness.alex-named.chatgpt.site/deck/">открыть дек</a>
+          <a class="btn" href="https://ai-native.aimindset.org/" target="_blank" rel="noopener">программа ↗</a>
+        </div>
+      </div>
+      <div class="hero-plate" aria-label="Формула нейминга">
+        <div class="plate-label">// filename as address · human + agent + git</div>
+        <div class="grammar"><span class="p">{ain3}</span> <span class="t">{template}</span><br>agent passport<br>– 2026-07-14.md</div>
+        <div class="plate-foot"><div><b>1</b><span>agreement</span></div><div><b>8</b><span>phases</span></div><div><b>6</b><span>zones</span></div><div><b>1</b><span>visible run</span></div></div>
+      </div>
+    </section>
+
+    <section class="section" id="surfaces">
+      <div class="section-head"><div class="fig">Fig. 00 · live kit</div><div><h2>Пять поверхностей одного контура</h2><p class="section-copy">Открывай систему с любой точки: договорённость, адрес файла, контекст, карта или сцена.</p></div></div>
+      <div class="surfaces">
+        <a class="surface" href="rules/"><span class="key">01 · agreements</span><div><h3>Rules</h3><p>6 зон и 13 правил, которые можно принять как контракт.</p></div><span class="go">↗</span></a>
+        <a class="surface" href="naming/"><span class="key">02 · address</span><div><h3>Naming</h3><p>Живой конструктор для человека, команды и model data.</p></div><span class="go">↗</span></a>
+        <a class="surface" href="playground/"><span class="key">03 · compiler</span><div><h3>Playground</h3><p>Компактный context pack из сырого описания процесса.</p></div><span class="go">↗</span></a>
+        <a class="surface" href="graph/"><span class="key">04 · observability</span><div><h3>Harness Atlas</h3><p>Навигационный граф людей, артефактов и маршрутов AIN3.</p></div><span class="go">↗</span></a>
+        <a class="surface" href="https://ain3-personal-harness.alex-named.chatgpt.site/deck/"><span class="key">05 · lecture</span><div><h3>Deck</h3><p>18 слайдов, заметки спикера и кликабельный процесс.</p></div><span class="go">↗</span></a>
+      </div>
+    </section>
+
+    <section class="section" id="route">
+      <div class="section-head"><div class="fig">Fig. 01 · route</div><div><h2>Процесс проходит восемь видимых фаз</h2><p class="section-copy">Каждая фаза оставляет файл или проверяемый сигнал. Контур переносится между runtime и поднимается на уровень команды.</p></div></div>
+      <div class="route"><div><b>01</b><span>agreement</span><small>scope · limits · owner</small></div><div><b>02</b><span>naming</span><small>project · type · date</small></div><div><b>03</b><span>sources</span><small>access · freshness · boundary</small></div><div><b>04</b><span>router</span><small>map · rules · DoD</small></div><div><b>05</b><span>skill</span><small>trigger · steps · output</small></div><div><b>06</b><span>run</span><small>observable artifact</small></div><div><b>07</b><span>evidence</span><small>result · gap · update</small></div><div><b>08</b><span>handoff</span><small>restart · owner · next</small></div></div>
+    </section>
+
+    <section class="section" id="files">
+      <div class="section-head"><div class="fig">Fig. 02 · files</div><div><h2>Файлы для первого рабочего контура</h2><p class="section-copy">Открывай в браузере, скачивай по одному или бери весь пакет ZIP.</p></div></div>
+      <div class="artifact-list">
+        <div class="artifact-group"><span>01 · foundation</span><b>entry points + grammar</b></div>
+        <div class="artifact"><div class="n">01</div><h3>Setup checklist</h3><p>Последовательность настройки за 25–40 минут.</p><div class="links"><a href="setup-checklist.md">open</a><a href="setup-checklist.md" download>download</a></div></div>
+        <div class="artifact"><div class="n">02</div><h3>Stack map</h3><p>Runtime, context, rules, skills, connectors, history and surfaces.</p><div class="links"><a href="stack-map.md">open</a><a href="stack-map.md" download>download</a></div></div>
+        <div class="artifact"><div class="n">03</div><h3>AGENTS.md template</h3><p>Router для Codex и agent-compatible сред.</p><div class="links"><a href="AGENTS.md.template">open</a><a href="AGENTS.md.template" download>download</a></div></div>
+        <div class="artifact"><div class="n">04</div><h3>CLAUDE.md template</h3><p>Router для Claude Code.</p><div class="links"><a href="CLAUDE.md.template">open</a><a href="CLAUDE.md.template" download>download</a></div></div>
+        <div class="artifact"><div class="n">05</div><h3>Naming convention</h3><p>Interactive personal, team and model-data grammar with four storage formats.</p><div class="links"><a href="naming/">builder</a><a href="naming-convention.md">canon</a><a href="naming-convention.md" download>download</a></div></div>
+        <div class="artifact-group"><span>02 · visibility</span><b>agent identity + control</b></div>
+        <div class="artifact"><div class="n">06</div><h3>Agent Passport</h3><p>Identity, scope, tools, data boundary, risk, audit, expiry and kill switch.</p><div class="links"><a href="agent-passport-template.md">open</a><a href="agent-passport-template.md" download>download</a></div></div>
+        <div class="artifact"><div class="n">07</div><h3>Agent Registry</h3><p>One visible index of owners, triggers, access, evidence and stop controls.</p><div class="links"><a href="agent-registry-template.md">open</a><a href="agent-registry-template.md" download>download</a></div></div>
+        <div class="artifact-group"><span>03 · first run</span><b>brief → context → skill → evidence</b></div>
+        <div class="artifact"><div class="n">08</div><h3>Operating brief</h3><p>Five-field process contract and first-run definition.</p><div class="links"><a href="operating-brief-template.md">open</a><a href="operating-brief-template.md" download>download</a></div></div>
+        <div class="artifact"><div class="n">09</div><h3>Source map</h3><p>Minimum sufficient context with access, freshness and boundary.</p><div class="links"><a href="source-map-template.md">open</a><a href="source-map-template.md" download>download</a></div></div>
+        <div class="artifact"><div class="n">10</div><h3>Operating brief skill</h3><p>Raw process description → portable process contract.</p><div class="links"><a href="skills/operating-brief/SKILL.md">open</a><a href="skills/operating-brief/SKILL.md" download>download</a></div></div>
+        <div class="artifact"><div class="n">11</div><h3>Process audit skill</h3><p>Process steps → one high-leverage automation candidate.</p><div class="links"><a href="skills/process-audit/SKILL.md">open</a><a href="skills/process-audit/SKILL.md" download>download</a></div></div>
+        <div class="artifact"><div class="n">12</div><h3>Evidence log</h3><p>Run result, evidence, gap and next system change.</p><div class="links"><a href="evidence-log-template.md">open</a><a href="evidence-log-template.md" download>download</a></div></div>
+        <div class="artifact"><div class="n">13</div><h3>Filled demo</h3><p>Synthetic weekly-digest contour from brief to evidence.</p><div class="links"><a href="demo/one-workflow-seed.md">open</a><a href="demo/one-workflow-seed.md" download>download</a></div></div>
+        <div class="artifact"><div class="n">14</div><h3>Refresh ritual</h3><p>Fifteen-minute system review every 1–2 weeks.</p><div class="links"><a href="refresh-ritual.md">open</a><a href="refresh-ritual.md" download>download</a></div></div>
+        <div class="artifact-group"><span>04 · handoff</span><b>assess → compare → recommend → dashboard</b></div>
+        <div class="artifact"><div class="n">15</div><h3>Harness Setup Handoff</h3><p>Evidence-first transfer with bidirectional comparison, two cross-cutting axes and exact restart fields.</p><div class="links"><a href="harness-setup-handoff-template.md">open</a><a href="harness-setup-handoff-template.md" download>download</a></div></div>
+      </div>
+    </section>
+
+    <section class="section" id="start">
+      <div class="section-head"><div class="fig">Fig. 03 · start</div><div><h2>Первый запуск за четыре действия</h2></div></div>
+      <div class="run"><div class="run-step"><div class="ix">01 · SELECT</div><h3>Выбери результат</h3><p>Один процесс, один владелец, один observable output.</p></div><div class="run-step"><div class="ix">02 · MAP</div><h3>Дай минимальный контекст</h3><p>3–5 источников, router и measurable definition of done.</p></div><div class="run-step"><div class="ix">03 · RUN</div><h3>Собери первый skill</h3><p>Trigger, steps, output, human gates and evidence.</p></div><div class="run-step"><div class="ix">04 · UPDATE</div><h3>Запиши один сигнал</h3><p>Result, gap and one change to sources, rules or skill.</p></div></div>
+    </section>
+
+    <section class="final">
+      <div><div class="kicker">next run · today</div><h2>Один процесс. Один <span>след.</span></h2><p>Скачай пакет, подставь свой brief из M1 и сохрани первый output до конца недели.</p></div>
+      <div class="hero-actions"><a class="btn primary" href="ain3-personal-harness-starter-pack.zip" download>скачать ZIP</a><button class="btn" type="button" id="copySchema">скопировать naming</button></div>
+    </section>
+    <footer><span>AI Mindset · AI-Native Sprint III</span><span>public starter pack · 2026</span></footer>
+  </main>
+  <div class="toast" id="toast" role="status">naming copied</div>
+  <script>
+    const schema='{project} {type} description – YYYY-MM-DD.ext';
+    const copy=document.getElementById('copySchema');
+    const toast=document.getElementById('toast');
+    copy.addEventListener('click',async()=>{try{await navigator.clipboard.writeText(schema);toast.textContent='naming copied';}catch(e){toast.textContent=schema;}toast.classList.add('show');setTimeout(()=>toast.classList.remove('show'),2200);});
+  </script>
+</body>
+</html>

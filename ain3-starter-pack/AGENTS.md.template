@@ -1,6 +1,6 @@
-# CLAUDE.md – workspace router
+# AGENTS.md – workspace router
 
-> Claude Code reads this file before the first task. Keep the router concise. Put repeatable procedures in `.claude/skills/` and working data in the folders below.
+> Codex and agent-compatible tools read this file before the first task. Keep the router concise. Put repeatable procedures in `.agents/skills/` and working data in the folders below.
 
 ## Operator
 
@@ -31,7 +31,7 @@
 - `sources/` – approved inputs for the current process.
 - `output/` – observable results of each run.
 - `evidence-log.md` – one line per run: result, gap, system update.
-- `.claude/skills/` – repeatable procedures.
+- `.agents/skills/` – repeatable procedures.
 - `private/` – local-only material. Never include it in public or team output.
 
 ## Definition of done

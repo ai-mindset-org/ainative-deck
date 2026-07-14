@@ -1,19 +1,48 @@
-# Refresh-ритуал – раз в 1–2 недели
+# Refresh ritual – every 1–2 weeks
 
-Контур закрыт только когда система обновляет себя. Без ревью это не continuous improvement, а continuous degradation: люди дёргают один и тот же рычаг, а становится хуже, и никто не замечает. Пятнадцать минут раз в две недели держат контур живым.
+Fifteen minutes keeps the personal harness current. Review the evidence log first and make a small number of system changes.
 
-## Чек-лист
+## Evidence review
 
-- [ ] **Дубли скиллов.** Есть ли два скилла с пересечением >60%? Слей в один.
-- [ ] **Мёртвые скиллы.** Что не запускалось за 30 дней? Часто проблема в имени/описании, а не в скилле – почини триггер или удали.
-- [ ] **Ручные повторы.** Что делал руками 3+ раза за период? Кандидат в новый скилл.
-- [ ] **Провалы evidence.** Где критерий качества не прошёл 3+ раза в одной области? Это правило в `CLAUDE.md`.
-- [ ] **Длина файлов правил.** `CLAUDE.md` / `AGENTS.md` не разрослись за 200 строк? Модель начинает терять инструкции – вынеси детали в скиллы.
-- [ ] **Границы.** Появились ли новые действия, которые агент делает сам, но должен спрашивать? Обнови public/team/local/ask-first.
-- [ ] **Свежесть источников.** Карта контекста всё ещё указывает на живые источники? Мёртвые ссылки – тихая деградация.
+- [ ] Which output passed the definition of done?
+- [ ] Which gap repeated at least twice?
+- [ ] Which source, rule, example or skill explains that gap?
 
-## Правило извлечения и удаления
+## Context
 
-- **Извлекай** скилл при 3+ ручных повторах.
-- **Удаляй** скилл после 60 дней без использования.
-- **Первая ретроспектива – сейчас**, по итогам первых трёх скиллов, а не «когда-нибудь».
+- [ ] Source map contains 3–5 live sources.
+- [ ] Access routes still work.
+- [ ] Accepted examples reflect the current quality bar.
+- [ ] Personal and sensitive material has the correct boundary.
+
+## Rules
+
+- [ ] Router stays concise and readable.
+- [ ] A repeated instruction moved into a skill when it became procedural.
+- [ ] A repeated quality failure became a measurable rule.
+- [ ] Public / team / local / ask-first boundaries match current work.
+
+## Skills
+
+- [ ] Skills with overlapping purpose are consolidated.
+- [ ] Unused skills have a clearer trigger or a retirement decision.
+- [ ] Manual work repeated three times is reviewed as a skill candidate.
+- [ ] Every active skill has trigger, steps, output and evidence.
+
+## Continuity
+
+- [ ] Latest output and evidence are easy to find.
+- [ ] Next run has an owner and trigger.
+- [ ] Git history or another change log captures material updates.
+
+## Change budget
+
+Choose up to three changes:
+
+```text
+1. {highest-leverage change}
+2. {second change}
+3. {optional cleanup}
+```
+
+Record the refresh in `evidence-log.md`.

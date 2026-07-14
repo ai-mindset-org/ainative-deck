@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AIN3 · Personal Setup – твой угол ринга</title>
+<title>AIN3 · Personal Setup</title>
 <meta property="og:title" content="AIN3 · Personal Setup">
 <meta property="og:description" content="Собери среду, где агент не начинает с нуля. AI-Native Sprint v3, W1. Александр Поваляев.">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -151,6 +151,27 @@ body.mode-edit [data-eid]:focus{outline:1px solid var(--teal);background:rgba(92
 @media (max-width:960px){.slide{padding:90px 24px}.two,.two.rev{grid-template-columns:1fr;gap:28px}
   .ladder{grid-template-columns:repeat(2,1fr)}.g3,.g4{grid-template-columns:1fr 1fr}.map{grid-template-columns:1fr;gap:4px}
   #boxChat{width:calc(100vw - 36px)}.route{width:70vw}.fkeys{display:none}}
+@media (max-width:640px){
+  /* no clipping: let each slide scroll vertically, top-align, compressed chrome */
+  .stage{align-items:stretch}
+  .slide{min-height:0;height:100vh;overflow-y:auto;overflow-x:hidden;justify-content:flex-start;padding:58px 16px 74px;-webkit-overflow-scrolling:touch}
+  .lead,.big,.card p,ul.bl li,.lead b{overflow-wrap:anywhere}
+  ul.bl{max-width:none!important}
+  .chips{flex-direction:column;align-items:flex-start}.chips a,.chip{max-width:100%}
+  .chrome{padding:0 10px;top:8px;gap:6px}.pills{gap:5px;flex-wrap:wrap}.pill-b{padding:5px 7px;font-size:10px}
+  .navbtns{display:none}.counter{font-size:11px}
+  .route{display:none}
+  h1{font-size:clamp(34px,10vw,46px);margin-bottom:16px}h2{font-size:clamp(26px,7.5vw,36px);margin-bottom:16px}
+  .lead,.big{font-size:16px;max-width:none}.quote{font-size:26px;max-width:none}
+  .eyebrow{font-size:10px;margin-bottom:12px}
+  .grid[style*="repeat(6"]{grid-template-columns:1fr 1fr!important}
+  .map-os{grid-template-columns:auto auto 1fr;font-size:14px;gap:8px 12px}
+  .ladder{grid-template-columns:1fr 1fr}
+  .term{font-size:12px;padding:14px 14px}
+  .dots{display:none}.wfoot{height:42px;padding:0 12px}.fsec{font-size:10px}.fbadge .n{display:none}
+  #box{top:auto;bottom:52px;right:12px;transform:none}#boxSvg{width:44px;height:56px}
+  .box-pop{right:64px;top:auto;bottom:70px;max-width:200px}
+}
 </style>
 </head>
 <body>
@@ -460,7 +481,7 @@ body.mode-edit [data-eid]:focus{outline:1px solid var(--teal);background:rgba(92
 <div class="box-pop" id="boxPop"></div>
 <div id="boxChat">
   <div class="h"><span>◈ <b>секундант</b> · в твоём углу</span><button onclick="toggleChat(false)" style="border:0;background:none;color:var(--dim);cursor:pointer;font-size:15px">×</button></div>
-  <div id="boxLog"><div class="m ai">я в твоём углу. модель – боец, ты – тренер. спрашивай про план на бой (context pack), комбинации (skill), карту угла или домашку. отвечаю коротко и по делу.</div></div>
+  <div id="boxLog"><div class="m ai">секундант на связи. спрашивай про personal setup: source map, context pack, skill, evidence, нейминг или домашку. отвечаю коротко и по делу.</div></div>
   <div class="qchips">
     <button onclick="ask('что такое context pack и зачем')">context pack?</button>
     <button onclick="ask('как выбрать первый процесс')">первый процесс?</button>
@@ -473,6 +494,7 @@ body.mode-edit [data-eid]:focus{outline:1px solid var(--teal);background:rgba(92
 <script>
 const DECK_ID="ain3-personal-setup";
 const SAVE_BASE="http://127.0.0.1:49666";
+const SAVE_ON=(location.protocol==='file:')||/^(127\.0\.0\.1|localhost)$/.test(location.hostname); // git+realtime only in local preview; public falls through to edits.json/localStorage
 const slides=[...document.querySelectorAll('.slide')];
 let cur=0;
 document.getElementById('tot').textContent=slides.length;
@@ -521,9 +543,11 @@ function applyEdits(edits){if(!edits)return;document.querySelectorAll('[data-eid
 let saveT;
 function scheduleSave(){clearTimeout(saveT);saveT=setTimeout(saveRealtime,650);}
 async function saveRealtime(){const edits=collectEdits();localStorage.setItem('deck-'+DECK_ID,JSON.stringify(edits));
+  if(!SAVE_ON){toast('● сохранено локально (localStorage)');return;}
   try{const r=await fetch(SAVE_BASE+'/realtime',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({deckId:DECK_ID,edits})});
     if(r.ok)toast('● realtime сохранено на сервер');}catch(e){toast('● сохранено локально (сервер офлайн)');}}
 async function commitGit(){const edits=collectEdits();
+  if(!SAVE_ON){toast('git-коммит доступен только в локальном превью');return;}
   if(!Object.keys(edits).length){toast('нет правок для коммита');return;}
   toast('⇡ git commit…');
   try{const r=await fetch(SAVE_BASE+'/commit',{method:'POST',headers:{'Content-Type':'application/json'},
@@ -541,26 +565,26 @@ document.getElementById('pMap').onclick=()=>{go(4);};
 document.addEventListener('input',e=>{if(e.target.dataset&&e.target.dataset.eid!=null)scheduleSave();});
 // load overlay: server -> static edits.json -> localStorage
 (async function loadOverlay(){
-  try{const r=await fetch(SAVE_BASE+'/overlay?deckId='+DECK_ID,{cache:'no-store'});if(r.ok){const j=await r.json();if(j.edits&&Object.keys(j.edits).length){applyEdits(j.edits);return;}}}catch(e){}
+  if(SAVE_ON){try{const r=await fetch(SAVE_BASE+'/overlay?deckId='+DECK_ID,{cache:'no-store'});if(r.ok){const j=await r.json();if(j.edits&&Object.keys(j.edits).length){applyEdits(j.edits);return;}}}catch(e){}}
   try{const r=await fetch('./edits.json',{cache:'no-store'});if(r.ok){applyEdits(await r.json());return;}}catch(e){}
   try{const l=JSON.parse(localStorage.getItem('deck-'+DECK_ID)||'null');if(l)applyEdits(l);}catch(e){}
 })();
 
 // ===== boxer companion =====
-const POPS=["план на бой = context pack. дай мне его, и я не начну с нуля.",
-"утром выбрали процесс. сейчас строим угол, где боец его отрабатывает.",
-"без плана – это не бой, это драка. context прежде промпта.",
-"один процесс. одна комбинация. один раунд. не строй идеального агента сразу.",
-"смотри карту: тут я не повторяю денис и стёпу – беру своё.",
-"семь слоёв угла. не список тулов – слой и принцип.",
-"нейминг – это угловые канаты. без них боец не знает, где ринг.",
-"правила в файле, не в голове. rule живёт дольше промпта.",
-"context pack – записка тренера бойцу перед выходом.",
-"skill – отработанная комбинация. рождается из третьего повтора.",
-"твой угол – черновик угла всей команды. перелом – git.",
-"ступени 1–2 – не детская версия. это pareto-оптимум.",
-"evidence – карточка судьи. нет следа – раунд не считается.",
-"уносишь не идею, а инфосистему. клонируй пак – и в бой."];
+const POPS=["собираем среду, где агент не начинает с нуля. это personal setup.",
+"утром выбрали процесс. сейчас – среда, где его выполняет агент.",
+"главный вопрос: что должно быть в среде, чтобы не пересказывать заново.",
+"один процесс, один контекст, один прогон. не строй идеального агента сразу.",
+"карта разбора: что уже дали денис и стёпа, а что беру я.",
+"семь слоёв среды. показываю слой и принцип, тул – только пример.",
+"нейминг – самая главная штука. имя файла = база данных.",
+"правила в файле AGENTS.md, не в голове. rule живёт дольше промпта.",
+"context pack – паспорт задачи: goal, current, rules, examples, boundary.",
+"skill – отчуждённая процедура. рождается из третьего повтора.",
+"твой personal OS – черновик Company OS. перелом – общий git.",
+"ступени 1–2 – не детская версия, а pareto-оптимум по данным.",
+"evidence – файл, не ощущение. нет следа – контур не замкнут.",
+"уносишь не идею, а рабочий контур. клонируй стартер-пак."];
 function updateBoxPop(){const p=document.getElementById('boxPop');if(p.classList.contains('show'))p.innerHTML="<b>секундант:</b> "+(POPS[cur]||POPS[0]);}
 document.getElementById('box').onclick=(e)=>{if(e.shiftKey){toggleChat(true);return;}
   const p=document.getElementById('boxPop');p.innerHTML="<b>секундант:</b> "+(POPS[cur]||POPS[0]);p.classList.toggle('show');
@@ -572,7 +596,7 @@ function toggleChat(force){const c=document.getElementById('boxChat');const open
 var OR_KEY=localStorage.getItem('ainative-or-key')||'';
 function ensureORKey(){if(OR_KEY)return true;const k=prompt('Ключ OpenRouter (хранится только в браузере):\n→ openrouter.ai/keys');
   if(k&&k.startsWith('sk-or-')){OR_KEY=k;localStorage.setItem('ainative-or-key',k);return true}return false}
-const SYS=`Ты «секундант» – ассистент-тренер в углу ринга на занятии "Personal Setup" (AI-Native Sprint v3, AI Mindset, 14.07.2026, ведёт Александр Поваляев). Метафора: AI-модель = боец на ринге, участник = тренер в углу, personal setup = его угол (правила ринга, план, полотенце). Говори в этой метафоре умеренно, без перебора, по делу.
+const SYS=`Ты «секундант» – краткий ассистент занятия "Personal Setup" (AI-Native Sprint v3, AI Mindset, 14.07.2026, ведёт Александр Поваляев). Держи нейтральный деловой тон про personal setup; метафору секунданта/угла используй максимум одним лёгким штрихом, не строй на ней объяснения.
 Содержание занятия: маршрут one process → source map → context pack → skill → first run → evidence → update. Утром был M1 Дениса (process brief, карта контекста, критерии качества до прогона, "один процесс один контекст один прогон", "наша ценность – нормализованный контекст"). 15.07 – Дима Твердохлебов, три уровня внедрения: обклейка → абстракция → AI-native.
 Ключевые тезисы: naming convention "{project} {type} description – YYYY-MM-DD.md" – самая главная штука с которой начать, имя файла = база данных, не создавай файлы сам – дай правила агентам. AGENTS.md/CLAUDE.md – читается ДО первого сообщения, rule живёт дольше промпта. Context pack = goal/current/rules/examples/boundary. Skill = папка+SKILL.md, рождается из 3-го повтора, human-curated +16пп vs нагенерённые=0. Лестница зрелости у каждого компонента: 0 голова→1 файл→2 индекс→3 git→4 сервис→5 автономия; на этой неделе ступени 1-2 (файловая память 74% на LoCoMo выше графовой). Границы public/team/local/ask-first, ключи только в localStorage. Evidence = файл, не ощущение; без ревью – continuous degradation. Ответственность не переходит агенту.
 Отвечай кратко (до 110 слов), по-русски, конкретно, с примером. Только среднее тире (–), не длинное. Не выдумывай ссылок.`;

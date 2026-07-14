@@ -1,0 +1,866 @@
+{
+ "meta": {
+  "title": "AIN3 World Graph",
+  "version": "1.0.0",
+  "updated": "2026-07-14",
+  "description": "Живой контекст-граф лабы: лекции и практики, разобранные агентами; листья коммитят участники."
+ },
+ "categories": [
+  {
+   "id": "technical",
+   "label": "артефакты",
+   "description": "Инструменты, структуры и механики из лекций и практик."
+  },
+  {
+   "id": "market",
+   "label": "экономика",
+   "description": "Бизнес-ценность, кейсы, критерии выбора процессов."
+  },
+  {
+   "id": "people",
+   "label": "люди",
+   "description": "Спикеры, участники и персонажи разборов."
+  },
+  {
+   "id": "concept",
+   "label": "рамки",
+   "description": "Определения и методологические рамки программы."
+  },
+  {
+   "id": "hub",
+   "label": "ядро",
+   "description": "Индексные узлы кластеров."
+  }
+ ],
+ "nodes": [
+  {
+   "id": "concept-cognitive-partner",
+   "label": "Когнитивный партнёр и экзокортекс",
+   "category": "concept",
+   "summary": "Видение Дениса: ИИ будет не столько заменять людей, сколько дополнять, оформляясь в «когнитивного партнёра» — агента, который сосуществует с человеком, учится на его процессах и постепенно становится «экзокортексом», внешним мозгом. Человеку остаётся всё больш",
+   "x": 420,
+   "y": 110
+  },
+  {
+   "id": "concept-content-vs-context",
+   "label": "Контент против контекста",
+   "category": "concept",
+   "summary": "Различение, заявленное Денисом как отдельная рамка курса: контент — то, что производится и потребляется; контекст — знания и информация, которые накапливаются вокруг ваших процессов и делают агентов полезными. На M1 тема анонсирована («чем он отличается от кон",
+   "x": 525,
+   "y": 98
+  },
+  {
+   "id": "concept-context-only-value",
+   "label": "Контекст — единственная ценность",
+   "category": "concept",
+   "summary": "В мире, развивающемся по экспоненте, где модели и подходы меняются каждые месяцы: «единственная ценность, которую мы как мыслящие сущности из себя представляем и которую можем сохранить — это исключительно тот контекст, который мы генерируем». Чем контекст кач",
+   "x": 567,
+   "y": 195
+  },
+  {
+   "id": "concept-eat-elephant",
+   "label": "Слона едят по частям",
+   "category": "concept",
+   "summary": "Рамка масштаба для старта: никаких глобальных агентов и оптимизации отделов продаж — «один маленький конкретный процесс, который представляет головную боль для вас уже здесь и сейчас». Не углубляться в поиск Священного Грааля, идеального процесса для автоматиз",
+   "x": 630,
+   "y": 280
+  },
+  {
+   "id": "concept-engineering-task",
+   "label": "Проблема как инженерная задача",
+   "category": "concept",
+   "summary": "Главная цель практики по словам Дениса: «сменить формат мышления, чтобы не было в жизни больше проблем, а вместо любой проблемы мы могли смотреть на неё как на инженерную задачу — то есть на что-то, что можно с чётким планом взять и решить». После формализации",
+   "x": 567,
+   "y": 365
+  },
+  {
+   "id": "concept-five-parts-of-task",
+   "label": "Пять частей любой задачи",
+   "category": "concept",
+   "summary": "Базовая цепочка Дениса: не бывает проблем, бывают задачи, и любая задача раскладывается на пять частей — сама задача (что должно быть сделано) · контекст (данные, документы, правила, ограничения) · сценарий (последовательность действий) · описание результата (",
+   "x": 525,
+   "y": 462
+  },
+  {
+   "id": "concept-hub",
+   "label": "concept hub",
+   "category": "concept",
+   "summary": "concept-engineering-task concept-think-in-processes concept-five-parts-of-task concept-context-only-value concept-content-vs-context concept-cognitive-partner concept-llm-agnostic concept-measure-to-improve concept-minimal-agent-use concept-eat-elephant concep",
+   "x": 420,
+   "y": 280
+  },
+  {
+   "id": "concept-llm-agnostic",
+   "label": "LLM-агностик и агент-агностик",
+   "category": "concept",
+   "summary": "Подход, который закрепляет практика: не прицепляться ни к формату конкретных моделей, ни к конкретному агентному приложению. Модели меняются каждые несколько месяцев, приложения ломаются после обновлений — привязанность оставляет вас с устаревшими собранными д",
+   "x": 420,
+   "y": 450
+  },
+  {
+   "id": "concept-measure-to-improve",
+   "label": "Что нельзя измерить, нельзя улучшить",
+   "category": "concept",
+   "summary": "Краеугольный тезис работы с агентами, который чаще всего опускают: результат — это не только описание того, что должно получиться, но и критерии, по которым его можно оценить. Рядом — garbage in, garbage out и «более яркая русская версия: без ТЗ результат ХЗ».",
+   "x": 315,
+   "y": 462
+  },
+  {
+   "id": "concept-minimal-agent-use",
+   "label": "Чем меньше агента, тем лучше результат",
+   "category": "concept",
+   "summary": "Контринтуитивный принцип Дениса: «чем меньше мы используем агента, тем эффективнее наш результат». Всё, с чем работает LLM, — текстовые токены, поэтому управлять можно только качеством входа и форматом выхода: разнородные Excel от поставщиков эффективнее своди",
+   "x": 273,
+   "y": 365
+  },
+  {
+   "id": "concept-protein-to-silicon",
+   "label": "С белковых нейросетей на кремниевые",
+   "category": "concept",
+   "summary": "Рамка Стаса, подхваченная Денисом в финале: если задача повторяющаяся, значит уже существует конвейер — данные стандартизируются и обрабатываются человеком, и «мы решаем задачу замены биологических белковых нейросетей на нейросети, которые на кремнии обрабатыв",
+   "x": 210,
+   "y": 280
+  },
+  {
+   "id": "concept-skill-not-storage",
+   "label": "Скилл — не хранилище фактов",
+   "category": "concept",
+   "summary": "Ответ Дениса на вопрос из зала: «скилл — это в принципе не место для хранения фактов; скилл — это описание сценария работы над данными» — когда его использовать, что нужно для выполнения, как сценарий работает и каковы критерии качества результата. Факты и фай",
+   "x": 273,
+   "y": 195
+  },
+  {
+   "id": "concept-think-in-processes",
+   "label": "Мыслить процессами, не инструментами",
+   "category": "concept",
+   "summary": "Первая смена парадигмы недели: под задачу привычно ищут «условную лопатку» (агент, подписка, курсор, RAG), но «пока задача не сформулирована, контекст не собран, правила не определены и не определён формат результата — любой инструмент, каким бы классным он ни",
+   "x": 315,
+   "y": 98
+  },
+  {
+   "id": "index",
+   "label": "Денис Смирнов · M1 · от узкого места к первому ИИ-процессу",
+   "category": "hub",
+   "summary": "Первая практика лабы AI-Native 3 (вторник 14.07, 12:00 CET). Ядро: смена парадигмы «мыслить процессами, не инструментами», разбор процесса до пяти черновиков-артефактов, сквозной кейс «Акме»/Надя, Q&A про скиллы, базы знаний и саботаж внедрения.",
+   "x": 0,
+   "y": 0
+  },
+  {
+   "id": "market-acme-labs-case",
+   "label": "Учебный кейс «Акме»",
+   "category": "market",
+   "summary": "Сквозной полигон практики: SaaS-компания «Акме», проходящая AI-трансформацию, с сотрудницей-персонажем Надей (Product Lead). Все процессы недели разбираются на её примере, чтобы участники примеряли их на себя.",
+   "x": 420,
+   "y": -450
+  },
+  {
+   "id": "market-bad-candidates",
+   "label": "Плохие кандидаты: направления, не процессы",
+   "category": "market",
+   "summary": "«Автоматизировать отдел маркетинга», «сделать агента для отдела продаж», «строить весь AI-отдел» — это направления работы, а не процессы, и на старте они не подходят. Они шире, чем кажутся изначально, у них нет одного входа, одного выхода и проверяемого резуль",
+   "x": 555,
+   "y": -441
+  },
+  {
+   "id": "market-candidate-criteria",
+   "label": "Критерии процесса-кандидата",
+   "category": "market",
+   "summary": "Как выбрать первый процесс для автоматизации: он повторяется (регулярный, не раз в полгода) · занимает время · требует контекста, который раньше собирали руками · имеет понятный выход-артефакт (осязаемый документ) · его результат проверяем. Шестой критерий, не",
+   "x": 587,
+   "y": -310
+  },
+  {
+   "id": "market-good-candidates",
+   "label": "Хорошие кандидаты на автоматизацию",
+   "category": "market",
+   "summary": "Названные Денисом примеры процессов, которые легко разложить и автоматизировать: weekly update, саммери встречи, фоллоуапы после звонков, сбор информации по клиенту (клиентский бриф), анализ документации, разбор тикета в системе задач, подготовка письма. Общее",
+   "x": 602,
+   "y": -175
+  },
+  {
+   "id": "market-hub",
+   "label": "market hub",
+   "category": "market",
+   "summary": "market-acme-labs-case market-weekly-update-economics market-candidate-criteria market-good-candidates market-bad-candidates market-token-burn-metric market-top-down-vs-bottom-up market-kp-sabotage-case market-tool-churn",
+   "x": 420,
+   "y": -280
+  },
+  {
+   "id": "market-kp-sabotage-case",
+   "label": "Кейс из зала: КП и месяц доработок",
+   "category": "market",
+   "summary": "Вопрос участника: внедряем составление коммерческих предложений с ИИ, система ошибается, доработка тянется месяц — «это саботаж менеджеров или реальный неизбежный глюк?». Ответ Дениса: быстро не ответить, нужно смотреть на записанные кейсы исправлений; саботаж",
+   "x": 478,
+   "y": -120
+  },
+  {
+   "id": "market-token-burn-metric",
+   "label": "Сожжённые токены — бесполезная метрика",
+   "category": "market",
+   "summary": "Денис о моде на корпоративные метрики эффективности ИИ: количество комментариев, объём сгенерированных текстов и «самый часто используемый, но один из самых бесполезных критериев — количество сожжённых токенов, потому что ничего кроме количества сожжённых токе",
+   "x": 348,
+   "y": -83
+  },
+  {
+   "id": "market-tool-churn",
+   "label": "Волатильность рынка инструментов",
+   "category": "market",
+   "summary": "Живые примеры нестабильности: ChatGPT 5.6 и новое настольное приложение («своеобразный монстр — с одной стороны недокодекс, с другой недочат») с режимом GPT-Works и тройкой чат/проект/задачи; агентные решения Гермес и OpenClaw, который «после каждого еженедель",
+   "x": 273,
+   "y": -195
+  },
+  {
+   "id": "market-top-down-vs-bottom-up",
+   "label": "Внедрение: сверху вниз против снизу вверх",
+   "category": "market",
+   "summary": "Годовое наблюдение Дениса по командам: спущенное сверху («вырабатывай столько токенов в месяц») принимается в штыки — у человека уже есть устоявшиеся процессы. Когда автоматизация растёт от конкретной боли конкретного сотрудника снизу вверх, ценность видна сра",
+   "x": 213,
+   "y": -316
+  },
+  {
+   "id": "market-weekly-update-economics",
+   "label": "Экономика weekly update",
+   "category": "market",
+   "summary": "Разбор боли на цифрах: сбор еженедельного апдейта для CEO съедает полдня — контекст каждый раз собирается заново (обход сотрудников, почта, задачи, риски). Автоматизация до 10 минут — «только половина задачи»: вторая половина в критериях качества — CEO понимае",
+   "x": 311,
+   "y": -410
+  },
+  {
+   "id": "people-alexander-povaliaev",
+   "label": "Александр Поваляев",
+   "category": "people",
+   "summary": "Хост сессии и со-ведущий лабы: открывал звонок, следил за звуком, вечером того же дня ведёт второй слот вторника — воркшоп «personal set up», среду вокруг брифа, собранного утром у Дениса. В записи слышна его параллельная работа: голосовые команды агентам по п",
+   "x": -420,
+   "y": 110
+  },
+  {
+   "id": "people-denis-smirnov",
+   "label": "Денис Смирнов",
+   "category": "people",
+   "summary": "Ведущий практических блоков M1–M3 лабы AI-Native 3, архитектор AI-native систем. Путь: дизайн периодики → преподавание в ВШЭ → децентрализованные технологии и Web3; «последние 20 лет я по сути занимался одним и тем же — убирал из процессов человеческий фактор»",
+   "x": -210,
+   "y": 280
+  },
+  {
+   "id": "people-hub",
+   "label": "people hub",
+   "category": "people",
+   "summary": "people-denis-smirnov people-stas people-alexander-povaliaev people-nadya-acme",
+   "x": -420,
+   "y": 280
+  },
+  {
+   "id": "people-nadya-acme",
+   "label": "Надя (Acme, учебный персонаж)",
+   "category": "people",
+   "summary": "Вымышленный Product Lead учебной компании «Акме»: ей поставили задачу за 21 день запустить направление интеграции агентов. Её еженедельный weekly update для CEO — сквозной пример практики: на нём Денис разбирает боль, входы, выход и критерии качества.",
+   "x": -420,
+   "y": 450
+  },
+  {
+   "id": "people-stas",
+   "label": "Стас",
+   "category": "people",
+   "summary": "Активный голос Q&A-части практики: разобрал вопрос про подготовку md-файлов («может, нужно автоматизировать доставание из головы?») и сформулировал рамку внедрения — нужна доходимость и сверху (лидер, у которого слова совпадают с делами), и снизу (в каждой фун",
+   "x": -630,
+   "y": 280
+  },
+  {
+   "id": "technical-candidate-selection-criteria",
+   "label": "technical-candidate-selection-criteria",
+   "category": "technical",
+   "summary": "Денис дал пять признаков хорошего кандидата на автоматизацию: процесс повторяется регулярно, занимает заметное время, требует ручного сбора контекста, имеет понятный осязаемый выход-документ, а результат можно проверить; дополнительный критерий — процесс долже",
+   "x": -420,
+   "y": -450
+  },
+  {
+   "id": "technical-context-layer-architecture",
+   "label": "technical-context-layer-architecture",
+   "category": "technical",
+   "summary": "Денис описал многоуровневую архитектуру хранения: сырые данные (переписка в Telegram, почта, CRM) всегда остаются источником правды и никогда не удаляются, а поверх них строится нормализованный корпоративный контекстный слой, удобный для потребления агентом. Р",
+   "x": -285,
+   "y": -441
+  },
+  {
+   "id": "technical-context-map",
+   "label": "technical-context-map",
+   "category": "technical",
+   "summary": "Карта контекста — второй артефакт практики: явный список данных, документов, правил и ограничений, нужных агенту для выполнения задачи. На примере weekly update Денис перечислил вход: цель запуска направления, заметки со звонков с клиентами, статус задач, пред",
+   "x": -253,
+   "y": -310
+  },
+  {
+   "id": "technical-first-run",
+   "label": "technical-first-run",
+   "category": "technical",
+   "summary": "Первый прогон (первый шаг) — пятый, финальный артефакт практики: конкретный исполнимый сценарий, приближающий процесс к реальному прогону агентом. Денис планировал сделать его прямо в эфире при наличии времени, а иначе — подготовить план как домашнее задание, ",
+   "x": -238,
+   "y": -175
+  },
+  {
+   "id": "technical-five-part-task-decomposition",
+   "label": "technical-five-part-task-decomposition",
+   "category": "technical",
+   "summary": "Денис предложил разбирать любую задачу как инженерную через пять компонентов: сама задача (что сделать), контекст (данные, документы, правила, ограничения), сценарий выполнения (последовательность действий), описание результата и оценка того, что получилось. Э",
+   "x": -362,
+   "y": -120
+  },
+  {
+   "id": "technical-handoff",
+   "label": "technical-handoff",
+   "category": "technical",
+   "summary": "Хенд-офф между ИИ и человеком — четвёртый из пяти черновиков практики: описание того, в какой момент и в каком виде результат работы агента передаётся человеку для проверки и решения. В финальной инженерной цепочке, которую Денис обозначил в конце сессии (вход",
+   "x": -492,
+   "y": -83
+  },
+  {
+   "id": "technical-hub",
+   "label": "technical hub",
+   "category": "technical",
+   "summary": "technical-five-part-task-decomposition — рамка \"задача → контекст → сценарий → результат → оценка\" technical-process-brief — процессный бриф, первый черновой артефакт technical-context-map — карта контекста (данные/документы/правила/ограничения) technical-qual",
+   "x": -420,
+   "y": -280
+  },
+  {
+   "id": "technical-process-brief",
+   "label": "technical-process-brief",
+   "category": "technical",
+   "summary": "Процессный бриф — минимальный из пяти черновиков-артефактов практики: краткое описание конкретного узкого места-процесса, который причиняет боль здесь и сейчас, доступный любому участнику независимо от уровня подготовки. Денис настаивал брать один маленький пр",
+   "x": -567,
+   "y": -195
+  },
+  {
+   "id": "technical-quality-criteria",
+   "label": "technical-quality-criteria",
+   "category": "technical",
+   "summary": "Критерии качества — третий артефакт практики: конкретные, проверяемые признаки хорошего результата, а не абстрактные корпоративные KPI и не \"количество сожжённых токенов\" (\"один из самых бесполезных критериев\"). Денис привёл принцип \"то, что нельзя измерить, н",
+   "x": -627,
+   "y": -316
+  },
+  {
+   "id": "technical-skill-definition",
+   "label": "technical-skill-definition",
+   "category": "technical",
+   "summary": "Отвечая на вопрос участника, Денис чётко разграничил скилл и хранилище фактов: \"скилл — это в принципе не место для хранения фактов\", а описание сценария работы над данными — когда он используется, что нужно для выполнения, как работает сценарий и какие критер",
+   "x": -529,
+   "y": -410
+  }
+ ],
+ "edges": [
+  {
+   "source": "concept-cognitive-partner",
+   "target": "concept-hub",
+   "kind": "link"
+  },
+  {
+   "source": "concept-cognitive-partner",
+   "target": "concept-context-only-value",
+   "kind": "link"
+  },
+  {
+   "source": "concept-cognitive-partner",
+   "target": "people-denis-smirnov",
+   "kind": "link"
+  },
+  {
+   "source": "concept-content-vs-context",
+   "target": "concept-context-only-value",
+   "kind": "link"
+  },
+  {
+   "source": "concept-content-vs-context",
+   "target": "concept-hub",
+   "kind": "link"
+  },
+  {
+   "source": "concept-content-vs-context",
+   "target": "technical-hub",
+   "kind": "link"
+  },
+  {
+   "source": "concept-context-only-value",
+   "target": "concept-hub",
+   "kind": "link"
+  },
+  {
+   "source": "concept-eat-elephant",
+   "target": "market-candidate-criteria",
+   "kind": "link"
+  },
+  {
+   "source": "concept-eat-elephant",
+   "target": "concept-hub",
+   "kind": "link"
+  },
+  {
+   "source": "concept-eat-elephant",
+   "target": "market-bad-candidates",
+   "kind": "link"
+  },
+  {
+   "source": "concept-engineering-task",
+   "target": "concept-five-parts-of-task",
+   "kind": "link"
+  },
+  {
+   "source": "concept-engineering-task",
+   "target": "concept-hub",
+   "kind": "link"
+  },
+  {
+   "source": "concept-engineering-task",
+   "target": "concept-think-in-processes",
+   "kind": "link"
+  },
+  {
+   "source": "concept-five-parts-of-task",
+   "target": "technical-hub",
+   "kind": "link"
+  },
+  {
+   "source": "concept-five-parts-of-task",
+   "target": "concept-hub",
+   "kind": "link"
+  },
+  {
+   "source": "concept-five-parts-of-task",
+   "target": "concept-measure-to-improve",
+   "kind": "link"
+  },
+  {
+   "source": "concept-hub",
+   "target": "concept-think-in-processes",
+   "kind": "link"
+  },
+  {
+   "source": "concept-hub",
+   "target": "concept-llm-agnostic",
+   "kind": "link"
+  },
+  {
+   "source": "concept-hub",
+   "target": "concept-measure-to-improve",
+   "kind": "link"
+  },
+  {
+   "source": "concept-hub",
+   "target": "concept-minimal-agent-use",
+   "kind": "link"
+  },
+  {
+   "source": "concept-hub",
+   "target": "concept-skill-not-storage",
+   "kind": "link"
+  },
+  {
+   "source": "concept-hub",
+   "target": "concept-protein-to-silicon",
+   "kind": "link"
+  },
+  {
+   "source": "concept-llm-agnostic",
+   "target": "market-tool-churn",
+   "kind": "link"
+  },
+  {
+   "source": "concept-llm-agnostic",
+   "target": "concept-context-only-value",
+   "kind": "link"
+  },
+  {
+   "source": "concept-measure-to-improve",
+   "target": "market-weekly-update-economics",
+   "kind": "link"
+  },
+  {
+   "source": "concept-minimal-agent-use",
+   "target": "concept-measure-to-improve",
+   "kind": "link"
+  },
+  {
+   "source": "concept-minimal-agent-use",
+   "target": "technical-hub",
+   "kind": "link"
+  },
+  {
+   "source": "concept-protein-to-silicon",
+   "target": "people-stas",
+   "kind": "link"
+  },
+  {
+   "source": "concept-protein-to-silicon",
+   "target": "concept-think-in-processes",
+   "kind": "link"
+  },
+  {
+   "source": "concept-skill-not-storage",
+   "target": "market-kp-sabotage-case",
+   "kind": "link"
+  },
+  {
+   "source": "concept-skill-not-storage",
+   "target": "technical-hub",
+   "kind": "link"
+  },
+  {
+   "source": "concept-skill-not-storage",
+   "target": "concept-minimal-agent-use",
+   "kind": "link"
+  },
+  {
+   "source": "concept-think-in-processes",
+   "target": "concept-five-parts-of-task",
+   "kind": "link"
+  },
+  {
+   "source": "concept-think-in-processes",
+   "target": "market-tool-churn",
+   "kind": "link"
+  },
+  {
+   "source": "index",
+   "target": "technical-hub",
+   "kind": "link"
+  },
+  {
+   "source": "index",
+   "target": "market-hub",
+   "kind": "link"
+  },
+  {
+   "source": "index",
+   "target": "people-hub",
+   "kind": "link"
+  },
+  {
+   "source": "index",
+   "target": "concept-hub",
+   "kind": "link"
+  },
+  {
+   "source": "index",
+   "target": "concept-five-parts-of-task",
+   "kind": "link"
+  },
+  {
+   "source": "index",
+   "target": "technical-process-brief",
+   "kind": "link"
+  },
+  {
+   "source": "index",
+   "target": "people-nadya-acme",
+   "kind": "link"
+  },
+  {
+   "source": "index",
+   "target": "technical-context-map",
+   "kind": "link"
+  },
+  {
+   "source": "index",
+   "target": "market-weekly-update-economics",
+   "kind": "link"
+  },
+  {
+   "source": "index",
+   "target": "concept-measure-to-improve",
+   "kind": "link"
+  },
+  {
+   "source": "index",
+   "target": "people-stas",
+   "kind": "link"
+  },
+  {
+   "source": "index",
+   "target": "market-top-down-vs-bottom-up",
+   "kind": "link"
+  },
+  {
+   "source": "index",
+   "target": "concept-skill-not-storage",
+   "kind": "link"
+  },
+  {
+   "source": "index",
+   "target": "technical-context-layer-architecture",
+   "kind": "link"
+  },
+  {
+   "source": "market-acme-labs-case",
+   "target": "market-hub",
+   "kind": "link"
+  },
+  {
+   "source": "market-acme-labs-case",
+   "target": "people-nadya-acme",
+   "kind": "link"
+  },
+  {
+   "source": "market-acme-labs-case",
+   "target": "market-weekly-update-economics",
+   "kind": "link"
+  },
+  {
+   "source": "market-bad-candidates",
+   "target": "market-good-candidates",
+   "kind": "link"
+  },
+  {
+   "source": "market-bad-candidates",
+   "target": "market-hub",
+   "kind": "link"
+  },
+  {
+   "source": "market-candidate-criteria",
+   "target": "market-hub",
+   "kind": "link"
+  },
+  {
+   "source": "market-candidate-criteria",
+   "target": "market-good-candidates",
+   "kind": "link"
+  },
+  {
+   "source": "market-candidate-criteria",
+   "target": "market-bad-candidates",
+   "kind": "link"
+  },
+  {
+   "source": "market-good-candidates",
+   "target": "market-hub",
+   "kind": "link"
+  },
+  {
+   "source": "market-hub",
+   "target": "market-weekly-update-economics",
+   "kind": "link"
+  },
+  {
+   "source": "market-hub",
+   "target": "market-token-burn-metric",
+   "kind": "link"
+  },
+  {
+   "source": "market-hub",
+   "target": "market-top-down-vs-bottom-up",
+   "kind": "link"
+  },
+  {
+   "source": "market-hub",
+   "target": "market-kp-sabotage-case",
+   "kind": "link"
+  },
+  {
+   "source": "market-hub",
+   "target": "market-tool-churn",
+   "kind": "link"
+  },
+  {
+   "source": "market-kp-sabotage-case",
+   "target": "market-top-down-vs-bottom-up",
+   "kind": "link"
+  },
+  {
+   "source": "market-kp-sabotage-case",
+   "target": "concept-measure-to-improve",
+   "kind": "link"
+  },
+  {
+   "source": "market-token-burn-metric",
+   "target": "concept-measure-to-improve",
+   "kind": "link"
+  },
+  {
+   "source": "market-token-burn-metric",
+   "target": "market-weekly-update-economics",
+   "kind": "link"
+  },
+  {
+   "source": "market-tool-churn",
+   "target": "market-token-burn-metric",
+   "kind": "link"
+  },
+  {
+   "source": "market-top-down-vs-bottom-up",
+   "target": "people-stas",
+   "kind": "link"
+  },
+  {
+   "source": "market-weekly-update-economics",
+   "target": "market-candidate-criteria",
+   "kind": "link"
+  },
+  {
+   "source": "people-alexander-povaliaev",
+   "target": "people-hub",
+   "kind": "link"
+  },
+  {
+   "source": "people-alexander-povaliaev",
+   "target": "people-denis-smirnov",
+   "kind": "link"
+  },
+  {
+   "source": "people-alexander-povaliaev",
+   "target": "technical-hub",
+   "kind": "link"
+  },
+  {
+   "source": "people-denis-smirnov",
+   "target": "people-hub",
+   "kind": "link"
+  },
+  {
+   "source": "people-denis-smirnov",
+   "target": "people-stas",
+   "kind": "link"
+  },
+  {
+   "source": "people-denis-smirnov",
+   "target": "concept-hub",
+   "kind": "link"
+  },
+  {
+   "source": "people-hub",
+   "target": "people-stas",
+   "kind": "link"
+  },
+  {
+   "source": "people-hub",
+   "target": "people-nadya-acme",
+   "kind": "link"
+  },
+  {
+   "source": "people-nadya-acme",
+   "target": "concept-five-parts-of-task",
+   "kind": "link"
+  },
+  {
+   "source": "people-nadya-acme",
+   "target": "market-weekly-update-economics",
+   "kind": "link"
+  },
+  {
+   "source": "technical-candidate-selection-criteria",
+   "target": "technical-quality-criteria",
+   "kind": "link"
+  },
+  {
+   "source": "technical-candidate-selection-criteria",
+   "target": "technical-process-brief",
+   "kind": "link"
+  },
+  {
+   "source": "technical-candidate-selection-criteria",
+   "target": "technical-hub",
+   "kind": "link"
+  },
+  {
+   "source": "technical-context-layer-architecture",
+   "target": "technical-context-map",
+   "kind": "link"
+  },
+  {
+   "source": "technical-context-layer-architecture",
+   "target": "technical-skill-definition",
+   "kind": "link"
+  },
+  {
+   "source": "technical-context-layer-architecture",
+   "target": "technical-hub",
+   "kind": "link"
+  },
+  {
+   "source": "technical-context-map",
+   "target": "technical-process-brief",
+   "kind": "link"
+  },
+  {
+   "source": "technical-context-map",
+   "target": "technical-five-part-task-decomposition",
+   "kind": "link"
+  },
+  {
+   "source": "technical-context-map",
+   "target": "technical-hub",
+   "kind": "link"
+  },
+  {
+   "source": "technical-first-run",
+   "target": "technical-handoff",
+   "kind": "link"
+  },
+  {
+   "source": "technical-first-run",
+   "target": "technical-skill-definition",
+   "kind": "link"
+  },
+  {
+   "source": "technical-first-run",
+   "target": "technical-hub",
+   "kind": "link"
+  },
+  {
+   "source": "technical-five-part-task-decomposition",
+   "target": "technical-process-brief",
+   "kind": "link"
+  },
+  {
+   "source": "technical-five-part-task-decomposition",
+   "target": "technical-quality-criteria",
+   "kind": "link"
+  },
+  {
+   "source": "technical-five-part-task-decomposition",
+   "target": "technical-handoff",
+   "kind": "link"
+  },
+  {
+   "source": "technical-five-part-task-decomposition",
+   "target": "technical-first-run",
+   "kind": "link"
+  },
+  {
+   "source": "technical-five-part-task-decomposition",
+   "target": "technical-skill-definition",
+   "kind": "link"
+  },
+  {
+   "source": "technical-five-part-task-decomposition",
+   "target": "technical-hub",
+   "kind": "link"
+  },
+  {
+   "source": "technical-handoff",
+   "target": "technical-process-brief",
+   "kind": "link"
+  },
+  {
+   "source": "technical-handoff",
+   "target": "technical-hub",
+   "kind": "link"
+  },
+  {
+   "source": "technical-hub",
+   "target": "technical-process-brief",
+   "kind": "link"
+  },
+  {
+   "source": "technical-hub",
+   "target": "technical-quality-criteria",
+   "kind": "link"
+  },
+  {
+   "source": "technical-hub",
+   "target": "technical-skill-definition",
+   "kind": "link"
+  },
+  {
+   "source": "technical-process-brief",
+   "target": "technical-quality-criteria",
+   "kind": "link"
+  }
+ ]
+}

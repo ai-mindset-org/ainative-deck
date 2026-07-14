@@ -647,7 +647,12 @@
         artifacts: '#cac6bb',
         tools: '#85827a',
         routes: '#ff7b72',
-        harness: '#d22'
+        harness: '#d22',
+        technical: '#ff7b72',
+        market: '#cac6bb',
+        people: '#ff4c43',
+        concept: '#f2f0e9',
+        hub: '#d22'
       };
 
       const graph = document.getElementById('graph');
@@ -1090,7 +1095,9 @@
 
       const init = async () => {
         try {
-          const response = await fetch('../data/manifest.json', { cache: 'no-store' });
+          const srcParam = new URLSearchParams(location.search).get('src');
+          const manifestSrc = srcParam && /^[\w./-]+\.json$/.test(srcParam) && !srcParam.startsWith('/') ? srcParam : '../data/manifest.json';
+          const response = await fetch(manifestSrc, { cache: 'no-store' });
           if (!response.ok) throw new Error(`manifest request failed: ${response.status}`);
           manifest = await response.json();
           validateManifest(manifest);

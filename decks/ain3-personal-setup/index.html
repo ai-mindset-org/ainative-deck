@@ -119,6 +119,10 @@ ul.bl li .m{color:var(--faint)}
 .relay .handoff::before,.relay .handoff::after{content:"";position:absolute;top:50%;height:1px;width:42px;background:var(--line2)}.relay .handoff::before{left:0}.relay .handoff::after{right:0}
 .artifact-route{display:grid;grid-template-columns:repeat(6,1fr);width:100%;position:relative;margin-top:34px;gap:16px}
 .artifact-route::before{content:"";position:absolute;left:6%;right:6%;top:22px;height:1px;background:linear-gradient(90deg,var(--blue),var(--teal),var(--amber));z-index:0}
+.agent-flow{grid-template-columns:repeat(4,1fr);max-width:1180px;align-self:center}
+.agent-flow .flow-n{font:700 clamp(42px,5vw,74px)/.85 var(--head);color:rgba(92,218,204,.16);text-align:center;margin-bottom:10px}
+.agent-flow .file{font-size:clamp(22px,2.2vw,34px);letter-spacing:-.01em;text-transform:uppercase}
+.agent-flow .kind{font-size:11px}.live-credits{margin-top:18px;line-height:1.65}
 .route-node{position:relative;z-index:1;padding-top:48px}.route-node::before{content:"";position:absolute;top:13px;left:50%;width:18px;height:18px;border-radius:50%;transform:translateX(-50%);background:var(--bg);border:2px solid var(--teal);box-shadow:0 0 0 6px var(--bg)}
 .route-node .file{font:600 15px var(--head);text-align:center;color:var(--ink)}.route-node .kind{margin-top:7px;font:500 10px var(--code);text-align:center;color:var(--faint)}
 .source-layout{display:grid;grid-template-columns:.88fr 1.12fr;gap:48px;align-items:center;width:100%}.sieve-wrap{position:relative;min-height:410px;display:grid;place-items:center}
@@ -192,7 +196,7 @@ body.mode-edit [data-eid]:focus{outline:1px solid var(--teal);background:rgba(92
 @media (max-width:960px){.slide{padding:90px 24px}.two,.two.rev{grid-template-columns:1fr;gap:28px}
   .ladder{grid-template-columns:repeat(2,1fr)}.g3,.g4{grid-template-columns:1fr 1fr}.map{grid-template-columns:1fr;gap:4px}
   .cover-layout{grid-template-columns:1fr 160px;gap:30px}.cover-logo{width:150px;height:150px}
-  .source-layout,.catalog{grid-template-columns:1fr}.alchemy{grid-template-columns:.8fr .2fr 1.2fr}.artifact-route{grid-template-columns:repeat(3,1fr);row-gap:26px}.artifact-route::before{display:none}
+  .source-layout,.catalog{grid-template-columns:1fr}.alchemy{grid-template-columns:.8fr .2fr 1.2fr}.artifact-route{grid-template-columns:repeat(3,1fr);row-gap:26px}.artifact-route::before{display:none}.agent-flow{grid-template-columns:repeat(2,1fr)}
   .relay{grid-template-columns:1fr 76px 1fr}.machine{grid-template-columns:1fr 1fr}.run-proof,.assay,.work-steps{grid-template-columns:1fr 1fr}.atlas-legend{grid-template-columns:1fr 1fr}
   #boxChat{width:calc(100vw - 36px)}.route{width:70vw}.fkeys{display:none}}
 @media (max-height:800px) and (min-width:641px){.slide{height:100vh;min-height:0;padding-top:78px;padding-bottom:68px}.atlas-frame{max-width:1040px;align-self:center}.atlas-legend{margin-top:8px}.atlas-legend div{padding-top:6px}.slide[data-sec="файлы правил"] .term{font-size:10px;line-height:1.45;padding:14px}.slide[data-sec="файлы правил"] .boundary-grid{margin-top:10px}.slide[data-sec="файлы правил"] .artifact-tag{margin-top:10px!important}}
@@ -274,19 +278,18 @@ body.mode-edit [data-eid]:focus{outline:1px solid var(--teal);background:rgba(92
     <div>
       <h2 data-eid="s2h">одна лаборатория.<br>разные стартовые позиции.</h2>
       <div class="metrics" style="margin-top:24px">
-        <div class="metric"><div class="num">103</div><div class="lab">анкеты участников</div></div>
-        <div class="metric"><div class="num">91</div><div class="lab">уже в рабочем чате</div></div>
+        <div class="metric"><div class="num">112</div><div class="lab">завершённых анкет</div></div>
+
       </div>
     </div>
     <div>
       <div class="signal-bars">
-        <div class="signal-row"><div class="n">команда</div><div class="track"><div class="fill" style="--w:91%"></div></div><div class="v">91</div></div>
-        <div class="signal-row"><div class="n">workflow</div><div class="track"><div class="fill" style="--w:87%"></div></div><div class="v">87</div></div>
-        <div class="signal-row"><div class="n">agents</div><div class="track"><div class="fill" style="--w:75%"></div></div><div class="v">75</div></div>
-        <div class="signal-row"><div class="n">первый контур</div><div class="track"><div class="fill" style="--w:64%"></div></div><div class="v">64</div></div>
-        <div class="signal-row"><div class="n">personal OS</div><div class="track"><div class="fill" style="--w:55%"></div></div><div class="v">55</div></div>
+        <div class="signal-row"><div class="n">attendance export</div><div class="track"><div class="fill" style="--w:100%;opacity:.18"></div></div><div class="v">107</div></div>
+        <div class="signal-row"><div class="n">kickoff</div><div class="track"><div class="fill" style="--w:100%;opacity:.18"></div></div><div class="v">95</div></div>
+        <div class="signal-row"><div class="n">intro posts</div><div class="track"><div class="fill" style="--w:100%;opacity:.18"></div></div><div class="v">45</div></div>
+        <div class="signal-row"><div class="n">intro-call match</div><div class="track"><div class="fill" style="--w:100%;opacity:.18"></div></div><div class="v">19</div></div>
       </div>
-      <p class="micro" style="margin-top:22px">onboarding + intro + sprint chat · сигналы пересекаются · срез 13.07</p>
+      <p class="micro" style="margin-top:22px">Labs Dataflow · independent counts · длина линии не кодирует величину · срез 14.07</p>
     </div>
   </div>
 </section>
@@ -525,12 +528,55 @@ ask first отмечен</div>
 ├── CLAUDE.md.template
 ├── naming-convention.md
 ├── operating-brief-template.md
+├── context-pack-template.md
+├── evidence-log-template.md
+├── agent-run-receipt.md
+├── participant-progress-example.md
 ├── refresh-ritual.md
 ├── <b>demo/one-workflow-seed.md</b>
 └── skills/
     ├── operating-brief/SKILL.md
-    └── process-audit/SKILL.md</div>
+    ├── process-audit/SKILL.md
+    ├── context-pack/SKILL.md
+    ├── evidence-review/SKILL.md
+    └── session-handoff/SKILL.md</div>
   </div>
+</section>
+
+<!-- 17 Skripka -->
+<section class="slide" data-sec="Скрипка">
+  <div class="eyebrow" data-eid="s17e">// СКРИПКА · PARTICIPANT TRACKER · <b>publicOnly:true</b></div>
+  <h2 data-eid="s17h"><span style="color:var(--teal)">Скрипка</span> слышит сигнал и возвращает следующий шаг</h2>
+  <div class="artifact-route agent-flow">
+    <div class="route-node"><div class="flow-n">01</div><div class="file">signal</div><div class="kind">chat · LMS · call</div></div>
+    <div class="route-node"><div class="flow-n">02</div><div class="file">state</div><div class="kind">week · evidence · blocker</div></div>
+    <div class="route-node"><div class="flow-n">03</div><div class="file">next</div><div class="kind">participant · buddy · curator</div></div>
+    <div class="route-node"><div class="flow-n">04</div><div class="file">receipt</div><div class="kind">source · confidence · date</div></div>
+  </div>
+  <div class="evidence-log" data-eid="s17b">SYNTHETIC · W1 · evidence 1/3 · blocker: access → next: connect source · confidence: medium</div>
+  <div class="origin">private retriever остаётся server-side · Pages показывает агрегаты, схему и синтетический пример</div>
+</section>
+
+<!-- 18 handoff kit -->
+<section class="slide" data-sec="handoff">
+  <div class="eyebrow" data-eid="s18e">// LAB KIT · PUBLIC-SAFE HANDOFF</div>
+  <div class="two">
+    <div>
+      <h2 data-eid="s18h">один clone → другая модель продолжает с нужного места</h2>
+      <div class="metrics" style="margin-top:26px"><div class="metric"><div class="num">08</div><div class="lab">public-safe документов</div></div><div class="metric"><div class="num">01</div><div class="lab">NEXT_PROMPT.md</div></div></div>
+      <a class="accent-link" href="../../ain3/">открыть AIN3 Lab Hub ↗</a>
+    </div>
+    <div class="file-tree"><b>ain3/handoff/</b>
+├── README.md
+├── NEXT_PROMPT.md
+├── STATE.md
+├── SESSION_INDEX.md
+├── PUBLIC_SOURCE_MAP.md
+├── QA_RECEIPT.md
+├── PRIVATE_SOURCES.template.md
+└── ../manifest.json</div>
+  </div>
+  <div class="origin live-credits">спасибо live mesh · Claude Code · Codex · stepa-lectures · org-data-audit · exa-digest · today-materials · denis-digest</div>
 </section>
 
 </div>
@@ -539,13 +585,13 @@ ask first отмечен</div>
 
 <footer class="wfoot">
   <div class="fbadge"><span class="b">AIN3·W1</span><img src="../../speakers/alexander-povaliaev.jpg" alt="" onerror="this.style.display='none'"><span class="n">Александр Поваляев · AI Mindset</span><img class="logo" src="aim-logo-white.png" alt="" onerror="this.style.display='none'"></div>
-  <div class="fkeys">[<b>V</b>] секундант · [<b>E</b>] правка · [<b>⌘S</b>] git · [<b>←→</b>] ход</div>
+  <div class="fkeys">[<b>V</b>] Скрипка · [<b>E</b>] правка · [<b>⌘S</b>] git · [<b>←→</b>] ход</div>
   <div class="fsec"><span id="secName">старт</span> · <span id="curF">1</span>/<span id="totF">?</span></div>
 
 </footer>
 
 <!-- boxer companion -->
-<div id="box" title="секундант – V">
+<div id="box" title="Скрипка – V">
   <svg id="boxSvg" viewBox="0 0 58 74" fill="none">
     <ellipse cx="29" cy="30" rx="21" ry="23" fill="#5cdacc"/>
     <ellipse cx="29" cy="30" rx="21" ry="23" fill="url(#g)" opacity=".25"/>
@@ -560,14 +606,14 @@ ask first отмечен</div>
 </div>
 <div class="box-pop" id="boxPop"></div>
 <div id="boxChat">
-  <div class="h"><span>◈ <b>секундант</b> · в твоём углу</span><button onclick="toggleChat(false)" style="border:0;background:none;color:var(--dim);cursor:pointer;font-size:15px">×</button></div>
-  <div id="boxLog"><div class="m ai">секундант на связи. спрашивай про personal setup: source map, context pack, skill, evidence, нейминг или домашку. отвечаю коротко и по делу.</div></div>
+  <div class="h"><span>◈ <b>Скрипка</b> · public-safe</span><button onclick="toggleChat(false)" style="border:0;background:none;color:var(--dim);cursor:pointer;font-size:15px">×</button></div>
+  <div id="boxLog"><div class="m ai">Скрипка на связи. В публичной деке отвечаю по материалам занятия и синтетическому примеру. Личный прогресс доступен только через авторизованный Tutor в LMS.</div></div>
   <div class="qchips">
     <button onclick="ask('что такое context pack и зачем')">context pack?</button>
     <button onclick="ask('как выбрать первый процесс')">первый процесс?</button>
     <button onclick="ask('чем skill отличается от промпта')">skill vs промпт?</button>
   </div>
-  <form id="boxForm" onsubmit="return sendBox(event)"><input id="boxIn" placeholder="вопрос секунданту…" autocomplete="off"><button id="boxSend" type="submit">→</button></form>
+  <form id="boxForm" onsubmit="return sendBox(event)"><input id="boxIn" placeholder="вопрос Скрипке…" autocomplete="off"><button id="boxSend" type="submit">→</button></form>
 </div>
 <div id="toast"></div>
 
@@ -579,7 +625,7 @@ const slides=[...document.querySelectorAll('.slide')];
 let cur=0;
 document.getElementById('tot').textContent=slides.length;
 document.getElementById('totF').textContent=slides.length;
-const secLabels={0:"context",1:"context",2:"context",3:"context",4:"context",5:"gate",6:"gate",7:"gate",8:"gate",9:"gate",10:"practice",11:"practice",12:"practice",13:"practice",14:"practice",15:"practice"};
+const secLabels={0:"context",1:"context",2:"context",3:"context",4:"context",5:"gate",6:"gate",7:"gate",8:"gate",9:"gate",10:"practice",11:"practice",12:"practice",13:"practice",14:"practice",15:"practice",16:"practice",17:"practice"};
 
 // dots
 const dotsEl=document.getElementById('dots');
@@ -603,7 +649,7 @@ function go(i){cur=Math.max(0,Math.min(slides.length-1,i));
 }
 document.addEventListener('keydown',e=>{
   if(document.body.classList.contains('mode-edit')&&e.target.isContentEditable)return;
-  if(e.target.tagName==='INPUT'){if(e.key==='Escape')e.target.blur();return;}
+  if(e.target.tagName==='INPUT'){if(e.key==='Escape'){e.preventDefault();toggleChat(false)}return;}
   if((e.metaKey||e.ctrlKey)&&(e.key==='s'||e.key==='S')){e.preventDefault();commitGit();return;}
   if(['ArrowRight',' ','Enter','PageDown'].includes(e.key)){e.preventDefault();go(cur+1)}
   else if(['ArrowLeft','Backspace','PageUp'].includes(e.key)){e.preventDefault();go(cur-1)}
@@ -652,7 +698,7 @@ document.addEventListener('input',e=>{if(e.target.dataset&&e.target.dataset.eid!
 
 // ===== boxer companion =====
 const POPS=["personal setup – калибровка среды под один реальный процесс.",
-"103 анкеты дают разные стартовые позиции; контур собираем по одному маршруту.",
+"112 завершённых анкет дают разные стартовые позиции; контур собираем по одному маршруту.",
 "brief из M1 получает источники, правила, skill и evidence.",
 "среда должна позволять агенту продолжить работу с нужного места.",
 "маршрут остаётся в шести проверяемых артефактах.",
@@ -666,36 +712,38 @@ const POPS=["personal setup – калибровка среды под один 
 "личный контур переносится в общий git, process library и review rhythm.",
 "evidence превращает запуск в память и точечную правку системы.",
 "сейчас собираем один файл, один прогон и один след.",
-"starter pack содержит все показанные файлы и заполненный demo."];
-function updateBoxPop(){const p=document.getElementById('boxPop');if(p.classList.contains('show'))p.innerHTML="<b>секундант:</b> "+(POPS[cur]||POPS[0]);}
+"starter pack содержит все показанные файлы и заполненный demo.",
+"Скрипка собирает signal → state → next action → receipt. На публичном слайде – только агрегаты и synthetic case.",
+"handoff pack переносит state, source map, session index, QA receipt и next prompt; raw participant context остаётся вне GitHub."];
+function updateBoxPop(){const p=document.getElementById('boxPop');if(p.classList.contains('show'))p.innerHTML="<b>Скрипка:</b> "+(POPS[cur]||POPS[0]);}
 document.getElementById('box').onclick=(e)=>{if(e.shiftKey){toggleChat(true);return;}
-  const p=document.getElementById('boxPop');p.innerHTML="<b>секундант:</b> "+(POPS[cur]||POPS[0]);p.classList.toggle('show');
+  const p=document.getElementById('boxPop');p.innerHTML="<b>Скрипка:</b> "+(POPS[cur]||POPS[0]);p.classList.toggle('show');
   clearTimeout(p._t);if(p.classList.contains('show'))p._t=setTimeout(()=>p.classList.remove('show'),5200);};
 function toggleChat(force){const c=document.getElementById('boxChat');const open=force!=null?force:!c.classList.contains('open');
-  c.classList.toggle('open',open);if(open)setTimeout(()=>document.getElementById('boxIn').focus(),50);}
+  c.classList.toggle('open',open);if(open)setTimeout(()=>document.getElementById('boxIn').focus(),50);else document.getElementById('boxIn').blur();}
 
-// ===== assistant (OpenRouter, key only in localStorage) =====
-var OR_KEY=localStorage.getItem('ainative-or-key')||'';
-function ensureORKey(){if(OR_KEY)return true;const k=prompt('Ключ OpenRouter (хранится только в браузере):\n→ openrouter.ai/keys');
-  if(k&&k.startsWith('sk-or-')){OR_KEY=k;localStorage.setItem('ainative-or-key',k);return true}return false}
-const SYS=`Ты «секундант» – краткий ассистент занятия "Personal Setup" (AI-Native Sprint v3, AI Mindset, 14.07.2026, ведёт Александр Поваляев). Держи нейтральный деловой тон про personal setup; метафору секунданта/угла используй максимум одним лёгким штрихом, не строй на ней объяснения.
-Содержание занятия: маршрут one process → source map → context pack → skill → first run → evidence → update. Утром был M1 Дениса (process brief, карта контекста, критерии качества до прогона, "один процесс один контекст один прогон", "наша ценность – нормализованный контекст"). 15.07 – Дима Твердохлебов, три уровня внедрения: обклейка → абстракция → AI-native.
-Ключевые тезисы: naming convention "{project} {type} description – YYYY-MM-DD.md" – project/type/date образуют каталог. AGENTS.md/CLAUDE.md читается до первого сообщения и хранит карту, definition of done и границы public/team/local/ask-first. Context pack = goal/current/rules/examples/boundary. Skill = папка + SKILL.md с триггером, шагами, выходом и evidence. Source map содержит 3–5 минимально достаточных источников с source/why/access. Первый прогон оставляет output и строку evidence; по ней точечно меняют source map или skill. Session Inspector показывает session → handoff → next session. Ответственность остаётся у человека.
-Отвечай кратко (до 110 слов), по-русски, конкретно, с примером. Только среднее тире (–), не длинное. Не выдумывай ссылок.`;
+// ===== public-safe assistant: local fallback + optional server endpoint =====
+const ASSISTANT_ENDPOINT_KEY='ain3-assistant-endpoint';
 const hist=[];
+function localAnswer(q){const s=q.toLowerCase();
+  if(s.includes('context'))return 'Context pack – это пять полей: goal, current, rules, examples и boundary. Начни с одного процесса и добавь один проверяемый next action.';
+  if(s.includes('skill')||s.includes('промп'))return 'Промпт решает один запрос. Skill хранит триггер, шаги, выход и evidence, поэтому процедуру можно повторить и передать.';
+  if(s.includes('процесс'))return 'Выбери работу, которая повторяется чаще раза в неделю и имеет понятный выход. Зафиксируй trigger, inputs, owner и definition of done.';
+  if(s.includes('скрип')||s.includes('прогресс'))return 'Скрипка собирает signal → state → next action → receipt. Эта страница использует только public материалы и синтетический пример; личный прогресс остаётся в LMS.';
+  return POPS[cur]+' Следующий шаг – открой связанный файл в starter pack и оставь один evidence receipt.';}
 function ask(q){document.getElementById('boxIn').value=q;sendBox(new Event('x'));}
 async function sendBox(e){if(e&&e.preventDefault)e.preventDefault();toggleChat(true);
-  const inp=document.getElementById('boxIn');const q=inp.value.trim();if(!q)return false;if(!ensureORKey())return false;
+  const inp=document.getElementById('boxIn');const q=inp.value.trim();if(!q)return false;
   const log=document.getElementById('boxLog');
   const me=document.createElement('div');me.className='m me';me.textContent=q;log.appendChild(me);
   inp.value='';hist.push({role:'user',content:q});
   const ai=document.createElement('div');ai.className='m ai';ai.textContent='…';log.appendChild(ai);log.scrollTop=log.scrollHeight;
-  try{const r=await fetch('https://openrouter.ai/api/v1/chat/completions',{method:'POST',
-    headers:{'Content-Type':'application/json','Authorization':'Bearer '+OR_KEY},
-    body:JSON.stringify({model:'anthropic/claude-sonnet-4.6',max_tokens:480,messages:[{role:'system',content:SYS},...hist.slice(-8)]})});
-    const j=await r.json();const a=(j.choices&&j.choices[0]&&j.choices[0].message.content)||('ошибка: '+(j.error&&j.error.message||r.status));
-    ai.textContent=a;hist.push({role:'assistant',content:a});}
-  catch(err){ai.textContent='сеть недоступна: '+err.message}
+  const endpoint=localStorage.getItem(ASSISTANT_ENDPOINT_KEY)||'';
+  let a=localAnswer(q);
+  if(endpoint){try{const r=await fetch(endpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({slideId:String(cur+1),question:q,mode:'public-demo',publicOnly:true,synthetic:true})});
+    if(r.ok){const j=await r.json();a=j.answer||a;}}
+    catch(err){a=localAnswer(q);}}
+  ai.textContent=a;hist.push({role:'assistant',content:a});
   log.scrollTop=log.scrollHeight;return false}
 
 go(parseInt((location.hash||'#1').slice(1),10)-1||0);

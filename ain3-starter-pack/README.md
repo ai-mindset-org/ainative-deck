@@ -26,7 +26,7 @@
 | [`naming/`](naming/) | собрать canonical filename для personal, team и model-data контуров |
 | [`playground/`](playground/) | скомпилировать сырой процесс в компактный context pack и скачать Markdown |
 | [`graph/`](graph/) | пройти Harness Atlas: люди, артефакты, skills, маршруты и evidence |
-| [публичный дек](https://ain3-personal-harness.alex-named.chatgpt.site/deck/) | 18 слайдов, кликабельный процесс и заметки спикера |
+| [публичный дек](https://ain3-personal-harness.alex-named.chatgpt.site/deck/) | 21 слайд, кликабельный процесс и заметки спикера |
 
 ## Маршрут
 

@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AIN3 · Naming Convention Builder</title>
+  <meta name="description" content="Интерактивный builder для конвенции имён AIN3: personal, team и model-data контуры.">
+  <link rel="icon" href="data:,">
+  <style>
+    :root{
+      --paper:#f2f0e9;
+      --ink:#080808;
+      --red:#ef3f36;
+      --muted:#74716a;
+      --line:#c9c5bb;
+      --grid:rgba(8,8,8,.055);
+      --mono:"JetBrains Mono","SFMono-Regular",Consolas,"Liberation Mono",monospace;
+      --sans:Inter,"Helvetica Neue",Arial,sans-serif;
+    }
+    *{box-sizing:border-box}
+    html{background:var(--ink);scroll-behavior:smooth}
+    body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--mono);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+    body::before{content:"";position:fixed;inset:0;pointer-events:none;background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:48px 48px}
+    button,input,select{font:inherit}
+    button,a{color:inherit}
+    .topbar{height:64px;padding:0 32px;background:var(--ink);color:var(--paper);display:flex;align-items:center;justify-content:space-between;gap:24px;position:relative;z-index:5;min-width:0}
+    .brand{font-weight:700;text-transform:uppercase;letter-spacing:.2em;font-size:11px;white-space:nowrap}
+    .brand b{color:var(--red)}
+    .top-actions{display:flex;align-items:center}
+    .top-actions a{height:34px;padding:0 12px;border:1px solid #4a4a4a;display:inline-flex;align-items:center;text-decoration:none;text-transform:uppercase;letter-spacing:.13em;font-size:9px;margin-left:-1px}
+    .top-actions a:hover,.top-actions a:focus-visible{background:var(--paper);color:var(--ink);outline:0}
+    .shell{max-width:1440px;margin:0 auto;padding:44px 44px 70px;position:relative;z-index:1;min-width:0}
+    .eyebrow{color:var(--red);text-transform:uppercase;letter-spacing:.18em;font-weight:700;font-size:10px;margin-bottom:22px}
+    .hero{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(360px,.9fr);gap:56px;align-items:end;padding:46px 0 56px;border-bottom:1px solid var(--ink);min-width:0}.hero>*{min-width:0}
+    h1{font:800 clamp(58px,8vw,122px)/.82 var(--sans);letter-spacing:-.065em;margin:0;max-width:8ch}
+    h1 span{color:var(--red)}
+    .hero-copy{max-width:48ch;font-size:19px;color:var(--muted);margin:0 0 6px}
+    .formula{display:block;color:var(--ink);font-weight:700;margin:22px 0 0;font-size:18px;overflow-wrap:anywhere}
+    .canon{scroll-margin-top:24px;padding:42px 0 0}
+    .canon-card{border:1px solid var(--ink);background:var(--ink);color:var(--paper);padding:28px;position:relative;overflow:hidden}
+    .canon-card::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(242,240,233,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(242,240,233,.055) 1px,transparent 1px);background-size:48px 48px;pointer-events:none}
+    .canon-head,.canon-value,.canon-grid,.canon-actions{position:relative;z-index:1}
+    .canon-head{display:flex;align-items:start;justify-content:space-between;gap:24px}
+    .canon-kicker{color:var(--red);text-transform:uppercase;letter-spacing:.16em;font-weight:700;font-size:10px}
+    .canon-head p{max-width:58ch;color:#a8a8a8;font-size:14px;margin:0}
+    .canon-value{display:block;margin:42px 0 30px;font:750 clamp(26px,3.8vw,54px)/1.08 var(--sans);letter-spacing:-.035em;overflow-wrap:anywhere}
+    .canon-value .token{color:var(--red)}
+    .canon-grid{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid #494949;margin-bottom:24px}
+    .canon-part{padding:14px 16px;border-right:1px solid #494949;min-height:92px}
+    .canon-part:last-child{border-right:0}
+    .canon-part b{display:block;font:700 15px/1.2 var(--sans)}
+    .canon-part span{display:block;margin-top:12px;color:#8d8d8d;font-size:10px}
+    .canon-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+    .mode-strip{display:grid;grid-template-columns:repeat(3,1fr);margin-top:54px;border:1px solid var(--ink)}
+    .mode-tab{min-height:94px;border:0;border-right:1px solid var(--ink);background:transparent;text-align:left;padding:16px;cursor:pointer;position:relative}
+    .mode-tab:last-child{border-right:0}
+    .mode-tab strong{display:block;text-transform:uppercase;letter-spacing:.12em;font-size:11px}
+    .mode-tab small{display:block;color:var(--muted);margin-top:20px;font-size:10px}
+    .mode-tab[aria-selected="true"]{background:var(--ink);color:var(--paper)}
+    .mode-tab[aria-selected="true"] small{color:#a7a7a7}
+    .mode-tab[aria-selected="true"]::after{content:"";position:absolute;left:16px;right:16px;bottom:0;height:5px;background:var(--red)}
+    .workspace{display:grid;grid-template-columns:minmax(330px,.72fr) minmax(0,1.28fr);border:1px solid var(--ink);border-top:0;min-height:520px;min-width:0;width:100%}
+    .form-panel{padding:26px;border-right:1px solid var(--ink);background:rgba(242,240,233,.88);min-width:0}
+    .panel-label{text-transform:uppercase;letter-spacing:.16em;color:var(--muted);font-size:10px;margin-bottom:22px}
+    .field{display:grid;grid-template-columns:92px minmax(0,1fr);align-items:center;border-top:1px solid var(--line);min-height:64px}
+    .field:last-of-type{border-bottom:1px solid var(--line)}
+    .field label{text-transform:uppercase;letter-spacing:.13em;font-size:10px;color:var(--muted)}
+    .field input,.field select{width:100%;height:44px;background:transparent;border:0;border-left:1px solid var(--line);padding:0 12px;color:var(--ink);border-radius:0;outline:0}
+    .field input:focus,.field select:focus{background:#fff;box-shadow:inset 4px 0 0 var(--red)}
+    .mode-note{margin-top:24px;padding-left:13px;border-left:4px solid var(--red);color:var(--muted);font-size:13px;min-height:54px}
+    .output-panel{background:var(--ink);color:var(--paper);padding:30px;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden;min-width:0}
+    .output-panel::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(242,240,233,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(242,240,233,.055) 1px,transparent 1px);background-size:48px 48px;pointer-events:none}
+    .output-head,.output-body,.output-foot{position:relative;z-index:1}
+    .output-head{display:flex;align-items:center;justify-content:space-between;gap:20px;text-transform:uppercase;letter-spacing:.15em;color:#8d8d8d;font-size:9px}
+    .live{display:flex;align-items:center;gap:7px;color:var(--red)}
+    .live::before{content:"";width:7px;height:7px;background:var(--red);display:block}
+    .filename{font:700 clamp(25px,3.2vw,48px)/1.18 var(--sans);letter-spacing:-.03em;overflow-wrap:anywhere;margin:44px 0}
+    .filename .project{color:#d5d5d5}
+    .filename .type{color:var(--red)}
+    .segments{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid #494949;margin-top:36px}
+    .segment{padding:13px;border-right:1px solid #494949;min-height:70px}
+    .segment:last-child{border-right:0}
+    .segment b{display:block;font-size:10px;color:var(--paper);overflow-wrap:anywhere}
+    .segment span{display:block;margin-top:12px;color:#767676;text-transform:uppercase;letter-spacing:.12em;font-size:8px}
+    .output-foot{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+    .action{min-height:44px;border:1px solid #5a5a5a;background:transparent;color:var(--paper);padding:0 15px;text-transform:uppercase;letter-spacing:.11em;font-size:10px;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;cursor:pointer}
+    .action.primary{background:var(--red);border-color:var(--red);font-weight:700}
+    .action:hover,.action:focus-visible{background:var(--paper);border-color:var(--paper);color:var(--ink);outline:0}
+    .rules{padding:76px 0 0}
+    .rules-head{display:grid;grid-template-columns:140px 1fr;gap:24px;margin-bottom:32px}
+    .rules-head span{color:var(--red);text-transform:uppercase;letter-spacing:.15em;font-size:9px}
+    .rules h2{font:800 clamp(34px,4vw,58px)/.95 var(--sans);letter-spacing:-.04em;margin:0;max-width:14ch}
+    .rule-grid{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--ink)}
+    .rule{min-height:180px;padding:18px;border-right:1px solid var(--ink)}
+    .rule:last-child{border-right:0}
+    .rule b{color:var(--red);font:800 32px/1 var(--sans)}
+    .rule h3{font:700 17px/1.15 var(--sans);margin:26px 0 10px}
+    .rule p{margin:0;color:var(--muted);font-size:13px}
+    footer{padding:24px 0 0;margin-top:76px;border-top:1px solid var(--ink);display:flex;justify-content:space-between;color:var(--muted);text-transform:uppercase;letter-spacing:.12em;font-size:8px}
+    .toast{position:fixed;right:24px;bottom:24px;background:var(--paper);color:var(--ink);border:1px solid var(--ink);border-left:6px solid var(--red);padding:12px 15px;transform:translateY(80px);opacity:0;transition:.2s;z-index:20;font-size:10px;text-transform:uppercase;letter-spacing:.1em}
+    .toast.show{transform:none;opacity:1}
+    @media(max-width:900px){.hero{grid-template-columns:1fr;align-items:start}.canon-head{display:block}.canon-head p{margin-top:14px}.canon-grid{grid-template-columns:1fr 1fr}.canon-part:nth-child(2){border-right:0}.canon-part:nth-child(-n+2){border-bottom:1px solid #494949}.mode-strip{margin-top:36px}.workspace{grid-template-columns:1fr}.form-panel{border-right:0;border-bottom:1px solid var(--ink)}.rule-grid{grid-template-columns:1fr 1fr}.rule:nth-child(2){border-right:0}.rule:nth-child(-n+2){border-bottom:1px solid var(--ink)}.segments{grid-template-columns:1fr 1fr}.segment:nth-child(2){border-right:0}.segment:nth-child(-n+2){border-bottom:1px solid #494949}}
+    @media(max-width:620px){.topbar{height:auto;min-height:64px;padding:14px 18px;align-items:flex-start;flex-direction:column;gap:12px;overflow:hidden}.top-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));width:100%;min-width:0}.top-actions a{padding:0 3px;justify-content:center;margin-left:0;white-space:normal;text-align:center;min-width:0;font-size:7px;letter-spacing:.08em}.shell{padding:20px 18px 44px;width:100%;max-width:100%}.hero{padding:36px 0 42px;gap:30px}h1{font-size:59px}.canon-card{padding:20px}.canon-value{font-size:29px;margin:32px 0 24px}.canon-grid{grid-template-columns:minmax(0,1fr)}.canon-part{border-right:0;border-bottom:1px solid #494949!important}.canon-part:last-child{border-bottom:0!important}.canon-actions .action{width:100%}.mode-strip{grid-template-columns:1fr;min-width:0}.mode-tab{min-height:72px;border-right:0;border-bottom:1px solid var(--ink);min-width:0}.mode-tab:last-child{border-bottom:0}.mode-tab small{margin-top:8px}.workspace{min-height:0;grid-template-columns:minmax(0,1fr)}.form-panel,.output-panel{padding:20px}.field{grid-template-columns:78px minmax(0,1fr)}.filename{font-size:30px;margin:36px 0}.segments{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.rules{padding-top:54px}.rules-head{grid-template-columns:1fr;gap:10px}.rule-grid{grid-template-columns:minmax(0,1fr)}.rule{min-height:0;border-right:0;border-bottom:1px solid var(--ink)!important}.rule:last-child{border-bottom:0!important}footer{gap:16px;flex-direction:column}.brand{font-size:9px;white-space:normal}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.toast{transition:none}}
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">AI Mindset · <b>AIN3</b> · naming</div>
+    <nav class="top-actions" aria-label="Навигация naming convention">
+      <a href="#canon">open canon</a>
+      <a href="../../decks/ain3-personal-setup/">back to deck</a>
+      <a href="../">starter pack</a>
+    </nav>
+  </header>
+
+  <main class="shell">
+    <section class="hero">
+      <div>
+        <div class="eyebrow">Fig. 01 · filename as index</div>
+        <h1>name the <span>context</span></h1>
+      </div>
+      <div>
+        <p class="hero-copy">Имя файла хранит контур, тип, тему, дату и формат. Человек и агент понимают артефакт до открытия.</p>
+        <code class="formula">{project} {type} description – YYYY-MM-DD.ext</code>
+      </div>
+    </section>
+
+    <section class="canon" id="canon" aria-labelledby="canon-title">
+      <div class="canon-card">
+        <div class="canon-head">
+          <div class="canon-kicker">Open Canon · one portable address</div>
+          <p id="canon-title">Канон задаёт единый адрес для памяти, процессов и результатов. Имя читается человеком, сортируется файловой системой и разбирается агентом.</p>
+        </div>
+        <code class="canon-value" id="canonValue">{<span class="token">project</span>} {<span class="token">type</span>} description – YYYY-MM-DD.ext</code>
+        <div class="canon-grid" aria-label="Поля канонического имени">
+          <div class="canon-part"><b>{project}</b><span>контур: ain3, self, ops</span></div>
+          <div class="canon-part"><b>{type}</b><span>роль: rule, context, process</span></div>
+          <div class="canon-part"><b>description</b><span>короткая тема в lower case</span></div>
+          <div class="canon-part"><b>date.ext</b><span>snapshot и формат хранения</span></div>
+        </div>
+        <div class="canon-actions">
+          <button class="action primary" type="button" id="copyCanon">copy canon</button>
+          <a class="action" href="https://github.com/ai-mindset-org/ainative-deck/blob/main/ain3-starter-pack/naming-convention.md" target="_blank" rel="noopener noreferrer">open rule on GitHub</a>
+          <a class="action" href="../naming-convention.md" download="naming-convention.md">download .md</a>
+          <a class="action" href="../../decks/ain3-personal-setup/">back to deck</a>
+          <a class="action" href="../">back to pack</a>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="builder-title">
+      <h2 id="builder-title" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Naming builder</h2>
+      <div class="mode-strip" role="tablist" aria-label="Контур артефакта">
+        <button class="mode-tab" type="button" role="tab" aria-selected="true" data-mode="personal"><strong>01 · personal</strong><small>свой контекст и рефлексия</small></button>
+        <button class="mode-tab" type="button" role="tab" aria-selected="false" data-mode="team"><strong>02 · team</strong><small>общий процесс и владелец</small></button>
+        <button class="mode-tab" type="button" role="tab" aria-selected="false" data-mode="model-data"><strong>03 · model-data</strong><small>корпус, dataset и runtime</small></button>
+      </div>
+
+      <div class="workspace">
+        <form class="form-panel" id="builder" autocomplete="off">
+          <div class="panel-label">// input · controlled vocabulary</div>
+          <div class="field"><label for="project">project</label><input id="project" name="project" value="self" maxlength="30" spellcheck="false"></div>
+          <div class="field"><label for="type">type</label><input id="type" name="type" value="context" maxlength="30" spellcheck="false"></div>
+          <div class="field"><label for="description">description</label><input id="description" name="description" value="weekly reflection" maxlength="80" spellcheck="false"></div>
+          <div class="field"><label for="date">date</label><input id="date" name="date" type="date" value="2026-07-14"></div>
+          <div class="field"><label for="format">format</label><select id="format" name="format"><option value="md">.md</option><option value="jsonl">.jsonl</option><option value="parquet">.parquet</option><option value="sqlite">.sqlite</option></select></div>
+          <p class="mode-note" id="modeNote">Личный контур: заметка остаётся читаемой и переносимой между runtime.</p>
+        </form>
+
+        <div class="output-panel" aria-live="polite">
+          <div class="output-head"><span>// output · stable filename</span><span class="live">live</span></div>
+          <div class="output-body">
+            <div class="filename" id="filename"><span class="project">{self}</span> <span class="type">{context}</span> weekly reflection – 2026-07-14.md</div>
+            <div class="segments" aria-label="Сегменты имени">
+              <div class="segment"><b id="segProject">self</b><span>scope</span></div>
+              <div class="segment"><b id="segType">context</b><span>lifecycle</span></div>
+              <div class="segment"><b id="segDate">2026-07-14</b><span>time</span></div>
+              <div class="segment"><b id="segFormat">md</b><span>storage</span></div>
+            </div>
+          </div>
+          <div class="output-foot">
+            <button class="action primary" type="button" id="copyFilename">copy filename</button>
+            <a class="action" href="#canon">open canon</a>
+            <a class="action" href="https://github.com/ai-mindset-org/ainative-deck/blob/main/ain3-starter-pack/naming-convention.md" target="_blank" rel="noopener noreferrer">open rule on GitHub</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="rules" aria-labelledby="rules-title">
+      <div class="rules-head"><span>Fig. 02 · invariants</span><h2 id="rules-title">Четыре поля держат порядок</h2></div>
+      <div class="rule-grid">
+        <article class="rule"><b>01</b><h3>Project</h3><p>Короткий stable slug показывает контур: ain3, self, model, ops.</p></article>
+        <article class="rule"><b>02</b><h3>Type</h3><p>Контролируемый словарь сообщает lifecycle: context, meeting, dataset, process.</p></article>
+        <article class="rule"><b>03</b><h3>Date</h3><p>Дата завершает имя и поддерживает сортировку, поиск и snapshots.</p></article>
+        <article class="rule"><b>04</b><h3>Format</h3><p>Расширение описывает способ хранения: markdown, event stream, table или local database.</p></article>
+      </div>
+    </section>
+
+    <footer><span>AIN3 · Personal Harness</span><span>UTF-8 · en dash U+2013 · 2026</span></footer>
+  </main>
+
+  <div class="toast" id="toast" role="status">filename copied</div>
+  <script>
+    const MODES={
+      personal:{project:'self',type:'context',description:'weekly reflection',date:'2026-07-14',format:'md',note:'Личный контур: заметка остаётся читаемой и переносимой между runtime.'},
+      team:{project:'ain3',type:'template',description:'agent passport',date:'2026-07-14',format:'md',note:'Контур лаборатории: canonical slug ain3 связывает шаблон, backlinks, owner и следующий run.'},
+      'model-data':{project:'model',type:'dataset',description:'instruction corpus',date:'2026-07-14',format:'jsonl',note:'Model-data контур: имя фиксирует назначение набора, snapshot и способ хранения.'}
+    };
+    const $=selector=>document.querySelector(selector);
+    const fields={project:$('#project'),type:$('#type'),description:$('#description'),date:$('#date'),format:$('#format')};
+    const sanitizeSlug=value=>(value||'untitled').toLowerCase().trim().replace(/[{}]/g,'').replace(/[^a-z0-9-]+/g,'-').replace(/^-+|-+$/g,'')||'untitled';
+    const sanitizeDescription=value=>(value||'untitled').toLowerCase().trim().replace(/[–\u2014]/g,'-').replace(/[^a-z0-9 -]+/g,'').replace(/\s+/g,' ').slice(0,80)||'untitled';
+    const render=()=>{
+      const project=sanitizeSlug(fields.project.value);
+      const type=sanitizeSlug(fields.type.value);
+      const description=sanitizeDescription(fields.description.value);
+      const date=fields.date.value||'YYYY-MM-DD';
+      const format=fields.format.value;
+      const filename=`{${project}} {${type}} ${description} – ${date}.${format}`;
+      $('#filename').innerHTML=`<span class="project">{${project}}</span> <span class="type">{${type}}</span> ${description} – ${date}.${format}`;
+      $('#filename').dataset.value=filename;
+      $('#segProject').textContent=project;
+      $('#segType').textContent=type;
+      $('#segDate').textContent=date;
+      $('#segFormat').textContent=format;
+    };
+    Object.values(fields).forEach(field=>field.addEventListener('input',render));
+    document.querySelectorAll('.mode-tab').forEach(tab=>tab.addEventListener('click',()=>{
+      document.querySelectorAll('.mode-tab').forEach(item=>item.setAttribute('aria-selected',String(item===tab)));
+      const mode=MODES[tab.dataset.mode];
+      Object.entries(mode).forEach(([key,value])=>{if(fields[key])fields[key].value=value;});
+      $('#modeNote').textContent=mode.note;
+      render();
+    }));
+    const toast=$('#toast');
+    const showToast=message=>{toast.textContent=message;toast.classList.add('show');window.setTimeout(()=>toast.classList.remove('show'),1800);};
+    const copyText=async value=>{
+      try{
+        if(navigator.clipboard?.writeText){await navigator.clipboard.writeText(value);return true;}
+      }catch(error){}
+      const fallback=document.createElement('textarea');
+      fallback.value=value;
+      fallback.setAttribute('readonly','');
+      fallback.style.cssText='position:fixed;inset:auto auto 0 0;opacity:0;pointer-events:none';
+      document.body.appendChild(fallback);
+      fallback.select();
+      const copied=document.execCommand('copy');
+      fallback.remove();
+      return copied;
+    };
+    $('#copyCanon').addEventListener('click',async()=>{
+      const value='{project} {type} description – YYYY-MM-DD.ext';
+      showToast(await copyText(value)?'canon copied':value);
+    });
+    $('#copyFilename').addEventListener('click',async()=>{
+      const value=$('#filename').dataset.value;
+      showToast(await copyText(value)?'filename copied':value);
+    });
+    render();
+  </script>
+</body>
+</html>

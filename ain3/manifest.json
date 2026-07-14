@@ -1,0 +1,31 @@
+{
+  "schema": "aim.ain3.public-hub.v1",
+  "lab": "ain3",
+  "display_name": "AI-Native Sprint III",
+  "generated_at": "2026-07-14T10:52:16Z",
+  "privacy_class": "public-safe",
+  "counts": {
+    "onboarding_rows": 0,
+    "submitted_rows": 0,
+    "participant_cards_in_chat": 0,
+    "attendance_identities": 0,
+    "intro_call_matches": 0
+  },
+  "counts_note": "Sources have different denominators. Do not infer a single cohort size from these fields.",
+  "sources": [
+    {"name": "Labs Dataflow roster", "as_of": "2026-07-14", "status": "ok"},
+    {"name": "Labs Dataflow export", "as_of": "2026-07-14", "status": "partial", "note": "pre_lab_signals absent"}
+  ],
+  "public_routes": {
+    "hub": "https://ai-mindset-org.github.io/ainative-deck/ain3/",
+    "intro": "https://ai-mindset-org.github.io/ainative-deck/ain3-intro.html#cover",
+    "personal_setup": "https://ai-mindset-org.github.io/ainative-deck/decks/ain3-personal-setup/",
+    "starter_pack": "https://github.com/ai-mindset-org/ainative-deck/tree/main/ain3-starter-pack",
+    "handoff_readme": "https://github.com/ai-mindset-org/ainative-deck/blob/main/ain3/handoff/README.md",
+    "handoff_zip": "https://ai-mindset-org.github.io/ainative-deck/ain3/ain3-handoff-pack.zip"
+  },
+  "privacy": {
+    "allowed": ["aggregates", "public speaker profiles", "synthetic examples", "public artifacts"],
+    "forbidden": ["participant names", "Telegram identities", "emails", "verbatim onboarding", "raw chat", "transcripts", "individual attendance", "LMS progress"]
+  }
+}

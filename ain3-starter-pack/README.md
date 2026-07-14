@@ -36,9 +36,9 @@
    - Claude Code – [`CLAUDE.md.template`](CLAUDE.md.template) → `CLAUDE.md`.
 3. Собери пример в интерактивном [`naming builder`](naming/) и прими [`naming-convention.md`](naming-convention.md) как правило для новых файлов.
 4. Если в контуре есть агенты или расписания, заполни [`agent-passport-template.md`](agent-passport-template.md) и добавь строки в [`agent-registry-template.md`](agent-registry-template.md).
-5. Заполни [`operating-brief-template.md`](operating-brief-template.md) и [`source-map-template.md`](source-map-template.md).
-6. Установи два starter skills из `skills/`.
-7. Сделай первый прогон и запиши результат в [`evidence-log-template.md`](evidence-log-template.md).
+5. Заполни [`operating-brief-template.md`](operating-brief-template.md), [`source-map-template.md`](source-map-template.md) и переносимый [`context-pack-template.md`](context-pack-template.md).
+6. Выбери starter skills из `skills/`: operating brief, process audit, context pack, evidence review и session handoff.
+7. Сделай первый прогон, сохрани [`agent-run-receipt.md`](agent-run-receipt.md) и запиши результат в [`evidence-log-template.md`](evidence-log-template.md).
 8. Для передачи действующего контура используй [`harness-setup-handoff-template.md`](harness-setup-handoff-template.md).
 9. Через 1–2 недели пройди [`refresh-ritual.md`](refresh-ritual.md).
 
@@ -61,8 +61,14 @@ Brief хранит portable contract из пяти полей: `trigger · input
 | [`agent-registry-template.md`](agent-registry-template.md) | видимый реестр агентов, triggers, evidence и stop controls |
 | [`operating-brief-template.md`](operating-brief-template.md) | trigger · inputs · output · owner · DoD |
 | [`source-map-template.md`](source-map-template.md) | 3–5 минимально достаточных источников |
+| [`context-pack-template.md`](context-pack-template.md) | goal · current · rules · examples · boundary для передачи состояния |
+| [`agent-run-receipt.md`](agent-run-receipt.md) | воспроизводимый receipt одного агентного запуска |
+| [`participant-progress-example.md`](participant-progress-example.md) | synthetic-схема прогресса без данных реального участника |
 | [`skills/operating-brief/SKILL.md`](skills/operating-brief/SKILL.md) | описание процесса → operating brief |
 | [`skills/process-audit/SKILL.md`](skills/process-audit/SKILL.md) | шаги процесса → первый кандидат на автоматизацию |
+| [`skills/context-pack/SKILL.md`](skills/context-pack/SKILL.md) | точное рабочее состояние → переносимый context pack |
+| [`skills/evidence-review/SKILL.md`](skills/evidence-review/SKILL.md) | claims, sources и privacy boundary → review receipt |
+| [`skills/session-handoff/SKILL.md`](skills/session-handoff/SKILL.md) | текущая сессия → точный restart в другом runtime |
 | [`evidence-log-template.md`](evidence-log-template.md) | факт прогона → точечное изменение системы |
 | [`demo/one-workflow-seed.md`](demo/one-workflow-seed.md) | заполненный synthetic example |
 | [`refresh-ritual.md`](refresh-ritual.md) | поддержка контура раз в 1–2 недели |
@@ -86,4 +92,6 @@ my-workspace/
 
 **Один процесс → один контекст → один прогон → один evidence-сигнал.** Следующий прогон становится лучше через правку источников, правил или skill.
 
-AI Mindset · [программа AIN3](https://ai-native.aimindset.org/) · [public site](https://ain3-personal-harness.alex-named.chatgpt.site/) · [публичный дек](https://ain3-personal-harness.alex-named.chatgpt.site/deck/)
+Переносимая ценность контура – **нормализованный контекст**, который одинаково читают человек, команда и агент.
+
+AI Mindset · [программа AIN3](https://ai-native.aimindset.org/) · [public site](https://ain3-personal-harness.alex-named.chatgpt.site/) · [публичный дек](https://ain3-personal-harness.alex-named.chatgpt.site/deck/) · [@ai_mind_set](https://t.me/ai_mind_set)

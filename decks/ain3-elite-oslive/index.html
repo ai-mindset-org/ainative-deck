@@ -164,6 +164,22 @@ p  { font-size:18px; line-height:1.7; color:rgba(255,255,255,0.8); }
   </div>
 </div>
 
+<!-- 3b · сегодня на столе -->
+<div class="slide" id="s3b">
+  <div class="slide-counter"><span class="current">4</span>/<span class="total"></span></div>
+  <img class="slide-logo" src="logo.png" alt="">
+  <div class="slide-inner">
+    <div class="label fadeUp">// СЕГОДНЯ · НА СТОЛЕ</div>
+    <h2 class="fadeUp">четыре вещи – <span class="teal">вживую</span></h2>
+    <div class="cards two fadeUp">
+      <div class="card"><div class="card-icon">live 01</div><h3>прозрачность сессий</h3><p>inspector: все сессии, звонки и коммиты – одна связная лента</p></div>
+      <div class="card"><div class="card-icon">live 02</div><h3>параллельные сессии</h3><p>сессия-разбор + сессия-строитель работают одновременно</p></div>
+      <div class="card"><div class="card-icon">live 03</div><h3>среда за слайд</h3><p>chrome → obsidian: интеграция, написанная во время разговора</p></div>
+      <div class="card"><div class="card-icon">live 04</div><h3>продукты из сессий</h3><p>aim-os – скиллы всей команды · crm, пересобранный парой агентов</p></div>
+    </div>
+  </div>
+</div>
+
 <!-- 4 · наш флоу -->
 <div class="slide" id="s4">
   <div class="slide-counter"><span class="current">4</span>/<span class="total"></span></div>
@@ -193,10 +209,51 @@ p  { font-size:18px; line-height:1.7; color:rgba(255,255,255,0.8); }
     <div class="stack fadeUp">
       <div class="layer"><span class="n">00</span><span class="t">operator</span><span class="d">человек ставит цели, держит вкус и право финального решения</span></div>
       <div class="layer"><span class="n">01</span><span class="t">model</span><span class="d">opus как рабочая лошадь · codex как перепроверка</span></div>
-      <div class="layer"><span class="n">02</span><span class="t">harness</span><span class="d">vault ~13k заметок · ~150 скиллов · память · evals · hooks</span></div>
+      <div class="layer"><span class="n">02</span><span class="t">harness</span><span class="d">vault ~16k заметок · ~270 скиллов · память · evals · hooks</span></div>
       <div class="layer"><span class="n">03</span><span class="t">tools</span><span class="d">MCP: telegram · krisp · linear · exa · murmur</span></div>
       <div class="layer"><span class="n">04</span><span class="t">environment</span><span class="d">markdown-файлы + git: всё считается, всё восстановимо</span></div>
     </div>
+  </div>
+</div>
+
+<!-- 5b · фреймворк · анатомия агента -->
+<div class="slide" id="s5b">
+  <div class="slide-counter"><span class="current">7</span>/<span class="total"></span></div>
+  <img class="slide-logo" src="logo.png" alt="">
+  <div class="slide-inner" style="text-align:center">
+    <div class="label fadeUp">// ФРЕЙМВОРК · АНАТОМИЯ АГЕНТА</div>
+    <svg class="fadeUp" viewBox="0 0 900 600" role="img" aria-label="анатомия агента: llm в центре, 7 узлов harness, 4 внешних слоя" style="width:100%;max-width:880px;height:auto;max-height:66vh;display:block;margin:6px auto 0">
+      <style>
+        .an-name { fill:#e6edf3; font:500 15px 'JetBrains Mono',monospace; }
+        .an-stat { fill:rgba(255,255,255,0.5); font:400 10.5px 'IBM Plex Mono',monospace; letter-spacing:.5px; }
+        .an-core-big { fill:#fff; font:700 34px 'Space Grotesk',sans-serif; }
+        .an-core-mid { fill:#4dc9d4; font:500 12px 'JetBrains Mono',monospace; }
+        .an-core-micro { fill:rgba(255,255,255,0.5); font:400 10px 'IBM Plex Mono',monospace; }
+        .an-dot-txt { fill:#0a0a0f; font:600 12px 'JetBrains Mono',monospace; }
+      </style>
+      <!-- rings -->
+      <ellipse cx="450" cy="300" rx="400" ry="265" fill="none" stroke="rgba(77,201,212,0.28)" stroke-width="1" stroke-dasharray="5 5"/>
+      <ellipse cx="450" cy="300" rx="295" ry="195" fill="none" stroke="rgba(77,201,212,0.22)" stroke-width="1"/>
+      <!-- core -->
+      <circle cx="450" cy="300" r="85" fill="#1c1c2e" stroke="#4dc9d4" stroke-width="1.4"/>
+      <text x="450" y="294" text-anchor="middle" class="an-core-big">llm</text>
+      <text x="450" y="316" text-anchor="middle" class="an-core-mid">opus 4.8 · fable 5</text>
+      <text x="450" y="332" text-anchor="middle" class="an-core-micro">предсказывает токен</text>
+      <!-- harness nodes 1-7 -->
+      <g><rect x="365" y="82" width="170" height="46" rx="6" fill="#1c1c2e" stroke="rgba(77,201,212,0.4)"/><circle cx="365" cy="82" r="10" fill="#4dc9d4"/><text x="365" y="86" text-anchor="middle" class="an-dot-txt">1</text><text x="450" y="102" text-anchor="middle" class="an-name">скиллы</text><text x="450" y="118" text-anchor="middle" class="an-stat">~270 skill.md · ssot + зеркала</text></g>
+      <g><rect x="605" y="142" width="170" height="46" rx="6" fill="#1c1c2e" stroke="rgba(77,201,212,0.4)"/><circle cx="605" cy="142" r="10" fill="#4dc9d4"/><text x="605" y="146" text-anchor="middle" class="an-dot-txt">2</text><text x="690" y="162" text-anchor="middle" class="an-name">саб-агенты</text><text x="690" y="178" text-anchor="middle" class="an-stat">24 типа · маршрут по моделям</text></g>
+      <g><rect x="660" y="277" width="170" height="46" rx="6" fill="#1c1c2e" stroke="rgba(77,201,212,0.4)"/><circle cx="660" cy="277" r="10" fill="#4dc9d4"/><text x="660" y="281" text-anchor="middle" class="an-dot-txt">3</text><text x="745" y="297" text-anchor="middle" class="an-name">инструменты + mcp</text><text x="745" y="313" text-anchor="middle" class="an-stat">~20 серверов в сессии</text></g>
+      <g><rect x="605" y="412" width="170" height="46" rx="6" fill="#1c1c2e" stroke="rgba(77,201,212,0.4)"/><circle cx="605" cy="412" r="10" fill="#4dc9d4"/><text x="605" y="416" text-anchor="middle" class="an-dot-txt">4</text><text x="690" y="432" text-anchor="middle" class="an-name">workflow</text><text x="690" y="448" text-anchor="middle" class="an-stat">hooks · cron · оркестрация</text></g>
+      <g><rect x="125" y="412" width="170" height="46" rx="6" fill="#1c1c2e" stroke="rgba(77,201,212,0.4)"/><circle cx="125" cy="412" r="10" fill="#4dc9d4"/><text x="125" y="416" text-anchor="middle" class="an-dot-txt">5</text><text x="210" y="432" text-anchor="middle" class="an-name">контекст + rag</text><text x="210" y="448" text-anchor="middle" class="an-stat">qmd 16k док · окно 1m</text></g>
+      <g><rect x="70" y="277" width="170" height="46" rx="6" fill="#1c1c2e" stroke="rgba(77,201,212,0.4)"/><circle cx="70" cy="277" r="10" fill="#4dc9d4"/><text x="70" y="281" text-anchor="middle" class="an-dot-txt">6</text><text x="155" y="297" text-anchor="middle" class="an-name">память</text><text x="155" y="313" text-anchor="middle" class="an-stat">memory.md · claude-mem</text></g>
+      <g><rect x="125" y="142" width="170" height="46" rx="6" fill="#1c1c2e" stroke="rgba(77,201,212,0.4)"/><circle cx="125" cy="142" r="10" fill="#4dc9d4"/><text x="125" y="146" text-anchor="middle" class="an-dot-txt">7</text><text x="210" y="162" text-anchor="middle" class="an-name">evals</text><text x="210" y="178" text-anchor="middle" class="an-stat">t/r/c футер в каждом ответе</text></g>
+      <!-- emerging layers a-d -->
+      <g><rect x="740" y="30" width="150" height="40" rx="6" fill="none" stroke="rgba(77,201,212,0.35)" stroke-dasharray="4 3"/><circle cx="740" cy="30" r="9" fill="#161620" stroke="#4dc9d4"/><text x="740" y="34" text-anchor="middle" class="an-core-mid" style="font-size:11px">a</text><text x="815" y="47" text-anchor="middle" class="an-name" style="font-size:13px">наблюдаемость</text><text x="815" y="62" text-anchor="middle" class="an-stat">inspector :49555</text></g>
+      <g><rect x="740" y="530" width="150" height="40" rx="6" fill="none" stroke="rgba(77,201,212,0.35)" stroke-dasharray="4 3"/><circle cx="740" cy="530" r="9" fill="#161620" stroke="#4dc9d4"/><text x="740" y="534" text-anchor="middle" class="an-core-mid" style="font-size:11px">b</text><text x="815" y="547" text-anchor="middle" class="an-name" style="font-size:13px">a2a-меш</text><text x="815" y="562" text-anchor="middle" class="an-stat">murmur · nats</text></g>
+      <g><rect x="10" y="530" width="150" height="40" rx="6" fill="none" stroke="rgba(77,201,212,0.35)" stroke-dasharray="4 3"/><circle cx="10" cy="530" r="9" fill="#161620" stroke="#4dc9d4"/><text x="10" y="534" text-anchor="middle" class="an-core-mid" style="font-size:11px">c</text><text x="85" y="547" text-anchor="middle" class="an-name" style="font-size:13px">кросс-cli</text><text x="85" y="562" text-anchor="middle" class="an-stat">codex · agents.md</text></g>
+      <g><rect x="10" y="30" width="150" height="40" rx="6" fill="none" stroke="rgba(77,201,212,0.35)" stroke-dasharray="4 3"/><circle cx="10" cy="30" r="9" fill="#161620" stroke="#4dc9d4"/><text x="10" y="34" text-anchor="middle" class="an-core-mid" style="font-size:11px">d</text><text x="85" y="47" text-anchor="middle" class="an-name" style="font-size:13px">реестр версий</text><text x="85" y="62" text-anchor="middle" class="an-stat">registry.json</text></g>
+    </svg>
+    <p class="fadeUp" style="font-size:14px;margin-top:14px"><span class="dim">кольцо – harness-обвязка · пунктир – граница агента · a–d – слои 2026 · схема: гершуни (ai-native organizations) × контур alex</span></p>
   </div>
 </div>
 
@@ -226,7 +283,7 @@ p  { font-size:18px; line-height:1.7; color:rgba(255,255,255,0.8); }
       <div><span class="p1">$</span> open <span class="teal">http://localhost:49555/inspector.html</span></div>
       <div class="p2">◆ sessions · ◇ topics · ⊚ people · ⊟ стек · ◈ memory</div>
     </div>
-    <p class="fadeUp subtitle" style="margin-top:28px">все агентские сессии, звонки и коммиты — одна связная лента. это и есть token metabolism, собранный поверх обычных файлов.</p>
+    <p class="fadeUp subtitle" style="margin-top:28px">все агентские сессии, звонки и коммиты – одна связная лента. это и есть token metabolism, собранный поверх обычных файлов.</p>
     <div class="livehint fadeUp">[ переключаемся в браузер ]</div>
   </div>
 </div>
@@ -281,6 +338,28 @@ p  { font-size:18px; line-height:1.7; color:rgba(255,255,255,0.8); }
   </div>
 </div>
 
+<!-- 10b · отдельная история · crm -->
+<div class="slide" id="s10b">
+  <div class="slide-counter"><span class="current">13</span>/<span class="total"></span></div>
+  <img class="slide-logo" src="logo.png" alt="">
+  <div class="slide-inner">
+    <div class="label fadeUp">// ОТДЕЛЬНАЯ ИСТОРИЯ · CRM</div>
+    <h2 class="fadeUp">crm, <span class="teal">рождённый из сессий</span></h2>
+    <div class="flow fadeUp">
+      <span class="chip">спека {prd}</span><span class="arrow">→</span>
+      <span class="chip hot">a2a-мост</span><span class="arrow">→</span>
+      <span class="chip">codex строит</span><span class="arrow">→</span>
+      <span class="chip">claude проверяет</span><span class="arrow">→</span>
+      <span class="chip">live на сервере</span>
+    </div>
+    <div class="cards fadeUp">
+      <div class="card"><div class="card-icon">01</div><h3>два агента – один продукт</h3><p>claude держит спеку и вкус, codex собирает код; переписка между ними идёт по a2a-мосту, человек – только на развилках</p></div>
+      <div class="card"><div class="card-icon">02</div><h3>данные из потока</h3><p>партнёры, evidence коммуникаций, follow-up – приходят из транскриптов и чатов: crm наполняется тем же metabolism, что и vault</p></div>
+      <div class="card"><div class="card-icon">03</div><h3>пересборка без страха</h3><p>v6 – не доработка, а пересборка с нуля: данные отделены от кода, продукт можно выбросить и родить заново за дни</p></div>
+    </div>
+  </div>
+</div>
+
 <!-- 11 · что это меняет -->
 <div class="slide" id="s11">
   <div class="slide-counter"><span class="current">11</span>/<span class="total"></span></div>
@@ -329,6 +408,7 @@ const STORAGE_KEY = 'ain3-elite-oslive-state';
 const slides = Array.from(document.querySelectorAll('.slide'));
 let idx = 0;
 document.querySelectorAll('.total').forEach(el => el.textContent = slides.length);
+slides.forEach((s, k) => { const c = s.querySelector('.current'); if (c) c.textContent = k + 1; });
 
 function show(i) {
   idx = Math.max(0, Math.min(slides.length - 1, i));

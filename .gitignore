@@ -12,3 +12,20 @@ data/ain02-deck-requirements-*.md
 data/ain02-saved-*.md
 data/ain02-noco-*.json
 data/ain02-context-*.json
+
+# Private agent/session artifacts must never enter this public repository.
+.claude/
+.codex/
+.cursor/
+_sessions/
+file-history/
+*.jsonl
+*.sqlite
+*.sqlite3
+*.db
+*.pem
+*.key
+HANDOFF.md
+CONTEXT-HANDOFF.md
+SESSION-*-HANDOFF.md
+ain3/handoff/

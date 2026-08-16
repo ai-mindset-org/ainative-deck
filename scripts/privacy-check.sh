@@ -26,7 +26,7 @@ report_paths "private runtime/session file" \
      -o -name 'SESSION-*-HANDOFF.md' -o -path './ain3/handoff/*' \
      -o -name '*.backup-*' \)
 
-content_pattern='(/Users/[A-Za-z0-9._-]+/|/home/[A-Za-z0-9._-]+/|[A-Za-z]:\\\\Users\\\\[^\\\\[:space:]]+|"(sessionId|parentUuid|cwd|transcript_path)"[[:space:]]*:|sk-or-v1-|sk-[A-Za-z0-9_-]{20,}|\.chatgpt\.site)'
+content_pattern='(/Users/[A-Za-z0-9._-]+/|/home/[A-Za-z0-9._-]+/|[A-Za-z]:\\\\Users\\\\[^\\\\[:space:]]+|\.claude/(projects|file-history)|\.codex/sessions|session\.jsonl|"(sessionId|parentUuid|isSidechain|toolUseResult|transcript_path)"[[:space:]]*:|sk-or-v1-|sk-[A-Za-z0-9_-]{20,}|\.chatgpt\.site)'
 if git grep -IEn "$content_pattern" -- . \
   ':(exclude)scripts/privacy-check.sh' \
   ':(exclude).github/workflows/privacy.yml'; then

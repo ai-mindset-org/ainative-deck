@@ -2,30 +2,15 @@
   "schema": "aim.ain3.public-hub.v1",
   "lab": "ain3",
   "display_name": "AI-Native Sprint III",
-  "generated_at": "2026-07-14T10:52:16Z",
+  "generated_at": "2026-08-16T17:20:00Z",
   "privacy_class": "public-safe",
-  "counts": {
-    "onboarding_rows": 0,
-    "submitted_rows": 0,
-    "participant_cards_in_chat": 0,
-    "attendance_identities": 0,
-    "intro_call_matches": 0
-  },
-  "counts_note": "Sources have different denominators. Do not infer a single cohort size from these fields.",
-  "sources": [
-    {"name": "Labs Dataflow roster", "as_of": "2026-07-14", "status": "ok"},
-    {"name": "Labs Dataflow export", "as_of": "2026-07-14", "status": "partial", "note": "pre_lab_signals absent"}
-  ],
   "public_routes": {
     "hub": "https://ai-mindset-org.github.io/ainative-deck/ain3/",
     "intro": "https://ai-mindset-org.github.io/ainative-deck/ain3-intro.html#cover",
     "personal_setup": "https://ai-mindset-org.github.io/ainative-deck/decks/ain3-personal-setup/",
-    "personal_setup_companion": "https://ain3-personal-harness.alex-named.chatgpt.site/",
     "personal_setup_session": "https://ai-mindset-org.github.io/ainative-deck/ain3-starter-pack/session/",
     "personal_setup_glossary": "https://ai-mindset-org.github.io/ainative-deck/ain3-starter-pack/glossary/",
-    "starter_pack": "https://github.com/ai-mindset-org/ainative-deck/tree/main/ain3-starter-pack",
-    "handoff_readme": "https://github.com/ai-mindset-org/ainative-deck/blob/main/ain3/handoff/README.md",
-    "handoff_zip": "https://ai-mindset-org.github.io/ainative-deck/ain3/ain3-handoff-pack.zip"
+    "starter_pack": "https://github.com/ai-mindset-org/ainative-deck/tree/main/ain3-starter-pack"
   },
   "privacy": {
     "allowed": ["aggregates", "public speaker profiles", "synthetic examples", "public artifacts"],

@@ -28,7 +28,7 @@
 | [`playground/`](playground/) | скомпилировать сырой процесс в компактный context pack и скачать Markdown |
 | [`graph/`](graph/) | пройти Harness Atlas: люди, артефакты, skills, маршруты и evidence |
 | [`glossary/`](glossary/) | найти один из 37 терминов и понять его роль для dev/non-dev |
-| [публичный дек](https://ain3-personal-harness.alex-named.chatgpt.site/deck/) | 24 слайда, кликабельный процесс, World-блок и заметки спикера |
+| [публичный дек](https://ai-mindset-org.github.io/ainative-deck/decks/ain3-personal-setup/) | 24 слайда, кликабельный процесс, World-блок и заметки спикера |
 
 ## Маршрут
 
@@ -99,4 +99,4 @@ my-workspace/
 
 Переносимая ценность контура – **нормализованный контекст**, который одинаково читают человек, команда и агент.
 
-AI Mindset · [программа AIN3](https://ai-native.aimindset.org/) · [public site](https://ain3-personal-harness.alex-named.chatgpt.site/) · [публичный дек](https://ain3-personal-harness.alex-named.chatgpt.site/deck/) · [@ai_mind_set](https://t.me/ai_mind_set)
+AI Mindset · [программа AIN3](https://ai-native.aimindset.org/) · [public hub](https://ai-mindset-org.github.io/ainative-deck/ain3/) · [публичный дек](https://ai-mindset-org.github.io/ainative-deck/decks/ain3-personal-setup/) · [@ai_mind_set](https://t.me/ai_mind_set)

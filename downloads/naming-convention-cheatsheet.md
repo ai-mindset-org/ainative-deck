@@ -92,7 +92,7 @@ status: done
 ## Interactive Tool
 
 Try the naming convention formatter:
-**[ai-mindset-org.github.io/pos-stack-explorer/naming.html](https://ai-mindset-org.github.io/pos-stack-explorer/naming.html?utm_source=website&utm_medium=article&utm_campaign=start&utm_content=github-ainative-deck)**
+**https://ai-mindset-org.github.io/pos-stack-explorer/naming.html**
 
 Type your file description and it generates the correct name with proper format, type tag, and date.
 

@@ -24,7 +24,7 @@ gists:
 # AI-Native Organizations Sprint — спикеры и расписание
 
 > 23 марта – 13 апреля 2026 | онлайн | AI Mindset × CybOS
-> [ai-native.aimindset.org](https://ai-native.aimindset.org?utm_source=website&utm_medium=article&utm_campaign=start&utm_content=github-ainative-deck)
+> https://ai-native.aimindset.org
 
 ---
 

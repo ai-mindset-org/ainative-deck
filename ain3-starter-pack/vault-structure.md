@@ -54,4 +54,4 @@
 
 ---
 
-материалы воркшопа: [starter pack](https://ai-mindset-org.github.io/ainative-deck/ain3-starter-pack/?utm_source=website&utm_medium=article&utm_campaign=start&utm_content=github-ainative-deck) · [шаблон AGENTS.md](https://github.com/ai-mindset-org/ainative-deck/blob/main/ain3-starter-pack/AGENTS.md.template) · [naming convention](https://github.com/ai-mindset-org/ainative-deck/blob/main/ain3-starter-pack/naming-convention.md) · [world-граф лабы](https://ai-mindset-org.github.io/ainative-deck/ain3-starter-pack/graph/?src=..%2Fdata%2Fworld-manifest.json&utm_source=website&utm_medium=article&utm_campaign=start&utm_content=github-ainative-deck)
+материалы воркшопа: [starter pack](https://ai-mindset-org.github.io/ainative-deck/ain3-starter-pack/) · [шаблон AGENTS.md](https://github.com/ai-mindset-org/ainative-deck/blob/main/ain3-starter-pack/AGENTS.md.template) · [naming convention](https://github.com/ai-mindset-org/ainative-deck/blob/main/ain3-starter-pack/naming-convention.md) · [world-граф лабы](https://ai-mindset-org.github.io/ainative-deck/ain3-starter-pack/graph/?src=../data/world-manifest.json)

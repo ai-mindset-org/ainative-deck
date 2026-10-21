@@ -2,7 +2,7 @@
 
 Это общий контекст-граф лабы. Он начался с утренней практики Дениса (M1, 14.07.2026): агенты разложили лекцию на 38 узлов. Теперь узлы добавляют участники — руками своих агентов.
 
-**Смотреть граф:** https://ai-mindset-org.github.io/ainative-deck/ain3-starter-pack/graph/?src=../data/world-manifest.json
+**Смотреть граф:** [ai-mindset-org.github.io/ainative-deck/ain3-starter-pack/graph?src=..%2Fdata%2Fworld-manifest.json](https://ai-mindset-org.github.io/ainative-deck/ain3-starter-pack/graph/?src=..%2Fdata%2Fworld-manifest.json&utm_source=website&utm_medium=article&utm_campaign=start&utm_content=github-ainative-deck)
 
 ## Как добавить свой узел
 

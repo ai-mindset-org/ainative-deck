@@ -139,4 +139,4 @@ def main(argv=None):
     print(f"world-manifest: {len(nodes)} nodes, {len(edges)} edges -> {os.path.relpath(OUT, ROOT)}")
 
 if __name__ == "__main__":
-    sys.exit(main())
+    raise SystemExit(main())

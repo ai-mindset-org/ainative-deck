@@ -3,6 +3,9 @@ import contextlib
 import importlib.util
 import io
 import json
+import shutil
+import subprocess
+import sys
 from pathlib import Path
 import tempfile
 import unittest
@@ -53,6 +56,38 @@ class WorldManifestTest(unittest.TestCase):
         self.run_generator()
         self.assertEqual(self.run_generator("--check"), 0)
         self.assertEqual(json.loads(self.output.read_text())["nodes"][0]["summary"], "Changed version.")
+
+    def test_cli_propagates_check_exit_code_and_never_writes_stale_output(self):
+        # Execute the real __main__ entry point in an isolated repository layout.
+        script = self.root / "cli" / "tools" / "build-world-manifest.py"
+        script.parent.mkdir(parents=True)
+        shutil.copyfile(Path(__file__).with_name("build-world-manifest.py"), script)
+        world = script.parent.parent / "ain3-starter-pack" / "world"
+        world.mkdir(parents=True)
+        note = world / self.note.name
+        shutil.copyfile(self.note, note)
+        output = world.parent / "data" / "world-manifest.json"
+
+        def run(*args):
+            return subprocess.run(
+                [sys.executable, str(script), *args],
+                capture_output=True, text=True, check=False,
+            )
+
+        missing = run("--check")
+        self.assertEqual(missing.returncode, 1, missing.stderr)
+        self.assertFalse(output.exists())
+        built = run()
+        self.assertEqual(built.returncode, 0, built.stderr)
+        self.assertEqual(run("--check").returncode, 0)
+        before = output.read_bytes()
+        note.write_text(note.read_text().replace("First version.", "Changed version."))
+        stale = run("--check")
+        self.assertEqual(stale.returncode, 1, stale.stderr)
+        self.assertIn("world-manifest is stale", stale.stderr)
+        self.assertEqual(output.read_bytes(), before)
+        self.assertEqual(run().returncode, 0)
+        self.assertEqual(run("--check").returncode, 0)
 
     def test_missing_or_malformed_manifest_fails_without_writing(self):
         self.assertEqual(self.run_generator("--check"), 1)

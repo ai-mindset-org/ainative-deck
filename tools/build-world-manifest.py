@@ -6,7 +6,7 @@ this script turns them into the graph manifest the viewer renders.
 Leaf contract: flat .md, filename {namespace}-{slug}.md, frontmatter with
 `namespace:`, body with [[wikilinks]]. Hubs: {namespace}-hub.md, index.md.
 """
-import json, os, re, sys, math, datetime
+import argparse, json, os, re, sys, math, datetime
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 WORLD = os.path.join(ROOT, "ain3-starter-pack", "world")
@@ -49,7 +49,10 @@ def parse(path):
     links = [l.strip() for l in WIKILINK.findall(text)]
     return fm, title, summary, links
 
-def main():
+def main(argv=None):
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--check", action="store_true", help="fail on a stale manifest without writing it")
+    args = parser.parse_args(argv)
     files = sorted(f for f in os.listdir(WORLD) if f.endswith(".md") and f not in ("AGENTS.md", "README.md", "CLAUDE.md"))
     nodes, edges, seen_edges = [], [], set()
     by_ns = {ns: [] for ns in NAMESPACES}
@@ -109,6 +112,27 @@ def main():
         "nodes": nodes,
         "edges": edges,
     }
+    # A rebuild without source changes must not create a date-only diff.
+    try:
+        with open(OUT, encoding="utf-8") as fh:
+            existing = json.load(fh)
+    except (FileNotFoundError, json.JSONDecodeError):
+        existing = None
+    if isinstance(existing, dict) and isinstance(existing.get("meta"), dict):
+        updated = existing["meta"].get("updated")
+        if updated:
+            candidate = {**manifest, "meta": {**manifest["meta"], "updated": updated}}
+            if candidate == existing:
+                manifest = candidate
+
+    if args.check:
+        if manifest != existing:
+            print("world-manifest is stale: run python3 tools/build-world-manifest.py "
+                  "and commit ain3-starter-pack/data/world-manifest.json in the same PR", file=sys.stderr)
+            return 1
+        print("world-manifest is current")
+        return 0
+
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
     with open(OUT, "w", encoding="utf-8") as fh:
         json.dump(manifest, fh, ensure_ascii=False, indent=1)
